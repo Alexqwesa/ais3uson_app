@@ -1,4 +1,8 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
+
+import 'sql_update.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,6 +53,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _text = "dafs";
 
   void _incrementCounter() {
     setState(() {
@@ -60,6 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+  void _setSql(String s) {
+    setState(() {
+      _text = s;
+    });
+  }
+
+  /*void callDb() {
+    callDb(this._getSql);
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +111,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset("images/bath.png"),
-
             const Text(
               'You have pushed the button this many times:',
+            ),
+            Text(
+              _text,
             ),
             Text(
               '$_counter',
@@ -107,11 +124,24 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        children: [
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              call_db(_setSql);
+            },
+            tooltip: 'Sql text',
+            child: const Icon(Icons.dangerous),
+          ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.center,
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
