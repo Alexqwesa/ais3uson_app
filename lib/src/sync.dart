@@ -1,0 +1,24 @@
+import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
+import '../src/global.dart';
+
+void sync_http() async {
+  // static DateTime? last_sync;
+  // if (last_sync == null) {
+  // await Hive.openBox('data');
+
+  Hive.box('data').put("userKey", AppData.instance.userKeys.last.toJson());
+  Hive.box('data').get("userKey");
+
+
+}
+
+
+Stream<int> generateNumbers = (() async* {
+  await Future<void>.delayed(Duration(milliseconds: 2));
+
+  for (int i = 1; i <= 5; i++) {
+    await Future<void>.delayed(Duration(milliseconds: 1));
+    yield i;
+  }
+})();

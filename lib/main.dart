@@ -1,16 +1,17 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'init.dart';
 
-import 'sql_update.dart';
+import 'src/dev_tools.dart';
+import 'src/global.dart';
+import 'src/main/list_profiles.dart';
+import 'src/scan_qr/scan_widget.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -48,12 +49,11 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  String _text = "dafs";
 
   void _incrementCounter() {
     setState(() {
@@ -66,16 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _setSql(String s) {
-    setState(() {
-      _text = s;
-    });
-  }
-
-  /*void callDb() {
-    callDb(this._getSql);
-  }*/
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -86,11 +76,69 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+          actions: [
+            PopupMenuButton(
+              icon: Icon(Icons.more_vert),
+              // onCanceled: () {
+              //   setState(() {
+              //     _counter = 100;
+              //   });
+              // },
+              enabled: true,
+              // onSelected: (value) {
+              //   setState(() {
+              //     _counter = 10;
+              //   });
+              // },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.add),
+                    title: Text('Сканировать QR код'),
+                    onTap: () {
+                      Navigator.pop(context, "qr");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QRViewExample()),
+                      );
+                    },
+                  ),
+                ),
+                const PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.import_export),
+                    title: Text('Сменить отделение'),
+                  ),
+                ),
+                const PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.backspace),
+                    title: Text('Забыть отделение'),
+                  ),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.adb),
+                    title: Text('О программе'),
+                    onTap: () {
+                      Navigator.pop(context, "dev");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DevPage()),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ]),
       body: Center(
+        heightFactor: 1.1,
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -110,38 +158,42 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset("images/bath.png"),
-            const Text(
-              'You have pushed the button this many times:',
+            Column(
+              children: [
+                Text("Выберите отделение(профиль):"),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                Text(
+                  AppData.instance.userKeys.last.toJson().toString(),
+                ),
+                Center(
+                  heightFactor: null,
+                  child: ElevatedButton(
+                    child: const Text('Open route'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QRViewExample()),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-            Text(
-              _text,
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Expanded(
+              child: ListOfProfiles(),
             ),
           ],
         ),
       ),
-      floatingActionButton: Row(
-        children: [
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              call_db(_setSql);
-            },
-            tooltip: 'Sql text',
-            child: const Icon(Icons.dangerous),
-          ),
-        ],
-        mainAxisAlignment: MainAxisAlignment.center,
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

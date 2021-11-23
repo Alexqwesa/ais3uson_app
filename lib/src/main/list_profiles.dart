@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import '../global.dart';
+import '../sync/user_key.dart';
+
+import 'list_fio.dart';
+
+class ListOfProfiles extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _ListOfProfiles();
+  }
+}
+
+class _ListOfProfiles extends State<ListOfProfiles> {
+  var itemCount = AppData.instance.userKeys.length;
+  List<UserKey> userKeys = AppData.instance.userKeys.toList();
+
+  _ListOfProfiles() {
+    AppData.instance.updStreamUK.listen((b) {
+      updateUKeys(b);
+    });
+  }
+
+  void updateUKeys(bool) {
+    setState(() {
+      itemCount = AppData.instance.profiles.length;
+      userKeys = AppData.instance.userKeys.toList();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return itemCount > 0
+        ? ListView.builder(
+            itemCount: itemCount,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                leading: Icon(Icons.group),
+                title: Text('${userKeys[index].otd}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ListFio(
+                              profileNum: index,
+                            )),
+                  );
+                },
+                // subtitle: Container(width: 48, height: 48),
+              );
+            },
+          )
+        : const Center(child: Text('Авторизируйтесь (отсканируйте QR код) '));
+  }
+}
