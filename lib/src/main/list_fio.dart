@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -16,12 +17,11 @@ class ListFio extends StatefulWidget {
 }
 
 class _ListFioState extends State<ListFio> {
-  int itemCount = 0;
-
   List<FioEntry> fioList = [];
 
+  int itemCount = 0;
   final int profileNum;
-  var streamListener;
+  late StreamSubscription streamListener;
 
   _ListFioState(this.profileNum) {
     itemCount = AppData.instance.profiles[profileNum].fioList.length;
@@ -31,12 +31,12 @@ class _ListFioState extends State<ListFio> {
     });
   }
 
-  void updateState(bool) {
+  void updateState(bool b) {
     // if (mounted) {
-      setState(() {
-        itemCount = AppData.instance.profile.fioList.length;
-        fioList = AppData.instance.profile.fioList;
-      });
+    setState(() {
+      itemCount = AppData.instance.profile.fioList.length;
+      fioList = AppData.instance.profile.fioList;
+    });
     // }
   }
 
@@ -57,7 +57,7 @@ class _ListFioState extends State<ListFio> {
                 "Люди с отделения ${AppData.instance.profiles[profileNum].name}"),
           ),
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: () => AppData.instance.profiles[profileNum].syncfio(),
           ),
         ]),
@@ -69,20 +69,20 @@ class _ListFioState extends State<ListFio> {
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      leading: Icon(Icons.group),
+                      leading: const Icon(Icons.group),
                       title: Text(
-                          '${fioList[index].ufio + " №" + fioList[index].contract}'),
+                          fioList[index].ufio + " №" + fioList[index].contract),
                       // onTap: () {
                       //   Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
-                      //         builder: (context) => const ListSevices(fioId)),
+                      //         builder: (context) => const ListServices(fioId)),
                       //   );
                       // },
                       // subtitle: Container(width: 48, height: 48),
                     );
                   })
-              : Text(
+              : const Text(
                   "Список получателей СУ пуст, \n\n"
                   "попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n"
                   "обновите список",

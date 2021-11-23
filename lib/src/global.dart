@@ -83,9 +83,9 @@ class UserProfile {
       List<dynamic> lst =
           json.decode(hive.get(key.apiKey + "fioList", defaultValue: "[]"));
       for (Map<String, dynamic> fio in lst) {
-        if (fio != null) {
+        // if (fio != null) {
           fioList.add(FioEntry.fromJson(fio));
-        }
+        // }
       }
     } finally {}
   }

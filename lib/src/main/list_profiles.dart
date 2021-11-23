@@ -5,6 +5,8 @@ import '../sync/user_key.dart';
 import 'list_fio.dart';
 
 class ListOfProfiles extends StatefulWidget {
+  const ListOfProfiles({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _ListOfProfiles();
@@ -21,13 +23,14 @@ class _ListOfProfiles extends State<ListOfProfiles> {
     });
   }
 
-  void updateUKeys(bool) {
+  void updateUKeys(bool b) {
     setState(() {
       itemCount = AppData.instance.profiles.length;
       userKeys = AppData.instance.userKeys.toList();
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return itemCount > 0
         ? ListView.builder(
@@ -35,8 +38,8 @@ class _ListOfProfiles extends State<ListOfProfiles> {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                leading: Icon(Icons.group),
-                title: Text('${userKeys[index].otd}'),
+                leading: const Icon(Icons.group),
+                title: Text(userKeys[index].otd),
                 onTap: () {
                   Navigator.push(
                     context,

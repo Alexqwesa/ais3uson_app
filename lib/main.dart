@@ -8,10 +8,12 @@ import 'src/scan_qr/scan_widget.dart';
 
 void main() async {
   await init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
           actions: [
             PopupMenuButton(
-              icon: Icon(Icons.more_vert),
+              icon: const Icon(Icons.more_vert),
               // onCanceled: () {
               //   setState(() {
               //     _counter = 100;
@@ -96,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                 PopupMenuItem(
                   child: ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text('Сканировать QR код'),
+                    leading: const Icon(Icons.add),
+                    title: const Text('Сканировать QR код'),
                     onTap: () {
                       Navigator.pop(context, "qr");
                       Navigator.push(
@@ -122,8 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 PopupMenuItem(
                   child: ListTile(
-                    leading: Icon(Icons.adb),
-                    title: Text('О программе'),
+                    leading: const Icon(Icons.adb),
+                    title: const Text('О программе'),
                     onTap: () {
                       Navigator.pop(context, "dev");
                       Navigator.push(
@@ -160,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Column(
               children: [
-                Text("Выберите отделение(профиль):"),
+                const Text("Выберите отделение(профиль):"),
                 Text(
                   '$_counter',
                   style: Theme.of(context).textTheme.headline4,
@@ -192,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

@@ -19,7 +19,7 @@ class DevPage extends StatelessWidget {
       ),
       body: Center(
         child: Column(children: [
-          Text("Приложение для ввода услуг"),
+          const Text("Приложение для ввода услуг"),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
@@ -44,6 +44,8 @@ class DevPage extends StatelessWidget {
 ///
 /// get status data from Web worker
 class CheckWorkerServer extends StatefulWidget {
+  const CheckWorkerServer({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _CheckWorkerServer();
@@ -80,7 +82,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
           child: const Text('Соединение!'),
         ),
         Flexible(
-          child: Html(data: '$_testHTTP'),
+          child: Html(data: _testHTTP),
         ),
       ],
     );
@@ -91,6 +93,8 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
 ///
 /// get POST data from Web worker
 class CheckWorkerServerPOST extends StatefulWidget {
+  const CheckWorkerServerPOST({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _CheckWorkerServerPOST();
@@ -129,7 +133,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
           child: const Text('Передача!'),
         ),
         Flexible(
-          child: Html(data: '$_testHTTP'),
+          child: Html(data: _testHTTP),
         ),
       ],
     );

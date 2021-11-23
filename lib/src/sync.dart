@@ -9,16 +9,4 @@ void sync_http() async {
 
   Hive.box('data').put("userKey", AppData.instance.userKeys.last.toJson());
   Hive.box('data').get("userKey");
-
-
 }
-
-
-Stream<int> generateNumbers = (() async* {
-  await Future<void>.delayed(Duration(milliseconds: 2));
-
-  for (int i = 1; i <= 5; i++) {
-    await Future<void>.delayed(Duration(milliseconds: 1));
-    yield i;
-  }
-})();
