@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'dart:developer' as dev;
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../src/sync/fio_entry.dart';
@@ -21,7 +21,7 @@ class AppData {
   late Box hiveData;
   Map<String, String> headers = {
     'Content-type': 'application/json',
-    'Accept': 'application/json',
+    'Accept': 'application/json'
   };
   List<UserProfile> _profiles = [];
 
@@ -82,30 +82,31 @@ class UserProfile {
     try {
       List<dynamic> lst =
           json.decode(hive.get(key.apiKey + "fioList", defaultValue: "[]"));
+      if (lst.length > 0) {
+        fioList.clear();
+      }
       for (Map<String, dynamic> fio in lst) {
         // if (fio != null) {
-          fioList.add(FioEntry.fromJson(fio));
+        fioList.add(FioEntry.fromJson(fio));
         // }
       }
     } finally {}
   }
 
-  // void postInit() {
-  // }
-
   Future<void> syncfio() async {
-    var url = Uri.parse(SERVER + ':48080/fio');
-    Response response = await http.post(url,
-        headers: AppData.instance.headers, body: key.httpBody);
-    if (response.statusCode == 200) {
-      print(response.body);
-      // dynamic lst = jsonDecode(response.body);
-      try {
+    try {
+      var url = Uri.parse(SERVER + ':48080/fio');
+      Response response = await http.post(url,
+          headers: AppData.instance.headers, body: key.httpBody);
+      dev.log("fioList response.statusCode = ${response.statusCode}");
+      if (response.statusCode == 200) {
         hive.put(key.apiKey + "fioList", response.body);
         readHive();
         _updFio.sink.add(true);
-      } finally {}
-    }
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {}
   }
 
   final StreamController<bool> _updFio = StreamController<bool>.broadcast();
