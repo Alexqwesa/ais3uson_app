@@ -39,7 +39,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
   @override
   Widget build(BuildContext context) {
     // return Consumer<AppData>(
-    var userKeys = context.select<AppData, List<UserKey>>(
+    List<UserKey> userKeys = context.select<AppData, List<UserKey>>(
       (data) => data.userKeys.toList(),
     );
 

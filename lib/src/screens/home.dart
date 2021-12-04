@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dev_tools.dart';
 import '../global.dart';
 import 'list_profiles.dart';
@@ -103,18 +108,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   child: ListTile(
-                    leading: Icon(Icons.import_export),
-                    title: Text('Сменить отделение'),
+                    leading: Icon(Icons.group),
+                    title: Text('Добавить тестовое отделение'),
+                    onTap: () {
+                      // AppData.of(context);
+                      Navigator.pop(context, "qr");
+                      Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
+                    }
                   ),
                 ),
-                const PopupMenuItem(
-                  child: ListTile(
-                    leading: Icon(Icons.backspace),
-                    title: Text('Забыть отделение'),
-                  ),
-                ),
+                // const PopupMenuItem(
+                //   child: ListTile(
+                //     leading: Icon(Icons.backspace),
+                //     title: Text('Забыть отделение'),
+                //   ),
+                // ),
                 PopupMenuItem(
                   child: ListTile(
                     leading: const Icon(Icons.adb),

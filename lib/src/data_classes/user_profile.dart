@@ -29,9 +29,9 @@ class UserProfile {
     // return;
     try {
       List<dynamic> lst =
-          json.decode(hive.get(key.apiKey + "fioList", defaultValue: "[]"));
-      if (lst.length > 0) {
-        fioList.clear();
+      json.decode(hive.get(key.apiKey + "fioList", defaultValue: "[]"));
+      if (lst.isNotEmpty) {
+        fioList = [];
       }
       for (Map<String, dynamic> fio in lst) {
         // if (fio != null) {
@@ -50,18 +50,19 @@ class UserProfile {
       if (response.statusCode == 200) {
         hive.put(key.apiKey + "fioList", response.body);
         readHive();
-        _updFio.sink.add(true);
+        // _updFio.sink.add(true);
+        AppData.instance.notifyListeners();
       }
     } catch (e) {
       dev.log(e.toString());
     } finally {}
   }
 
-  final StreamController<bool> _updFio = StreamController<bool>.broadcast();
-
-  Stream<bool> get updFio => _updFio.stream;
-
-  void dispose() {
-    _updFio.close();
-  }
+// final StreamController<bool> _updFio = StreamController<bool>.broadcast();
+//
+// Stream<bool> get updFio => _updFio.stream;
+//
+// void dispose() {
+//   _updFio.close();
+// }
 }
