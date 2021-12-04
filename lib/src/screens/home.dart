@@ -1,9 +1,8 @@
-import 'package:ais3uson_app/src/gui/scan_qr/scan_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../dev_tools.dart';
+import 'dev_tools.dart';
 import '../global.dart';
 import 'list_profiles.dart';
+import 'scan_qr/scan_widget.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -149,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //
           // Column has various properties to control how it sizes itself and
           // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the gui axis here is the vertical
+          // center the children vertically; the screens axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,

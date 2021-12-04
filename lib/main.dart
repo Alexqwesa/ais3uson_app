@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/gui/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'src/screens/home.dart';
 
 /// Init Hive and AppData
 ///
