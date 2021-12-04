@@ -67,6 +67,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
     }).catchError((e) {
       setState(() {
         _testHTTP = "$e";
+        dev.log(e);
       });
     }).whenComplete(() => dev.log(_testHTTP));
   }
@@ -110,7 +111,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
   String body = qrData;
 
   void checkHTTP() async {
-    var url = Uri.parse(SERVER + ':48080/test');
+    var url = Uri.parse(SERVER + ':48080/planed');
     http.post(url, headers: headers, body: body).then((response) {
       setState(() {
         _testHTTP = jsonDecode(response.body).toString();

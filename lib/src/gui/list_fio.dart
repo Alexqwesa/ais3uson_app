@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../sync/fio_entry.dart';
 
+import '../from_json/fio_entry.dart';
 import '../global.dart';
 
 class ListFio extends StatefulWidget {
@@ -69,7 +69,7 @@ class _ListFioState extends State<ListFio> {
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      leading: const Icon(Icons.group),
+                      leading: const Icon(Icons.person),
                       title: Text(
                           fioList[index].ufio + " №" + fioList[index].contract),
                       // onTap: () {

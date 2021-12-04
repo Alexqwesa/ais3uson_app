@@ -4,8 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:developer' as dev;
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import '../src/sync/fio_entry.dart';
-import 'sync/user_key.dart';
+import 'from_json/fio_entry.dart';
+import 'from_json/service_entry.dart';
+import 'from_json/user_key.dart';
 
 const String SERVER = "http://80.87.196.11";
 String qrData =
@@ -24,6 +25,7 @@ class AppData {
     'Accept': 'application/json'
   };
   List<UserProfile> _profiles = [];
+  List<ServiceEntry> serviceList = [];
 
   /// Init section
   ///

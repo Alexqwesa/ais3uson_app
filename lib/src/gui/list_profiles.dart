@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../global.dart';
-import '../sync/user_key.dart';
 
+import '../from_json/user_key.dart';
+import '../global.dart';
 import 'list_fio.dart';
 
 class ListOfProfiles extends StatefulWidget {
