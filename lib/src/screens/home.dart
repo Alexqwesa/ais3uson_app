@@ -4,8 +4,8 @@ import '../global.dart';
 import 'list_profiles.dart';
 import 'scan_qr/scan_widget.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override

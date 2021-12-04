@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:ais3uson_app/src/data_classes/user_profile.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import '../global.dart';
 import 'from_json/service_entry.dart';
 import 'from_json/user_key.dart';
@@ -13,7 +12,7 @@ import 'from_json/user_key.dart';
 /// global singleton class
 /// for storing global data
 /// and notifies listeners
-class AppData {
+class AppData with ChangeNotifier {
   /// should be initiated in init() function
   late Box hiveData;
   Map<String, String> headers = {
@@ -50,12 +49,14 @@ class AppData {
   UserProfile get profile => _profiles.first;
 
   List<UserProfile> get profiles => _profiles;
-  final StreamController<bool> _ukUpdate = StreamController<bool>.broadcast();
 
-  Stream<bool> get updStreamUK => _ukUpdate.stream;
+  // final StreamController<bool> _ukUpdate = StreamController<bool>.broadcast();
+
+  // Stream<bool> get updStreamUK => _ukUpdate.stream;
 
   void addProfile(UserKey key) {
     _profiles.add(UserProfile(key));
-    _ukUpdate.sink.add(true);
+    // _ukUpdate.sink.add(true);
+    notifyListeners();
   }
 }

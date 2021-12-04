@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/src/provider.dart';
 
 import '../global.dart';
 import 'list_fio.dart';
@@ -15,27 +19,33 @@ class ListOfProfiles extends StatefulWidget {
 }
 
 class _ListOfProfiles extends State<ListOfProfiles> {
-  var itemCount = AppData.instance.userKeys.length;
-  List<UserKey> userKeys = AppData.instance.userKeys.toList();
+  // var itemCount = AppData.instance.userKeys.length;
+  // List<UserKey> userKeys = AppData.instance.userKeys.toList();
+  _ListOfProfiles();
 
-  _ListOfProfiles() {
-    AppData.instance.updStreamUK.listen((b) {
-      updateUKeys(b);
-    });
-  }
+  // _ListOfProfiles() {
+  //   AppData.instance.updStreamUK.listen((b) {
+  //     updateUKeys(b);
+  //   });
+  // }
 
-  void updateUKeys(bool b) {
-    setState(() {
-      itemCount = AppData.instance.profiles.length;
-      userKeys = AppData.instance.userKeys.toList();
-    });
-  }
+  // void updateUKeys(bool b) {
+  //   setState(() {
+  //     itemCount = AppData.instance.profiles.length;
+  //     userKeys = AppData.instance.userKeys.toList();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return itemCount > 0
+    // return Consumer<AppData>(
+    var userKeys = context.select<AppData, List<UserKey>>(
+      (data) => data.userKeys.toList(),
+    );
+
+    return userKeys.isNotEmpty
         ? ListView.builder(
-            itemCount: itemCount,
+            itemCount: userKeys.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
