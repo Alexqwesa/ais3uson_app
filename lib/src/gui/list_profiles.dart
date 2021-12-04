@@ -1,6 +1,7 @@
+import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
 import 'package:flutter/material.dart';
 
-import '../from_json/user_key.dart';
 import '../global.dart';
 import 'list_fio.dart';
 

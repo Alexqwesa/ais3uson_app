@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/fio_entry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../from_json/fio_entry.dart';
-import '../global.dart';
 
 class ListFio extends StatefulWidget {
   const ListFio({Key? key, required this.profileNum}) : super(key: key);
