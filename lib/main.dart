@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Список отделений'),
     );
   }
 }
@@ -160,31 +160,6 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Column(
-              children: [
-                const Text("Выберите отделение(профиль):"),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  AppData.instance.userKeys.last.toJson().toString(),
-                ),
-                Center(
-                  heightFactor: null,
-                  child: ElevatedButton(
-                    child: const Text('Open route'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const QRViewExample()),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
             Expanded(
               child: ListOfProfiles(),
             ),
@@ -192,8 +167,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const QRViewExample()),
+          );
+        },
+        tooltip: 'Добавить отделение',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
