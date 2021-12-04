@@ -111,7 +111,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
   String body = qrData;
 
   void checkHTTP() async {
-    var url = Uri.parse(SERVER + ':48080/planed');
+    var url = Uri.parse(SERVER + ':48080/planned');
     http.post(url, headers: headers, body: body).then((response) {
       setState(() {
         _testHTTP = jsonDecode(response.body).toString();
