@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer' as dev;
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,59 +11,42 @@ import 'app_data.dart';
 import 'from_json/fio_entry.dart';
 import 'from_json/user_key.dart';
 
-class UserProfile {
+class UserProfile with SyncData {
   UserKey key;
   late String name;
   late Box hive;
 
-  List<FioEntry> fioList = [];
+  List<FioEntry> _fioList = [];
+
+  List<FioEntry> get fioList => _fioList;
 
   UserProfile(this.key) {
     hive = AppData.instance.hiveData;
     name = key.name;
     // hive.delete(key.apiKey + "fioList");
-    readHive();
-    syncFio();
+    syncHive();
   }
 
-  void readHive() {
-    // return;
-    try {
-      List<dynamic> lst =
-      json.decode(hive.get(key.apiKey + "fioList", defaultValue: "[]"));
-      if (lst.isNotEmpty) {
-        fioList = [];
-      }
-      for (Map<String, dynamic> fio in lst) {
-        // if (fio != null) {
-        fioList.add(FioEntry.fromJson(fio));
-        // }
-      }
-    } finally {}
+  /// Sync hive data
+  ///
+  /// sync [_services]
+  Future<void> syncHive() async {
+    return hiddenSyncHive(apiKey: key.apiKey, urlAddress: "$SERVER:48080/fio");
   }
 
-  Future<void> syncFio() async {
-    try {
-      var url = Uri.parse(SERVER + ':48080/fio');
-      Response response = await http.post(url,
-          headers: AppData.instance.headers, body: key.httpBody);
-      dev.log("fioList response.statusCode = ${response.statusCode}");
-      if (response.statusCode == 200) {
-        hive.put(key.apiKey + "fioList", response.body);
-        readHive();
-        // _updFio.sink.add(true);
-        AppData.instance.notifyListeners();
+  /// Update data after sync
+  ///
+  /// read hive data and notify
+  @override
+  void updateValueFromHive() {
+    List lst = hiddenUpdateValueFromHive(
+        hiveKey: key.apiKey + "fioList", hive: hive, fromJsonClass: FioEntry);
+    if (lst.isNotEmpty) {
+      _fioList = [];
+      for (Map<String, dynamic> entry in lst) {
+        _fioList.add(FioEntry.fromJson(entry));
       }
-    } catch (e) {
-      dev.log(e.toString());
-    } finally {}
+      AppData.instance.notify();
+    }
   }
-
-// final StreamController<bool> _updFio = StreamController<bool>.broadcast();
-//
-// Stream<bool> get updFio => _updFio.stream;
-//
-// void dispose() {
-//   _updFio.close();
-// }
 }

@@ -23,47 +23,41 @@ class _ListOfProfiles extends State<ListOfProfiles> {
   // List<UserKey> userKeys = AppData.instance.userKeys.toList();
   _ListOfProfiles();
 
-  // _ListOfProfiles() {
-  //   AppData.instance.updStreamUK.listen((b) {
-  //     updateUKeys(b);
-  //   });
-  // }
-
-  // void updateUKeys(bool b) {
-  //   setState(() {
-  //     itemCount = AppData.instance.profiles.length;
-  //     userKeys = AppData.instance.userKeys.toList();
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     // return Consumer<AppData>(
-    List<UserKey> userKeys = context.select<AppData, List<UserKey>>(
-      (data) => data.userKeys.toList(),
-    );
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => AppData(),
+      child: Consumer<AppData>(builder: (context, data, child) {
+        // List<FioEntry> fioList = data.profiles[profileNum].fioList;
+        List<UserKey> userKeys = context.select<AppData, List<UserKey>>(
+          (data) => data.userKeys.toList(),
+        );
 
-    return userKeys.isNotEmpty
-        ? ListView.builder(
-            itemCount: userKeys.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                leading: const Icon(Icons.group),
-                title: Text(userKeys[index].otd),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ListFio(
-                              profileNum: index,
-                            )),
+        return userKeys.isNotEmpty
+            ? ListView.builder(
+                itemCount: userKeys.length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    leading: const Icon(Icons.group),
+                    title: Text(userKeys[index].otd),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ListFio(
+                                  profileNum: index,
+                                )),
+                      );
+                    },
+                    // subtitle: Container(width: 48, height: 48),
                   );
                 },
-                // subtitle: Container(width: 48, height: 48),
-              );
-            },
-          )
-        : const Center(child: Text('Авторизируйтесь (отсканируйте QR код) '));
+              )
+            : const Center(
+                child: Text('Авторизируйтесь (отсканируйте QR код) '));
+      }),
+    );
   }
 }
