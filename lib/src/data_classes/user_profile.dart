@@ -22,7 +22,7 @@ class UserProfile {
     name = key.name;
     // hive.delete(key.apiKey + "fioList");
     readHive();
-    syncfio();
+    syncFio();
   }
 
   void readHive() {
@@ -41,7 +41,7 @@ class UserProfile {
     } finally {}
   }
 
-  Future<void> syncfio() async {
+  Future<void> syncFio() async {
     try {
       var url = Uri.parse(SERVER + ':48080/fio');
       Response response = await http.post(url,

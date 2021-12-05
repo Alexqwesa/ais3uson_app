@@ -61,7 +61,7 @@ class _ListFioState extends State<ListFio> {
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => AppData.instance.profiles[profileNum].syncfio(),
+            onPressed: () => AppData.instance.profiles[profileNum].syncFio(),
           ),
         ]),
       ),
