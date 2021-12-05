@@ -25,13 +25,19 @@ class AppData with ChangeNotifier, SyncData {
   /// Init section
   ///
   /// just constructor and singleton
-  static AppData? _instance;
+  static late final AppData _instance = AppData._internal();
 
-  factory AppData() => _instance ??= AppData._internal();
+  factory AppData() => _instance; // ??= AppData._internal();
 
-  static AppData get instance => _instance ??= AppData._internal();
+  static AppData get instance => _instance; // ??= AppData._internal();
 
   AppData._internal();
+
+  @override
+  void dispose() {
+    // Don't dispose of singleton
+    // super.dispose();
+  }
 
   /// Post init
   ///
@@ -47,6 +53,10 @@ class AppData with ChangeNotifier, SyncData {
     if (_services.isEmpty) {
       syncHive();
     }
+  }
+
+  void notify() { // is it needed?
+    notifyListeners();
   }
 
   /// userKeys section

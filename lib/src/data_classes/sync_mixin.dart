@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer' as dev;
 
 mixin SyncData {
-  Map<String, String> headers = {
+  Map<String, String> _headers = {
     'Content-type': 'application/json',
     'Accept': 'application/json'
   };
@@ -15,7 +15,7 @@ mixin SyncData {
     apiKey ??= AppData().profiles[0].key.apiKey;
     urlAddress ??= SERVER + ':48080/stat';
     hive ??= AppData().hiveData;
-    headers ??= headers;
+    headers ??= _headers;
     String body = '''{"api_key": $apiKey}''';
     try {
       var url = Uri.parse(urlAddress);
@@ -23,7 +23,7 @@ mixin SyncData {
       dev.log("$urlAddress response.statusCode = ${response.statusCode}");
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
-          hive.put(apiKey.apiKey + "fioList", response.body);
+          hive.put(apiKey + "fioList", response.body);
           updateValueFromHive();
         }
       }

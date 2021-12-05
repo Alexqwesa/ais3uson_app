@@ -18,27 +18,10 @@ Future init() async {
   return AppData();
 }
 
-class ProviderApp extends StatelessWidget {
-  final AppData data;
-
-  ProviderApp({
-    required this.data,
-  });
-
-  @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (BuildContext context) => AppData(),
-        child: const HomeScreen(),
-      );
-}
-
 /// main
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
 
   await init();
-  runApp(ProviderApp(
-    data: AppData(),
-  ));
-  // runApp(const MyApp());
+  runApp(const HomeScreen());
 }
