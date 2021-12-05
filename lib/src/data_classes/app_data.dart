@@ -19,12 +19,8 @@ import 'dart:developer' as dev;
 /// for storing global data
 /// and notifies listeners
 class AppData with ChangeNotifier, SyncData {
-  /// should be initiated in init() function
   late Box hiveData;
   List<UserProfile> _profiles = [];
-
-  // List<ServiceEntry> serviceList = [];
-  List<ServiceEntry> _services = [];
 
   /// Init section
   ///
@@ -37,6 +33,9 @@ class AppData with ChangeNotifier, SyncData {
 
   AppData._internal();
 
+  /// Post init
+  ///
+  /// read setting from hive, and sync
   void postInit() {
     addProfile(UserKey.fromJson(jsonDecode(qrData)));
     for (String prof in hiveData.get("profileList", defaultValue: [])) {
@@ -53,11 +52,13 @@ class AppData with ChangeNotifier, SyncData {
   /// userKeys section
   ///
   /// userKeys - is user authentication data,
-  /// this section update [UserKeys]s and notifies about changes
   Iterable<UserKey> get userKeys => _profiles.map((e) => e.key);
 
   String get apiKey => _profiles.first.key.apiKey;
 
+  /// profiles section
+  ///
+  /// init, getter, add
   UserProfile get profile => _profiles.first;
 
   List<UserProfile> get profiles => _profiles;
@@ -66,6 +67,11 @@ class AppData with ChangeNotifier, SyncData {
     _profiles.add(UserProfile(key));
     notifyListeners();
   }
+
+  /// Services section
+  ///
+  ///
+  List<ServiceEntry> _services = [];
 
   List<ServiceEntry> get services => _services;
 
