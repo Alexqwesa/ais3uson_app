@@ -23,8 +23,8 @@ mixin SyncData {
       dev.log("$urlAddress response.statusCode = ${response.statusCode}");
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
-          hive.put(apiKey + "fioList", response.body);
-          updateValueFromHive(urlAddress);
+          hive.put(apiKey + urlAddress, response.body);
+          updateValueFromHive(apiKey + urlAddress);
         }
       }
     } catch (e) {
@@ -32,7 +32,7 @@ mixin SyncData {
     } finally {}
   }
 
-  void updateValueFromHive(urlAddress) {}
+  void updateValueFromHive(String hiveKey) {}
 
   List<dynamic> hiddenUpdateValueFromHive({hive, hiveKey, fromJsonClass}) {
     hive ??= AppData().hiveData;

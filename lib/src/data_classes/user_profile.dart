@@ -51,36 +51,27 @@ class UserProfile with SyncData {
   ///
   /// read hive data and notify
   @override
-  void updateValueFromHive(urlAddress) {
-    switch (urlAddress) {
-      case "$SERVER:48080/fio":
-        List lst = hiddenUpdateValueFromHive(
-            hiveKey: key.apiKey + "fioList",
-            hive: hive,
-            fromJsonClass: FioEntry);
-        if (lst.isNotEmpty) {
-          _fioList = [];
-          for (Map<String, dynamic> entry in lst) {
-            _fioList.add(FioEntry.fromJson(entry));
-          }
-          _clients = _fioList
-              .map((el) {
-                ClientProfile(el.contractId, el.ufio + " " + el.contract);
-              })
-              .cast<ClientProfile>()
-              .toList();
-          fillClientServices();
-          AppData.instance.notify();
-          // AppData.instance.notifyListeners();
+  void updateValueFromHive(String hiveKey) {
+    if (hiveKey.endsWith("$SERVER:48080/fio")) {
+      List lst = hiddenUpdateValueFromHive(
+          hiveKey: hiveKey, hive: hive, fromJsonClass: FioEntry);
+      if (lst.isNotEmpty) {
+        _fioList = [];
+        for (Map<String, dynamic> entry in lst) {
+          _fioList.add(FioEntry.fromJson(entry));
         }
-
-        break;
-
-      case "$SERVER:48080/Planned":
+        _clients = _fioList
+            .map((el) {
+              ClientProfile(el.contractId, el.ufio + " " + el.contract);
+            })
+            .cast<ClientProfile>()
+            .toList();
+        fillClientServices();
+        AppData.instance.notify();
+        // AppData.instance.notifyListeners();
+      } else if (hiveKey.endsWith("$SERVER:48080/Planned")) {
         List lst = hiddenUpdateValueFromHive(
-            hiveKey: key.apiKey + "Planned",
-            hive: hive,
-            fromJsonClass: FioPlanned);
+            hiveKey: "urlAddress", hive: hive, fromJsonClass: FioPlanned);
         if (lst.isNotEmpty) {
           _fioPlanned = [];
           for (Map<String, dynamic> entry in lst) {
@@ -90,8 +81,7 @@ class UserProfile with SyncData {
           AppData.instance.notify();
           // AppData.instance.notifyListeners();
         }
-        break;
-      default:
+      }
     }
   }
 

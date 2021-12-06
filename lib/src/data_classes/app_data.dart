@@ -96,11 +96,11 @@ class AppData with ChangeNotifier, SyncData {
   ///
   /// read hive data and notify
   @override
-  void updateValueFromHive(urlAddress) {
+  void updateValueFromHive(String hiveKey) {
     List lst = hiddenUpdateValueFromHive(
-        hiveKey: "services", hive: hiveData, fromJsonClass: ServiceEntry);
+        hiveKey: hiveKey, hive: hiveData, fromJsonClass: ServiceEntry);
     if (lst.isNotEmpty) {
-      List<ServiceEntry> _services = [];
+      _services = [];
       for (Map<String, dynamic> entry in lst) {
         _services.add(ServiceEntry.fromJson(entry));
       }
