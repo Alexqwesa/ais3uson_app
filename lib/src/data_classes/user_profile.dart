@@ -60,12 +60,9 @@ class UserProfile with SyncData {
         for (Map<String, dynamic> entry in lst) {
           _fioList.add(FioEntry.fromJson(entry));
         }
-        _clients = _fioList
-            .map((el) {
-              ClientProfile(el.contractId, el.ufio + " " + el.contract);
-            })
-            .cast<ClientProfile>()
-            .toList();
+        _clients = _fioList.map((el) {
+          return ClientProfile(el.contractId, el.ufio + " " + el.contract);
+        }).toList();
         fillClientServices();
         AppData.instance.notify();
         // AppData.instance.notifyListeners();
