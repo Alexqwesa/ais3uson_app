@@ -96,7 +96,7 @@ class AppData with ChangeNotifier, SyncData {
   ///
   /// read hive data and notify
   @override
-  void updateValueFromHive() {
+  void updateValueFromHive(urlAddress) {
     List lst = hiddenUpdateValueFromHive(
         hiveKey: "services", hive: hiveData, fromJsonClass: ServiceEntry);
     if (lst.isNotEmpty) {

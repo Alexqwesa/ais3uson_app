@@ -24,7 +24,7 @@ mixin SyncData {
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
           hive.put(apiKey + "fioList", response.body);
-          updateValueFromHive();
+          updateValueFromHive(urlAddress);
         }
       }
     } catch (e) {
@@ -32,7 +32,7 @@ mixin SyncData {
     } finally {}
   }
 
-  void updateValueFromHive() {}
+  void updateValueFromHive(urlAddress) {}
 
   List<dynamic> hiddenUpdateValueFromHive({hive, hiveKey, fromJsonClass}) {
     hive ??= AppData().hiveData;
