@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_entry.dart';
+import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,28 +11,17 @@ import 'package:provider/provider.dart';
 import 'dart:developer' as dev;
 
 class ListFio extends StatefulWidget {
-  const ListFio({Key? key, required this.profileNum}) : super(key: key);
-
-  final int profileNum;
+  const ListFio({Key? key}) : super(key: key);
 
   @override
-  _ListFioState createState() => _ListFioState(profileNum);
+  _ListFioState createState() => _ListFioState();
 }
 
 class _ListFioState extends State<ListFio> {
-  // List<FioEntry> fioList = [];
-
-  // int itemCount = 0;
-  final int profileNum;
-
-  // late StreamSubscription streamListener;
-
-  _ListFioState(this.profileNum) {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    final int profileNum = args.profileNum;
     return ChangeNotifierProvider(
       create: (BuildContext context) => AppData(),
       child: Scaffold(

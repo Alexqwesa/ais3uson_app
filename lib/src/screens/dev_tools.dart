@@ -10,6 +10,8 @@ import '../global.dart';
 /// about and test buttons...
 class DevPage extends StatelessWidget {
   const DevPage({Key? key}) : super(key: key);
+  static const routeName = '/dev';
+
 
   @override
   Widget build(BuildContext context) {

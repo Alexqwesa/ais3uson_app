@@ -43,13 +43,8 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                     leading: const Icon(Icons.group),
                     title: Text(userKeys[index].otd),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ListFio(
-                                  profileNum: index,
-                                )),
-                      );
+                      Navigator.pushNamed(context, "/department",
+                          arguments: ScreenArguments(profile: index));
                     },
                     // subtitle: Container(width: 48, height: 48),
                   );

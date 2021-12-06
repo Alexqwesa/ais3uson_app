@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dev_tools.dart';
 import '../global.dart';
+import 'list_fio.dart';
 import 'list_profiles.dart';
 import 'scan_qr/scan_widget.dart';
 
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'AIS 3USON App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,6 +30,11 @@ class HomeScreen extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      initialRoute: '/',
+      routes: {
+        '/department': (BuildContext context) => const ListFio(),
+        DevPage.routeName: (BuildContext context) => const DevPage(),
+      },
       home: MyHomePage(title: 'Список отделений'),
     );
   }
@@ -53,19 +59,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -110,15 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 PopupMenuItem(
                   child: ListTile(
-                    leading: Icon(Icons.group),
-                    title: Text('Добавить тестовое отделение'),
-                    onTap: () {
-                      // AppData.of(context);
-                      Navigator.pop(context, "qr");
-                      AppData.instance.addProfile(UserKey.fromJson(jsonDecode(qrData2)));
-                      // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
-                    }
-                  ),
+                      leading: Icon(Icons.group),
+                      title: Text('Добавить тестовое отделение'),
+                      onTap: () {
+                        // AppData.of(context);
+                        Navigator.pop(context, "qr");
+                        AppData.instance
+                            .addProfile(UserKey.fromJson(jsonDecode(qrData2)));
+                        // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
+                      }),
                 ),
                 // const PopupMenuItem(
                 //   child: ListTile(
@@ -132,11 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: const Text('О программе'),
                     onTap: () {
                       Navigator.pop(context, "dev");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DevPage()),
-                      );
+                      Navigator.pushNamed(context, DevPage.routeName,
+                          arguments: "");
                     },
                   ),
                 ),
