@@ -47,4 +47,4 @@ A Flutter backend for AIS-3USON
 [@Alexqwesa](https://github.com/Alexqwesa).
 
 ## Лицензия
-[LGPLv2](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
+[LGPLv3](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
