@@ -1,16 +1,35 @@
-# ais3uson_app
+# AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")
 
 A Flutter backend for AIS-3USON
 
-## Getting Started
+Это мобильное приложение для ввода услуг в информационной системе "АИС ТриУСОН" ("Автоматизированная Информационная Система Учета Услуг Учреждений Социального Обслуживания Населения").
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Содержание
+- [Install](#install)
+- [Usage](#usage)
+- [TODO](#todo)
+- [Maintainers](#maintainers)
+- [License](#license)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Install
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Установите пароль для пользователя web_user в вашей SQL базе данных (в установочных скриптах AIS-3USON этому пользователю назначены минимальные привилегии).
+Установите скрипт WEB-сервера AIS-3USON и пароль в соответствии с инструкцией (здесь будет ссылки на скрипт и инструкцию).
+
+Работники устанавливают приложение (здесь будут ссылки для установки), приходят к заведующим, запускают его и нажимают кнопку + (сканировать Qr код) . Заведующие предоставляют работникам сгенерированный в приложении АИС ТриУСОН Qr код.
+
+## Usage
+
+
+
+## TODO:
+- [ ] Write README
+- [x] Use provider
+
+## Maintainers
+
+[@Alexqwesa](https://github.com/Alexqwesa).
+
+## License
+[LGPLv2](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
