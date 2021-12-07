@@ -1,9 +1,13 @@
 import 'dart:developer' as dev;
 import 'dart:convert';
+import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import '../global.dart';
+import 'list_all_services.dart';
 
 /// About page + dev tests
 ///
@@ -12,31 +16,47 @@ class DevPage extends StatelessWidget {
   const DevPage({Key? key}) : super(key: key);
   static const routeName = '/dev';
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("О приложении"),
       ),
-      body: Center(
-        child: Column(children: [
-          const Text("Приложение для ввода услуг"),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Назад!'),
+      body: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height,
+        ),
+        child: Center(
+          child: SizedBox(
+            child: Center(
+              child: Column(children: const[
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
+                    textScaleFactor: 1.5,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //   },
+                //   child: const Text('Назад!'),
+                // ),
+                /*
+                Test web worker
+                */
+                CheckWorkerServer(),
+                /*
+                Test web worker POST
+                */
+                CheckWorkerServerPOST(),
+                Expanded(child: ListOfAllServices()),
+              ]),
+            ),
           ),
-          /*
-          Test web worker
-          */
-          CheckWorkerServer(),
-          /*
-          Test web worker POST
-          */
-          CheckWorkerServerPOST(),
-        ]),
+        ),
       ),
     );
   }
@@ -131,9 +151,10 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
       children: <Widget>[
         ElevatedButton(
           onPressed: () {
-            checkHTTP();
+            // checkHTTP();
+            AppData.instance.syncHive();
           },
-          child: const Text('Передача!'),
+          child: const Text('Обновить!'),
         ),
         Flexible(
           child: Html(data: _testHTTP),
