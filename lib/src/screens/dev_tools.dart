@@ -29,7 +29,7 @@ class DevPage extends StatelessWidget {
         child: Center(
           child: SizedBox(
             child: Center(
-              child: Column(children: const[
+              child: Column(children: const [
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
@@ -83,9 +83,11 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
   void checkHTTP() async {
     var url = Uri.parse(SERVER + ':48080/stat');
     http.get(url).then((response) {
-      setState(() {
-        _testHTTP = response.body;
-      });
+      if (response.statusCode == 200) {
+        setState(() {
+          _testHTTP = response.body;
+        });
+      }
     }).catchError((e) {
       setState(() {
         _testHTTP = "${e.toString()}";

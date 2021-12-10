@@ -29,7 +29,9 @@ mixin SyncData {
       }
     } catch (e) {
       dev.log(e.toString());
-    } finally {}
+    } finally {
+      dev.log("sync ended $urlAddress ");
+    }
   }
 
   void updateValueFromHive(String hiveKey) {}
