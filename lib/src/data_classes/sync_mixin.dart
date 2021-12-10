@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer' as dev;
 
 mixin SyncData {
-  Map<String, String> _headers = {
+  final Map<String, String> _headers = {
     'Content-type': 'application/json',
     'Accept': 'application/json'
   };

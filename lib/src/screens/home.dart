@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dev_tools.dart';
 import '../global.dart';
 import 'list_fio.dart';
@@ -41,7 +40,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -103,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 PopupMenuItem(
                   child: ListTile(
-                      leading: Icon(Icons.group),
-                      title: Text('Добавить тестовое отделение'),
+                      leading: const Icon(Icons.group),
+                      title: const Text('Добавить тестовое отделение'),
                       onTap: () {
                         // AppData.of(context);
                         Navigator.pop(context, "qr");
@@ -153,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Expanded(
               child: ListOfProfiles(),
             ),

@@ -26,7 +26,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
           );
           // List<ServiceEntry> servList = AppData.instance.services;
           return
-            Expanded(
+            Container(
             child: servList.isNotEmpty
                 ? ListView.builder(
                     // physics: const BouncingScrollPhysics(

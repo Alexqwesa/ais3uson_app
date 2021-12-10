@@ -55,7 +55,8 @@ class AppData with ChangeNotifier, SyncData {
     }
   }
 
-  void notify() { // is it needed?
+  void notify() {
+    // is it needed?
     notifyListeners();
   }
 

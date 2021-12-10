@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';

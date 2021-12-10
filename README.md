@@ -41,6 +41,7 @@ A Flutter backend for AIS-3USON
 - [ ] Logo
 - [ ] Distribute via Google Play
 - [ ] Snackbar для сообщений и ошибок
+- [ ] индикатор обновления?
 
 ## Разработчики
 
