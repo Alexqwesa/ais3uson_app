@@ -88,7 +88,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
       });
     }).catchError((e) {
       setState(() {
-        _testHTTP = "$e";
+        _testHTTP = "${e.toString()}";
         dev.log(e);
       });
     }).whenComplete(() => dev.log(_testHTTP));
