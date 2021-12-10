@@ -31,8 +31,8 @@ class FioEntry {
     _contractId = json['contract_id'];
     _depId = json['dep_id'];
     _ufioId = json['ufio_id'];
-    _contract = json['contract'];
-    _ufio = json['ufio'];
+    _contract = json['contract'] ?? "ERROR";
+    _ufio = json['ufio'] ?? "ERROR";
     _dhwId = json['dhw_id'];
   }
 

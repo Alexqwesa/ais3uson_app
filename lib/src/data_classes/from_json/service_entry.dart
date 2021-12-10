@@ -6,61 +6,61 @@
 /// serv_id_list : "558807"
 
 class ServiceEntry {
+  int _id = 0;
+  String _tnum = "";
+  String _servText = "";
+  int _total = 0;
+  String _image = "";
+  String _servIdList = "";
+  int _subServ = 0;
+  String _shortText = "";
+
   ServiceEntry({
-    int? id,
+    int id = 0,
     String? tnum,
     String? servText,
     int? total,
     String? image,
     String? servIdList,
-    int? sub_serv,
-    String? short_text,
+    int? subServ,
+    String? shortText,
   }) {
     _id = id;
-    _tnum = tnum;
-    _servText = servText;
-    _total = total;
-    _image = image;
-    _servIdList = servIdList;
-    _subServ = sub_serv;
-    _shortText = short_text;
+    _tnum = tnum ?? _tnum;
+    _servText = servText ?? _servText;
+    _total = total ?? _total;
+    _image = image ?? _image;
+    _servIdList = servIdList ?? _servIdList;
+    _subServ = subServ ?? _subServ;
+    _shortText = shortText ?? _shortText;
   }
 
   ServiceEntry.fromJson(dynamic json) {
     _id = json['id'];
-    _tnum = json['tnum'];
     _servText = json['serv_text'];
     _total = json['total'];
-    _image = json['image'];
     _servIdList = json['serv_id_list'];
-    _subServ = json['sub_serv'];
-    _shortText = json['short_text'];
+    _tnum = json['tnum'] ?? "ERROR";
+    _image = json['image'] ?? "";
+    _subServ = json['sub_serv'] ?? "";
+    _shortText = json['short_text'] ?? "";
   }
 
-  int? _id;
-  String? _tnum;
-  String? _servText;
-  int? _total;
-  String? _image;
-  String? _servIdList;
-  int? _subServ;
-  String? _shortText;
+  int get id => _id;
 
-  int? get id => _id;
+  String get tarifNum => _tnum;
 
-  String? get tnum => _tnum;
+  String get servText => _servText;
 
-  String? get servText => _servText;
+  int get total => _total;
 
-  int? get total => _total;
+  String get image => _image;
 
-  String? get image => _image;
+  String get servIdList => _servIdList;
 
-  String? get servIdList => _servIdList;
+  int get subServ => _subServ;
 
-  int? get subServ => _subServ;
-
-  String? get shortText => _shortText;
+  String get shortText => _shortText;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

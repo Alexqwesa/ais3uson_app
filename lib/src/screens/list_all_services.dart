@@ -37,15 +37,15 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         title: Text(() {
-                          return servList[index].shortText != null
-                              ? "${servList[index].shortText}"
-                              : "${servList[index].servText}";
+                          return servList[index].shortText.isNotEmpty
+                              ? servList[index].shortText
+                              : servList[index].servText;
                         }()),
                         leading: () {
-                            if (servList[index].image != null) {
+                            if (servList[index].image.isNotEmpty) {
                               return FractionallySizedBox(
                                 child:
-                                    Image.asset("images/" + servList[index].image!),
+                                    Image.asset("images/" + servList[index].image),
                                 widthFactor: 0.5,
                               );
                             } else {

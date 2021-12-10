@@ -5,10 +5,10 @@
 
 class FioPlanned {
   FioPlanned({
-      int? contractId, 
-      int? servId, 
-      int? planned, 
-      String? filled,}){
+      required int contractId,
+      required int servId,
+      required int planned,
+      required String filled,}){
     _contractId = contractId;
     _servId = servId;
     _planned = planned;
@@ -21,15 +21,15 @@ class FioPlanned {
     _planned = json['planned'];
     _filled = json['filled'];
   }
-  int? _contractId;
-  int? _servId;
-  int? _planned;
-  String? _filled;
+  late int _contractId;
+  late int _servId;
+  late int _planned;
+  late String _filled;
 
-  int? get contractId => _contractId;
-  int? get servId => _servId;
-  int? get planned => _planned;
-  String? get filled => _filled;
+  int get contractId => _contractId;
+  int get servId => _servId;
+  int get planned => _planned;
+  String get filled => _filled;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
