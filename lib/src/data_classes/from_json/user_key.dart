@@ -9,15 +9,36 @@
 /// host : "192.168.0.102"
 /// port : "48080"
 
+// ignore_for_file:invalid_assignment
+// ignore_for_file:avoid_dynamic_calls
+
 class UserKey {
-  String _app = "";
-  String _name = "";
-  String _apiKey = "";
+  String get app => _app;
+
+  String get name => _name;
+
+  String get apiKey => _apiKey;
+
+  int get otdId => _otdId;
+
+  String get otd => _otd;
+
+  String get db => _db;
+
+  String get host => _host;
+
+  String get port => _port;
+
+  String get httpBody => '''{"api_key": $_apiKey}''';
+
+  String _app = '';
+  String _name = '';
+  String _apiKey = '';
   int _otdId = 0;
-  String _otd = "";
-  String _db = "";
-  String _host = "";
-  String _port = "";
+  String _otd = '';
+  String _db = '';
+  String _host = '';
+  String _port = '';
 
   UserKey({
     required String app,
@@ -39,6 +60,7 @@ class UserKey {
     _port = port;
   }
 
+  // ignore: avoid_annotating_with_dynamic
   UserKey.fromJson(dynamic json) {
     _app = json['app'];
     _name = json['name'];
@@ -49,24 +71,6 @@ class UserKey {
     _host = json['host'];
     _port = json['port'];
   }
-
-  String get app => _app;
-
-  String get name => _name;
-
-  String get apiKey => _apiKey;
-
-  int get otdId => _otdId;
-
-  String get otd => _otd;
-
-  String get db => _db;
-
-  String get host => _host;
-
-  String get port => _port;
-
-  String get httpBody => '''{"api_key": $_apiKey}''';
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

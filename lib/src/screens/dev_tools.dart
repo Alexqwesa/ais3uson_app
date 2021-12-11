@@ -1,3 +1,5 @@
+// ignore_for_file: always_use_package_imports
+
 import 'dart:convert';
 import 'dart:developer' as dev;
 
@@ -13,14 +15,15 @@ import 'list_all_services.dart';
 ///
 /// about and test buttons...
 class DevPage extends StatelessWidget {
-  const DevPage({Key? key}) : super(key: key);
   static const routeName = '/dev';
+
+  const DevPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("О приложении"),
+        title: const Text('О приложении'),
       ),
       body: Container(
         constraints: BoxConstraints(
@@ -78,23 +81,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
   // const _CheckWorkerServer({Key? key}) : super(key: key){
   // }
 
-  String _testHTTP = "";
-
-  void checkHTTP() async {
-    var url = Uri.parse('http://${AppData().profile.key.host}:48080/stat');
-    http.get(url).then((response) {
-      if (response.statusCode == 200) {
-        setState(() {
-          _testHTTP = response.body;
-        });
-      }
-    }).catchError((e) {
-      setState(() {
-        _testHTTP = e.toString();
-        dev.log(e);
-      });
-    }).whenComplete(() => dev.log(_testHTTP));
-  }
+  String _testHTTP = '';
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +99,22 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
       ],
     );
   }
+
+  Future<void> checkHTTP() async {
+    final url = Uri.parse('http://${AppData().profile.key.host}:48080/stat');
+    await http.get(url).then((response) {
+      if (response.statusCode == 200) {
+        setState(() {
+          _testHTTP = response.body;
+        });
+      }
+    }).catchError((e) {
+      setState(() {
+        _testHTTP = e.toString();
+        dev.log(e.toString());
+      });
+    }).whenComplete(() => dev.log(_testHTTP));
+  }
 }
 
 /// Test web worker POST
@@ -127,25 +130,12 @@ class CheckWorkerServerPOST extends StatefulWidget {
 }
 
 class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
-  String _testHTTP = "";
+  String body = qrData;
+  String _testHTTP = '';
   Map<String, String> headers = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
   };
-  String body = qrData;
-
-  void checkHTTP() async {
-    var url = Uri.parse('http://${AppData().profile.key.host}:48080/planned');
-    http.post(url, headers: headers, body: body).then((response) {
-      setState(() {
-        _testHTTP = jsonDecode(response.body).toString();
-      });
-    }).catchError((e) {
-      setState(() {
-        _testHTTP = "$e";
-      });
-    }).whenComplete(() => dev.log(_testHTTP));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -163,5 +153,18 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
         ),
       ],
     );
+  }
+
+  void checkHTTP() async {
+    final url = Uri.parse('http://${AppData().profile.key.host}:48080/planned');
+    await http.post(url, headers: headers, body: body).then((response) {
+      setState(() {
+        _testHTTP = jsonDecode(response.body).toString();
+      });
+    }).catchError((e) {
+      setState(() {
+        _testHTTP = '$e';
+      });
+    }).whenComplete(() => dev.log(_testHTTP));
   }
 }

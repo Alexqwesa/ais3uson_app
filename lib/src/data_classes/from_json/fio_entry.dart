@@ -7,7 +7,32 @@
 /// ufio : "Тес. *. ч-ек"
 /// dhw_id : 1
 
+// ignore_for_file:invalid_assignment
+// ignore_for_file:avoid_dynamic_calls
+
 class FioEntry {
+  String get apiKey => _apiKey;
+
+  int get contractId => _contractId;
+
+  int get depId => _depId;
+
+  int get ufioId => _ufioId;
+
+  String get contract => _contract;
+
+  String get ufio => _ufio;
+
+  int get dhwId => _dhwId;
+
+  late String _apiKey;
+  late int _contractId;
+  late int _depId;
+  late int _ufioId;
+  late String _contract;
+  late String _ufio;
+  late int _dhwId;
+
   FioEntry({
     required String apiKey,
     required int contractId,
@@ -31,32 +56,10 @@ class FioEntry {
     _contractId = json['contract_id'];
     _depId = json['dep_id'];
     _ufioId = json['ufio_id'];
-    _contract = json['contract'] ?? "ERROR";
-    _ufio = json['ufio'] ?? "ERROR";
+    _contract = json['contract'] ?? 'ERROR';
+    _ufio = json['ufio'] ?? 'ERROR';
     _dhwId = json['dhw_id'];
   }
-
-  late String _apiKey;
-  late int _contractId;
-  late int _depId;
-  late int _ufioId;
-  late String _contract;
-  late String _ufio;
-  late int _dhwId;
-
-  String get apiKey => _apiKey;
-
-  int get contractId => _contractId;
-
-  int get depId => _depId;
-
-  int get ufioId => _ufioId;
-
-  String get contract => _contract;
-
-  String get ufio => _ufio;
-
-  int get dhwId => _dhwId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

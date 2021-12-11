@@ -1,3 +1,5 @@
+// ignore_for_file: always_use_package_imports
+
 import 'dart:convert';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
@@ -33,6 +35,7 @@ class HomeScreen extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/department': (BuildContext context) => const ListFio(),
+        '/scan_qr': (BuildContext context) => const QRViewExample(),
         DevPage.routeName: (BuildContext context) => const DevPage(),
       },
       home: const MyHomePage(title: 'Список отделений'),
@@ -41,6 +44,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  final String title;
+
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -51,8 +56,6 @@ class MyHomePage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-
-  final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -73,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         actions: [
-          PopupMenuButton(
+          PopupMenuButton<dynamic>(
             icon: const Icon(Icons.more_vert),
             // onCanceled: () {
             //   setState(() {
@@ -87,28 +90,26 @@ class _MyHomePageState extends State<MyHomePage> {
             //   });
             // },
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-              PopupMenuItem(
+              PopupMenuItem<ListTile>(
                 child: ListTile(
                   leading: const Icon(Icons.add),
                   title: const Text('Сканировать QR код'),
                   onTap: () {
-                    Navigator.pop(context, "qr");
-                    Navigator.push(
+                    Navigator.pop(context, 'qr');
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const QRViewExample(),
-                      ),
+                      '/scan_qr',
                     );
                   },
                 ),
               ),
-              PopupMenuItem(
+              PopupMenuItem<ListTile>(
                 child: ListTile(
                   leading: const Icon(Icons.group),
                   title: const Text('Добавить тестовое отделение'),
                   onTap: () {
                     // AppData.of(context);
-                    Navigator.pop(context, "qr");
+                    Navigator.pop(context, 'qr');
                     AppData.instance
                         .addProfile(UserKey.fromJson(jsonDecode(qrData2)));
                     // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
@@ -121,16 +122,16 @@ class _MyHomePageState extends State<MyHomePage> {
               //     title: Text('Забыть отделение'),
               //   ),
               // ),
-              PopupMenuItem(
+              PopupMenuItem<ListTile>(
                 child: ListTile(
                   leading: const Icon(Icons.adb),
                   title: const Text('О программе'),
                   onTap: () {
-                    Navigator.pop(context, "dev");
+                    Navigator.pop(context, 'dev');
                     Navigator.pushNamed(
                       context,
                       DevPage.routeName,
-                      arguments: "",
+                      arguments: '',
                     );
                   },
                 ),
@@ -168,9 +169,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(builder: (context) => const QRViewExample()),
+            '/scan_qr',
           );
         },
         tooltip: 'Добавить отделение',

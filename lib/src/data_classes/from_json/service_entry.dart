@@ -5,15 +5,34 @@
 /// image : "None"
 /// serv_id_list : "558807"
 
+// ignore_for_file:invalid_assignment
+// ignore_for_file:avoid_dynamic_calls
+
 class ServiceEntry {
+  int get id => _id;
+
+  String get tarifNum => _tnum;
+
+  String get servText => _servText;
+
+  int get total => _total;
+
+  String get image => _image;
+
+  String get servIdList => _servIdList;
+
+  int get subServ => _subServ;
+
+  String get shortText => _shortText;
+
   int _id = 0;
-  String _tnum = "";
-  String _servText = "";
+  String _tnum = '';
+  String _servText = '';
   int _total = 0;
-  String _image = "";
-  String _servIdList = "";
+  String _image = '';
+  String _servIdList = '';
   int _subServ = 0;
-  String _shortText = "";
+  String _shortText = '';
 
   ServiceEntry({
     int id = 0,
@@ -40,27 +59,11 @@ class ServiceEntry {
     _servText = json['serv_text'];
     _total = json['total'];
     _servIdList = json['serv_id_list'];
-    _tnum = json['tnum'] ?? "ERROR";
-    _image = json['image'] ?? "";
-    _subServ = json['sub_serv'] ?? "";
-    _shortText = json['short_text'] ?? "";
+    _tnum = json['tnum'] ?? 'ERROR';
+    _image = json['image'] ?? '';
+    _subServ = json['sub_serv'] ?? '';
+    _shortText = json['short_text'] ?? '';
   }
-
-  int get id => _id;
-
-  String get tarifNum => _tnum;
-
-  String get servText => _servText;
-
-  int get total => _total;
-
-  String get image => _image;
-
-  String get servIdList => _servIdList;
-
-  int get subServ => _subServ;
-
-  String get shortText => _shortText;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

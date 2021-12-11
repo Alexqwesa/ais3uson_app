@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/fio_entry.dart';
 import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,8 @@ class _ListFioState extends State<ListFio> {
           title: Row(children: [
             Expanded(
               child: Text(
-                  "Люди с отделения ${AppData.instance.profiles[profileNum].name}",),
+                'Люди с отделения ${AppData.instance.profiles[profileNum].name}',
+              ),
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -39,8 +39,7 @@ class _ListFioState extends State<ListFio> {
           child: Consumer<AppData>(
             builder: (context, data, child) {
               // List<FioEntry> fioList = data.profiles[profileNum].fioList;
-              List<FioEntry> fioList =
-                  AppData.instance.profiles[profileNum].fioList;
+              final fioList = AppData.instance.profiles[profileNum].fioList;
 
               return
                   // Selector<AppData, List<FioEntry>>(
@@ -60,9 +59,7 @@ class _ListFioState extends State<ListFio> {
                           itemBuilder: (BuildContext context, int index) {
                             return ListTile(
                               leading: const Icon(Icons.person),
-                              title: Text(fioList[index].ufio +
-                                  " № " +
-                                  fioList[index].contract),
+                              title: Text('${fioList[index].ufio} № ${fioList[index].contract}'),
                               // onTap: () {
                               //   Navigator.push(
                               //     context,
@@ -72,11 +69,12 @@ class _ListFioState extends State<ListFio> {
                               // },
                               // subtitle: Container(width: 48, height: 48),
                             );
-                          },)
+                          },
+                        )
                       : const Text(
-                          "Список получателей СУ пуст, \n\n"
-                          "попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n"
-                          "обновите список",
+                          'Список получателей СУ пуст, \n\n'
+                          'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
+                          'обновите список',
                           textAlign: TextAlign.center,
                         );
             },

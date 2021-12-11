@@ -20,7 +20,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
       create: (BuildContext context) => AppData(),
       child: Center(
         child: Consumer<AppData>(builder: (context, data, child) {
-          List<ServiceEntry> servList =
+          final servList =
               context.select<AppData, List<ServiceEntry>>(
             (appData) => appData.services.toList(),
           );
@@ -45,7 +45,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                           return servList[index].image.isNotEmpty
                               ? FractionallySizedBox(
                                   child: Image.asset(
-                                    "images/" + servList[index].image,
+                                    'images/${servList[index].image}',
                                   ),
                                   widthFactor: 0.5,
                                 )

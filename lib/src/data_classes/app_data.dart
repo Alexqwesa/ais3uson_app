@@ -1,3 +1,5 @@
+// ignore_for_file: always_use_package_imports
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
@@ -17,18 +19,40 @@ import 'from_json/user_key.dart';
 /// for storing global data
 /// and notifies listeners
 class AppData with ChangeNotifier, SyncData {
-  late Box hiveData;
-  List<UserProfile> _profiles = [];
-
-  /// Init section
-  ///
-  /// just constructor and singleton
+  /// Store Singleton
   static late final AppData _instance = AppData._internal();
 
-  factory AppData() => _instance; // ??= AppData._internal();
+  /// Global Storage [hiveData]
+  late Box hiveData;
 
   static AppData get instance => _instance; // ??= AppData._internal();
 
+  List<UserProfile> get profiles => _profiles;
+
+  List<ServiceEntry> get services => _services;
+
+  String get apiKey => profile.key.apiKey;
+
+  /// userKeys - is user authentication data,
+  Iterable<UserKey> get userKeys => _profiles.map((e) => e.key);
+
+  /// Get first profile with working server
+  UserProfile get profile {
+    // TODO:
+    // if (_profiles.first.connection_ok){
+    return _profiles.first;
+  }
+
+  /// Services list
+  List<ServiceEntry> _services = [];
+
+  /// Profiles list
+  List<UserProfile> _profiles = [];
+
+  /// Constructor
+  ///
+  /// just constructor and singleton
+  factory AppData() => _instance; // ??= AppData._internal();
   AppData._internal();
 
   @override
@@ -40,15 +64,33 @@ class AppData with ChangeNotifier, SyncData {
     // super.dispose();
   }
 
+  /// Update data after sync
+  ///
+  /// read hive data and notify
+  @override
+  void updateValueFromHive(String hiveKey) {
+    final lstOfMaps = hiddenUpdateValueFromHive(
+      hiveKey: hiveKey,
+      hive: hiveData,
+    );
+    _services = [];
+    for (final entry in lstOfMaps) {
+      _services.add(ServiceEntry.fromJson(entry));
+    }
+    notifyListeners();
+  }
+
   /// Post init
   ///
   /// read setting from hive, and sync
   void postInit() {
     addProfile(UserKey.fromJson(jsonDecode(qrData)));
-    for (String prof in hiveData.get("profileList", defaultValue: [])) {
+    for (final String prof
+        in hiveData.get('profileList', defaultValue: <String>[])) {
       addProfile(UserKey.fromJson(jsonDecode(prof)));
     }
-    for (String serv in hiveData.get("services", defaultValue: [])) {
+    for (final String serv
+        in hiveData.get('services', defaultValue: <String>[])) {
       _services.add(ServiceEntry.fromJson(jsonDecode(serv)));
     }
     if (_services.isEmpty) {
@@ -61,58 +103,18 @@ class AppData with ChangeNotifier, SyncData {
     notifyListeners();
   }
 
-  /// userKeys section
-  ///
-  /// userKeys - is user authentication data,
-  Iterable<UserKey> get userKeys => _profiles.map((e) => e.key);
-
-  String get apiKey => profile.key.apiKey;
-
-  /// profiles section
-  ///
-  /// init, getter, add
-  UserProfile get profile {
-    // TODO:
-    // if (_profiles.first.connection_ok){
-    return _profiles.first;
-  }
-
-  List<UserProfile> get profiles => _profiles;
-
   void addProfile(UserKey key) {
     _profiles.add(UserProfile(key));
     notifyListeners();
   }
-
-  /// Services section
-  ///
-  ///
-  List<ServiceEntry> _services = [];
-
-  List<ServiceEntry> get services => _services;
 
   /// Sync hive data
   ///
   /// sync [_services]
   Future<void> syncHive() async {
     return hiddenSyncHive(
-        apiKey: apiKey,
-        urlAddress: "http://${profile.key.host}:48080/services",);
-  }
-
-  /// Update data after sync
-  ///
-  /// read hive data and notify
-  @override
-  void updateValueFromHive(String hiveKey) {
-    List lst = hiddenUpdateValueFromHive(
-        hiveKey: hiveKey, hive: hiveData, fromJsonClass: ServiceEntry,);
-    if (lst.isNotEmpty) {
-      _services = [];
-      for (Map<String, dynamic> entry in lst) {
-        _services.add(ServiceEntry.fromJson(entry));
-      }
-      notifyListeners();
-    }
+      apiKey: apiKey,
+      urlAddress: 'http://${profile.key.host}:48080/services',
+    );
   }
 }

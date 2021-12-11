@@ -8,7 +8,7 @@ class ScreenArguments {
   int contractId = 0;
   int servId = 0;
 
-  ScreenArguments({required profile, contract, service}) {
+  ScreenArguments({required int profile, int? contract, int? service}) {
     profileNum = profile;
     contractId = contract ??  0;
     servId = service ?? 0;

@@ -1,9 +1,9 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
+import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../global.dart';
 
 class ListOfProfiles extends StatefulWidget {
   const ListOfProfiles({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
       create: (BuildContext context) => AppData(),
       child: Consumer<AppData>(builder: (context, data, child) {
         // List<FioEntry> fioList = data.profiles[profileNum].fioList;
-        List<UserKey> userKeys = context.select<AppData, List<UserKey>>(
+        final userKeys = context.select<AppData, List<UserKey>>(
           (data) => data.userKeys.toList(),
         );
 
@@ -39,15 +39,19 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                     leading: const Icon(Icons.group),
                     title: Text(userKeys[index].otd),
                     onTap: () {
-                      Navigator.pushNamed(context, "/department",
-                          arguments: ScreenArguments(profile: index),);
+                      Navigator.pushNamed(
+                        context,
+                        '/department',
+                        arguments: ScreenArguments(profile: index),
+                      );
                     },
                     // subtitle: Container(width: 48, height: 48),
                   );
                 },
               )
             : const Center(
-                child: Text('Авторизируйтесь (отсканируйте QR код) '),);
+                child: Text('Авторизируйтесь (отсканируйте QR код) '),
+              );
       }),
     );
   }

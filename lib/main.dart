@@ -1,9 +1,8 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import 'src/screens/home.dart';
 
 /// Init Hive and AppData
 ///
@@ -11,12 +10,12 @@ import 'src/screens/home.dart';
 Future init() async {
   await Hive.initFlutter();
   // await Hive.openBox('settings');
-  Box hivData = await Hive.openBox('data');
-  AppData aData = AppData();
-  aData.hiveData = hivData;
-  aData.postInit();
+  final hivData = await Hive.openBox('data');
+  final aData = AppData()
+    ..hiveData = hivData
+    ..postInit();
 
-  return AppData();
+  return aData;
 }
 
 /// main
