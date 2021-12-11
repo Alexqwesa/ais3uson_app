@@ -37,7 +37,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex:7,
+            flex: 7,
             child: QRView(
               key: qrKey,
               onQRViewCreated: _onQRViewCreated,
@@ -48,10 +48,11 @@ class _QRViewExampleState extends State<QRViewExample> {
             child: Center(
               child: (result != null)
                   ? Text(
-                      'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                      'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}',
+                    )
                   : const Text('Сканировать'),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -72,7 +73,3 @@ class _QRViewExampleState extends State<QRViewExample> {
     super.dispose();
   }
 }
-
-
-
-

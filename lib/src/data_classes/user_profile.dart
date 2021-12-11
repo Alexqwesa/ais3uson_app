@@ -37,12 +37,16 @@ class UserProfile with SyncData {
   /// sync [_services]
   Future<void> syncHive() async {
     hiddenSyncHive(
-        apiKey: key.apiKey, urlAddress: "http://${key.host}:48080/fio");
+      apiKey: key.apiKey,
+      urlAddress: "http://${key.host}:48080/fio",
+    );
   }
 
   Future<void> syncHivePlanned() async {
     hiddenSyncHive(
-        apiKey: key.apiKey, urlAddress: "http://${key.host}:48080/Planned");
+      apiKey: key.apiKey,
+      urlAddress: "http://${key.host}:48080/Planned",
+    );
   }
 
   /// Update data after sync
@@ -55,7 +59,10 @@ class UserProfile with SyncData {
       //
       //
       List lst = hiddenUpdateValueFromHive(
-          hiveKey: hiveKey, hive: hive, fromJsonClass: FioEntry);
+        hiveKey: hiveKey,
+        hive: hive,
+        fromJsonClass: FioEntry,
+      );
       if (lst.isNotEmpty) {
         _fioList = [];
         for (Map<String, dynamic> entry in lst) {
@@ -72,7 +79,10 @@ class UserProfile with SyncData {
         //
         //
         List lst = hiddenUpdateValueFromHive(
-            hiveKey: "urlAddress", hive: hive, fromJsonClass: FioPlanned);
+          hiveKey: "urlAddress",
+          hive: hive,
+          fromJsonClass: FioPlanned,
+        );
         if (lst.isNotEmpty) {
           _fioPlanned = [];
           for (Map<String, dynamic> entry in lst) {

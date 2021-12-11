@@ -4,18 +4,17 @@ import 'dart:developer' as dev;
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
-import '../global.dart';
 import 'app_data.dart';
 
 mixin SyncData {
   final Map<String, String> _headers = {
     'Content-type': 'application/json',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
   };
 
   Future<void> hiddenSyncHive({apiKey, urlAddress, headers, hive}) async {
     apiKey ??= AppData().profiles[0].key.apiKey;
-    urlAddress ??=  'http://${AppData().profile.key.host}:48080/stat';
+    urlAddress ??= 'http://${AppData().profile.key.host}:48080/stat';
     hive ??= AppData().hiveData;
     headers ??= _headers;
     String body = '''{"api_key": $apiKey}''';
@@ -42,11 +41,8 @@ mixin SyncData {
     hive ??= AppData().hiveData;
     try {
       List<dynamic> lst = json.decode(hive.get(hiveKey, defaultValue: "[]"));
-      if (lst.isEmpty) {
-        return [];
-      } else {
-        return lst;
-      }
+
+      return lst.isEmpty ? [] : lst;
     } catch (e) {
       return [];
     }

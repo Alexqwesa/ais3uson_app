@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
 import 'package:flutter/material.dart';
-import 'dev_tools.dart';
+
 import '../global.dart';
+import 'dev_tools.dart';
 import 'list_fio.dart';
 import 'list_profiles.dart';
 import 'scan_qr/scan_widget.dart';
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
         '/department': (BuildContext context) => const ListFio(),
         DevPage.routeName: (BuildContext context) => const DevPage(),
       },
-      home: MyHomePage(title: 'Список отделений'),
+      home: const MyHomePage(title: 'Список отделений'),
     );
   }
 }
@@ -68,70 +69,76 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-          actions: [
-            PopupMenuButton(
-              icon: const Icon(Icons.more_vert),
-              // onCanceled: () {
-              //   setState(() {
-              //     _counter = 100;
-              //   });
-              // },
-              enabled: true,
-              // onSelected: (value) {
-              //   setState(() {
-              //     _counter = 10;
-              //   });
-              // },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  child: ListTile(
-                    leading: const Icon(Icons.add),
-                    title: const Text('Сканировать QR код'),
-                    onTap: () {
-                      Navigator.pop(context, "qr");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const QRViewExample()),
-                      );
-                    },
-                  ),
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert),
+            // onCanceled: () {
+            //   setState(() {
+            //     _counter = 100;
+            //   });
+            // },
+            enabled: true,
+            // onSelected: (value) {
+            //   setState(() {
+            //     _counter = 10;
+            //   });
+            // },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+              PopupMenuItem(
+                child: ListTile(
+                  leading: const Icon(Icons.add),
+                  title: const Text('Сканировать QR код'),
+                  onTap: () {
+                    Navigator.pop(context, "qr");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const QRViewExample(),
+                      ),
+                    );
+                  },
                 ),
-                PopupMenuItem(
-                  child: ListTile(
-                      leading: const Icon(Icons.group),
-                      title: const Text('Добавить тестовое отделение'),
-                      onTap: () {
-                        // AppData.of(context);
-                        Navigator.pop(context, "qr");
-                        AppData.instance
-                            .addProfile(UserKey.fromJson(jsonDecode(qrData2)));
-                        // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
-                      }),
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: const Icon(Icons.group),
+                  title: const Text('Добавить тестовое отделение'),
+                  onTap: () {
+                    // AppData.of(context);
+                    Navigator.pop(context, "qr");
+                    AppData.instance
+                        .addProfile(UserKey.fromJson(jsonDecode(qrData2)));
+                    // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
+                  },
                 ),
-                // const PopupMenuItem(
-                //   child: ListTile(
-                //     leading: Icon(Icons.backspace),
-                //     title: Text('Забыть отделение'),
-                //   ),
-                // ),
-                PopupMenuItem(
-                  child: ListTile(
-                    leading: const Icon(Icons.adb),
-                    title: const Text('О программе'),
-                    onTap: () {
-                      Navigator.pop(context, "dev");
-                      Navigator.pushNamed(context, DevPage.routeName,
-                          arguments: "");
-                    },
-                  ),
+              ),
+              // const PopupMenuItem(
+              //   child: ListTile(
+              //     leading: Icon(Icons.backspace),
+              //     title: Text('Забыть отделение'),
+              //   ),
+              // ),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: const Icon(Icons.adb),
+                  title: const Text('О программе'),
+                  onTap: () {
+                    Navigator.pop(context, "dev");
+                    Navigator.pushNamed(
+                      context,
+                      DevPage.routeName,
+                      arguments: "",
+                    );
+                  },
                 ),
-              ],
-            ),
-          ]),
+              ),
+            ],
+          ),
+        ],
+      ),
       body: Center(
         heightFactor: 1.1,
         // Center is a layout widget. It takes a single child and positions it

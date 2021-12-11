@@ -40,14 +40,14 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                     title: Text(userKeys[index].otd),
                     onTap: () {
                       Navigator.pushNamed(context, "/department",
-                          arguments: ScreenArguments(profile: index));
+                          arguments: ScreenArguments(profile: index),);
                     },
                     // subtitle: Container(width: 48, height: 48),
                   );
                 },
               )
             : const Center(
-                child: Text('Авторизируйтесь (отсканируйте QR код) '));
+                child: Text('Авторизируйтесь (отсканируйте QR код) '),);
       }),
     );
   }

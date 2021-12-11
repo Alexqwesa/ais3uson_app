@@ -78,6 +78,7 @@ class UserKey {
     map['db'] = _db;
     map['host'] = _host;
     map['port'] = _port;
+
     return map;
   }
 }

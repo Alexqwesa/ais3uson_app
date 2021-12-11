@@ -25,6 +25,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
             (appData) => appData.services.toList(),
           );
           // List<ServiceEntry> servList = AppData.instance.services;
+
           return Container(
             child: servList.isNotEmpty
                 ? ListView.builder(
@@ -41,15 +42,14 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                               : servList[index].servText;
                         }()),
                         leading: () {
-                          if (servList[index].image.isNotEmpty) {
-                            return FractionallySizedBox(
-                              child: Image.asset(
-                                  "images/" + servList[index].image),
-                              widthFactor: 0.5,
-                            );
-                          } else {
-                            return const Icon(Icons.error);
-                          }
+                          return servList[index].image.isNotEmpty
+                              ? FractionallySizedBox(
+                                  child: Image.asset(
+                                    "images/" + servList[index].image,
+                                  ),
+                                  widthFactor: 0.5,
+                                )
+                              : const Icon(Icons.error);
                         }(),
                         //
                         //
@@ -66,13 +66,14 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                 : Column(
                     children: [
                       const Center(
-                          child: Text('Не удалось получить список сервисов!')),
+                        child: Text('Не удалось получить список сервисов!'),
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           AppData.instance.syncHive();
                         },
                         child: const Text('Обновить!'),
-                      )
+                      ),
                     ],
                   ),
           );

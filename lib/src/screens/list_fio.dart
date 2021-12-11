@@ -19,6 +19,7 @@ class _ListFioState extends State<ListFio> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     final int profileNum = args.profileNum;
+
     return ChangeNotifierProvider(
       create: (BuildContext context) => AppData(),
       child: Scaffold(
@@ -26,7 +27,7 @@ class _ListFioState extends State<ListFio> {
           title: Row(children: [
             Expanded(
               child: Text(
-                  "Люди с отделения ${AppData.instance.profiles[profileNum].name}"),
+                  "Люди с отделения ${AppData.instance.profiles[profileNum].name}",),
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -40,8 +41,8 @@ class _ListFioState extends State<ListFio> {
               // List<FioEntry> fioList = data.profiles[profileNum].fioList;
               List<FioEntry> fioList =
                   AppData.instance.profiles[profileNum].fioList;
-              return
 
+              return
                   // Selector<AppData, List<FioEntry>>(
                   //   selector: (_, model) => model.profiles[profileNum].fioList,
                   //   builder: (context, fioList, _) {return
@@ -71,7 +72,7 @@ class _ListFioState extends State<ListFio> {
                               // },
                               // subtitle: Container(width: 48, height: 48),
                             );
-                          })
+                          },)
                       : const Text(
                           "Список получателей СУ пуст, \n\n"
                           "попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n"

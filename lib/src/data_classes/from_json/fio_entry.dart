@@ -67,6 +67,7 @@ class FioEntry {
     map['contract'] = _contract;
     map['ufio'] = _ufio;
     map['dhw_id'] = _dhwId;
+
     return map;
   }
 }

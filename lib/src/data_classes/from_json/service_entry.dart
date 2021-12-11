@@ -72,6 +72,7 @@ class ServiceEntry {
     map['serv_id_list'] = _servIdList;
     map['sub_serv'] = _subServ;
     map['short_text'] = _shortText;
+
     return map;
   }
 }

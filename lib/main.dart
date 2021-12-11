@@ -15,6 +15,7 @@ Future init() async {
   AppData aData = AppData();
   aData.hiveData = hivData;
   aData.postInit();
+
   return AppData();
 }
 
@@ -23,5 +24,5 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
 
   await init();
-  runApp(HomeScreen());
+  runApp(const HomeScreen());
 }

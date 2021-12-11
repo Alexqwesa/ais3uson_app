@@ -66,12 +66,16 @@ class AppData with ChangeNotifier, SyncData {
   /// userKeys - is user authentication data,
   Iterable<UserKey> get userKeys => _profiles.map((e) => e.key);
 
-  String get apiKey => _profiles.first.key.apiKey;
+  String get apiKey => profile.key.apiKey;
 
   /// profiles section
   ///
   /// init, getter, add
-  UserProfile get profile => _profiles.first;
+  UserProfile get profile {
+    // TODO:
+    // if (_profiles.first.connection_ok){
+    return _profiles.first;
+  }
 
   List<UserProfile> get profiles => _profiles;
 
@@ -92,7 +96,8 @@ class AppData with ChangeNotifier, SyncData {
   /// sync [_services]
   Future<void> syncHive() async {
     return hiddenSyncHive(
-        apiKey: apiKey, urlAddress: "http://${profile.key.host}:48080/services");
+        apiKey: apiKey,
+        urlAddress: "http://${profile.key.host}:48080/services",);
   }
 
   /// Update data after sync
@@ -101,7 +106,7 @@ class AppData with ChangeNotifier, SyncData {
   @override
   void updateValueFromHive(String hiveKey) {
     List lst = hiddenUpdateValueFromHive(
-        hiveKey: hiveKey, hive: hiveData, fromJsonClass: ServiceEntry);
+        hiveKey: hiveKey, hive: hiveData, fromJsonClass: ServiceEntry,);
     if (lst.isNotEmpty) {
       _services = [];
       for (Map<String, dynamic> entry in lst) {
