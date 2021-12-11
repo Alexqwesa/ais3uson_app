@@ -88,9 +88,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
     return Row(
       children: <Widget>[
         ElevatedButton(
-          onPressed: () {
-            checkHTTP();
-          },
+          onPressed: checkHTTP,
           child: const Text('Соединение!'),
         ),
         Flexible(
@@ -131,11 +129,11 @@ class CheckWorkerServerPOST extends StatefulWidget {
 
 class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
   String body = qrData;
-  String _testHTTP = '';
   Map<String, String> headers = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
   };
+  String _testHTTP = '';
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +153,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
     );
   }
 
-  void checkHTTP() async {
+  Future<void> checkHTTP() async {
     final url = Uri.parse('http://${AppData().profile.key.host}:48080/planned');
     await http.post(url, headers: headers, body: body).then((response) {
       setState(() {

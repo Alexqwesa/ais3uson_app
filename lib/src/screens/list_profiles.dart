@@ -23,7 +23,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
   Widget build(BuildContext context) {
     // return Consumer<AppData>(
     return ChangeNotifierProvider(
-      create: (BuildContext context) => AppData(),
+      create: (context) => AppData(),
       child: Consumer<AppData>(builder: (context, data, child) {
         // List<FioEntry> fioList = data.profiles[profileNum].fioList;
         final userKeys = context.select<AppData, List<UserKey>>(
@@ -34,7 +34,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
             ? ListView.builder(
                 itemCount: userKeys.length,
                 shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   return ListTile(
                     leading: const Icon(Icons.group),
                     title: Text(userKeys[index].otd),

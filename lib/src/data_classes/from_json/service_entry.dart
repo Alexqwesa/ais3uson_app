@@ -5,7 +5,7 @@
 /// image : "None"
 /// serv_id_list : "558807"
 
-// ignore_for_file:invalid_assignment
+// ignore_for_file:invalid_assignment, avoid_annotating_with_dynamic
 // ignore_for_file:avoid_dynamic_calls
 
 class ServiceEntry {

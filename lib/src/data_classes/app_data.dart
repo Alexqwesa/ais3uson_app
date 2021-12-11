@@ -1,4 +1,4 @@
-// ignore_for_file: always_use_package_imports
+// ignore_for_file: always_use_package_imports, prefer_final_fields
 
 import 'dart:async';
 import 'dart:convert';

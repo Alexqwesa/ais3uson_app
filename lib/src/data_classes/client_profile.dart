@@ -1,4 +1,4 @@
-// ignore_for_file: always_use_package_imports
+// ignore_for_file: always_use_package_imports, prefer_final_fields
 
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 
@@ -12,4 +12,9 @@ class ClientProfile with SyncData {
   List<FioPlanned> _services = [];
 
   ClientProfile(this.contractId, this.name);
+
+  @override
+  void updateValueFromHive(String hiveKey) {
+    // TODO: implement updateValueFromHive
+  }
 }

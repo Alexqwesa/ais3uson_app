@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_types_on_closure_parameters
+
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                     // controller: _controller,
                     itemCount: servList.length,
                     shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (context, int index) {
                       return ListTile(
                         title: Text(() {
                           return servList[index].shortText.isNotEmpty

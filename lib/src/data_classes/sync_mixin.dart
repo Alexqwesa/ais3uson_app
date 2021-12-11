@@ -42,7 +42,7 @@ mixin SyncData {
     }
   }
 
-  void updateValueFromHive(String hiveKey) {}
+  void updateValueFromHive(String hiveKey);
 
   List<Map<String, dynamic>> hiddenUpdateValueFromHive({
     required String hiveKey,

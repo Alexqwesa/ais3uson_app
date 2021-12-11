@@ -17,10 +17,10 @@ class _ListFioState extends State<ListFio> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    final int profileNum = args.profileNum;
+    final profileNum = args.profileNum;
 
     return ChangeNotifierProvider(
-      create: (BuildContext context) => AppData(),
+      create: (context) => AppData(),
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
@@ -56,7 +56,7 @@ class _ListFioState extends State<ListFio> {
                       ? ListView.builder(
                           itemCount: fioList.length,
                           shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
+                          itemBuilder: (context, index) {
                             return ListTile(
                               leading: const Icon(Icons.person),
                               title: Text('${fioList[index].ufio} № ${fioList[index].contract}'),

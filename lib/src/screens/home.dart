@@ -34,9 +34,9 @@ class HomeScreen extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/department': (BuildContext context) => const ListFio(),
-        '/scan_qr': (BuildContext context) => const QRViewExample(),
-        DevPage.routeName: (BuildContext context) => const DevPage(),
+        '/department': (context) => const ListFio(),
+        '/scan_qr': (context) => const QRViewExample(),
+        DevPage.routeName: (context) => const DevPage(),
       },
       home: const MyHomePage(title: 'Список отделений'),
     );
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final String title;
 
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({required this.title, Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -83,13 +83,12 @@ class _MyHomePageState extends State<MyHomePage> {
             //     _counter = 100;
             //   });
             // },
-            enabled: true,
             // onSelected: (value) {
             //   setState(() {
             //     _counter = 10;
             //   });
             // },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+            itemBuilder: (context) => <PopupMenuEntry>[
               PopupMenuItem<ListTile>(
                 child: ListTile(
                   leading: const Icon(Icons.add),
@@ -116,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              // TODO:
               // const PopupMenuItem(
               //   child: ListTile(
               //     leading: Icon(Icons.backspace),
