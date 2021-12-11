@@ -25,8 +25,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
             (appData) => appData.services.toList(),
           );
           // List<ServiceEntry> servList = AppData.instance.services;
-          return
-            Container(
+          return Container(
             child: servList.isNotEmpty
                 ? ListView.builder(
                     // physics: const BouncingScrollPhysics(
@@ -42,16 +41,16 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                               : servList[index].servText;
                         }()),
                         leading: () {
-                            if (servList[index].image.isNotEmpty) {
-                              return FractionallySizedBox(
-                                child:
-                                    Image.asset("images/" + servList[index].image),
-                                widthFactor: 0.5,
-                              );
-                            } else {
-                              return const Icon(Icons.error);
-                            }
-                          }(),
+                          if (servList[index].image.isNotEmpty) {
+                            return FractionallySizedBox(
+                              child: Image.asset(
+                                  "images/" + servList[index].image),
+                              widthFactor: 0.5,
+                            );
+                          } else {
+                            return const Icon(Icons.error);
+                          }
+                        }(),
                         //
                         //
                         //

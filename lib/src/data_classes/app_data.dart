@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
+
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart';
+
 import '../global.dart';
 import 'from_json/service_entry.dart';
 import 'from_json/user_key.dart';
-
-import 'package:http/http.dart' as http;
-import 'dart:developer' as dev;
 
 /// Global AppData
 ///
@@ -35,6 +33,9 @@ class AppData with ChangeNotifier, SyncData {
 
   @override
   void dispose() {
+    // TODO:
+    // hiveData.compact();
+    // hiveData.close();
     // Don't dispose of singleton
     // super.dispose();
   }

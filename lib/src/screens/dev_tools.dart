@@ -1,11 +1,11 @@
-import 'dart:developer' as dev;
 import 'dart:convert';
+import 'dart:developer' as dev;
+
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_html/flutter_html.dart';
-import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
 import '../global.dart';
 import 'list_all_services.dart';
 

@@ -7,8 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'dart:developer' as dev;
-
 class ListFio extends StatefulWidget {
   const ListFio({Key? key}) : super(key: key);
 

@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
+
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
-import 'package:http/http.dart' as http;
-import 'dart:developer' as dev;
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart';
 
 import '../global.dart';
 import 'app_data.dart';

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer' as dev;
+
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+
 import '../global.dart';
 import 'app_data.dart';
-import 'package:http/http.dart' as http;
-import 'dart:developer' as dev;
 
 mixin SyncData {
   final Map<String, String> _headers = {
