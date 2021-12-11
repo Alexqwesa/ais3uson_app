@@ -91,7 +91,8 @@ class AppData with ChangeNotifier, SyncData {
   ///
   /// sync [_services]
   Future<void> syncHive() async {
-    return hiddenSyncHive(apiKey: apiKey, urlAddress: "$SERVER:48080/services");
+    return hiddenSyncHive(
+        apiKey: apiKey, urlAddress: "http://${profile.key.host}:48080/services");
   }
 
   /// Update data after sync

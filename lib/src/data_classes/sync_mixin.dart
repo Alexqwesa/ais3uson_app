@@ -15,7 +15,7 @@ mixin SyncData {
 
   Future<void> hiddenSyncHive({apiKey, urlAddress, headers, hive}) async {
     apiKey ??= AppData().profiles[0].key.apiKey;
-    urlAddress ??= SERVER + ':48080/stat';
+    urlAddress ??=  'http://${AppData().profile.key.host}:48080/stat';
     hive ??= AppData().hiveData;
     headers ??= _headers;
     String body = '''{"api_key": $apiKey}''';

@@ -81,7 +81,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
   String _testHTTP = "";
 
   void checkHTTP() async {
-    var url = Uri.parse(SERVER + ':48080/stat');
+    var url = Uri.parse('http://${AppData().profile.key.host}:48080/stat');
     http.get(url).then((response) {
       if (response.statusCode == 200) {
         setState(() {
@@ -135,7 +135,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
   String body = qrData;
 
   void checkHTTP() async {
-    var url = Uri.parse(SERVER + ':48080/planned');
+    var url = Uri.parse('http://${AppData().profile.key.host}:48080/planned');
     http.post(url, headers: headers, body: body).then((response) {
       setState(() {
         _testHTTP = jsonDecode(response.body).toString();

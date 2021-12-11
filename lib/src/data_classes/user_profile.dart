@@ -4,7 +4,6 @@ import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../global.dart';
 import 'app_data.dart';
 import 'client_profile.dart';
 import 'from_json/fio_entry.dart';
@@ -37,11 +36,13 @@ class UserProfile with SyncData {
   ///
   /// sync [_services]
   Future<void> syncHive() async {
-    hiddenSyncHive(apiKey: key.apiKey, urlAddress: "$SERVER:48080/fio");
+    hiddenSyncHive(
+        apiKey: key.apiKey, urlAddress: "http://${key.host}:48080/fio");
   }
 
   Future<void> syncHivePlanned() async {
-    hiddenSyncHive(apiKey: key.apiKey, urlAddress: "$SERVER:48080/Planned");
+    hiddenSyncHive(
+        apiKey: key.apiKey, urlAddress: "http://${key.host}:48080/Planned");
   }
 
   /// Update data after sync
@@ -49,7 +50,10 @@ class UserProfile with SyncData {
   /// read hive data and notify
   @override
   void updateValueFromHive(String hiveKey) {
-    if (hiveKey.endsWith("$SERVER:48080/fio")) {
+    if (hiveKey.endsWith("http://${key.host}:48080/fio")) {
+      // Sync fio list
+      //
+      //
       List lst = hiddenUpdateValueFromHive(
           hiveKey: hiveKey, hive: hive, fromJsonClass: FioEntry);
       if (lst.isNotEmpty) {
@@ -63,7 +67,10 @@ class UserProfile with SyncData {
         fillClientServices();
         AppData.instance.notify();
         // AppData.instance.notifyListeners();
-      } else if (hiveKey.endsWith("$SERVER:48080/Planned")) {
+      } else if (hiveKey.endsWith("http://${key.host}:48080/Planned")) {
+        // Sync Planned services
+        //
+        //
         List lst = hiddenUpdateValueFromHive(
             hiveKey: "urlAddress", hive: hive, fromJsonClass: FioPlanned);
         if (lst.isNotEmpty) {
