@@ -1,5 +1,5 @@
 # AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")
-
+![Logo](/assets/ais-3uson-logo-128.png "AIS-3USON LOGO"){:style="float: right;margin-right: 7px;margin-top: 7px;"}
 A Flutter backend for AIS-3USON
 
 Это мобильное приложение для ввода услуг в информационной системе "АИС ТриУСОН" ("Автоматизированная Информационная Система Учета Услуг Учреждений Социального Обслуживания Населения").
