@@ -39,6 +39,7 @@ class HomeScreen extends StatelessWidget {
         DevPage.routeName: (context) => const DevPage(),
       },
       home: const MyHomePage(title: 'Список отделений'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
