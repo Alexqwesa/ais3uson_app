@@ -1,4 +1,5 @@
 # AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")
+<img align="right" src="assets/ais-3uson-logo-128.png">
 
 A Flutter backend for AIS-3USON
 
