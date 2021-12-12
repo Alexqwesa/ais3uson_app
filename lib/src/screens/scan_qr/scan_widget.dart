@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -15,6 +18,7 @@ class QRViewExample extends StatefulWidget {
 
 class _QRViewExampleState extends State<QRViewExample> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  final foundWidgetKey = GlobalKey();
   Barcode? result;
   QRViewController? controller;
 
@@ -35,89 +39,114 @@ class _QRViewExampleState extends State<QRViewExample> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(flex: 3, child: _buildQrView(context)),
           Expanded(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  if (result != null)
-                    Expanded(
-                      child: Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}',
+            child: Column(
+              children: <Widget>[
+                if (result == null)
+                  const Expanded(
+                    child: Text('Выполняется поиск Qr-кода...'),
+                  )
+                else
+                  Column(
+                    children: [
+                      Text(
+                        ' Данные: ${result!.code}',
                         softWrap: true,
                       ),
-                    )
-                  else
-                    const Expanded(
-                      child: Text('Выполняется поиск Qr-кода...'),
-                    ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.toggleFlash();
-                            setState(() {});
-                          },
-                          child: FutureBuilder(
-                            future: controller?.getFlashStatus(),
-                            builder: (context, snapshot) {
-                              return Text('Вспышка: ${snapshot.data}');
-                            },
+                      Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Colors.blue[900]!,
+                                ),
+                              ),
+                              onPressed: () async {
+                                setState(() {
+                                  result = null;
+                                });
+                                await controller?.resumeCamera();
+                              },
+                              child: const Text(
+                                'Повторить поиск',
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.flipCamera();
-                            setState(() {});
-                          },
-                          child: FutureBuilder(
-                            future: controller?.getCameraInfo(),
-                            builder: (context, snapshot) {
-                              return snapshot.data != null
-                                  ? describeEnum(snapshot.data!) == 'front'
-                                      ? const Text('Фронтал. камера')
-                                      : const Text('Тыловая камера')
-                                  : const Text('Загрузка');
-                            },
+                          const Expanded(
+                            child: Divider(),
                           ),
-                        ),
+                          // if (result!.code!.contains("http://{ "))
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Colors.green,
+                                ),
+                              ),
+                              onPressed: () async {
+                                final newKey = result!.code!
+                                    .substring(7, result!.code!.length);
+                                AppData().addProfile(
+                                  UserKey.fromJson(json.decode(newKey)),
+                                );
+                                await Navigator.pushNamed(context, '/');
+                                result = null;
+                              },
+                              child: const Text(
+                                'Добавить!',
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     Container(
-                  //       margin: const EdgeInsets.all(8),
-                  //       child: ElevatedButton(
-                  //         onPressed: () async {
-                  //           await controller?.pauseCamera();
-                  //         },
-                  //         child: const Text('pause',
-                  //             style: TextStyle(fontSize: 20),),
-                  //       ),
-                  //     ),
-                  //     Container(
-                  //       margin: const EdgeInsets.all(8),
-                  //       child: ElevatedButton(
-                  //         onPressed: () async {
-                  //           await controller?.resumeCamera();
-                  //         },
-                  //         child: const Text('resume',
-                  //             style: TextStyle(fontSize: 20),),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                ],
-              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.all(2),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await controller?.toggleFlash();
+                          setState(() {});
+                        },
+                        child: FutureBuilder(
+                          future: controller?.getFlashStatus(),
+                          builder: (context, snapshot) {
+                            return Text('Вспышка: ${snapshot.data}');
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(2),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await controller?.flipCamera();
+                          setState(() {});
+                        },
+                        child: FutureBuilder(
+                          future: controller?.getCameraInfo(),
+                          builder: (context, snapshot) {
+                            return snapshot.data != null
+                                ? describeEnum(snapshot.data!) == 'front'
+                                    ? const Text('Фронтал. камера')
+                                    : const Text('Тыловая камера')
+                                : const Text('Загрузка');
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
@@ -159,6 +188,10 @@ class _QRViewExampleState extends State<QRViewExample> {
       setState(() {
         result = scanData;
       });
+      if (describeEnum(result!.format) == 'qrcode' ||
+          result!.code!.startsWith('http://{"app": "AIS-3USON web"')) {
+        controller.stopCamera();
+      }
     });
   }
 
