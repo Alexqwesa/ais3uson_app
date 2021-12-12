@@ -39,13 +39,18 @@ A Flutter backend for AIS-3USON
 - [ ] Services input
 - [ ] Journal
 - [ ] Logo
+- [ ] rework network error handling, maybe use Dio?
 - [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта
 - [ ] Snackbar для сообщений и ошибок
 - [ ] индикатор обновления?
 - [ ] управление отделениями
 - [ ] услуги по типам
-- [ ] дополнительные ограничение доступных услуг?
+- [ ] дополнительные ограничения доступных услуг?
+- [ ] сообщения от заведующих (по группам работников, одному, всем)
+- [ ] закончившиеся услуги - в конец списка
+- [ ] может быть вводить услуги жестом, а не onTap ???
+- [ ] 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?
 
 ## Разработчики
 
@@ -53,3 +58,9 @@ A Flutter backend for AIS-3USON
 
 ## Лицензия
 [LGPLv3](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
+
+Изображения в папке images взяты с сервиса [www.flaticon.com](www.flaticon.com), в соответствии требованиями сервиса, размещаю ссылки:
+- Some Icons in folder *images* made by [Freepik](www.freepik.com) from [www.flaticon.com](www.flaticon.com)
+- Some Icons in folder *images* made by [Smashicons](www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com)
+
+These images belongs to its owners, I am allowed to use them in this project by permission of service [www.flaticon.com](www.flaticon.com).
