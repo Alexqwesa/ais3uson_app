@@ -60,6 +60,7 @@ A Flutter backend for AIS-3USON
 ## Лицензия
 [LGPLv3](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
 
+### Используемые в программе ресурсы
 Изображения в папке images получены с сервиса [www.flaticon.com](www.flaticon.com), в соответствии требованиями сервиса, размещены ссылки:
 - Some Icons in folder *images* made by [Freepik](www.freepik.com) from [www.flaticon.com](www.flaticon.com)
 - Some Icons in folder *images* made by [Smashicons](www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com)
