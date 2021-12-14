@@ -89,14 +89,33 @@ class _QRViewExampleState extends State<QRViewExample> {
                                   Colors.green,
                                 ),
                               ),
-                              onPressed: () async {
+                              onPressed: () async{
+                                if (result == null) {
+                                  return;
+                                }
                                 final newKey = result!.code!
                                     .substring(7, result!.code!.length);
                                 final res = await AppData().addProfileFromUKey(
                                   UserKey.fromJson(json.decode(newKey)),
                                 );
-                                await Navigator.pushNamed(context, '/');
-                                result = null;
+                                if (!mounted) return;
+                                if (res) {
+                                  // Navigator.of(context).pop();
+                                  await Navigator.of(context).pushNamed('/');
+                                } else {
+                                  const snackBar = SnackBar(
+                                    content: Text(
+                                      'Ошибка добавления отделения, возможно отделение уже было добавлено',
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+
+                                setState(() {
+                                  result = null;
+                                  controller!.resumeCamera();
+                                });
                               },
                               child: const Text(
                                 'Добавить!',
@@ -190,7 +209,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       });
       if (describeEnum(result!.format) == 'qrcode' ||
           result!.code!.startsWith('http://{"app": "AIS-3USON web"')) {
-        controller.stopCamera();
+        controller.pauseCamera();
       }
     });
   }
