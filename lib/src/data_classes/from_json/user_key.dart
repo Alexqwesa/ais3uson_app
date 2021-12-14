@@ -1,5 +1,7 @@
 // import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+
 /// app : "AIS3USON web"
 /// name : "test"
 /// api_key : "123"
@@ -11,7 +13,7 @@
 
 // ignore_for_file:invalid_assignment
 // ignore_for_file:avoid_dynamic_calls
-
+@immutable
 class UserKey {
   String get app => _app;
 
@@ -30,6 +32,29 @@ class UserKey {
   String get port => _port;
 
   String get httpBody => '''{"api_key": $_apiKey}''';
+
+  @override
+  int get hashCode {
+    return '${_apiKey.hashCode} + ${_otd.hashCode} + ${_host.hashCode}'
+        .hashCode;
+  }
+
+  @override
+  bool operator ==( dynamic other) {
+    if (other.runtimeType != UserKey) {
+      return false;
+    }
+
+    // other = other as UserKey;
+    return _app == other.app &&
+        _name == other.name &&
+        _apiKey == other.apiKey &&
+        _otdId == other.otdId &&
+        _otd == other.otd &&
+        _db == other.db &&
+        _host == other.host &&
+        _port == other.port;
+  }
 
   String _app = '';
   String _name = '';
