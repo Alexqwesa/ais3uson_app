@@ -11,7 +11,7 @@ import 'client_profile.dart';
 import 'from_json/fio_entry.dart';
 import 'from_json/user_key.dart';
 
-class UserProfile with SyncData {
+class WorkerProfile with SyncData {
   UserKey key;
   late String name;
   late Box hive;
@@ -26,11 +26,11 @@ class UserProfile with SyncData {
   List<FioPlanned> _fioPlanned = [];
   List<ClientProfile> _clients = [];
 
-  UserProfile(this.key) {
+  WorkerProfile(this.key) {
     hive = AppData.instance.hiveData;
     name = key.name;
     // hive.delete(key.apiKey + "fioList");
-    syncHive();
+    syncHiveFio();
     syncHivePlanned();
   }
 
@@ -79,8 +79,8 @@ class UserProfile with SyncData {
 
   /// Sync hive data
   ///
-  /// sync [UserProfile] services data
-  Future<void> syncHive() async {
+  /// sync [WorkerProfile]  data
+  Future<void> syncHiveFio() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: 'http://${key.host}:48080/fio',

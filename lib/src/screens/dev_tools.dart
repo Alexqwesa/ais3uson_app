@@ -142,7 +142,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
         ElevatedButton(
           onPressed: () {
             // checkHTTP();
-            AppData.instance.syncHive();
+            AppData.instance.syncHiveServices();
           },
           child: const Text('Обновить!'),
         ),

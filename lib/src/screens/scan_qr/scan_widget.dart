@@ -92,7 +92,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                               onPressed: () async {
                                 final newKey = result!.code!
                                     .substring(7, result!.code!.length);
-                                AppData().addProfile(
+                                final res = await AppData().addProfileFromUKey(
                                   UserKey.fromJson(json.decode(newKey)),
                                 );
                                 await Navigator.pushNamed(context, '/');

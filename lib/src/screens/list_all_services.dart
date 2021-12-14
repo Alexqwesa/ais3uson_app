@@ -72,7 +72,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          AppData.instance.syncHive();
+                          AppData.instance.syncHiveServices();
                         },
                         child: const Text('Обновить!'),
                       ),

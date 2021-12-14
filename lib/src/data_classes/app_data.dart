@@ -6,10 +6,10 @@ import 'dart:core';
 
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/user_profile.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../global.dart';
 import 'from_json/service_entry.dart';
 import 'from_json/user_key.dart';
 
@@ -27,7 +27,7 @@ class AppData with ChangeNotifier, SyncData {
 
   static AppData get instance => _instance; // ??= AppData._internal();
 
-  List<UserProfile> get profiles => _profiles;
+  List<WorkerProfile> get profiles => _profiles;
 
   List<ServiceEntry> get services => _services;
 
@@ -37,7 +37,7 @@ class AppData with ChangeNotifier, SyncData {
   Iterable<UserKey> get userKeys => _profiles.map((e) => e.key);
 
   /// Get first profile with working server
-  UserProfile get profile {
+  WorkerProfile get profile {
     // TODO:
     // if (_profiles.first.connection_ok){
     return _profiles.first;
@@ -47,7 +47,7 @@ class AppData with ChangeNotifier, SyncData {
   List<ServiceEntry> _services = [];
 
   /// Profiles list
-  List<UserProfile> _profiles = [];
+  List<WorkerProfile> _profiles = [];
 
   /// Constructor
   ///
@@ -84,17 +84,21 @@ class AppData with ChangeNotifier, SyncData {
   ///
   /// read setting from hive, and sync
   void postInit() {
-    addProfile(UserKey.fromJson(jsonDecode(qrData)));
-    for (final String prof
-        in hiveData.get('profileList', defaultValue: <String>[])) {
-      addProfile(UserKey.fromJson(jsonDecode(prof)));
+    for (final Map<dynamic,dynamic> keyFromHive in hiveData.get(
+      'UserKeys',
+      defaultValue: <Map<String,dynamic>>[],
+    )) {
+      _profiles.add(WorkerProfile(UserKey.fromJson(keyFromHive.cast<String,dynamic>() )));
     }
-    for (final String serv
-        in hiveData.get('services', defaultValue: <String>[])) {
-      _services.add(ServiceEntry.fromJson(jsonDecode(serv)));
+    notifyListeners();
+    for (final String servFromHive in hiveData.get(
+      'services',
+      defaultValue: <String>[],
+    )) {
+      _services.add(ServiceEntry.fromJson(jsonDecode(servFromHive)));
     }
     if (_services.isEmpty) {
-      syncHive();
+      syncHiveServices();
     }
   }
 
@@ -103,18 +107,27 @@ class AppData with ChangeNotifier, SyncData {
     notifyListeners();
   }
 
-  void addProfile(UserKey key) {
-    _profiles.add(UserProfile(key));
-    notifyListeners();
+  Future<bool> addProfileFromUKey(UserKey key) async{
+    if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
+      _profiles.add(WorkerProfile(key));
+      await hiveData.put('UserKeys', userKeys.map((e) => e.toJson()).toList());
+      notifyListeners();
+
+      return true;
+    }
+
+    return false;
   }
 
   /// Sync hive data
   ///
   /// sync [_services]
-  Future<void> syncHive() async {
-    return hiddenSyncHive(
-      apiKey: apiKey,
-      urlAddress: 'http://${profile.key.host}:48080/services',
-    );
+  Future<void> syncHiveServices() async {
+    if (_profiles.isNotEmpty) {
+      return hiddenSyncHive(
+        apiKey: apiKey,
+        urlAddress: 'http://${profile.key.host}:48080/services',
+      );
+    }
   }
 }
