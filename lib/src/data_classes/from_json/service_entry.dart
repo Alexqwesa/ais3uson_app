@@ -13,17 +13,39 @@ class ServiceEntry {
 
   String get tarifNum => _tnum;
 
-  String get servText => _servText;
-
   int get total => _total;
 
-  String get image => _image;
+  String get image {
+    if (total > 0) {
+      return _image.isNotEmpty ? _image : 'total.png';
+    }
+    return _image.isNotEmpty ? _image : 'not-found.png';
+  }
 
   String get servIdList => _servIdList;
 
   int get subServ => _subServ;
 
-  String get shortText => _shortText;
+  String get servText {
+    if (_shortText.isEmpty || _servText.startsWith(_shortText)) {
+      final res = _servText.substring(shortText.length, _servText.length);
+
+      return res.isNotEmpty ? '...$res' : '';
+    }
+
+    // TODO: cut and add bold
+    return _servText;
+  }
+
+  String get shortText {
+    if (_shortText.isNotEmpty) return _shortText;
+    final shText = _servText.substring(
+      0,
+      100 > _servText.length ? _servText.length : 100,
+    );
+
+    return shText;
+  }
 
   int _id = 0;
   String _tnum = '';
