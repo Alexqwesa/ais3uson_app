@@ -13,31 +13,31 @@ class FioPlanned {
 
   int get planned => _planned;
 
-  String get filled => _filled;
+  int get filled => _filled;
 
   late int _contractId;
   late int _servId;
   late int _planned;
-  late String _filled;
+  late int _filled;
 
   FioPlanned({
-    required int contractId,
-    required int servId,
-    required int planned,
-    required String filled,
+    int? contractId,
+    int? servId,
+    int? planned,
+    int? filled,
   }) {
-    _contractId = contractId;
-    _servId = servId;
-    _planned = planned;
-    _filled = filled;
+    _contractId = contractId ?? 0;
+    _servId = servId ?? 0;
+    _planned = planned ?? 0;
+    _filled = filled ?? 0;
   }
 
   // ignore: avoid_annotating_with_dynamic
   FioPlanned.fromJson(dynamic json) {
-    _contractId = json['contract_id'];
-    _servId = json['serv_id'];
-    _planned = json['planned'];
-    _filled = json['filled'];
+    _contractId = json['contract_id'] ?? 0;
+    _servId = json['serv_id'] ?? 0;
+    _planned = json['planned'] ?? 0;
+    _filled = json['filled'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {

@@ -59,12 +59,12 @@ class WorkerProfile with SyncData {
       fillClientServices();
       AppData.instance.notify();
       // AppData.instance.notifyListeners();
-    } else if (hiveKey.endsWith('http://${key.host}:48080/Planned')) {
+    } else if (hiveKey.endsWith('http://${key.host}:48080/planned')) {
       // Sync Planned services
       //
       //
       final lstOfMaps = hiddenUpdateValueFromHive(
-        hiveKey: 'urlAddress',
+        hiveKey: hiveKey,
         hive: hive,
       );
       _fioPlanned = [];
@@ -90,7 +90,7 @@ class WorkerProfile with SyncData {
   Future<void> syncHivePlanned() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:48080/Planned',
+      urlAddress: 'http://${key.host}:48080/planned',
     );
   }
 
