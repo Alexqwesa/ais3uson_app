@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+class QRScanScreen extends StatefulWidget {
+  const QRScanScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRScanScreenState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRScanScreenState extends State<QRScanScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final foundWidgetKey = GlobalKey();
   Barcode? result;

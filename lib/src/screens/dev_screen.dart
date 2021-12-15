@@ -14,10 +14,10 @@ import 'list_all_services.dart';
 /// About page + dev tests
 ///
 /// about and test buttons...
-class DevPage extends StatelessWidget {
+class DevScreen extends StatelessWidget {
   static const routeName = '/dev';
 
-  const DevPage({Key? key}) : super(key: key);
+  const DevScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

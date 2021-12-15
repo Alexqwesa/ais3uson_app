@@ -4,13 +4,14 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
+import 'package:ais3uson_app/src/screens/fio_services_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../global.dart';
-import 'dev_tools.dart';
-import 'list_fio.dart';
+import 'dev_screen.dart';
+import 'fio_screen.dart';
 import 'list_profiles.dart';
-import 'scan_qr/scan_widget.dart';
+import 'scan_qr/qr_scan_sreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,9 +35,10 @@ class HomeScreen extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/department': (context) => const ListFio(),
-        '/scan_qr': (context) => const QRViewExample(),
-        DevPage.routeName: (context) => const DevPage(),
+        '/department': (context) => const FioScreen(),
+        '/scan_qr': (context) => const QRScanScreen(),
+        DevScreen.routeName: (context) => const DevScreen(),
+        '/fio_services': (context) => const FioServicesScreen(),
       },
       home: const MyHomePage(title: 'Список отделений'),
       debugShowCheckedModeBanner: false,
@@ -110,8 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     // AppData.of(context);
                     Navigator.pop(context, 'qr');
-                    AppData.instance
-                        .addProfileFromUKey(UserKey.fromJson(jsonDecode(qrData2)));
+                    AppData.instance.addProfileFromUKey(
+                        UserKey.fromJson(jsonDecode(qrData2)));
                     // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
                   },
                 ),
@@ -131,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pop(context, 'dev');
                     Navigator.pushNamed(
                       context,
-                      DevPage.routeName,
+                      DevScreen.routeName,
                       arguments: '',
                     );
                   },

@@ -6,14 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ListFio extends StatefulWidget {
-  const ListFio({Key? key}) : super(key: key);
+class FioScreen extends StatefulWidget {
+  const FioScreen({Key? key}) : super(key: key);
 
   @override
-  _ListFioState createState() => _ListFioState();
+  _FioScreenState createState() => _FioScreenState();
 }
 
-class _ListFioState extends State<ListFio> {
+class _FioScreenState extends State<FioScreen> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
