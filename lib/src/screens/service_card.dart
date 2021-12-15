@@ -45,7 +45,7 @@ class _ServiceCardState extends State<ServiceCard>
                 leading: Image.asset("images/${widget.service.image}"),
                 title: Text(widget.service.shortText),
                 enabled: enabled,
-                subtitle: Text(widget.service.servText),
+                subtitle: Text(widget.service.servTextAdd),
               ),
             ],
           ),

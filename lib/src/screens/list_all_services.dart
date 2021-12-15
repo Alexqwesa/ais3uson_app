@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_types_on_closure_parameters
-
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:ais3uson_app/src/screens/service_card.dart';
@@ -20,7 +18,7 @@ class _ListOfAllServices extends State<ListOfAllServices> {
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments;
     return ChangeNotifierProvider(
-      create: (BuildContext context) => AppData(),
+      create: (context) => AppData(),
       child: Center(
         child: Consumer<AppData>(
           builder: (context, data, child) {
@@ -39,8 +37,9 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                       shrinkWrap: true,
                       itemBuilder: (context, int index) {
                         return ServiceCard(
-                            key: ValueKey(servList[index].servText),
-                            service: servList[index]);
+                          key: ValueKey(servList[index].servText),
+                          service: servList[index],
+                        );
                       },
                     )
                   : Column(

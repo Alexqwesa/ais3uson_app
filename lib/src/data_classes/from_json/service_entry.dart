@@ -26,7 +26,9 @@ class ServiceEntry {
 
   int get subServ => _subServ;
 
-  String get servText {
+  String get servText => _servText;
+
+  String get servTextAdd {
     if (_shortText.isEmpty || _servText.startsWith(_shortText)) {
       final res = _servText.substring(shortText.length, _servText.length);
 
