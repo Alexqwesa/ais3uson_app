@@ -61,15 +61,18 @@ class _FioScreenState extends State<FioScreen> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               leading: const Icon(Icons.person),
-                              title: Text('${fioList[index].ufio} № ${fioList[index].contract}'),
-                              // onTap: () {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => const ListServices(fioId)),
-                              //   );
-                              // },
-                              // subtitle: Container(width: 48, height: 48),
+                              title: Text(
+                                  '${fioList[index].ufio} № ${fioList[index].contract}'),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/fio_services',
+                                  arguments: ScreenArguments(
+                                    profile: profileNum,
+                                    contract: fioList[index].contractId,
+                                  ),
+                                );
+                              },
                             );
                           },
                         )
