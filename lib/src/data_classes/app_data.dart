@@ -84,11 +84,12 @@ class AppData with ChangeNotifier, SyncData {
   ///
   /// read setting from hive, and sync
   void postInit() {
-    for (final Map<dynamic,dynamic> keyFromHive in hiveData.get(
+    for (final Map<dynamic, dynamic> keyFromHive in hiveData.get(
       'UserKeys',
-      defaultValue: <Map<String,dynamic>>[],
+      defaultValue: <Map<String, dynamic>>[],
     )) {
-      _profiles.add(WorkerProfile(UserKey.fromJson(keyFromHive.cast<String,dynamic>() )));
+      _profiles.add(
+          WorkerProfile(UserKey.fromJson(keyFromHive.cast<String, dynamic>())));
     }
     notifyListeners();
     for (final String servFromHive in hiveData.get(
@@ -107,7 +108,7 @@ class AppData with ChangeNotifier, SyncData {
     notifyListeners();
   }
 
-  Future<bool> addProfileFromUKey(UserKey key) async{
+  Future<bool> addProfileFromUKey(UserKey key) async {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
       await hiveData.put('UserKeys', userKeys.map((e) => e.toJson()).toList());
@@ -124,7 +125,7 @@ class AppData with ChangeNotifier, SyncData {
   /// sync [_services]
   Future<void> syncHiveServices() async {
     if (_profiles.isNotEmpty) {
-      return hiddenSyncHive(
+      await hiddenSyncHive(
         apiKey: apiKey,
         urlAddress: 'http://${profile.key.host}:48080/services',
       );

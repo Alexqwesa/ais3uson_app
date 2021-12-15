@@ -31,7 +31,9 @@ class _FioScreenState extends State<FioScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed: () => AppData.instance.profiles[profileNum].syncHiveFio(),
+              onPressed: () async {
+                await AppData.instance.profiles[profileNum].syncHiveFio();
+              },
             ),
           ]),
         ),

@@ -95,6 +95,7 @@ class WorkerProfile with SyncData {
   }
 
   void fillClientServices() {
+    // TODO: check services not null and sync it
     if (_fioList.isNotEmpty || _fioPlanned.isNotEmpty) {
       for (final clProf in _clients) {
         clProf.services.addAll(_fioPlanned.where((serv) {
