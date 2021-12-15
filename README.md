@@ -64,5 +64,6 @@ A Flutter backend for AIS-3USON
 Изображения в папке images получены с сервиса [www.flaticon.com](http://www.flaticon.com), в соответствии требованиями сервиса, размещены ссылки:
 - Some Icons in folder *images* made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com)
 - Some Icons in folder *images* made by [Smashicons](http://www.flaticon.com/authors/smashicons) from [www.flaticon.com](http://www.flaticon.com)
+- Some Icons in folder *images* made by [DinosoftLabs](https://www.flaticon.com/authors/dinosoftlabs) from [www.flaticon.com](http://www.flaticon.com)
 
-These images belongs to its owners, I am [allowed to use them](https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209) in this project by permission of service [www.flaticon.com](http://www.flaticon.com).
+These images belongs to its owners, I am [allowed to use them](https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209) in this project by permission of service [www.flaticon.com](http://www.flaticon.com) (here is [license](images/license.pdf)).
