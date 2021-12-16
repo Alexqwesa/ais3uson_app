@@ -40,7 +40,8 @@ class _ServiceCardState extends State<ServiceCard>
         child: Card(
           child: Column(
             children: <Widget>[
-              SizedBox(
+              Padding(
+                padding: const EdgeInsets.all(2.0),
                 child: Center(
                   child: SizedBox(
                     height: 90,
@@ -51,21 +52,24 @@ class _ServiceCardState extends State<ServiceCard>
               ),
               Center(
                 child: SizedBox(
-                  height: 150,
+                  height: 148,
                   width: 200,
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Text(
                           widget.service.shortText,
                           textScaleFactor: 1.1,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                         child: Text(
                           widget.service.servTextAdd,
+                          softWrap: true,
                           // overflow: TextOverflow.ellipsis,
                         ),
                       ),
