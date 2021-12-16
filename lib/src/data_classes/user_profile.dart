@@ -98,6 +98,7 @@ class WorkerProfile with SyncData {
     // TODO: check services not null and sync it
     if (_fioList.isNotEmpty || _fioPlanned.isNotEmpty) {
       for (final clProf in _clients) {
+        clProf.services = <FioPlanned>[];
         clProf.services.addAll(_fioPlanned.where((serv) {
           return serv.contractId == clProf.contractId;
         }));
