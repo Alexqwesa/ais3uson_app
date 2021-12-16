@@ -6,6 +6,7 @@ import 'dart:core';
 
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/user_profile.dart';
+import 'package:ais3uson_app/src/global.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
