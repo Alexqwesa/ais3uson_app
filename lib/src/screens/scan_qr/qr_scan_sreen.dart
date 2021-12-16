@@ -89,7 +89,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                                   Colors.green,
                                 ),
                               ),
-                              onPressed: () async{
+                              onPressed: () async {
                                 if (result == null) {
                                   return;
                                 }

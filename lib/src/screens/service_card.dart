@@ -32,25 +32,33 @@ class _ServiceCardState extends State<ServiceCard>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (widget.service.total == 1)
-          const Divider(
-            thickness: 3,
+    return SizedBox(
+      height: 600,
+      width: 200,
+      child: Column(
+        children: [
+          if (widget.service.total == 1)
+            const Divider(
+              thickness: 3,
+            ),
+          Card(
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Image.asset("images/${widget.service.image}"),
+                  title: Text(widget.service.shortText),
+                  enabled: enabled,
+                  subtitle: Text(
+                    widget.service.servTextAdd,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                // Expanded(child: Container()),
+              ],
+            ),
           ),
-        Card(
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                leading: Image.asset("images/${widget.service.image}"),
-                title: Text(widget.service.shortText),
-                enabled: enabled,
-                subtitle: Text(widget.service.servTextAdd),
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

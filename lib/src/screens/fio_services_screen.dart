@@ -14,7 +14,9 @@ class FioServicesScreen extends StatefulWidget {
 class _FioServicesScreenState extends State<FioServicesScreen> {
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    // var arguments = ModalRoute.of(context)!.settings.arguments;
+    var args = AppData.instance.lastScreen;
+
     final profileNum = args.profileNum;
     final contractId = args.contractId;
 
@@ -46,7 +48,7 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
                   .toList(growable: true);
 
               return servList.isNotEmpty
-                  ? ListView.builder(
+                  ? GridView.builder(
                       // physics: const BouncingScrollPhysics(
                       //     parent: AlwaysScrollableScrollPhysics()),
                       // controller: _controller,
@@ -59,6 +61,10 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
                               element.id == servList[index].servId),
                         );
                       },
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 350,
+                        mainAxisExtent: 600,
+                      ),
                     )
                   : const Text(
                       'Список положенных услуг пуст, \n\n'

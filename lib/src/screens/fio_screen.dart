@@ -64,6 +64,9 @@ class _FioScreenState extends State<FioScreen> {
                               title: Text(
                                   '${fioList[index].ufio} № ${fioList[index].contract}'),
                               onTap: () {
+                                if (AppData.instance.services.isEmpty) {
+                                  AppData.instance.syncHiveServices();
+                                }
                                 Navigator.pushNamed(
                                   context,
                                   '/fio_services',

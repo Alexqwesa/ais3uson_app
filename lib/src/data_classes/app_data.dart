@@ -25,6 +25,8 @@ class AppData with ChangeNotifier, SyncData {
   /// Global Storage [hiveData]
   late Box hiveData;
 
+  late ScreenArguments lastScreen; // = ScreenArguments(profile: 0);
+
   static AppData get instance => _instance; // ??= AppData._internal();
 
   List<WorkerProfile> get profiles => _profiles;
@@ -84,6 +86,7 @@ class AppData with ChangeNotifier, SyncData {
   ///
   /// read setting from hive, and sync
   void postInit() {
+    ScreenArguments(profile: 0);
     for (final Map<dynamic, dynamic> keyFromHive in hiveData.get(
       'UserKeys',
       defaultValue: <Map<String, dynamic>>[],

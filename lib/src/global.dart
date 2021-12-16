@@ -10,7 +10,8 @@ class ScreenArguments {
 
   ScreenArguments({required int profile, int? contract, int? service}) {
     profileNum = profile;
-    contractId = contract ??  0;
+    contractId = contract ?? 0;
     servId = service ?? 0;
+    AppData().lastScreen = this;
   }
 }
