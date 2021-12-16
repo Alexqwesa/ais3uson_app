@@ -113,7 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     // AppData.of(context);
                     Navigator.pop(context, 'qr');
                     AppData.instance.addProfileFromUKey(
-                        UserKey.fromJson(jsonDecode(qrData2)));
+                      UserKey.fromJson(jsonDecode(qrData2)),
+                    );
                     // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
                   },
                 ),

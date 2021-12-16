@@ -27,6 +27,8 @@ class FioServicesScreen extends StatefulWidget {
 class _FioServicesScreenState extends State<FioServicesScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return ChangeNotifierProvider(
       create: (context) => AppData(),
       child: Scaffold(
@@ -48,41 +50,54 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
           ]),
         ),
         body: Center(
-          child: Consumer<AppData>(
-            builder: (context, data, child) {
-              final clients = context.select<AppData, List<FioPlanned>>(
-                (data) => data.profiles[widget.profileNum].clients
-                    .firstWhere(
-                        (element) => widget.contractId == element.contractId)
-                    .services,
-              );
-              final servList = clients
-                  .where((element) => widget.contractId == element.contractId)
-                  .toList(growable: true);
+          child: SingleChildScrollView(
+            child: Consumer<AppData>(
+              builder: (context, data, child) {
+                final clients = context.select<AppData, List<FioPlanned>>(
+                  (data) => data.profiles[widget.profileNum].clients
+                      .firstWhere(
+                        (element) => widget.contractId == element.contractId,
+                      )
+                      .services,
+                );
+                final servList = clients
+                    .where((element) => widget.contractId == element.contractId)
+                    .toList(growable: true);
 
-              return servList.isNotEmpty
-                  // ?DraggableScrollableSheet(
-                  //         child:
+                return servList.isNotEmpty
 
-                  ? Wrap(
-                      children: List.generate(
-                        servList.length,
-                        (index) {
-                          return ServiceCard(
-                            key: ValueKey(servList[index].servId),
-                            service: AppData().services.firstWhere((element) =>
-                                element.id == servList[index].servId),
-                          );
-                        },
-                      ),
-                    )
-                  : const Text(
-                      'Список положенных услуг пуст, \n\n'
-                      'возможно заведующий отделением уже закрыл договор\n\n'
-                      'обновите список',
-                      textAlign: TextAlign.center,
-                    );
-            },
+                    ? Center(
+                        child: Transform.scale(
+                          scale: 1,
+                          child: Wrap(
+                            children: List.generate(
+                              servList.length,
+                              (index) {
+                                return Transform.scale(
+                                  scale: 1,
+                                  child: ServiceCard(
+                                    key: ValueKey(servList[index].servId),
+                                    service: AppData().services.firstWhere(
+                                          (element) =>
+                                              element.id ==
+                                              servList[index].servId,
+                                        ),
+                                    width: size.width / 2.1,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      )
+                    : const Text(
+                        'Список положенных услуг пуст, \n\n'
+                        'возможно заведующий отделением уже закрыл договор\n\n'
+                        'обновите список',
+                        textAlign: TextAlign.center,
+                      );
+              },
+            ),
           ),
         ),
       ),

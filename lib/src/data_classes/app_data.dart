@@ -95,7 +95,8 @@ class AppData with ChangeNotifier, SyncData {
       defaultValue: <Map<String, dynamic>>[],
     )) {
       _profiles.add(
-          WorkerProfile(UserKey.fromJson(keyFromHive.cast<String, dynamic>())));
+        WorkerProfile(UserKey.fromJson(keyFromHive.cast<String, dynamic>())),
+      );
     }
     notifyListeners();
     for (final String servFromHive in hiveData.get(

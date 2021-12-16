@@ -61,7 +61,8 @@ class _FioScreenState extends State<FioScreen> {
                           return ListTile(
                             leading: const Icon(Icons.person),
                             title: Text(
-                                '${fioList[index].ufio} № ${fioList[index].contract}'),
+                              '${fioList[index].ufio} № ${fioList[index].contract}',
+                            ),
                             onTap: () {
                               if (AppData.instance.services.isEmpty) {
                                 AppData.instance.syncHiveServices();

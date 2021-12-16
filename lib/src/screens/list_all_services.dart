@@ -16,7 +16,8 @@ class _ListOfAllServices extends State<ListOfAllServices> {
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments;
+    final size = MediaQuery.of(context).size;
+
     return ChangeNotifierProvider(
       create: (context) => AppData(),
       child: Center(
@@ -36,9 +37,13 @@ class _ListOfAllServices extends State<ListOfAllServices> {
                       itemCount: servList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, int index) {
-                        return ServiceCard(
-                          key: ValueKey(servList[index].servText),
-                          service: servList[index],
+                        return Transform.scale(
+                          scale: 1,
+                          child: ServiceCard(
+                            key: ValueKey(servList[index].servText),
+                            service: servList[index],
+                            width: size.width / 2.1,
+                          ),
                         );
                       },
                     )

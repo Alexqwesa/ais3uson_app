@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 
 class ServiceCard extends StatefulWidget {
   final ServiceEntry service;
+  final double width;
 
-  const ServiceCard({required Key key, required this.service})
-      : super(key: key);
+  const ServiceCard({
+    required Key key,
+    required this.service,
+    required this.width,
+  }) : super(key: key);
 
   @override
   _ServiceCardState createState() => _ServiceCardState();
@@ -33,8 +37,8 @@ class _ServiceCardState extends State<ServiceCard>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
-      width: 200,
+      height: widget.width * 1.2,
+      width: widget.width * 1.0,
       child: AspectRatio(
         aspectRatio: 3 / 4,
         child: Card(
