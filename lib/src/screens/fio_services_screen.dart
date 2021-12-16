@@ -48,22 +48,19 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
                   .toList(growable: true);
 
               return servList.isNotEmpty
-                  ? GridView.builder(
-                      // physics: const BouncingScrollPhysics(
-                      //     parent: AlwaysScrollableScrollPhysics()),
-                      // controller: _controller,
-                      itemCount: servList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return ServiceCard(
-                          key: ValueKey(servList[index].servId),
-                          service: AppData().services.firstWhere((element) =>
-                              element.id == servList[index].servId),
-                        );
-                      },
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 350,
-                        mainAxisExtent: 600,
+                  // ?DraggableScrollableSheet(
+                  //         child:
+
+                  ? Wrap(
+                      children: List.generate(
+                        servList.length,
+                        (index) {
+                          return ServiceCard(
+                            key: ValueKey(servList[index].servId),
+                            service: AppData().services.firstWhere((element) =>
+                                element.id == servList[index].servId),
+                          );
+                        },
                       ),
                     )
                   : const Text(

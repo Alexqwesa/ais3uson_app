@@ -37,56 +37,54 @@ class _FioScreenState extends State<FioScreen> {
             ),
           ]),
         ),
-        body: Center(
-          child: Consumer<AppData>(
-            builder: (context, data, child) {
-              // List<FioEntry> fioList = data.profiles[profileNum].fioList;
-              final fioList = AppData.instance.profiles[profileNum].fioList;
+        body: Consumer<AppData>(
+          builder: (context, data, child) {
+            // List<FioEntry> fioList = data.profiles[profileNum].fioList;
+            final fioList = AppData.instance.profiles[profileNum].fioList;
 
-              return
-                  // Selector<AppData, List<FioEntry>>(
-                  //   selector: (_, model) => model.profiles[profileNum].fioList,
-                  //   builder: (context, fioList, _) {return
-                  //
-                  //
-                  //   List<FioEntry> fioList = context.select<AppData, List<FioEntry>>(
-                  //         (data) => data.profiles[profileNum].fioList,
-                  // );
-                  //     dev.log(fioList.toString());
-                  //   dev.log(AppData().profiles[profileNum].fioList.toString());
-                  fioList.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: fioList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: const Icon(Icons.person),
-                              title: Text(
-                                  '${fioList[index].ufio} № ${fioList[index].contract}'),
-                              onTap: () {
-                                if (AppData.instance.services.isEmpty) {
-                                  AppData.instance.syncHiveServices();
-                                }
-                                Navigator.pushNamed(
-                                  context,
-                                  '/fio_services',
-                                  arguments: ScreenArguments(
-                                    profile: profileNum,
-                                    contract: fioList[index].contractId,
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        )
-                      : const Text(
-                          'Список получателей СУ пуст, \n\n'
-                          'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
-                          'обновите список',
-                          textAlign: TextAlign.center,
-                        );
-            },
-          ),
+            return
+                // Selector<AppData, List<FioEntry>>(
+                //   selector: (_, model) => model.profiles[profileNum].fioList,
+                //   builder: (context, fioList, _) {return
+                //
+                //
+                //   List<FioEntry> fioList = context.select<AppData, List<FioEntry>>(
+                //         (data) => data.profiles[profileNum].fioList,
+                // );
+                //     dev.log(fioList.toString());
+                //   dev.log(AppData().profiles[profileNum].fioList.toString());
+                fioList.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: fioList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: const Icon(Icons.person),
+                            title: Text(
+                                '${fioList[index].ufio} № ${fioList[index].contract}'),
+                            onTap: () {
+                              if (AppData.instance.services.isEmpty) {
+                                AppData.instance.syncHiveServices();
+                              }
+                              Navigator.pushNamed(
+                                context,
+                                '/fio_services',
+                                arguments: ScreenArguments(
+                                  profile: profileNum,
+                                  contract: fioList[index].contractId,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      )
+                    : const Text(
+                        'Список получателей СУ пуст, \n\n'
+                        'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
+                        'обновите список',
+                        textAlign: TextAlign.center,
+                      );
+          },
         ),
       ),
     );

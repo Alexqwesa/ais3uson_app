@@ -33,31 +33,49 @@ class _ServiceCardState extends State<ServiceCard>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 600,
+      height: 250,
       width: 200,
-      child: Column(
-        children: [
-          if (widget.service.total == 1)
-            const Divider(
-              thickness: 3,
-            ),
-          Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: Image.asset("images/${widget.service.image}"),
-                  title: Text(widget.service.shortText),
-                  enabled: enabled,
-                  subtitle: Text(
-                    widget.service.servTextAdd,
-                    overflow: TextOverflow.ellipsis,
+      child: AspectRatio(
+        aspectRatio: 3 / 4,
+        child: Card(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                child: Center(
+                  child: SizedBox(
+                    height: 90,
+                    width: 90,
+                    child: Image.asset("images/${widget.service.image}"),
                   ),
                 ),
-                // Expanded(child: Container()),
-              ],
-            ),
+              ),
+              Center(
+                child: SizedBox(
+                  height: 150,
+                  width: 200,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(
+                          widget.service.shortText,
+                          textScaleFactor: 1.1,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.service.servTextAdd,
+                          // overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
