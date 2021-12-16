@@ -25,11 +25,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_html: any
-  hive: any
+  #  hive: any
   hive_flutter: any
   http: any
   provider: any
-  qr_code_scanner: any
+  qr_code_scanner: ^0.6.1
   surf_lint_rules: any
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,7 +41,7 @@ dev_dependencies:
   flutter_lints: any
   flutter_test:
     sdk: flutter
-  hive_generator: any
+#  hive_generator: any
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
