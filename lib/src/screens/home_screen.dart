@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
         '/department': (context) => const FioScreen(),
         '/scan_qr': (context) => const QRScanScreen(),
         DevScreen.routeName: (context) => const DevScreen(),
-        '/fio_services': (context) => const FioServicesScreen(),
+        '/fio_services': (context) => FioServicesScreen(),
       },
       home: const MyHomePage(title: 'Список отделений'),
       debugShowCheckedModeBanner: false,

@@ -9,6 +9,9 @@ class ClientProfile with SyncData {
   late String name;
 
   List<FioPlanned> get services => _services;
+
+  set services(List<FioPlanned> val) => _services = val;
+
   List<FioPlanned> _services = [];
 
   ClientProfile(this.contractId, this.name);
