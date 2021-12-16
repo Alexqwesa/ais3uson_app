@@ -32,6 +32,8 @@ class AppData with ChangeNotifier, SyncData {
 
   List<WorkerProfile> get profiles => _profiles;
 
+  // TODO: should probably store services in worker profile in case of:
+  // different organisation can use different seriveces...
   List<ServiceEntry> get services => _services;
 
   String get apiKey => profile.key.apiKey;
@@ -116,6 +118,9 @@ class AppData with ChangeNotifier, SyncData {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
       await hiveData.put('UserKeys', userKeys.map((e) => e.toJson()).toList());
+      if (services.isEmpty) {
+        syncHiveServices();
+      }
       notifyListeners();
 
       return true;
