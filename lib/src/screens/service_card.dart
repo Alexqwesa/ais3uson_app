@@ -1,5 +1,4 @@
 import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ServiceCard extends StatefulWidget {
