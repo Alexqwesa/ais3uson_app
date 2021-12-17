@@ -124,6 +124,9 @@ class AppData with ChangeNotifier, SyncData {
       }
       notifyListeners();
 
+      // TODO:
+      // await checkWorkerFio();
+
       return true;
     }
 
