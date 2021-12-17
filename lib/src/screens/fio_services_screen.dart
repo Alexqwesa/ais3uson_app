@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/client_profile.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
-import 'package:ais3uson_app/src/screens/service_card.dart';
+import 'package:ais3uson_app/src/screens/list_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,38 +64,10 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
                     .where((element) => widget.contractId == element.contractId)
                     .toList(growable: true);
 
-                return servList.isNotEmpty
-
-                    ? Center(
-                        child: Transform.scale(
-                          scale: 1,
-                          child: Wrap(
-                            children: List.generate(
-                              servList.length,
-                              (index) {
-                                return Transform.scale(
-                                  scale: 1,
-                                  child: ServiceCard(
-                                    key: ValueKey(servList[index].servId),
-                                    service: AppData().services.firstWhere(
-                                          (element) =>
-                                              element.id ==
-                                              servList[index].servId,
-                                        ),
-                                    width: size.width / 2.1,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      )
-                    : const Text(
-                        'Список положенных услуг пуст, \n\n'
-                        'возможно заведующий отделением уже закрыл договор\n\n'
-                        'обновите список',
-                        textAlign: TextAlign.center,
-                      );
+                return ListServices(
+                  width: size.width,
+                  servListFio: servList,
+                );
               },
             ),
           ),

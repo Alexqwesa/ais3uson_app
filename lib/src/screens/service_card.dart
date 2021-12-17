@@ -39,51 +39,56 @@ class _ServiceCardState extends State<ServiceCard>
     return SizedBox(
       height: widget.width * 1.2,
       width: widget.width * 1.0,
-      child: AspectRatio(
-        aspectRatio: 3 / 4,
-        child: Card(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Center(
+      child: Stack(
+        children: [
+          Card(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Center(
+                    child: SizedBox(
+                      height: 90,
+                      width: 90,
+                      child: Image.asset("images/${widget.service.image}"),
+                    ),
+                  ),
+                ),
+                Center(
                   child: SizedBox(
-                    height: 90,
-                    width: 90,
-                    child: Image.asset("images/${widget.service.image}"),
+                    height: widget.width * 1.2 - 102,
+                    width: 200,
+                    child: SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Text(
+                              widget.service.shortText,
+                              textScaleFactor: 1.1,
+                              textAlign: TextAlign.center,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                            child: Text(
+                              widget.service.servTextAdd,
+                              softWrap: true,
+                              // overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: SizedBox(
-                  height: 148,
-                  width: 200,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          widget.service.shortText,
-                          textScaleFactor: 1.1,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                        child: Text(
-                          widget.service.servTextAdd,
-                          softWrap: true,
-                          // overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
