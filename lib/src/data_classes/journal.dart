@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// ServiceState
 ///
-/// usual life of ServiceOfJournal is:
+/// usual life of [ServiceOfJournal] is:
 ///                 added   -> finished -> outDated -> [delete]
 ///                 stalled -> finished -> outDated -> [delete]
 ///                         -> rejected ->          -> [delete]
@@ -13,7 +13,7 @@ enum ServiceState { added, stalled, finished, rejected, outDated }
 
 /// Journal
 ///
-/// main repository for services, which worker given, in various states
+/// main repository for services(in various states), provided by worker
 class Journal with ChangeNotifier {
   List<ServiceOfJournal> all = [];
 
@@ -24,7 +24,7 @@ class Journal with ChangeNotifier {
       .where((element) => [
             ServiceState.stalled,
             ServiceState.added,
-            ServiceState.finished
+            ServiceState.finished,
           ].contains(element.state))
       .toList();
 
