@@ -1,3 +1,6 @@
+import 'package:ais3uson_app/src/global.dart';
+import 'package:flutter/cupertino.dart';
+
 /// id : 558
 /// tnum : ""
 /// serv_text : ":"
@@ -8,10 +11,20 @@
 // ignore_for_file:invalid_assignment, avoid_annotating_with_dynamic
 // ignore_for_file:avoid_dynamic_calls
 
+@immutable
 class ServiceEntry {
+  late final int _id;
+  late final String _tnum;
+  late final String _servText;
+  late final int _total;
+  late final String _image;
+  late final String _servIdList;
+  late final int _subServ;
+  late final String _shortText;
+
   int get id => _id;
 
-  String get tarifNum => _tnum;
+  String get tNum => _tnum;
 
   int get total => _total;
 
@@ -19,6 +32,7 @@ class ServiceEntry {
     if (total > 0) {
       return _image.isNotEmpty ? _image : 'total.png';
     }
+
     return _image.isNotEmpty ? _image : 'not-found.png';
   }
 
@@ -49,15 +63,6 @@ class ServiceEntry {
     return shText;
   }
 
-  int _id = 0;
-  String _tnum = '';
-  String _servText = '';
-  int _total = 0;
-  String _image = '';
-  String _servIdList = '';
-  int _subServ = 0;
-  String _shortText = '';
-
   ServiceEntry({
     int id = 0,
     String? tnum,
@@ -69,20 +74,20 @@ class ServiceEntry {
     String? shortText,
   }) {
     _id = id;
-    _tnum = tnum ?? _tnum;
-    _servText = servText ?? _servText;
-    _total = total ?? _total;
-    _image = image ?? _image;
-    _servIdList = servIdList ?? _servIdList;
-    _subServ = subServ ?? _subServ;
-    _shortText = shortText ?? _shortText;
+    _tnum = tnum ?? '___';
+    _servText = servText ?? '';
+    _total = total ?? 0;
+    _image = image ?? '';
+    _servIdList = servIdList ?? '';
+    _subServ = subServ ?? 0;
+    _shortText = shortText ?? '';
   }
 
   ServiceEntry.fromJson(dynamic json) {
-    _id = json['id'];
-    _servText = json['serv_text'];
-    _total = json['total'];
-    _servIdList = json['serv_id_list'];
+    _id = json['id'] ?? 0;
+    _servText = json['serv_text'] ?? '';
+    _total = json['total'] ?? 0;
+    _servIdList = json['serv_id_list'] ?? '';
     _tnum = json['tnum'] ?? 'ERROR';
     _image = json['image'] ?? '';
     _subServ = json['sub_serv'] ?? '';
