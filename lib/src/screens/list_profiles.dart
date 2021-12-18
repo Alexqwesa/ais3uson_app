@@ -4,7 +4,6 @@ import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class ListOfProfiles extends StatefulWidget {
   const ListOfProfiles({Key? key}) : super(key: key);
 
@@ -36,17 +35,16 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    leading: const Icon(Icons.group),
-                    title: Text(userKeys[index].otd),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/department',
-                        arguments: ScreenArguments(profile: index),
-                      );
-                    },
-                    // subtitle: Container(width: 48, height: 48),
-                  );
+                      leading: const Icon(Icons.group),
+                      title: Text(userKeys[index].otd),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/department',
+                          arguments: ScreenArguments(profile: index),
+                        );
+                      },
+                      subtitle: Text(userKeys[index].name),);
                 },
               )
             : const Center(

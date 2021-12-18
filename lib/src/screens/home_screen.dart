@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
+import 'package:ais3uson_app/src/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/src/screens/fio_services_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -39,6 +40,7 @@ class HomeScreen extends StatelessWidget {
         '/scan_qr': (context) => const QRScanScreen(),
         DevScreen.routeName: (context) => const DevScreen(),
         '/fio_services': (context) => FioServicesScreen(),
+        '/delete_department': (context) => DeleteDepartmentScreen(),
       },
       home: const MyHomePage(title: 'Список отделений'),
       debugShowCheckedModeBanner: false,
@@ -119,13 +121,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              // TODO:
-              // const PopupMenuItem(
-              //   child: ListTile(
-              //     leading: Icon(Icons.backspace),
-              //     title: Text('Забыть отделение'),
-              //   ),
-              // ),
+              PopupMenuItem<ListTile>(
+                child: ListTile(
+                  leading: const Icon(Icons.delete),
+                  title: const Text('Удалить отделение'),
+                  onTap: () {
+                    Navigator.pop(context, 'delete_department');
+                    Navigator.pushNamed(
+                      context,
+                      '/delete_department',
+                      arguments: '',
+                    );
+                  },
+                ),
+              ),
               PopupMenuItem<ListTile>(
                 child: ListTile(
                   leading: const Icon(Icons.adb),
