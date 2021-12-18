@@ -49,8 +49,8 @@ class ServiceEntry {
       return res.isNotEmpty ? '...$res' : '';
     }
 
-    // TODO: cut and add bold
-    return _servText;
+    // TODO: is it really better? maybe just return _servText ?
+    return cutFromStart(_servText, shortText) ;
   }
 
   String get shortText {
