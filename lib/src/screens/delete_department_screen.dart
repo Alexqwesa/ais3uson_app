@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onTap: () async {
-                    final result = await _showMyDialog(context);
+                    final result = await _showMyDialog(context, index);
                     if (result == 'delete') {
                       // if (!mounted) return;
                       AppData().profiles.removeAt(index);
@@ -62,7 +63,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
   }
 }
 
-Future<String?> _showMyDialog(BuildContext context) async {
+Future<String?> _showMyDialog(BuildContext context, int index) async {
   return showDialog<String>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -71,17 +72,23 @@ Future<String?> _showMyDialog(BuildContext context) async {
         title: const Text('Удаление отделения'),
         content: SingleChildScrollView(
           child: ListBody(
-            children: const <Widget>[
-              Text('Вы уверены что хотите удалить отделение: '),
-              Text(''),
+            children: <Widget>[
+              const Text('Вы уверены что хотите удалить отделение: '),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  AppData().profiles[index].key.otd,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
             ],
           ),
         ),
         actions: <Widget>[
-          TextButton(
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.red),
             child: const Text(
               'Удалить',
-              style: TextStyle(color: Colors.red),
             ),
             onPressed: () {
               Navigator.of(context).pop('delete');

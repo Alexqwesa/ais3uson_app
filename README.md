@@ -52,6 +52,7 @@ A Flutter backend for AIS-3USON
 - [ ] закончившиеся услуги - в конец списка
 - [ ] может быть вводить услуги жестом, а не onTap ???
 - [ ] 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?
+- [ ] try autoreconnect few times(with timeout) if there is a problem with network
 
 ## Разработчики
 

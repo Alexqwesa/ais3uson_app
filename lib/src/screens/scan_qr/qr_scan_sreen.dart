@@ -218,7 +218,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
     dev.log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        const SnackBar(content: Text('Нет доступа, разрешите приложению доступ к камере')),
       );
     }
   }
