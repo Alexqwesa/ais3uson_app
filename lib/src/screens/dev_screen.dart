@@ -55,7 +55,7 @@ class DevScreen extends StatelessWidget {
                 Test web worker POST
                 */
                 CheckWorkerServerPOST(),
-                Expanded(child: ListOfAllServices()),
+                // Expanded(child: ListOfAllServices()),
               ]),
             ),
           ),

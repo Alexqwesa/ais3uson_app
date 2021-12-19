@@ -2,8 +2,9 @@ import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:ais3uson_app/src/data_classes/journal.dart';
+import 'package:flutter/material.dart';
 
-class ClientService {
+class ClientService with ChangeNotifier {
   late final ServiceEntry service;
   late final FioPlanned planned;
   late final int workerId;
@@ -27,9 +28,9 @@ class ClientService {
 
   int get used => _used;
 
+  String get image => service.image;
+
   int _used = 0;
-
-
 
   ClientService({
     required this.service,
@@ -39,6 +40,7 @@ class ClientService {
   });
 
   bool addUsed() {
+    _used = _used + 1;
     AppData().journal.add(
           ServiceOfJournal(
             servId: planned.servId,
