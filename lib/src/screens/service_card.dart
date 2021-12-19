@@ -45,11 +45,62 @@ class _ServiceCardState extends State<ServiceCard>
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: Center(
-                    child: SizedBox(
-                      height: 90,
-                      width: 90,
-                      child: Image.asset("images/${widget.service.image}"),
+                  child: SizedBox(
+                    height: 90,
+                    child: Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Transform.scale(
+                            scale: 0.5,
+                            child: Column(
+                              children: [
+                                const Icon(
+                                  Icons.volunteer_activism,
+                                  color: Colors.green,
+                                  // size: 12,
+                                ),
+                                Text(
+                                  '0',
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+
+                                const Icon(
+                                  Icons.waves,
+                                  color: Colors.yellow,
+                                ),
+                                Text(
+                                  '0',
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+
+                                const Icon(
+                                  Icons.do_not_touch_outlined,
+                                  color: Colors.red,
+                                ),
+                                Text(
+                                  '0',
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+
+                                // Expanded(
+                                //   child: Container(),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: SizedBox(
+                              height: 90,
+                              width: 90,
+                              child:
+                                  Image.asset('images/${widget.service.image}'),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

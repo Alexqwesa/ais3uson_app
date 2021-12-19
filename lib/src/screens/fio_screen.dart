@@ -25,7 +25,7 @@ class _FioScreenState extends State<FioScreen> {
           title: Row(children: [
             Expanded(
               child: Text(
-                'Люди с отделения ${AppData.instance.profiles[profileNum].name}',
+                AppData.instance.profiles[profileNum].key.otd,
               ),
             ),
             IconButton(
