@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
+import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -98,10 +99,21 @@ class WorkerProfile with SyncData {
     // TODO: check services not null and sync it
     if (_fioList.isNotEmpty || _fioPlanned.isNotEmpty) {
       for (final clProf in _clients) {
-        clProf.services = <FioPlanned>[];
-        clProf.services.addAll(_fioPlanned.where((serv) {
-          return serv.contractId == clProf.contractId;
-        }));
+        clProf.services = <ClientService>[];
+        clProf.services.addAll(
+          _fioPlanned.where((serv) {
+            return serv.contractId == clProf.contractId;
+          }).map(
+            (plan) => ClientService(
+              depId: key.otdId,
+              planned: plan,
+              service: AppData.instance.services.firstWhere(
+                (element) => element.id == plan.servId,
+              ),
+              workerId: key.workerDepId,
+            ),
+          ),
+        );
       }
     }
   }

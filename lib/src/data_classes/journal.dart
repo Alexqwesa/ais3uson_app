@@ -28,6 +28,13 @@ class Journal with ChangeNotifier {
           ].contains(element.state))
       .toList();
 
+  bool add(ServiceOfJournal se) {
+    all.add(se);
+    notifyListeners();
+
+    return true;
+  }
+
   Future<void> deleteOldServices() async {}
 }
 
@@ -43,5 +50,10 @@ class ServiceOfJournal {
   final DateTime provDate = DateTime.now();
   ServiceState state = ServiceState.added;
 
-  ServiceOfJournal(this.servId, this.contractId, this.workerId, this.depId);
+  ServiceOfJournal({
+    required this.servId,
+    required this.contractId,
+    required this.workerId,
+    required this.depId,
+  });
 }
