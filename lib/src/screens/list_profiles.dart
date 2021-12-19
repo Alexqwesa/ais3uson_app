@@ -1,5 +1,5 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
 import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +14,8 @@ class ListOfProfiles extends StatefulWidget {
 }
 
 class _ListOfProfiles extends State<ListOfProfiles> {
-  // var itemCount = AppData.instance.userKeys.length;
-  // List<UserKey> userKeys = AppData.instance.userKeys.toList();
+  // var itemCount = AppData.instance.workerKeys.length;
+  // List<WorkerKey> workerKeys = AppData.instance.workerKeys.toList();
   _ListOfProfiles();
 
   @override
@@ -25,18 +25,18 @@ class _ListOfProfiles extends State<ListOfProfiles> {
       create: (context) => AppData(),
       child: Consumer<AppData>(builder: (context, data, child) {
         // List<FioEntry> fioList = data.profiles[profileNum].fioList;
-        final userKeys = context.select<AppData, List<UserKey>>(
-          (data) => data.userKeys.toList(),
+        final workerKeys = context.select<AppData, List<WorkerKey>>(
+          (data) => data.workerKeys.toList(),
         );
 
-        return userKeys.isNotEmpty
+        return workerKeys.isNotEmpty
             ? ListView.builder(
-                itemCount: userKeys.length,
+                itemCount: workerKeys.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ListTile(
                       leading: const Icon(Icons.group),
-                      title: Text(userKeys[index].otd),
+                      title: Text(workerKeys[index].otd),
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -44,7 +44,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                           arguments: ScreenArguments(profile: index),
                         );
                       },
-                      subtitle: Text(userKeys[index].name),);
+                      subtitle: Text(workerKeys[index].name),);
                 },
               )
             : const Center(

@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
 import 'package:ais3uson_app/src/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/src/screens/fio_services_screen.dart';
 import 'package:flutter/material.dart';
@@ -115,9 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     // AppData.of(context);
                     Navigator.pop(context, 'qr');
                     AppData.instance.addProfileFromUKey(
-                      UserKey.fromJson(jsonDecode(qrData2)),
+                      WorkerKey.fromJson(jsonDecode(qrData2)),
                     );
-                    // Provider.of<AppData>(context, listen: false).addProfile(UserKey.fromJson(jsonDecode(qrData2)));
+                    // Provider.of<AppData>(context, listen: false).addProfile(WorkerKey.fromJson(jsonDecode(qrData2)));
                   },
                 ),
               ),

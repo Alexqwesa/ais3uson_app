@@ -9,10 +9,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'client_profile.dart';
 import 'from_json/fio_entry.dart';
-import 'from_json/user_key.dart';
+import 'from_json/worker_key.dart';
 
 class WorkerProfile with SyncData {
-  UserKey key;
+  WorkerKey key;
   late String name;
   late Box hive;
 

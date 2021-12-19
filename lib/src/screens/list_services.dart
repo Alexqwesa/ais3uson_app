@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
+import 'package:ais3uson_app/src/data_classes/service_state.dart';
 import 'package:ais3uson_app/src/screens/service_card.dart';
 import 'package:flutter/material.dart';
 

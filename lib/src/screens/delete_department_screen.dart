@@ -10,7 +10,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userKeys = AppData().userKeys.toList();
+    final workerKeys = AppData().workerKeys.toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -25,9 +25,9 @@ class DeleteDepartmentScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: userKeys.isNotEmpty
+      body: workerKeys.isNotEmpty
           ? ListView.builder(
-              itemCount: userKeys.length,
+              itemCount: workerKeys.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -38,7 +38,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
                       // color: Colors.red,
                     ),
                   ),
-                  title: Text(userKeys[index].otd),
+                  title: Text(workerKeys[index].otd),
                   trailing: const Icon(
                     Icons.delete,
                     color: Colors.red,
@@ -52,7 +52,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
                       Navigator.pop(context, 'delete');
                     }
                   },
-                  subtitle: Text(userKeys[index].name),
+                  subtitle: Text(workerKeys[index].name),
                 );
               },
             )

@@ -3,7 +3,7 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/user_key.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -96,7 +96,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                                 final newKey = result!.code!
                                     .substring(7, result!.code!.length);
                                 final res = await AppData().addProfileFromUKey(
-                                  UserKey.fromJson(json.decode(newKey)),
+                                  WorkerKey.fromJson(json.decode(newKey)),
                                 );
                                 if (!mounted) return;
                                 if (res) {

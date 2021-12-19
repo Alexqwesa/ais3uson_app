@@ -5,14 +5,14 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
-import 'package:ais3uson_app/src/data_classes/user_profile.dart';
+import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/src/global.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'from_json/service_entry.dart';
-import 'from_json/user_key.dart';
+import 'from_json/worker_key.dart';
 
 /// Global AppData
 ///
@@ -38,8 +38,8 @@ class AppData with ChangeNotifier, SyncData {
 
   String get apiKey => profile.key.apiKey;
 
-  /// userKeys - is user authentication data,
-  Iterable<UserKey> get userKeys => _profiles.map((e) => e.key);
+  /// workerKeys - is user authentication data,
+  Iterable<WorkerKey> get workerKeys => _profiles.map((e) => e.key);
 
   /// Get first profile with working server
   WorkerProfile get profile {
@@ -91,11 +91,11 @@ class AppData with ChangeNotifier, SyncData {
   void postInit() {
     ScreenArguments(profile: 0);
     for (final Map<dynamic, dynamic> keyFromHive in hiveData.get(
-      'UserKeys',
+      'WorkerKeys',
       defaultValue: <Map<String, dynamic>>[],
     )) {
       _profiles.add(
-        WorkerProfile(UserKey.fromJson(keyFromHive.cast<String, dynamic>())),
+        WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
     }
     notifyListeners();
@@ -115,10 +115,10 @@ class AppData with ChangeNotifier, SyncData {
     notifyListeners();
   }
 
-  Future<bool> addProfileFromUKey(UserKey key) async {
+  Future<bool> addProfileFromUKey(WorkerKey key) async {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
-      await hiveData.put('UserKeys', userKeys.map((e) => e.toJson()).toList());
+      await hiveData.put('WorkerKeys', workerKeys.map((e) => e.toJson()).toList());
       if (services.isEmpty) {
         syncHiveServices();
       }
