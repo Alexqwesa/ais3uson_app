@@ -9,7 +9,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 
 import '../global.dart';
-import 'list_all_services.dart';
 
 /// About page + dev tests
 ///

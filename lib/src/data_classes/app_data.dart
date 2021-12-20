@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:ais3uson_app/src/data_classes/journal.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/src/global.dart';
@@ -22,6 +23,7 @@ import 'from_json/worker_key.dart';
 class AppData with ChangeNotifier, SyncData {
   /// Store Singleton
   static late final AppData _instance = AppData._internal();
+  Journal journal = Journal();
 
   /// Global Storage [hiveData]
   late Box hiveData;
@@ -118,7 +120,8 @@ class AppData with ChangeNotifier, SyncData {
   Future<bool> addProfileFromUKey(WorkerKey key) async {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
-      await hiveData.put('WorkerKeys', workerKeys.map((e) => e.toJson()).toList());
+      await hiveData.put(
+          'WorkerKeys', workerKeys.map((e) => e.toJson()).toList());
       if (services.isEmpty) {
         syncHiveServices();
       }
