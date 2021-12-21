@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+
+part 'journal.g.dart';
 
 /// ServiceState
 ///
@@ -14,41 +17,88 @@ enum ServiceState { added, stalled, finished, rejected, outDated }
 /// Journal
 ///
 /// main repository for services(in various states), provided by worker
+// ignore: prefer_mixin
 class Journal with ChangeNotifier {
+  late final Box<ServiceOfJournal> hive;
+  late final int depId;
+  late final String apiKey;
+  late final int workerId;
+
   List<ServiceOfJournal> all = [];
 
-  List<ServiceOfJournal>? get stalled =>
-      all.where((element) => element.state == ServiceState.stalled).toList();
+  Iterable<ServiceOfJournal> get stalled =>
+      all.where((element) => element.state == ServiceState.stalled);
 
-  List<ServiceOfJournal>? get affect => all
-      .where((element) => [
-            ServiceState.stalled,
-            ServiceState.added,
-            ServiceState.finished,
-          ].contains(element.state))
-      .toList();
+  Iterable<ServiceOfJournal> get finished =>
+      all.where((element) => element.state == ServiceState.finished);
+
+  Iterable<ServiceOfJournal> get affect => all.where((element) => [
+        ServiceState.stalled,
+        ServiceState.added,
+        ServiceState.finished,
+      ].contains(element.state));
+
+  Journal({
+    required this.apiKey,
+    required this.workerId,
+    required this.depId,
+  });
+
+  @override
+  void dispose() {
+    hive.close();
+
+    return super.dispose();
+  }
+
+  Future<void> postInit() async {
+    hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+    all = hive.values.toList();
+    notifyListeners();
+  }
+
+  Future<void> save() async {
+    await hive.clear();
+    await hive.addAll(all);
+    await hive.compact();
+  }
 
   bool add(ServiceOfJournal se) {
     all.add(se);
     notifyListeners();
+    save();
 
     return true;
   }
 
-  Future<void> deleteOldServices() async {}
+  Future<void> deleteOldServices() async {
+    final now = DateTime.now();
+    all.removeWhere((el) => el.provDate.difference(now).inDays > 1);
+    await save();
+  }
 }
 
 /// ServiceOfJournal
 ///
 /// ServiceOfJournal in state [ServiceState.added] the entry that will be send
 /// to BD (and it will change state afterward).
-class ServiceOfJournal {
+@HiveType(typeId: 0)
+class ServiceOfJournal with HiveObjectMixin {
+  @HiveField(0)
   final int servId;
+  @HiveField(1)
   final int contractId;
+  @HiveField(2)
   final int workerId;
+  @HiveField(3)
   final int depId;
+  @HiveField(4)
+  // preinited
   final DateTime provDate = DateTime.now();
+  @HiveField(5)
   ServiceState state = ServiceState.added;
+  @HiveField(6)
+  String error = '';
 
   ServiceOfJournal({
     required this.servId,
