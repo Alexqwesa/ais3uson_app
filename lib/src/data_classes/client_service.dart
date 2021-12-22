@@ -4,6 +4,7 @@ import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:ais3uson_app/src/data_classes/journal.dart';
 import 'package:flutter/material.dart';
 
+// ignore: prefer_mixin
 class ClientService with ChangeNotifier {
   late final ServiceEntry service;
   late final FioPlanned planned;

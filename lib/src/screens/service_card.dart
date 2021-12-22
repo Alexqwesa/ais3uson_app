@@ -1,4 +1,3 @@
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,12 +60,9 @@ class _ServiceCardState extends State<ServiceCard>
                             alignment: Alignment.topLeft,
                             child: Transform.scale(
                               scale: 0.5,
-
                               child: ServiceCardState(
                                 clientService: widget.service,
                               ),
-
-
                             ),
                           ),
                           Expanded(
@@ -75,7 +71,8 @@ class _ServiceCardState extends State<ServiceCard>
                                 height: 90,
                                 width: 90,
                                 child: Image.asset(
-                                    'images/${widget.service.image}',),
+                                  'images/${widget.service.image}',
+                                ),
                               ),
                             ),
                           ),
@@ -98,7 +95,8 @@ class _ServiceCardState extends State<ServiceCard>
                                 textScaleFactor: 1.1,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold,),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             Padding(
@@ -127,9 +125,8 @@ class _ServiceCardState extends State<ServiceCard>
 class ServiceCardState extends StatelessWidget {
   final ClientService clientService;
 
-  const ServiceCardState({required this.clientService, Key? key })
+  const ServiceCardState({required this.clientService, Key? key})
       : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +138,7 @@ class ServiceCardState extends StatelessWidget {
         child: Consumer<ClientService>(
           builder: (context, data, child) {
             final used = context.select<ClientService, int>(
-                  (data) => data.used,
+              (data) => data.used,
             );
 
             return Column(
@@ -153,10 +150,7 @@ class ServiceCardState extends StatelessWidget {
                 ),
                 Text(
                   used.toString(),
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline5,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
 
                 const Icon(
@@ -165,10 +159,7 @@ class ServiceCardState extends StatelessWidget {
                 ),
                 Text(
                   used.toString(),
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline5,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
 
                 const Icon(
@@ -177,10 +168,7 @@ class ServiceCardState extends StatelessWidget {
                 ),
                 Text(
                   '0',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline5,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
 
                 // Expanded(

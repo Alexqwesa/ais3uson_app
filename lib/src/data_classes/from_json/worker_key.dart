@@ -74,7 +74,21 @@ class WorkerKey {
     _port = port;
   }
 
+  // ignore: avoid_annotating_with_dynamic
+  WorkerKey.fromJson(dynamic json) {
+    _app = json['app'];
+    _name = json['name'];
+    _workerDepId = json['worker_dep_id'];
+    _apiKey = json['api_key'];
+    _otdId = json['otd_id'];
+    _otd = json['otd'];
+    _db = json['db'];
+    _host = json['host'];
+    _port = json['port'];
+  }
+
   @override
+  // ignore: avoid_annotating_with_dynamic
   bool operator ==(dynamic other) {
     if (other.runtimeType != WorkerKey) {
       return false;
@@ -90,19 +104,6 @@ class WorkerKey {
         _db == other.db &&
         _host == other.host &&
         _port == other.port;
-  }
-
-  // ignore: avoid_annotating_with_dynamic
-  WorkerKey.fromJson(dynamic json) {
-    _app = json['app'];
-    _name = json['name'];
-    _workerDepId = json['worker_dep_id'];
-    _apiKey = json['api_key'];
-    _otdId = json['otd_id'];
-    _otd = json['otd'];
-    _db = json['db'];
-    _host = json['host'];
-    _port = json['port'];
   }
 
   Map<String, dynamic> toJson() {

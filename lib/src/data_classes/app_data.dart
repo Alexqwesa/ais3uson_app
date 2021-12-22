@@ -4,7 +4,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:ais3uson_app/src/data_classes/journal.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
+import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/src/global.dart';
@@ -12,14 +13,12 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'from_json/service_entry.dart';
-import 'from_json/worker_key.dart';
-
 /// Global AppData
 ///
 /// global singleton class
 /// for storing global data
 /// and notifies listeners
+// ignore: prefer_mixin
 class AppData with ChangeNotifier, SyncData {
   /// Store Singleton
   static late final AppData _instance = AppData._internal();
@@ -121,9 +120,11 @@ class AppData with ChangeNotifier, SyncData {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
       await hiveData.put(
-          'WorkerKeys', workerKeys.map((e) => e.toJson()).toList());
+        'WorkerKeys',
+        workerKeys.map((e) => e.toJson()).toList(),
+      );
       if (services.isEmpty) {
-        syncHiveServices();
+        await syncHiveServices();
       }
       notifyListeners();
 

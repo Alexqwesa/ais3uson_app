@@ -1,15 +1,16 @@
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:ais3uson_app/src/screens/service_card.dart';
 import 'package:flutter/material.dart';
 
 class ListServices extends StatelessWidget {
-  late List<ClientService> _servListFio;
+  late final List<ClientService> _servListFio;
   double _width = double.infinity;
 
-  ListServices({Key? key, required List<ClientService> servListFio, double? width})
-      : super(key: key) {
+  ListServices({
+    required List<ClientService> servListFio,
+    Key? key,
+    double? width,
+  }) : super(key: key) {
     _servListFio = servListFio;
     _width = width ?? _width;
   }

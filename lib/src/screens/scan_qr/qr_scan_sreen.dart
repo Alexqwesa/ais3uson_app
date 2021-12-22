@@ -134,7 +134,9 @@ class _QRScanScreenState extends State<QRScanScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           await controller?.toggleFlash();
-                          setState(() {});
+                          setState(() {
+                            int doNothing;
+                          });
                         },
                         child: FutureBuilder(
                           future: controller?.getFlashStatus(),
@@ -149,7 +151,9 @@ class _QRScanScreenState extends State<QRScanScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           await controller?.flipCamera();
-                          setState(() {});
+                          setState(() {
+                            int doNothing;
+                          });
                         },
                         child: FutureBuilder(
                           future: controller?.getCameraInfo(),
@@ -181,7 +185,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = MediaQuery.of(context).size.width * 0.9;
+    final scanArea = MediaQuery.of(context).size.width * 0.9;
 
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
@@ -189,7 +193,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-        borderColor: Colors.red,
+        // borderColor: Colors.red,
         borderRadius: 5,
         borderLength: 30,
         borderWidth: 5,
@@ -218,7 +222,11 @@ class _QRScanScreenState extends State<QRScanScreen> {
     dev.log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Нет доступа, разрешите приложению доступ к камере')),
+        const SnackBar(
+          content: Text(
+            'Нет доступа, разрешите приложению доступ к камере',
+          ),
+        ),
       );
     }
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: flutter_style_todos
+
 import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/cupertino.dart';
 
