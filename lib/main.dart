@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/data_classes/journal.dart';
 import 'package:ais3uson_app/src/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -7,9 +8,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 ///
 /// here is pre init staffs of the app
 Future init() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(ServiceOfJournalAdapter());
   // await Hive.openBox('settings');
-  final hivData = await Hive.openBox('data');
+  final hivData = await Hive.openBox<dynamic>('profiles');
   final aData = AppData()
     ..hiveData = hivData
     ..postInit();
