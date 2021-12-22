@@ -135,6 +135,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         onPressed: () async {
                           await controller?.toggleFlash();
                           setState(() {
+                            // ignore: unused_local_variable
                             int doNothing;
                           });
                         },
@@ -152,6 +153,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         onPressed: () async {
                           await controller?.flipCamera();
                           setState(() {
+                            // ignore: unused_local_variable
                             int doNothing;
                           });
                         },
