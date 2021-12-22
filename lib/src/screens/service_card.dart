@@ -133,8 +133,8 @@ class ServiceCardState extends StatelessWidget {
     return SizedBox(
       width: 22,
       height: 70,
-      child: ChangeNotifierProvider(
-        create: (_) => clientService,
+      child: ChangeNotifierProvider<ClientService>.value(
+        value: clientService,
         child: Consumer<ClientService>(
           builder: (context, data, child) {
             final used = context.select<ClientService, int>(
