@@ -28,8 +28,11 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return ChangeNotifierProvider(
-      create: (context) => AppData(),
+    return ChangeNotifierProvider<ClientProfile>.value(
+      value: AppData()
+          .profiles[widget.profileNum]
+          .clients
+          .firstWhere((element) => element.contractId == widget.contractId),
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
@@ -50,18 +53,11 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
         ),
         body: Center(
           child: SingleChildScrollView(
-            child: Consumer<AppData>(
+            child: Consumer<ClientProfile>(
               builder: (context, data, child) {
-                final clients = context.select<AppData, List<ClientService>>(
-                  (data) => data.profiles[widget.profileNum].clients
-                      .firstWhere(
-                        (element) => widget.contractId == element.contractId,
-                      )
-                      .services,
-                );
-                final servList = clients
-                    .where((element) => widget.contractId == element.contractId)
-                    .toList(growable: true);
+                final servList =
+                    context.select<ClientProfile, List<ClientService>>(
+                        (data) => data.services.toList());
 
                 return ListServices(
                   width: size.width,

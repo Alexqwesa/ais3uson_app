@@ -104,7 +104,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
           _testHTTP = response.body;
         });
       }
-    }).catchError((e) {
+    }).catchError((dynamic e) {
       setState(() {
         _testHTTP = e.toString();
         dev.log(e.toString());
@@ -139,8 +139,8 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
       children: <Widget>[
         ElevatedButton(
           onPressed: () {
-            // checkHTTP();
-            AppData.instance.syncHiveServices();
+            checkHTTP();
+            // AppData.instance.syncHiveServices();
           },
           child: const Text('Обновить!'),
         ),
@@ -157,7 +157,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
       setState(() {
         _testHTTP = jsonDecode(response.body).toString();
       });
-    }).catchError((e) {
+    }).catchError((dynamic e) {
       setState(() {
         _testHTTP = '$e';
       });

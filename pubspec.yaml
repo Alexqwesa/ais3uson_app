@@ -27,6 +27,7 @@ dependencies:
   flutter_html: any
   #  hive: any
   hive_flutter: any
+  hive_generator: any
   http: any
   provider: any
   quiver: any
