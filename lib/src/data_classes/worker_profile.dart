@@ -1,36 +1,61 @@
-// ignore_for_file: always_use_package_imports
+// ignore_for_file: always_use_package_imports, flutter_style_todos
 
 import 'dart:async';
 
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
-import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter/material.dart';
 
 import 'client_profile.dart';
 import 'from_json/fio_entry.dart';
+import 'from_json/service_entry.dart';
 import 'from_json/worker_key.dart';
+import 'journal.dart';
 
-class WorkerProfile with SyncData {
-  WorkerKey key;
-  late String name;
-  late Box hive;
-
-  List<FioEntry> get fioList => _fioList;
+/// [WorkerProfile]
+///
+/// profile of worker created from authentication QR code (or line)
+/// store and sync data of
+class WorkerProfile with SyncData, ChangeNotifier {
+  late final WorkerKey key;
+  late final Journal journal;
+  late final String name;
 
   List<FioPlanned> get fioPlanned => _fioPlanned;
 
   List<ClientProfile> get clients => _clients;
 
-  List<FioEntry> _fioList = [];
+  List<ServiceEntry> get services => _services;
+
+  /// Services list
+  ///
+  /// since worker could potentially work
+  /// on two different organizations (half rate in each),
+  /// with different services - we store services in worker profile
+  /// (not in app profile)
+  List<ServiceEntry> _services = [];
+
+  /// Planned amount of services for client
+  ///
+  /// since we get data in bunch - store it here
   List<FioPlanned> _fioPlanned = [];
+
+  /// list of clients List<ClientProfile>
   List<ClientProfile> _clients = [];
 
+  /// Constructor [WorkerProfile]
+  ///
+  /// init and call async function to sync data
   WorkerProfile(this.key) {
-    hive = AppData.instance.hiveData;
     name = key.name;
-    // hive.delete(key.apiKey + "fioList");
+    journal = Journal(
+      apiKey: key.apiKey,
+      depId: key.otdId,
+      workerId: key.workerDepId,
+    );
+    if (_services.isEmpty) {
+      syncHiveServices();
+    }
     syncHiveFio();
     syncHivePlanned();
   }
@@ -39,43 +64,44 @@ class WorkerProfile with SyncData {
   ///
   /// read hive data and notify
   @override
-  void updateValueFromHive(String hiveKey) {
+  Future<void> updateValueFromHive(String hiveKey) async {
     if (hiveKey.endsWith('http://${key.host}:48080/fio')) {
-      // Sync fio list
       //
-      // get data
-      final lstOfMaps = hiddenUpdateValueFromHive(
-        hiveKey: hiveKey,
-        hive: hive,
-      );
-      // convert data
-      _fioList = [];
-      for (final entry in lstOfMaps) {
-        _fioList.add(FioEntry.fromJson(entry));
-      }
-      _clients = _fioList.map((el) {
-        return ClientProfile(el.contractId, '${el.ufio} ${el.contract}');
-      }).toList();
-      // post convert - notify
-      fillClientServices();
-      AppData.instance.notify();
-      // AppData.instance.notifyListeners();
+      // Get ClientProfile from hive
+      //
+      _clients =
+          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioEntry>((json) {
+        return FioEntry.fromJson(json);
+      }).map((el) {
+        return ClientProfile(
+          workerProfile: this,
+          contractId: el.contractId,
+          name: '${el.ufio} ${el.contract}',
+        );
+      }).toList(growable: false);
     } else if (hiveKey.endsWith('http://${key.host}:48080/planned')) {
-      // Sync Planned services
       //
+      // Sync Planned services from hive
       //
-      final lstOfMaps = hiddenUpdateValueFromHive(
-        hiveKey: hiveKey,
-        hive: hive,
-      );
-      _fioPlanned = [];
-      for (final entry in lstOfMaps) {
-        _fioPlanned.add(FioPlanned.fromJson(entry));
-      }
-      fillClientServices();
-      AppData.instance.notify();
-      // AppData.instance.notifyListeners();
+      _fioPlanned =
+          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioPlanned>((json) {
+        return FioPlanned.fromJson(json);
+      }).toList(growable: false);
+    } else if (hiveKey.endsWith('http://${key.host}:48080/services')) {
+      //
+      // Sync services from hive
+      //
+      _services =
+          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ServiceEntry>((json) {
+        return ServiceEntry.fromJson(json);
+      }).toList(growable: false);
+    } else {
+      return;
     }
+    //
+    // And finally notify
+    //
+    notifyListeners();
   }
 
   /// Sync hive data
@@ -95,26 +121,13 @@ class WorkerProfile with SyncData {
     );
   }
 
-  void fillClientServices() {
-    // TODO: check services not null and sync it
-    if (_fioList.isNotEmpty || _fioPlanned.isNotEmpty) {
-      for (final clProf in _clients) {
-        clProf.services = <ClientService>[];
-        clProf.services.addAll(
-          _fioPlanned.where((serv) {
-            return serv.contractId == clProf.contractId;
-          }).map(
-            (plan) => ClientService(
-              depId: key.otdId,
-              planned: plan,
-              service: AppData.instance.services.firstWhere(
-                (element) => element.id == plan.servId,
-              ),
-              workerId: key.workerDepId,
-            ),
-          ),
-        );
-      }
-    }
+  /// Sync hive data
+  ///
+  /// sync [_services]
+  Future<void> syncHiveServices() async {
+    await hiddenSyncHive(
+      apiKey: key.apiKey,
+      urlAddress: 'http://${key.host}:48080/services',
+    );
   }
 }

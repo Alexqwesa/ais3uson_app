@@ -1,7 +1,6 @@
-// ignore_for_file: always_use_package_imports, prefer_final_fields
+// ignore_for_file: prefer_final_fields, flutter_style_todos
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:core';
 
 import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
@@ -22,7 +21,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AppData with ChangeNotifier, SyncData {
   /// Store Singleton
   static late final AppData _instance = AppData._internal();
-  Journal journal = Journal();
 
   /// Global Storage [hiveData]
   late Box hiveData;
@@ -91,6 +89,7 @@ class AppData with ChangeNotifier, SyncData {
   /// read setting from hive, and sync
   void postInit() {
     ScreenArguments(profile: 0);
+
     for (final Map<dynamic, dynamic> keyFromHive in hiveData.get(
       'WorkerKeys',
       defaultValue: <Map<String, dynamic>>[],
@@ -100,15 +99,6 @@ class AppData with ChangeNotifier, SyncData {
       );
     }
     notifyListeners();
-    for (final String servFromHive in hiveData.get(
-      'services',
-      defaultValue: <String>[],
-    )) {
-      _services.add(ServiceEntry.fromJson(jsonDecode(servFromHive)));
-    }
-    if (_services.isEmpty) {
-      syncHiveServices();
-    }
   }
 
   void notify() {
@@ -123,9 +113,6 @@ class AppData with ChangeNotifier, SyncData {
         'WorkerKeys',
         workerKeys.map((e) => e.toJson()).toList(),
       );
-      if (services.isEmpty) {
-        await syncHiveServices();
-      }
       notifyListeners();
 
       // TODO:
@@ -135,17 +122,5 @@ class AppData with ChangeNotifier, SyncData {
     }
 
     return false;
-  }
-
-  /// Sync hive data
-  ///
-  /// sync [_services]
-  Future<void> syncHiveServices() async {
-    if (_profiles.isNotEmpty) {
-      await hiddenSyncHive(
-        apiKey: apiKey,
-        urlAddress: 'http://${profile.key.host}:48080/services',
-      );
-    }
   }
 }

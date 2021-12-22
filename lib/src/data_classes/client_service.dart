@@ -1,4 +1,3 @@
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:ais3uson_app/src/data_classes/journal.dart';
@@ -10,6 +9,8 @@ class ClientService with ChangeNotifier {
   late final FioPlanned planned;
   late final int workerId;
   late final int depId;
+
+  late final Journal journal;
 
   int get contractId => planned.contractId;
 
@@ -34,6 +35,7 @@ class ClientService with ChangeNotifier {
   int _used = 0;
 
   ClientService({
+    required this.journal,
     required this.service,
     required this.planned,
     required this.workerId,
@@ -42,14 +44,15 @@ class ClientService with ChangeNotifier {
 
   bool addUsed() {
     _used = _used + 1;
-    AppData().journal.add(
-          ServiceOfJournal(
-            servId: planned.servId,
-            contractId: planned.contractId,
-            workerId: workerId,
-            depId: depId,
-          ),
-        );
+    journal.add(
+      ServiceOfJournal(
+        servId: planned.servId,
+        contractId: planned.contractId,
+        workerId: workerId,
+        depId: depId,
+      ),
+    );
+    notifyListeners();
 
     return true;
   }
