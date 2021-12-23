@@ -5,6 +5,7 @@ import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
 import 'package:flutter/material.dart';
 
+// ignore: prefer_mixin
 class ClientProfile with ChangeNotifier, SyncData {
   late int contractId;
   late String name;
@@ -19,13 +20,14 @@ class ClientProfile with ChangeNotifier, SyncData {
           .where((element) => element.contractId == contractId)
           .map((e) {
         return ClientService(
-            service: workerProfile.services
-                .firstWhere((element) => element.id == e.servId),
-            planned: workerProfile.fioPlanned
-                .firstWhere((element) => element.servId == e.servId),
-            journal: workerProfile.journal,
-            workerId: workerProfile.key.workerDepId,
-            depId: workerProfile.key.otdId);
+          service: workerProfile.services
+              .firstWhere((element) => element.id == e.servId),
+          planned: workerProfile.fioPlanned
+              .firstWhere((element) => element.servId == e.servId),
+          journal: workerProfile.journal,
+          workerId: workerProfile.key.workerDepId,
+          depId: workerProfile.key.otdId,
+        );
       }).toList(growable: true);
     }
 

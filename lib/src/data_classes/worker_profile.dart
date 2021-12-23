@@ -16,6 +16,7 @@ import 'journal.dart';
 ///
 /// profile of worker created from authentication QR code (or line)
 /// store and sync data of
+// ignore: prefer_mixin
 class WorkerProfile with SyncData, ChangeNotifier {
   late final WorkerKey key;
   late final Journal journal;

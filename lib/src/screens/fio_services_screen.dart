@@ -57,7 +57,8 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
               builder: (context, data, child) {
                 final servList =
                     context.select<ClientProfile, List<ClientService>>(
-                        (data) => data.services.toList());
+                  (data) => data.services.toList(),
+                );
 
                 return ListServices(
                   width: size.width,
