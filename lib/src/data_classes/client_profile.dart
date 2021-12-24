@@ -25,8 +25,7 @@ class ClientProfile with ChangeNotifier, SyncData {
           planned: workerProfile.fioPlanned
               .firstWhere((element) => element.servId == e.servId),
           journal: workerProfile.journal,
-          workerId: workerProfile.key.workerDepId,
-          depId: workerProfile.key.otdId,
+          workerDepId: workerProfile.key.workerDepId,
         );
       }).toList(growable: true);
     }

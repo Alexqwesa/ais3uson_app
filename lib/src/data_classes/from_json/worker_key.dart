@@ -20,13 +20,11 @@ class WorkerKey {
 
   String get name => _name;
 
-  int get workerDepId => _workerDepId;
-
   String get apiKey => _apiKey;
 
-  int get otdId => _otdId;
+  int get workerDepId => _workerDepId;
 
-  String get otd => _otd;
+  String get dep => _dep;
 
   String get db => _db;
 
@@ -38,16 +36,15 @@ class WorkerKey {
 
   @override
   int get hashCode {
-    return '${_apiKey.hashCode} + ${_otd.hashCode} + ${_host.hashCode}'
+    return '${_apiKey.hashCode} + ${_dep.hashCode} + ${_host.hashCode}'
         .hashCode;
   }
 
   String _app = '';
   String _name = '';
-  int _workerDepId = 0;
   String _apiKey = '';
-  int _otdId = 0;
-  String _otd = '';
+  int _workerDepId = 0;
+  String _dep = '';
   String _db = '';
   String _host = '';
   String _port = '';
@@ -55,20 +52,18 @@ class WorkerKey {
   WorkerKey({
     required String app,
     required String name,
-    required int workerDepId,
     required String apiKey,
-    required int otdId,
-    required String otd,
+    required int workerDepId,
+    required String dep,
     required String db,
     required String host,
     required String port,
   }) {
     _app = app;
     _name = name;
-    _workerDepId = workerDepId;
     _apiKey = apiKey;
-    _otdId = otdId;
-    _otd = otd;
+    _workerDepId = workerDepId;
+    _dep = dep;
     _db = db;
     _host = host;
     _port = port;
@@ -78,10 +73,9 @@ class WorkerKey {
   WorkerKey.fromJson(dynamic json) {
     _app = json['app'];
     _name = json['name'];
-    _workerDepId = json['worker_dep_id'];
     _apiKey = json['api_key'];
-    _otdId = json['otd_id'];
-    _otd = json['otd'];
+    _workerDepId = json['worker_dep_id'];
+    _dep = json['dep'];
     _db = json['db'];
     _host = json['host'];
     _port = json['port'];
@@ -97,10 +91,9 @@ class WorkerKey {
     // other = other as WorkerKey;
     return _app == other.app &&
         _name == other.name &&
-        _workerDepId == other.workerDepId &&
         _apiKey == other.apiKey &&
-        _otdId == other.otdId &&
-        _otd == other.otd &&
+        _workerDepId == other.workerDepId &&
+        _dep == other.dep &&
         _db == other.db &&
         _host == other.host &&
         _port == other.port;
@@ -110,10 +103,9 @@ class WorkerKey {
     final map = <String, dynamic>{};
     map['app'] = _app;
     map['name'] = _name;
-    map['worker_dep_id'] = _workerDepId;
     map['api_key'] = _apiKey;
-    map['otd_id'] = _otdId;
-    map['otd'] = _otd;
+    map['worker_dep_id'] = _workerDepId;
+    map['dep'] = _dep;
     map['db'] = _db;
     map['host'] = _host;
     map['port'] = _port;

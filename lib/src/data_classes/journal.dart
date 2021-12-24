@@ -20,9 +20,8 @@ enum ServiceState { added, stalled, finished, rejected, outDated }
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
   late final Box<ServiceOfJournal> hive;
-  late final int depId;
   late final String apiKey;
-  late final int workerId;
+  late final int workerDepId;
 
   List<ServiceOfJournal> all = [];
 
@@ -40,8 +39,7 @@ class Journal with ChangeNotifier {
 
   Journal({
     required this.apiKey,
-    required this.workerId,
-    required this.depId,
+    required this.workerDepId,
   });
 
   @override
@@ -91,19 +89,16 @@ class ServiceOfJournal with HiveObjectMixin {
   @HiveField(2)
   final int workerId;
   @HiveField(3)
-  final int depId;
-  @HiveField(4)
   // preinited
   final DateTime provDate = DateTime.now();
-  @HiveField(5)
+  @HiveField(4)
   ServiceState state = ServiceState.added;
-  @HiveField(6)
+  @HiveField(5)
   String error = '';
 
   ServiceOfJournal({
     required this.servId,
     required this.contractId,
     required this.workerId,
-    required this.depId,
   });
 }
