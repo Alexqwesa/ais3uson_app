@@ -216,6 +216,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
       if (describeEnum(result!.format) == 'qrcode' ||
           result!.code!.startsWith('http://{"app": "AIS-3USON web"')) {
         controller.pauseCamera();
+        dev.log(result!.code!);
       }
     });
   }
