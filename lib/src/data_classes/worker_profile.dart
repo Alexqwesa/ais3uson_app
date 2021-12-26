@@ -51,8 +51,7 @@ class WorkerProfile with SyncData, ChangeNotifier {
     name = key.name;
     journal = Journal(
       apiKey: key.apiKey,
-      depId: key.otdId,
-      workerId: key.workerDepId,
+      workerDepId: key.workerDepId,
     );
     if (_services.isEmpty) {
       syncHiveServices();

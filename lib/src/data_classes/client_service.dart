@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class ClientService with ChangeNotifier {
   late final ServiceEntry service;
   late final FioPlanned planned;
-  late final int workerId;
+  late final int workerDepId;
   late final int depId;
 
   late final Journal journal;
@@ -40,8 +40,7 @@ class ClientService with ChangeNotifier {
     required this.journal,
     required this.service,
     required this.planned,
-    required this.workerId,
-    required this.depId,
+    required this.workerDepId,
   });
 
   bool addUsed() {
@@ -50,8 +49,7 @@ class ClientService with ChangeNotifier {
       ServiceOfJournal(
         servId: planned.servId,
         contractId: planned.contractId,
-        workerId: workerId,
-        depId: depId,
+        workerId: workerDepId,
       ),
     );
     notifyListeners();

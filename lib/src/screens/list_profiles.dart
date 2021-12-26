@@ -35,16 +35,17 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ListTile(
-                      leading: const Icon(Icons.group),
-                      title: Text(workerKeys[index].otd),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/department',
-                          arguments: ScreenArguments(profile: index),
-                        );
-                      },
-                      subtitle: Text(workerKeys[index].name),);
+                    leading: const Icon(Icons.group),
+                    title: Text(workerKeys[index].dep),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/department',
+                        arguments: ScreenArguments(profile: index),
+                      );
+                    },
+                    subtitle: Text(workerKeys[index].name),
+                  );
                 },
               )
             : const Center(

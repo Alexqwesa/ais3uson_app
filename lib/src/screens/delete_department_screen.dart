@@ -38,7 +38,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
                       // color: Colors.red,
                     ),
                   ),
-                  title: Text(workerKeys[index].otd),
+                  title: Text(workerKeys[index].dep),
                   trailing: const Icon(
                     Icons.delete,
                     color: Colors.red,
@@ -78,7 +78,7 @@ Future<String?> _showMyDialog(BuildContext context, int index) async {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  AppData().profiles[index].key.otd,
+                  AppData().profiles[index].key.dep,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
