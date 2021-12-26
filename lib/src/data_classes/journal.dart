@@ -56,9 +56,7 @@ class Journal with ChangeNotifier {
   }
 
   Future<void> save() async {
-    await hive.clear();
-    await hive.addAll(all);
-    await hive.compact();
+    // TODO:
   }
 
   bool add(ServiceOfJournal se) {
