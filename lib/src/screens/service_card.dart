@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,7 @@ class _ServiceCardState extends State<ServiceCard>
                           Align(
                             alignment: Alignment.topLeft,
                             child: Transform.scale(
-                              scale: 0.5,
+                              scale: 1.5,
                               child: ServiceCardState(
                                 clientService: widget.service,
                               ),
@@ -130,53 +131,57 @@ class ServiceCardState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 22,
-      height: 70,
-      child: ChangeNotifierProvider<ClientService>.value(
-        value: clientService,
-        child: Consumer<ClientService>(
-          builder: (context, data, child) {
-            final used = context.select<ClientService, int>(
-              (data) => data.used,
-            );
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(2, 14, 1, 1),
+      child: SizedBox(
+        height: 70,
+        width: 10,
+        child: ChangeNotifierProvider<ClientService>.value(
+          value: clientService,
+          child: Consumer<ClientService>(
+            builder: (context, data, child) {
+              final listDoneProgressError = context.select<ClientService, List<int>>(
+                (data) => data.listDoneProgressError,
+              );
 
-            return Column(
-              children: [
-                const Icon(
+              //
+              // data
+              //
+              const icons = <Icon>[
+                Icon(
                   Icons.volunteer_activism,
                   color: Colors.green,
-                  // size: 12,
                 ),
-                Text(
-                  used.toString(),
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-
-                const Icon(
+                Icon(
                   Icons.update,
                   color: Colors.yellow,
                 ),
-                Text(
-                  used.toString(),
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-
-                const Icon(
+                Icon(
                   Icons.do_not_touch_outlined,
                   color: Colors.red,
                 ),
-                Text(
-                  '0',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
+              ];
 
-                // Expanded(
-                //   child: Container(),
-                // ),
-              ],
-            );
-          },
+              return ListView.builder(
+                itemCount: 3,
+                shrinkWrap: true,
+                // physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, i) {
+                  return FittedBox(
+                    child: Column(
+                      children: [
+                        icons.elementAt(i),
+                        Text(
+                          listDoneProgressError.elementAt(i).toString(),
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

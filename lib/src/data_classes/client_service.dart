@@ -30,6 +30,8 @@ class ClientService with ChangeNotifier {
 
   int get used => _used;
 
+  List<int> get listDoneProgressError => <int>[0, _used, 0];
+
   String get image => service.image;
 
   int _used = 0;
