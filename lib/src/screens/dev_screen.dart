@@ -45,6 +45,9 @@ class DevScreen extends StatelessWidget {
                 //   },
                 //   child: const Text('Назад!'),
                 // ),
+                Text(
+                      'Разработчик: Савин Александр Викторович',
+                ),
                 /*
                 Test web worker
                 */

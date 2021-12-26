@@ -35,11 +35,12 @@ A Flutter backend for AIS-3USON
 - периодически (или постоянно) подключаются к интернету для синхронизации данных приложения.
 
 ## TODO:
-- [ ] Write README
+- [x] Write README
 - [x] Use provider
 - [ ] Services input
-- [ ] Journal
-- [ ] Logo
+- [x] Journal
+- [x] Logo
+- [ ] Store userKeys in Cloud?
 - [ ] rework network error handling, maybe use Dio?
 - [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта
@@ -49,8 +50,8 @@ A Flutter backend for AIS-3USON
 - [ ] услуги по типам
 - [ ] дополнительные ограничения доступных услуг?
 - [ ] сообщения от заведующих (по группам работников, одному, всем)
-- [ ] закончившиеся услуги - в конец списка
-- [ ] может быть вводить услуги жестом, а не onTap ???
+- [ ] закончившиеся услуги - в конец списка?
+- [ ] может быть: вводить услуги жестом, а не onTap ???
 - [ ] 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?
 - [ ] try autoreconnect few times(with timeout) if there is a problem with network
 
