@@ -115,6 +115,9 @@ class WorkerProfile with SyncData, ChangeNotifier {
   }
 
   Future<void> syncHivePlanned() async {
+    if (_services.isEmpty){
+      await syncHiveServices();
+    }
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: 'http://${key.host}:48080/planned',

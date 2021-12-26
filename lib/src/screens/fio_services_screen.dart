@@ -27,12 +27,14 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final workerProfile = AppData().profiles[widget.profileNum];
+    final clientProfile = AppData()
+        .profiles[widget.profileNum]
+        .clients
+        .firstWhere((element) => element.contractId == widget.contractId);
 
     return ChangeNotifierProvider<ClientProfile>.value(
-      value: AppData()
-          .profiles[widget.profileNum]
-          .clients
-          .firstWhere((element) => element.contractId == widget.contractId),
+      value: clientProfile,
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
@@ -45,8 +47,7 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () async {
-                await AppData.instance.profiles[widget.profileNum]
-                    .syncHivePlanned();
+                await workerProfile.syncHivePlanned();
               },
             ),
           ]),
