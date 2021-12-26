@@ -226,9 +226,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            'Нет доступа, разрешите приложению доступ к камере',
-          ),
+          content: Text('Нет доступа, разрешите приложению доступ к камере'),
         ),
       );
     }

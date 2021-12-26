@@ -2,11 +2,14 @@
 
 import 'dart:convert';
 import 'dart:developer' as dev;
+import 'dart:io';
 
+import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:overlay_support/overlay_support.dart';
 
-import 'app_data.dart';
 
 mixin SyncData {
   final Map<String, String> _headers = {
@@ -35,8 +38,20 @@ mixin SyncData {
           updateValueFromHive(apiKey + urlAddress);
         }
       }
-    } catch (e) {
-      dev.log(e.toString());
+    } on SocketException {
+      showSimpleNotification(
+        const Text('Ошибка: нет соединения с интернетом!'),
+        background: Colors.red[300],
+        position: NotificationPosition.bottom,
+      );
+      dev.log('No internet connection $urlAddress ');
+    } on HttpException {
+      showSimpleNotification(
+        const Text('Ошибка доступа к серверу!'),
+        background: Colors.red[300],
+        position: NotificationPosition.bottom,
+      );
+      dev.log('Server error $urlAddress ');
     } finally {
       dev.log('sync ended $urlAddress ');
     }
@@ -50,12 +65,22 @@ mixin SyncData {
   }) {
     hive ??= AppData().hiveData;
     try {
-      final lst = List<Map<String, dynamic>>.from((json
-          .decode(hive.get(hiveKey, defaultValue: '[]') as String) as Iterable<dynamic>)
-          .whereType<Map<String, dynamic>>());
+      final lst = List<Map<String, dynamic>>.from(
+        (json.decode(hive.get(hiveKey, defaultValue: '[]') as String)
+                as Iterable<dynamic>)
+            .whereType<Map<String, dynamic>>(),
+      );
 
       return lst;
-    } catch (e) {
+    } on FormatException {
+      dev.log(' Wrong json format - FormatException');
+      dev.log(hive.get(hiveKey, defaultValue: '[]') as String);
+      showSimpleNotification(
+        const Text('Ошибка: получен неправильный ответ от сервера!'),
+        background: Colors.red[300],
+        position: NotificationPosition.bottom,
+      );
+
       return <Map<String, dynamic>>[];
     }
   }

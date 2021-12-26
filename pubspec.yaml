@@ -29,6 +29,7 @@ dependencies:
   hive_flutter: any
   hive_generator: any
   http: any
+  overlay_support: any # ^1.2.1
   provider: any
   quiver: any
   qr_code_scanner: ^0.6.1

@@ -3,6 +3,7 @@ import 'package:ais3uson_app/src/data_classes/journal.dart';
 import 'package:ais3uson_app/src/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 /// Init Hive and AppData
 ///
@@ -25,5 +26,5 @@ Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();
 
   await init();
-  runApp(const HomeScreen());
+  runApp(const OverlaySupport.global(child:  HomeScreen()));
 }
