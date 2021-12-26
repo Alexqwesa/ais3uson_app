@@ -18,7 +18,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 /// for storing global data
 /// and notifies listeners
 // ignore: prefer_mixin
-class AppData with ChangeNotifier, SyncData {
+class AppData with ChangeNotifier{
   /// Store Singleton
   static late final AppData _instance = AppData._internal();
 
@@ -31,10 +31,6 @@ class AppData with ChangeNotifier, SyncData {
 
   List<WorkerProfile> get profiles => _profiles;
 
-  // TODO: should probably store services in worker profile in case of:
-  // different organisation can use different seriveces...
-  List<ServiceEntry> get services => _services;
-
   String get apiKey => profile.key.apiKey;
 
   /// workerKeys - is user authentication data,
@@ -46,9 +42,6 @@ class AppData with ChangeNotifier, SyncData {
     // if (_profiles.first.connection_ok){
     return _profiles.first;
   }
-
-  /// Services list
-  List<ServiceEntry> _services = [];
 
   /// Profiles list
   List<WorkerProfile> _profiles = [];
@@ -66,22 +59,6 @@ class AppData with ChangeNotifier, SyncData {
     // hiveData.close();
     // Don't dispose of singleton
     // super.dispose();
-  }
-
-  /// Update data after sync
-  ///
-  /// read hive data and notify
-  @override
-  void updateValueFromHive(String hiveKey) {
-    final lstOfMaps = hiddenUpdateValueFromHive(
-      hiveKey: hiveKey,
-      hive: hiveData,
-    );
-    _services = [];
-    for (final entry in lstOfMaps) {
-      _services.add(ServiceEntry.fromJson(entry));
-    }
-    notifyListeners();
   }
 
   /// Post init
@@ -114,9 +91,6 @@ class AppData with ChangeNotifier, SyncData {
         workerKeys.map((e) => e.toJson()).toList(),
       );
       notifyListeners();
-
-      // TODO:
-      // await checkWorkerFio();
 
       return true;
     }

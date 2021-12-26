@@ -19,21 +19,22 @@ class _FioScreenState extends State<FioScreen> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     final profileNum = args.profileNum;
+    final workerProfile = AppData.instance.profiles[profileNum];
 
     return ChangeNotifierProvider<WorkerProfile>.value(
-      value: AppData().profiles[profileNum],
+      value: workerProfile,
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
             Expanded(
               child: Text(
-                AppData.instance.profiles[profileNum].key.dep,
+                workerProfile.key.dep,
               ),
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () async {
-                await AppData.instance.profiles[profileNum].syncHiveFio();
+                await workerProfile.syncHiveFio();
               },
             ),
           ]),
@@ -45,7 +46,7 @@ class _FioScreenState extends State<FioScreen> {
               (data) => data.clients.toList(),
             );
             if (clientList.isEmpty) {
-              AppData.instance.profiles[profileNum].syncHiveFio();
+              workerProfile.syncHiveFio();
             }
 
             return
@@ -70,10 +71,9 @@ class _FioScreenState extends State<FioScreen> {
                               clientList[index].name,
                             ),
                             onTap: () {
-                              if (AppData.instance.services.isEmpty) {
-                                AppData()
-                                    .profiles[profileNum]
-                                    .syncHiveServices();
+                              if (workerProfile.services
+                                  .isEmpty) {
+                                workerProfile.syncHiveServices();
                               }
                               Navigator.pushNamed(
                                 context,
