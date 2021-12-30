@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ListServices extends StatelessWidget {
   late final List<ClientService> _servListFio;
-  double _width = double.infinity;
+  late final double _width;
 
   ListServices({
     required List<ClientService> servListFio,
@@ -12,7 +12,7 @@ class ListServices extends StatelessWidget {
     double? width,
   }) : super(key: key) {
     _servListFio = servListFio;
-    _width = width ?? _width;
+    _width = width ?? double.infinity;
   }
 
   @override
