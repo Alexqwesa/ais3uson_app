@@ -24,9 +24,6 @@ class ClientProfile with ChangeNotifier, SyncData {
   /// if list empty - try to fill it here,
   /// if error - just return empty
   List<ClientService> get services {
-    //
-    // Try to fill if empty
-    //
     if (_services.isEmpty) {
       try {
         //

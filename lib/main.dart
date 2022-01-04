@@ -12,6 +12,7 @@ Future init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(ServiceOfJournalAdapter());
+  Hive.registerAdapter(ServiceStateAdapter());
   // await Hive.openBox('settings');
   final hivData = await Hive.openBox<dynamic>('profiles');
   final aData = AppData()

@@ -24,6 +24,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: any
   flutter_html: any
   #  hive: any
   hive_flutter: any
@@ -33,6 +34,7 @@ dependencies:
   provider: any
   quiver: any
   qr_code_scanner: ^0.6.1
+  uuid: any
   surf_lint_rules: any
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

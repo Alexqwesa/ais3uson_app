@@ -12,7 +12,19 @@ part 'journal.g.dart';
 ///
 /// added and stalled | [synced to DB] | finished | [deleted on next day]
 /// rejected | [deleted by user]
-enum ServiceState { added, stalled, finished, rejected, outDated }
+@HiveType(typeId: 10)
+enum ServiceState {
+  @HiveField(0)
+  added,
+  @HiveField(1)
+  stalled,
+  @HiveField(2)
+  finished,
+  @HiveField(3)
+  rejected,
+  @HiveField(4)
+  outDated,
+}
 
 /// Journal
 ///
@@ -90,12 +102,16 @@ class ServiceOfJournal with HiveObjectMixin {
   @HiveField(2)
   final int workerId;
   @HiveField(3)
-  // preinited
-  final DateTime provDate = DateTime.now();
+  //
+  // preinited vars
+  //
+  DateTime provDate = DateTime.now();
   @HiveField(4)
   ServiceState state = ServiceState.added;
   @HiveField(5)
   String error = '';
+  @HiveField(6)
+  String uid = uuid.v4();
 
   ServiceOfJournal({
     required this.servId,

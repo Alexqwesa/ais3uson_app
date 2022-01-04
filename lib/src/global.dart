@@ -1,5 +1,11 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:intl/intl.dart';
 import 'package:quiver/iterables.dart';
+import 'package:uuid/uuid.dart';
+
+const uuid = Uuid();
+String formatSQL = 'yyyy-MM-dd';
+DateFormat sqlFormat = DateFormat(formatSQL);
 
 String qrData =
     '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
