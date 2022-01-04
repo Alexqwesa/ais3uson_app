@@ -44,16 +44,16 @@ class ClientProfile with ChangeNotifier, SyncData {
         // throw IterableElementError.noElement();
         // } catch(e,s) { // IterableElementError
       } on StateError catch (e) {
-        Future.delayed(Duration(milliseconds: 100),
-        () {
-          showSimpleNotification(
-            const Text('Ошибка: не удалось подготовить список услуг!'),
-            background: Colors.red[300],
-            position: NotificationPosition.bottom,
-          );
-        },);
-
-        return _services;
+        Future.delayed(
+          const Duration(milliseconds: 100),
+          () {
+            showSimpleNotification(
+              const Text('Ошибка: не удалось подготовить список услуг!'),
+              background: Colors.red[300],
+              position: NotificationPosition.bottom,
+            );
+          },
+        );
       }
     }
 

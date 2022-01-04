@@ -1,5 +1,14 @@
+import 'dart:convert';
+import 'dart:developer' as dev;
+import 'dart:io';
+
+import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 part 'journal.g.dart';
 
@@ -31,14 +40,17 @@ enum ServiceState {
 /// main repository for services(in various states), provided by worker
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
-  late final Box<ServiceOfJournal> hive;
-  late final String apiKey;
-  late final int workerDepId;
+  late final WorkerProfile workerProfile;
+  late Box<ServiceOfJournal> hive;
 
   //
   // main list of services
   //
   List<ServiceOfJournal> all = [];
+
+  String get apiKey => workerProfile.key.apiKey;
+
+  int get workerDepId => workerProfile.key.workerDepId;
 
   Iterable<ServiceOfJournal> get stalled =>
       all.where((element) => element.state == ServiceState.stalled);
@@ -52,14 +64,22 @@ class Journal with ChangeNotifier {
         ServiceState.finished,
       ].contains(element.state));
 
-  Journal({
-    required this.apiKey,
-    required this.workerDepId,
-  });
+  Iterable<ServiceOfJournal> get servForSync => all.where((element) => [
+        ServiceState.stalled,
+        ServiceState.added,
+      ].contains(element.state));
+
+  Journal(this.workerProfile);
 
   @override
   void dispose() {
-    hive.close();
+    // if (hive.isOpen) {
+    hive
+      ..clear()
+      ..addAll(all)
+      ..compact()
+      ..close();
+    // }
 
     return super.dispose();
   }
@@ -71,15 +91,72 @@ class Journal with ChangeNotifier {
   }
 
   Future<void> save() async {
-    // TODO:
+    hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+    await hive.clear();
+    await hive.addAll(all);
+    await hive.compact();
   }
 
   bool add(ServiceOfJournal se) {
     all.add(se);
+    Future(() async {
+      hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+      await hive.add(se);
+    });
+    commitAll();
     notifyListeners();
-    save();
 
     return true;
+  }
+
+  Future<void> commitAll() async {
+    for (final s in servForSync) {
+      final body = jsonEncode(
+        <String, dynamic>{
+          'api_key': apiKey,
+          'vdate': sqlFormat.format(s.provDate),
+          'uuid': s.uid,
+          'contracts_id': s.contractId,
+          'dep_has_worker_id': s.workerId,
+          'serv_id': s.servId,
+        },
+      );
+      final urlAddress = 'http://${workerProfile.key.host}:48080/add';
+      try {
+        final url = Uri.parse(urlAddress);
+        final response = await http.post(url, headers: httpHeaders, body: body);
+        dev.log('$urlAddress response.statusCode = ${response.statusCode}');
+        if (response.statusCode == 200) {
+          if (response.body.isNotEmpty && response.body != '[]') {}
+        }
+        //
+        // just error handling
+        //
+      } on ClientException {
+        showSimpleNotification(
+          const Text('Ошибка сервера!'),
+          background: Colors.red[300],
+          position: NotificationPosition.bottom,
+        );
+        dev.log('Server error $urlAddress ');
+      } on SocketException {
+        showSimpleNotification(
+          const Text('Ошибка: нет соединения с интернетом!'),
+          background: Colors.red[300],
+          position: NotificationPosition.bottom,
+        );
+        dev.log('No internet connection $urlAddress ');
+      } on HttpException {
+        showSimpleNotification(
+          const Text('Ошибка доступа к серверу!'),
+          background: Colors.red[300],
+          position: NotificationPosition.bottom,
+        );
+        dev.log('Server access error $urlAddress ');
+      } finally {
+        dev.log('sync ended $urlAddress ');
+      }
+    }
   }
 
   Future<void> deleteOldServices() async {

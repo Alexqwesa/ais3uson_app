@@ -49,10 +49,8 @@ class WorkerProfile with SyncData, ChangeNotifier {
   /// init and call async function to sync data
   WorkerProfile(this.key) {
     name = key.name;
-    journal = Journal(
-      apiKey: key.apiKey,
-      workerDepId: key.workerDepId,
-    );
+    journal = Journal(this);
+    journal.postInit();
     if (_services.isEmpty) {
       syncHiveServices();
     }
