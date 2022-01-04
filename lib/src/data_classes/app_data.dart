@@ -3,9 +3,7 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:ais3uson_app/src/data_classes/from_json/service_entry.dart';
 import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
-import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/src/global.dart';
 import 'package:collection/collection.dart';
@@ -18,7 +16,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 /// for storing global data
 /// and notifies listeners
 // ignore: prefer_mixin
-class AppData with ChangeNotifier{
+class AppData with ChangeNotifier {
   /// Store Singleton
   static late final AppData _instance = AppData._internal();
 

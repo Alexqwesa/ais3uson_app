@@ -8,6 +8,7 @@ import 'package:ais3uson_app/src/data_classes/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 /// Abstract mixin [SyncData]
@@ -45,7 +46,7 @@ mixin SyncData {
       final response = await http.post(url, headers: headers, body: body);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
-        if (response.body.isNotEmpty) {
+        if (response.body.isNotEmpty && response.body != '[]' ) {
           await hive.put(apiKey + urlAddress, response.body);
           updateValueFromHive(apiKey + urlAddress);
         }
@@ -53,6 +54,13 @@ mixin SyncData {
       //
       // just error handling
       //
+    } on ClientException {
+      showSimpleNotification(
+        const Text('Ошибка сервера!'),
+        background: Colors.red[300],
+        position: NotificationPosition.bottom,
+      );
+      dev.log('Server error $urlAddress ');
     } on SocketException {
       showSimpleNotification(
         const Text('Ошибка: нет соединения с интернетом!'),
@@ -66,7 +74,7 @@ mixin SyncData {
         background: Colors.red[300],
         position: NotificationPosition.bottom,
       );
-      dev.log('Server error $urlAddress ');
+      dev.log('Server access error $urlAddress ');
     } finally {
       dev.log('sync ended $urlAddress ');
     }
