@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ class _ServiceCardState extends State<ServiceCard>
 
   @override
   void initState() {
+    enabled = widget.service.left > 0;
     _controller = AnimationController(vsync: this);
     super.initState();
   }
@@ -42,72 +45,80 @@ class _ServiceCardState extends State<ServiceCard>
       width: widget.width * 1.0,
       child: Stack(
         children: [
-          Card(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: SizedBox(
-                    height: 90,
-                    child: Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Transform.scale(
-                            scale: 1.5,
-                            child: ServiceCardState(
-                              clientService: widget.service,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Center(
-                            child: SizedBox(
-                              height: 90,
-                              width: 90,
-                              child: Image.asset(
-                                'images/${widget.service.image}',
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Center(
-                  child: SizedBox(
-                    height: widget.width * 1.2 - 102,
-                    width: 200,
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Column(
+          ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              enabled
+                  ? Colors.white.withOpacity(0)
+                  : Colors.grey.withOpacity(.8),
+              BlendMode.multiply,
+            ),
+            child: Card(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: SizedBox(
+                      height: 90,
+                      child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Text(
-                              widget.service.shortText,
-                              textScaleFactor: 1.1,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Transform.scale(
+                              scale: 1.5,
+                              child: ServiceCardState(
+                                clientService: widget.service,
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                            child: Text(
-                              widget.service.servTextAdd,
-                              softWrap: true,
-                              // overflow: TextOverflow.ellipsis,
+                          Expanded(
+                            child: Center(
+                              child: SizedBox(
+                                height: 90,
+                                width: 90,
+                                child: Image.asset(
+                                  'images/${widget.service.image}',
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Center(
+                    child: SizedBox(
+                      height: widget.width * 1.2 - 102,
+                      width: 200,
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Text(
+                                widget.service.shortText,
+                                textScaleFactor: 1.1,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                              child: Text(
+                                widget.service.servTextAdd,
+                                softWrap: true,
+                                // overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Material(
@@ -116,11 +127,12 @@ class _ServiceCardState extends State<ServiceCard>
               splashColor: Colors.amber.withOpacity(0.5),
               onTap: () {
                 setState(() {
-                  widget.service.addUsed();
+                  enabled = widget.service.left > 0;
+                  if (enabled) widget.service.addUsed();
+                  enabled = widget.service.left > 0;
                 });
               },
-              child: Container(
-              ),
+              child: Container(),
             ),
           ),
         ],
@@ -175,14 +187,22 @@ class ServiceCardState extends StatelessWidget {
                 // physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, i) {
                   return FittedBox(
-                    child: Column(
-                      children: [
-                        icons.elementAt(i),
-                        Text(
-                          listDoneProgressError.elementAt(i).toString(),
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ],
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        listDoneProgressError.elementAt(i) == 0
+                            ? Colors.white
+                            : Colors.white.withOpacity(0),
+                        BlendMode.lighten,
+                      ),
+                      child: Column(
+                        children: [
+                          icons.elementAt(i),
+                          Text(
+                            listDoneProgressError.elementAt(i).toString(),
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
