@@ -52,11 +52,10 @@ class AppData with ChangeNotifier {
 
   @override
   void dispose() {
-    // TODO:
-    // hiveData.compact();
-    // hiveData.close();
-    // Don't dispose of singleton
-    // super.dispose();
+    hiveData.compact();
+    hiveData.close();
+    // maybe don't dispose of singleton?
+    super.dispose();
   }
 
   /// Post init

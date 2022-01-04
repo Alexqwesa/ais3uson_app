@@ -6,9 +6,9 @@ part 'journal.g.dart';
 /// ServiceState
 ///
 /// usual life of [ServiceOfJournal] is:
-///                 added   -> finished -> outDated -> [delete]
-///                 stalled -> finished -> outDated -> [delete]
-///                         -> rejected ->          -> [delete]
+///                 added   -> finished -> outDated -> deleted
+///                 stalled -> finished -> outDated -> deleted
+///                         -> rejected ->          -> deleted
 ///
 /// added and stalled | [synced to DB] | finished | [deleted on next day]
 /// rejected | [deleted by user]
@@ -23,6 +23,9 @@ class Journal with ChangeNotifier {
   late final String apiKey;
   late final int workerDepId;
 
+  //
+  // main list of services
+  //
   List<ServiceOfJournal> all = [];
 
   Iterable<ServiceOfJournal> get stalled =>

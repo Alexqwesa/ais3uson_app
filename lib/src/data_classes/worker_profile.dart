@@ -115,7 +115,7 @@ class WorkerProfile with SyncData, ChangeNotifier {
   }
 
   Future<void> syncHivePlanned() async {
-    if (_services.isEmpty){
+    if (_services.isEmpty) {
       await syncHiveServices();
     }
     await hiddenSyncHive(

@@ -19,6 +19,11 @@ class ScreenArguments {
   }
 }
 
+final Map<String, String> httpHeaders = {
+  'Content-type': 'application/json',
+  'Accept': 'application/json',
+};
+
 /// cutFromStart
 ///
 /// cutting [cut] from [input] from the start of [input]
@@ -45,5 +50,7 @@ String cutFromStart(String input, String cut) {
     }
   }
 
-  return cutIndex == 0 ? input : '...${input.substring(cutIndex, input.length)}';
+  return cutIndex == 0
+      ? input
+      : '...${input.substring(cutIndex, input.length)}';
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: always_use_package_imports
+// ignore_for_file: always_use_package_imports, avoid_annotating_with_dynamic
 
 import 'dart:convert';
 import 'dart:developer' as dev;

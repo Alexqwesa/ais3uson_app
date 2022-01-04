@@ -1,25 +1,37 @@
 // ignore_for_file: always_use_package_imports, prefer_final_fields, flutter_style_todos
 
-import 'dart:developer' as dev;
-
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 
+/// [ClientProfile]
+///
+/// Basic data about client:
+///                           contract,
+///                           name,
+///                           services,
+///                           which worker is assigned
 // ignore: prefer_mixin
 class ClientProfile with ChangeNotifier, SyncData {
   late int contractId;
   late String name;
   late WorkerProfile workerProfile;
 
+  /// return List of [ClientService]s
+  ///
+  /// if list empty - try to fill it here,
+  /// if error - just return empty
   List<ClientService> get services {
     //
     // Try to fill if empty
     //
     if (_services.isEmpty) {
       try {
+        //
+        // just search through lists to prepare list of [ClientService]
+        //
         _services = workerProfile.fioPlanned
             .where((element) => element.contractId == contractId)
             .map((e) {
@@ -48,6 +60,9 @@ class ClientProfile with ChangeNotifier, SyncData {
       }
     }
 
+    //
+    // return is here (and only here)
+    //
     return _services;
   }
 

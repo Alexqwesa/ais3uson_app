@@ -142,6 +142,24 @@ class _ServiceCardState extends State<ServiceCard>
 }
 
 class ServiceCardState extends StatelessWidget {
+  //
+  // icon data
+  //
+  static const icons = <Icon>[
+    Icon(
+      Icons.volunteer_activism,
+      color: Colors.green,
+    ),
+    Icon(
+      Icons.update,
+      color: Colors.orange,
+    ),
+    Icon(
+      Icons.do_not_touch_outlined,
+      color: Colors.red,
+    ),
+  ];
+
   final ClientService clientService;
 
   const ServiceCardState({required this.clientService, Key? key})
@@ -162,24 +180,6 @@ class ServiceCardState extends StatelessWidget {
                   context.select<ClientService, List<int>>(
                 (data) => data.listDoneProgressError,
               );
-
-              //
-              // data
-              //
-              const icons = <Icon>[
-                Icon(
-                  Icons.volunteer_activism,
-                  color: Colors.green,
-                ),
-                Icon(
-                  Icons.update,
-                  color: Colors.yellow,
-                ),
-                Icon(
-                  Icons.do_not_touch_outlined,
-                  color: Colors.red,
-                ),
-              ];
 
               return ListView.builder(
                 itemCount: 3,
