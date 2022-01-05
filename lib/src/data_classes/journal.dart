@@ -64,7 +64,7 @@ class Journal with ChangeNotifier {
         ServiceState.finished,
       ].contains(element.state));
 
-  Iterable<ServiceOfJournal> get servForSync => all.where((element) => [
+  Iterable<ServiceOfJournal> get servicesForSync => all.where((element) => [
         ServiceState.stalled,
         ServiceState.added,
       ].contains(element.state));
@@ -109,8 +109,18 @@ class Journal with ChangeNotifier {
     return true;
   }
 
+  /// commitAll
+  ///
+  /// try to commit all [servicesForSync]
+  /// and assign them new statuses
   Future<void> commitAll() async {
-    for (final s in servForSync) {
+    final urlAddress = 'http://${workerProfile.key.host}:48080/add';
+    final url = Uri.parse(urlAddress);
+    //
+    // main loop
+    //
+    final servList = servicesForSync.toList(); // work with copy of list
+    for (final s in servList) {
       final body = jsonEncode(
         <String, dynamic>{
           'api_key': apiKey,
@@ -121,13 +131,19 @@ class Journal with ChangeNotifier {
           'serv_id': s.servId,
         },
       );
-      final urlAddress = 'http://${workerProfile.key.host}:48080/add';
       try {
-        final url = Uri.parse(urlAddress);
         final response = await http.post(url, headers: httpHeaders, body: body);
         dev.log('$urlAddress response.statusCode = ${response.statusCode}');
+        dev.log(response.body);
         if (response.statusCode == 200) {
-          if (response.body.isNotEmpty && response.body != '[]') {}
+          if (response.body.isNotEmpty && response.body != 'Wrong authorization key') {
+            final res = jsonDecode(response.body) as Map<String, dynamic>;
+            s.state = res['id'] as int > 0
+                ? ServiceState.finished
+                : ServiceState.rejected;
+          } else {
+            s.state = ServiceState.stalled;
+          }
         }
         //
         // just error handling
