@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
+import 'package:ais3uson_app/src/screens/card_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +71,9 @@ class _ServiceCardState extends State<ServiceCard>
                               ),
                             ),
                           ),
+                          // 
+                          // service image 
+                          //  
                           Expanded(
                             child: Center(
                               child: SizedBox(
@@ -85,6 +89,9 @@ class _ServiceCardState extends State<ServiceCard>
                       ),
                     ),
                   ),
+                  // 
+                  // service text 
+                  //  
                   Center(
                     child: SizedBox(
                       height: widget.width * 1.2 - 102,
@@ -121,6 +128,9 @@ class _ServiceCardState extends State<ServiceCard>
               ),
             ),
           ),
+          // 
+          // InkWell animation and handler 
+          //  
           Material(
             color: Colors.transparent,
             child: InkWell(
@@ -132,6 +142,18 @@ class _ServiceCardState extends State<ServiceCard>
                   enabled = widget.service.left > 0;
                 });
               },
+              onLongPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<CardScreen>(
+                    builder: (context) {
+                      return CardScreen(
+                        service: widget.service,
+                      );
+                    },
+                  ),
+                );
+              },
               child: Container(),
             ),
           ),
@@ -141,6 +163,10 @@ class _ServiceCardState extends State<ServiceCard>
   }
 }
 
+/// ServiceCardState
+///
+/// Display state of the client service
+/// states: done, pending, rejected (all in numbers)
 class ServiceCardState extends StatelessWidget {
   //
   // icon data
