@@ -55,8 +55,9 @@ class AppData with ChangeNotifier {
 
   @override
   void dispose() {
-    hiveData.compact();
-    hiveData.close();
+    hiveData
+      ..compact()
+      ..close();
     // maybe don't dispose of singleton?
     super.dispose();
   }
@@ -81,13 +82,17 @@ class AppData with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> save() async {
+    return prefs.setString(
+      'WorkerKeys',
+      jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
+    );
+  }
+
   Future<bool> addProfileFromUKey(WorkerKey key) async {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
-      await prefs.setString(
-        'WorkerKeys',
-        jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
-      );
+      await save();
       notifyListeners();
 
       return true;

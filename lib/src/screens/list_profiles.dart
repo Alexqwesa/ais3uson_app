@@ -23,35 +23,37 @@ class _ListOfProfiles extends State<ListOfProfiles> {
     // return Consumer<AppData>(
     return ChangeNotifierProvider(
       create: (context) => AppData(),
-      child: Consumer<AppData>(builder: (context, data, child) {
-        // List<FioEntry> fioList = data.profiles[profileNum].fioList;
-        final workerKeys = context.select<AppData, List<WorkerKey>>(
-          (data) => data.workerKeys.toList(),
-        );
+      child: Consumer<AppData>(
+        builder: (context, data, child) {
+          // List<FioEntry> fioList = data.profiles[profileNum].fioList;
+          final workerKeys = context.select<AppData, List<WorkerKey>>(
+            (data) => data.workerKeys.toList(),
+          );
 
-        return workerKeys.isNotEmpty
-            ? ListView.builder(
-                itemCount: workerKeys.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: const Icon(Icons.group),
-                    title: Text(workerKeys[index].dep),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/department',
-                        arguments: ScreenArguments(profile: index),
-                      );
-                    },
-                    subtitle: Text(workerKeys[index].name),
-                  );
-                },
-              )
-            : const Center(
-                child: Text('Авторизируйтесь (отсканируйте QR код) '),
-              );
-      }),
+          return workerKeys.isNotEmpty
+              ? ListView.builder(
+                  itemCount: workerKeys.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: const Icon(Icons.group),
+                      title: Text(workerKeys[index].dep),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/department',
+                          arguments: ScreenArguments(profile: index),
+                        );
+                      },
+                      subtitle: Text(workerKeys[index].name),
+                    );
+                  },
+                )
+              : const Center(
+                  child: Text('Авторизируйтесь (отсканируйте QR код) '),
+                );
+        },
+      ),
     );
   }
 }

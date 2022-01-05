@@ -57,16 +57,20 @@ class Journal with ChangeNotifier {
   Iterable<ServiceOfJournal> get finished =>
       all.where((element) => element.state == ServiceState.finished);
 
-  Iterable<ServiceOfJournal> get affect => all.where((element) => [
-        ServiceState.stalled,
-        ServiceState.added,
-        ServiceState.finished,
-      ].contains(element.state));
+  Iterable<ServiceOfJournal> get affect => all.where(
+        (element) => [
+          ServiceState.stalled,
+          ServiceState.added,
+          ServiceState.finished,
+        ].contains(element.state),
+      );
 
-  Iterable<ServiceOfJournal> get servicesForSync => all.where((element) => [
-        ServiceState.stalled,
-        ServiceState.added,
-      ].contains(element.state));
+  Iterable<ServiceOfJournal> get servicesForSync => all.where(
+        (element) => [
+          ServiceState.stalled,
+          ServiceState.added,
+        ].contains(element.state),
+      );
 
   Journal(this.workerProfile);
 
@@ -135,7 +139,8 @@ class Journal with ChangeNotifier {
         dev.log('$urlAddress response.statusCode = ${response.statusCode}');
         dev.log(response.body);
         if (response.statusCode == 200) {
-          if (response.body.isNotEmpty && response.body != 'Wrong authorization key') {
+          if (response.body.isNotEmpty &&
+              response.body != 'Wrong authorization key') {
             final res = jsonDecode(response.body) as Map<String, dynamic>;
             s.state = res['id'] as int > 0
                 ? ServiceState.finished

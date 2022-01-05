@@ -11,8 +11,9 @@ import 'package:overlay_support/overlay_support.dart';
 Future init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(ServiceOfJournalAdapter());
-  Hive.registerAdapter(ServiceStateAdapter());
+  Hive
+    ..registerAdapter(ServiceOfJournalAdapter())
+    ..registerAdapter(ServiceStateAdapter());
   // await Hive.openBox('settings');
   final hivData = await Hive.openBox<dynamic>('profiles');
   final aData = AppData()..hiveData = hivData;

@@ -25,19 +25,21 @@ class _FioScreenState extends State<FioScreen> {
       value: workerProfile,
       child: Scaffold(
         appBar: AppBar(
-          title: Row(children: [
-            Expanded(
-              child: Text(
-                workerProfile.key.dep,
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  workerProfile.key.dep,
+                ),
               ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () async {
-                await workerProfile.syncHiveFio();
-              },
-            ),
-          ]),
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  await workerProfile.syncHiveFio();
+                },
+              ),
+            ],
+          ),
         ),
         body: Consumer<WorkerProfile>(
           builder: (context, data, child) {
@@ -71,8 +73,7 @@ class _FioScreenState extends State<FioScreen> {
                               clientList[index].name,
                             ),
                             onTap: () {
-                              if (workerProfile.services
-                                  .isEmpty) {
+                              if (workerProfile.services.isEmpty) {
                                 workerProfile.syncHiveServices();
                               }
                               Navigator.pushNamed(
@@ -88,13 +89,13 @@ class _FioScreenState extends State<FioScreen> {
                         },
                       )
                     : const Center(
-                      child: Text(
+                        child: Text(
                           'Список получателей СУ пуст, \n\n'
                           'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
                           'обновите список',
                           textAlign: TextAlign.center,
                         ),
-                    );
+                      );
           },
         ),
       ),

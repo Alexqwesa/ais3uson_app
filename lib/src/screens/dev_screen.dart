@@ -30,34 +30,36 @@ class DevScreen extends StatelessWidget {
         child: Center(
           child: SizedBox(
             child: Center(
-              child: Column(children: const [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
-                    textScaleFactor: 1.5,
-                    textAlign: TextAlign.center,
+              child: Column(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
+                      textScaleFactor: 1.5,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                //   child: const Text('Назад!'),
-                // ),
-                Text(
-                      'Разработчик: Савин Александр Викторович',
-                ),
-                /*
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   child: const Text('Назад!'),
+                  // ),
+                  Text(
+                    'Разработчик: Савин Александр Викторович',
+                  ),
+                  /*
                 Test web worker
                 */
-                CheckWorkerServer(),
-                /*
+                  CheckWorkerServer(),
+                  /*
                 Test web worker POST
                 */
-                CheckWorkerServerPOST(),
-                // Expanded(child: ListOfAllServices()),
-              ]),
+                  CheckWorkerServerPOST(),
+                  // Expanded(child: ListOfAllServices()),
+                ],
+              ),
             ),
           ),
         ),

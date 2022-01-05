@@ -48,7 +48,9 @@ class DeleteDepartmentScreen extends StatelessWidget {
                     if (result == 'delete') {
                       // if (!mounted) return;
                       AppData().profiles.removeAt(index);
-                      AppData().notifyListeners();
+                      // ignore: unawaited_futures
+                      AppData().save();
+                      AppData().notify();
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context, 'delete');
                     }

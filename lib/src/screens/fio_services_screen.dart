@@ -37,20 +37,22 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
       value: clientProfile,
       child: Scaffold(
         appBar: AppBar(
-          title: Row(children: [
-            Expanded(
-              child: Text(
-                widget.client.name,
-                overflow: TextOverflow.ellipsis,
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  widget.client.name,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () async {
-                await workerProfile.syncHivePlanned();
-              },
-            ),
-          ]),
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  await workerProfile.syncHivePlanned();
+                },
+              ),
+            ],
+          ),
         ),
         body: Center(
           child: SingleChildScrollView(

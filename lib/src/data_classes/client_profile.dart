@@ -3,8 +3,8 @@
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
 import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/material.dart';
-import 'package:overlay_support/overlay_support.dart';
 
 /// [ClientProfile]
 ///
@@ -44,16 +44,7 @@ class ClientProfile with ChangeNotifier, SyncData {
         // throw IterableElementError.noElement();
         // } catch(e,s) { // IterableElementError
       } on StateError catch (e) {
-        Future.delayed(
-          const Duration(milliseconds: 100),
-          () {
-            showSimpleNotification(
-              const Text('Ошибка: не удалось подготовить список услуг!'),
-              background: Colors.red[300],
-              position: NotificationPosition.bottom,
-            );
-          },
-        );
+        showErrorNotification('Ошибка: не удалось подготовить список услуг! $e');
       }
     }
 
