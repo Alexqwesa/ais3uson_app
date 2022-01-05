@@ -101,5 +101,6 @@ flutter:
 
   assets:
     - images/
+    - assets/
 
 

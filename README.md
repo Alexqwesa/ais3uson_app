@@ -43,7 +43,9 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [x] удаление отделений
 - [x] Snackbar для сообщений и ошибок
 - [x] rework network error handling
-- [ ] Store userKeys in Cloud? 
+- [x] Backup Worker keys to cloud
+- [ ] maybe backup media data? only on full backup?
+- [ ] Archive view
 - [ ] use ssl, maybe use Dio?
 - [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта

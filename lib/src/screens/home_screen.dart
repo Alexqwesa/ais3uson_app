@@ -7,6 +7,7 @@ import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
 import 'package:ais3uson_app/src/global.dart';
 import 'package:ais3uson_app/src/screens/dev_screen.dart';
 import 'package:ais3uson_app/src/screens/list_profiles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,71 +24,100 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //
-      // appBar
+      // drawer
       //
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          PopupMenuButton<dynamic>(
-            icon: const Icon(Icons.more_vert),
-            itemBuilder: (context) => <PopupMenuEntry>[
-              PopupMenuItem<ListTile>(
-                child: ListTile(
-                  leading: const Icon(Icons.add),
-                  title: const Text('Сканировать QR код'),
-                  onTap: () {
-                    Navigator.pop(context, 'qr');
-                    Navigator.pushNamed(
-                      context,
-                      '/scan_qr',
-                    );
-                  },
+      drawer: Drawer(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              //
+              // logo
+              //
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width / 4,
+                    ),
+                    child: SizedBox.square(
+                      child: Image.asset('assets/ais-3uson-logo.png'),
+                    ),
+                  ),
                 ),
               ),
-              PopupMenuItem<ListTile>(
-                child: ListTile(
-                  leading: const Icon(Icons.group),
-                  title: const Text('Добавить тестовое отделение'),
-                  onTap: () {
-                    // AppData.of(context);
-                    Navigator.pop(context, 'qr');
-                    AppData.instance.addProfileFromUKey(
-                      WorkerKey.fromJson(jsonDecode(qrData2)),
-                    );
-                  },
+              const Center(
+                child: Text(
+                  'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
+                  textScaleFactor: 1.5,
+                  textAlign: TextAlign.center,
                 ),
               ),
-              PopupMenuItem<ListTile>(
-                child: ListTile(
-                  leading: const Icon(Icons.delete),
-                  title: const Text('Удалить отделение'),
-                  onTap: () {
-                    Navigator.pop(context, 'delete_department');
-                    Navigator.pushNamed(
-                      context,
-                      '/delete_department',
-                      arguments: '',
-                    );
-                  },
-                ),
-              ),
-              PopupMenuItem<ListTile>(
-                child: ListTile(
-                  leading: const Icon(Icons.adb),
-                  title: const Text('О программе'),
-                  onTap: () {
-                    Navigator.pop(context, 'dev');
-                    Navigator.pushNamed(
-                      context,
-                      DevScreen.routeName,
-                      arguments: '',
-                    );
-                  },
+              //
+              // menu list
+              //
+              Expanded(
+                child: ListView(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.add),
+                      title: const Text('Сканировать QR код'),
+                      onTap: () {
+                        Navigator.pop(context, 'qr');
+                        Navigator.pushNamed(
+                          context,
+                          '/scan_qr',
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.group),
+                      title: const Text('Добавить тестовое отделение'),
+                      onTap: () {
+                        // AppData.of(context);
+                        Navigator.pop(context, 'qr');
+                        AppData.instance.addProfileFromUKey(
+                          WorkerKey.fromJson(jsonDecode(qrData2)),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.delete),
+                      title: const Text('Удалить отделение'),
+                      onTap: () {
+                        Navigator.pop(context, 'delete_department');
+                        Navigator.pushNamed(
+                          context,
+                          '/delete_department',
+                          arguments: '',
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.adb),
+                      title: const Text('О программе'),
+                      onTap: () {
+                        Navigator.pop(context, 'dev');
+                        Navigator.pushNamed(
+                          context,
+                          DevScreen.routeName,
+                          arguments: '',
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ],
+        ),
+      ),
+      //
+      // appBar
+      //
+      appBar: AppBar(
+        title: Text(widget.title),
       ),
       //
       // body
