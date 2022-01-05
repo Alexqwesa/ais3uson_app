@@ -2,6 +2,8 @@
     package="com.ais3uson.app.ais3uson_app">
    <application
         android:label="ais3uson_app"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

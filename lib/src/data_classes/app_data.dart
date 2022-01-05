@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields, flutter_style_todos
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
@@ -9,6 +10,7 @@ import 'package:ais3uson_app/src/global.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Global AppData
 ///
@@ -18,7 +20,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 // ignore: prefer_mixin
 class AppData with ChangeNotifier {
   /// Store Singleton
-  static late final AppData _instance = AppData._internal();
+  static late final SharedPreferences prefs;
+  static final AppData _instance = AppData._internal();
 
   /// Global Storage [hiveData]
   late Box hiveData;
@@ -61,13 +64,11 @@ class AppData with ChangeNotifier {
   /// Post init
   ///
   /// read setting from hive, and sync
-  void postInit() {
+  Future<void> postInit() async {
     ScreenArguments(profile: 0);
-
-    for (final Map<dynamic, dynamic> keyFromHive in hiveData.get(
-      'WorkerKeys',
-      defaultValue: <Map<String, dynamic>>[],
-    )) {
+    prefs = await SharedPreferences.getInstance();
+    for (final Map<dynamic, dynamic> keyFromHive
+        in jsonDecode(prefs.getString('WorkerKeys') ?? '[]')) {
       _profiles.add(
         WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
@@ -83,9 +84,9 @@ class AppData with ChangeNotifier {
   Future<bool> addProfileFromUKey(WorkerKey key) async {
     if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
       _profiles.add(WorkerProfile(key));
-      await hiveData.put(
+      await prefs.setString(
         'WorkerKeys',
-        workerKeys.map((e) => e.toJson()).toList(),
+        jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
       );
       notifyListeners();
 

@@ -15,9 +15,8 @@ Future init() async {
   Hive.registerAdapter(ServiceStateAdapter());
   // await Hive.openBox('settings');
   final hivData = await Hive.openBox<dynamic>('profiles');
-  final aData = AppData()
-    ..hiveData = hivData
-    ..postInit();
+  final aData = AppData()..hiveData = hivData;
+  await aData.postInit();
 
   return aData;
 }
@@ -27,5 +26,5 @@ Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();
 
   await init();
-  runApp(const OverlaySupport.global(child:  HomeScreen()));
+  runApp(const OverlaySupport.global(child: HomeScreen()));
 }
