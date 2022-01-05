@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:overlay_support/overlay_support.dart';
 
 part 'journal.g.dart';
 
@@ -149,25 +148,13 @@ class Journal with ChangeNotifier {
         // just error handling
         //
       } on ClientException {
-        showSimpleNotification(
-          const Text('Ошибка сервера!'),
-          background: Colors.red[300],
-          position: NotificationPosition.bottom,
-        );
+        showErrorNotification('Ошибка сервера!');
         dev.log('Server error $urlAddress ');
       } on SocketException {
-        showSimpleNotification(
-          const Text('Ошибка: нет соединения с интернетом!'),
-          background: Colors.red[300],
-          position: NotificationPosition.bottom,
-        );
+        showErrorNotification('Ошибка: нет соединения с интернетом!');
         dev.log('No internet connection $urlAddress ');
       } on HttpException {
-        showSimpleNotification(
-          const Text('Ошибка доступа к серверу!'),
-          background: Colors.red[300],
-          position: NotificationPosition.bottom,
-        );
+        showErrorNotification('Ошибка доступа к серверу!');
         dev.log('Server access error $urlAddress ');
       } finally {
         dev.log('sync ended $urlAddress ');

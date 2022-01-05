@@ -5,6 +5,7 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:ais3uson_app/src/global.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -46,7 +47,7 @@ mixin SyncData {
       final response = await http.post(url, headers: headers, body: body);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
-        if (response.body.isNotEmpty && response.body != '[]' ) {
+        if (response.body.isNotEmpty && response.body != '[]') {
           await hive.put(apiKey + urlAddress, response.body);
           updateValueFromHive(apiKey + urlAddress);
         }
@@ -55,25 +56,13 @@ mixin SyncData {
       // just error handling
       //
     } on ClientException {
-      showSimpleNotification(
-        const Text('Ошибка сервера!'),
-        background: Colors.red[300],
-        position: NotificationPosition.bottom,
-      );
+      showErrorNotification('Ошибка сервера!');
       dev.log('Server error $urlAddress ');
     } on SocketException {
-      showSimpleNotification(
-        const Text('Ошибка: нет соединения с интернетом!'),
-        background: Colors.red[300],
-        position: NotificationPosition.bottom,
-      );
+      showErrorNotification('Ошибка: нет соединения с интернетом!');
       dev.log('No internet connection $urlAddress ');
     } on HttpException {
-      showSimpleNotification(
-        const Text('Ошибка доступа к серверу!'),
-        background: Colors.red[300],
-        position: NotificationPosition.bottom,
-      );
+      showErrorNotification('Ошибка доступа к серверу!');
       dev.log('Server access error $urlAddress ');
     } finally {
       dev.log('sync ended $urlAddress ');

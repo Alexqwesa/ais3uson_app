@@ -1,5 +1,7 @@
 import 'package:ais3uson_app/src/data_classes/app_data.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:quiver/iterables.dart';
 import 'package:uuid/uuid.dart';
 
@@ -59,4 +61,12 @@ String cutFromStart(String input, String cut) {
   return cutIndex == 0
       ? input
       : '...${input.substring(cutIndex, input.length)}';
+}
+
+void showErrorNotification(String text) {
+  showSimpleNotification(
+    Text(text),
+    background: Colors.red[300],
+    position: NotificationPosition.bottom,
+  );
 }
