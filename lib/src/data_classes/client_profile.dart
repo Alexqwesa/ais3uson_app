@@ -1,4 +1,5 @@
 // ignore_for_file: always_use_package_imports, prefer_final_fields, flutter_style_todos
+import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/src/data_classes/client_service.dart';
 import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
@@ -41,10 +42,14 @@ class ClientProfile with ChangeNotifier, SyncData {
             workerDepId: workerProfile.key.workerDepId,
           );
         }).toList(growable: true);
-        // throw IterableElementError.noElement();
-        // } catch(e,s) { // IterableElementError
+        // ignore: avoid_catching_errors
       } on StateError catch (e) {
-        showErrorNotification('Ошибка: не удалось подготовить список услуг! $e');
+        if (e.message == 'No element') {
+          showErrorNotification(
+            'Ошибка: не удалось подготовить список услуг! $e',
+          );
+        }
+        dev.log('ClientProfile: get services: ${e.message}');
       }
     }
 
