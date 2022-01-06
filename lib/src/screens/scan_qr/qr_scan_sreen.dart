@@ -37,12 +37,21 @@ class _QRScanScreenState extends State<QRScanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Сканируйте ваш qr-код'),
+      ),
       body: Column(
         children: <Widget>[
+          //
+          // > camera
+          //
           Expanded(flex: 3, child: _buildQrView(context)),
           Expanded(
             child: Column(
               children: <Widget>[
+                //
+                // > returned text
+                //
                 if (result == null)
                   const Expanded(
                     child: Text('Выполняется поиск Qr-кода...'),
@@ -54,10 +63,14 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         ' Данные: ${result!.code}',
                         softWrap: true,
                       ),
+                      //
+                      // > show buttons on found event
+                      //
                       Row(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.all(8),
+                          Expanded(child: Container()),
+                          Center(
+                            // margin: const EdgeInsets.all(8),
                             child: ElevatedButton(
                               style: ButtonStyle(
                                 backgroundColor:
@@ -76,19 +89,25 @@ class _QRScanScreenState extends State<QRScanScreen> {
                               ),
                             ),
                           ),
-                          const Expanded(
-                            child: Divider(),
-                          ),
+                          // const Expanded(
+                          //   child: Divider(),
+                          // ),
                           // if (result!.code!.contains("http://{ "))
                           Container(
-                            margin: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.only(left: 20, right: 20),
                             child: ElevatedButton(
+                              child: const Text(
+                                'Добавить!',
+                              ),
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
                                   Colors.green,
                                 ),
                               ),
+                              //
+                              // > add new key function
+                              //
                               onPressed: () async {
                                 if (result == null) {
                                   return;
@@ -117,15 +136,15 @@ class _QRScanScreenState extends State<QRScanScreen> {
                                   controller!.resumeCamera();
                                 });
                               },
-                              child: const Text(
-                                'Добавить!',
-                              ),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
+                //
+                // > additional camera control buttons
+                //
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

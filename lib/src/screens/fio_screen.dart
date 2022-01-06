@@ -42,6 +42,9 @@ class _FioScreenState extends State<FioScreen> {
           ),
         ),
         body: Consumer<WorkerProfile>(
+          // 
+          // > get data 
+          // 
           builder: (context, data, child) {
             final clientList =
                 context.select<WorkerProfile, List<ClientProfile>>(
@@ -50,18 +53,11 @@ class _FioScreenState extends State<FioScreen> {
             if (clientList.isEmpty) {
               workerProfile.syncHiveFio();
             }
-
+            
+            // 
+            // > build list 
+            // 
             return
-                // Selector<AppData, List<FioEntry>>(
-                //   selector: (_, model) => model.profiles[profileNum].clientList,
-                //   builder: (context, clientList, _) {return
-                //
-                //
-                //   List<FioEntry> clientList = context.select<AppData, List<FioEntry>>(
-                //         (data) => data.profiles[profileNum].clientList,
-                // );
-                //     dev.log(clientList.toString());
-                //   dev.log(AppData().profiles[profileNum].clientList.toString());
                 clientList.isNotEmpty
                     ? ListView.builder(
                         itemCount: clientList.length,

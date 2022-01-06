@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //
-      // drawer
+      // > drawer
       //
       drawer: Drawer(
         child: SizedBox(
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               //
-              // logo
+              // > logo
               //
               Center(
                 child: Padding(
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               //
-              // menu list
+              // > menu list
               //
               Expanded(
                 child: ListView(
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       //
-      // body
+      // > body
       //
       body: Center(
         heightFactor: 1.1,
@@ -133,6 +133,9 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      // 
+      // > scan qr button 
+      // 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(

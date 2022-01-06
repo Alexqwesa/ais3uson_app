@@ -65,7 +65,7 @@ class WorkerProfile with SyncData, ChangeNotifier {
   Future<void> updateValueFromHive(String hiveKey) async {
     if (hiveKey.endsWith('http://${key.host}:48080/fio')) {
       //
-      // Get ClientProfile from hive
+      // > Get ClientProfile from hive
       //
       _clients =
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioEntry>((json) {
@@ -79,7 +79,7 @@ class WorkerProfile with SyncData, ChangeNotifier {
       }).toList(growable: false);
     } else if (hiveKey.endsWith('http://${key.host}:48080/planned')) {
       //
-      // Sync Planned services from hive
+      // > Sync Planned services from hive
       //
       _fioPlanned =
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioPlanned>((json) {
@@ -87,7 +87,7 @@ class WorkerProfile with SyncData, ChangeNotifier {
       }).toList(growable: false);
     } else if (hiveKey.endsWith('http://${key.host}:48080/services')) {
       //
-      // Sync services from hive
+      // > Sync services from hive
       //
       _services =
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ServiceEntry>((json) {
@@ -97,7 +97,7 @@ class WorkerProfile with SyncData, ChangeNotifier {
       return;
     }
     //
-    // And finally notify
+    // > And finally notify
     //
     notifyListeners();
   }

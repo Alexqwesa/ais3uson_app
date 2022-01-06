@@ -43,8 +43,12 @@ class DeleteDepartmentScreen extends StatelessWidget {
                     Icons.delete,
                     color: Colors.red,
                   ),
+                  subtitle: Text(workerKeys[index].name),
+                  //
+                  // > call dialog
+                  //
                   onTap: () async {
-                    final result = await _showMyDialog(context, index);
+                    final result = await _showDialog(context, index);
                     if (result == 'delete') {
                       // if (!mounted) return;
                       AppData().profiles.removeAt(index);
@@ -55,7 +59,6 @@ class DeleteDepartmentScreen extends StatelessWidget {
                       Navigator.pop(context, 'delete');
                     }
                   },
-                  subtitle: Text(workerKeys[index].name),
                 );
               },
             )
@@ -66,7 +69,11 @@ class DeleteDepartmentScreen extends StatelessWidget {
   }
 }
 
-Future<String?> _showMyDialog(BuildContext context, int index) async {
+/// _showDialog 
+/// 
+/// just simple dialog window,
+/// with delete/cancel buttons
+Future<String?> _showDialog(BuildContext context, int index) async {
   return showDialog<String>(
     context: context,
     barrierDismissible: false, // user must tap button!

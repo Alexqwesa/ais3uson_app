@@ -17,7 +17,7 @@ import 'package:overlay_support/overlay_support.dart';
 /// add synchronizing template for classes
 mixin SyncData {
   //
-  // Standard headers
+  // > Standard headers
   //
   final Map<String, String> _headers = {
     'Content-type': 'application/json',
@@ -39,7 +39,7 @@ mixin SyncData {
     hive ??= AppData().hiveData;
     headers ??= _headers;
     //
-    // main work here
+    // > main - call server
     //
     final body = '''{"api_key": $apiKey}''';
     try {
@@ -53,7 +53,7 @@ mixin SyncData {
         }
       }
       //
-      // just error handling
+      // > just error handling
       //
     } on ClientException {
       showErrorNotification('Ошибка сервера!');

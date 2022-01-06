@@ -5,10 +5,16 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:quiver/iterables.dart';
 import 'package:uuid/uuid.dart';
 
+// 
+// > global const 
+// 
 const uuid = Uuid();
 String formatSQL = 'yyyy-MM-dd';
 DateFormat sqlFormat = DateFormat(formatSQL);
 
+/// qrData 
+/// 
+/// test worker key in json format
 String qrData =
     '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
 String qrData2 =
@@ -27,6 +33,9 @@ class ScreenArguments {
   }
 }
 
+/// httpHeaders
+///
+/// defalult headers for http request
 final Map<String, String> httpHeaders = {
   'Content-type': 'application/json',
   'Accept': 'application/json',
@@ -63,6 +72,9 @@ String cutFromStart(String input, String cut) {
       : '...${input.substring(cutIndex, input.length)}';
 }
 
+/// showErrorNotification
+///
+/// just display error to user
 void showErrorNotification(String text) {
   showSimpleNotification(
     Text(text),

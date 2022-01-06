@@ -27,7 +27,7 @@ class ClientProfile with ChangeNotifier, SyncData {
     if (_services.isEmpty) {
       try {
         //
-        // just search through lists to prepare list of [ClientService]
+        // > just search through lists to prepare list of [ClientService]
         //
         _services = workerProfile.fioPlanned
             .where((element) => element.contractId == contractId)
@@ -49,7 +49,7 @@ class ClientProfile with ChangeNotifier, SyncData {
     }
 
     //
-    // return is here (and only here)
+    // > return is here (and only here)
     //
     return _services;
   }

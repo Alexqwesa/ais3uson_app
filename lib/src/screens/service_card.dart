@@ -71,8 +71,8 @@ class _ServiceCardState extends State<ServiceCard>
                               ),
                             ),
                           ),
-                          // 
-                          // service image 
+                          //
+                          // > service image
                           //  
                           Expanded(
                             child: Center(
@@ -90,7 +90,7 @@ class _ServiceCardState extends State<ServiceCard>
                     ),
                   ),
                   // 
-                  // service text 
+                  // > service text
                   //  
                   Center(
                     child: SizedBox(

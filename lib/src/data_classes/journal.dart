@@ -43,7 +43,7 @@ class Journal with ChangeNotifier {
   late Box<ServiceOfJournal> hive;
 
   //
-  // main list of services
+  // > main list of services
   //
   List<ServiceOfJournal> all = [];
 
@@ -120,7 +120,7 @@ class Journal with ChangeNotifier {
     final urlAddress = 'http://${workerProfile.key.host}:48080/add';
     final url = Uri.parse(urlAddress);
     //
-    // main loop
+    // > main loop
     //
     final servList = servicesForSync.toList(); // work with copy of list
     for (final s in servList) {
@@ -150,7 +150,7 @@ class Journal with ChangeNotifier {
           }
         }
         //
-        // just error handling
+        // > just error handling
         //
       } on ClientException {
         showErrorNotification('Ошибка сервера!');
@@ -188,7 +188,7 @@ class ServiceOfJournal with HiveObjectMixin {
   final int workerId;
   @HiveField(3)
   //
-  // preinited vars
+  // > preinited vars
   //
   DateTime provDate = DateTime.now();
   @HiveField(4)

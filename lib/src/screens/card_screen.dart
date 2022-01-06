@@ -33,7 +33,7 @@ class _CardScreenState extends State<CardScreen> {
                 child: Row(
                   children: [
                     //
-                    // service state icons
+                    // > service state icons
                     //
                     Align(
                       alignment: Alignment.topLeft,
@@ -45,7 +45,7 @@ class _CardScreenState extends State<CardScreen> {
                       ),
                     ),
                     //
-                    // image
+                    // > service image
                     //
                     Expanded(
                       child: Center(
@@ -63,7 +63,7 @@ class _CardScreenState extends State<CardScreen> {
               ),
             ),
             //
-            // service text
+            // > service text
             //
             Center(
               child: SizedBox(

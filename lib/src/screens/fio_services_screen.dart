@@ -36,6 +36,9 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
     return ChangeNotifierProvider<ClientProfile>.value(
       value: clientProfile,
       child: Scaffold(
+        //
+        // > appBar
+        //
         appBar: AppBar(
           title: Row(
             children: [
@@ -58,11 +61,17 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
           child: SingleChildScrollView(
             child: Consumer<ClientProfile>(
               builder: (context, data, child) {
+                // 
+                // > get data 
+                // 
                 final servList =
                     context.select<ClientProfile, List<ClientService>>(
                   (data) => data.services.toList(),
                 );
 
+                // 
+                // > build list 
+                // 
                 return ListServices(
                   width: size.width,
                   servListFio: servList,

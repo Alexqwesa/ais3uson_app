@@ -23,6 +23,8 @@ Future init() async {
 }
 
 /// main
+///
+/// call preinit, overlay and app
 Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();
 
