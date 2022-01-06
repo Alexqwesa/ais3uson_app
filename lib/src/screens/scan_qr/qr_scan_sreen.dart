@@ -43,155 +43,175 @@ class _QRScanScreenState extends State<QRScanScreen> {
       body: Column(
         children: <Widget>[
           //
-          // > camera
+          // > camera widget
           //
-          Expanded(flex: 3, child: _buildQrView(context)),
+          Expanded(flex: 4, child: _buildQrView(context)),
+          //
+          // > returned text
+          //
           Expanded(
-            child: Column(
-              children: <Widget>[
-                //
-                // > returned text
-                //
-                if (result == null)
-                  const Expanded(
-                    child: Text('Выполняется поиск Qr-кода...'),
-                  )
-                else
-                  Column(
-                    children: [
-                      Text(
-                        ' Данные: ${result!.code}',
-                        softWrap: true,
-                      ),
-                      //
-                      // > show buttons on found event
-                      //
-                      Row(
-                        children: [
-                          Expanded(child: Container()),
-                          Center(
-                            // margin: const EdgeInsets.all(8),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Colors.blue[900]!,
-                                ),
-                              ),
-                              onPressed: () async {
-                                setState(() {
-                                  result = null;
-                                });
-                                await controller?.resumeCamera();
-                              },
-                              child: const Text(
-                                'Повторить поиск',
-                              ),
-                            ),
-                          ),
-                          // const Expanded(
-                          //   child: Divider(),
-                          // ),
-                          // if (result!.code!.contains("http://{ "))
-                          Container(
-                            margin: const EdgeInsets.only(left: 20, right: 20),
-                            child: ElevatedButton(
-                              child: const Text(
-                                'Добавить!',
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Colors.green,
-                                ),
-                              ),
-                              //
-                              // > add new key function
-                              //
-                              onPressed: () async {
-                                if (result == null) {
-                                  return;
-                                }
-                                final newKey = result!.code!
-                                    .substring(7, result!.code!.length);
-                                final res = await AppData().addProfileFromUKey(
-                                  WorkerKey.fromJson(json.decode(newKey)),
-                                );
-                                if (!mounted) return;
-                                if (res) {
-                                  // Navigator.of(context).pop();
-                                  await Navigator.of(context).pushNamed('/');
-                                } else {
-                                  const snackBar = SnackBar(
-                                    content: Text(
-                                      'Ошибка добавления отделения, возможно отделение уже было добавлено',
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                }
-
-                                setState(() {
-                                  result = null;
-                                  controller!.resumeCamera();
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                //
-                // > additional camera control buttons
-                //
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
+            child: Card(
+              margin: const EdgeInsets.all(8),
+              elevation: 10,
+              child: Center(
+                child: (result == null)
+                    ? const Text('Выполняется поиск Qr-кода...')
+                    : Text(' Данные: ${result!.code}', softWrap: true),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              //
+              // > rerun search button
+              //
+              Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Visibility(
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    visible: result != null,
+                    child: Container(
                       margin: const EdgeInsets.all(2),
                       child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blue[900]!,
+                          ),
+                        ),
                         onPressed: () async {
-                          await controller?.toggleFlash();
                           setState(() {
-                            // ignore: unused_local_variable
-                            int doNothing;
+                            result = null;
                           });
+                          await controller?.resumeCamera();
                         },
+                        child: const Expanded(
+                          child: Text(
+                            'Повторить поиск',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  //
+                  // > additional camera control
+                  //
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.all(2),
                         child: FutureBuilder(
                           future: controller?.getFlashStatus(),
                           builder: (context, snapshot) {
-                            return Text('Вспышка: ${snapshot.data}');
+                            return ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                snapshot.data != null
+                                    ? Colors.white.withOpacity(0.5)
+                                    : Colors.white.withOpacity(0),
+                                BlendMode.color,
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await controller?.toggleFlash();
+                                  setState(() {
+                                    // ignore: unused_local_variable
+                                    int doNothing;
+                                  });
+                                },
+                                child: const Text('Вспышка'),
+                              ),
+                            );
                           },
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(2),
+                      Container(
+                        margin: const EdgeInsets.all(2),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await controller?.flipCamera();
+                            setState(() {
+                              // ignore: unused_local_variable
+                              int doNothing;
+                            });
+                          },
+                          child: FutureBuilder(
+                            future: controller?.getCameraInfo(),
+                            builder: (context, snapshot) {
+                              return snapshot.data != null
+                                  ? describeEnum(snapshot.data!) == 'front'
+                                      ? const Text('2 камера')
+                                      : const Text('1 камера')
+                                  : const Text('Загрузка');
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              //
+              // > add department
+              //
+              Visibility(
+                visible: result != null,
+                child: Expanded(
+                  child: Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 8, right: 8),
                       child: ElevatedButton(
-                        onPressed: () async {
-                          await controller?.flipCamera();
-                          setState(() {
-                            // ignore: unused_local_variable
-                            int doNothing;
-                          });
-                        },
-                        child: FutureBuilder(
-                          future: controller?.getCameraInfo(),
-                          builder: (context, snapshot) {
-                            return snapshot.data != null
-                                ? describeEnum(snapshot.data!) == 'front'
-                                    ? const Text('Фронтал. камера')
-                                    : const Text('Тыловая камера')
-                                : const Text('Загрузка');
-                          },
+                        child: const Text(
+                          'Добавить!',
                         ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.green,
+                          ),
+                        ),
+                        //
+                        // > add new key
+                        //
+                        onPressed: () async {
+                          if (result == null) {
+                            return;
+                          }
+                          final newKey =
+                              result!.code!.substring(7, result!.code!.length);
+                          final res = await AppData().addProfileFromUKey(
+                            WorkerKey.fromJson(json.decode(newKey)),
+                          );
+                          if (!mounted) return;
+                          if (res) {
+                            // Navigator.of(context).pop();
+                            await Navigator.of(context).pushNamed('/');
+                          } else {
+                            const snackBar = SnackBar(
+                              content: Text(
+                                'Ошибка добавления отделения, возможно отделение уже было добавлено',
+                              ),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+
+                          setState(
+                            () {
+                              result = null;
+                              controller!.resumeCamera();
+                            },
+                          );
+                        },
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
