@@ -47,7 +47,7 @@ class ClientService with ChangeNotifier {
 
   bool addUsed() {
     _used = _used + 1;
-    journal.add(
+    journal.post(
       ServiceOfJournal(
         servId: planned.servId,
         contractId: planned.contractId,

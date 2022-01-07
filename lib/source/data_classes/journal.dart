@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:surf_lint_rules/surf_lint_rules.dart';
 
 part 'journal.g.dart';
 
@@ -18,7 +19,7 @@ part 'journal.g.dart';
 ///                 stalled -> finished -> outDated -> deleted
 ///                 [both]  -> rejected ->          -> deleted
 ///
-/// added and stalled | [synced to DB] | finished | [deleted on next day]
+/// added and stalled | [commit]ed to DB | finished | [deleteOldServices] on next day
 /// rejected | [deleted by user]
 @HiveType(typeId: 10)
 enum ServiceState {
@@ -100,11 +101,15 @@ class Journal with ChangeNotifier {
     await hive.compact();
   }
 
-  bool add(ServiceOfJournal se) {
+  bool post(ServiceOfJournal se) {
     all.add(se);
     Future(() async {
       hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
       await hive.add(se);
+    }).onError((error, stackTrace) {
+      showErrorNotification(
+        'Ошибка: не удалось сохранить запись журнала, проверьте сводобное место на устройстве',
+      );
     });
     commitAll();
     notifyListeners();
@@ -112,65 +117,116 @@ class Journal with ChangeNotifier {
     return true;
   }
 
+  /// commit
+  ///
+  /// try to commit service
+  Future<ServiceState?> commit(ServiceOfJournal s) async {
+    final urlAddress = 'http://${workerProfile.key.host}:48080/add';
+    final url = Uri.parse(urlAddress);
+    //
+    // > create body of post request
+    //
+    final body = jsonEncode(
+      <String, dynamic>{
+        'api_key': apiKey,
+        'vdate': sqlFormat.format(s.provDate),
+        'uuid': s.uid,
+        'contracts_id': s.contractId,
+        'dep_has_worker_id': s.workerId,
+        'serv_id': s.servId,
+      },
+    );
+    try {
+      //
+      // > check: is it in right state (not finished etc...)
+      //
+      if (s.state != ServiceState.added || s.state != ServiceState.stalled) {
+        return s.state;
+      }
+      //
+      // > send Post
+      //
+      final response = await http.post(url, headers: httpHeaders, body: body);
+      dev.log('$urlAddress response.statusCode = ${response.statusCode}');
+      dev.log(response.body);
+      //
+      // > check response
+      //
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty &&
+            response.body != 'Wrong authorization key') {
+          final res = jsonDecode(response.body) as Map<String, dynamic>;
+
+          return (res['id'] as int) > 0
+              ? ServiceState.finished
+              : ServiceState.rejected;
+        } else {
+          return ServiceState.stalled;
+        }
+      }
+      //
+      // > just error handling
+      //
+    } on ClientException {
+      showErrorNotification('Ошибка сервера!');
+      dev.log('Server error $urlAddress ');
+    } on SocketException {
+      showErrorNotification('Ошибка: нет соединения с интернетом!');
+      dev.log('No internet connection $urlAddress ');
+    } on HttpException {
+      showErrorNotification('Ошибка доступа к серверу!');
+      dev.log('Server access error $urlAddress ');
+    } finally {
+      dev.log('sync ended $urlAddress ');
+    }
+  }
+
   /// commitAll
   ///
   /// try to commit all [servicesForSync]
-  /// and assign them new statuses
+  /// and assign them new states
   Future<void> commitAll() async {
-    final urlAddress = 'http://${workerProfile.key.host}:48080/add';
-    final url = Uri.parse(urlAddress);
     //
     // > main loop
     //
     final servList = servicesForSync.toList(); // work with copy of list
     for (final s in servList) {
-      final body = jsonEncode(
-        <String, dynamic>{
-          'api_key': apiKey,
-          'vdate': sqlFormat.format(s.provDate),
-          'uuid': s.uid,
-          'contracts_id': s.contractId,
-          'dep_has_worker_id': s.workerId,
-          'serv_id': s.servId,
-        },
-      );
-      try {
-        final response = await http.post(url, headers: httpHeaders, body: body);
-        dev.log('$urlAddress response.statusCode = ${response.statusCode}');
-        dev.log(response.body);
-        if (response.statusCode == 200) {
-          if (response.body.isNotEmpty &&
-              response.body != 'Wrong authorization key') {
-            final res = jsonDecode(response.body) as Map<String, dynamic>;
-            s.state = res['id'] as int > 0
-                ? ServiceState.finished
-                : ServiceState.rejected;
-          } else {
-            s.state = ServiceState.stalled;
-          }
-        }
-        //
-        // > just error handling
-        //
-      } on ClientException {
-        showErrorNotification('Ошибка сервера!');
-        dev.log('Server error $urlAddress ');
-      } on SocketException {
-        showErrorNotification('Ошибка: нет соединения с интернетом!');
-        dev.log('No internet connection $urlAddress ');
-      } on HttpException {
-        showErrorNotification('Ошибка доступа к серверу!');
-        dev.log('Server access error $urlAddress ');
-      } finally {
-        dev.log('sync ended $urlAddress ');
-      }
+      s.state = await commit(s) ?? s.state;
     }
+    notifyListeners();
   }
 
   Future<void> deleteOldServices() async {
+    //
+    // > open hive archive and add old services
+    //
     final now = DateTime.now();
-    all.removeWhere((el) => el.provDate.difference(now).inDays > 1);
-    await save();
+    final hiveArchive =
+        await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
+    await hiveArchive.addAll(
+      all.where(
+        (el) =>
+            el.provDate.difference(now).inDays > 1 &&
+            el.state == ServiceState.finished,
+      ),
+    );
+    //
+    // > delete finished old services and save hive
+    //
+    all.removeWhere(
+      (el) =>
+          el.provDate.difference(now).inDays > 1 &&
+          el.state == ServiceState.finished,
+    );
+    unawaited(save());
+    //
+    // > only hiveArchiveLimit number of services stored, delete most old and close
+    //
+    for (var i = 0; i < hiveArchive.length - hiveArchiveLimit; i++) {
+      await hiveArchive.deleteAt(i);
+    }
+    await hiveArchive.compact();
+    await hiveArchive.close();
   }
 }
 
