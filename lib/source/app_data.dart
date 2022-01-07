@@ -12,11 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Global AppData
+/// Global singleton class
 ///
-/// global singleton class
-/// for storing global data
-/// and notifies listeners
+/// It store some global data, like:
+/// [hiveData] of type [Hive],
+/// [profiles] of type [WorkerProfile]
+///
+/// It save/restore hive and notifies listeners.
 // ignore: prefer_mixin
 class AppData with ChangeNotifier {
   /// Store Singleton

@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/data_classes/app_data.dart';
+import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/list_services.dart';
