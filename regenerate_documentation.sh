@@ -14,3 +14,7 @@ for f in `find ./lib/ -name '*.png' -print` ; do
 done
 
 cp LICENSE doc/api/
+
+dhttpd --path doc/api &
+
+xdg-open  http://localhost:8080

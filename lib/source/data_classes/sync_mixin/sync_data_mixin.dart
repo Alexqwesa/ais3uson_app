@@ -24,7 +24,7 @@ import 'package:overlay_support/overlay_support.dart';
 /// Classes with this mixin:
 /// - can use several functions that call [hiddenSyncHive] with various parameters,
 /// - should implement [updateValueFromHive] - it will be called by [hiddenSyncHive],
-/// and this function can use [hiddenUpdateValueFromHive].
+/// - overridden function [updateValueFromHive] can use [hiddenUpdateValueFromHive] to get [Map] from hive.
 mixin SyncDataMixin {
   //
   // > Standard headers

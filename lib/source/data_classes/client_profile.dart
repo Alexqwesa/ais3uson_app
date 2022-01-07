@@ -2,18 +2,16 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_mixin.dart';
+import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_data_mixin.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 
-/// [ClientProfile]
-///
 /// Basic data about client:
-///                           contract,
-///                           name,
-///                           services,
-///                           which worker is assigned
+/// - [name],
+/// - [contractId],
+/// - [services] - list of [ClientService],
+/// - reference to worker (of type [WorkerProfile]) assigned to this client.
 // ignore: prefer_mixin
 class ClientProfile with ChangeNotifier, SyncDataMixin {
   late int contractId;

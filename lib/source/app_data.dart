@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Global singleton class
+/// Global singleton class.
 ///
 /// It store some global data, like:
-/// [hiveData] of type [Hive],
-/// [profiles] of type [WorkerProfile]
+/// - [hiveData] of type [Hive],
+/// - [profiles] of type [WorkerProfile].
 ///
 /// It save/restore hive and notifies listeners.
 // ignore: prefer_mixin
