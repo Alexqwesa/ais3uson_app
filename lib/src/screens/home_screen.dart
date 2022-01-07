@@ -72,13 +72,15 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.group),
-                      title: const Text('Добавить тестовое отделение'),
+                      leading: const Icon(Icons.settings),
+                      title: const Text('Настройки'),
                       onTap: () {
-                        // AppData.of(context);
-                        Navigator.pop(context, 'qr');
-                        AppData.instance.addProfileFromUKey(
-                          WorkerKey.fromJson(jsonDecode(qrData2)),
+                        return;
+                        Navigator.pop(context, 'settings');
+                        Navigator.pushNamed(
+                          context,
+                          '/settings',
+                          arguments: '',
                         );
                       },
                     ),
@@ -103,6 +105,31 @@ class _HomePageState extends State<HomePage> {
                           context,
                           DevScreen.routeName,
                           arguments: '',
+                        );
+                      },
+                    ),
+                    const Divider(),
+                    ListTile(
+                      leading: const Icon(Icons.archive),
+                      title: const Text('Архив ввода услуг'),
+                      onTap: () {
+
+                        return;
+                        Navigator.pop(context, 'dev');
+                        Navigator.pushNamed(
+                          context,
+                          '/archive',
+                          arguments: '',
+                        );
+                      },
+                    ),
+                    ListTile( // todo: dialog add dep, with test dep button
+                      leading: const Icon(Icons.group_add),
+                      title: const Text('Добавить тестовое отделение'),
+                      onTap: () {
+                        Navigator.pop(context, 'qr');
+                        AppData.instance.addProfileFromUKey(
+                          WorkerKey.fromJson(jsonDecode(qrData2)),
                         );
                       },
                     ),
