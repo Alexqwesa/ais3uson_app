@@ -16,7 +16,7 @@ part 'journal.g.dart';
 /// usual life of [ServiceOfJournal] is:
 ///                 added   -> finished -> outDated -> deleted
 ///                 stalled -> finished -> outDated -> deleted
-///                         -> rejected ->          -> deleted
+///                 [both]  -> rejected ->          -> deleted
 ///
 /// added and stalled | [synced to DB] | finished | [deleted on next day]
 /// rejected | [deleted by user]

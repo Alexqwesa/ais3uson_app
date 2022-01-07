@@ -1,0 +1,14 @@
+dartdoc:
+#  examplePathPrefix: 'subdir/with/examples'
+#  includeExternal: [ 'lib/src/global.dart', 'lib/src/screens/fio_screen.dart' ]
+#  nodoc: ['*.g.dart']
+#  linkTo:
+#    root: ['..']
+  showUndocumentedCategories: true
+  ignore:
+    - ambiguous-doc-reference
+#  errors:
+#    - unresolved-doc-reference
+  warnings:
+    - tool-error
+    - unresolved-doc-reference
