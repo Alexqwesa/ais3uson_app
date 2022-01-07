@@ -2,7 +2,7 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_data_mixin.dart';
+import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/from_json/fio_entry.dart';
 import 'package:ais3uson_app/source/from_json/fio_planned.dart';
-import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_data_mixin.dart';
+import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
