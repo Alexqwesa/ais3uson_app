@@ -10,7 +10,7 @@ import 'client_profile.dart';
 import 'from_json/fio_entry.dart';
 import 'from_json/service_entry.dart';
 import 'from_json/worker_key.dart';
-import 'journal.dart';
+import '../journal/journal.dart';
 
 /// [WorkerProfile]
 ///

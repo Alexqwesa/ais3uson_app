@@ -1,6 +1,5 @@
 dartdoc:
 #  examplePathPrefix: 'subdir/with/examples'
-#  includeExternal: [ 'lib/src/global.dart', 'lib/src/screens/fio_screen.dart' ]
 #  nodoc: ['*.g.dart']
 #  linkTo:
 #    root: ['..']

@@ -12,15 +12,16 @@ import 'package:surf_lint_rules/surf_lint_rules.dart';
 
 part 'journal.g.dart';
 
-/// ServiceState
+/// These states control [ServiceOfJournal].
 ///
-/// usual life of [ServiceOfJournal] is:
+/// ```
+/// Usual life of [ServiceOfJournal] is:
 ///                 added   -> finished -> outDated -> deleted
 ///                 stalled -> finished -> outDated -> deleted
 ///                 [both]  -> rejected ->          -> deleted
-///
-/// added and stalled | [commit]ed to DB | finished | [deleteOldServices] on next day
-/// rejected | [deleted by user]
+///```
+/// added and stalled | [Journal.commit]ed to DB | finished | [Journal.deleteOldServices] on next day
+/// rejected | [Journal.delete]d by user
 @HiveType(typeId: 10)
 enum ServiceState {
   @HiveField(0)
@@ -35,9 +36,12 @@ enum ServiceState {
   outDated,
 }
 
-/// Journal
+/// Journal of services
 ///
-/// main repository for services(in various states), provided by worker
+/// This is a main repository for services (in various states),
+/// it is member of [WorkerProfile] class.
+///
+/// ![Mind map of it functionality](journal.png)
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
   late final WorkerProfile workerProfile;
@@ -117,9 +121,10 @@ class Journal with ChangeNotifier {
     return true;
   }
 
-  /// commit
+  /// Try to commit service(send http post request).
   ///
-  /// try to commit service
+  /// Return new state or null, didn't change service state.
+  /// On error: show [showErrorNotification] to user.
   Future<ServiceState?> commit(ServiceOfJournal s) async {
     final urlAddress = 'http://${workerProfile.key.host}:48080/add';
     final url = Uri.parse(urlAddress);
@@ -181,10 +186,10 @@ class Journal with ChangeNotifier {
     }
   }
 
-  /// commitAll
+  /// Try to commit all [servicesForSync].
   ///
-  /// try to commit all [servicesForSync]
-  /// and assign them new states
+  /// It works via [commit],
+  /// it change state of services and called [notifyListeners] afterward.
   Future<void> commitAll() async {
     //
     // > main loop
