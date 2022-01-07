@@ -2,7 +2,10 @@
 projectDir=`dirname $0`
 cd $projectDir
 
-#dartdoc
+# Generate
+dartdoc
+
+# Add missed files
 for f in `find ./lib/ -name '*.png' -print` ; do
     dir=`dirname $f`
     dir=${dir#'./lib/'}
