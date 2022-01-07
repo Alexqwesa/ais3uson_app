@@ -5,15 +5,16 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:quiver/iterables.dart';
 import 'package:uuid/uuid.dart';
 
-// 
-// > global const 
-// 
+//
+// > global constants
+//
 const uuid = Uuid();
-String formatSQL = 'yyyy-MM-dd';
-DateFormat sqlFormat = DateFormat(formatSQL);
+const formatSQL = 'yyyy-MM-dd';
+final sqlFormat = DateFormat(formatSQL);
+const hiveArchiveLimit = 1000;
 
-/// qrData 
-/// 
+/// qrData
+///
 /// test worker key in json format
 String qrData =
     '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
