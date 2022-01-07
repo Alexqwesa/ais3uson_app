@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/data_classes/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/from_json/worker_key.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';

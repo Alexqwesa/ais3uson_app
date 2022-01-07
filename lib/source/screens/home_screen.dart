@@ -2,11 +2,11 @@
 
 import 'dart:convert';
 
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/from_json/worker_key.dart';
-import 'package:ais3uson_app/src/global.dart';
-import 'package:ais3uson_app/src/screens/dev_screen.dart';
-import 'package:ais3uson_app/src/screens/list_profiles.dart';
+import 'package:ais3uson_app/source/data_classes/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/global.dart';
+import 'package:ais3uson_app/source/screens/dev_screen.dart';
+import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

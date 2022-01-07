@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
-import 'package:ais3uson_app/src/data_classes/from_json/fio_planned.dart';
-import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
+import 'package:ais3uson_app/source/data_classes/from_json/fio_planned.dart';
+import 'package:ais3uson_app/source/data_classes/sync_mixin.dart';
 import 'package:flutter/material.dart';
 
 import 'client_profile.dart';

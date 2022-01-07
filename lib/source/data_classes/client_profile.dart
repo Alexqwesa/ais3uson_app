@@ -1,10 +1,10 @@
 // ignore_for_file: always_use_package_imports, prefer_final_fields, flutter_style_todos
 import 'dart:developer' as dev;
 
-import 'package:ais3uson_app/src/data_classes/client_service.dart';
-import 'package:ais3uson_app/src/data_classes/sync_mixin.dart';
-import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/src/global.dart';
+import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/data_classes/sync_mixin.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/global.dart';
 import 'package:flutter/material.dart';
 
 /// [ClientProfile]

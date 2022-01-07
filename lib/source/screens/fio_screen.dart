@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/client_profile.dart';
-import 'package:ais3uson_app/src/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/src/global.dart';
+import 'package:ais3uson_app/source/data_classes/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/client_profile.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/global.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

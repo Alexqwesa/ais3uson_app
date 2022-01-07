@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/app_root.dart';
-import 'package:ais3uson_app/src/data_classes/app_data.dart';
-import 'package:ais3uson_app/src/data_classes/journal.dart';
+import 'package:ais3uson_app/source/data_classes/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/journal.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:overlay_support/overlay_support.dart';
