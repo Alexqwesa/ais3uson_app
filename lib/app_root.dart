@@ -18,6 +18,15 @@ class AppRoot extends StatelessWidget {
       title: 'AIS 3USON App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        dividerColor: Colors.black54,
+        textTheme: const TextTheme(
+          headline4: TextStyle(
+            fontSize: 22,
+          ),
+          headline5: TextStyle(
+            fontSize: 20,
+          ),
+        ),
       ),
       initialRoute: '/',
       routes: {

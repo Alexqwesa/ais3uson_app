@@ -2,9 +2,8 @@ import 'dart:ui';
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_card.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ais3uson_app/source/screens/service_profs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CardScreen extends StatefulWidget {
   final ClientService service;
@@ -161,6 +160,10 @@ class _CardScreenState extends State<CardScreen> {
                   ),
                 ),
               ),
+              //
+              // > prof of service
+              //
+              ServiceProfs(clientService: widget.service),
             ],
           ),
         ),

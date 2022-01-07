@@ -45,7 +45,7 @@ class ClientService with ChangeNotifier {
     required this.workerDepId,
   });
 
-  void add() async {
+  Future<void> add() async {
     _used = _used + 1;
     journal.post(
       ServiceOfJournal(
@@ -57,7 +57,7 @@ class ClientService with ChangeNotifier {
     notifyListeners();
   }
 
-  void delete() async {
+  Future<void> delete() async {
     _used = _used - 1;
     await journal.deleteLast(
       servId: planned.servId,
