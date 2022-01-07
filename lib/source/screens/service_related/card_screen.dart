@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/screens/service_card.dart';
-import 'package:ais3uson_app/source/screens/service_profs.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_profs.dart';
 import 'package:flutter/material.dart';
 
 class CardScreen extends StatefulWidget {
