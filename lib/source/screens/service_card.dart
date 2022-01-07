@@ -138,7 +138,7 @@ class _ServiceCardState extends State<ServiceCard>
               onTap: () {
                 setState(() {
                   enabled = widget.service.left > 0;
-                  if (enabled) widget.service.addUsed();
+                  if (enabled) widget.service.add();
                   enabled = widget.service.left > 0;
                 });
               },

@@ -201,6 +201,25 @@ class Journal with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Delete service [serv] from journal.
+  ///
+  /// Also notify listeners and save.
+  Future<void> delete(ServiceOfJournal serv) async {
+    if ([
+      ServiceState.finished,
+      ServiceState.outDated,
+    ].contains(serv.state)) {
+      // TODO: deleted from DB here
+
+    }
+
+    all.removeAt(
+      all.indexOf(serv),
+    );
+    notifyListeners();
+    unawaited(save());
+  }
+
   Future<void> deleteOldServices() async {
     //
     // > open hive archive and add old services
@@ -232,6 +251,16 @@ class Journal with ChangeNotifier {
     }
     await hiveArchive.compact();
     await hiveArchive.close();
+  }
+
+  Future<void> deleteLast({
+    required int servId,
+    required int contractId,
+  }) async {
+    await delete(
+      all.lastWhere((element) =>
+          element.servId == servId && element.contractId == contractId),
+    );
   }
 }
 

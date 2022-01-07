@@ -45,7 +45,7 @@ class ClientService with ChangeNotifier {
     required this.workerDepId,
   });
 
-  bool addUsed() {
+  void add() async {
     _used = _used + 1;
     journal.post(
       ServiceOfJournal(
@@ -55,7 +55,14 @@ class ClientService with ChangeNotifier {
       ),
     );
     notifyListeners();
+  }
 
-    return true;
+  void delete() async {
+    _used = _used - 1;
+    await journal.deleteLast(
+      servId: planned.servId,
+      contractId: planned.contractId,
+    );
+    notifyListeners();
   }
 }
