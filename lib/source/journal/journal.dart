@@ -257,10 +257,16 @@ class Journal with ChangeNotifier {
     required int servId,
     required int contractId,
   }) async {
-    await delete(
-      all.lastWhere((element) =>
-          element.servId == servId && element.contractId == contractId),
-    );
+    try {
+      await delete(
+        all.lastWhere(
+          (element) =>
+              element.servId == servId && element.contractId == contractId,
+        ),
+      );
+    } on StateError catch (e) {
+      dev.log('Error: $e, can not delete $servId of contract $contractId');
+    }
   }
 }
 

@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pop(context, 'dev');
                         Navigator.pushNamed(
                           context,
-                          DevScreen.routeName,
+                          '/dev',
                           arguments: '',
                         );
                       },

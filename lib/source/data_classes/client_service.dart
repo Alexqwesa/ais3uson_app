@@ -36,7 +36,7 @@ class ClientService with ChangeNotifier {
 
   String get image => service.image;
 
-  int _used = 0;
+  int _used = 0; // TODO: count dinamically!!!
 
   ClientService({
     required this.journal,

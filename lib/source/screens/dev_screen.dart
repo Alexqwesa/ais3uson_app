@@ -13,8 +13,6 @@ import 'package:http/http.dart' as http;
 ///
 /// about and test buttons...
 class DevScreen extends StatelessWidget {
-  static const routeName = '/dev';
-
   const DevScreen({Key? key}) : super(key: key);
 
   @override
