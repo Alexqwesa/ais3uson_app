@@ -1,5 +1,5 @@
-import 'package:ais3uson_app/source/data_classes/from_json/fio_planned.dart';
-import 'package:ais3uson_app/source/data_classes/from_json/service_entry.dart';
+import 'package:ais3uson_app/source/from_json/fio_planned.dart';
+import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:flutter/material.dart';
 

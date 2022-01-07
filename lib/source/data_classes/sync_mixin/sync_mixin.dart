@@ -5,17 +5,27 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/global.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-/// Abstract mixin [SyncData]
+/// Abstract mixin [SyncDataMixin]
 ///
-/// add synchronizing template for classes
-mixin SyncData {
+/// Add synchronizing template for classes.
+/// It helps:
+/// - get data from network,
+/// - write json string to hive,
+/// - handle errors,
+/// - save/restore from hive.
+///
+/// Classes with this mixin:
+/// - can use several functions that call [hiddenSyncHive] with various parameters,
+/// - should implement [updateValueFromHive] - it will be called by [hiddenSyncHive],
+/// and this function can use [hiddenUpdateValueFromHive].
+mixin SyncDataMixin {
   //
   // > Standard headers
   //
@@ -24,10 +34,9 @@ mixin SyncData {
     'Accept': 'application/json',
   };
 
-  /// [hiddenSyncHive]
+  /// Get data from network (with error checks) and save it to hive.
   ///
-  /// get data (error checks),
-  /// put to hive and call [updateValueFromHive] function
+  /// Call [updateValueFromHive] to load data into application.
   Future<void> hiddenSyncHive({
     required String? urlAddress,
     String? apiKey,
@@ -69,16 +78,15 @@ mixin SyncData {
     }
   }
 
-  /// [updateValueFromHive]
+  /// Should be defined in descendant class.
   ///
-  /// usually just call [hiddenUpdateValueFromHive] to get data,
-  /// and work with it.
-  /// To be defined in descendant class
+  /// Usually just call [hiddenUpdateValueFromHive] to get data from hive,
+  /// and convert it to user class.
   void updateValueFromHive(String hiveKey);
 
-  /// [hiddenUpdateValueFromHive]
+  /// This function should be called from [updateValueFromHive].
   ///
-  /// read hive string and return [Map]
+  /// Read hive string and return [Map].
   List<Map<String, dynamic>> hiddenUpdateValueFromHive({
     required String hiveKey,
     Box? hive,

@@ -4,9 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:ais3uson_app/source/data_classes/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/global.dart';
+import 'package:ais3uson_app/source/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

@@ -3,8 +3,8 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/data_classes/from_json/worker_key.dart';
-import 'package:ais3uson_app/source/global.dart';
+import 'package:ais3uson_app/source/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/cupertino.dart';

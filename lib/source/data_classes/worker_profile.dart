@@ -2,22 +2,23 @@
 
 import 'dart:async';
 
-import 'package:ais3uson_app/source/data_classes/from_json/fio_planned.dart';
+import 'package:ais3uson_app/source/data_classes/client_profile.dart';
+import 'package:ais3uson_app/source/from_json/fio_entry.dart';
+import 'package:ais3uson_app/source/from_json/fio_planned.dart';
 import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_mixin.dart';
+import 'package:ais3uson_app/source/from_json/service_entry.dart';
+import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:flutter/material.dart';
 
-import 'client_profile.dart';
-import 'from_json/fio_entry.dart';
-import 'from_json/service_entry.dart';
-import 'from_json/worker_key.dart';
+
 
 /// [WorkerProfile]
 ///
 /// profile of worker created from authentication QR code (or line)
 /// store and sync data of
 // ignore: prefer_mixin
-class WorkerProfile with SyncData, ChangeNotifier {
+class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final WorkerKey key;
   late final Journal journal;
   late final String name;

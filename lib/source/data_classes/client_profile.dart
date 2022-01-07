@@ -4,7 +4,7 @@ import 'dart:developer' as dev;
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_mixin.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/global.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 
 /// [ClientProfile]
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 ///                           services,
 ///                           which worker is assigned
 // ignore: prefer_mixin
-class ClientProfile with ChangeNotifier, SyncData {
+class ClientProfile with ChangeNotifier, SyncDataMixin {
   late int contractId;
   late String name;
   late WorkerProfile workerProfile;
