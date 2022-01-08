@@ -20,7 +20,7 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - Рекомендуется использовать разные серверы для SQL-сервера и WEB-сервера, установите безопасное соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с помощью openSSH (man ssh или [подробное руководство на русском](https://habr.com/ru/post/331348/)).
 - Работники: 
   - устанавливают приложение (здесь будут ссылки для установки), 
-  - // Заведующие предоставляют работникам сгенерированный в приложении [АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON) Qr код.
+  - // Заведующие предоставляют работникам сгенерированный в приложении [АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON) Qr код,
   - работник запускают приложение и нажимают кнопку **+** (сканировать Qr-код). 
 
 ## Использование
@@ -47,6 +47,8 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [x] Snackbar для сообщений и ошибок
 - [x] rework network error handling
 - [x] Backup Worker keys to cloud
+- [ ] dynamic setting from BD: allow collect proofs, etc...
+- [ ] WorkerKey allow several servers (comma separated list)
 - [ ] maybe backup media data? only on full backup?
 - [ ] Archive view
 - [ ] use ssl, maybe use Dio?

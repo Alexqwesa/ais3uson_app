@@ -11,3 +11,4 @@ dartdoc:
   warnings:
     - tool-error
     - unresolved-doc-reference
+  favicon: assets/ais-3uson-logo-128.png

@@ -45,8 +45,8 @@ enum ServiceState {
 /// ![Mind map of it functionality](journal.png)
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
-  final _lock = Lock();
   late final WorkerProfile workerProfile;
+  final _lock = Lock();
   late Box<ServiceOfJournal> hive;
 
   //

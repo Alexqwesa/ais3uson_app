@@ -48,7 +48,6 @@ class _CardScreenState extends State<CardScreen> {
                       //
                       Expanded(
                         child: Align(
-                          alignment: Alignment.center,
                           child: Transform.scale(
                             scale: 2.5,
                             child: ServiceCardState(

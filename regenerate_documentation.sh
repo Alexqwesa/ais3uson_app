@@ -19,12 +19,15 @@ for f in $(find ./lib/ -name "*.png" -print) ; do
     dir=`dirname $f`
     dir=${dir#"./lib/"}
     dir=${dir//"/"/"_"}
-    cp -r "$f" "doc/api/${dir}_$(basename $f .png)/$(basename $f)"
+    set -x
+    cp -a "$f" "doc/api/${dir}_$(basename $f .png)/$(basename $f)"
+    set +x
 done
 
 cp LICENSE doc/api/
 mkdir doc/api/images/
 cp images/license.pdf doc/api/images/
+mkdir doc/api/assets/
 cp assets/ais-3uson-logo-128.png doc/api/assets/
 
 dhttpd --path doc/api &
