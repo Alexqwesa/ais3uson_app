@@ -17,7 +17,6 @@ class ClientService with ChangeNotifier {
   late final ServiceEntry service;
   late final FioPlanned planned;
   late final int workerDepId;
-  late final int depId;
 
   /// Reference to existed journal
   late final Journal journal;
@@ -70,7 +69,6 @@ class ClientService with ChangeNotifier {
       return _proofList!;
     } else {
       _proofList = ProofList(
-        depId,
         workerDepId,
         contractId,
         standardFormat.format(DateTime.now()),

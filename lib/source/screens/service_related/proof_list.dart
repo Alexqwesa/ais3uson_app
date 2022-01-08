@@ -12,8 +12,6 @@ import 'package:path_provider/path_provider.dart';
 /// - save new proofs.
 // ignore: prefer_mixin
 class ProofList with ChangeNotifier {
-  final int depId;
-
   final int workerId;
 
   final int contractId;
@@ -27,7 +25,6 @@ class ProofList with ChangeNotifier {
   List<ProofGroup> proofGroups = [];
 
   ProofList(
-    this.depId,
     this.workerId,
     this.contractId,
     this.date,
@@ -45,7 +42,7 @@ class ProofList with ChangeNotifier {
       return;
     }
     await for (final depWorker in appDocDir.list()) {
-      if (depWorker.path.startsWith('${depId}_${workerId}_') &&
+      if (depWorker.path.startsWith('${workerId}_') &&
           (depWorker is Directory)) {
         await for (final contract in depWorker.list()) {
           if (contract.path.startsWith('${contractId}_') &&
