@@ -9,6 +9,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
+import 'package:synchronized/synchronized.dart';
 
 part 'journal.g.dart';
 
@@ -44,6 +45,7 @@ enum ServiceState {
 /// ![Mind map of it functionality](journal.png)
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
+  final _lock = Lock();
   late final WorkerProfile workerProfile;
   late Box<ServiceOfJournal> hive;
 
@@ -119,7 +121,6 @@ class Journal with ChangeNotifier {
       );
     });
     commitAll();
-    notifyListeners();
 
     return true;
   }
@@ -195,13 +196,20 @@ class Journal with ChangeNotifier {
   /// it change state of services and called [notifyListeners] afterward.
   Future<void> commitAll() async {
     //
-    // > main loop
+    // > main loop, synchronized
     //
-    final servList = servicesForSync.toList(); // work with copy of list
-    for (final s in servList) {
-      s.state = await commit(s) ?? s.state;
-    }
-    notifyListeners();
+    await _lock.synchronized(() async {
+      final servList = servicesForSync.toList(); // work with copy of list
+      try {
+        for (final s in servList) {
+          s.state = await commit(s) ?? s.state;
+        }
+        servList.forEach((element) => dev.log(element.state.toString()));
+      } catch (e) {
+        dev.log(e.toString());
+      }
+      notifyListeners();
+    });
   }
 
   /// Delete service [serv] from journal.
@@ -267,7 +275,7 @@ class Journal with ChangeNotifier {
               element.servId == servId && element.contractId == contractId,
         ),
       );
-    // ignore: avoid_catching_errors
+      // ignore: avoid_catching_errors
     } on StateError catch (e) {
       dev.log('Error: $e, can not delete $servId of contract $contractId');
     }
