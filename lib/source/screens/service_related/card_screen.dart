@@ -37,7 +37,7 @@ class _CardScreenState extends State<CardScreen> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 15, 12, 12),
+                padding: const EdgeInsets.fromLTRB(12.0, 20, 12, 12),
                 child: SizedBox(
                   height: width / 3,
                   child: Row(
@@ -48,7 +48,7 @@ class _CardScreenState extends State<CardScreen> {
                       //
                       Expanded(
                         child: Align(
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.center,
                           child: Transform.scale(
                             scale: 2.5,
                             child: ServiceCardState(
