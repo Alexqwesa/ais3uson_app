@@ -2,18 +2,34 @@ import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-
-class ServiceProfs extends StatelessWidget {
+/// Display list of proofs assigned to [ClientService].
+///
+/// On first build it create list from filesystem data.
+class ServiceProof extends StatefulWidget {
   final ClientService clientService;
 
-  const ServiceProfs({
+  const ServiceProof({
     required this.clientService,
     Key? key,
   }) : super(key: key);
 
   @override
+  _ServiceProofState createState() => _ServiceProofState();
+}
+
+class _ServiceProofState extends State<ServiceProof> {
+  List<String> audioPaths = [];
+  List<String> imagePaths = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // final serv = clientService;
+    final clientService = widget.clientService;
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -44,58 +60,58 @@ class ServiceProfs extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                //
-                // > column's titles
-                //
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'До:',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'После:',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
-          //
-          // > main columns
-          //
-          ChangeNotifierProvider<ClientService>.value(
-            value: clientService,
-            child: Consumer<ClientService>(
-              builder: (context, clientService, child) {
-                return Column(
+
+          ChangeNotifierProvider.value(
+            value: clientService.proofList,
+            child: Column(
+              children: [
+                //
+                // > column's titles
+                //
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'До:',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'После:',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                //
+                // > main columns
+                //
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Column(
-                          children: [],
-                        ),
-                        const VerticalDivider(),
-                        Column(
-                          children: [],
-                        ),
-                      ],
+                    Column(
+                      children: [],
                     ),
-                    FloatingActionButton(
-                      onPressed: () {},
-                      child: const Icon(Icons.add),
+                    const VerticalDivider(),
+                    Column(
+                      children: [],
                     ),
                   ],
-                );
-              },
+                ),
+                FloatingActionButton(
+                  onPressed: () {},
+                  child: const Icon(Icons.add),
+                ),
+              ],
             ),
           ),
         ],

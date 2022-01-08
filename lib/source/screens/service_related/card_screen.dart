@@ -163,7 +163,7 @@ class _CardScreenState extends State<CardScreen> {
               //
               // > prof of service
               //
-              ServiceProfs(clientService: widget.service),
+              ServiceProof(clientService: widget.service),
             ],
           ),
         ),

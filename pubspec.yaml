@@ -32,7 +32,7 @@ dependencies:
   intl: any
   lint: any
   overlay_support: any # ^1.2.1
-#  pedantic_mono: any
+  path_provider: any
   provider: any
   qr_code_scanner: ^0.6.1
   quiver: any

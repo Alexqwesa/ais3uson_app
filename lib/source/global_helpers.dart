@@ -10,7 +10,9 @@ import 'package:uuid/uuid.dart';
 //
 const uuid = Uuid();
 const formatSQL = 'yyyy-MM-dd';
+const formatStandard = 'dd.MM.yyyy';
 final sqlFormat = DateFormat(formatSQL);
+final standardFormat = DateFormat(formatStandard);
 const hiveArchiveLimit = 1000;
 
 /// qrData
