@@ -264,6 +264,7 @@ class Journal with ChangeNotifier {
               element.servId == servId && element.contractId == contractId,
         ),
       );
+    // ignore: avoid_catching_errors
     } on StateError catch (e) {
       dev.log('Error: $e, can not delete $servId of contract $contractId');
     }

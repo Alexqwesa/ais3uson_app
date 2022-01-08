@@ -1,9 +1,9 @@
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/fio_screen.dart';
-import 'package:ais3uson_app/source/screens/service_related/fio_services_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
+import 'package:ais3uson_app/source/screens/service_related/fio_services_screen.dart';
 import 'package:flutter/material.dart';
 
 /// Root widget of whole app
