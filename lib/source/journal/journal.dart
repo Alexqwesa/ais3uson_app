@@ -62,6 +62,9 @@ class Journal with ChangeNotifier {
   Iterable<ServiceOfJournal> get finished =>
       all.where((element) => element.state == ServiceState.finished);
 
+  Iterable<ServiceOfJournal> get rejected =>
+      all.where((element) => element.state == ServiceState.rejected);
+
   Iterable<ServiceOfJournal> get affect => all.where(
         (element) => [
           ServiceState.stalled,
@@ -145,7 +148,7 @@ class Journal with ChangeNotifier {
       //
       // > check: is it in right state (not finished etc...)
       //
-      if (s.state != ServiceState.added || s.state != ServiceState.stalled) {
+      if (![ServiceState.added, ServiceState.stalled].contains(s.state)) {
         return s.state;
       }
       //

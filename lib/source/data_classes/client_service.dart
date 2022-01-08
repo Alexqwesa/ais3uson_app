@@ -28,25 +28,37 @@ class ClientService with ChangeNotifier {
 
   String get shortText => service.shortText;
 
-  int get used => _used;
+  int get done => journal.finished
+      .where((element) =>
+          element.contractId == contractId && element.servId == service.id)
+      .length;
 
-  int get left => plan - filled - _used;
+  int get stalled => journal.servicesForSync
+      .where((element) =>
+          element.contractId == contractId && element.servId == service.id)
+      .length;
 
-  List<int> get listDoneProgressError => <int>[0, _used, 0];
+  int get rejected => journal.rejected
+      .where((element) =>
+          element.contractId == contractId && element.servId == service.id)
+      .length;
+
+  int get left => plan - filled - stalled - done;
+
+  List<int> get listDoneProgressError => <int>[done, stalled, rejected];
 
   String get image => service.image;
-
-  int _used = 0; // TODO: count dinamically!!!
 
   ClientService({
     required this.journal,
     required this.service,
     required this.planned,
     required this.workerDepId,
-  });
+  }) {
+    journal.addListener(notifyListeners);
+  }
 
   Future<void> add() async {
-    _used = _used + 1;
     journal.post(
       ServiceOfJournal(
         servId: planned.servId,
@@ -58,7 +70,6 @@ class ClientService with ChangeNotifier {
   }
 
   Future<void> delete() async {
-    _used = _used - 1;
     await journal.deleteLast(
       servId: planned.servId,
       contractId: planned.contractId,
