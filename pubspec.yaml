@@ -22,6 +22,7 @@ environment:
 
 
 dependencies:
+  camera: any
   collection: any
   flutter:
     sdk: flutter
