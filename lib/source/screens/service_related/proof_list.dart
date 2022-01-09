@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 /// Store and manage list of [ProofGroup].
@@ -91,6 +95,7 @@ class ProofList with ChangeNotifier {
     proofGroups.add(
       ProofGroup.empty((iName++).toString()),
     );
+    notifyListeners();
   }
 
   Future<void> addGroup(
@@ -107,6 +112,52 @@ class ProofList with ChangeNotifier {
         afterAudio: afterAudio?.path,
       ),
     );
+    notifyListeners();
+  }
+
+  void addImage(int i, XFile? xFile, String prefix) async {
+    if (xFile == null) return;
+    //
+    // > create new path
+    //
+    Directory appDocDir;
+    try {
+      appDocDir = await getApplicationDocumentsDirectory();
+    } on MissingPlatformDirectoryException {
+      return;
+    }
+    // Todo: add names
+    final newPath = Directory(
+      path.join(
+        appDocDir.path,
+        '${workerId}_',
+        '${contractId}_',
+        '${date}_',
+        '${serviceId}_',
+        'group_${i}_',
+      ),
+    );
+    await newPath.create(recursive: true);
+    //
+    // > move file to group path
+    //
+    var imgFile = File.fromRawPath(
+      Uint8List.fromList(utf8.encode(xFile.path)),
+    );
+    imgFile = await imgFile.rename(
+      path.join(
+        newPath.path,
+        path.basename(xFile.path),
+      ),
+    );
+    //
+    // > update list
+    //
+    if (prefix == "after_") {
+      proofGroups[i].afterImg = Image.file(imgFile);
+    } else {
+      proofGroups[i].beforeImg = Image.file(imgFile);
+    }
     notifyListeners();
   }
 }
