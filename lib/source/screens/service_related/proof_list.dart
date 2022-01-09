@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
@@ -43,34 +44,37 @@ class ProofList with ChangeNotifier {
     try {
       appDocDir = await getApplicationDocumentsDirectory();
     } on MissingPlatformDirectoryException {
+      showErrorNotification('Ошибка доступа к файловой системе!');
       return;
     }
     await for (final depWorker in appDocDir.list()) {
-      if (depWorker.path.startsWith('${workerId}_') &&
+      if (depWorker.baseName.startsWith('${workerId}_') &&
           (depWorker is Directory)) {
         await for (final contract in depWorker.list()) {
-          if (contract.path.startsWith('${contractId}_') &&
+          if (contract.baseName.startsWith('${contractId}_') &&
               (contract is Directory)) {
             await for (final dat in contract.list()) {
-              if (dat.path.startsWith('${date}_') && (dat is Directory)) {
+              if (dat.baseName.startsWith('${date}_') && (dat is Directory)) {
                 await for (final serv in dat.list()) {
-                  if (serv.path.startsWith('${serviceId}_') &&
+                  if (serv.baseName.startsWith('${serviceId}_') &&
                       (serv is Directory)) {
                     await for (final group in serv.list()) {
-                      if (group.path.startsWith('group_') &&
+                      if (group.baseName.startsWith('group_') &&
                           (group is Directory)) {
+                        print(group.path);
                         File? beforeImg;
                         File? beforeAudio;
                         File? afterImg;
                         File? afterAudio;
                         await for (final file in group.list()) {
-                          if (file.path.startsWith('before_img_') &&
+                          print(file.path);
+                          if (file.baseName.startsWith('before_img_') &&
                               (file is File)) beforeImg = file;
-                          if (file.path.startsWith('before_audio_') &&
+                          if (file.baseName.startsWith('before_audio_') &&
                               (file is File)) beforeAudio = file;
-                          if (file.path.startsWith('after_img_') &&
+                          if (file.baseName.startsWith('after_img_') &&
                               (file is File)) afterImg = file;
-                          if (file.path.startsWith('after_audio_') &&
+                          if (file.baseName.startsWith('after_audio_') &&
                               (file is File)) afterAudio = file;
                         }
                         await addGroup(
@@ -147,7 +151,7 @@ class ProofList with ChangeNotifier {
     imgFile = await imgFile.rename(
       path.join(
         newPath.path,
-        path.basename(xFile.path),
+        prefix + "img_" + path.basename(xFile.path),
       ),
     );
     //
@@ -182,4 +186,10 @@ class ProofGroup {
   });
 
   ProofGroup.empty(this.name);
+}
+
+extension _baseNameForFileSystemEntity on FileSystemEntity {
+  String get baseName {
+    return path.basename(this.path);
+  }
 }

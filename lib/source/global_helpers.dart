@@ -86,7 +86,7 @@ void showErrorNotification(String text) {
       position: NotificationPosition.bottom,
     );
     // ignore_for_line: avoid_catches_without_on_clauses
-  } catch {
+  } catch (e){
 
   }
 }
