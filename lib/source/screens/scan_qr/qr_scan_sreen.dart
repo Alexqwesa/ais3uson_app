@@ -7,6 +7,7 @@ import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanScreen extends StatefulWidget {
@@ -108,13 +109,18 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         child: FutureBuilder(
                           future: controller?.getFlashStatus(),
                           builder: (context, snapshot) {
-                            return ColorFiltered(
-                              colorFilter: ColorFilter.mode(
-                                snapshot.data != null
-                                    ? Colors.white.withOpacity(0.5)
-                                    : Colors.white.withOpacity(0),
-                                BlendMode.color,
-                              ),
+                            return
+                              ColorFiltered(
+                                colorFilter:
+                                snapshot.data != null ?
+                                ColorFilter.matrix(<double>[
+                                  0.2126, 0.7152, 0.0722, 0, 0, //
+                                  0.2126, 0.7152, 0.0722, 0, 0,
+                                  0.2126, 0.7152, 0.0722, 0, 0,
+                                  0, 0, 0, 1, 0,
+                                ],)
+                                : ColorFilter.mode(Colors.white.withOpacity(1), BlendMode.lighten)
+                                ,
                               child: ElevatedButton(
                                 onPressed: () async {
                                   await controller?.toggleFlash();
