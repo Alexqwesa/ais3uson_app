@@ -39,6 +39,7 @@ class ProofList with ChangeNotifier {
   /// Generate list of [ProofGroup] from file system.
   ///
   /// ![Mind map if directories tree](../proof_list.png)
+  // ignore: long-method
   Future<void> crawler() async {
     Directory appDocDir;
     try {
@@ -61,13 +62,11 @@ class ProofList with ChangeNotifier {
                     await for (final group in serv.list()) {
                       if (group.baseName.startsWith('group_') &&
                           (group is Directory)) {
-                        print(group.path);
                         File? beforeImg;
                         File? beforeAudio;
                         File? afterImg;
                         File? afterAudio;
                         await for (final file in group.list()) {
-                          print(file.path);
                           if (file.baseName.startsWith('before_img_') &&
                               (file is File)) beforeImg = file;
                           if (file.baseName.startsWith('before_audio_') &&
