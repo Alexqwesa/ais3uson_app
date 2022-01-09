@@ -27,6 +27,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_html: any
+  google_fonts: any
   hive_flutter: any
   hive_generator: any
   http: any
