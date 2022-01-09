@@ -213,13 +213,11 @@ class ServiceCardState extends StatelessWidget {
                 // physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, i) {
                   return FittedBox(
-                    child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        listDoneProgressError.elementAt(i) == 0
-                            ? Colors.white
-                            : Colors.white.withOpacity(0),
-                        BlendMode.lighten,
-                      ),
+                    child: Visibility(
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible: listDoneProgressError.elementAt(i) != 0,
                       child: Column(
                         children: [
                           icons.elementAt(i),
