@@ -19,9 +19,9 @@ const hiveArchiveLimit = 1000;
 ///
 /// test worker key in json format
 String qrData =
-    '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
+'''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
 String qrData2 =
-    '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение 2", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
+'''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение 2", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
 
 class ScreenArguments {
   int profileNum = -1;
@@ -79,9 +79,14 @@ String cutFromStart(String input, String cut) {
 ///
 /// just display error to user
 void showErrorNotification(String text) {
-  showSimpleNotification(
-    Text(text),
-    background: Colors.red[300],
-    position: NotificationPosition.bottom,
-  );
+  try {
+    showSimpleNotification(
+      Text(text),
+      background: Colors.red[300],
+      position: NotificationPosition.bottom,
+    );
+    // ignore_for_line: avoid_catches_without_on_clauses
+  } catch {
+
+  }
 }
