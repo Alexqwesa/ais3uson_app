@@ -1,8 +1,34 @@
 dartdoc:
-#  examplePathPrefix: 'subdir/with/examples'
-#  nodoc: ['*.g.dart']
-#  linkTo:
-#    root: ['..']
+  categories:
+    'Root':
+      name: Root
+      markdown: README.md
+    'Journal':
+      name: Journal
+      markdown: README.md
+    'Data_Classes':
+      name: Data Classes
+      markdown: README.md
+    'Import_from_json':
+      name: Import from json
+      markdown: README.md
+  #    "First Category":
+  #      markdown: doc/First.md
+  #      name: Awesome
+  #    "Second Category":
+  #      markdown: doc/Second.md
+  #      name: Great
+
+  subCategoryOrder: [ 'worker_profile', 'Journal' , 'Data_Classes', 'Import_from_json' ]
+  subCategories:
+    Root: [ 'main', 'app_root' ]
+    Journal: [ 'journal' ]
+    Data_Classes: [ 'fio_entry', 'client_profile', 'client_service' ]
+    Import_from_json: [ 'fio_entry', 'fio_planned', 'service_entry', 'worker_key' ]
+  #  examplePathPrefix: 'subdir/with/examples'
+  #  nodoc: ['*.g.dart']
+  #  linkTo:
+  #    root: ['..']
   showUndocumentedCategories: true
   ignore:
     - ambiguous-doc-reference
