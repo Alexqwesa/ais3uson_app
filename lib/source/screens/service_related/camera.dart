@@ -2,6 +2,7 @@
 import 'dart:developer' as dev;
 
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // A screen that allows users to take a picture using a given camera.
@@ -59,57 +60,68 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               : const Center(child: CircularProgressIndicator());
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        // Provide an onPressed callback.
-        onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
-          try {
-            // Ensure that the camera is initialized.
-            await _initializeControllerFuture;
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: 30),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Transform.scale(
+            scale: 1.3,
+            child: FloatingActionButton(
+              // Provide an onPressed callback.
+              onPressed: () async {
+                // Take the Picture in a try / catch block. If anything goes wrong,
+                // catch the error.
+                try {
+                  // Ensure that the camera is initialized.
+                  await _initializeControllerFuture;
 
-            // Attempt to take a picture and get the file `image`
-            // where it was saved.
-            final image = await _controller.takePicture();
+                  // Attempt to take a picture and get the file `image`
+                  // where it was saved.
+                  final image = await _controller.takePicture();
 
-            // If the picture was taken, return it.
-            if (!mounted) return;
-            Navigator.pop(context, image);
+                  // If the picture was taken, return it.
+                  if (!mounted) return;
+                  Navigator.pop(context, image);
 
-            // await Navigator.of(context).push(
-            //   MaterialPageRoute<void>(
-            //     builder: (context) => DisplayPictureScreen(
-            //       // Pass the automatically generated path to
-            //       // the DisplayPictureScreen widget.
-            //       imagePath: image.path,
-            //     ),
-            //   ),
-            // );
-          } catch (e) {
-            // If an error occurs, log the error to the console.
-            dev.log(e.toString());
-          }
-        },
-        child: const Icon(Icons.camera_alt),
+                  // await Navigator.of(context).push(
+                  //   MaterialPageRoute<void>(
+                  //     builder: (context) => DisplayPictureScreen(
+                  //       // Pass the automatically generated path to
+                  //       // the DisplayPictureScreen widget.
+                  //       imagePath: image.path,
+                  //     ),
+                  //   ),
+                  // );
+                } catch (e) {
+                  // If an error occurs, log the error to the console.
+                  dev.log(e.toString());
+                }
+              },
+              child: const Icon(Icons.camera_alt),
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
-// // A widget that displays the picture taken by the user.
-// class DisplayPictureScreen extends StatelessWidget {
-//   final String imagePath;
-//
-//   const DisplayPictureScreen({Key? key, required this.imagePath})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Display the Picture')),
-//       // The image is stored as a file on the device. Use the `Image.file`
-//       // constructor with the given path to display the image.
-//       body: Image.file(File(imagePath)),
-//     );
-//   }
-// }
+// A widget that displays the picture taken by the user.
+class DisplayPictureScreen extends StatelessWidget {
+  final Image image;
+
+  const DisplayPictureScreen({
+    required this.image,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Display the Picture')),
+      // The image is stored as a file on the device. Use the `Image.file`
+      // constructor with the given path to display the image.
+      body: FittedBox(fit: BoxFit.contain, child: image),
+    );
+  }
+}
