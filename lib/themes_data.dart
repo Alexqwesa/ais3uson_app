@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class StandardTheme {
+class StandardTheme with ChangeNotifier {
+  int themeIndex = 0;
+
+  ThemeMode current() {
+    return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
+  }
+
+  void changeIndex(int index) {
+    themeIndex = index;
+    notifyListeners();
+  }
+
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
-      fontSize: 12.0,
-      // fontWeight: FontWeight.w700,
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
       color: Colors.black,
+    ),
+    bodyText2: GoogleFonts.openSans(
+      fontSize: 16.0,
+      color: Colors.black,
+      fontWeight: FontWeight.normal,
     ),
     headline1: GoogleFonts.openSans(
       fontSize: 28.0,
@@ -42,24 +58,43 @@ class StandardTheme {
 
   static TextTheme darkTextTheme = lightTextTheme.copyWith(
     bodyText1: GoogleFonts.openSans(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
       color: Colors.white,
     ),
+    bodyText2: GoogleFonts.openSans(
+      fontSize: 16.0,
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+    ),
     headline1: GoogleFonts.openSans(
+      fontSize: 28.0,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline2: GoogleFonts.openSans(
+      fontSize: 26.0,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline3: GoogleFonts.openSans(
+      fontSize: 24.0,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline4: GoogleFonts.openSans(
+      fontSize: 22.0,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline5: GoogleFonts.openSans(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline6: GoogleFonts.openSans(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
   );
@@ -75,12 +110,14 @@ class StandardTheme {
         ),
       ),
       appBarTheme: const AppBarTheme(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
+        foregroundColor: Colors.white,
+        // backgroundColor: Colors.white,
       ),
+      cardTheme: CardTheme(elevation: 12),
+      dialogBackgroundColor: Colors.grey[50],
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.green,
@@ -95,16 +132,20 @@ class StandardTheme {
     return ThemeData(
       brightness: Brightness.dark,
       appBarTheme: AppBarTheme(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.grey[900],
+        // foregroundColor: Colors.white,
+        backgroundColor: Colors.blue[900],
       ),
+      cardTheme: CardTheme(elevation: 12),
+      dialogBackgroundColor: Colors.white12,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        foregroundColor: Colors.white,
+        // foregroundColor: Colors.white,
         backgroundColor: Colors.blueAccent,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.green,
       ),
+      primaryColor: Colors.blue[700],
+      primarySwatch: Colors.blue,
       dividerColor: Colors.white54,
       textTheme: darkTextTheme,
     );

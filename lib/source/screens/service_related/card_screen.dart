@@ -140,11 +140,7 @@ class _CardScreenState extends State<CardScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               widget.service.shortText,
-                              textScaleFactor: 1.1,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                           Padding(

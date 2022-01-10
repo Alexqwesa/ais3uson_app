@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +68,8 @@ class DeleteDepartmentScreen extends StatelessWidget {
   }
 }
 
-/// _showDialog 
-/// 
+/// _showDialog
+///
 /// just simple dialog window,
 /// with delete/cancel buttons
 Future<String?> _showDialog(BuildContext context, int index) async {
@@ -88,7 +87,7 @@ Future<String?> _showDialog(BuildContext context, int index) async {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   AppData().profiles[index].key.dep,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
             ],

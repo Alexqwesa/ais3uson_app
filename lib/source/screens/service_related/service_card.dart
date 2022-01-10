@@ -73,7 +73,7 @@ class _ServiceCardState extends State<ServiceCard>
                           ),
                           //
                           // > service image
-                          //  
+                          //
                           Expanded(
                             child: Center(
                               child: SizedBox(
@@ -89,9 +89,9 @@ class _ServiceCardState extends State<ServiceCard>
                       ),
                     ),
                   ),
-                  // 
+                  //
                   // > service text
-                  //  
+                  //
                   Center(
                     child: SizedBox(
                       height: widget.width * 1.2 - 102,
@@ -106,9 +106,7 @@ class _ServiceCardState extends State<ServiceCard>
                                 widget.service.shortText,
                                 textScaleFactor: 1.1,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ),
                             Padding(
@@ -128,9 +126,9 @@ class _ServiceCardState extends State<ServiceCard>
               ),
             ),
           ),
-          // 
-          // InkWell animation and handler 
-          //  
+          //
+          // InkWell animation and handler
+          //
           Material(
             color: Colors.transparent,
             child: InkWell(

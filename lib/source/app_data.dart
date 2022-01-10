@@ -7,6 +7,7 @@ import 'dart:core';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/themes_data.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -28,7 +29,9 @@ class AppData with ChangeNotifier {
   /// Global Storage [hiveData]
   late Box hiveData;
 
-  late ScreenArguments lastScreen; // = ScreenArguments(profile: 0);
+  late ScreenArguments lastScreen;
+
+  final standardTheme = StandardTheme();
 
   static AppData get instance => _instance; // ??= AppData._internal();
 

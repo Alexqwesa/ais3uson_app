@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 /// - [contractId],
 /// - [services] - list of [ClientService],
 /// - reference to worker (of type [WorkerProfile]) assigned to this client.
+///
+/// {@category Data_Classes}
 // ignore: prefer_mixin
 class ClientProfile with ChangeNotifier, SyncDataMixin {
   late int contractId;

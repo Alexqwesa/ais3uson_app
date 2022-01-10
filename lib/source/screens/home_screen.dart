@@ -8,6 +8,7 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -19,6 +20,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    AppData.instance.standardTheme.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,6 +140,39 @@ class _HomePageState extends State<HomePage> {
                           WorkerKey.fromJson(jsonDecode(qrData2)),
                         );
                       },
+                    ),
+                    Container(
+                      // todo: dialog add dep, with test dep button
+                      child: Column(
+                        children: [
+                          Text('Тема:'),
+                          ToggleSwitch(
+                            minWidth: 145.0,
+                            minHeight: 34,
+                            cornerRadius: 83.0,
+                            activeBgColors: [
+                              [Theme.of(context).primaryColor],
+                              [Theme.of(context).primaryColor],
+                            ],
+                            activeFgColor: Colors.white,
+                            inactiveBgColor: const Color(0xffECEFF1),
+                            inactiveFgColor: Colors.black38,
+                            initialLabelIndex:
+                                AppData.instance.standardTheme.themeIndex,
+                            totalSwitches: 2,
+                            labels: const ['Светлая', 'Темная'],
+                            radiusStyle: true,
+                            onToggle: (index) {
+                              setState(
+                                () {
+                                  AppData.instance.standardTheme
+                                      .changeIndex(index);
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

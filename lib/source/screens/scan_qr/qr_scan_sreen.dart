@@ -53,7 +53,6 @@ class _QRScanScreenState extends State<QRScanScreen> {
           Expanded(
             child: Card(
               margin: const EdgeInsets.all(8),
-              elevation: 10,
               child: Center(
                 child: (result == null)
                     ? const Text('Выполняется поиск Qr-кода...')
@@ -109,18 +108,19 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         child: FutureBuilder(
                           future: controller?.getFlashStatus(),
                           builder: (context, snapshot) {
-                            return
-                              ColorFiltered(
-                                colorFilter:
-                                snapshot.data != null ?
-                                ColorFilter.matrix(<double>[
-                                  0.2126, 0.7152, 0.0722, 0, 0, //
-                                  0.2126, 0.7152, 0.0722, 0, 0,
-                                  0.2126, 0.7152, 0.0722, 0, 0,
-                                  0, 0, 0, 1, 0,
-                                ],)
-                                : ColorFilter.mode(Colors.white.withOpacity(1), BlendMode.lighten)
-                                ,
+                            return ColorFiltered(
+                              colorFilter: snapshot.data != null
+                                  ? ColorFilter.matrix(
+                                      <double>[
+                                        0.2126, 0.7152, 0.0722, 0, 0, //
+                                        0.2126, 0.7152, 0.0722, 0, 0,
+                                        0.2126, 0.7152, 0.0722, 0, 0,
+                                        0, 0, 0, 1, 0,
+                                      ],
+                                    )
+                                  : ColorFilter.mode(
+                                      Colors.white.withOpacity(1),
+                                      BlendMode.lighten),
                               child: ElevatedButton(
                                 onPressed: () async {
                                   await controller?.toggleFlash();

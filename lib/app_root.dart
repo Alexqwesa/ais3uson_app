@@ -7,14 +7,27 @@ import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
 import 'package:ais3uson_app/source/screens/service_related/fio_services_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Root widget of whole app
 ///
 /// Only theme and navigation routes here.
 /// home: [HomePage]
-class AppRoot extends StatelessWidget {
+
+class AppRoot extends StatefulWidget {
   const AppRoot({Key? key}) : super(key: key);
+
+  @override
+  _AppRootState createState() => _AppRootState();
+}
+
+class _AppRootState extends State<AppRoot> {
+  @override
+  void initState() {
+    super.initState();
+    AppData.instance.standardTheme.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +36,9 @@ class AppRoot extends StatelessWidget {
       //
       // > theme
       //
-      theme:  StandardTheme.dark(),
+      theme: StandardTheme.light(),
+      darkTheme: StandardTheme.dark(),
+      themeMode: AppData.instance.standardTheme.current(),
       //
       // > routes
       //
