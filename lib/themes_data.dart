@@ -113,6 +113,7 @@ class StandardTheme with ChangeNotifier {
         foregroundColor: Colors.white,
         // backgroundColor: Colors.white,
       ),
+      splashColor: Colors.lightGreenAccent.shade100,
       cardTheme: CardTheme(elevation: 12),
       dialogBackgroundColor: Colors.grey[50],
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -123,6 +124,7 @@ class StandardTheme with ChangeNotifier {
         selectedItemColor: Colors.green,
       ),
       primarySwatch: Colors.blue,
+      accentColor: Colors.blue[400],
       dividerColor: Colors.black54,
       textTheme: lightTextTheme,
     );
@@ -135,6 +137,7 @@ class StandardTheme with ChangeNotifier {
         // foregroundColor: Colors.white,
         backgroundColor: Colors.blue[900],
       ),
+      splashColor: Colors.indigoAccent.shade700,
       cardTheme: CardTheme(elevation: 12),
       dialogBackgroundColor: Colors.white12,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -145,6 +148,7 @@ class StandardTheme with ChangeNotifier {
         selectedItemColor: Colors.green,
       ),
       primaryColor: Colors.blue[700],
+      accentColor: Colors.blue,
       primarySwatch: Colors.blue,
       dividerColor: Colors.white54,
       textTheme: darkTextTheme,

@@ -141,11 +141,18 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
+                    const Divider(),
                     Container(
                       // todo: dialog add dep, with test dep button
                       child: Column(
                         children: [
-                          Text('Тема:'),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Тема:',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ),
                           ToggleSwitch(
                             minWidth: 145.0,
                             minHeight: 34,
@@ -156,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                             ],
                             activeFgColor: Colors.white,
                             inactiveBgColor: const Color(0xffECEFF1),
-                            inactiveFgColor: Colors.black38,
+                            inactiveFgColor: Colors.black,
                             initialLabelIndex:
                                 AppData.instance.standardTheme.themeIndex,
                             totalSwitches: 2,

@@ -132,7 +132,6 @@ class _ServiceCardState extends State<ServiceCard>
           Material(
             color: Colors.transparent,
             child: InkWell(
-              splashColor: Colors.amber.withOpacity(0.5),
               onTap: () {
                 setState(() {
                   enabled = widget.service.left > 0;

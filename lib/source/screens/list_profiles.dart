@@ -35,17 +35,44 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                   itemCount: workerKeys.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: const Icon(Icons.group),
-                      title: Text(workerKeys[index].dep),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/department',
-                          arguments: ScreenArguments(profile: index),
-                        );
-                      },
-                      subtitle: Text(workerKeys[index].name),
+                    return Card(
+                      margin: EdgeInsets.all(12),
+                      child: ListTile(
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Transform.scale(
+                            scale: 2,
+                            child: const Icon(Icons.group),
+                          ),
+                        ),
+                        title: Text(
+                          workerKeys[index].dep,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+
+                        // visualDensity:
+                        //     VisualDensity(horizontal: 1, vertical: 1),
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/department',
+                            arguments: ScreenArguments(profile: index),
+                          );
+                        },
+                        subtitle: Align(
+                          alignment: Alignment.topLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(workerKeys[index].name),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Какой-нибудь текст'),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     );
                   },
                 )
