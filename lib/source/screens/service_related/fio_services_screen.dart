@@ -51,6 +51,7 @@ class _FioServicesScreenState extends State<FioServicesScreen> {
               IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () async {
+                  await workerProfile.journal.commitAll();
                   await workerProfile.syncHivePlanned();
                 },
               ),
