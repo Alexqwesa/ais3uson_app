@@ -6,6 +6,7 @@ import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
@@ -127,6 +128,8 @@ class ProofList with ChangeNotifier {
     try {
       appDocDir = await getApplicationDocumentsDirectory();
     } on MissingPlatformDirectoryException {
+      return;
+    } on MissingPluginException {
       return;
     }
     // Todo: add names

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_proofs.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CardScreen extends StatefulWidget {
@@ -163,7 +164,7 @@ class _CardScreenState extends State<CardScreen> {
                 //
                 // > prof of service
                 //
-                ServiceProof(clientService: widget.service),
+                if (!kIsWeb) ServiceProof(clientService: widget.service),
               ],
             ),
           ),
