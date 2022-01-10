@@ -9,6 +9,7 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 ## Содержание
 - [Установка](#установка)
 - [Использование](#использование)
+- [Реализованные возможности](#реализованные-возможности)
 - [TODO](#todo)
 - [Разработчики](#разработчики)
 - [Лицензия](#лицензия)
@@ -37,16 +38,24 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - вводят услуги по мере их оказания,
 - периодически (или постоянно) подключаются к интернету для синхронизации данных приложения.
 
+## Реализованные возможности:
+- [x] Добавление отделения (авторизация) по Qr-коду
+- [x] Работа с обезличенными данными клиентов (реализовано на стороне SQL сервера)
+- [x] Отравка услуг в СУБД с подтверждением (уникальный uuid каждой записи)
+- [x] Работа онлайн и оффлайн (1 раз в день обязательная синхронизация)
+- [x] Прикрепление к услуге изображений-подтверждений (хранятся локально)
+- [x] Журнал введенных услуг за день
+- [x] Архив введенных услуг в предыдущие дни
+- [x] Проверка переполнения положенных услуг
+- [x] Резервное копирование ключей авторизации в облако
+
 ## TODO:
-- [x] Write README
-- [x] Use provider
-- [x] Services input
-- [x] Journal
-- [x] Logo
-- [x] удаление отделений
-- [x] Snackbar для сообщений и ошибок
-- [x] rework network error handling
-- [x] Backup Worker keys to cloud
+- [x] Удаление услуг
+- [ ] Напоминание о необходимости синхронизации
+- [ ] Кнопка: Синхронизировать ВСЕ!
+- [ ] Кнопка: Поделится ?
+- [ ] Архиваровать журнал по 
+- [ ] Добавление отделения (авторизация) по строке 
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] WorkerKey allow several servers (comma separated list)
 - [ ] maybe backup media data? only on full backup?
@@ -65,7 +74,7 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 ## Разработчики
 
-[@Alexqwesa](https://github.com/Alexqwesa).
+[@Alexqwesa](https://github.com/Alexqwesa) aka Savin Aleksander Viktorovich (Савин Александр Викторович)
 
 ## Лицензия
 [LGPLv3](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
