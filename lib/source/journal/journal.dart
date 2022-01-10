@@ -21,7 +21,7 @@ part 'journal.g.dart';
 ///                 stalled -> finished -> outDated -> deleted
 ///                 [both]  -> rejected ->          -> deleted
 ///```
-/// added and stalled | [Journal.commit]ed to DB | finished | [Journal.deleteOldServices] on next day
+/// added and stalled | [Journal.commit]ed to DB | finished | [Journal.archiveOldServices] on next day
 /// rejected | [Journal.delete]d by user
 @HiveType(typeId: 10)
 enum ServiceState {
@@ -100,6 +100,7 @@ class Journal with ChangeNotifier {
   Future<void> postInit() async {
     hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
     all = hive.values.toList();
+    await archiveOldServices();
     notifyListeners();
   }
 
@@ -231,27 +232,25 @@ class Journal with ChangeNotifier {
     unawaited(save());
   }
 
-  Future<void> deleteOldServices() async {
+  Future<void> archiveOldServices() async {
     //
     // > open hive archive and add old services
     //
     final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
     final hiveArchive =
         await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
     await hiveArchive.addAll(
       all.where(
         (el) =>
-            el.provDate.difference(now).inDays > 1 &&
-            el.state == ServiceState.finished,
+            el.provDate.isBefore(today) && el.state == ServiceState.finished,
       ),
     );
     //
     // > delete finished old services and save hive
     //
     all.removeWhere(
-      (el) =>
-          el.provDate.difference(now).inDays > 1 &&
-          el.state == ServiceState.finished,
+      (el) => el.provDate.isBefore(today) && el.state == ServiceState.finished,
     );
     unawaited(save());
     //
