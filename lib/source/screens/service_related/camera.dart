@@ -92,6 +92,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                   //     ),
                   //   ),
                   // );
+                  // ignore: avoid_catches_without_on_clauses
                 } catch (e) {
                   // If an error occurs, log the error to the console.
                   dev.log(e.toString());

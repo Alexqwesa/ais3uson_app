@@ -36,7 +36,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Card(
-                      margin: EdgeInsets.all(12),
+                      margin: const EdgeInsets.all(12),
                       child: ListTile(
                         leading: Padding(
                           padding: const EdgeInsets.all(8.0),

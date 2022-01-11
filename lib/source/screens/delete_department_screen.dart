@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:surf_lint_rules/surf_lint_rules.dart';
 
 class DeleteDepartmentScreen extends StatelessWidget {
   const DeleteDepartmentScreen({Key? key}) : super(key: key);
@@ -49,10 +50,8 @@ class DeleteDepartmentScreen extends StatelessWidget {
                   onTap: () async {
                     final result = await _showDialog(context, index);
                     if (result == 'delete') {
-                      // if (!mounted) return;
                       AppData().profiles.removeAt(index);
-                      // ignore: unawaited_futures
-                      AppData().save();
+                      unawaited(AppData().save());
                       AppData().notify();
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context, 'delete');

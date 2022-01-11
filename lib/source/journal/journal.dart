@@ -31,6 +31,7 @@ class Journal with ChangeNotifier {
   late final WorkerProfile workerProfile;
   final _lock = Lock();
   late Box<ServiceOfJournal> hive;
+  late Box<ServiceOfJournal> hiveArchive;
 
   //
   // > main list of services
@@ -70,12 +71,12 @@ class Journal with ChangeNotifier {
   @override
   void dispose() {
     // if (hive.isOpen) {
-    hive
-      ..clear()
-      ..addAll(all)
-      ..compact()
-      ..close();
-    // }
+    () async {
+      await hive.clear();
+      await hive.addAll(all);
+      await hive.compact();
+      await hive.close();
+    }();
 
     return super.dispose();
   }
@@ -89,8 +90,13 @@ class Journal with ChangeNotifier {
 
   Future<void> save() async {
     hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
-    await hive.clear();
-    await hive.addAll(all);
+    for (final s in all) {
+      try {
+        await hive.add(s);
+      } on HiveError {
+        s.save();
+      }
+    }
     await hive.compact();
   }
 
@@ -189,6 +195,7 @@ class Journal with ChangeNotifier {
           s.state = await commit(s) ?? s.state;
         }
         servList.forEach((element) => dev.log(element.state.toString()));
+        // ignore: avoid_catches_without_on_clauses
       } catch (e) {
         dev.log(e.toString());
       }
@@ -221,13 +228,30 @@ class Journal with ChangeNotifier {
     //
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final hiveArchive =
+    hiveArchive =
         await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
     await hiveArchive.addAll(
-      all.where(
-        (el) =>
-            el.provDate.isBefore(today) && el.state == ServiceState.finished,
-      ),
+      all
+          .where(
+            (el) =>
+                el.provDate.isBefore(today) &&
+                [ServiceState.finished, ServiceState.outDated]
+                    .contains(el.state),
+          )
+          .map((e) => ServiceOfJournal.copy(
+                servId: e.servId,
+                contractId: e.contractId,
+                workerId: e.workerId,
+                state: e.state,
+                uid: e.uid,
+                error: e.error,
+                provDate: e.provDate,
+              )),
+      /*
+            We could have just removed element first from list of active element,
+            but this could lead to dataloss,
+            this code can lead to data duplicate, but we can: TODO: deduplicate data on load
+            */
     );
     //
     // > delete finished old services and save hive
