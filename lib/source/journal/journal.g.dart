@@ -22,7 +22,7 @@ class ServiceOfJournalAdapter extends TypeAdapter<ServiceOfJournal> {
       workerId: fields[2] as int,
     )
       ..provDate = fields[3] as DateTime
-      ..state = fields[4] as ServiceState
+      .._state = fields[4] as ServiceState
       ..error = fields[5] as String
       ..uid = fields[6] as String;
   }
@@ -40,7 +40,7 @@ class ServiceOfJournalAdapter extends TypeAdapter<ServiceOfJournal> {
       ..writeByte(3)
       ..write(obj.provDate)
       ..writeByte(4)
-      ..write(obj.state)
+      ..write(obj._state)
       ..writeByte(5)
       ..write(obj.error)
       ..writeByte(6)

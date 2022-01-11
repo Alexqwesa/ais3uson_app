@@ -316,11 +316,18 @@ class ServiceOfJournal with HiveObjectMixin {
   //
   DateTime provDate = DateTime.now();
   @HiveField(4)
-  ServiceState state = ServiceState.added;
+  ServiceState _state = ServiceState.added;
   @HiveField(5)
   String error = '';
   @HiveField(6)
   String uid = uuid.v4();
+
+  ServiceState get state => _state;
+
+  set state(ServiceState value) {
+    _state = value;
+    save();
+  }
 
   ServiceOfJournal({
     required this.servId,
@@ -333,8 +340,10 @@ class ServiceOfJournal with HiveObjectMixin {
     required this.contractId,
     required this.workerId,
     required this.provDate,
-    required this.state,
+    required ServiceState state,
     required this.error,
     required this.uid,
-  });
+  }) {
+    _state = state;
+  }
 }
