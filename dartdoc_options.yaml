@@ -12,12 +12,6 @@ dartdoc:
     'Import_from_json':
       name: Import from json
       markdown: lib/source/from_json/README.md
-  #    "First Category":
-  #      markdown: doc/First.md
-  #      name: Awesome
-  #    "Second Category":
-  #      markdown: doc/Second.md
-  #      name: Great
 
   subCategoryOrder: [ 'worker_profile', 'Journal' , 'Data_Classes', 'Import_from_json' ]
   subCategories:

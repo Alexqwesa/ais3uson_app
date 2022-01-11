@@ -31,6 +31,9 @@ mkdir doc/api/assets/
 cp assets/ais-3uson-logo-128.png doc/api/assets/
 cp ./lib/source/journal/journal.png  doc/api/Journal/journal.png
 
+
 dhttpd --path doc/api &
 
 xdg-open  http://localhost:8080 &
+
+cp -a doc docs
