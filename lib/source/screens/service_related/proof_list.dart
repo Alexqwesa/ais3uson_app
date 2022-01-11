@@ -47,6 +47,7 @@ class ProofList with ChangeNotifier {
       appDocDir = await getApplicationDocumentsDirectory();
     } on MissingPlatformDirectoryException {
       showErrorNotification('Ошибка доступа к файловой системе!');
+
       return;
     }
     await for (final depWorker in appDocDir.list()) {
@@ -119,7 +120,7 @@ class ProofList with ChangeNotifier {
     notifyListeners();
   }
 
-  void addImage(int i, XFile? xFile, String prefix) async {
+  Future<void> addImage(int i, XFile? xFile, String prefix) async {
     if (xFile == null) return;
     //
     // > create new path
@@ -153,13 +154,13 @@ class ProofList with ChangeNotifier {
     imgFile = await imgFile.rename(
       path.join(
         newPath.path,
-        prefix + "img_" + path.basename(xFile.path),
+        prefix + 'img_' + path.basename(xFile.path),
       ),
     );
     //
     // > update list
     //
-    if (prefix == "after_") {
+    if (prefix == 'after_') {
       proofGroups[i].afterImg = Image.file(imgFile);
     } else {
       proofGroups[i].beforeImg = Image.file(imgFile);
@@ -190,7 +191,7 @@ class ProofGroup {
   ProofGroup.empty(this.name);
 }
 
-extension _baseNameForFileSystemEntity on FileSystemEntity {
+extension _BaseNameForFileSystemEntity on FileSystemEntity {
   String get baseName {
     return path.basename(this.path);
   }

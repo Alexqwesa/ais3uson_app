@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,9 +21,9 @@ const hiveArchiveLimit = 1000;
 ///
 /// test worker key in json format
 String qrData =
-'''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
+    '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123",  "dep": "Тестовое отделение", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
 String qrData2 =
-'''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение 2", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
+    '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", "worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение 2", "db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
 
 class ScreenArguments {
   int profileNum = -1;
@@ -85,8 +87,8 @@ void showErrorNotification(String text) {
       background: Colors.red[300],
       position: NotificationPosition.bottom,
     );
-    // ignore_for_line: avoid_catches_without_on_clauses
-  } catch (e){
-
+    // ignore: avoid_catches_without_on_clauses
+  } catch (e) {
+    dev.log(e.toString());
   }
 }

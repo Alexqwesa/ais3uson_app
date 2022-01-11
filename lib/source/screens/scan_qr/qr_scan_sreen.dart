@@ -110,7 +110,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                           builder: (context, snapshot) {
                             return ColorFiltered(
                               colorFilter: snapshot.data != null
-                                  ? ColorFilter.matrix(
+                                  ? const ColorFilter.matrix(
                                       <double>[
                                         0.2126, 0.7152, 0.0722, 0, 0, //
                                         0.2126, 0.7152, 0.0722, 0, 0,

@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: prefer_mixin
 class StandardTheme with ChangeNotifier {
-  int themeIndex = 0;
-
-  ThemeMode current() {
-    return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
-  }
-
-  void changeIndex(int index) {
-    themeIndex = index;
-    notifyListeners();
-  }
-
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
       fontSize: 16.0,
@@ -99,6 +89,9 @@ class StandardTheme with ChangeNotifier {
     ),
   );
 
+  /// store theme state: light/dark
+  int themeIndex = 0;
+
   static ThemeData light() {
     return ThemeData(
       brightness: Brightness.light,
@@ -114,7 +107,7 @@ class StandardTheme with ChangeNotifier {
         // backgroundColor: Colors.white,
       ),
       splashColor: Colors.lightGreenAccent.shade100,
-      cardTheme: CardTheme(elevation: 12),
+      cardTheme: const CardTheme(elevation: 12),
       dialogBackgroundColor: Colors.grey[50],
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
@@ -138,7 +131,7 @@ class StandardTheme with ChangeNotifier {
         backgroundColor: Colors.blue[900],
       ),
       splashColor: Colors.indigoAccent.shade700,
-      cardTheme: CardTheme(elevation: 12),
+      cardTheme: const CardTheme(elevation: 12),
       dialogBackgroundColor: Colors.white12,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         // foregroundColor: Colors.white,
@@ -153,5 +146,14 @@ class StandardTheme with ChangeNotifier {
       dividerColor: Colors.white54,
       textTheme: darkTextTheme,
     );
+  }
+
+  ThemeMode current() {
+    return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
+  }
+
+  void changeIndex(int index) {
+    themeIndex = index;
+    notifyListeners();
   }
 }

@@ -207,6 +207,7 @@ class Journal with ChangeNotifier {
           s.state = await commit(s) ?? s.state;
         }
         servList.forEach((element) => dev.log(element.state.toString()));
+        // ignore: avoid_catches_without_on_clauses
       } catch (e) {
         dev.log(e.toString());
       }

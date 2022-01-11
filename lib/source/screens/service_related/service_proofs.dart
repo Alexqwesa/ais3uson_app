@@ -83,9 +83,7 @@ class _ServiceProofState extends State<ServiceProof> {
               ),
             ),
             FloatingActionButton(
-              onPressed: () {
-                proofList.addNewGroup();
-              },
+              onPressed: proofList.addNewGroup,
               child: const Icon(Icons.add),
             ),
           ],
@@ -103,7 +101,7 @@ class _ServiceProofState extends State<ServiceProof> {
     final proofGroups = proofList.proofGroups;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         //
@@ -181,7 +179,7 @@ class _ServiceProofState extends State<ServiceProof> {
                                         ),
                                       ),
                                     );
-                                    proofList.addImage(
+                                    await proofList.addImage(
                                       i,
                                       defaultImgPath,
                                       'before_',
@@ -230,7 +228,7 @@ class _ServiceProofState extends State<ServiceProof> {
                                         ),
                                       ),
                                     );
-                                    proofList.addImage(
+                                    await proofList.addImage(
                                       i,
                                       defaultImgPath,
                                       'after_',
