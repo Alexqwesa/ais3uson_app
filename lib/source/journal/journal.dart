@@ -107,8 +107,15 @@ class Journal with ChangeNotifier {
 
   Future<void> save() async {
     hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
-    await hive.clear();
-    await hive.addAll(all);
+    for (final s in all) {
+      try {
+        await hive.add(s);
+      } on HiveError {
+        s.save();
+      }
+    }
+    // await hive.clear();
+    // await hive.addAll(all);
     await hive.compact();
   }
 
