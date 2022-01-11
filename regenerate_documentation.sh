@@ -36,4 +36,5 @@ dhttpd --path doc/api &
 
 xdg-open  http://localhost:8080 &
 
-cp -a doc docs
+rm -rf docs/*
+cp -a doc/api/* docs/
