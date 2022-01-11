@@ -8,7 +8,7 @@ import 'package:ais3uson_app/source/screens/service_related/fio_services_screen.
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';
 
-/// Root widget of whole app
+/// Root widget of whole app.
 ///
 /// Only theme [StandardTheme] and navigation routes here.
 /// home: [HomePage].

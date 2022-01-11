@@ -1,4 +1,6 @@
 // ignore_for_file: flutter_style_todos
+// ignore_for_file:invalid_assignment, avoid_annotating_with_dynamic
+// ignore_for_file:avoid_dynamic_calls
 
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +11,8 @@ import 'package:flutter/cupertino.dart';
 /// total : 1
 /// image : "None"
 /// serv_id_list : "558807"
-
-// ignore_for_file:invalid_assignment, avoid_annotating_with_dynamic
-// ignore_for_file:avoid_dynamic_calls
-
+///
+/// {@category Import_from_json}
 @immutable
 class ServiceEntry {
   late final int _id;

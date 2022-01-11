@@ -29,6 +29,7 @@ mkdir doc/api/images/
 cp images/license.pdf doc/api/images/
 mkdir doc/api/assets/
 cp assets/ais-3uson-logo-128.png doc/api/assets/
+cp ./lib/source/journal/journal.png  doc/api/Journal/journal.png
 
 dhttpd --path doc/api &
 

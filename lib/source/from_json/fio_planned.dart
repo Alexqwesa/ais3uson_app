@@ -1,11 +1,13 @@
-/// contract_id : 2
-/// serv_id : 1
-/// planned : 10
-/// filled : "None"
 
 // ignore_for_file:invalid_assignment
 // ignore_for_file:avoid_dynamic_calls
 
+/// contract_id : 2
+/// serv_id : 1
+/// planned : 10
+/// filled : "None"
+///
+/// {@category Import_from_json}
 class FioPlanned {
   int get contractId => _contractId;
 

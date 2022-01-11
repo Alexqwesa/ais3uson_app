@@ -1,17 +1,17 @@
 dartdoc:
   categories:
-    'Data_Classes':
-      name: Data Classes
-      markdown: lib/source/data_classes/README.md
     'Root':
       name: Root
       markdown: README.md
+    'Data_Classes':
+      name: Data Classes
+      markdown: lib/source/data_classes/README.md
     'Journal':
       name: Journal
       markdown: lib/source/journal/README.md
     'Import_from_json':
       name: Import from json
-      markdown: README.md
+      markdown: lib/source/from_json/README.md
   #    "First Category":
   #      markdown: doc/First.md
   #      name: Awesome

@@ -1,4 +1,6 @@
 // import 'package:flutter/material.dart';
+// ignore_for_file:invalid_assignment
+// ignore_for_file:avoid_dynamic_calls
 
 import 'package:flutter/material.dart';
 
@@ -6,14 +8,13 @@ import 'package:flutter/material.dart';
 /// name : "test"
 /// worker_dep_id: 1
 /// api_key : "123"
-/// otd_id : 1
-/// otd : "otd test"
+/// dep_id : 1
+/// dep : "otd test"
 /// db : "kcson"
 /// host : "192.168.0.102"
 /// port : "48080"
-
-// ignore_for_file:invalid_assignment
-// ignore_for_file:avoid_dynamic_calls
+///
+/// {@category Import_from_json}
 @immutable
 class WorkerKey {
   String get app => _app;
