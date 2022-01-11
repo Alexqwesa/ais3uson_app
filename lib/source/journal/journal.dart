@@ -1,9 +1,16 @@
+/// Just journal of user inputted services.
+///
+/// It is local for each [WorkerProfile].
+library Journal;
+
 import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
@@ -11,38 +18,14 @@ import 'package:http/http.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
 import 'package:synchronized/synchronized.dart';
 
-part 'journal.g.dart';
-
-/// These states control [ServiceOfJournal].
-///
-/// ```
-/// Usual life of [ServiceOfJournal] is:
-///                 added   -> finished -> outDated -> deleted
-///                 stalled -> finished -> outDated -> deleted
-///                 [both]  -> rejected ->          -> deleted
-///```
-/// added and stalled | [Journal.commit]ed to DB | finished | [Journal.archiveOldServices] on next day
-/// rejected | [Journal.delete]d by user
-@HiveType(typeId: 10)
-enum ServiceState {
-  @HiveField(0)
-  added,
-  @HiveField(1)
-  stalled,
-  @HiveField(2)
-  finished,
-  @HiveField(3)
-  rejected,
-  @HiveField(4)
-  outDated,
-}
-
 /// Journal of services
 ///
 /// This is a main repository for services (in various states),
 /// it is member of [WorkerProfile] class.
 ///
 /// ![Mind map of it functionality](journal.png)
+///
+/// {@category Journal}
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
   late final WorkerProfile workerProfile;
@@ -279,35 +262,4 @@ class Journal with ChangeNotifier {
       dev.log('Error: $e, can not delete $servId of contract $contractId');
     }
   }
-}
-
-/// ServiceOfJournal
-///
-/// ServiceOfJournal in state [ServiceState.added] the entry that will be send
-/// to BD (and it will change state afterward).
-@HiveType(typeId: 0)
-class ServiceOfJournal with HiveObjectMixin {
-  @HiveField(0)
-  final int servId;
-  @HiveField(1)
-  final int contractId;
-  @HiveField(2)
-  final int workerId;
-  @HiveField(3)
-  //
-  // > preinited vars
-  //
-  DateTime provDate = DateTime.now();
-  @HiveField(4)
-  ServiceState state = ServiceState.added;
-  @HiveField(5)
-  String error = '';
-  @HiveField(6)
-  String uid = uuid.v4();
-
-  ServiceOfJournal({
-    required this.servId,
-    required this.contractId,
-    required this.workerId,
-  });
 }

@@ -1,6 +1,7 @@
 import 'package:ais3uson_app/app_root.dart';
 import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/journal/journal.dart';
+import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -8,6 +9,8 @@ import 'package:overlay_support/overlay_support.dart';
 /// Init Hive and AppData
 ///
 /// here is pre init staffs of the app
+///
+/// {@category Root}
 Future init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

@@ -68,7 +68,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text('Какой-нибудь текст'),
-                              )
+                              ),
                             ],
                           ),
                         ),

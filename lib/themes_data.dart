@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// Theme with support switching dark/light.
+///
+/// {@category Root}
 class StandardTheme with ChangeNotifier {
   int themeIndex = 0;
 

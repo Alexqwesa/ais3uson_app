@@ -120,7 +120,8 @@ class _QRScanScreenState extends State<QRScanScreen> {
                                     )
                                   : ColorFilter.mode(
                                       Colors.white.withOpacity(1),
-                                      BlendMode.lighten),
+                                      BlendMode.lighten,
+                                    ),
                               child: ElevatedButton(
                                 onPressed: () async {
                                   await controller?.toggleFlash();

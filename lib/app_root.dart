@@ -10,9 +10,10 @@ import 'package:flutter/material.dart';
 
 /// Root widget of whole app
 ///
-/// Only theme and navigation routes here.
-/// home: [HomePage]
-
+/// Only theme [StandardTheme] and navigation routes here.
+/// home: [HomePage].
+///
+/// {@category Root}
 class AppRoot extends StatefulWidget {
   const AppRoot({Key? key}) : super(key: key);
 

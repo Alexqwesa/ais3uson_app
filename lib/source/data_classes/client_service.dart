@@ -2,6 +2,7 @@ import 'package:ais3uson_app/source/from_json/fio_planned.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
+import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/screens/service_related/proof_list.dart';
 import 'package:flutter/material.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
@@ -12,6 +13,8 @@ import 'package:surf_lint_rules/surf_lint_rules.dart';
 /// - [FioPlanned]...
 ///
 /// It only store [ProofList].
+///
+/// {@category Data_Classes}
 // ignore: prefer_mixin
 class ClientService with ChangeNotifier {
   late final ServiceEntry service;

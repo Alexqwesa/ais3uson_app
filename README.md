@@ -45,7 +45,7 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [x] Работа онлайн и оффлайн (1 раз в день обязательная синхронизация)
 - [x] Прикрепление к услуге изображений-подтверждений (хранятся локально)
 - [x] Журнал введенных услуг за день
-- [x] Архив услуг введенных в предыдущие дни
+- [x] Архивирование услуг введенных в предыдущие дни
 - [x] Проверка переполнения положенных услуг
 - [x] Резервное копирование ключей авторизации в облако
 
@@ -55,12 +55,12 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [ ] Напоминание о необходимости синхронизации
 - [ ] Кнопка: Синхронизировать ВСЕ!
 - [ ] Кнопка: Поделится ?
-- [ ] Архиваровать журнал по 
+- [ ] Архиваровать журнал по ?
 - [ ] Добавление отделения (авторизация) по строке 
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] WorkerKey allow several servers (comma separated list)
 - [ ] maybe backup media data? only on full backup?
-- [ ] Archive view
+- [ ] Просмотр архива услуг
 - [ ] use ssl, maybe use Dio?
 - [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта

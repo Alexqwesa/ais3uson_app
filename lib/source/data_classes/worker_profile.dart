@@ -11,10 +11,18 @@ import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
 
-/// [WorkerProfile]
+/// A profile of worker.
 ///
-/// profile of worker created from authentication QR code (or line)
-/// store and sync data of
+/// It created from authentication QR code (or text).
+///
+/// It main purpose is to store [Journal] and get bunch of sync data via:
+/// - [syncHiveServices],
+/// - [syncHiveFio],
+/// - [syncHivePlanned].
+///
+/// Also it is notifying widgets.
+///
+/// {@category Data_Classes}
 // ignore: prefer_mixin
 class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final WorkerKey key;
