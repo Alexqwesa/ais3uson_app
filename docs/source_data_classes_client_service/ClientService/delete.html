@@ -65,10 +65,12 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; delete() async {
-  await journal.deleteLast(
+  final uuid = journal.getUuidOfLastService(
     servId: planned.servId,
     contractId: planned.contractId,
   );
+
+  await journal.delete(uuid: uuid);
   notifyListeners();
 }</code></pre>
 </section>

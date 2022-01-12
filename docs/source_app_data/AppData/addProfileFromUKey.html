@@ -66,7 +66,9 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; addProfileFromUKey(WorkerKey key) async {
-  if (_profiles.firstWhereOrNull((element) =&gt; element.key == key) == null) {
+  if (_profiles
+          .firstWhereOrNull((element) =&gt; element.key.apiKey == key.apiKey) ==
+      null) {
     _profiles.add(WorkerProfile(key));
     await save();
     notifyListeners();

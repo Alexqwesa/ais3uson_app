@@ -76,7 +76,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
-  if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:48080&#47;fio&#39;)) {
+  if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;fio&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Get ClientProfile from hive
     &#47;&#47;
@@ -90,7 +90,7 @@ Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
         name: &#39;${el.ufio} ${el.contract}&#39;,
       );
     }).toList(growable: false);
-  } else if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:48080&#47;planned&#39;)) {
+  } else if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;planned&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Sync Planned services from hive
     &#47;&#47;
@@ -98,7 +98,7 @@ Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
         hiddenUpdateValueFromHive(hiveKey: hiveKey).map&lt;FioPlanned&gt;((json) {
       return FioPlanned.fromJson(json);
     }).toList(growable: false);
-  } else if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:48080&#47;services&#39;)) {
+  } else if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;services&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Sync services from hive
     &#47;&#47;

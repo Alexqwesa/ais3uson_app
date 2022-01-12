@@ -101,7 +101,7 @@
   imgFile = await imgFile.rename(
     path.join(
       newPath.path,
-      prefix + &#39;img_&#39; + path.basename(xFile.path),
+      &#39;${prefix}img_${path.basename(xFile.path)}&#39;,
     ),
   );
   &#47;&#47;

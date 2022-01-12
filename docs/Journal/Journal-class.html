@@ -264,8 +264,8 @@ it is member of <a href="../source_data_classes_worker_profile/WorkerProfile-cla
 </dd>
 
         <dt id="commit" class="callable">
-  <span class="name"><a href="../Journal/Journal/commit.html">commit</a></span><span class="signature">(<wbr><span class="parameter" id="commit-param-s"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">s</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_journal_service_state/ServiceState-class.html">ServiceState</a>?</span>&gt;</span></span>
+  <span class="name"><a href="../Journal/Journal/commit.html">commit</a></span><span class="signature">(<wbr><span class="parameter" id="commit-param-serv"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="commit-param-body">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">body</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_journal_service_state/ServiceState.html">ServiceState</a>?</span>&gt;</span></span>
   </span>
   
 
@@ -290,7 +290,7 @@ it is member of <a href="../source_data_classes_worker_profile/WorkerProfile-cla
 </dd>
 
         <dt id="delete" class="callable">
-  <span class="name"><a href="../Journal/Journal/delete.html">delete</a></span><span class="signature">(<wbr><span class="parameter" id="delete-param-serv"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">serv</span></span>)
+  <span class="name"><a href="../Journal/Journal/delete.html">delete</a></span><span class="signature">(<wbr><span class="parameter" id="delete-param-serv">{<span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a>?</span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="delete-param-uuid"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uuid</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -298,19 +298,6 @@ it is member of <a href="../source_data_classes_worker_profile/WorkerProfile-cla
 </dt>
 <dd>
   Delete service <code>serv</code> from journal. <a href="../Journal/Journal/delete.html">[...]</a>
-  
-
-</dd>
-
-        <dt id="deleteLast" class="callable">
-  <span class="name"><a href="../Journal/Journal/deleteLast.html">deleteLast</a></span><span class="signature">(<wbr><span class="parameter" id="deleteLast-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="deleteLast-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-   
   
 
 </dd>
@@ -327,6 +314,19 @@ it is member of <a href="../source_data_classes_worker_profile/WorkerProfile-cla
 object is not in a usable state and should be discarded (calls to
 <a href="../Journal/Journal/addListener.html">addListener</a> and <a href="../Journal/Journal/removeListener.html">removeListener</a> will throw after the object is
 disposed). <a href="../Journal/Journal/dispose.html">[...]</a>
+  
+
+</dd>
+
+        <dt id="getUuidOfLastService" class="callable">
+  <span class="name"><a href="../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></span><span class="signature">(<wbr><span class="parameter" id="getUuidOfLastService-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="getUuidOfLastService-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+   
   
 
 </dd>
@@ -511,8 +511,8 @@ notified when the object changes. <a href="../Journal/Journal/removeListener.htm
     <li><a href="../Journal/Journal/commit.html">commit</a></li>
     <li><a href="../Journal/Journal/commitAll.html">commitAll</a></li>
     <li><a href="../Journal/Journal/delete.html">delete</a></li>
-    <li><a href="../Journal/Journal/deleteLast.html">deleteLast</a></li>
     <li><a href="../Journal/Journal/dispose.html">dispose</a></li>
+    <li><a href="../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="../Journal/Journal/notifyListeners.html">notifyListeners</a></li>
     <li><a href="../Journal/Journal/post.html">post</a></li>
