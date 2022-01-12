@@ -95,7 +95,9 @@ class AppData with ChangeNotifier {
   }
 
   Future<bool> addProfileFromUKey(WorkerKey key) async {
-    if (_profiles.firstWhereOrNull((element) => element.key == key) == null) {
+    if (_profiles
+            .firstWhereOrNull((element) => element.key.apiKey == key.apiKey) ==
+        null) {
       _profiles.add(WorkerProfile(key));
       await save();
       notifyListeners();
