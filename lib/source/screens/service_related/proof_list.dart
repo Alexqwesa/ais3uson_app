@@ -154,7 +154,7 @@ class ProofList with ChangeNotifier {
     imgFile = await imgFile.rename(
       path.join(
         newPath.path,
-        prefix + 'img_' + path.basename(xFile.path),
+        '${prefix}img_${path.basename(xFile.path)}',
       ),
     );
     //

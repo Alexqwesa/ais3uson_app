@@ -100,7 +100,8 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
   }
 
   Future<void> checkHTTP() async {
-    final url = Uri.parse('http://${AppData().profile.key.host}:48080/stat');
+    final url = Uri.parse(
+        'http://${AppData().profile.key.host}:${AppData().profile.key.port}/stat');
     await http.get(url).then((response) {
       if (response.statusCode == 200) {
         setState(() {
@@ -152,7 +153,8 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
   }
 
   Future<void> checkHTTP() async {
-    final url = Uri.parse('http://${AppData().profile.key.host}:48080/planned');
+    final url = Uri.parse(
+        'http://${AppData().profile.key.host}:${AppData().profile.key.port}/planned');
     await http.post(url, headers: headers, body: body).then((response) {
       setState(() {
         _testHTTP = jsonDecode(response.body).toString();

@@ -26,12 +26,12 @@ class AppData with ChangeNotifier {
   static late final SharedPreferences prefs;
   static final AppData _instance = AppData._internal();
 
+  final standardTheme = StandardTheme();
+
   /// Global Storage [hiveData]
   late Box hiveData;
 
   late ScreenArguments lastScreen;
-
-  final standardTheme = StandardTheme();
 
   static AppData get instance => _instance; // ??= AppData._internal();
 

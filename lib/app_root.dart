@@ -26,7 +26,9 @@ class _AppRootState extends State<AppRoot> {
   void initState() {
     super.initState();
     AppData.instance.standardTheme.addListener(() {
-      setState(() {});
+      setState(() {
+        return;
+      });
     });
   }
 

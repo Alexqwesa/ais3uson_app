@@ -11,6 +11,7 @@ import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
@@ -94,7 +95,7 @@ class Journal with ChangeNotifier {
       try {
         await hive.add(s);
       } on HiveError {
-        s.save();
+        await s.save();
       }
     }
     await hive.compact();

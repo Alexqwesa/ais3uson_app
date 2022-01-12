@@ -38,13 +38,12 @@ mixin SyncDataMixin {
   ///
   /// Call [updateValueFromHive] to load data into application.
   Future<void> hiddenSyncHive({
-    required String? urlAddress,
+    required String urlAddress,
     String? apiKey,
     Map<String, String>? headers,
     Box? hive,
   }) async {
     apiKey ??= AppData().profiles[0].key.apiKey;
-    urlAddress ??= 'http://${AppData().profile.key.host}:48080/stat';
     hive ??= AppData().hiveData;
     headers ??= _headers;
     //

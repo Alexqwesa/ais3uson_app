@@ -70,7 +70,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// read hive data and notify
   @override
   Future<void> updateValueFromHive(String hiveKey) async {
-    if (hiveKey.endsWith('http://${key.host}:48080/fio')) {
+    if (hiveKey.endsWith('http://${key.host}:${key.port}/fio')) {
       //
       // > Get ClientProfile from hive
       //
@@ -84,7 +84,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
           name: '${el.ufio} ${el.contract}',
         );
       }).toList(growable: false);
-    } else if (hiveKey.endsWith('http://${key.host}:48080/planned')) {
+    } else if (hiveKey.endsWith('http://${key.host}:${key.port}/planned')) {
       //
       // > Sync Planned services from hive
       //
@@ -92,7 +92,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioPlanned>((json) {
         return FioPlanned.fromJson(json);
       }).toList(growable: false);
-    } else if (hiveKey.endsWith('http://${key.host}:48080/services')) {
+    } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //
       // > Sync services from hive
       //
@@ -115,7 +115,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   Future<void> syncHiveFio() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:48080/fio',
+      urlAddress: 'http://${key.host}:${key.port}/fio',
     );
   }
 
@@ -125,7 +125,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     }
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:48080/planned',
+      urlAddress: 'http://${key.host}:${key.port}/planned',
     );
   }
 
@@ -135,7 +135,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   Future<void> syncHiveServices() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:48080/services',
+      urlAddress: 'http://${key.host}:${key.port}/services',
     );
   }
 }

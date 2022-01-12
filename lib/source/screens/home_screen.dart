@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     AppData.instance.standardTheme.addListener(() {
-      setState(() {});
+      setState(() {
+        return;
+      });
     });
   }
 
@@ -138,6 +140,9 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pop(context, 'qr');
                         AppData.instance.addProfileFromUKey(
                           WorkerKey.fromJson(jsonDecode(qrData2)),
+                        );
+                        AppData.instance.addProfileFromUKey(
+                          WorkerKey.fromJson(jsonDecode(qrData)),
                         );
                       },
                     ),
