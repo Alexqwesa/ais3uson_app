@@ -110,10 +110,12 @@ class ClientService with ChangeNotifier {
   }
 
   Future<void> delete() async {
-    await journal.deleteLast(
+    final uuid = journal.getUuidOfLastService(
       servId: planned.servId,
       contractId: planned.contractId,
     );
+
+    await journal.delete(uuid: uuid);
     notifyListeners();
   }
 }

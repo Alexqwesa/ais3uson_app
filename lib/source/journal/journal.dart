@@ -120,28 +120,31 @@ class Journal with ChangeNotifier {
   ///
   /// Return new state or null, didn't change service state.
   /// On error: show [showErrorNotification] to user.
-  Future<ServiceState?> commit(ServiceOfJournal s) async {
-    final urlAddress = 'http://${workerProfile.key.host}:48080/add';
+  Future<ServiceState?> commit(ServiceOfJournal serv, {String? body}) async {
+    final urlAddress =
+        'http://${workerProfile.key.host}:${workerProfile.key.port}/add';
     final url = Uri.parse(urlAddress);
     //
     // > create body of post request
     //
-    final body = jsonEncode(
+    // ignore: parameter_assignments
+    body ??= jsonEncode(
       <String, dynamic>{
         'api_key': apiKey,
-        'vdate': sqlFormat.format(s.provDate),
-        'uuid': s.uid,
-        'contracts_id': s.contractId,
-        'dep_has_worker_id': s.workerId,
-        'serv_id': s.servId,
+        'check_api_key': apiKey,
+        'vdate': sqlFormat.format(serv.provDate),
+        'uuid': serv.uid,
+        'contracts_id': serv.contractId,
+        'dep_has_worker_id': serv.workerId,
+        'serv_id': serv.servId,
       },
     );
     try {
       //
       // > check: is it in right state (not finished etc...)
       //
-      if (![ServiceState.added, ServiceState.stalled].contains(s.state)) {
-        return s.state;
+      if (![ServiceState.added, ServiceState.stalled].contains(serv.state)) {
+        return serv.state;
       }
       //
       // > send Post
@@ -207,15 +210,37 @@ class Journal with ChangeNotifier {
   /// Delete service [serv] from journal.
   ///
   /// Also notify listeners and save.
-  Future<void> delete(ServiceOfJournal serv) async {
+  Future<void> delete({ServiceOfJournal? serv, String? uuid}) async {
+    //
+    // find service
+    //
+    serv ??= all.lastWhereOrNull((element) => element.uid == uuid);
+    if (serv == null) {
+      dev.log('Error: delete: not found by uuid');
+
+      return;
+    }
+    //
+    // delete from DB if needed
+    //
     if ([
       ServiceState.finished,
       ServiceState.outDated,
     ].contains(serv.state)) {
-      // TODO: deleted from DB here
-
+      final body = jsonEncode(
+        <String, dynamic>{
+          'api_key': apiKey,
+          'uuid': serv.uid,
+          'contracts_id': serv.contractId,
+          'dep_has_worker_id': serv.workerId,
+          'serv_id': serv.servId,
+        },
+      );
+      await commit(serv, body: body);
     }
-
+    //
+    // delete
+    //
     all.removeAt(
       all.indexOf(serv),
     );
@@ -271,17 +296,18 @@ class Journal with ChangeNotifier {
     await hiveArchive.close();
   }
 
-  Future<void> deleteLast({
+  String? getUuidOfLastService({
     required int servId,
     required int contractId,
-  }) async {
+  }) {
     try {
-      await delete(
-        all.lastWhere(
-          (element) =>
-              element.servId == servId && element.contractId == contractId,
-        ),
+      final serv = all.lastWhere(
+        (element) =>
+            element.servId == servId && element.contractId == contractId,
       );
+      final uid = serv.uid;
+
+      return uid;
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       dev.log('Error: $e, can not delete $servId of contract $contractId');
