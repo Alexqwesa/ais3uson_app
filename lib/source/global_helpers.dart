@@ -21,12 +21,16 @@ const hiveArchiveLimit = 1000;
 ///
 /// test worker key in json format
 String qrData = '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", '''
-    '''"worker_dep_id": 1, "api_key": "1234",  "dep": "Тестовое отделение", '''
+    '''"worker_dep_id": 1, "api_key": "1234",  "dep": "80.87.196.11 отделение48081", '''
     '''"db": "kcson", "host": "80.87.196.11", "port": "48081"}''';
 String qrData2 =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
-    '''"worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение", '''
+    '''"worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение48080", '''
     '''"db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
+String qrData3 =
+    '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
+    '''"worker_dep_id": 1, "api_key": "12345", "dep": "48081 отделение", '''
+    '''"db": "kcson", "host": "80.87.196.11", "port": "48082"}''';
 
 class ScreenArguments {
   int profileNum = -1;
