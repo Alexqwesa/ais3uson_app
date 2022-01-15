@@ -141,9 +141,9 @@ class _HomePageState extends State<HomePage> {
                         AppData.instance.addProfileFromUKey(
                           WorkerKey.fromJson(jsonDecode(qrData2)),
                         );
-                        // AppData.instance.addProfileFromUKey(
-                        //   WorkerKey.fromJson(jsonDecode(qrData)),
-                        // );
+                        AppData.instance.addProfileFromUKey(
+                          WorkerKey.fromJson(jsonDecode(qrData)),
+                        );
                       },
                     ),
                     const Divider(),

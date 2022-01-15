@@ -24,7 +24,7 @@ import 'package:synchronized/synchronized.dart';
 /// This is a main repository for services (in various states),
 /// it is member of [WorkerProfile] class.
 ///
-/// ![Mind map of it functionality](journal.png)
+/// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/journal/journal.png)
 ///
 /// {@category Journal}
 // ignore: prefer_mixin
