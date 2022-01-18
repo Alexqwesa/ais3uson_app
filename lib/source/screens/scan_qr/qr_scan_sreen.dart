@@ -187,10 +187,14 @@ class _QRScanScreenState extends State<QRScanScreen> {
                           if (result == null) {
                             return;
                           }
-                          final newKey =
-                              result!.code!.substring(7, result!.code!.length);
+                          var newKey = result!.code!;
+                          if (newKey.startsWith('http://')) {
+                            newKey = newKey.substring(7, newKey.length);
+                          }
                           final res = await AppData().addProfileFromUKey(
-                            WorkerKey.fromJson(json.decode(newKey)),
+                            WorkerKey.fromJson(json.decode(
+                              newKey,
+                            )),
                           );
                           if (!mounted) return;
                           if (res) {
