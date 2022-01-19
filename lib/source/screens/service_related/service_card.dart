@@ -76,11 +76,14 @@ class _ServiceCardState extends State<ServiceCard>
                           //
                           Expanded(
                             child: Center(
-                              child: SizedBox(
-                                height: 90,
-                                width: 90,
-                                child: Image.asset(
-                                  'images/${widget.service.image}',
+                              child: Hero(
+                                tag: widget.service.servId,
+                                child: SizedBox(
+                                  height: 90,
+                                  width: 90,
+                                  child: Image.asset(
+                                    'images/${widget.service.image}',
+                                  ),
                                 ),
                               ),
                             ),

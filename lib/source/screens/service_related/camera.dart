@@ -122,7 +122,15 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: FittedBox(fit: BoxFit.contain, child: image),
+      body: Center(
+        child: Hero(
+          tag: ValueKey(image.toString()),
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: image,
+          ),
+        ),
+      ),
     );
   }
 }

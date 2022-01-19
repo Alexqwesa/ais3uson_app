@@ -147,21 +147,26 @@ class _ServiceProofState extends State<ServiceProof> {
                         dimension: MediaQuery.of(context).size.width / 2.4,
                         child: Center(
                           child: (proofGroups[i].beforeImg != null)
-                              ? GestureDetector(
-                                  child: proofGroups[i].beforeImg,
-                                  onTap: () {
-                                    unawaited(
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute<XFile>(
-                                          builder: (context) =>
-                                              DisplayPictureScreen(
-                                            image: proofGroups[i].beforeImg!,
+                              ? Hero(
+                                  tag: ValueKey(
+                                    proofGroups[i].beforeImg.toString(),
+                                  ),
+                                  child: GestureDetector(
+                                    child: proofGroups[i].beforeImg,
+                                    onTap: () {
+                                      unawaited(
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute<XFile>(
+                                            builder: (context) =>
+                                                DisplayPictureScreen(
+                                              image: proofGroups[i].beforeImg!,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 )
                               : FloatingActionButton(
                                   heroTag: ValueKey('before_$i'),
@@ -196,21 +201,26 @@ class _ServiceProofState extends State<ServiceProof> {
                         dimension: MediaQuery.of(context).size.width / 2.4,
                         child: Center(
                           child: (proofGroups[i].afterImg != null)
-                              ? GestureDetector(
-                                  child: proofGroups[i].afterImg,
-                                  onTap: () {
-                                    unawaited(
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute<XFile>(
-                                          builder: (context) =>
-                                              DisplayPictureScreen(
-                                            image: proofGroups[i].afterImg!,
+                              ? Hero(
+                                  tag: ValueKey(
+                                    proofGroups[i].afterImg.toString(),
+                                  ),
+                                  child: GestureDetector(
+                                    child: proofGroups[i].afterImg,
+                                    onTap: () {
+                                      unawaited(
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute<XFile>(
+                                            builder: (context) =>
+                                                DisplayPictureScreen(
+                                              image: proofGroups[i].afterImg!,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 )
                               : FloatingActionButton(
                                   heroTag: ValueKey(i),

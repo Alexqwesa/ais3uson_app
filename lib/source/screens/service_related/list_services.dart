@@ -26,17 +26,15 @@ class ListServices extends StatelessWidget {
                   children: List.generate(
                     _servListFio.length,
                     (index) {
-                      return Transform.scale(
-                        scale: 1,
-                        child: ServiceCard(
-                          key: ValueKey(_servListFio[index].servId),
-                          service: _servListFio[index],
-                          // service: AppData().services.firstWhere(
-                          //       (element) =>
-                          //           element.id == _servListFio[index].servId,
-                          //     ),
-                          width: (_width < 600) ? _width / 2.1 : 250,
-                        ),
+
+                      return ServiceCard(
+                        key: ValueKey(_servListFio[index].servId),
+                        service: _servListFio[index],
+                        // service: AppData().services.firstWhere(
+                        //       (element) =>
+                        //           element.id == _servListFio[index].servId,
+                        //     ),
+                        width: (_width < 600) ? _width / 2.1 : 250,
                       );
                     },
                   ),

@@ -48,7 +48,7 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [x] Архивирование услуг введенных в предыдущие дни
 - [x] Проверка переполнения положенных услуг
 - [x] Резервное копирование ключей авторизации в облако
-- [x] Удаление услуг
+- [x] Удаление услуг (только сегодняшних)
 
 ## TODO:
 - [ ] Настраиваемый вид списка услуг
@@ -72,7 +72,6 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [ ] вводить услуги жестом, а не onTap ???
 - [ ] 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?
 - [ ] try autoreconnect few times(with timeout) if there is a problem with network
-- [ ] Для WEB платформы - загрузка картинок из сети
 
 ## Разработчики
 

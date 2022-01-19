@@ -39,7 +39,7 @@ class ProofList with ChangeNotifier {
 
   /// Generate list of [ProofGroup] from file system.
   ///
-  /// ![Mind map if directories tree](../proof_list.png)
+  /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/screens/service_related/proof_list.png)
   // ignore: long-method
   Future<void> crawler() async {
     Directory appDocDir;

@@ -66,11 +66,14 @@ class _CardScreenState extends State<CardScreen> {
                         Expanded(
                           flex: 6,
                           child: Center(
-                            child: SizedBox(
-                              height: width / 2,
-                              width: width / 2,
-                              child: Image.asset(
-                                'images/${widget.service.image}',
+                            child: Hero(
+                              tag: widget.service.servId,
+                              child: SizedBox(
+                                height: width / 2,
+                                width: width / 2,
+                                child: Image.asset(
+                                  'images/${widget.service.image}',
+                                ),
                               ),
                             ),
                           ),
