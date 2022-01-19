@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
@@ -116,14 +117,35 @@ class Journal with ChangeNotifier {
     return true;
   }
 
-  /// Try to commit service(send http post request).
+  /// Delete service from DB.
   ///
-  /// Return new state or null, didn't change service state.
-  /// On error: show [showErrorNotification] to user.
-  Future<ServiceState?> commit(ServiceOfJournal serv, {String? body}) async {
+  /// Create request body and call [commitUrl].
+  Future<ServiceState?> commitDel(ServiceOfJournal serv) async {
+    //
+    // > create body of post request
+    //
+    final body = jsonEncode(
+      <String, dynamic>{
+        'api_key': apiKey,
+        'uuid': serv.uid,
+        'contracts_id': serv.contractId,
+        'dep_has_worker_id': serv.workerId,
+        'serv_id': serv.servId,
+      },
+    );
+    //
+    // > send Post
+    //
     final urlAddress =
-        'http://${workerProfile.key.host}:${workerProfile.key.port}/add';
-    final url = Uri.parse(urlAddress);
+        'http://${workerProfile.key.host}:${workerProfile.key.port}/delete';
+
+    return commitUrl(urlAddress, body: body);
+  }
+
+  /// Add service to DB.
+  ///
+  /// Create request body and call [commitUrl].
+  Future<ServiceState?> commitAdd(ServiceOfJournal serv, {String? body}) async {
     //
     // > create body of post request
     //
@@ -139,16 +161,28 @@ class Journal with ChangeNotifier {
         'serv_id': serv.servId,
       },
     );
+    //
+    // > check: is it in right state (not finished etc...)
+    //
+    if (![ServiceState.added, ServiceState.stalled].contains(serv.state)) {
+      return serv.state;
+    }
+    //
+    // > send Post
+    //
+    final urlAddress =
+        'http://${workerProfile.key.host}:${workerProfile.key.port}/add';
+
+    return commitUrl(urlAddress, body: body);
+  }
+
+  /// Try to commit service(send http post request).
+  ///
+  /// Return new state or null, didn't change service state itself.
+  /// On error: show [showErrorNotification] to user.
+  Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
+    final url = Uri.parse(urlAddress);
     try {
-      //
-      // > check: is it in right state (not finished etc...)
-      //
-      if (![ServiceState.added, ServiceState.stalled].contains(serv.state)) {
-        return serv.state;
-      }
-      //
-      // > send Post
-      //
       final response = await http.post(url, headers: httpHeaders, body: body);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       dev.log(response.body);
@@ -186,7 +220,7 @@ class Journal with ChangeNotifier {
 
   /// Try to commit all [servicesForSync].
   ///
-  /// It works via [commit],
+  /// It works via [commitAdd],
   /// it change state of services and called [notifyListeners] afterward.
   Future<void> commitAll() async {
     //
@@ -196,7 +230,7 @@ class Journal with ChangeNotifier {
       final servList = servicesForSync.toList(); // work with copy of list
       try {
         for (final s in servList) {
-          s.state = await commit(s) ?? s.state;
+          s.state = await commitAdd(s) ?? s.state;
         }
         servList.forEach((element) => dev.log(element.state.toString()));
         // ignore: avoid_catches_without_on_clauses
@@ -227,16 +261,7 @@ class Journal with ChangeNotifier {
       ServiceState.finished,
       ServiceState.outDated,
     ].contains(serv.state)) {
-      final body = jsonEncode(
-        <String, dynamic>{
-          'api_key': apiKey,
-          'uuid': serv.uid,
-          'contracts_id': serv.contractId,
-          'dep_has_worker_id': serv.workerId,
-          'serv_id': serv.servId,
-        },
-      );
-      await commit(serv, body: body);
+      await commitDel(serv);
     }
     //
     // delete
@@ -248,6 +273,15 @@ class Journal with ChangeNotifier {
     unawaited(save());
   }
 
+  /// This function move old finished(and outDated) services to [hiveArchive].
+  ///
+  /// There are two reason to archive services,
+  /// first - we want active hiveBox small and fast on all devices,
+  /// second - we want worker to only see today's services, and
+  /// services which didn't committed yet(stale/rejected).
+  ///
+  /// Archive is only for committed services.
+  /// Only [hiveArchiveLimit] number of services could be stored in archive, most old will be deleted first.
   Future<void> archiveOldServices() async {
     //
     // > open hive archive and add old services
@@ -274,10 +308,10 @@ class Journal with ChangeNotifier {
                 provDate: e.provDate,
               )),
       /*
-            We could have just removed element first from list of active element,
-            but this could lead to dataloss,
-            this code can lead to data duplicate, but we can: TODO: deduplicate data on load
-            */
+      We could have just removed element first from list of active elements,
+      but this could lead to dataloss,
+      this code can lead to data duplication, but we can: TODO: deduplicate data on load.
+      */
     );
     //
     // > delete finished old services and save hive
@@ -287,7 +321,7 @@ class Journal with ChangeNotifier {
     );
     unawaited(save());
     //
-    // > only hiveArchiveLimit number of services stored, delete most old and close
+    // > only [hiveArchiveLimit] number of services stored, delete most old and close
     //
     for (var i = 0; i < hiveArchive.length - hiveArchiveLimit; i++) {
       await hiveArchive.deleteAt(i);
@@ -296,6 +330,7 @@ class Journal with ChangeNotifier {
     await hiveArchive.close();
   }
 
+  /// Helper, only used in [ClientService], for deleting last [ServiceOfJournal].
   String? getUuidOfLastService({
     required int servId,
     required int contractId,

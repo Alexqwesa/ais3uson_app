@@ -14,7 +14,7 @@ part 'service_state.g.dart';
 ///                 stalled -> finished -> outDated -> deleted
 ///                 [both]  -> rejected ->          -> deleted
 ///```
-/// added and stalled | [Journal.commit]ed to DB | finished | [Journal.archiveOldServices] on next day
+/// added and stalled | [Journal.commitAdd]ed to DB | finished | [Journal.archiveOldServices] on next day
 /// rejected | [Journal.delete]d by user.
 ///
 /// {@category Journal}
