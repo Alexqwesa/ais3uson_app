@@ -1,4 +1,5 @@
 // ignore_for_file: always_use_package_imports, prefer_final_fields, flutter_style_todos
+import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
@@ -26,40 +27,11 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
   /// if error - just return empty
   List<ClientService> get services {
     if (_services.isEmpty) {
-      try {
-        //
-        // > just search through lists to prepare list of [ClientService]
-        //
-        _services = workerProfile.fioPlanned
-            .where((element) => element.contractId == contractId)
-            .map((e) {
-          return ClientService(
-            service: workerProfile.services
-                .firstWhere((element) => element.id == e.servId),
-            planned: workerProfile.fioPlanned
-                .firstWhere((element) => element.servId == e.servId),
-            journal: workerProfile.journal,
-            workerDepId: workerProfile.key.workerDepId,
-          );
-        }).toList(growable: true);
-        // ignore: avoid_catching_errors
-      } on StateError catch (e) {
-        if (e.message == 'No element') {
-          showErrorNotification(
-            'Ошибка: не удалось подготовить список услуг! $e',
-          );
-        }
-        dev.log('ClientProfile: get services: ${e.message}');
-      }
+      updateServices().then((value) => notifyListeners);
     }
 
-    //
-    // > return is here (and only here)
-    //
     return _services;
   }
-
-  // set services(List<ClientService> val) => _services = val;
 
   List<ClientService> _services = [];
 
@@ -67,10 +39,43 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
     required this.workerProfile,
     required this.contractId,
     required this.name,
-  });
+  }) {
+    //
+    // > since workerProfile is the one who get data - listen to this class
+    //
+    workerProfile.addListener(updateServices);
+  }
 
   @override
   void updateValueFromHive(String hiveKey) {
-    // TODO: implement updateValueFromHive
+    return; // just stub
+  }
+
+  Future<void> updateServices() async {
+    try {
+      //
+      // > just search through lists to prepare list of [ClientService]
+      //
+      final wp = workerProfile;
+      _services = wp.fioPlanned.where((element) {
+        return element.contractId == contractId &&
+            wp.services.map((e) => e.id).contains(element.servId);
+      }).map((e) {
+        return ClientService(
+          service: wp.services.firstWhere((serv) => serv.id == e.servId),
+          planned: wp.fioPlanned.firstWhere((plan) => plan.servId == e.servId),
+          journal: wp.journal,
+          workerDepId: wp.key.workerDepId,
+        );
+      }).toList(growable: true);
+      // ignore: avoid_catching_errors
+    } on StateError catch (e) {
+      if (e.message == 'No element') {
+        showErrorNotification(
+          'Ошибка: не удалось подготовить список услуг! $e',
+        );
+      }
+      dev.log('ClientProfile: get services: ${e.message}');
+    }
   }
 }
