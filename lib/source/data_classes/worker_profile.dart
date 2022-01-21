@@ -81,7 +81,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
         return ClientProfile(
           workerProfile: this,
           contractId: el.contractId,
-          name: '${el.ufio} ${el.contract}',
+          name: '${el.client} ${el.contract}',
         );
       }).toList(growable: false);
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/planned')) {

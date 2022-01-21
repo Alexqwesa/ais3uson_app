@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 /// worker_dep_id: 1
 /// api_key : "123"
 /// dep_id : 1
-/// dep : "otd test"
+/// dep : "test Department"
 /// db : "kcson"
 /// host : "192.168.0.102"
 /// port : "48080"

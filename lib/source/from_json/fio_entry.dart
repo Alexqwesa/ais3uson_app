@@ -5,9 +5,9 @@
 /// api_key : "123"
 /// contract_id : 1
 /// dep_id : 1
-/// ufio_id : 1
+/// client_id : 1
 /// contract : "12312313/2001"
-/// ufio : "Тес. *. ч-ек"
+/// client : "Тес. *. ч-ек"
 /// dhw_id : 1
 ///
 /// {@category Import_from_json}
@@ -18,37 +18,37 @@ class FioEntry {
 
   int get depId => _depId;
 
-  int get ufioId => _ufioId;
+  int get clientId => _clientId;
 
   String get contract => _contract;
 
-  String get ufio => _ufio;
+  String get client => _client;
 
   int get dhwId => _dhwId;
 
   late String _apiKey;
   late int _contractId;
   late int _depId;
-  late int _ufioId;
+  late int _clientId;
   late String _contract;
-  late String _ufio;
+  late String _client;
   late int _dhwId;
 
   FioEntry({
     required String apiKey,
     required int contractId,
     required int depId,
-    required int ufioId,
+    required int clientId,
     required String contract,
-    required String ufio,
+    required String client,
     required int dhwId,
   }) {
     _apiKey = apiKey;
     _contractId = contractId;
     _depId = depId;
-    _ufioId = ufioId;
+    _clientId = clientId;
     _contract = contract;
-    _ufio = ufio;
+    _client = client;
     _dhwId = dhwId;
   }
 
@@ -56,9 +56,9 @@ class FioEntry {
     _apiKey = "${json['api_key']}";
     _contractId = json['contract_id'];
     _depId = json['dep_id'];
-    _ufioId = json['ufio_id'];
+    _clientId = json['client_id'];
     _contract = json['contract'] ?? 'ERROR';
-    _ufio = json['ufio'] ?? 'ERROR';
+    _client = json['client'] ?? 'ERROR';
     _dhwId = json['dhw_id'];
   }
 
@@ -67,9 +67,9 @@ class FioEntry {
     map['api_key'] = _apiKey;
     map['contract_id'] = _contractId;
     map['dep_id'] = _depId;
-    map['ufio_id'] = _ufioId;
+    map['client_id'] = _clientId;
     map['contract'] = _contract;
-    map['ufio'] = _ufio;
+    map['client'] = _client;
     map['dhw_id'] = _dhwId;
 
     return map;
