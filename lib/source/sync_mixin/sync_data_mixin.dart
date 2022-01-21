@@ -49,7 +49,7 @@ mixin SyncDataMixin {
     //
     // > main - call server
     //
-    final body = '''{"api_key": $apiKey}''';
+    final body = '''{"api_key": "$apiKey"}''';
     try {
       final url = Uri.parse(urlAddress);
       final response = await http.post(url, headers: headers, body: body);
