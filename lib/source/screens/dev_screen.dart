@@ -103,18 +103,22 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
     final url = Uri.parse(
       'http://${AppData().profile.key.host}:${AppData().profile.key.port}/stat',
     );
-    await http.get(url).then((response) {
-      if (response.statusCode == 200) {
+    try {
+      await http.get(url).then((response) {
+        if (response.statusCode == 200) {
+          setState(() {
+            _testHTTP = response.body;
+          });
+        }
+      }).catchError((dynamic e) {
         setState(() {
-          _testHTTP = response.body;
+          _testHTTP = e.toString();
+          dev.log(e.toString());
         });
-      }
-    }).catchError((dynamic e) {
-      setState(() {
-        _testHTTP = e.toString();
-        dev.log(e.toString());
-      });
-    }).whenComplete(() => dev.log(_testHTTP));
+      }).whenComplete(() => dev.log(_testHTTP));
+    } catch (e) {
+      dev.log("Error " + e.toString());
+    }
   }
 }
 
