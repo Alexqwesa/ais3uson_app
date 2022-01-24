@@ -48,6 +48,11 @@ class ClientService with ChangeNotifier {
   //
   // > journal getters
   //
+  int get added => journal.added
+      .where((element) =>
+          element.contractId == contractId && element.servId == service.id)
+      .length;
+
   int get done => journal.finished
       .where((element) =>
           element.contractId == contractId && element.servId == service.id)
@@ -63,7 +68,16 @@ class ClientService with ChangeNotifier {
           element.contractId == contractId && element.servId == service.id)
       .length;
 
-  int get left => plan - filled - stalled - done;
+  int get inJournal => journal.all
+      .where((element) =>
+          element.contractId == contractId && element.servId == service.id)
+      .length;
+
+  int get left => plan - filled - stalled - done - added;
+
+  bool get addAllowed => left > 0;
+
+  bool get deleteAllowed => inJournal > 0;
 
   List<int> get listDoneProgressError => <int>[done, stalled, rejected];
 
@@ -99,14 +113,18 @@ class ClientService with ChangeNotifier {
   }
 
   Future<void> add() async {
-    journal.post(
-      ServiceOfJournal(
-        servId: planned.servId,
-        contractId: planned.contractId,
-        workerId: workerDepId,
-      ),
-    );
-    notifyListeners();
+    if (addAllowed) {
+      journal.post(
+        ServiceOfJournal(
+          servId: planned.servId,
+          contractId: planned.contractId,
+          workerId: workerDepId,
+        ),
+      );
+      notifyListeners();
+    } else {
+      showErrorNotification('Данная услуга переполнена!');
+    }
   }
 
   Future<void> delete() async {

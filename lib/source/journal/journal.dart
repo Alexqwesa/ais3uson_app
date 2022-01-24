@@ -47,6 +47,9 @@ class Journal with ChangeNotifier {
   Iterable<ServiceOfJournal> get stalled =>
       all.where((element) => element.state == ServiceState.stalled);
 
+  Iterable<ServiceOfJournal> get added =>
+      all.where((element) => element.state == ServiceState.added);
+
   Iterable<ServiceOfJournal> get finished =>
       all.where((element) => element.state == ServiceState.finished);
 
@@ -335,21 +338,36 @@ class Journal with ChangeNotifier {
   }
 
   /// Helper, only used in [ClientService], for deleting last [ServiceOfJournal].
+  ///
+  /// It return rejected services first, then stalled, then finished, then outdated.
   String? getUuidOfLastService({
     required int servId,
     required int contractId,
   }) {
     try {
-      final serv = all.lastWhere(
+      final servList = all.where(
         (element) =>
             element.servId == servId && element.contractId == contractId,
+      );
+      final serv = servList.lastWhere(
+        (element) => element.state == ServiceState.rejected,
+        orElse: () => servList.lastWhere(
+          (element) => element.state == ServiceState.stalled,
+          orElse: () => servList.lastWhere(
+            (element) => element.state == ServiceState.finished,
+            orElse: () => servList.lastWhere(
+              (element) => element.state == ServiceState.outDated,
+            ),
+          ),
+        ),
       );
       final uid = serv.uid;
 
       return uid;
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
-      dev.log('Error: $e, can not delete $servId of contract $contractId');
+      dev.log(
+          'Error: $e, can not delete service #$servId of contract #$contractId');
     }
   }
 }

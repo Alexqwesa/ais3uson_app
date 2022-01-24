@@ -95,9 +95,11 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                                   },
                                   icon: Transform.scale(
                                     scale: 2.5,
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.publish_rounded,
-                                      color: Colors.green,
+                                      color: widget.service.addAllowed
+                                          ? Colors.green
+                                          : Colors.grey,
                                     ),
                                   ),
                                 ),
@@ -113,9 +115,11 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                                     angle: 3.14,
                                     child: Transform.scale(
                                       scale: 2.5,
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.publish_rounded,
-                                        color: Colors.red,
+                                        color: widget.service.deleteAllowed
+                                            ? Colors.red
+                                            : Colors.grey,
                                       ),
                                     ),
                                   ),
