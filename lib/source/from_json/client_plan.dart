@@ -9,6 +9,12 @@
 ///
 /// {@category Import_from_json}
 class ClientPlan {
+  final checkDate = DateTime.now();
+  late final int _contractId;
+  late final int _servId;
+  late final int _planned;
+  late final int _filled;
+
   int get contractId => _contractId;
 
   int get servId => _servId;
@@ -16,11 +22,6 @@ class ClientPlan {
   int get planned => _planned;
 
   int get filled => _filled;
-
-  late int _contractId;
-  late int _servId;
-  late int _planned;
-  late int _filled;
 
   ClientPlan({
     int? contractId,

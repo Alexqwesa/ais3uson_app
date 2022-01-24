@@ -29,31 +29,31 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final Journal journal;
   late final String name;
 
-  List<ClientPlan> get fioPlanned => _fioPlanned;
+  List<ClientPlan> get clientPlan => _clientPlan;
 
   List<ClientProfile> get clients => _clients;
 
   List<ServiceEntry> get services => _services;
 
-  /// Services list
+  /// Service list should only update on empty, or unknown planned service.
   ///
-  /// since worker could potentially work
+  /// Since workers could potentially work
   /// on two different organizations (half rate in each),
-  /// with different services - we store services in worker profile
-  /// (not in app profile)
+  /// with different service list, store services in worker profile.
+  /// TODO: update by server policy.
   List<ServiceEntry> _services = [];
 
-  /// Planned amount of services for client
+  /// Planned amount of services for client.
   ///
-  /// since we get data in bunch - store it here
-  List<ClientPlan> _fioPlanned = [];
+  /// Since we get data in bunch - store it in [WorkerProfile].
+  List<ClientPlan> _clientPlan = [];
 
   /// list of clients List<ClientProfile>
   List<ClientProfile> _clients = [];
 
-  /// Constructor [WorkerProfile]
+  /// Constructor [WorkerProfile].
   ///
-  /// init and call async function to sync data
+  /// init/postinit and call async functions to sync data.
   WorkerProfile(this.key) {
     name = key.name;
     journal = Journal(this);
@@ -88,10 +88,11 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
       //
       // > Sync Planned services from hive
       //
-      _fioPlanned =
+      _clientPlan =
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ClientPlan>((json) {
         return ClientPlan.fromJson(json);
       }).toList(growable: false);
+      unawaited(journal.updateWithNewPlan());
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //
       // > Sync services from hive

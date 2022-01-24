@@ -39,6 +39,9 @@ class ServiceOfJournal with HiveObjectMixin {
 
   set state(ServiceState value) {
     _state = value;
+    if (value == ServiceState.finished) {
+      provDate = DateTime.now();
+    }
     save();
   }
 

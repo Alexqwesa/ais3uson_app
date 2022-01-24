@@ -99,7 +99,7 @@ class Journal with ChangeNotifier {
     for (final s in all) {
       try {
         await hive.add(s);
-      // ignore: avoid_catching_errors
+        // ignore: avoid_catching_errors
       } on HiveError {
         // just save if there are duplicate error
         await s.save();
@@ -278,7 +278,7 @@ class Journal with ChangeNotifier {
       );
       notifyListeners();
       unawaited(save());
-    // ignore: avoid_catching_errors
+      // ignore: avoid_catching_errors
     } on RangeError {
       dev.log('RangeError double delete');
     }
@@ -374,5 +374,16 @@ class Journal with ChangeNotifier {
         'Error: $e, can not delete service #$servId of contract #$contractId',
       );
     }
+  }
+
+  Future<void> updateWithNewPlan() async {
+    all.where((e) => e.state == ServiceState.finished).forEach(
+      (element) {
+        // TODO: rework it?
+        if (element.provDate.isBefore(workerProfile.clientPlan[0].checkDate)) {
+          element.state = ServiceState.outDated;
+        }
+      },
+    );
   }
 }
