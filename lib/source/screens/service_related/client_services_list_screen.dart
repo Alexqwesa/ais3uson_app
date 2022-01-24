@@ -5,14 +5,14 @@ import 'package:ais3uson_app/source/screens/service_related/list_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FioServicesScreen extends StatefulWidget {
+class ClientServicesListScreen extends StatefulWidget {
   late final int profileNum;
 
   late final int contractId;
 
   late final ClientProfile client;
 
-  FioServicesScreen({Key? key}) : super(key: key) {
+  ClientServicesListScreen({Key? key}) : super(key: key) {
     profileNum = AppData().lastScreen.profileNum;
     contractId = AppData.instance.lastScreen.contractId;
     client = AppData.instance.profiles[profileNum].clients
@@ -20,10 +20,10 @@ class FioServicesScreen extends StatefulWidget {
   }
 
   @override
-  _FioServicesScreenState createState() => _FioServicesScreenState();
+  _ClientServicesListScreenState createState() => _ClientServicesListScreenState();
 }
 
-class _FioServicesScreenState extends State<FioServicesScreen> {
+class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

@@ -4,7 +4,7 @@ import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/fio_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
-import 'package:ais3uson_app/source/screens/service_related/fio_services_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +50,7 @@ class _AppRootState extends State<AppRoot> {
         '/department': /*  */ (context) => const FioScreen(),
         '/scan_qr': /*     */ (context) => const QRScanScreen(),
         '/dev': /*         */ (context) => const DevScreen(),
-        '/fio_services': /**/ (context) => FioServicesScreen(),
+        '/fio_services': /**/ (context) => ClientServicesListScreen(),
         '/delete_department': (context) => const DeleteDepartmentScreen(),
         '/': /*            */ (context) => const HomePage(
               title: 'Список отделений',
