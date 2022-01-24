@@ -25,7 +25,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
       create: (context) => AppData(),
       child: Consumer<AppData>(
         builder: (context, data, child) {
-          // List<FioEntry> fioList = data.profiles[profileNum].fioList;
+          // List<ClientEntry> fioList = data.profiles[profileNum].fioList;
           final workerKeys = context.select<AppData, List<WorkerKey>>(
             (data) => data.workerKeys.toList(),
           );

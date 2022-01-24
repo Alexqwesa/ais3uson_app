@@ -3,8 +3,8 @@
 import 'dart:async';
 
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
-import 'package:ais3uson_app/source/from_json/fio_entry.dart';
-import 'package:ais3uson_app/source/from_json/fio_planned.dart';
+import 'package:ais3uson_app/source/from_json/client_entry.dart';
+import 'package:ais3uson_app/source/from_json/client_planned.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
@@ -29,7 +29,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final Journal journal;
   late final String name;
 
-  List<FioPlanned> get fioPlanned => _fioPlanned;
+  List<ClientPlanned> get clientPlanned => _fioPlanned;
 
   List<ClientProfile> get clients => _clients;
 
@@ -46,7 +46,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// Planned amount of services for client
   ///
   /// since we get data in bunch - store it here
-  List<FioPlanned> _fioPlanned = [];
+  List<ClientPlanned> _fioPlanned = [];
 
   /// list of clients List<ClientProfile>
   List<ClientProfile> _clients = [];
@@ -75,8 +75,8 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
       // > Get ClientProfile from hive
       //
       _clients =
-          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioEntry>((json) {
-        return FioEntry.fromJson(json);
+          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ClientEntry>((json) {
+        return ClientEntry.fromJson(json);
       }).map((el) {
         return ClientProfile(
           workerProfile: this,
@@ -88,9 +88,9 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
       //
       // > Sync Planned services from hive
       //
-      _fioPlanned =
-          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<FioPlanned>((json) {
-        return FioPlanned.fromJson(json);
+      _fioPlanned = hiddenUpdateValueFromHive(hiveKey: hiveKey)
+          .map<ClientPlanned>((json) {
+        return ClientPlanned.fromJson(json);
       }).toList(growable: false);
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //

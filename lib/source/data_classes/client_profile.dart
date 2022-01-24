@@ -57,13 +57,14 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
       // > just search through lists to prepare list of [ClientService]
       //
       final wp = workerProfile;
-      _services = wp.fioPlanned.where((element) {
+      _services = wp.clientPlanned.where((element) {
         return element.contractId == contractId &&
             wp.services.map((e) => e.id).contains(element.servId);
       }).map((e) {
         return ClientService(
           service: wp.services.firstWhere((serv) => serv.id == e.servId),
-          planned: wp.fioPlanned.firstWhere((plan) => plan.servId == e.servId),
+          planned:
+              wp.clientPlanned.firstWhere((plan) => plan.servId == e.servId),
           journal: wp.journal,
           workerDepId: wp.key.workerDepId,
         );

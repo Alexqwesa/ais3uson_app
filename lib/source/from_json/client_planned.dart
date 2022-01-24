@@ -8,7 +8,7 @@
 /// filled : "None"
 ///
 /// {@category Import_from_json}
-class FioPlanned {
+class ClientPlanned {
   int get contractId => _contractId;
 
   int get servId => _servId;
@@ -22,7 +22,7 @@ class FioPlanned {
   late int _planned;
   late int _filled;
 
-  FioPlanned({
+  ClientPlanned({
     int? contractId,
     int? servId,
     int? planned,
@@ -35,7 +35,7 @@ class FioPlanned {
   }
 
   // ignore: avoid_annotating_with_dynamic
-  FioPlanned.fromJson(dynamic json) {
+  ClientPlanned.fromJson(dynamic json) {
     _contractId = json['contract_id'] ?? 0;
     _servId = json['serv_id'] ?? 0;
     _planned = json['planned'] ?? 0;

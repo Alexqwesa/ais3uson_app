@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/from_json/fio_planned.dart';
+import 'package:ais3uson_app/source/from_json/client_planned.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
@@ -10,7 +10,7 @@ import 'package:surf_lint_rules/surf_lint_rules.dart';
 /// This is mostly a view model for data from:
 /// - [Journal],
 /// - [ServiceEntry],
-/// - [FioPlanned]...
+/// - [ClientPlanned]...
 ///
 /// It only store [ProofList].
 ///
@@ -18,7 +18,7 @@ import 'package:surf_lint_rules/surf_lint_rules.dart';
 // ignore: prefer_mixin
 class ClientService with ChangeNotifier {
   late final ServiceEntry service;
-  late final FioPlanned planned;
+  late final ClientPlanned planned;
   late final int workerDepId;
 
   /// Reference to existed journal
