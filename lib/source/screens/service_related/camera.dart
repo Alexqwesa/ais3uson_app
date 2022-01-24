@@ -10,8 +10,8 @@ class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
 
   const TakePictureScreen({
-    Key? key,
     required this.camera,
+    Key? key,
   }) : super(key: key);
 
   @override

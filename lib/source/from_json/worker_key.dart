@@ -18,6 +18,15 @@ import 'package:flutter/material.dart';
 /// {@category Import_from_json}
 @immutable
 class WorkerKey {
+  late final String _app;
+  late final String _name;
+  late final String _apiKey;
+  late final int _workerDepId;
+  late final String _dep;
+  late final String _db;
+  late final String _host;
+  late final String _port;
+
   String get app => _app;
 
   String get name => _name;
@@ -41,15 +50,6 @@ class WorkerKey {
     return '${_apiKey.hashCode} + ${_dep.hashCode} + ${_host.hashCode}'
         .hashCode;
   }
-
-  String _app = '';
-  String _name = '';
-  String _apiKey = '';
-  int _workerDepId = 0;
-  String _dep = '';
-  String _db = '';
-  String _host = '';
-  String _port = '';
 
   WorkerKey({
     required String app,

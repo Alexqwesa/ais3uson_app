@@ -150,8 +150,8 @@ class AddButton extends StatelessWidget {
   final ClientServiceScreen widget;
 
   const AddButton({
-    Key? key,
     required this.widget,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -183,8 +183,8 @@ class DeleteButton extends StatelessWidget {
   final ClientServiceScreen widget;
 
   const DeleteButton({
-    Key? key,
     required this.widget,
+    Key? key,
   }) : super(key: key);
 
   @override

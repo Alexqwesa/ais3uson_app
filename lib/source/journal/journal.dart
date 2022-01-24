@@ -1,6 +1,7 @@
 /// Just journal of user inputted services.
 ///
 /// It is local for each [WorkerProfile].
+// ignore: library_names
 library Journal;
 
 import 'dart:convert';
@@ -98,7 +99,9 @@ class Journal with ChangeNotifier {
     for (final s in all) {
       try {
         await hive.add(s);
+      // ignore: avoid_catching_errors
       } on HiveError {
+        // just save if there are duplicate error
         await s.save();
       }
     }
@@ -275,6 +278,7 @@ class Journal with ChangeNotifier {
       );
       notifyListeners();
       unawaited(save());
+    // ignore: avoid_catching_errors
     } on RangeError {
       dev.log('RangeError double delete');
     }

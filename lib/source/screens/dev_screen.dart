@@ -116,8 +116,9 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
           dev.log(e.toString());
         });
       }).whenComplete(() => dev.log(_testHTTP));
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      dev.log("Error " + e.toString());
+      dev.log('Error $e');
     }
   }
 }

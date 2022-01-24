@@ -1,4 +1,3 @@
-
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
@@ -29,9 +28,8 @@ class ServiceOfJournal with HiveObjectMixin {
   //
   // > preinited vars
   //
-  DateTime provDate = DateTime.now();
   @HiveField(4)
-  ServiceState _state = ServiceState.added;
+  DateTime provDate = DateTime.now();
   @HiveField(5)
   String error = '';
   @HiveField(6)
@@ -43,6 +41,8 @@ class ServiceOfJournal with HiveObjectMixin {
     _state = value;
     save();
   }
+
+  ServiceState _state = ServiceState.added;
 
   ServiceOfJournal({
     required this.servId,
