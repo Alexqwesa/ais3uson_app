@@ -11,7 +11,7 @@
 /// dhw_id : 1
 ///
 /// {@category Import_from_json}
-class FioEntry {
+class ClientEntry {
   String get apiKey => _apiKey;
 
   int get contractId => _contractId;
@@ -34,7 +34,7 @@ class FioEntry {
   late String _client;
   late int _dhwId;
 
-  FioEntry({
+  ClientEntry({
     required String apiKey,
     required int contractId,
     required int depId,
@@ -52,7 +52,7 @@ class FioEntry {
     _dhwId = dhwId;
   }
 
-  FioEntry.fromJson(dynamic json) {
+  ClientEntry.fromJson(dynamic json) {
     _apiKey = "${json['api_key']}";
     _contractId = json['contract_id'];
     _depId = json['dep_id'];
