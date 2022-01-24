@@ -5,6 +5,7 @@ import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_proofs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ClientServiceScreen extends StatefulWidget {
   final ClientService service;
@@ -87,44 +88,12 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              FittedBox(
-                                fit: BoxFit.fitHeight,
-                                child: IconButton(
-                                  onPressed: () {
-                                    widget.service.add();
-                                  },
-                                  icon: Transform.scale(
-                                    scale: 2.5,
-                                    child: Icon(
-                                      Icons.publish_rounded,
-                                      color: widget.service.addAllowed
-                                          ? Colors.green
-                                          : Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // 
+                              // > buttons Add / Delete 
+                              // 
+                              AddButton(widget: widget),
                               const Spacer(),
-                              FittedBox(
-                                fit: BoxFit.fitHeight,
-                                child: IconButton(
-                                  onPressed: () {
-                                    widget.service.delete();
-                                  },
-                                  icon: Transform.rotate(
-                                    angle: 3.14,
-                                    child: Transform.scale(
-                                      scale: 2.5,
-                                      child: Icon(
-                                        Icons.publish_rounded,
-                                        color: widget.service.deleteAllowed
-                                            ? Colors.red
-                                            : Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              DeleteButton(widget: widget),
                             ],
                           ),
                         ),
@@ -169,6 +138,76 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                 //
                 if (!kIsWeb) ServiceProof(clientService: widget.service),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddButton extends StatelessWidget {
+  final ClientServiceScreen widget;
+
+  const AddButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.fitHeight,
+      child: IconButton(
+        onPressed: widget.service.add,
+        icon: Transform.scale(
+          scale: 2.5,
+          child: ChangeNotifierProvider<ClientService>.value(
+            value: widget.service,
+            child: Consumer<ClientService>(
+              builder: (context, data, child) {
+                return Icon(
+                  Icons.publish_rounded,
+                  color: widget.service.addAllowed ? Colors.green : Colors.grey,
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DeleteButton extends StatelessWidget {
+  final ClientServiceScreen widget;
+
+  const DeleteButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.fitHeight,
+      child: IconButton(
+        onPressed: widget.service.delete,
+        icon: Transform.scale(
+          scale: 2.5,
+          child: Transform.rotate(
+            angle: 3.14,
+            child: ChangeNotifierProvider<ClientService>.value(
+              value: widget.service,
+              child: Consumer<ClientService>(
+                builder: (context, data, child) {
+                  return Icon(
+                    Icons.publish_rounded,
+                    color:
+                        widget.service.deleteAllowed ? Colors.red : Colors.grey,
+                  );
+                },
+              ),
             ),
           ),
         ),

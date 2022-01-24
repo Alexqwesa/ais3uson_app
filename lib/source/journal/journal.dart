@@ -367,7 +367,8 @@ class Journal with ChangeNotifier {
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       dev.log(
-          'Error: $e, can not delete service #$servId of contract #$contractId');
+        'Error: $e, can not delete service #$servId of contract #$contractId',
+      );
     }
   }
 }
