@@ -16,9 +16,9 @@ dartdoc:
   subCategoryOrder: [ 'worker_profile', 'Journal' , 'Data_Classes', 'Import_from_json' ]
   subCategories:
 #    Root: [ 'main', 'app_root' ]
-#    Journal: [ 'journal' ]
-#    Data_Classes: [ 'fio_entry', 'client_profile', ]
-    Import_from_json: [ 'fio_entry', 'fio_planned', 'service_entry', 'worker_key' ]
+    #    Journal: [ 'journal' ]
+    #    Data_Classes: [ 'client_entry', 'client_profile', ]
+    Import_from_json: [ 'client_entry', 'client_planned', 'service_entry', 'worker_key' ]
   #  examplePathPrefix: 'subdir/with/examples'
   #  nodoc: ['*.g.dart']
   #  linkTo:
