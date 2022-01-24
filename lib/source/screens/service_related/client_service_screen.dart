@@ -6,19 +6,19 @@ import 'package:ais3uson_app/source/screens/service_related/service_proofs.dart'
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class CardScreen extends StatefulWidget {
+class ClientServiceScreen extends StatefulWidget {
   final ClientService service;
 
-  const CardScreen({
+  const ClientServiceScreen({
     required this.service,
     Key? key,
   }) : super(key: key);
 
   @override
-  _CardScreenState createState() => _CardScreenState();
+  _ClientServiceScreenState createState() => _ClientServiceScreenState();
 }
 
-class _CardScreenState extends State<CardScreen> {
+class _ClientServiceScreenState extends State<ClientServiceScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
