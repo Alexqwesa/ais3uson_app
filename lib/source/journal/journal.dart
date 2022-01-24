@@ -266,11 +266,15 @@ class Journal with ChangeNotifier {
     //
     // delete
     //
-    all.removeAt(
-      all.indexOf(serv),
-    );
-    notifyListeners();
-    unawaited(save());
+    try {
+      all.removeAt(
+        all.indexOf(serv),
+      );
+      notifyListeners();
+      unawaited(save());
+    } on RangeError {
+      dev.log('RangeError double delete');
+    }
   }
 
   /// This function move old finished(and outDated) services to [hiveArchive].

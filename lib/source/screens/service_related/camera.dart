@@ -61,7 +61,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         },
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(left: 30),
+        padding: const EdgeInsets.only(left: 30),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Transform.scale(
