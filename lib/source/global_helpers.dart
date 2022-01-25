@@ -31,6 +31,7 @@ String qrData3 =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
     '''"worker_dep_id": 1, "api_key": "12345", "dep": "48081 отделение", '''
     '''"db": "kcson", "host": "80.87.196.11", "port": "48082"}''';
+final qrCodes = [qrData, qrData2, qrData3];
 
 class ScreenArguments {
   int profileNum = -1;

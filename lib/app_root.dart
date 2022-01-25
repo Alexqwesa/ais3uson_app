@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/screens/add_depratment_screen.dart';
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/fio_screen.dart';
@@ -47,10 +48,11 @@ class _AppRootState extends State<AppRoot> {
       //
       initialRoute: '/',
       routes: {
+        '/add_department': (context) => AddDepartmentScreen(),
+        '/fio_services': /**/ (context) => ClientServicesListScreen(),
         '/department': /*  */ (context) => const FioScreen(),
         '/scan_qr': /*     */ (context) => const QRScanScreen(),
         '/dev': /*         */ (context) => const DevScreen(),
-        '/fio_services': /**/ (context) => ClientServicesListScreen(),
         '/delete_department': (context) => const DeleteDepartmentScreen(),
         '/': /*            */ (context) => const HomePage(
               title: 'Список отделений',

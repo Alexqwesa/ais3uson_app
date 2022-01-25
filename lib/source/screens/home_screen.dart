@@ -1,10 +1,6 @@
 // ignore_for_file: always_use_package_imports
 
-import 'dart:convert';
-
 import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -135,14 +131,13 @@ class _HomePageState extends State<HomePage> {
                     ListTile(
                       // todo: dialog add dep, with test dep button
                       leading: const Icon(Icons.group_add),
-                      title: const Text('Добавить тестовое отделение'),
+                      title: const Text('Добавить отделение из строки текста'),
                       onTap: () {
                         Navigator.pop(context, 'qr');
-                        AppData.instance.addProfileFromUKey(
-                          WorkerKey.fromJson(jsonDecode(qrData2)),
-                        );
-                        AppData.instance.addProfileFromUKey(
-                          WorkerKey.fromJson(jsonDecode(qrData)),
+                        Navigator.pushNamed(
+                          context,
+                          '/add_department',
+                          arguments: '',
                         );
                       },
                     ),
