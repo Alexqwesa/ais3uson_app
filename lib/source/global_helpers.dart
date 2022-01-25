@@ -45,9 +45,9 @@ class ScreenArguments {
   }
 }
 
-/// httpHeaders
+/// This is default headers for http request.
 ///
-/// defalult headers for http request
+/// Just work with json, and before send, it should be concatenated with 'api_key'.
 final Map<String, String> httpHeaders = {
   'Content-type': 'application/json',
   'Accept': 'application/json',

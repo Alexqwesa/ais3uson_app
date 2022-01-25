@@ -35,6 +35,7 @@ class Journal with ChangeNotifier {
   final _lock = Lock();
   late Box<ServiceOfJournal> hive;
   late Box<ServiceOfJournal> hiveArchive;
+  var _httpHeaders = httpHeaders;
 
   //
   // > main list of services
@@ -72,7 +73,9 @@ class Journal with ChangeNotifier {
         ].contains(element.state),
       );
 
-  Journal(this.workerProfile);
+  Journal(this.workerProfile) {
+    _httpHeaders.addAll({'api_key': apiKey});
+  }
 
   @override
   void dispose() {
@@ -132,11 +135,10 @@ class Journal with ChangeNotifier {
     //
     final body = jsonEncode(
       <String, dynamic>{
-        'api_key': apiKey,
         'uuid': serv.uid,
+        'serv_id': serv.servId,
         'contracts_id': serv.contractId,
         'dep_has_worker_id': serv.workerId,
-        'serv_id': serv.servId,
       },
     );
     //
@@ -158,8 +160,6 @@ class Journal with ChangeNotifier {
     // ignore: parameter_assignments
     body ??= jsonEncode(
       <String, dynamic>{
-        'api_key': apiKey,
-        'check_api_key': apiKey,
         'vdate': sqlFormat.format(serv.provDate),
         'uuid': serv.uid,
         'contracts_id': serv.contractId,
@@ -189,7 +189,14 @@ class Journal with ChangeNotifier {
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
     try {
-      final response = await http.post(url, headers: httpHeaders, body: body);
+      Response response;
+      if (urlAddress.endsWith('/add')) {
+        response = await http.post(url, headers: _httpHeaders, body: body);
+      } else if (urlAddress.endsWith('/delete')) {
+        response = await http.delete(url, headers: _httpHeaders, body: body);
+      } else {
+        response = await http.get(url, headers: _httpHeaders);
+      }
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       dev.log(response.body);
       //

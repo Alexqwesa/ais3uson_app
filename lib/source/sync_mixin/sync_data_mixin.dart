@@ -29,10 +29,10 @@ mixin SyncDataMixin {
   //
   // > Standard headers
   //
-  final Map<String, String> _headers = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-  };
+
+  String get apiKey {
+    return 'apiKey not Implemented';
+  }
 
   /// Get data from network (with error checks) and save it to hive.
   ///
@@ -45,14 +45,17 @@ mixin SyncDataMixin {
   }) async {
     apiKey ??= AppData().profiles[0].key.apiKey;
     hive ??= AppData().hiveData;
-    headers ??= _headers;
+    headers ??= {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'api_key': apiKey,
+    };
     //
     // > main - call server
     //
-    final body = '''{"api_key": "$apiKey"}''';
     try {
       final url = Uri.parse(urlAddress);
-      final response = await http.post(url, headers: headers, body: body);
+      final response = await http.get(url, headers: headers);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty && response.body != '[]') {

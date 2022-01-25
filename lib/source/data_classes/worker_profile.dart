@@ -29,6 +29,8 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final Journal journal;
   late final String name;
 
+  String get apiKey => key.apiKey;
+
   List<ClientPlan> get clientPlan => _clientPlan;
 
   List<ClientProfile> get clients => _clients;
@@ -70,7 +72,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// read hive data and notify
   @override
   Future<void> updateValueFromHive(String hiveKey) async {
-    if (hiveKey.endsWith('http://${key.host}:${key.port}/fio')) {
+    if (hiveKey.endsWith('http://${key.host}:${key.port}/clients')) {
       //
       // > Get ClientProfile from hive
       //
@@ -116,7 +118,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   Future<void> syncHiveFio() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:${key.port}/fio',
+      urlAddress: 'http://${key.host}:${key.port}/clients',
     );
   }
 

@@ -24,6 +24,7 @@ class ClientService with ChangeNotifier {
   /// Reference to existed journal
   late final Journal journal;
 
+  String get apiKey => journal.apiKey;
   //
   // > from json classes
   //
