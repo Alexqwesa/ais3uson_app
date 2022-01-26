@@ -4,6 +4,7 @@ import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,17 @@ import 'package:flutter/material.dart';
 /// {@category Data_Classes}
 // ignore: prefer_mixin
 class ClientProfile with ChangeNotifier, SyncDataMixin {
-  late int contractId;
-  late String name;
   late WorkerProfile workerProfile;
+  late ClientEntry entry;
 
   @override
   String get apiKey => workerProfile.apiKey;
+
+  int get contractId => entry.contractId;
+
+  String get name => entry.client;
+
+  String get contract => entry.contract;
 
   /// return List of [ClientService]s
   ///
@@ -40,8 +46,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
 
   ClientProfile({
     required this.workerProfile,
-    required this.contractId,
-    required this.name,
+    required this.entry,
   }) {
     //
     // > since workerProfile is the one who get data - listen to this class

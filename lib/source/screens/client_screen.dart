@@ -62,24 +62,38 @@ class _ClientScreenState extends State<ClientScreen> {
                     itemCount: clientList.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: const Icon(Icons.person),
-                        title: Text(
-                          clientList[index].name,
-                        ),
-                        onTap: () {
-                          if (workerProfile.services.isEmpty) {
-                            workerProfile.syncHiveServices();
-                          }
-                          Navigator.pushNamed(
-                            context,
-                            '/client_services',
-                            arguments: ScreenArguments(
-                              profile: profileNum,
-                              contract: clientList[index].contractId,
+                      return Card(
+                        margin: const EdgeInsets.fromLTRB(8, 1, 8, 0),
+                        child: ListTile(
+                          leading: Transform.scale(
+                            scale: 1.5,
+                            child: const Icon(Icons.person),
+                          ),
+                          title: Text(
+                            clientList[index].name,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          subtitle: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              clientList[index].contract,
+                              // textAlign: TextAlign.right,
                             ),
-                          );
-                        },
+                          ),
+                          onTap: () {
+                            if (workerProfile.services.isEmpty) {
+                              workerProfile.syncHiveServices();
+                            }
+                            Navigator.pushNamed(
+                              context,
+                              '/client_services',
+                              arguments: ScreenArguments(
+                                profile: profileNum,
+                                contract: clientList[index].contractId,
+                              ),
+                            );
+                          },
+                        ),
                       );
                     },
                   )

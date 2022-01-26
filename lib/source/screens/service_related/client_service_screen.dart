@@ -88,9 +88,9 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // 
-                              // > buttons Add / Delete 
-                              // 
+                              //
+                              // > buttons Add / Delete
+                              //
                               AddButton(widget: widget),
                               const Spacer(),
                               DeleteButton(widget: widget),

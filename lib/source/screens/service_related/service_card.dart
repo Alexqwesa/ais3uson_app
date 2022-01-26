@@ -11,7 +11,7 @@ class ServiceCard extends StatefulWidget {
   final double width;
 
   const ServiceCard({
-    required Key key,
+    Key? key,
     required this.service,
     required this.width,
   }) : super(key: key);
@@ -20,8 +20,7 @@ class ServiceCard extends StatefulWidget {
   _ServiceCardState createState() => _ServiceCardState();
 }
 
-class _ServiceCardState extends State<ServiceCard>
-    with SingleTickerProviderStateMixin {
+class _ServiceCardState extends State<ServiceCard> {
   bool enabled = true;
 
   @override
@@ -42,9 +41,10 @@ class _ServiceCardState extends State<ServiceCard>
       width: widget.width * 1.0,
       child: Stack(
         children: [
-          ServiceCardSubWidget(
-            widget: widget,
-          ),
+          if (enabled)
+            ServiceCardSubWidget(
+              widget: widget,
+            ),
           if (!enabled)
             ColorFiltered(
               colorFilter: ColorFilter.mode(

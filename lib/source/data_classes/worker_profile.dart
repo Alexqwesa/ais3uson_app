@@ -29,9 +29,6 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final Journal journal;
   late final String name;
 
-  DateTime _servicesSyncDate = DateTime.utc(1900);
-  DateTime _clientPlanSyncDate = DateTime.utc(1900);
-
   @override
   String get apiKey => key.apiKey;
 
@@ -48,6 +45,12 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// with different service list, store services in worker profile.
   /// TODO: update by server policy.
   List<ServiceEntry> _services = [];
+
+  /// Store date and time of last sync for [_services].
+  DateTime _servicesSyncDate = DateTime.utc(1900);
+
+  /// Store date and time of last sync for [_clientPlan].
+  DateTime _clientPlanSyncDate = DateTime.utc(1900);
 
   /// Planned amount of services for client.
   ///
@@ -71,7 +74,12 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     syncHivePlanned();
   }
 
-  /// Update data after sync
+  /// Update data after sync read from hive and notify.
+  ///
+  /// Recreate :
+  /// - [_clients] - list of [ClientProfile],
+  /// - [_clientPlan] - list of [ClientPlan],
+  /// - [_services] - list of [ServiceEntry].
   ///
   /// read hive data and notify
   @override
@@ -86,8 +94,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
       }).map((el) {
         return ClientProfile(
           workerProfile: this,
-          contractId: el.contractId,
-          name: '${el.client} ${el.contract}',
+          entry: el,
         );
       }).toList(growable: false);
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/planned')) {
