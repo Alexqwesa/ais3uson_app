@@ -29,6 +29,9 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final Journal journal;
   late final String name;
 
+  DateTime _servicesSyncDate = DateTime.utc(1900);
+  DateTime _clientPlanSyncDate = DateTime.utc(1900);
+
   String get apiKey => key.apiKey;
 
   List<ClientPlan> get clientPlan => _clientPlan;
@@ -94,6 +97,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ClientPlan>((json) {
         return ClientPlan.fromJson(json);
       }).toList(growable: false);
+      _clientPlanSyncDate = DateTime.now();
       unawaited(journal.updateWithNewPlan());
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //
@@ -103,6 +107,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
           hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ServiceEntry>((json) {
         return ServiceEntry.fromJson(json);
       }).toList(growable: false);
+      _servicesSyncDate = DateTime.now();
     } else {
       return;
     }
@@ -132,13 +137,32 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     );
   }
 
-  /// Sync hive data
+  /// Synchronize services for [WorkerProfile._services].
   ///
-  /// sync [_services]
+  /// Services usually updated once per year, and before calling this function we
+  /// should check: is it really necessary, i.e. is [_services] empty.
+  ///
+  /// This function also called from [checkAllServicesExist] if there is [_clientPlan]
+  /// with wrong [ClientPlan.servId].
   Future<void> syncHiveServices() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: 'http://${key.host}:${key.port}/services',
     );
+  }
+
+  /// This function should only be called if there is inconsistency: [ClientPlan] had nonexist service Id.
+  ///
+  /// This can happen:
+  /// - once per year, then list of [ServiceEntry] is updated - just sync via [syncHiveServices].
+  /// - database has inconsistency. TODO: check it here - low priority.
+  Future<void> checkAllServicesExist() async {
+    if (_services.isEmpty) {
+      await syncHiveServices();
+    } else if (_servicesSyncDate.isBefore(_clientPlanSyncDate)) {
+      await syncHiveServices();
+    } else {
+      // TODO: actual checks here
+    }
   }
 }

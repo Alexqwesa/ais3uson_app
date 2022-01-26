@@ -73,6 +73,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       if (e.message == 'No element') {
+        unawaited(workerProfile.checkAllServicesExist());
         showErrorNotification(
           'Ошибка: не удалось подготовить список услуг! $e',
         );
