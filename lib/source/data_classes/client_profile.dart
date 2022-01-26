@@ -21,6 +21,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
   late String name;
   late WorkerProfile workerProfile;
 
+  @override
   String get apiKey => workerProfile.apiKey;
 
   /// return List of [ClientService]s

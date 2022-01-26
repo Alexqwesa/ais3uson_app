@@ -35,7 +35,7 @@ class Journal with ChangeNotifier {
   final _lock = Lock();
   late Box<ServiceOfJournal> hive;
   late Box<ServiceOfJournal> hiveArchive;
-  var _httpHeaders = httpHeaders;
+  late final Map<String, String> _httpHeaders;
 
   //
   // > main list of services
@@ -74,7 +74,9 @@ class Journal with ChangeNotifier {
       );
 
   Journal(this.workerProfile) {
-    _httpHeaders.addAll({'api_key': apiKey});
+    _httpHeaders = {}
+      ..addAll(httpHeaders)
+      ..addAll({'api_key': apiKey});
   }
 
   @override

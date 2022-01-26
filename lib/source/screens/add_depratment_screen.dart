@@ -207,7 +207,7 @@ class SimpleTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: TextField(
           controller: controller,
           // focusNode: focusNode,

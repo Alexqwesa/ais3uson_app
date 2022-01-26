@@ -32,6 +32,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   DateTime _servicesSyncDate = DateTime.utc(1900);
   DateTime _clientPlanSyncDate = DateTime.utc(1900);
 
+  @override
   String get apiKey => key.apiKey;
 
   List<ClientPlan> get clientPlan => _clientPlan;

@@ -24,18 +24,14 @@ class _ServiceCardState extends State<ServiceCard>
     with SingleTickerProviderStateMixin {
   bool enabled = true;
 
-  late AnimationController _controller;
-
   @override
   void initState() {
     enabled = widget.service.left > 0;
-    _controller = AnimationController(vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -46,89 +42,19 @@ class _ServiceCardState extends State<ServiceCard>
       width: widget.width * 1.0,
       child: Stack(
         children: [
-          ColorFiltered(
-            colorFilter: ColorFilter.mode(
-              enabled
-                  ? Colors.white.withOpacity(0)
-                  : Colors.grey.withOpacity(.8),
-              BlendMode.multiply,
-            ),
-            child: Card(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: SizedBox(
-                      height: 90,
-                      child: Row(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Transform.scale(
-                              scale: 1.5,
-                              child: ServiceCardState(
-                                clientService: widget.service,
-                              ),
-                            ),
-                          ),
-                          //
-                          // > service image
-                          //
-                          Expanded(
-                            child: Center(
-                              child: Hero(
-                                tag: widget.service.servId,
-                                child: SizedBox(
-                                  height: 90,
-                                  width: 90,
-                                  child: Image.asset(
-                                    'images/${widget.service.image}',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  //
-                  // > service text
-                  //
-                  Center(
-                    child: SizedBox(
-                      height: widget.width * 1.2 - 102,
-                      width: 200,
-                      child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                widget.service.shortText,
-                                textScaleFactor: 1.1,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                              child: Text(
-                                widget.service.servTextAdd,
-                                softWrap: true,
-                                // overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+          ServiceCardSubWidget(
+            widget: widget,
+          ),
+          if (!enabled)
+            ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Colors.grey.withOpacity(.8),
+                BlendMode.multiply,
+              ),
+              child: ServiceCardSubWidget(
+                widget: widget,
               ),
             ),
-          ),
           //
           // InkWell animation and handler
           //
@@ -163,10 +89,101 @@ class _ServiceCardState extends State<ServiceCard>
   }
 }
 
-/// ServiceCardState
+class ServiceCardSubWidget extends StatelessWidget {
+  const ServiceCardSubWidget({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final ServiceCard widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: SizedBox(
+              height: 90,
+              child: Row(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Transform.scale(
+                      scale: 1.5,
+                      child: ServiceCardState(
+                        clientService: widget.service,
+                      ),
+                    ),
+                  ),
+                  //
+                  // > service image
+                  //
+                  Expanded(
+                    child: Center(
+                      child: Hero(
+                        tag: widget.service.servId,
+                        child: SizedBox(
+                          height: 90,
+                          width: 90,
+                          child: Image.asset(
+                            'images/${widget.service.image}',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          //
+          // > service text
+          //
+          Center(
+            child: SizedBox(
+              height: widget.width * 1.2 - 102,
+              width: 200,
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        widget.service.shortText,
+                        textScaleFactor: 1.1,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                      child: Text(
+                        widget.service.servTextAdd,
+                        softWrap: true,
+                        // overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Display state of the client service: amount of done/added/rejected.
 ///
-/// Display state of the client service
-/// states: done, pending, rejected (all in numbers)
+/// It get data from [ClientService.journal] and count these 3 numbers.
+/// - done - finished and outDated,
+/// - added - added and stale,
+/// - rejected - rejected.
 class ServiceCardState extends StatelessWidget {
   //
   // icon data
