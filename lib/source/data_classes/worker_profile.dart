@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 ///
 /// It main purpose is to store [Journal] and get bunch of sync data via:
 /// - [syncHiveServices],
-/// - [syncHiveFio],
+/// - [syncHiveClients],
 /// - [syncHivePlanned].
 ///
 /// Also it is notifying widgets.
@@ -67,7 +67,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     if (_services.isEmpty) {
       syncHiveServices();
     }
-    syncHiveFio();
+    syncHiveClients();
     syncHivePlanned();
   }
 
@@ -121,7 +121,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// Sync hive data
   ///
   /// sync [WorkerProfile]  data
-  Future<void> syncHiveFio() async {
+  Future<void> syncHiveClients() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: 'http://${key.host}:${key.port}/clients',

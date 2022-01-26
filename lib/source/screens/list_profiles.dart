@@ -14,18 +14,14 @@ class ListOfProfiles extends StatefulWidget {
 }
 
 class _ListOfProfiles extends State<ListOfProfiles> {
-  // var itemCount = AppData.instance.workerKeys.length;
-  // List<WorkerKey> workerKeys = AppData.instance.workerKeys.toList();
   _ListOfProfiles();
 
   @override
   Widget build(BuildContext context) {
-    // return Consumer<AppData>(
     return ChangeNotifierProvider(
       create: (context) => AppData(),
       child: Consumer<AppData>(
         builder: (context, data, child) {
-          // List<ClientEntry> fioList = data.profiles[profileNum].fioList;
           final workerKeys = context.select<AppData, List<WorkerKey>>(
             (data) => data.workerKeys.toList(),
           );

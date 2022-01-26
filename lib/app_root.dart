@@ -1,8 +1,8 @@
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/screens/add_depratment_screen.dart';
+import 'package:ais3uson_app/source/screens/client_screen.dart';
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/source/screens/dev_screen.dart';
-import 'package:ais3uson_app/source/screens/fio_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
@@ -49,8 +49,8 @@ class _AppRootState extends State<AppRoot> {
       initialRoute: '/',
       routes: {
         '/add_department': (context) => AddDepartmentScreen(),
-        '/fio_services': /**/ (context) => ClientServicesListScreen(),
-        '/department': /*  */ (context) => const FioScreen(),
+        '/client_services': (context) => ClientServicesListScreen(),
+        '/department': /*  */ (context) => const ClientScreen(),
         '/scan_qr': /*     */ (context) => const QRScanScreen(),
         '/dev': /*         */ (context) => const DevScreen(),
         '/delete_department': (context) => const DeleteDepartmentScreen(),

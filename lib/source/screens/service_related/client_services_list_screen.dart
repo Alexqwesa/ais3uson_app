@@ -20,7 +20,8 @@ class ClientServicesListScreen extends StatefulWidget {
   }
 
   @override
-  _ClientServicesListScreenState createState() => _ClientServicesListScreenState();
+  _ClientServicesListScreenState createState() =>
+      _ClientServicesListScreenState();
 }
 
 class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
@@ -63,20 +64,20 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
           child: SingleChildScrollView(
             child: Consumer<ClientProfile>(
               builder: (context, data, child) {
-                // 
-                // > get data 
-                // 
+                //
+                // > get data
+                //
                 final servList =
                     context.select<ClientProfile, List<ClientService>>(
                   (data) => data.services.toList(),
                 );
 
-                // 
-                // > build list 
-                // 
+                //
+                // > build list
+                //
                 return ListServices(
                   width: size.width,
-                  servListFio: servList,
+                  servListOfClient: servList,
                 );
               },
             ),

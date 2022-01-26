@@ -3,30 +3,30 @@ import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:flutter/material.dart';
 
 class ListServices extends StatelessWidget {
-  late final List<ClientService> _servListFio;
+  late final List<ClientService> _servListOfClient;
   late final double _width;
 
   ListServices({
-    required List<ClientService> servListFio,
+    required List<ClientService> servListOfClient,
     Key? key,
     double? width,
   }) : super(key: key) {
-    _servListFio = servListFio;
+    _servListOfClient = servListOfClient;
     _width = width ?? double.infinity;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: _servListFio.isNotEmpty
+      child: _servListOfClient.isNotEmpty
           ? Center(
               child: Wrap(
                 children: List.generate(
-                  _servListFio.length,
+                  _servListOfClient.length,
                   (index) {
                     return ServiceCard(
-                      key: ValueKey(_servListFio[index].servId),
-                      service: _servListFio[index],
+                      key: ValueKey(_servListOfClient[index].servId),
+                      service: _servListOfClient[index],
                       width: (_width < 600) ? _width / 2.1 : 250,
                     );
                   },
