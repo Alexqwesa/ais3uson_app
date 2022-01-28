@@ -11,6 +11,7 @@ import 'package:ais3uson_app/themes_data.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Global singleton class.
@@ -32,6 +33,8 @@ class AppData with ChangeNotifier {
   late Box hiveData;
 
   late ScreenArguments lastScreen;
+
+  http.Client httpClient = http.Client();
 
   static AppData get instance => _instance; // ??= AppData._internal();
 

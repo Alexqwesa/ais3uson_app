@@ -9,7 +9,6 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 /// Abstract mixin [SyncDataMixin]
@@ -42,6 +41,7 @@ mixin SyncDataMixin {
     String? apiKey,
     Map<String, String>? headers,
     Box? hive,
+    http.Client? client,
   }) async {
     apiKey ??= AppData().profiles[0].key.apiKey;
     hive ??= AppData().hiveData;
@@ -50,15 +50,19 @@ mixin SyncDataMixin {
       'Accept': 'application/json',
       'api_key': apiKey,
     };
+    client ??= AppData().httpClient;
     //
     // > main - call server
     //
     try {
       final url = Uri.parse(urlAddress);
-      final response = await http.get(url, headers: headers);
+      final response = await client.get(url); //, headers: headers);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty && response.body != '[]') {
+          // for getting new test data
+          // print("=== " + apiKey + urlAddress);
+          // print("=== " + response.body);
           await hive.put(apiKey + urlAddress, response.body);
           updateValueFromHive(apiKey + urlAddress);
         }
@@ -66,7 +70,7 @@ mixin SyncDataMixin {
       //
       // > just error handling
       //
-    } on ClientException {
+    } on http.ClientException {
       showErrorNotification('Ошибка сервера!');
       dev.log('Server error $urlAddress ');
     } on SocketException {
