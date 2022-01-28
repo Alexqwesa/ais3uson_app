@@ -11,9 +11,9 @@ class ServiceCard extends StatefulWidget {
   final double width;
 
   const ServiceCard({
-    Key? key,
     required this.service,
     required this.width,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -93,8 +93,8 @@ class ServiceCardSubWidget extends StatelessWidget {
   final ServiceCard widget;
 
   const ServiceCardSubWidget({
-    Key? key,
     required this.widget,
+    Key? key,
   }) : super(key: key);
 
   @override

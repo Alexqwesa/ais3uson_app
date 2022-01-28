@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                               setState(
                                 () {
                                   AppData.instance.standardTheme
-                                      .changeIndex(index);
+                                      .changeIndex(index!);
                                 },
                               );
                             },
