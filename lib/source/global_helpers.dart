@@ -25,7 +25,7 @@ String qrData = '''{"app": "AIS3USON web", "name": "Работник Тест Т
     '''"db": "kcson", "host": "80.87.196.11", "port": "48081"}''';
 String qrData2 =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
-    '''"worker_dep_id": 1, "api_key": "123", "dep": "Тестовое отделение48080", '''
+    '''"worker_dep_id": 1, "api_key": "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c", "dep": "Тестовое отделение48080", '''
     '''"db": "kcson", "host": "80.87.196.11", "port": "48080"}''';
 String qrData3 =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
