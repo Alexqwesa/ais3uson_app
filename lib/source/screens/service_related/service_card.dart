@@ -90,12 +90,12 @@ class _ServiceCardState extends State<ServiceCard> {
 }
 
 class ServiceCardSubWidget extends StatelessWidget {
+  final ServiceCard widget;
+
   const ServiceCardSubWidget({
     Key? key,
     required this.widget,
   }) : super(key: key);
-
-  final ServiceCard widget;
 
   @override
   Widget build(BuildContext context) {
@@ -180,10 +180,10 @@ class ServiceCardSubWidget extends StatelessWidget {
 
 /// Display state of the client service: amount of done/added/rejected.
 ///
-/// It get data from [ClientService.journal] and count these 3 numbers.
+/// It get data from [ClientService.journal] and count these 3 numbers:
 /// - done - finished and outDated,
-/// - added - added and stale,
-/// - rejected - rejected.
+/// - inProgress - added and stale,
+/// - error - rejected.
 class ServiceCardState extends StatelessWidget {
   //
   // icon data

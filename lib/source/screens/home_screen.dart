@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
               //
               // > logo
               //
+
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -53,10 +54,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const Center(
+              Center(
                 child: Text(
                   'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
-                  textScaleFactor: 1.5,
+                  style: Theme.of(context).textTheme.headline5,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -67,26 +68,33 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.add),
+                      leading: const Icon(Icons.group_add),
+                      title: const Text(
+                        'Добавить отделение из строки текста или тестовое отделение',
+                      ),
+                      onTap: () {
+                        Navigator.pop(
+                          context,
+                          'qr',
+                        );
+                        Navigator.pushNamed(
+                          context,
+                          '/add_department',
+                          arguments: '',
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.add,
+                        color: Colors.green,
+                      ),
                       title: const Text('Сканировать QR код'),
                       onTap: () {
                         Navigator.pop(context, 'qr');
                         Navigator.pushNamed(
                           context,
                           '/scan_qr',
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.settings),
-                      title: const Text('Настройки'),
-                      onTap: () {
-                        return;
-                        Navigator.pop(context, 'settings');
-                        Navigator.pushNamed(
-                          context,
-                          '/settings',
-                          arguments: '',
                         );
                       },
                     ),
@@ -98,18 +106,6 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushNamed(
                           context,
                           '/delete_department',
-                          arguments: '',
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.adb),
-                      title: const Text('О программе'),
-                      onTap: () {
-                        Navigator.pop(context, 'dev');
-                        Navigator.pushNamed(
-                          context,
-                          '/dev',
                           arguments: '',
                         );
                       },
@@ -129,20 +125,32 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ListTile(
-                      // todo: dialog add dep, with test dep button
-                      leading: const Icon(Icons.group_add),
-                      title: const Text('Добавить отделение из строки текста'),
+                      leading: const Icon(Icons.settings),
+                      title: const Text('Настройки'),
                       onTap: () {
-                        Navigator.pop(context, 'qr');
+                        return;
+                        Navigator.pop(context, 'settings');
                         Navigator.pushNamed(
                           context,
-                          '/add_department',
+                          '/settings',
+                          arguments: '',
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.adb),
+                      title: const Text('О программе'),
+                      onTap: () {
+                        Navigator.pop(context, 'dev');
+                        Navigator.pushNamed(
+                          context,
+                          '/dev',
                           arguments: '',
                         );
                       },
                     ),
                     const Divider(),
-                    Container(
+                    Expanded(
                       // todo: dialog add dep, with test dep button
                       child: Column(
                         children: [

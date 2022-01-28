@@ -256,7 +256,7 @@ class Journal with ChangeNotifier {
     });
   }
 
-  /// Delete service [serv] from journal.
+  /// Delete service [serv] (or find serv by [uuid]) from journal.
   ///
   /// Also notify listeners and save.
   Future<void> delete({ServiceOfJournal? serv, String? uuid}) async {
