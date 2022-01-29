@@ -97,7 +97,10 @@ class AppData with ChangeNotifier {
     );
   }
 
-  Future<bool> addProfileFromUKey(WorkerKey key) async {
+  /// Add Profile from [WorkerKey].
+  /// 
+  /// Check for duplicates before addition, save and notify listeners.
+  Future<bool> addProfileFromKey(WorkerKey key) async {
     if (_profiles
             .firstWhereOrNull((element) => element.key.apiKey == key.apiKey) ==
         null) {

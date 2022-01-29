@@ -191,7 +191,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                           if (newKey.startsWith('http://')) {
                             newKey = newKey.substring(7, newKey.length);
                           }
-                          final res = await AppData().addProfileFromUKey(
+                          final res = await AppData().addProfileFromKey(
                             WorkerKey.fromJson(json.decode(
                               newKey,
                             )),

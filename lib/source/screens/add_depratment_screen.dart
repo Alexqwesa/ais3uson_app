@@ -90,7 +90,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                     onPressed: () async {
                                       try {
                                         final res =
-                                            await AppData().addProfileFromUKey(
+                                            await AppData().addProfileFromKey(
                                           WorkerKey.fromJson(
                                             jsonDecode(
                                               controller.value.text
@@ -169,7 +169,7 @@ class AddDepartmentScreen extends StatelessWidget {
                             //
                             onTap: () async {
                               final res = await AppData()
-                                  .addProfileFromUKey(workerKeys[index]);
+                                  .addProfileFromKey(workerKeys[index]);
                               if (res) {
                                 unawaited(AppData().save());
                                 AppData().notify();
