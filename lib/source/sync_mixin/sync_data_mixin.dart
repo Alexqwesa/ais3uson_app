@@ -38,12 +38,11 @@ mixin SyncDataMixin {
   /// Call [updateValueFromHive] to load data into application.
   Future<void> hiddenSyncHive({
     required String urlAddress,
-    String? apiKey,
+    required String apiKey,
     Map<String, String>? headers,
     Box? hive,
     http.Client? client,
   }) async {
-    apiKey ??= AppData().profiles[0].key.apiKey;
     hive ??= AppData().hiveData;
     headers ??= {
       'Content-type': 'application/json',
@@ -56,7 +55,7 @@ mixin SyncDataMixin {
     //
     try {
       final url = Uri.parse(urlAddress);
-      final response = await client.get(url); //, headers: headers);
+      final response = await client.get(url, headers: headers);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty && response.body != '[]') {
