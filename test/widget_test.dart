@@ -5,26 +5,60 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:ais3uson_app/app_root.dart';
+import 'dart:convert';
+
+import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/screens/list_profiles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_test/hive_test.dart';
+
+import 'helpers/setup_and_teardown_helpers.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (tester) async {
-    //WidgetTester tester
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const AppRoot());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('Тестовое отделение 2'), findsOneWidget);
+  setUpAll(() async {
+    await mySetUpAll();
+  });
+  tearDownAll(() async {
+    await tearDownTestHive();
+  });
+  testWidgets('listOfProfiles smoke test', (tester) async {
+    // Init , WidgetTester tester
+    const listOfProfiles = ListOfProfiles();
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: listOfProfiles,
+      ),
+    );
+    await tester.pumpAndSettle();
+    // Check empty
+    expect(find.textContaining('отсканируйте QR код'), findsOneWidget);
+    expect(find.text('Тестовое отделение 48080'), findsNothing);
     expect(find.text('Тестовое отделение'), findsNothing);
+    // Add department
+    await AppData().addProfileFromKey(WorkerKey.fromJson(jsonDecode(qrData2)));
+    // Check
+    expect(find.text('Тестовое отделение 48080'), findsNothing);
+  });
+}
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+Future<void> backButton(WidgetTester tester) async {
+  return TestAsyncUtils.guard<void>(() async {
+    var backButton = find.byTooltip('Back');
+    if (backButton.evaluate().isEmpty) {
+      backButton = find.byType(CupertinoNavigationBarBackButton);
+    }
+
+    expectSync(
+      backButton,
+      findsOneWidget,
+      reason: 'One back button expected on screen',
+    );
+
+    await tester.tap(backButton);
   });
 }
