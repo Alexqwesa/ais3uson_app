@@ -41,7 +41,6 @@ mixin SyncDataMixin {
     required String apiKey,
     Map<String, String>? headers,
     Box? hive,
-    http.Client? client,
   }) async {
     hive ??= AppData().hiveData;
     headers ??= {
@@ -49,7 +48,7 @@ mixin SyncDataMixin {
       'Accept': 'application/json',
       'api_key': apiKey,
     };
-    client ??= AppData().httpClient;
+    final client = AppData().httpClient;
     //
     // > main - call server
     //

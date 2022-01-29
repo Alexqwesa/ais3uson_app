@@ -32,10 +32,10 @@ import 'package:synchronized/synchronized.dart';
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
   late final WorkerProfile workerProfile;
+  late final Map<String, String> _httpHeaders;
   final _lock = Lock();
   late Box<ServiceOfJournal> hive;
   late Box<ServiceOfJournal> hiveArchive;
-  late final Map<String, String> _httpHeaders;
 
   //
   // > main list of services

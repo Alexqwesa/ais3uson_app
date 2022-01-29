@@ -46,7 +46,13 @@ class _QRScanScreenState extends State<QRScanScreen> {
           //
           // > camera widget
           //
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(
+            flex: 4,
+            child: ShowQrView(
+              qrKey: qrKey,
+              onQRViewCreated: _onQRViewCreated,
+            ),
+          ),
           //
           // > returned text
           //
@@ -235,26 +241,6 @@ class _QRScanScreenState extends State<QRScanScreen> {
     super.dispose();
   }
 
-  Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    final scanArea = MediaQuery.of(context).size.width * 0.9;
-
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-        // borderColor: Colors.red,
-        borderRadius: 5,
-        borderLength: 30,
-        borderWidth: 5,
-        cutOutSize: scanArea,
-      ),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
-    );
-  }
-
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
@@ -269,6 +255,39 @@ class _QRScanScreenState extends State<QRScanScreen> {
         dev.log(result!.code!);
       }
     });
+  }
+}
+
+class ShowQrView extends StatelessWidget {
+  final GlobalKey qrKey;
+
+  final void Function(QRViewController) onQRViewCreated;
+
+  const ShowQrView({
+    required this.qrKey,
+    required this.onQRViewCreated,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+    final scanArea = MediaQuery.of(context).size.width * 0.9;
+
+    // To ensure the Scanner view is properly sizes after rotation
+    // we need to listen for Flutter SizeChanged notification and update controller
+    return QRView(
+      key: qrKey,
+      onQRViewCreated: onQRViewCreated,
+      overlay: QrScannerOverlayShape(
+        // borderColor: Colors.red,
+        borderRadius: 5,
+        borderLength: 30,
+        borderWidth: 5,
+        cutOutSize: scanArea,
+      ),
+      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+    );
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
