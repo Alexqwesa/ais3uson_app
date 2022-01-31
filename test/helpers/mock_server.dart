@@ -5,15 +5,17 @@ import 'package:mockito/mockito.dart';
 import 'default_data.dart';
 import 'mock_server.mocks.dart';
 
+final httpTestHeader = {
+  'Content-type': 'application/json',
+  'Accept': 'application/json',
+  'api_key': '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
+};
+
 /// Generate a MockClient using the Mockito package.
 @GenerateMocks([http.Client])
 http.Client getMockHttpClient() {
   final client = MockClient();
-  final h = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-    'api_key': '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
-  };
+  final h = httpTestHeader;
 
   when(client.get(any, headers: h))
       .thenAnswer((_) async => http.Response('{"title": "Test"}', 200));

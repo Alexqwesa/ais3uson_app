@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
@@ -16,7 +17,6 @@ import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
 import 'package:synchronized/synchronized.dart';
@@ -190,6 +190,7 @@ class Journal with ChangeNotifier {
   /// On error: show [showErrorNotification] to user.
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
+    final http = AppData().httpClient;
     try {
       Response response;
       if (urlAddress.endsWith('/add')) {
