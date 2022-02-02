@@ -18,7 +18,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
-import 'package:surf_lint_rules/surf_lint_rules.dart';
 import 'package:synchronized/synchronized.dart';
 
 /// Journal of services
@@ -83,8 +82,6 @@ class Journal with ChangeNotifier {
   void dispose() {
     // if (hive.isOpen) {
     () async {
-      await hive.clear();
-      await hive.addAll(all);
       await hive.compact();
       await hive.close();
     }();
@@ -287,7 +284,7 @@ class Journal with ChangeNotifier {
         all.indexOf(serv),
       );
       notifyListeners();
-      unawaited(save());
+      await save();
       // ignore: avoid_catching_errors
     } on RangeError {
       dev.log('RangeError double delete');

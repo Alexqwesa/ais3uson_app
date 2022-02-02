@@ -119,6 +119,12 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    journal.dispose();
+    return super.dispose();
+  }
+
   Future<void> postInit() async {
     await journal.postInit();
     if (_services.isEmpty) {
