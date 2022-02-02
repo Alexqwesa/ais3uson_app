@@ -100,7 +100,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
         return ClientPlan.fromJson(json);
       }).toList(growable: false);
       _clientPlanSyncDate = DateTime.now();
-      unawaited(journal.updateWithNewPlan());
+      unawaited(journal.updateBasedOnNewPlanDate());
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //
       // > Sync services from hive

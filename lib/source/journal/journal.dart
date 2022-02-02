@@ -392,7 +392,9 @@ class Journal with ChangeNotifier {
     }
   }
 
-  Future<void> updateWithNewPlan() async {
+  /// Mark all finished service as [ServiceState.outDated]
+  /// after [WorkerProfile._clientPlan] synchronized.
+  Future<void> updateBasedOnNewPlanDate() async {
     all.where((e) => e.state == ServiceState.finished).forEach(
       (element) {
         // TODO: rework it?
