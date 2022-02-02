@@ -45,11 +45,8 @@ void main() {
       //
       // > prepare
       //
-      final httpClient = AppData.instance.httpClient;
+      final httpClient = AppData().httpClient;
       final wp = WorkerProfile(WorkerKey.fromJson(jsonDecode(qrData2)));
-      await wp.syncHiveServices();
-      await wp.syncHiveClients();
-      await wp.syncHivePlanned();
       when(
         httpClient.post(
           Uri.parse('http://80.87.196.11:48080/add'),
@@ -57,6 +54,7 @@ void main() {
           body: anyNamed('body'),
         ),
       ).thenAnswer((_) async => http.Response('{"id": 1}', 200));
+      await wp.postInit();
       //
       // > start test
       //

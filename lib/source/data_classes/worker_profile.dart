@@ -66,12 +66,6 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   WorkerProfile(this.key) {
     name = key.name;
     journal = Journal(this);
-    journal.postInit();
-    if (_services.isEmpty) {
-      syncHiveServices();
-    }
-    syncHiveClients();
-    syncHivePlanned();
   }
 
   /// Update data after sync read from hive and notify.
@@ -123,6 +117,15 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     // > And finally notify
     //
     notifyListeners();
+  }
+
+  Future<void> postInit() async {
+    await journal.postInit();
+    if (_services.isEmpty) {
+      await syncHiveServices();
+    }
+    await syncHiveClients();
+    await syncHivePlanned();
   }
 
   /// Sync hive data

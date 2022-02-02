@@ -83,6 +83,8 @@ class AppData with ChangeNotifier {
       );
     }
     notifyListeners();
+    await Future.wait(_profiles.map((e) => e.postInit()));
+    notifyListeners();
   }
 
   void notify() {
@@ -90,22 +92,28 @@ class AppData with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> save() async {
-    return prefs.setString(
+  Future<void> save() async {
+    final res = await prefs.setString(
       'WorkerKeys',
       jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
     );
+    if (!res) {
+      showErrorNotification('Ошибка: не удалось сохранить профиль отделения!');
+    }
   }
 
   /// Add Profile from [WorkerKey].
-  /// 
+  ///
   /// Check for duplicates before addition, save and notify listeners.
   Future<bool> addProfileFromKey(WorkerKey key) async {
     if (_profiles
             .firstWhereOrNull((element) => element.key.apiKey == key.apiKey) ==
         null) {
-      _profiles.add(WorkerProfile(key));
+      final wp = WorkerProfile(key);
+      _profiles.add(wp);
       await save();
+      notifyListeners();
+      await wp.postInit();
       notifyListeners();
 
       return true;
