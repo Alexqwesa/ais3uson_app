@@ -311,44 +311,53 @@ class Journal with ChangeNotifier {
     final today = DateTime(now.year, now.month, now.day);
     hiveArchive =
         await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
-    await hiveArchive.addAll(
-      all
-          .where(
-            (el) =>
-                el.provDate.isBefore(today) &&
-                [ServiceState.finished, ServiceState.outDated]
-                    .contains(el.state),
-          )
-          .map((e) => ServiceOfJournal.copy(
-                servId: e.servId,
-                contractId: e.contractId,
-                workerId: e.workerId,
-                state: e.state,
-                uid: e.uid,
-                error: e.error,
-                provDate: e.provDate,
-              )),
-      /*
+    /*
       We could have just removed element first from list of active elements,
       but this could lead to dataloss,
       this code can lead to data duplication, but we can: TODO: deduplicate data on load.
-      */
-    );
-    //
-    // > delete finished old services and save hive
-    //
-    all.removeWhere(
-      (el) => el.provDate.isBefore(today) && el.state == ServiceState.finished,
-    );
-    unawaited(save());
-    //
-    // > only [hiveArchiveLimit] number of services stored, delete most old and close
-    //
-    for (var i = 0; i < hiveArchive.length - hiveArchiveLimit; i++) {
-      await hiveArchive.deleteAt(i);
+      This is low priority since it can only happen if sudden kill of app happen in exact this moment.
+    */
+    final forArchive = all
+        .where(
+          (el) =>
+              el.provDate.isBefore(today) &&
+              [ServiceState.finished, ServiceState.outDated].contains(el.state),
+        )
+        .map(
+          (e) => ServiceOfJournal.copy(
+            servId: e.servId,
+            contractId: e.contractId,
+            workerId: e.workerId,
+            state: e.state,
+            uid: e.uid,
+            error: e.error,
+            provDate: e.provDate,
+          ),
+        );
+    if (forArchive.isNotEmpty) {
+      await hiveArchive.addAll(forArchive);
+      //
+      // > delete finished old services and save hive
+      //
+      all.removeWhere(forArchive.contains);
+      await save();
+      //
+      // > only [hiveArchiveLimit] number of services stored, delete most old and close
+      //
+      // todo: check if hiveArch always place new services last, in that case we can just use deleteAt()
+      if (hiveArchive.length > hiveArchiveLimit) {
+        final archList = hiveArchive.values.toList();
+        archList
+          ..sort((a, b) => a.provDate.isBefore(b.provDate) ? 1 : -1)
+          ..removeRange(hiveArchiveLimit, archList.length);
+        await hiveArchive.deleteFromDisk(); // or maybe better deleteAll ?
+        hiveArchive =
+            await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
+        await hiveArchive.addAll(archList);
+      }
+      await hiveArchive.compact();
+      await hiveArchive.close();
     }
-    await hiveArchive.compact();
-    await hiveArchive.close();
   }
 
   /// Helper, only used in [ClientService], for deleting last [ServiceOfJournal].
