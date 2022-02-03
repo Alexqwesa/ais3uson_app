@@ -42,7 +42,11 @@ class ServiceOfJournal with HiveObjectMixin {
     if (value == ServiceState.finished) {
       provDate = DateTime.now();
     }
-    await save();
+    if (isInBox) {
+      await save();
+    } else {
+      showErrorNotification('Ошибка сохранения записи журнала');
+    }
   }
 
   ServiceState _state = ServiceState.added;

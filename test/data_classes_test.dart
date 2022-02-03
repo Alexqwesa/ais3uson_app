@@ -22,6 +22,26 @@ void main() {
   tearDownAll(() async {
     await tearDownTestHive();
   });
+  setUp(() async {
+    //
+    // > Hive setup
+    //
+    await setUpTestHive();
+    try {
+      // never fail adapter registration
+      Hive
+        ..registerAdapter(ServiceOfJournalAdapter())
+        ..registerAdapter(ServiceStateAdapter());
+    } on HiveError catch (e) {
+      // print(e);
+    }
+    final hivData = await Hive.openBox<dynamic>('profiles');
+    AppData().hiveData = hivData;
+  });
+  tearDown(() async {
+    await AppData().asyncDispose();
+    await tearDownTestHive();
+  });
   group('Data Class', () {
     //
     // > test create WorkerProfile
@@ -113,20 +133,36 @@ void main() {
     //
     // > test addition of services
     //
-    test('Load serviceOfJournal from Hive', () async {
+    test('Load serviceOfJournal from Hive and Journal', () async {
       //
       // > prepare
       //
-      final httpClient = AppData().httpClient;
-      final wp = WorkerProfile(WorkerKey.fromJson(jsonDecode(qrData2)));
-      final hive = await Hive.openBox<ServiceOfJournal>('journal_${wp.apiKey}');
-      await hive.add(
-        ServiceOfJournal(servId: 828, contractId: 1, workerId: 1),
-      );
+      final wKey = WorkerKey.fromJson(jsonDecode(qrData2));
+      var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      final service1 =
+          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
+      await hive.add(service1);
       final errorService =
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       await hive.add(errorService);
       await errorService.setState(ServiceState.rejected);
+      //
+      // > test hive
+      //
+      expect(hive.values.first.uid, service1.uid);
+      expect(hive.values.last.state, ServiceState.rejected);
+      // await hive.flush();
+      // await hive.close();
+      // hive = await Hive.openBox<ServiceOfJournal>('journal_${wkey.apiKey}');
+      expect(hive.values.last.state,
+          ServiceState.rejected); // This fail if uncomment code above
+      expect(hive.values.first.state, ServiceState.added);
+      expect(hive.values.last.uid, errorService.uid);
+      //
+      // > init WorkerProfile and mock http
+      //
+      final httpClient = AppData().httpClient;
+      final wp = WorkerProfile(wKey);
       // delayed init, should look like values were loaded from hive
       when(
         httpClient.post(
@@ -137,18 +173,28 @@ void main() {
       ).thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await wp.postInit();
       //
-      // > start test
+      // > start journal test
       //
+      expect(wp.journal.hive.values.last.state, ServiceState.rejected);
       expect(wp.clients[0].services[0].listDoneProgressError, [0, 1, 1]);
       expect(wp.clients[0].services[0].deleteAllowed, true);
       await wp.clients[0].services[0].delete();
+      expect(wp.clients[0].services[0].listDoneProgressError, [0, 1, 0]);
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].listDoneProgressError, [1, 1, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [2, 0, 0]);
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].listDoneProgressError, [2, 1, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [3, 0, 0]);
       await wp.journal.commitAll();
       expect(wp.clients[0].services[0].listDoneProgressError, [3, 0, 0]);
-      wp.dispose();
+      expect(
+        verify(httpClient.post(
+          Uri.parse('http://80.87.196.11:48080/add'),
+          headers: httpTestHeader,
+          body: anyNamed('body'),
+        )).callCount,
+        3,
+      );
+      // wp.dispose();
     });
   });
 }
