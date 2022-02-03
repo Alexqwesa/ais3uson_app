@@ -98,7 +98,7 @@ void main() {
       final errorService =
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       await hive.add(errorService);
-      errorService.state = ServiceState.rejected;
+      await errorService.setState(ServiceState.rejected);
       // delayed init, should look like values were loaded from hive
       when(
         httpClient.post(

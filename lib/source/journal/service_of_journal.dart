@@ -37,12 +37,12 @@ class ServiceOfJournal with HiveObjectMixin {
 
   ServiceState get state => _state;
 
-  set state(ServiceState value) {
+  Future<void> setState(ServiceState value) async {
     _state = value;
     if (value == ServiceState.finished) {
       provDate = DateTime.now();
     }
-    save();
+    await save();
   }
 
   ServiceState _state = ServiceState.added;

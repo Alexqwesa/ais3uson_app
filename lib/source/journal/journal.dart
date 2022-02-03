@@ -243,7 +243,7 @@ class Journal with ChangeNotifier {
       final servList = servicesForSync.toList(); // work with copy of list
       try {
         for (final s in servList) {
-          s.state = await commitAdd(s) ?? s.state;
+          await s.setState(await commitAdd(s) ?? s.state);
         }
         servList.forEach((element) => dev.log(element.state.toString()));
         // ignore: avoid_catches_without_on_clauses
@@ -396,10 +396,10 @@ class Journal with ChangeNotifier {
   /// after [WorkerProfile._clientPlan] synchronized.
   Future<void> updateBasedOnNewPlanDate() async {
     all.where((e) => e.state == ServiceState.finished).forEach(
-      (element) {
+          (element) async {
         // TODO: rework it?
         if (element.provDate.isBefore(workerProfile.clientPlan[0].checkDate)) {
-          element.state = ServiceState.outDated;
+          await element.setState(ServiceState.outDated);
         }
       },
     );
