@@ -83,11 +83,12 @@ class Journal with ChangeNotifier {
 
   @override
   void dispose() {
-    // if (hive.isOpen) {
-    () async {
-      await hive.compact();
-      await hive.close();
-    }();
+    if (hive.isOpen) {
+      () async {
+        await hive.compact();
+        await hive.close();
+      }();
+    }
 
     return super.dispose();
   }

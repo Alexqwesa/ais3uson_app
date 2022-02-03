@@ -56,15 +56,19 @@ class ServiceOfJournal with HiveObjectMixin {
     _state = state;
   }
 
+  /// Set new state and save itself,
+  /// if box closed - do nothing (think we are in archive).
   Future<void> setState(ServiceState value) async {
     _state = value;
     if (value == ServiceState.finished) {
       provDate = DateTime.now();
     }
-    if (isInBox) {
-      await save();
-    } else {
-      showErrorNotification('Ошибка сохранения записи журнала');
+    if (box != null && box!.isOpen) {
+      if (isInBox) {
+        await save();
+      } else {
+        showErrorNotification('Ошибка сохранения записи журнала');
+      }
     }
   }
 }
