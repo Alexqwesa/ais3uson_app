@@ -55,10 +55,15 @@ class ClientService with ChangeNotifier {
           element.contractId == contractId && element.servId == service.id)
       .length;
 
-  int get done => journal.finished
-      .where((element) =>
-          element.contractId == contractId && element.servId == service.id)
-      .length;
+  int get done =>
+      journal.finished
+          .where((element) =>
+              element.contractId == contractId && element.servId == service.id)
+          .length +
+      journal.outDated
+          .where((element) =>
+              element.contractId == contractId && element.servId == service.id)
+          .length;
 
   int get stalled => journal.servicesForSync
       .where((element) =>

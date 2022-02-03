@@ -57,6 +57,9 @@ class Journal with ChangeNotifier {
   Iterable<ServiceOfJournal> get rejected =>
       all.where((element) => element.state == ServiceState.rejected);
 
+  Iterable<ServiceOfJournal> get outDated =>
+      all.where((element) => element.state == ServiceState.outDated);
+
   Iterable<ServiceOfJournal> get affect => all.where(
         (element) => [
           ServiceState.stalled,
@@ -396,7 +399,7 @@ class Journal with ChangeNotifier {
   /// after [WorkerProfile._clientPlan] synchronized.
   Future<void> updateBasedOnNewPlanDate() async {
     all.where((e) => e.state == ServiceState.finished).forEach(
-          (element) async {
+      (element) async {
         // TODO: rework it?
         if (element.provDate.isBefore(workerProfile.clientPlan[0].checkDate)) {
           await element.setState(ServiceState.outDated);
