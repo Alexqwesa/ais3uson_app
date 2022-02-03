@@ -44,12 +44,15 @@ void main() {
     //
     // > test addition of services
     //
-    test('Addition of service', () async {
+    test('Addition of service, with states: added, stale, rejected', () async {
       //
       // > prepare
       //
       final httpClient = AppData().httpClient;
       final wp = WorkerProfile(WorkerKey.fromJson(jsonDecode(qrData2)));
+      //
+      // > configure addition successful
+      //
       when(
         httpClient.post(
           Uri.parse('http://80.87.196.11:48080/add'),
@@ -64,23 +67,48 @@ void main() {
       expect(wp.clients[0].services[0].deleteAllowed, false);
       await wp.clients[0].services[0].add();
       expect(wp.clients[0].services[0].listDoneProgressError, [1, 0, 0]);
-      // final body = '{"vdate":"2022-01-31","uuid":"${wp.journal.all.first.uid}",'
-      //     '"contracts_id":1,"dep_has_worker_id":1,"serv_id":828}';
       //
-      // > repeat test with [commitAll]
+      // > configure addition stale
       //
+      when(
+        httpClient.post(
+          Uri.parse('http://80.87.196.11:48080/add'),
+          headers: httpTestHeader,
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer((_) async => http.Response('', 400));
       await wp.clients[0].services[0].add();
+      expect(wp.clients[0].services[0].listDoneProgressError, [1, 1, 0]);
+      when(
+        httpClient.post(
+          Uri.parse('http://80.87.196.11:48080/add'),
+          headers: httpTestHeader,
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer((_) async => http.Response('{"id": 2}', 200));
       await wp.journal.commitAll();
       expect(wp.clients[0].services[0].listDoneProgressError, [2, 0, 0]);
+      //
+      // > configure addition rejected
+      //
+      when(
+        httpClient.post(
+          Uri.parse('http://80.87.196.11:48080/add'),
+          headers: httpTestHeader,
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer((_) async => http.Response('{"id": 0}', 200));
+      await wp.clients[0].services[0].add();
+      expect(wp.clients[0].services[0].listDoneProgressError, [2, 0, 1]);
       expect(
         verify(httpClient.post(
           Uri.parse('http://80.87.196.11:48080/add'),
           headers: httpTestHeader,
           body: anyNamed('body'),
         )).callCount,
-        2,
+        4,
       );
-      wp.dispose();
+      // wp.dispose();
     });
     //
     // > test addition of services
