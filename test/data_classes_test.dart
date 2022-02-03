@@ -32,6 +32,7 @@ void main() {
       Hive
         ..registerAdapter(ServiceOfJournalAdapter())
         ..registerAdapter(ServiceStateAdapter());
+      // ignore: avoid_catching_errors, unused_catch_clause
     } on HiveError catch (e) {
       // print(e);
     }

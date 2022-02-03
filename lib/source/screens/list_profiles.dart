@@ -61,8 +61,8 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(workerKeys[index].name),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Text('Какой-нибудь текст'),
                               ),
                             ],

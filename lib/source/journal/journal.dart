@@ -118,7 +118,7 @@ class Journal with ChangeNotifier {
     try {
       hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
       await hive.add(se);
-      // ignore: avoid_catching_errors
+      // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(
         'Ошибка: не удалось сохранить запись журнала, проверьте сводобное место на устройстве',

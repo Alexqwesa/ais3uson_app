@@ -36,19 +36,6 @@ class ServiceOfJournal with HiveObjectMixin {
   String uid = uuid.v4();
 
   ServiceState get state => _state;
-
-  Future<void> setState(ServiceState value) async {
-    _state = value;
-    if (value == ServiceState.finished) {
-      provDate = DateTime.now();
-    }
-    if (isInBox) {
-      await save();
-    } else {
-      showErrorNotification('Ошибка сохранения записи журнала');
-    }
-  }
-
   ServiceState _state = ServiceState.added;
 
   ServiceOfJournal({
@@ -67,5 +54,17 @@ class ServiceOfJournal with HiveObjectMixin {
     required this.uid,
   }) {
     _state = state;
+  }
+
+  Future<void> setState(ServiceState value) async {
+    _state = value;
+    if (value == ServiceState.finished) {
+      provDate = DateTime.now();
+    }
+    if (isInBox) {
+      await save();
+    } else {
+      showErrorNotification('Ошибка сохранения записи журнала');
+    }
   }
 }

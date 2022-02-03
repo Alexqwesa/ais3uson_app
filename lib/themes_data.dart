@@ -97,7 +97,6 @@ class StandardTheme with ChangeNotifier {
 
   static ThemeData light() {
     return ThemeData(
-      brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
           (states) {
@@ -119,16 +118,15 @@ class StandardTheme with ChangeNotifier {
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.green,
       ),
-      primarySwatch: Colors.blue,
-      accentColor: Colors.blue[400],
       dividerColor: Colors.black54,
       textTheme: lightTextTheme,
+      colorScheme: const ColorScheme.light()
+          .copyWith(primary: Colors.blue, secondary: Colors.blue[400]),
     );
   }
 
   static ThemeData dark() {
     return ThemeData(
-      brightness: Brightness.dark,
       appBarTheme: AppBarTheme(
         // foregroundColor: Colors.white,
         backgroundColor: Colors.blue[900],
@@ -144,10 +142,9 @@ class StandardTheme with ChangeNotifier {
         selectedItemColor: Colors.green,
       ),
       primaryColor: Colors.blue[700],
-      accentColor: Colors.blue,
-      primarySwatch: Colors.blue,
       dividerColor: Colors.white54,
       textTheme: darkTextTheme,
+      colorScheme: const ColorScheme.dark().copyWith(secondary: Colors.blue),
     );
   }
 
