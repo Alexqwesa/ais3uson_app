@@ -122,6 +122,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   @override
   void dispose() {
     journal.dispose();
+
     return super.dispose();
   }
 

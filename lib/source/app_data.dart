@@ -63,11 +63,23 @@ class AppData with ChangeNotifier {
 
   @override
   void dispose() {
-    hiveData
-      ..compact()
-      ..close();
-    // maybe don't dispose of singleton?
+    asyncDispose();
     super.dispose();
+  }
+
+  /// Wait till all Hive boxes are closed
+  Future<void> asyncDispose() async {
+    if (AppData().hiveData.isOpen) {
+      await AppData().hiveData.close();
+    }
+    await Future.wait(AppData().profiles.map((el) async {
+      if (el.journal.hive.isOpen) {
+        await el.journal.hive.close();
+      }
+      if (el.journal.hiveArchive.isOpen) {
+        await el.journal.hiveArchive.close();
+      }
+    }));
   }
 
   /// Post init
