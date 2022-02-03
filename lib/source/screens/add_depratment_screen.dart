@@ -100,7 +100,6 @@ class AddDepartmentScreen extends StatelessWidget {
                                         );
                                         if (res) {
                                           unawaited(AppData().save());
-                                          AppData().notify();
                                           // ignore: use_build_context_synchronously
                                           Navigator.pop(context, 'added');
                                         } else {
@@ -172,7 +171,6 @@ class AddDepartmentScreen extends StatelessWidget {
                                   .addProfileFromKey(workerKeys[index]);
                               if (res) {
                                 unawaited(AppData().save());
-                                AppData().notify();
                                 // ignore: use_build_context_synchronously
                                 Navigator.pop(context, 'added');
                               } else {

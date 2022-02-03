@@ -99,11 +99,6 @@ class AppData with ChangeNotifier {
     notifyListeners();
   }
 
-  void notify() {
-    // is it needed?
-    notifyListeners();
-  }
-
   Future<void> save() async {
     final res = await prefs.setString(
       'WorkerKeys',
@@ -112,6 +107,7 @@ class AppData with ChangeNotifier {
     if (!res) {
       showErrorNotification('Ошибка: не удалось сохранить профиль отделения!');
     }
+    notifyListeners();
   }
 
   /// Add Profile from [WorkerKey].
