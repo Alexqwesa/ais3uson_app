@@ -121,7 +121,7 @@ class ClientService with ChangeNotifier {
 
   Future<void> add() async {
     if (addAllowed) {
-      journal.post(
+      await journal.post(
         ServiceOfJournal(
           servId: planned.servId,
           contractId: planned.contractId,

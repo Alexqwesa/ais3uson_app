@@ -113,17 +113,18 @@ class Journal with ChangeNotifier {
     await hive.compact();
   }
 
-  bool post(ServiceOfJournal se) {
+  Future<bool> post(ServiceOfJournal se) async {
     all.add(se);
-    Future(() async {
+    try {
       hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
       await hive.add(se);
-    }).onError((error, stackTrace) {
+      // ignore: avoid_catching_errors
+    } catch (e) {
       showErrorNotification(
         'Ошибка: не удалось сохранить запись журнала, проверьте сводобное место на устройстве',
       );
-    });
-    commitAll();
+    }
+    await commitAll();
 
     return true;
   }
@@ -287,7 +288,7 @@ class Journal with ChangeNotifier {
         all.indexOf(serv),
       );
       notifyListeners();
-      await save();
+      await serv.delete();
       // ignore: avoid_catching_errors
     } on RangeError {
       dev.log('RangeError double delete');
