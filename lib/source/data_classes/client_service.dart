@@ -115,6 +115,13 @@ class ClientService with ChangeNotifier {
     journal.addListener(notifyListeners);
   }
 
+  @override
+  void dispose() {
+    journal.removeListener(notifyListeners);
+
+    return super.dispose();
+  }
+
   void addProof() {
     proofList.addNewGroup();
   }
