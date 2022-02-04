@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/screens/add_depratment_screen.dart';
+import 'package:ais3uson_app/source/screens/add_department_screen.dart';
 import 'package:ais3uson_app/source/screens/client_screen.dart';
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/source/screens/dev_screen.dart';
