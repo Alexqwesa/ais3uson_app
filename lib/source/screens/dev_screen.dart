@@ -1,10 +1,8 @@
 // ignore_for_file: always_use_package_imports, avoid_annotating_with_dynamic
 
-import 'dart:convert';
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
@@ -38,23 +36,13 @@ class DevScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     Navigator.pop(context);
-                  //   },
-                  //   child: const Text('Назад!'),
-                  // ),
                   Text(
                     'Разработчик: Савин Александр Викторович',
                   ),
-                  /*
-                Test web worker
-                */
+                  //
+                  // > Get stat
+                  //
                   CheckWorkerServer(),
-                  /*
-                Test web worker POST
-                */
-                  CheckWorkerServerPOST(),
                   // Expanded(child: ListOfAllServices()),
                 ],
               ),
@@ -79,9 +67,6 @@ class CheckWorkerServer extends StatefulWidget {
 }
 
 class _CheckWorkerServer extends State<CheckWorkerServer> {
-  // const _CheckWorkerServer({Key? key}) : super(key: key){
-  // }
-
   String _testHTTP = '';
 
   @override
@@ -120,56 +105,5 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
     } catch (e) {
       dev.log('Error $e');
     }
-  }
-}
-
-/// Test web worker POST
-///
-/// get POST data from Web worker
-class CheckWorkerServerPOST extends StatefulWidget {
-  const CheckWorkerServerPOST({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _CheckWorkerServerPOST();
-  }
-}
-
-class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
-  String body = qrData;
-  Map<String, String> headers = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-  };
-  String _testHTTP = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        ElevatedButton(
-          onPressed: checkHTTP,
-          child: const Text('Обновить!'),
-        ),
-        Flexible(
-          child: Html(data: _testHTTP),
-        ),
-      ],
-    );
-  }
-
-  Future<void> checkHTTP() async {
-    final url = Uri.parse(
-      'http://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/planned',
-    );
-    await http.post(url, headers: headers, body: body).then((response) {
-      setState(() {
-        _testHTTP = jsonDecode(response.body).toString();
-      });
-    }).catchError((dynamic e) {
-      setState(() {
-        _testHTTP = '$e';
-      });
-    }).whenComplete(() => dev.log(_testHTTP));
   }
 }
