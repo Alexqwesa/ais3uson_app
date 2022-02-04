@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/add_depratment_screen.dart';
 import 'package:ais3uson_app/source/screens/client_screen.dart';
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
@@ -31,34 +32,84 @@ class _AppRootState extends State<AppRoot> {
         return;
       });
     });
+    AppData.instance.addListener(() {
+      setState(() {
+        return;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AIS 3USON App',
-      //
-      // > theme
-      //
-      theme: StandardTheme.light(),
-      darkTheme: StandardTheme.dark(),
-      themeMode: AppData.instance.standardTheme.current(),
-      //
-      // > routes
-      //
-      initialRoute: '/',
-      routes: {
-        '/add_department': (context) => AddDepartmentScreen(),
-        '/client_services': (context) => ClientServicesListScreen(),
-        '/department': /*  */ (context) => const ClientScreen(),
-        '/scan_qr': /*     */ (context) => const QRScanScreen(),
-        '/dev': /*         */ (context) => const DevScreen(),
-        '/delete_department': (context) => const DeleteDepartmentScreen(),
-        '/': /*            */ (context) => const HomePage(
-              title: 'Список отделений',
-            ),
-      },
-      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppData.instance.isArchive
+            ? AppBar(
+                title: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        AppData.instance.isArchive =
+                            !AppData.instance.isArchive;
+                      },
+                      icon: const Icon(Icons.cancel_outlined),
+                    ),
+                    Text(
+                      'Архив на: ${standardFormat.format(AppData.instance.archiveDate)}',
+                    ),
+                  ],
+                ),
+                backgroundColor: Colors.yellow[700],
+                actions: [
+                  Builder(
+                    builder: (context) {
+                      return IconButton(
+                        icon: const Icon(Icons.date_range),
+                        onPressed: () async {
+                          final lastDate =
+                              DateTime.now().add(const Duration(days: -1));
+                          AppData.instance.archiveDate = await showDatePicker(
+                            context: context,
+                            initialDate: AppData.instance.archiveDate,
+                            firstDate: DateTime(
+                              AppData.instance.archiveDate.day - 365,
+                            ),
+                            lastDate: lastDate,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              )
+            : null,
+        body: MaterialApp(
+          title: 'AIS 3USON App',
+          //
+          // > theme
+          //
+          theme: StandardTheme.light(),
+          darkTheme: StandardTheme.dark(),
+          themeMode: AppData.instance.standardTheme.current(),
+          //
+          // > routes
+          //
+          initialRoute: '/',
+          routes: {
+            '/add_department': (context) => AddDepartmentScreen(),
+            '/client_services': (context) => ClientServicesListScreen(),
+            '/department': /*  */ (context) => const ClientScreen(),
+            '/scan_qr': /*     */ (context) => const QRScanScreen(),
+            '/dev': /*         */ (context) => const DevScreen(),
+            '/delete_department': (context) => const DeleteDepartmentScreen(),
+            '/': /*            */ (context) => const HomePage(
+                  title: 'Список отделений',
+                ),
+          },
+          debugShowCheckedModeBanner: false,
+        ),
+      ),
     );
   }
 }

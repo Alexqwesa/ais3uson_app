@@ -24,10 +24,20 @@ class _HomePageState extends State<HomePage> {
         return;
       });
     });
+    AppData.instance.addListener(() {
+      setState(() {
+        return;
+      });
+    });
   }
 
   @override
   void dispose() {
+    AppData.instance.removeListener(() {
+      setState(() {
+        return;
+      });
+    });
     AppData.instance.standardTheme.removeListener(() {
       setState(() {
         return;
@@ -228,16 +238,18 @@ class _HomePageState extends State<HomePage> {
       //
       // > scan qr button
       //
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/scan_qr',
-          );
-        },
-        tooltip: 'Добавить отделение',
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: AppData.instance.isArchive
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/scan_qr',
+                );
+              },
+              tooltip: 'Добавить отделение',
+              child: const Icon(Icons.add),
+            ),
     );
   }
 }
