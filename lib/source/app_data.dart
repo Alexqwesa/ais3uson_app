@@ -70,7 +70,7 @@ class AppData with ChangeNotifier {
         _profiles = _profiles.map((e) {
           return WorkerProfile(e.key, archiveDate: DateTime.now());
         }).toList();
-        _archiveProfiles = _profiles;
+        // _archiveProfiles = _profiles;
       }
 
       _isArchive = newValue;
@@ -83,7 +83,8 @@ class AppData with ChangeNotifier {
   bool _isArchive = false;
 
   List<WorkerProfile> _realProfiles = [];
-  List<WorkerProfile> _archiveProfiles = [];
+
+  // List<WorkerProfile> _archiveProfiles = [];
 
   var _archiveDate = DateTime.now().add(const Duration(days: -1));
 

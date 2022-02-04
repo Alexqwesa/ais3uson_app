@@ -13,7 +13,6 @@ import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 /// Root widget of whole app.
 ///

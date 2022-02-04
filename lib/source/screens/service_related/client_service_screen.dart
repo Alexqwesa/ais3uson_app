@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_proofs.dart';

@@ -139,7 +139,8 @@ void main() {
       // > prepare
       //
       final wKey = WorkerKey.fromJson(jsonDecode(qrData2));
-      var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      final hive =
+          await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       final service1 =
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       await hive.add(service1);

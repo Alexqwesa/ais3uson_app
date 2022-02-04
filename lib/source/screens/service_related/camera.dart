@@ -2,7 +2,6 @@
 import 'dart:developer' as dev;
 
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // A screen that allows users to take a picture using a given camera.

@@ -395,6 +395,8 @@ class Journal with ChangeNotifier {
         'Error: $e, can not delete service #$servId of contract #$contractId',
       );
     }
+
+    return null;
   }
 
   /// Mark all finished service as [ServiceState.outDated]

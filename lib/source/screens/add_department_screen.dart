@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -5,10 +6,6 @@ import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_html/shims/dart_ui_real.dart';
-import 'package:surf_lint_rules/surf_lint_rules.dart';
 
 /// Add department from text string.
 ///
@@ -99,9 +96,9 @@ class AddDepartmentScreen extends StatelessWidget {
                                           ),
                                         );
                                         if (res) {
-                                          unawaited(AppData().save());
                                           // ignore: use_build_context_synchronously
                                           Navigator.pop(context, 'added');
+                                          unawaited(AppData().save());
                                         } else {
                                           showErrorNotification(
                                             'Не удалось добавить отделение. Возможно оно уже есть в списке. ',

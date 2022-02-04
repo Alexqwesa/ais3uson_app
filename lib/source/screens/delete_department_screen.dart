@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
 
 class DeleteDepartmentScreen extends StatelessWidget {
