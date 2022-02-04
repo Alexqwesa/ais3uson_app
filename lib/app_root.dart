@@ -9,6 +9,7 @@ import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
+import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,7 @@ class _AppRootState extends State<AppRoot> {
                 routes: {
                   '/add_department': (context) => AddDepartmentScreen(),
                   '/client_services': (context) => ClientServicesListScreen(),
+                  '/settings': /*    */ (context) => const SettingsScreen(),
                   '/department': /*  */ (context) => const ClientScreen(),
                   '/scan_qr': /*     */ (context) => const QRScanScreen(),
                   '/dev': /*         */ (context) => const DevScreen(),

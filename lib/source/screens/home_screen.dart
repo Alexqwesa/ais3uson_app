@@ -146,7 +146,6 @@ class _HomePageState extends State<HomePage> {
                             leading: const Icon(Icons.settings),
                             title: const Text('Настройки'),
                             onTap: () {
-                              return;
                               Navigator.pop(context, 'settings');
                               Navigator.pushNamed(
                                 context,
