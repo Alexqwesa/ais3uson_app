@@ -7,6 +7,8 @@ import 'dart:core';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
+import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,9 @@ class AppData with ChangeNotifier {
 
   http.Client httpClient = http.Client();
 
+  List<WorkerProfile> _realProfiles = [];
+  List<WorkerProfile> _archiveProfiles = [];
+
   static AppData get instance => _instance; // ??= AppData._internal();
 
   List<WorkerProfile> get profiles => _profiles;
@@ -55,11 +60,36 @@ class AppData with ChangeNotifier {
   /// Profiles list
   List<WorkerProfile> _profiles = [];
 
-  /// Constructor
-  ///
-  /// just constructor and singleton
+  /// Factory to construct singleton.
   factory AppData() => _instance; // ??= AppData._internal();
   AppData._internal();
+
+  /// Show is active [_profiles] list had [WorkerProfile]s with real [Journal],
+  /// or with [JournalArchive].
+  bool _isArchive = false;
+
+  bool get isArchive => _isArchive;
+
+  set isArchive(bool newValue) {
+    if (newValue == _isArchive) {
+      return;
+    } else {
+      if (_isArchive) {
+        _profiles = _realProfiles;
+      } else {
+        // if (_archiveProfiles.length == profiles.length) { //todo more checks
+        //   _profiles = _archiveProfiles;
+        // }
+        _realProfiles = _profiles;
+        _profiles = _profiles.map((e) {
+          return WorkerProfile(e.key, archiveDate: DateTime.now());
+        }).toList();
+        _archiveProfiles = _profiles;
+      }
+
+      _isArchive = newValue;
+    }
+  }
 
   @override
   void dispose() {

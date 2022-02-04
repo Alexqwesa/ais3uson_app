@@ -7,6 +7,7 @@ import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/from_json/client_plan.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
@@ -60,12 +61,15 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// list of clients List<ClientProfile>
   List<ClientProfile> _clients = [];
 
-  /// Constructor [WorkerProfile].
-  ///
-  /// init/postinit and call async functions to sync data.
-  WorkerProfile(this.key) {
+  /// Constructor [WorkerProfile] with [Journal] by default
+  /// or with [JournalArchive].
+  WorkerProfile(this.key, {DateTime? archiveDate}) {
     name = key.name;
-    journal = Journal(this);
+    if (archiveDate != null) {
+      journal = JournalArchive(this, archiveDate);
+    } else {
+      journal = Journal(this);
+    }
   }
 
   /// Update data after sync read from hive and notify.
