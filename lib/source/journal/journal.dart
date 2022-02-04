@@ -193,6 +193,7 @@ class Journal with ChangeNotifier {
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
     final http = AppData().httpClient;
+    var ret = ServiceState.stalled;
     try {
       Response response;
       if (urlAddress.endsWith('/add')) {
@@ -212,11 +213,11 @@ class Journal with ChangeNotifier {
             response.body != 'Wrong authorization key') {
           final res = jsonDecode(response.body) as Map<String, dynamic>;
 
-          return (res['id'] as int) > 0
+          ret = (res['id'] as int) > 0
               ? ServiceState.finished
               : ServiceState.rejected;
         } else {
-          return ServiceState.stalled;
+          ret = ServiceState.stalled;
         }
       }
       //
@@ -234,6 +235,8 @@ class Journal with ChangeNotifier {
     } finally {
       dev.log('sync ended $urlAddress ');
     }
+
+    return ret;
   }
 
   /// Try to commit all [servicesForSync].
