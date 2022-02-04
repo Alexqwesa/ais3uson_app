@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/add_department_screen.dart';
@@ -8,7 +10,9 @@ import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 /// Root widget of whole app.
 ///
@@ -84,30 +88,45 @@ class _AppRootState extends State<AppRoot> {
                 ],
               )
             : null,
-        body: MaterialApp(
-          title: 'AIS 3USON App',
-          //
-          // > theme
-          //
-          theme: StandardTheme.light(),
-          darkTheme: StandardTheme.dark(),
-          themeMode: AppData.instance.standardTheme.current(),
-          //
-          // > routes
-          //
-          initialRoute: '/',
-          routes: {
-            '/add_department': (context) => AddDepartmentScreen(),
-            '/client_services': (context) => ClientServicesListScreen(),
-            '/department': /*  */ (context) => const ClientScreen(),
-            '/scan_qr': /*     */ (context) => const QRScanScreen(),
-            '/dev': /*         */ (context) => const DevScreen(),
-            '/delete_department': (context) => const DeleteDepartmentScreen(),
-            '/': /*            */ (context) => const HomePage(
-                  title: 'Список отделений',
-                ),
+        body: Builder(
+          builder: (context) {
+            return OverflowBox(
+              alignment: Alignment.bottomCenter,
+              // this code is only for platforms with status bar (android)
+              maxHeight: !kIsWeb && !Platform.isAndroid
+                  ? null
+                  : MediaQuery.of(context).size.height -
+                      (AppData.instance.isArchive
+                          ? kToolbarHeight // AppData.instance.windowTopPadding * 2
+                          : 0),
+              child: MaterialApp(
+                title: 'AIS 3USON App',
+                //
+                // > theme
+                //
+                theme: StandardTheme.light(),
+                darkTheme: StandardTheme.dark(),
+                themeMode: AppData.instance.standardTheme.current(),
+                //
+                // > routes
+                //
+                initialRoute: '/',
+                routes: {
+                  '/add_department': (context) => AddDepartmentScreen(),
+                  '/client_services': (context) => ClientServicesListScreen(),
+                  '/department': /*  */ (context) => const ClientScreen(),
+                  '/scan_qr': /*     */ (context) => const QRScanScreen(),
+                  '/dev': /*         */ (context) => const DevScreen(),
+                  '/delete_department': (context) =>
+                      const DeleteDepartmentScreen(),
+                  '/': /*            */ (context) => const HomePage(
+                        title: 'Список отделений',
+                      ),
+                },
+                debugShowCheckedModeBanner: false,
+              ),
+            );
           },
-          debugShowCheckedModeBanner: false,
         ),
       ),
     );
