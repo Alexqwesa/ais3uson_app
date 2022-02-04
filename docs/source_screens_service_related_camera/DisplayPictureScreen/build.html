@@ -111,7 +111,15 @@ Widget build(BuildContext context) {
     appBar: AppBar(title: const Text(&#39;Display the Picture&#39;)),
     &#47;&#47; The image is stored as a file on the device. Use the `Image.file`
     &#47;&#47; constructor with the given path to display the image.
-    body: FittedBox(fit: BoxFit.contain, child: image),
+    body: Center(
+      child: Hero(
+        tag: ValueKey(image.toString()),
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: image,
+        ),
+      ),
+    ),
   );
 }</code></pre>
 </section>
@@ -179,7 +187,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

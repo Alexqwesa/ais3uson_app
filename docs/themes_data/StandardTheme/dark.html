@@ -66,7 +66,6 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static ThemeData dark() {
   return ThemeData(
-    brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       &#47;&#47; foregroundColor: Colors.white,
       backgroundColor: Colors.blue[900],
@@ -82,10 +81,9 @@
       selectedItemColor: Colors.green,
     ),
     primaryColor: Colors.blue[700],
-    accentColor: Colors.blue,
-    primarySwatch: Colors.blue,
     dividerColor: Colors.white54,
     textTheme: darkTextTheme,
+    colorScheme: const ColorScheme.dark().copyWith(secondary: Colors.blue),
   );
 }</code></pre>
 </section>
@@ -157,7 +155,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

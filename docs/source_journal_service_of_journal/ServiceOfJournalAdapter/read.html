@@ -58,7 +58,7 @@
 </div>
 
 <span class="returntype"><a href="../../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
-<span class="name ">read</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="read-param-reader"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.4/hive/BinaryReader-class.html">BinaryReader</a></span> <span class="parameter-name">reader</span></span></li>
+<span class="name ">read</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="read-param-reader"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/BinaryReader-class.html">BinaryReader</a></span> <span class="parameter-name">reader</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -85,7 +85,6 @@ ServiceOfJournal read(BinaryReader reader) {
     workerId: fields[2] as int,
   )
     ..provDate = fields[3] as DateTime
-    .._state = fields[4] as ServiceState
     ..error = fields[5] as String
     ..uid = fields[6] as String;
 }</code></pre>
@@ -147,7 +146,7 @@ ServiceOfJournal read(BinaryReader reader) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

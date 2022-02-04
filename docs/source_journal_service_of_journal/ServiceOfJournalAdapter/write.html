@@ -58,7 +58,7 @@
 </div>
 
 <span class="returntype">void</span>
-<span class="name ">write</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="write-param-writer"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.4/hive/BinaryWriter-class.html">BinaryWriter</a></span> <span class="parameter-name">writer</span>, </span></li>
+<span class="name ">write</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="write-param-writer"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/BinaryWriter-class.html">BinaryWriter</a></span> <span class="parameter-name">writer</span>, </span></li>
 <li><span class="parameter" id="write-param-obj"><span class="type-annotation"><a href="../../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">obj</span></span></li>
 </ol>)
 
@@ -77,7 +77,7 @@
   <pre class="language-dart"><code class="language-dart">@override
 void write(BinaryWriter writer, ServiceOfJournal obj) {
   writer
-    ..writeByte(7)
+    ..writeByte(6)
     ..writeByte(0)
     ..write(obj.servId)
     ..writeByte(1)
@@ -86,8 +86,6 @@ void write(BinaryWriter writer, ServiceOfJournal obj) {
     ..write(obj.workerId)
     ..writeByte(3)
     ..write(obj.provDate)
-    ..writeByte(4)
-    ..write(obj._state)
     ..writeByte(5)
     ..write(obj.error)
     ..writeByte(6)
@@ -151,7 +149,7 @@ void write(BinaryWriter writer, ServiceOfJournal obj) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

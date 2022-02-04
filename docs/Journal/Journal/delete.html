@@ -62,7 +62,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Delete service <code>serv</code> from journal.</p>
+  <p>Delete service <code>serv</code> (or find serv by <code>uuid</code>) from journal.</p>
 <p>Also notify listeners and save.</p>
 </section>
 
@@ -87,25 +87,21 @@
     ServiceState.finished,
     ServiceState.outDated,
   ].contains(serv.state)) {
-    final body = jsonEncode(
-      &lt;String, dynamic&gt;{
-        &#39;api_key&#39;: apiKey,
-        &#39;uuid&#39;: serv.uid,
-        &#39;contracts_id&#39;: serv.contractId,
-        &#39;dep_has_worker_id&#39;: serv.workerId,
-        &#39;serv_id&#39;: serv.servId,
-      },
-    );
-    await commit(serv, body: body);
+    await commitDel(serv);
   }
   &#47;&#47;
   &#47;&#47; delete
   &#47;&#47;
-  all.removeAt(
-    all.indexOf(serv),
-  );
-  notifyListeners();
-  unawaited(save());
+  try {
+    all.removeAt(
+      all.indexOf(serv),
+    );
+    notifyListeners();
+    await serv.delete();
+    &#47;&#47; ignore: avoid_catching_errors
+  } on RangeError {
+    dev.log(&#39;RangeError double delete&#39;);
+  }
 }</code></pre>
 </section>
 
@@ -137,6 +133,7 @@
     <li class="section-title">
       <a href="../../Journal/Journal-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../Journal/Journal/added.html">added</a></li>
     <li><a href="../../Journal/Journal/affect.html">affect</a></li>
     <li><a href="../../Journal/Journal/all.html">all</a></li>
     <li><a href="../../Journal/Journal/apiKey.html">apiKey</a></li>
@@ -145,6 +142,7 @@
     <li class="inherited"><a href="../../Journal/Journal/hasListeners.html">hasListeners</a></li>
     <li><a href="../../Journal/Journal/hive.html">hive</a></li>
     <li><a href="../../Journal/Journal/hiveArchive.html">hiveArchive</a></li>
+    <li><a href="../../Journal/Journal/outDated.html">outDated</a></li>
     <li><a href="../../Journal/Journal/rejected.html">rejected</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../Journal/Journal/servicesForSync.html">servicesForSync</a></li>
@@ -155,8 +153,10 @@
     <li class="section-title"><a href="../../Journal/Journal-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="../../Journal/Journal/addListener.html">addListener</a></li>
     <li><a href="../../Journal/Journal/archiveOldServices.html">archiveOldServices</a></li>
-    <li><a href="../../Journal/Journal/commit.html">commit</a></li>
+    <li><a href="../../Journal/Journal/commitAdd.html">commitAdd</a></li>
     <li><a href="../../Journal/Journal/commitAll.html">commitAll</a></li>
+    <li><a href="../../Journal/Journal/commitDel.html">commitDel</a></li>
+    <li><a href="../../Journal/Journal/commitUrl.html">commitUrl</a></li>
     <li><a href="../../Journal/Journal/delete.html">delete</a></li>
     <li><a href="../../Journal/Journal/dispose.html">dispose</a></li>
     <li><a href="../../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
@@ -167,6 +167,7 @@
     <li class="inherited"><a href="../../Journal/Journal/removeListener.html">removeListener</a></li>
     <li><a href="../../Journal/Journal/save.html">save</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/toString.html">toString</a></li>
+    <li><a href="../../Journal/Journal/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
 
     <li class="section-title inherited"><a href="../../Journal/Journal-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/operator_equals.html">operator ==</a></li>
@@ -186,7 +187,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

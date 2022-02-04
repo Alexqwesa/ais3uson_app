@@ -57,7 +57,7 @@
 <p>It main purpose is to store <a href="../Journal/Journal-class.html">Journal</a> and get bunch of sync data via:</p>
 <ul>
 <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">syncHiveServices</a>,</li>
-<li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveFio.html">syncHiveFio</a>,</li>
+<li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveClients.html">syncHiveClients</a>,</li>
 <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHivePlanned.html">syncHivePlanned</a>.</li>
 </ul>
 <p>Also it is notifying widgets.</p>
@@ -83,10 +83,11 @@
 
       <dl class="constructor-summary-list">
         <dt id="WorkerProfile" class="callable">
-          <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/WorkerProfile.html">WorkerProfile</a></span><span class="signature">(<span class="parameter" id="-param-key"><span class="type-annotation"><a href="../source_from_json_worker_key/WorkerKey-class.html">WorkerKey</a></span> <span class="parameter-name">key</span></span>)</span>
+          <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/WorkerProfile.html">WorkerProfile</a></span><span class="signature">(<span class="parameter" id="-param-key"><span class="type-annotation"><a href="../source_from_json_worker_key/WorkerKey-class.html">WorkerKey</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-archiveDate">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">archiveDate</span>}</span>)</span>
         </dt>
         <dd>
-          Constructor <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> <a href="../source_data_classes_worker_profile/WorkerProfile/WorkerProfile.html">[...]</a>
+          Constructor <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> with <a href="../Journal/Journal-class.html">Journal</a> by default
+or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.html">JournalArchive</a>. 
         </dd>
       </dl>
     </section>
@@ -95,9 +96,20 @@
       <h2>Properties</h2>
 
       <dl class="properties">
-        <dt id="clients" class="property">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+        <dt id="apiKey" class="property">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/apiKey.html">apiKey</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only, override</div>
+
+</dd>
+
+        <dt id="clientPlan" class="property">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -106,9 +118,9 @@
 
 </dd>
 
-        <dt id="fioPlanned" class="property">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/fioPlanned.html">fioPlanned</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_from_json_fio_planned/FioPlanned-class.html">FioPlanned</a></span>&gt;</span></span> 
+        <dt id="clients" class="property">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -213,24 +225,37 @@
 
 </dd>
 
-        <dt id="dispose" class="callable inherited">
+        <dt id="checkAllServicesExist" class="callable">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  This function should only be called if there is inconsistency: <a href="../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a> had nonexist service Id. <a href="../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">[...]</a>
+  
+
+</dd>
+
+        <dt id="dispose" class="callable">
   <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
-<dd class="inherited">
+<dd>
   Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
 <a href="../source_data_classes_worker_profile/WorkerProfile/addListener.html">addListener</a> and <a href="../source_data_classes_worker_profile/WorkerProfile/removeListener.html">removeListener</a> will throw after the object is
 disposed). <a href="../source_data_classes_worker_profile/WorkerProfile/dispose.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/mustCallSuper-constant.html">mustCallSuper</a>, inherited</div>
+  
 
 </dd>
 
         <dt id="hiddenSyncHive" class="callable inherited">
-  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenSyncHive-param-urlAddress">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">urlAddress</span>, </span><span class="parameter" id="hiddenSyncHive-param-apiKey"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">apiKey</span>, </span><span class="parameter" id="hiddenSyncHive-param-headers"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">headers</span>, </span><span class="parameter" id="hiddenSyncHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.4/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span>)
+  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenSyncHive-param-urlAddress">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">urlAddress</span>, </span><span class="parameter" id="hiddenSyncHive-param-apiKey"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span>, </span><span class="parameter" id="hiddenSyncHive-param-headers"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">headers</span>, </span><span class="parameter" id="hiddenSyncHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -243,7 +268,7 @@ disposed). <a href="../source_data_classes_worker_profile/WorkerProfile/dispose.
 </dd>
 
         <dt id="hiddenUpdateValueFromHive" class="callable inherited">
-  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.4/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span>)
+  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
   </span>
   
@@ -281,6 +306,19 @@ disposed). <a href="../source_data_classes_worker_profile/WorkerProfile/dispose.
 
 </dd>
 
+        <dt id="postInit" class="callable">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
         <dt id="removeListener" class="callable inherited">
   <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/removeListener.html">removeListener</a></span><span class="signature">(<wbr><span class="parameter" id="removeListener-param-listener"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
     <span class="returntype parameter">&#8594; void</span>
@@ -295,15 +333,15 @@ notified when the object changes. <a href="../source_data_classes_worker_profile
 
 </dd>
 
-        <dt id="syncHiveFio" class="callable">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveFio.html">syncHiveFio</a></span><span class="signature">(<wbr>)
+        <dt id="syncHiveClients" class="callable">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveClients.html">syncHiveClients</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-  Sync hive data <a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveFio.html">[...]</a>
+  Sync hive data <a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveClients.html">[...]</a>
   
 
 </dd>
@@ -329,7 +367,7 @@ notified when the object changes. <a href="../source_data_classes_worker_profile
 
 </dt>
 <dd>
-  Sync hive data <a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">[...]</a>
+  Synchronize services for <code>WorkerProfile._services</code>. <a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">[...]</a>
   
 
 </dd>
@@ -355,7 +393,7 @@ notified when the object changes. <a href="../source_data_classes_worker_profile
 
 </dt>
 <dd>
-  Update data after sync <a href="../source_data_classes_worker_profile/WorkerProfile/updateValueFromHive.html">[...]</a>
+  Update data after sync read from hive and notify. <a href="../source_data_classes_worker_profile/WorkerProfile/updateValueFromHive.html">[...]</a>
   <div class="features">override</div>
 
 </dd>
@@ -427,8 +465,9 @@ notified when the object changes. <a href="../source_data_classes_worker_profile
     <li class="section-title">
       <a href="../source_data_classes_worker_profile/WorkerProfile-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/apiKey.html">apiKey</a></li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></li>
-    <li><a href="../source_data_classes_worker_profile/WorkerProfile/fioPlanned.html">fioPlanned</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../source_data_classes_worker_profile/WorkerProfile/hasListeners.html">hasListeners</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
@@ -439,13 +478,15 @@ notified when the object changes. <a href="../source_data_classes_worker_profile
 
     <li class="section-title"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="../source_data_classes_worker_profile/WorkerProfile/addListener.html">addListener</a></li>
-    <li class="inherited"><a href="../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li class="inherited"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></li>
     <li class="inherited"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="../source_data_classes_worker_profile/WorkerProfile/notifyListeners.html">notifyListeners</a></li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></li>
     <li class="inherited"><a href="../source_data_classes_worker_profile/WorkerProfile/removeListener.html">removeListener</a></li>
-    <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveFio.html">syncHiveFio</a></li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveClients.html">syncHiveClients</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHivePlanned.html">syncHivePlanned</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">syncHiveServices</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/toString.html">toString</a></li>
@@ -466,7 +507,7 @@ notified when the object changes. <a href="../source_data_classes_worker_profile
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

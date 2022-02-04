@@ -149,7 +149,6 @@ Widget build(BuildContext context) {
                   if (result == &#39;delete&#39;) {
                     AppData().profiles.removeAt(index);
                     unawaited(AppData().save());
-                    AppData().notify();
                     &#47;&#47; ignore: use_build_context_synchronously
                     Navigator.pop(context, &#39;delete&#39;);
                   }
@@ -226,7 +225,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

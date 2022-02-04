@@ -50,9 +50,9 @@
 </h1></div>
 
     <section class="multi-line-signature">const
-      <span class="name ">ServiceCard</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-key">{<span>required</span> <span class="type-annotation">Key</span> <span class="parameter-name">key</span>, </span></li>
-<li><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../../source_data_classes_client_service/ClientService-class.html">ClientService</a></span> <span class="parameter-name">service</span>, </span></li>
-<li><span class="parameter" id="-param-width"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/double-class.html">double</a></span> <span class="parameter-name">width</span>}</span></li>
+      <span class="name ">ServiceCard</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-service">{<span>required</span> <span class="type-annotation"><a href="../../source_data_classes_client_service/ClientService-class.html">ClientService</a></span> <span class="parameter-name">service</span>, </span></li>
+<li><span class="parameter" id="-param-width"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/double-class.html">double</a></span> <span class="parameter-name">width</span>, </span></li>
+<li><span class="parameter" id="-param-key"><span class="type-annotation">Key?</span> <span class="parameter-name">key</span>}</span></li>
 </ol>)
     </section>
 
@@ -63,9 +63,9 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">const ServiceCard({
-  required Key key,
   required this.service,
   required this.width,
+  Key? key,
 }) : super(key: key);</code></pre>
 </section>
 
@@ -133,7 +133,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

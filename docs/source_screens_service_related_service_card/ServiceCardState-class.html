@@ -51,9 +51,13 @@
 
     
 <section class="desc markdown">
-  <p>ServiceCardState</p>
-<p>Display state of the client service
-states: done, pending, rejected (all in numbers)</p>
+  <p>Display state of the client service: amount of done/added/rejected.</p>
+<p>It get data from <a href="../source_data_classes_client_service/ClientService/journal.html">ClientService.journal</a> and count these 3 numbers:</p>
+<ul>
+<li>done - finished and outDated,</li>
+<li>inProgress - added and stale,</li>
+<li>error - rejected.</li>
+</ul>
 </section>
 
 
@@ -338,6 +342,7 @@ tools and by <code>DiagnosticsNode.toStringDeep</code>. <a href="../source_scree
   <li class="section-title"><a href="../source_screens_service_related_service_card/source_screens_service_related_service_card-library.html#classes">Classes</a></li>
   <li><a href="../source_screens_service_related_service_card/ServiceCard-class.html">ServiceCard</a></li>
   <li><a href="../source_screens_service_related_service_card/ServiceCardState-class.html">ServiceCardState</a></li>
+  <li><a href="../source_screens_service_related_service_card/ServiceCardSubWidget-class.html">ServiceCardSubWidget</a></li>
 
 
 
@@ -394,7 +399,7 @@ tools and by <code>DiagnosticsNode.toStringDeep</code>. <a href="../source_scree
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

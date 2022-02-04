@@ -72,36 +72,9 @@ if error - just return empty</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">List&lt;ClientService&gt; get services {
   if (_services.isEmpty) {
-    try {
-      &#47;&#47;
-      &#47;&#47; &gt; just search through lists to prepare list of [ClientService]
-      &#47;&#47;
-      _services = workerProfile.fioPlanned
-          .where((element) =&gt; element.contractId == contractId)
-          .map((e) {
-        return ClientService(
-          service: workerProfile.services
-              .firstWhere((element) =&gt; element.id == e.servId),
-          planned: workerProfile.fioPlanned
-              .firstWhere((element) =&gt; element.servId == e.servId),
-          journal: workerProfile.journal,
-          workerDepId: workerProfile.key.workerDepId,
-        );
-      }).toList(growable: true);
-      &#47;&#47; ignore: avoid_catching_errors
-    } on StateError catch (e) {
-      if (e.message == &#39;No element&#39;) {
-        showErrorNotification(
-          &#39;Ошибка: не удалось подготовить список услуг! $e&#39;,
-        );
-      }
-      dev.log(&#39;ClientProfile: get services: ${e.message}&#39;);
-    }
+    updateServices().then((value) =&gt; notifyListeners);
   }
 
-  &#47;&#47;
-  &#47;&#47; &gt; return is here (and only here)
-  &#47;&#47;
   return _services;
 }</code></pre>
 </section>
@@ -136,7 +109,10 @@ if error - just return empty</p>
     <li class="section-title">
       <a href="../../source_data_classes_client_profile/ClientProfile-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../source_data_classes_client_profile/ClientProfile/apiKey.html">apiKey</a></li>
+    <li><a href="../../source_data_classes_client_profile/ClientProfile/contract.html">contract</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/contractId.html">contractId</a></li>
+    <li><a href="../../source_data_classes_client_profile/ClientProfile/entry.html">entry</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../../source_data_classes_client_profile/ClientProfile/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/name.html">name</a></li>
@@ -153,6 +129,7 @@ if error - just return empty</p>
     <li class="inherited"><a href="../../source_data_classes_client_profile/ClientProfile/notifyListeners.html">notifyListeners</a></li>
     <li class="inherited"><a href="../../source_data_classes_client_profile/ClientProfile/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/toString.html">toString</a></li>
+    <li><a href="../../source_data_classes_client_profile/ClientProfile/updateServices.html">updateServices</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/updateValueFromHive.html">updateValueFromHive</a></li>
 
     <li class="section-title inherited"><a href="../../source_data_classes_client_profile/ClientProfile-class.html#operators">Operators</a></li>
@@ -173,7 +150,7 @@ if error - just return empty</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

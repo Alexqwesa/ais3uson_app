@@ -50,29 +50,28 @@
 </h1></div>
 
     <section class="multi-line-signature">
-      <span class="name ">WorkerProfile</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-key"><span class="type-annotation"><a href="../../source_from_json_worker_key/WorkerKey-class.html">WorkerKey</a></span> <span class="parameter-name">key</span></span></li>
+      <span class="name ">WorkerProfile</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-key"><span class="type-annotation"><a href="../../source_from_json_worker_key/WorkerKey-class.html">WorkerKey</a></span> <span class="parameter-name">key</span>, </span></li>
+<li><span class="parameter" id="-param-archiveDate">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">archiveDate</span>}</span></li>
 </ol>)
     </section>
 
     
 <section class="desc markdown">
-  <p>Constructor <a href="../../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></p>
-<p>init and call async function to sync data</p>
+  <p>Constructor <a href="../../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> with <a href="../../Journal/Journal-class.html">Journal</a> by default
+or with <a href="../../source_journal_archive_journal_archive/JournalArchive-class.html">JournalArchive</a>.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">WorkerProfile(this.key) {
+  <pre class="language-dart"><code class="language-dart">WorkerProfile(this.key, {DateTime? archiveDate}) {
   name = key.name;
-  journal = Journal(this);
-  journal.postInit();
-  if (_services.isEmpty) {
-    syncHiveServices();
+  if (archiveDate != null) {
+    journal = JournalArchive(this, archiveDate);
+  } else {
+    journal = Journal(this);
   }
-  syncHiveFio();
-  syncHivePlanned();
 }</code></pre>
 </section>
 
@@ -104,8 +103,9 @@
     <li class="section-title">
       <a href="../../source_data_classes_worker_profile/WorkerProfile-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/apiKey.html">apiKey</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/fioPlanned.html">fioPlanned</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
@@ -116,13 +116,15 @@
 
     <li class="section-title"><a href="../../source_data_classes_worker_profile/WorkerProfile-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/addListener.html">addListener</a></li>
-    <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li class="inherited"><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></li>
     <li class="inherited"><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/notifyListeners.html">notifyListeners</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/removeListener.html">removeListener</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveFio.html">syncHiveFio</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveClients.html">syncHiveClients</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHivePlanned.html">syncHivePlanned</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">syncHiveServices</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/toString.html">toString</a></li>
@@ -146,7 +148,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

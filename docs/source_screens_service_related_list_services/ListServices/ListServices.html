@@ -50,7 +50,7 @@
 </h1></div>
 
     <section class="multi-line-signature">
-      <span class="name ">ListServices</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-servListFio">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../source_data_classes_client_service/ClientService-class.html">ClientService</a></span>&gt;</span></span> <span class="parameter-name">servListFio</span>, </span></li>
+      <span class="name ">ListServices</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-servListOfClient">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../source_data_classes_client_service/ClientService-class.html">ClientService</a></span>&gt;</span></span> <span class="parameter-name">servListOfClient</span>, </span></li>
 <li><span class="parameter" id="-param-key"><span class="type-annotation">Key?</span> <span class="parameter-name">key</span>, </span></li>
 <li><span class="parameter" id="-param-width"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">width</span>}</span></li>
 </ol>)
@@ -63,11 +63,11 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">ListServices({
-  required List&lt;ClientService&gt; servListFio,
+  required List&lt;ClientService&gt; servListOfClient,
   Key? key,
   double? width,
 }) : super(key: key) {
-  _servListFio = servListFio;
+  _servListOfClient = servListOfClient;
   _width = width ?? double.infinity;
 }</code></pre>
 </section>
@@ -134,7 +134,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

@@ -66,7 +66,13 @@
     </section>
     
 <section class="desc markdown">
-  <p>Update data after sync</p>
+  <p>Update data after sync read from hive and notify.</p>
+<p>Recreate :</p>
+<ul>
+<li><code>_clients</code> - list of <a href="../../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a>,</li>
+<li><code>_clientPlan</code> - list of <a href="../../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a>,</li>
+<li><code>_services</code> - list of <a href="../../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a>.</li>
+</ul>
 <p>read hive data and notify</p>
 </section>
 
@@ -76,28 +82,29 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
-  if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;fio&#39;)) {
+  if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;clients&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Get ClientProfile from hive
     &#47;&#47;
     _clients =
-        hiddenUpdateValueFromHive(hiveKey: hiveKey).map&lt;FioEntry&gt;((json) {
-      return FioEntry.fromJson(json);
+        hiddenUpdateValueFromHive(hiveKey: hiveKey).map&lt;ClientEntry&gt;((json) {
+      return ClientEntry.fromJson(json);
     }).map((el) {
       return ClientProfile(
         workerProfile: this,
-        contractId: el.contractId,
-        name: &#39;${el.ufio} ${el.contract}&#39;,
+        entry: el,
       );
     }).toList(growable: false);
   } else if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;planned&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Sync Planned services from hive
     &#47;&#47;
-    _fioPlanned =
-        hiddenUpdateValueFromHive(hiveKey: hiveKey).map&lt;FioPlanned&gt;((json) {
-      return FioPlanned.fromJson(json);
+    _clientPlan =
+        hiddenUpdateValueFromHive(hiveKey: hiveKey).map&lt;ClientPlan&gt;((json) {
+      return ClientPlan.fromJson(json);
     }).toList(growable: false);
+    _clientPlanSyncDate = DateTime.now();
+    unawaited(journal.updateBasedOnNewPlanDate());
   } else if (hiveKey.endsWith(&#39;http:&#47;&#47;${key.host}:${key.port}&#47;services&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Sync services from hive
@@ -106,6 +113,7 @@ Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
         hiddenUpdateValueFromHive(hiveKey: hiveKey).map&lt;ServiceEntry&gt;((json) {
       return ServiceEntry.fromJson(json);
     }).toList(growable: false);
+    _servicesSyncDate = DateTime.now();
   } else {
     return;
   }
@@ -144,8 +152,9 @@ Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
     <li class="section-title">
       <a href="../../source_data_classes_worker_profile/WorkerProfile-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/apiKey.html">apiKey</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/fioPlanned.html">fioPlanned</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
@@ -156,13 +165,15 @@ Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
 
     <li class="section-title"><a href="../../source_data_classes_worker_profile/WorkerProfile-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/addListener.html">addListener</a></li>
-    <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li class="inherited"><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></li>
     <li class="inherited"><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/notifyListeners.html">notifyListeners</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></li>
     <li class="inherited"><a href="../../source_data_classes_worker_profile/WorkerProfile/removeListener.html">removeListener</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveFio.html">syncHiveFio</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveClients.html">syncHiveClients</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHivePlanned.html">syncHivePlanned</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">syncHiveServices</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/toString.html">toString</a></li>
@@ -186,7 +197,7 @@ Future&lt;void&gt; updateValueFromHive(String hiveKey) async {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

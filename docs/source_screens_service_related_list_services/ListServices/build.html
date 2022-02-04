@@ -107,29 +107,22 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
+  final cardWidth = (_width &lt; 600) ? _width &#47; 2.1 : 250 as double;
+
   return Container(
-    child: _servListFio.isNotEmpty
+    child: _servListOfClient.isNotEmpty
         ? Center(
-            child: Transform.scale(
-              scale: 1,
-              child: Wrap(
-                children: List.generate(
-                  _servListFio.length,
-                  (index) {
-                    return Transform.scale(
-                      scale: 1,
-                      child: ServiceCard(
-                        key: ValueKey(_servListFio[index].servId),
-                        service: _servListFio[index],
-                        &#47;&#47; service: AppData().services.firstWhere(
-                        &#47;&#47;       (element) =&gt;
-                        &#47;&#47;           element.id == _servListFio[index].servId,
-                        &#47;&#47;     ),
-                        width: (_width &lt; 600) ? _width &#47; 2.1 : 250,
-                      ),
+            child: Wrap(
+              children: List.of(
+                _servListOfClient.map(
+                  (element) {
+                    return ServiceCard(
+                      service: element,
+                      width: cardWidth,
                     );
                   },
                 ),
+                growable: false,
               ),
             ),
           )
@@ -205,7 +198,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   

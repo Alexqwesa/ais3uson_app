@@ -56,7 +56,7 @@
 <ul>
 <li><a href="../Journal/Journal-class.html">Journal</a>,</li>
 <li><a href="../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a>,</li>
-<li><a href="../source_from_json_fio_planned/FioPlanned-class.html">FioPlanned</a>...</li>
+<li><a href="../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a>...</li>
 </ul>
 <p>It only store <a href="../source_screens_service_related_proof_list/ProofList-class.html">ProofList</a>.</p>
 </section>
@@ -68,7 +68,7 @@
 
       <dl class="constructor-summary-list">
         <dt id="ClientService" class="callable">
-          <span class="name"><a href="../source_data_classes_client_service/ClientService/ClientService.html">ClientService</a></span><span class="signature">(<span class="parameter" id="-param-journal">{<span>required</span> <span class="type-annotation"><a href="../Journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span>, </span><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../source_from_json_fio_planned/FioPlanned-class.html">FioPlanned</a></span> <span class="parameter-name">planned</span>, </span><span class="parameter" id="-param-workerDepId"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerDepId</span>}</span>)</span>
+          <span class="name"><a href="../source_data_classes_client_service/ClientService/ClientService.html">ClientService</a></span><span class="signature">(<span class="parameter" id="-param-journal">{<span>required</span> <span class="type-annotation"><a href="../Journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span>, </span><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>, </span><span class="parameter" id="-param-workerDepId"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerDepId</span>}</span>)</span>
         </dt>
         <dd>
            
@@ -80,9 +80,53 @@
       <h2>Properties</h2>
 
       <dl class="properties">
+        <dt id="addAllowed" class="property">
+  <span class="name"><a href="../source_data_classes_client_service/ClientService/addAllowed.html">addAllowed</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="added" class="property">
+  <span class="name"><a href="../source_data_classes_client_service/ClientService/added.html">added</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="apiKey" class="property">
+  <span class="name"><a href="../source_data_classes_client_service/ClientService/apiKey.html">apiKey</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
         <dt id="contractId" class="property">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/contractId.html">contractId</a></span>
   <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="deleteAllowed" class="property">
+  <span class="name"><a href="../source_data_classes_client_service/ClientService/deleteAllowed.html">deleteAllowed</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/bool-class.html">bool</a></span> 
 
 </dt>
 <dd>
@@ -146,6 +190,17 @@
 
 </dd>
 
+        <dt id="inJournal" class="property">
+  <span class="name"><a href="../source_data_classes_client_service/ClientService/inJournal.html">inJournal</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
         <dt id="journal" class="property">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/journal.html">journal</a></span>
   <span class="signature">&#8596; <a href="../Journal/Journal-class.html">Journal</a></span> 
@@ -192,7 +247,7 @@
 
         <dt id="planned" class="property">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/planned.html">planned</a></span>
-  <span class="signature">&#8596; <a href="../source_from_json_fio_planned/FioPlanned-class.html">FioPlanned</a></span> 
+  <span class="signature">&#8596; <a href="../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a></span> 
 
 </dt>
 <dd>
@@ -380,19 +435,19 @@
 
 </dd>
 
-        <dt id="dispose" class="callable inherited">
+        <dt id="dispose" class="callable">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/dispose.html">dispose</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
-<dd class="inherited">
+<dd>
   Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
 <a href="../source_data_classes_client_service/ClientService/addListener.html">addListener</a> and <a href="../source_data_classes_client_service/ClientService/removeListener.html">removeListener</a> will throw after the object is
 disposed). <a href="../source_data_classes_client_service/ClientService/dispose.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/mustCallSuper-constant.html">mustCallSuper</a>, inherited</div>
+  
 
 </dd>
 
@@ -516,12 +571,17 @@ notified when the object changes. <a href="../source_data_classes_client_service
     <li class="section-title">
       <a href="../source_data_classes_client_service/ClientService-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../source_data_classes_client_service/ClientService/addAllowed.html">addAllowed</a></li>
+    <li><a href="../source_data_classes_client_service/ClientService/added.html">added</a></li>
+    <li><a href="../source_data_classes_client_service/ClientService/apiKey.html">apiKey</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/contractId.html">contractId</a></li>
+    <li><a href="../source_data_classes_client_service/ClientService/deleteAllowed.html">deleteAllowed</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/done.html">done</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/filled.html">filled</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../source_data_classes_client_service/ClientService/hasListeners.html">hasListeners</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/image.html">image</a></li>
+    <li><a href="../source_data_classes_client_service/ClientService/inJournal.html">inJournal</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/journal.html">journal</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/left.html">left</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></li>
@@ -544,7 +604,7 @@ notified when the object changes. <a href="../source_data_classes_client_service
     <li class="inherited"><a href="../source_data_classes_client_service/ClientService/addListener.html">addListener</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/addProof.html">addProof</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/delete.html">delete</a></li>
-    <li class="inherited"><a href="../source_data_classes_client_service/ClientService/dispose.html">dispose</a></li>
+    <li><a href="../source_data_classes_client_service/ClientService/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="../source_data_classes_client_service/ClientService/notifyListeners.html">notifyListeners</a></li>
     <li class="inherited"><a href="../source_data_classes_client_service/ClientService/removeListener.html">removeListener</a></li>
@@ -565,7 +625,7 @@ notified when the object changes. <a href="../source_data_classes_client_service
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.0+1
+      1.0.1+1
   </span>
 
   
