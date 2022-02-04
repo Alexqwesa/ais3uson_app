@@ -38,37 +38,23 @@ class AppData with ChangeNotifier {
 
   http.Client httpClient = http.Client();
 
-  List<WorkerProfile> _realProfiles = [];
-  List<WorkerProfile> _archiveProfiles = [];
-
   static AppData get instance => _instance; // ??= AppData._internal();
 
   List<WorkerProfile> get profiles => _profiles;
 
-  String get apiKey => profile.key.apiKey;
+  String get apiKey => profiles.first.key.apiKey;
 
   /// workerKeys - is user authentication data,
   Iterable<WorkerKey> get workerKeys => _profiles.map((e) => e.key);
 
-  /// Get first profile with working server
-  WorkerProfile get profile {
-    // TODO:
-    // if (_profiles.first.connection_ok){
-    return _profiles.first;
-  }
-
-  /// Profiles list
-  List<WorkerProfile> _profiles = [];
-
-  /// Factory to construct singleton.
-  factory AppData() => _instance; // ??= AppData._internal();
-  AppData._internal();
-
-  /// Show is active [_profiles] list had [WorkerProfile]s with real [Journal],
-  /// or with [JournalArchive].
-  bool _isArchive = false;
-
   bool get isArchive => _isArchive;
+
+  DateTime get archiveDate => _archiveDate;
+
+  set archiveDate(DateTime? newValue) {
+    _archiveDate = newValue ?? _archiveDate;
+    notifyListeners();
+  }
 
   set isArchive(bool newValue) {
     if (newValue == _isArchive) {
@@ -88,8 +74,25 @@ class AppData with ChangeNotifier {
       }
 
       _isArchive = newValue;
+      notifyListeners();
     }
   }
+
+  /// Show is active [_profiles] list had [WorkerProfile]s with real [Journal],
+  /// or with [JournalArchive].
+  bool _isArchive = false;
+
+  List<WorkerProfile> _realProfiles = [];
+  List<WorkerProfile> _archiveProfiles = [];
+
+  var _archiveDate = DateTime.now().add(const Duration(days: -1));
+
+  /// Profiles list
+  List<WorkerProfile> _profiles = [];
+
+  /// Factory to construct singleton.
+  factory AppData() => _instance; // ??= AppData._internal();
+  AppData._internal();
 
   @override
   void dispose() {

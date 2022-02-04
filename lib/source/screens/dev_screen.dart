@@ -101,7 +101,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
 
   Future<void> checkHTTP() async {
     final url = Uri.parse(
-      'http://${AppData().profile.key.host}:${AppData().profile.key.port}/stat',
+      'http://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/stat',
     );
     try {
       await http.get(url).then((response) {
@@ -116,7 +116,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
           dev.log(e.toString());
         });
       }).whenComplete(() => dev.log(_testHTTP));
-    // ignore: avoid_catches_without_on_clauses
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       dev.log('Error $e');
     }
@@ -160,7 +160,7 @@ class _CheckWorkerServerPOST extends State<CheckWorkerServerPOST> {
 
   Future<void> checkHTTP() async {
     final url = Uri.parse(
-      'http://${AppData().profile.key.host}:${AppData().profile.key.port}/planned',
+      'http://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/planned',
     );
     await http.post(url, headers: headers, body: body).then((response) {
       setState(() {
