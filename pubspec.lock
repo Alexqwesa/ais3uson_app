@@ -780,6 +780,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  singleton:
+    dependency: "direct main"
+    description:
+      name: singleton
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3-nullsafety"
   sky_engine:
     dependency: transitive
     description: flutter

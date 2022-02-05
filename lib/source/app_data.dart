@@ -1,19 +1,23 @@
-// ignore_for_file: prefer_final_fields, flutter_style_todos
+// ignore_for_file: flutter_style_todos
 
 import 'dart:convert';
 import 'dart:core';
+import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
+import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:singleton/singleton.dart';
 
 /// Global singleton class.
 ///
@@ -25,8 +29,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: prefer_mixin
 class AppData with ChangeNotifier {
   /// Store Singleton
-  static late final SharedPreferences prefs;
-  static final AppData _instance = AppData._internal();
+  late final SharedPreferences prefs;
 
   final standardTheme = StandardTheme();
 
@@ -37,7 +40,8 @@ class AppData with ChangeNotifier {
 
   http.Client httpClient = http.Client();
 
-  static AppData get instance => _instance; // ??= AppData._internal();
+  // ignore: prefer_constructors_over_static_methods
+  static AppData get instance => AppData();
 
   List<WorkerProfile> get profiles => _profiles;
 
@@ -91,7 +95,17 @@ class AppData with ChangeNotifier {
   List<WorkerProfile> _profiles = [];
 
   /// Factory to construct singleton.
-  factory AppData() => _instance; // ??= AppData._internal();
+  factory AppData() {
+    try {
+      return Singleton.get<AppData>();
+      // ignore: avoid_catching_errors
+    } on UnimplementedError {
+      Singleton.register(AppData._internal());
+    }
+
+    return Singleton.get<AppData>();
+  }
+
   AppData._internal();
 
   @override
@@ -115,10 +129,26 @@ class AppData with ChangeNotifier {
     }));
   }
 
-  /// Post init
+  /// Init Hive and its adapters.
   ///
-  /// read setting from hive, and sync
+  /// Read setting from [SharedPreferences], Hive and and call [WorkerProfile.postInit]s.
   Future<void> postInit() async {
+    //
+    // > Init Hive
+    //
+    try {
+      // never fail on double adapter registration
+      Hive
+        ..registerAdapter(ServiceOfJournalAdapter())
+        ..registerAdapter(ServiceStateAdapter());
+      // ignore: avoid_catching_errors
+    } on HiveError catch (e) {
+      dev.log(e.toString());
+    }
+    hiveData = await Hive.openBox<dynamic>('profiles');
+    //
+    // > Init WorkerProfiles
+    //
     ScreenArguments(profile: 0);
     prefs = await SharedPreferences.getInstance();
     for (final Map<dynamic, dynamic> keyFromHive
@@ -152,6 +182,7 @@ class AppData with ChangeNotifier {
         null) {
       final wp = WorkerProfile(key);
       _profiles.add(wp);
+      _realProfiles.add(wp);
       await save();
       notifyListeners();
       await wp.postInit();
