@@ -38,8 +38,8 @@ dependencies:
   provider: any
   qr_code_scanner: ^0.6.1
   quiver: any
-  singleton: ^0.0.3-nullsafety
   shared_preferences: any
+  singleton: ^0.0.3-nullsafety
   surf_lint_rules: any
   synchronized: any
   toggle_switch: any

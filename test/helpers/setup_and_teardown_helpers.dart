@@ -11,7 +11,6 @@ Future<void> mySetUpAll() async {
   // > SharedPreference setup
   //
   SharedPreferences.setMockInitialValues({}); //set values here
-  AppData.prefs = await SharedPreferences.getInstance();
   //
   // > httpClient setup
   //
