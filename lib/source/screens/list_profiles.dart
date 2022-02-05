@@ -18,8 +18,8 @@ class _ListOfProfiles extends State<ListOfProfiles> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppData(),
+    return ChangeNotifierProvider.value(
+      value: AppData(),
       child: Consumer<AppData>(
         builder: (context, data, child) {
           final workerKeys = context.select<AppData, List<WorkerKey>>(

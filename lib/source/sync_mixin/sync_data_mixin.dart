@@ -61,6 +61,7 @@ mixin SyncDataMixin {
           // for getting new test data
           // print("=== " + apiKey + urlAddress);
           // print("=== " + response.body);
+          hive = await Hive.openBox<dynamic>('profiles');
           await hive.put(apiKey + urlAddress, response.body);
           updateValueFromHive(apiKey + urlAddress);
         }

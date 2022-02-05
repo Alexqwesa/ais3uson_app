@@ -65,11 +65,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// or with [JournalArchive].
   WorkerProfile(this.key, {DateTime? archiveDate}) {
     name = key.name;
-    if (archiveDate != null) {
-      journal = JournalArchive(this, archiveDate);
-    } else {
-      journal = Journal(this);
-    }
+    journal = archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
   }
 
   /// Update data after sync read from hive and notify.
