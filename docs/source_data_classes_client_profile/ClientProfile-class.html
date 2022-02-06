@@ -84,7 +84,8 @@
           <span class="name"><a href="../source_data_classes_client_profile/ClientProfile/ClientProfile.html">ClientProfile</a></span><span class="signature">(<span class="parameter" id="-param-workerProfile">{<span>required</span> <span class="type-annotation"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">workerProfile</span>, </span><span class="parameter" id="-param-entry"><span>required</span> <span class="type-annotation"><a href="../source_from_json_client_entry/ClientEntry-class.html">ClientEntry</a></span> <span class="parameter-name">entry</span>}</span>)</span>
         </dt>
         <dd>
-           
+          Init and subscribe to events from <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a>,
+because it is the class that get actual data. 
         </dd>
       </dl>
     </section>
@@ -99,7 +100,7 @@
 
 </dt>
 <dd>
-   
+  Should be reimplemented in children. <a href="../source_data_classes_client_profile/ClientProfile/apiKey.html">[...]</a>
   <div class="features">read-only, override</div>
 
 </dd>
@@ -156,6 +157,17 @@
 <dd class="inherited">
   Whether any listeners are currently registered. <a href="../source_data_classes_client_profile/ClientProfile/hasListeners.html">[...]</a>
   <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, read-only, inherited</div>
+
+</dd>
+
+        <dt id="hiveName" class="property inherited">
+  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiveName.html">hiveName</a></span>
+  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+  Standard name of HiveBox. <a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiveName.html">[...]</a>
+  <div class="features">read / write, inherited</div>
 
 </dd>
 
@@ -239,7 +251,7 @@ disposed). <a href="../source_data_classes_client_profile/ClientProfile/dispose.
 </dd>
 
         <dt id="hiddenSyncHive" class="callable inherited">
-  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenSyncHive-param-urlAddress">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">urlAddress</span>, </span><span class="parameter" id="hiddenSyncHive-param-apiKey"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span>, </span><span class="parameter" id="hiddenSyncHive-param-headers"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">headers</span>, </span><span class="parameter" id="hiddenSyncHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span>)
+  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenSyncHive-param-urlAddress">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">urlAddress</span>, </span><span class="parameter" id="hiddenSyncHive-param-apiKey"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span>, </span><span class="parameter" id="hiddenSyncHive-param-headers"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">headers</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -252,7 +264,7 @@ disposed). <a href="../source_data_classes_client_profile/ClientProfile/dispose.
 </dd>
 
         <dt id="hiddenUpdateValueFromHive" class="callable inherited">
-  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span>)
+  <span class="name"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
   </span>
   
@@ -325,20 +337,20 @@ notified when the object changes. <a href="../source_data_classes_client_profile
 
 </dt>
 <dd>
-   
+  Get data from <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> and filter only needed. <a href="../source_data_classes_client_profile/ClientProfile/updateServices.html">[...]</a>
   
 
 </dd>
 
         <dt id="updateValueFromHive" class="callable">
-  <span class="name"><a href="../source_data_classes_client_profile/ClientProfile/updateValueFromHive.html">updateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="updateValueFromHive-param-hiveKey"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span></span>)
+  <span class="name"><a href="../source_data_classes_client_profile/ClientProfile/updateValueFromHive.html">updateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="updateValueFromHive-param-hiveKey"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="updateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-  Should be defined in descendant class. <a href="../source_data_classes_client_profile/ClientProfile/updateValueFromHive.html">[...]</a>
+  Stub. 
   <div class="features">override</div>
 
 </dd>
@@ -416,6 +428,7 @@ notified when the object changes. <a href="../source_data_classes_client_profile
     <li><a href="../source_data_classes_client_profile/ClientProfile/entry.html">entry</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../source_data_classes_client_profile/ClientProfile/hasListeners.html">hasListeners</a></li>
+    <li class="inherited"><a href="../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiveName.html">hiveName</a></li>
     <li><a href="../source_data_classes_client_profile/ClientProfile/name.html">name</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../source_data_classes_client_profile/ClientProfile/services.html">services</a></li>

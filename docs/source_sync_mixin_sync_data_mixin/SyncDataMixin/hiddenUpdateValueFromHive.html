@@ -54,7 +54,7 @@
 
 <span class="returntype"><a href="https://api.dart.dev/stable/2.14.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
 <span class="name ">hiddenUpdateValueFromHive</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.14.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span></li>
-<li><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a>?</span> <span class="parameter-name">hive</span>}</span></li>
+<li><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span>}</span></li>
 </ol>)
 
       
@@ -72,9 +72,8 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">List&lt;Map&lt;String, dynamic&gt;&gt; hiddenUpdateValueFromHive({
   required String hiveKey,
-  Box? hive,
+  required Box hive,
 }) {
-  hive ??= AppData().hiveData;
   try {
     final lst = List&lt;Map&lt;String, dynamic&gt;&gt;.from(
       (json.decode(hive.get(hiveKey, defaultValue: &#39;[]&#39;) as String)
@@ -125,6 +124,7 @@
     </li>
     <li><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin/apiKey.html">apiKey</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin/hiveName.html">hiveName</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.14.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
     <li class="section-title"><a href="../../source_sync_mixin_sync_data_mixin/SyncDataMixin-mixin.html#instance-methods">Methods</a></li>

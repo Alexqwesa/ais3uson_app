@@ -15,18 +15,58 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:singleton/singleton.dart';
 
-import 'helpers/setup_and_teardown_helpers.dart';
+import 'helpers/mock_server.dart';
 
 void main() {
-  setUpAll(() async {
-    await mySetUpAll();
-  });
   tearDownAll(() async {
+    Singleton.resetAllForTest();
+    await tearDownTestHive();
+  });
+  setUp(() async {
+    // Cleanup
+    Singleton.resetAllForTest();
+    // set SharedPreferences values
+    SharedPreferences.setMockInitialValues({});
+    // Hive setup
+    await setUpTestHive();
+    // init AppData
+    await AppData().postInit();
+    // httpClient setup
+    AppData().httpClient = getMockHttpClient();
+  });
+  tearDown(() async {
+    await AppData().asyncDispose();
+    AppData().dispose();
+    Singleton.resetAllForTest();
     await tearDownTestHive();
   });
   testWidgets('listOfProfiles smoke test', (tester) async {
     // Init , WidgetTester tester
+    const listOfProfiles = ListOfProfiles(
+      key: ValueKey(111),
+    );
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: listOfProfiles,
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey(111)), findsOneWidget);
+    // Check empty
+    expect(find.textContaining('отсканируйте QR код'), findsOneWidget);
+    expect(find.text('Тестовое отделение 48080'), findsNothing);
+    expect(find.text('Тестовое отделение'), findsNothing);
+    // Add department
+  });
+  testWidgets('listOfProfiles smoke test part 2', (tester) async {
+    // Why hive didn't work here?
+    await tester.runAsync<bool>(() {
+      return AppData.instance
+          .addProfileFromKey(WorkerKey.fromJson(jsonDecode(qrData2)));
+    });
     const listOfProfiles = ListOfProfiles();
     await tester.pumpWidget(
       const MaterialApp(
@@ -34,17 +74,12 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    // Check empty
-    expect(find.textContaining('отсканируйте QR код'), findsOneWidget);
-    expect(find.text('Тестовое отделение 48080'), findsNothing);
-    expect(find.text('Тестовое отделение'), findsNothing);
-    // Add department
-    await AppData().addProfileFromKey(WorkerKey.fromJson(jsonDecode(qrData2)));
     // Check
-    expect(find.text('Тестовое отделение 48080'), findsNothing);
+    expect(find.text('Тестовое отделение 48080'), findsOneWidget);
+    expect(find.textContaining('отсканируйте QR код'), findsNothing);
+    await tester.pumpAndSettle();
   });
 }
-
 
 Future<void> backButton(WidgetTester tester) async {
   return TestAsyncUtils.guard<void>(() async {

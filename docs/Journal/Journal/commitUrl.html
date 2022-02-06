@@ -74,6 +74,7 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
   <pre class="language-dart"><code class="language-dart">Future&lt;ServiceState?&gt; commitUrl(String urlAddress, {String? body}) async {
   final url = Uri.parse(urlAddress);
   final http = AppData().httpClient;
+  var ret = ServiceState.stalled;
   try {
     Response response;
     if (urlAddress.endsWith(&#39;&#47;add&#39;)) {
@@ -93,11 +94,11 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
           response.body != &#39;Wrong authorization key&#39;) {
         final res = jsonDecode(response.body) as Map&lt;String, dynamic&gt;;
 
-        return (res[&#39;id&#39;] as int) &gt; 0
+        ret = (res[&#39;id&#39;] as int) &gt; 0
             ? ServiceState.finished
             : ServiceState.rejected;
       } else {
-        return ServiceState.stalled;
+        ret = ServiceState.stalled;
       }
     }
     &#47;&#47;
@@ -115,6 +116,8 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
   } finally {
     dev.log(&#39;sync ended $urlAddress &#39;);
   }
+
+  return ret;
 }</code></pre>
 </section>
 

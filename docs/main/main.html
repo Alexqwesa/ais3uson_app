@@ -47,6 +47,7 @@
 <h1><span class="kind-function">main</span> function 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
+    <span class="category root cp-3 linked" title="This is part of the Root Topic."><a href="../topics/Root-topic.html">Root</a></span>
 </h1></div>
 
     <section class="multi-line-signature">
@@ -58,8 +59,8 @@
     </section>
     
 <section class="desc markdown">
-  <p>main</p>
-<p>call preinit, overlay and app</p>
+  <p>Init application,init <a href="https://pub.dev/documentation/hive/2.0.5/hive/Hive.html">Hive</a>, create <a href="../source_app_data/AppData-class.html">AppData</a> and postInit it.</p>
+<p>Create <a href="https://pub.dev/documentation/overlay_support/1.2.1/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../app_root/AppRoot-class.html">AppRoot</a>.</p>
 </section>
 
 
@@ -67,9 +68,11 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
-  &#47;&#47; WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Singleton.register(AppData);
 
-  await init();
+  await AppData().postInit();
   runApp(const OverlaySupport.global(child: AppRoot()));
 }</code></pre>
 </section>
@@ -99,7 +102,6 @@
 
 
   <li class="section-title"><a href="../main/main-library.html#functions">Functions</a></li>
-  <li><a href="../main/init.html">init</a></li>
   <li><a href="../main/main.html">main</a></li>
 
 
