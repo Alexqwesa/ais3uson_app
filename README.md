@@ -1,7 +1,6 @@
 # AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")
 <img align="right" src="assets/ais-3uson-logo-128.png">
-[![Build Status](https://github.com/Alexqwesa/ais3uson_app/workflows/Test/badge.svg)](https://github.com/dart-lang/dartdoc/actions?query=workflow%3ATest)
-[![Coverage Status](https://coveralls.io/repos/github/dart-lang/dartdoc/badge.svg?branch=master)](https://coveralls.io/github/dart-lang/dartdoc?branch=master)
+
 A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 Это мобильное приложение для ввода услуг в информационной системе "[АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON)" ("Автоматизированная Информационная Система Учета Услуг Учреждений Социального Обслуживания Населения").
