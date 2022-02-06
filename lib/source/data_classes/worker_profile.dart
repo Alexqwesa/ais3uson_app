@@ -3,14 +3,17 @@
 import 'dart:async';
 
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
+import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/from_json/client_plan.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 /// A profile of worker.
 ///
@@ -39,6 +42,15 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
   List<ServiceEntry> get services => _services;
 
+  /// Store date and time of last sync for [_services].
+  DateTime _servicesSyncDate = startDate;
+
+  /// Store date and time of last sync for [_clientPlan].
+  DateTime _clientPlanSyncDate = startDate;
+
+  /// Store date and time of last sync for [_clients].
+  DateTime _clientSyncDate = startDate;
+
   /// Service list should only update on empty, or unknown planned service.
   ///
   /// Since workers could potentially work
@@ -46,12 +58,6 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// with different service list, store services in worker profile.
   /// TODO: update by server policy.
   List<ServiceEntry> _services = [];
-
-  /// Store date and time of last sync for [_services].
-  DateTime _servicesSyncDate = DateTime.utc(1900);
-
-  /// Store date and time of last sync for [_clientPlan].
-  DateTime _clientPlanSyncDate = DateTime.utc(1900);
 
   /// Planned amount of services for client.
   ///
@@ -65,7 +71,8 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// or with [JournalArchive].
   WorkerProfile(this.key, {DateTime? archiveDate}) {
     name = key.name;
-    journal = archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
+    journal =
+        archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
   }
 
   /// Update data after sync read from hive and notify.
@@ -77,13 +84,13 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   ///
   /// read hive data and notify
   @override
-  Future<void> updateValueFromHive(String hiveKey) async {
+  Future<void> updateValueFromHive(String hiveKey, Box hive) async {
     if (hiveKey.endsWith('http://${key.host}:${key.port}/clients')) {
       //
       // > Get ClientProfile from hive
       //
-      _clients =
-          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ClientEntry>((json) {
+      _clients = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
+          .map<ClientEntry>((json) {
         return ClientEntry.fromJson(json);
       }).map((el) {
         return ClientProfile(
@@ -91,25 +98,28 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
           entry: el,
         );
       }).toList(growable: false);
+
+      await setClientSyncDate();
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/planned')) {
       //
       // > Sync Planned services from hive
       //
-      _clientPlan =
-          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ClientPlan>((json) {
+      _clientPlan = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
+          .map<ClientPlan>((json) {
         return ClientPlan.fromJson(json);
       }).toList(growable: false);
-      _clientPlanSyncDate = DateTime.now();
-      unawaited(journal.updateBasedOnNewPlanDate());
+      await setClientPlanSyncDate();
+      // maybe await it later to call notifyListeners before it?
+      await journal.updateBasedOnNewPlanDate();
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //
       // > Sync services from hive
       //
-      _services =
-          hiddenUpdateValueFromHive(hiveKey: hiveKey).map<ServiceEntry>((json) {
+      _services = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
+          .map<ServiceEntry>((json) {
         return ServiceEntry.fromJson(json);
       }).toList(growable: false);
-      _servicesSyncDate = DateTime.now();
+      await setServicesSyncDate();
     } else {
       return;
     }
@@ -126,13 +136,111 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     return super.dispose();
   }
 
+  Future<DateTime> servicesSyncDate() async {
+    if (_servicesSyncDate == startDate) {
+      int since;
+      final hive = await Hive.openBox<dynamic>(hiveName);
+      since = await hive.get(
+        '${apiKey}_servicesSyncDate',
+        defaultValue:
+            startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+      ) as int;
+      _servicesSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
+    }
+
+    return _servicesSyncDate;
+  }
+
+  Future<DateTime> clientPlanSyncDate() async {
+    if (_clientPlanSyncDate == startDate) {
+      int since;
+      final hive = await Hive.openBox<dynamic>(hiveName);
+      since = await hive.get(
+        '${apiKey}_clientPlanSyncDate',
+        defaultValue:
+            startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+      ) as int;
+      _clientPlanSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
+    }
+
+    return _clientPlanSyncDate;
+  }
+
+  Future<DateTime> clientSyncDate() async {
+    if (_clientSyncDate == startDate) {
+      int since;
+      final hive = await Hive.openBox<dynamic>(hiveName);
+      since = await hive.get(
+        '${apiKey}_clientSyncDate',
+        defaultValue:
+            startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+      ) as int;
+      _clientSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
+    }
+
+    return _clientSyncDate;
+  }
+
+  Future<void> setClientSyncDate({DateTime? newDate}) async {
+    _clientSyncDate = newDate ?? DateTime.now();
+    final hive = await Hive.openBox<dynamic>(hiveName);
+    await hive.put(
+      '${apiKey}_clientSyncDate',
+      _clientSyncDate.millisecondsSinceEpoch,
+    );
+  }
+
+  Future<void> setClientPlanSyncDate({DateTime? newDate}) async {
+    _clientPlanSyncDate = newDate ?? DateTime.now();
+    final hive = await Hive.openBox<dynamic>(hiveName);
+    await hive.put(
+      '${apiKey}_clientPlanSyncDate',
+      _clientPlanSyncDate.millisecondsSinceEpoch,
+    );
+  }
+
+  Future<void> setServicesSyncDate({DateTime? newDate}) async {
+    _servicesSyncDate = newDate ?? DateTime.now();
+    final hive = await Hive.openBox<dynamic>(hiveName);
+    await hive.put(
+      '${apiKey}_servicesSyncDate',
+      _servicesSyncDate.millisecondsSinceEpoch,
+    );
+  }
+
+  /// Async init actions such as:
+  ///
+  /// - postInit [journal] (instance of [Journal] class),
+  /// - get last sync dates for [clients], [clientPlan] and [services] from hive,
+  /// - check dates of last sync and call updates.
   Future<void> postInit() async {
     await journal.postInit();
-    if (_services.isEmpty) {
-      await syncHiveServices();
+    await Hive.openBox<dynamic>(hiveName);
+    final plannedUpdate = DateTime.now().add(const Duration(hours: -2));
+    if ((await servicesSyncDate()).isBefore(plannedUpdate)) {
+      if (_services.isEmpty) {
+        await syncHiveServices();
+      }
     }
-    await syncHiveClients();
-    await syncHivePlanned();
+    if ((await clientSyncDate()).isBefore(plannedUpdate)) {
+      await syncHiveClients();
+    }
+    if ((await clientPlanSyncDate()).isBefore(plannedUpdate)) {
+      await syncHivePlanned();
+    }
+    // await ensureClientInitialized(); // delete it?
+    notifyListeners();
+  }
+
+  /// Make sure all [ClientService]s of [ClientProfile] is initialized.
+  Future<void> ensureClientInitialized() async {
+    await Future.wait(
+      clients.map(
+        (element) {
+          return element.updateServices();
+        },
+      ),
+    );
   }
 
   /// Sync hive data
@@ -177,7 +285,8 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   Future<void> checkAllServicesExist() async {
     if (_services.isEmpty) {
       await syncHiveServices();
-    } else if (_servicesSyncDate.isBefore(_clientPlanSyncDate)) {
+    } else if ((await servicesSyncDate())
+        .isBefore(await clientPlanSyncDate())) {
       await syncHiveServices();
     } else {
       // TODO: actual checks here

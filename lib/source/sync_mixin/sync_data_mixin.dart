@@ -25,10 +25,17 @@ import 'package:overlay_support/overlay_support.dart';
 /// - should implement [updateValueFromHive] - it will be called by [hiddenSyncHive],
 /// - overridden function [updateValueFromHive] usually call [hiddenUpdateValueFromHive] to get [Map] from hive.
 mixin SyncDataMixin {
-  //
-  // > Standard headers
-  //
+  /// Standard name of HiveBox.
+  ///
+  /// Can be considered const, but can be changed for testing purposes.
+  String hiveName = 'profiles';
 
+  /// Should be reimplemented in children.
+  ///
+  /// Used to identify unique hive keys. Like in code below:
+  /// ```dart
+  /// await hive.put(apiKey + urlAddress, response.body);
+  /// ```
   String get apiKey {
     return 'apiKey not Implemented';
   }
@@ -40,9 +47,7 @@ mixin SyncDataMixin {
     required String urlAddress,
     required String apiKey,
     Map<String, String>? headers,
-    Box? hive,
   }) async {
-    hive ??= AppData().hiveData;
     headers ??= {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -57,13 +62,13 @@ mixin SyncDataMixin {
       final response = await client.get(url, headers: headers);
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
-        if (response.body.isNotEmpty && response.body != '[]') {
+        if (response.body.isNotEmpty) {
           // for getting new test data
           // print("=== " + apiKey + urlAddress);
           // print("=== " + response.body);
-          hive = await Hive.openBox<dynamic>('profiles');
+          final hive = await Hive.openBox<dynamic>(hiveName);
           await hive.put(apiKey + urlAddress, response.body);
-          updateValueFromHive(apiKey + urlAddress);
+          updateValueFromHive(apiKey + urlAddress, hive);
         }
       }
       //
@@ -87,16 +92,15 @@ mixin SyncDataMixin {
   ///
   /// Usually just call [hiddenUpdateValueFromHive] to get data from hive,
   /// and convert it to user class.
-  void updateValueFromHive(String hiveKey);
+  void updateValueFromHive(String hiveKey, Box hive);
 
   /// This function should be called from [updateValueFromHive].
   ///
   /// Read hive string and return [Map].
   List<Map<String, dynamic>> hiddenUpdateValueFromHive({
     required String hiveKey,
-    Box? hive,
+    required Box hive,
   }) {
-    hive ??= AppData().hiveData;
     try {
       final lst = List<Map<String, dynamic>>.from(
         (json.decode(hive.get(hiveKey, defaultValue: '[]') as String)

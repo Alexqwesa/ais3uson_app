@@ -186,9 +186,12 @@ void main() {
 
       final httpClient = AppData().httpClient as mock.MockClient;
       await AppData.instance.addProfileFromKey(wKey);
-      AppData.instance.profiles.first.clientSyncDate = DateTime(1900);
-      AppData.instance.profiles.first.clientPlanSyncDate = DateTime(1900);
-      AppData.instance.profiles.first.servicesSyncDate = DateTime(1900);
+      await AppData.instance.profiles.first
+          .setClientSyncDate(newDate: DateTime(1900));
+      await AppData.instance.profiles.first
+          .setClientPlanSyncDate(newDate: DateTime(1900));
+      await AppData.instance.profiles.first
+          .setServicesSyncDate(newDate: DateTime(1900));
       await AppData.instance.profiles.first.postInit();
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);

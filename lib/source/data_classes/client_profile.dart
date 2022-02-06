@@ -8,6 +8,7 @@ import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 /// Basic data about client:
 /// - [name],
@@ -44,21 +45,24 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
 
   List<ClientService> _services = [];
 
+  /// Init and subscribe to events from [WorkerProfile],
+  /// because it is the class that get actual data.
   ClientProfile({
     required this.workerProfile,
     required this.entry,
   }) {
-    //
-    // > since workerProfile is the one who get data - listen to this class
-    //
     workerProfile.addListener(updateServices);
   }
 
+  /// Stub.
   @override
-  void updateValueFromHive(String hiveKey) {
+  void updateValueFromHive(String hiveKey, Box hive) {
     return; // just stub
   }
 
+  /// Get data from [WorkerProfile] and filter only needed.
+  ///
+  /// This is a receiver of events from [WorkerProfile].
   Future<void> updateServices() async {
     try {
       //
@@ -79,7 +83,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       if (e.message == 'No element') {
-        unawaited(workerProfile.checkAllServicesExist());
+        await workerProfile.checkAllServicesExist();
         showErrorNotification(
           'Ошибка: не удалось подготовить список услуг! $e',
         );

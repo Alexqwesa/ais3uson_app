@@ -16,6 +16,7 @@ const formatStandard = 'dd.MM.yyyy';
 final sqlFormat = DateFormat(formatSQL);
 final standardFormat = DateFormat(formatStandard);
 const hiveArchiveLimit = 1000;
+final startDate = DateTime(1900);
 
 /// qrData
 ///
