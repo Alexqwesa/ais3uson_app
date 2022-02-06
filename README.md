@@ -49,18 +49,17 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - [x] Проверка переполнения положенных услуг
 - [x] Резервное копирование ключей авторизации в облако
 - [x] Удаление услуг (только сегодняшних)
+- [x] Просмотр архива услуг
+- [x] Добавление отделения (авторизация) по строке
 
 ## TODO:
 - [ ] Настраиваемый вид списка услуг
 - [ ] Напоминание о необходимости синхронизации
 - [ ] Кнопка: Синхронизировать ВСЕ!
 - [ ] Кнопка: Поделится ?
-- [ ] Архиваровать журнал по ?
-- [ ] Добавление отделения (авторизация) по строке 
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] WorkerKey allow several servers (comma separated list)
 - [ ] maybe backup media data? only on full backup?
-- [ ] Просмотр архива услуг
 - [ ] use ssl, maybe use Dio?
 - [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта
