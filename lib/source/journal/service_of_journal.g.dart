@@ -23,13 +23,14 @@ class ServiceOfJournalAdapter extends TypeAdapter<ServiceOfJournal> {
     )
       ..provDate = fields[3] as DateTime
       ..error = fields[5] as String
-      ..uid = fields[6] as String;
+      ..uid = fields[6] as String
+      .._state = fields[7] as ServiceState;
   }
 
   @override
   void write(BinaryWriter writer, ServiceOfJournal obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.servId)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class ServiceOfJournalAdapter extends TypeAdapter<ServiceOfJournal> {
       ..writeByte(5)
       ..write(obj.error)
       ..writeByte(6)
-      ..write(obj.uid);
+      ..write(obj.uid)
+      ..writeByte(7)
+      ..write(obj._state);
   }
 
   @override

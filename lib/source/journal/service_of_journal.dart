@@ -36,6 +36,8 @@ class ServiceOfJournal with HiveObjectMixin {
   String uid = uuid.v4();
 
   ServiceState get state => _state;
+
+  @HiveField(7)
   ServiceState _state = ServiceState.added;
 
   ServiceOfJournal({
