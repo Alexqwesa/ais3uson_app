@@ -183,8 +183,8 @@ class AppData with ChangeNotifier {
       final wp = WorkerProfile(key);
       _profiles.add(wp);
       _realProfiles.add(wp);
-      await save();
       notifyListeners();
+      await save();
       await wp.postInit();
       notifyListeners();
 

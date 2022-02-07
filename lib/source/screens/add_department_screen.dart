@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -49,81 +48,78 @@ class AddDepartmentScreen extends StatelessWidget {
                   //
                   SizedBox(
                     height: 280,
-                    child: Expanded(
-                      child: Card(
-                        margin: const EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                ' Вставте текст-ключ отделения в это поле: ',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.headline6,
-                                softWrap: true,
-                              ),
+                    child: Card(
+                      margin: const EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              ' Вставте текст-ключ отделения в это поле: ',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.headline6,
+                              softWrap: true,
                             ),
-                            SizedBox(
-                              // height: screenHeight,
-                              child: SimpleTextField(
-                                controller: controller,
-                              ),
+                          ),
+                          SizedBox(
+                            // height: screenHeight,
+                            child: SimpleTextField(
+                              controller: controller,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
-                              child: Row(
-                                children: [
-                                  TextButton(
-                                    child: const Text(
-                                      'Очистить',
-                                    ),
-                                    onPressed: controller.clear,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
+                            child: Row(
+                              children: [
+                                TextButton(
+                                  child: const Text(
+                                    'Очистить',
                                   ),
-                                  const Spacer(),
-                                  ElevatedButton(
-                                    child: const Text(
-                                      'Добавить отделение',
-                                    ),
-                                    onPressed: () async {
-                                      try {
-                                        final res =
-                                            await AppData().addProfileFromKey(
-                                          WorkerKey.fromJson(
-                                            jsonDecode(
-                                              controller.value.text
-                                                  .replaceAll('\n', ''),
-                                            ),
+                                  onPressed: controller.clear,
+                                ),
+                                const Spacer(),
+                                ElevatedButton(
+                                  child: const Text(
+                                    'Добавить отделение',
+                                  ),
+                                  onPressed: () async {
+                                    try {
+                                      Navigator.pop(context, 'added');
+                                      final res =
+                                          await AppData().addProfileFromKey(
+                                        WorkerKey.fromJson(
+                                          jsonDecode(
+                                            controller.value.text
+                                                .replaceAll('\n', ''),
                                           ),
-                                        );
-                                        if (res) {
-                                          // ignore: use_build_context_synchronously
-                                          Navigator.pop(context, 'added');
-                                          unawaited(AppData().save());
-                                        } else {
-                                          showErrorNotification(
-                                            'Не удалось добавить отделение. Возможно оно уже есть в списке. ',
-                                          );
-                                          // ignore: use_build_context_synchronously
-                                          FocusScope.of(context).requestFocus(
-                                            FocusNode(),
-                                          );
-                                        }
-                                      } on FormatException {
+                                        ),
+                                      );
+                                      if (res) {
+                                        await AppData().save();
+                                      } else {
                                         showErrorNotification(
-                                          'Не удалось добавить отделение. Возможно неправильный формат строки.',
+                                          'Не удалось добавить отделение. Возможно оно уже есть в списке. ',
                                         );
                                         // ignore: use_build_context_synchronously
                                         FocusScope.of(context).requestFocus(
                                           FocusNode(),
                                         );
                                       }
-                                    },
-                                  ),
-                                ],
-                              ),
+                                    } on FormatException {
+                                      showErrorNotification(
+                                        'Не удалось добавить отделение. Возможно неправильный формат строки.',
+                                      );
+                                      // ignore: use_build_context_synchronously
+                                      FocusScope.of(context).requestFocus(
+                                        FocusNode(),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -164,12 +160,11 @@ class AddDepartmentScreen extends StatelessWidget {
                             // > call dialog
                             //
                             onTap: () async {
+                              Navigator.pop(context, 'added');
                               final res = await AppData()
                                   .addProfileFromKey(workerKeys[index]);
                               if (res) {
-                                unawaited(AppData().save());
-                                // ignore: use_build_context_synchronously
-                                Navigator.pop(context, 'added');
+                                await AppData().save();
                               } else {
                                 showErrorNotification(
                                   'Не удалось добавить отделение. Возможно оно уже есть в списке.',
@@ -200,24 +195,22 @@ class SimpleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-          controller: controller,
-          // focusNode: focusNode,
-          autofocus: true,
-          keyboardType: TextInputType.multiline,
-          maxLines: 5,
-          cursorColor: Colors.teal,
-          decoration: const InputDecoration(
-            hintText:
-                'Вставьте текст qr-кода отделения здесь, это резервный способ '
-                'добавления отделения, например для тех у кого не работает камера на телефоне...'
-                ' \n рекомендуемый способ - сканировать QR код!',
-            border: OutlineInputBorder(),
-            isDense: true,
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: controller,
+        // focusNode: focusNode,
+        autofocus: true,
+        keyboardType: TextInputType.multiline,
+        maxLines: 5,
+        cursorColor: Colors.teal,
+        decoration: const InputDecoration(
+          hintText:
+              'Вставьте текст qr-кода отделения здесь, это резервный способ '
+              'добавления отделения, например для тех у кого не работает камера на телефоне...'
+              ' \n рекомендуемый способ - сканировать QR код!',
+          border: OutlineInputBorder(),
+          isDense: true,
         ),
       ),
     );

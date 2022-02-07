@@ -119,13 +119,10 @@ void main() {
       await hive.close();
       expect(hive.isOpen, false);
       hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
-      // expect(
-      //   // TODO: test all
-      //    //This fail, but why? Test don't allow read/write files? Hive error?
-      //      // Or hive didn't know how to save object with enum?
-      //   hive.values.last.state,
-      //   ServiceState.rejected,
-      // );
+      expect(
+        hive.values.last.state,
+        ServiceState.rejected,
+      );
       expect(hive.values.first.state, ServiceState.added);
       expect(hive.values.last.uid, errorService.uid);
     });
