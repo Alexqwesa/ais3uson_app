@@ -49,13 +49,16 @@ jobs:
       - name: Run tests
         run: flutter test --coverage 
         
-
-      - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v2
+      - name: Upload coverage to Codecov
+        # uses: actions/checkout@master
+        uses: codecov/codecov-action@v2
         with:
-          flags: unittests # optional
-          name: codecov-umbrella # optional
+          token: ${{secrets.CODECOV_TOKEN}}
+          # flags: unittests # optional
+          directory: ./coverage/
+          version: "v0.1.15"
           verbose: true # optional (default = false)
+          # name: codecov # optional
           # files: lcov.info
           # fail_ci_if_error: true # optional (default = false)
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
