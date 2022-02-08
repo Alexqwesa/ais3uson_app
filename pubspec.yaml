@@ -35,6 +35,7 @@ dependencies:
   lint: any
   overlay_support: any # ^1.2.1
   path_provider: any
+  peanut: any
   provider: any
   qr_code_scanner: ^0.6.1
   quiver: any

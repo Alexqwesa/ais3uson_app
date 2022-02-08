@@ -104,6 +104,7 @@ class ClientService with ChangeNotifier {
     }
   }
 
+  /// [ProofList] of this service at current date.
   ProofList? _proofList;
 
   ClientService({
