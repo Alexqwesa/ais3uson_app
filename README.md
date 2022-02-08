@@ -45,7 +45,10 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 - периодически (или постоянно) подключаются к интернету для синхронизации данных приложения.
 
 Для не Android устройств, также в целях проверки - доступно
-web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexqwesa.github.io/web3uson/) ).
+web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexqwesa.github.io/web3uson/)
+).
+
+<img  src="qr_web3uson.png">
 
 ## Реализованные возможности:
 

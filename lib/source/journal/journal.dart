@@ -105,9 +105,9 @@ class Journal with ChangeNotifier {
     for (final s in all) {
       try {
         await s.save();
-        // ignore: avoid_catching_errors
+        // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
       } catch (e) {
-        dev.log('can not save ' + s.toString());
+        dev.log('can not save $s');
       }
     }
     await hive.compact();
