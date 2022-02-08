@@ -126,7 +126,7 @@ void main() {
       expect(hive.values.first.state, ServiceState.added);
       expect(hive.values.last.uid, errorService.uid);
     });
-    test('it new serviceOfJournal to journal', () async {
+    test('it add new serviceOfJournal to journal', () async {
       final addedService =
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       final errorService =
@@ -193,6 +193,56 @@ void main() {
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
+    });
+    test('it archive yesterday services', () async {
+      //
+      // > prepare
+      //
+      final yesterdayService =
+          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
+      final todayService =
+          ServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
+      final wKey = WorkerKey.fromJson(jsonDecode(qrData2));
+      var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      await hive.add(yesterdayService);
+      await hive.add(todayService);
+      final yesterday = DateTime.now().add(const Duration(days: -1));
+      await yesterdayService.setState(ServiceState.finished);
+      yesterdayService.provDate = yesterday;
+      await yesterdayService.save();
+      expect(yesterdayService.provDate, yesterday);
+      expect(yesterdayService.state, ServiceState.finished);
+      expect(yesterdayService.provDate, yesterday);
+      //
+      // > test hive
+      //
+      expect(hive.values.first.uid, yesterdayService.uid);
+      expect(hive.values.last.state, ServiceState.added);
+      await hive.flush();
+      await hive.close();
+      expect(hive.isOpen, false);
+      hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      expect(hive.values.length, 2);
+      expect(
+        standardFormat.format(hive.values.first.provDate),
+        standardFormat.format(yesterday),
+      );
+      //
+      // > init AppData
+      //
+      await AppData.instance.addProfileFromKey(wKey);
+      //
+      // > test what yesterday services are in archive
+      //
+      expect(
+        AppData.instance.profiles.first.journal.all.first.uid,
+        todayService.uid,
+      );
+      final hiveArchive = await Hive.openBox<ServiceOfJournal>(
+        'journal_archive_${AppData.instance.profiles.first.apiKey}',
+      );
+      expect(AppData.instance.profiles.first.journal.hive.values.length, 1);
+      expect(hiveArchive.length, 1);
     });
   });
 }
