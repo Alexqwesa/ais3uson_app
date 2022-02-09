@@ -55,162 +55,154 @@ class _HomePageState extends State<HomePage> {
       drawer: AppData.instance.isArchive
           ? null
           : Drawer(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    //
-                    // > logo
-                    //
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: MediaQuery.of(context).size.width / 4,
-                          ),
-                          child: SizedBox.square(
-                            child: Image.asset('assets/ais-3uson-logo.png'),
-                          ),
+              child: ListView(
+                children: [
+                  //
+                  // > logo
+                  //
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width / 4,
+                        ),
+                        child: SizedBox.square(
+                          child: Image.asset('assets/ais-3uson-logo.png'),
                         ),
                       ),
                     ),
-                    Center(
-                      child: Text(
-                        'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
-                        style: Theme.of(context).textTheme.headline5,
-                        textAlign: TextAlign.center,
-                      ),
+                  ),
+                  Center(
+                    child: Text(
+                      'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
                     ),
-                    //
-                    // > menu list
-                    //
-                    Expanded(
-                      child: ListView(
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.group_add),
-                            title: const Text(
-                              'Добавить отделение из строки текста или тестовое отделение',
-                            ),
-                            onTap: () {
-                              Navigator.pop(
-                                context,
-                                'qr',
-                              );
-                              Navigator.pushNamed(
-                                context,
-                                '/add_department',
-                                arguments: '',
-                              );
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(
-                              Icons.add,
-                              color: Colors.green,
-                            ),
-                            title: const Text('Сканировать QR код'),
-                            onTap: () {
-                              Navigator.pop(context, 'qr');
-                              Navigator.pushNamed(
-                                context,
-                                '/scan_qr',
-                              );
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.delete),
-                            title: const Text('Удалить отделение'),
-                            onTap: () {
-                              Navigator.pop(context, 'delete_department');
-                              Navigator.pushNamed(
-                                context,
-                                '/delete_department',
-                                arguments: '',
-                              );
-                            },
-                          ),
-                          const Divider(),
-                          ListTile(
-                            leading: const Icon(Icons.archive),
-                            title: const Text('Архив ввода услуг'),
-                            onTap: () {
-                              AppData.instance.isArchive =
-                                  !AppData.instance.isArchive;
-                              Navigator.pop(context, 'archive');
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.settings),
-                            title: const Text('Настройки'),
-                            onTap: () {
-                              Navigator.pop(context, 'settings');
-                              Navigator.pushNamed(
-                                context,
-                                '/settings',
-                                arguments: '',
-                              );
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.adb),
-                            title: const Text('О программе'),
-                            onTap: () {
-                              Navigator.pop(context, 'dev');
-                              Navigator.pushNamed(
-                                context,
-                                '/dev',
-                                arguments: '',
-                              );
-                            },
-                          ),
-                          const Divider(),
-                          Expanded(
-                            // todo: dialog add dep, with test dep button
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Тема:',
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                  ),
-                                ),
-                                ToggleSwitch(
-                                  minWidth: 145.0,
-                                  minHeight: 34,
-                                  cornerRadius: 83.0,
-                                  activeBgColors: [
-                                    [Theme.of(context).primaryColor],
-                                    [Theme.of(context).primaryColor],
-                                  ],
-                                  activeFgColor: Colors.white,
-                                  inactiveBgColor: const Color(0xffECEFF1),
-                                  inactiveFgColor: Colors.black,
-                                  initialLabelIndex:
-                                      AppData.instance.standardTheme.themeIndex,
-                                  totalSwitches: 2,
-                                  labels: const ['Светлая', 'Темная'],
-                                  radiusStyle: true,
-                                  onToggle: (index) {
-                                    setState(
-                                      () {
-                                        AppData.instance.standardTheme
-                                            .changeIndex(index!);
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                  //
+                  // > menu list
+                  //
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.group_add),
+                    title: const Text(
+                      'Добавить отделение из строки текста или тестовое отделение',
                     ),
-                  ],
-                ),
+                    onTap: () {
+                      Navigator.pop(
+                        context,
+                        'qr',
+                      );
+                      Navigator.pushNamed(
+                        context,
+                        '/add_department',
+                        arguments: '',
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.add,
+                      color: Colors.green,
+                    ),
+                    title: const Text('Сканировать QR код'),
+                    onTap: () {
+                      Navigator.pop(context, 'qr');
+                      Navigator.pushNamed(
+                        context,
+                        '/scan_qr',
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: const Text('Удалить отделение'),
+                    onTap: () {
+                      Navigator.pop(context, 'delete_department');
+                      Navigator.pushNamed(
+                        context,
+                        '/delete_department',
+                        arguments: '',
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.archive),
+                    title: const Text('Архив ввода услуг'),
+                    onTap: () {
+                      AppData.instance.isArchive =
+                          !AppData.instance.isArchive;
+                      Navigator.pop(context, 'archive');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text('Настройки'),
+                    onTap: () {
+                      Navigator.pop(context, 'settings');
+                      Navigator.pushNamed(
+                        context,
+                        '/settings',
+                        arguments: '',
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.adb),
+                    title: const Text('О программе'),
+                    onTap: () {
+                      Navigator.pop(context, 'dev');
+                      Navigator.pushNamed(
+                        context,
+                        '/dev',
+                        arguments: '',
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  Expanded(
+                    // todo: dialog add dep, with test dep button
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Тема:',
+                            style:
+                                Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                        ToggleSwitch(
+                          minWidth: 145.0,
+                          minHeight: 34,
+                          cornerRadius: 83.0,
+                          activeBgColors: [
+                            [Theme.of(context).primaryColor],
+                            [Theme.of(context).primaryColor],
+                          ],
+                          activeFgColor: Colors.white,
+                          inactiveBgColor: const Color(0xffECEFF1),
+                          inactiveFgColor: Colors.black,
+                          initialLabelIndex:
+                              AppData.instance.standardTheme.themeIndex,
+                          totalSwitches: 2,
+                          labels: const ['Светлая', 'Темная'],
+                          radiusStyle: true,
+                          onToggle: (index) {
+                            setState(
+                              () {
+                                AppData.instance.standardTheme
+                                    .changeIndex(index!);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
       //
