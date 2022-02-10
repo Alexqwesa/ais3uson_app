@@ -17,7 +17,7 @@ class ListServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardWidth = (_width < 600) ? _width / 2.1 : 250 as double;
+    final cardWidth = (_width < 600) ? _width / 2.1 : 250.0;
 
     return Container(
       child: _servListOfClient.isNotEmpty
