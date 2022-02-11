@@ -37,7 +37,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
   /// if error - just return empty
   List<ClientService> get services {
     if (_services.isEmpty) {
-      updateServices().then((value) => notifyListeners);
+      updateServices().then((value) => null);
     }
 
     return _services;
@@ -80,6 +80,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
           workerDepId: wp.key.workerDepId,
         );
       }).toList(growable: true);
+      notifyListeners();
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       if (e.message == 'No element') {
