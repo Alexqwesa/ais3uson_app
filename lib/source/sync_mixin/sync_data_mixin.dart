@@ -42,7 +42,9 @@ mixin SyncDataMixin {
 
   /// Get data from network (with error checks) and save it to hive.
   ///
-  /// Call [updateValueFromHive] to load data into application.
+  /// First it call [updateValueFromHive] with parameter 'onlyIfEmpty=true' to get values from hive.
+  /// Then it wait network data, put response to hive
+  /// and call [updateValueFromHive] to display new data.
   Future<void> hiddenSyncHive({
     required String urlAddress,
     required String apiKey,
@@ -53,10 +55,15 @@ mixin SyncDataMixin {
       'Accept': 'application/json',
       'api_key': apiKey,
     };
-    final client = AppData().httpClient;
+    //
+    // > if values are empty get them from hive before waiting from network
+    //
+    final hive = await Hive.openBox<dynamic>(hiveName);
+    updateValueFromHive(apiKey + urlAddress, hive, onlyIfEmpty: true);
     //
     // > main - call server
     //
+    final client = AppData().httpClient;
     try {
       final url = Uri.parse(urlAddress);
       final response = await client.get(url, headers: headers);
@@ -66,7 +73,6 @@ mixin SyncDataMixin {
           // for getting new test data
           // print("=== " + apiKey + urlAddress);
           // print("=== " + response.body);
-          final hive = await Hive.openBox<dynamic>(hiveName);
           await hive.put(apiKey + urlAddress, response.body);
           updateValueFromHive(apiKey + urlAddress, hive);
         }
@@ -92,7 +98,11 @@ mixin SyncDataMixin {
   ///
   /// Usually just call [hiddenUpdateValueFromHive] to get data from hive,
   /// and convert it to user class.
-  void updateValueFromHive(String hiveKey, Box hive);
+  void updateValueFromHive(
+    String hiveKey,
+    Box hive, {
+    bool onlyIfEmpty = false,
+  });
 
   /// This function should be called from [updateValueFromHive].
   ///

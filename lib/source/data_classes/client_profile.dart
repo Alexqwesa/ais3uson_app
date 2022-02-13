@@ -56,7 +56,11 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
 
   /// Stub.
   @override
-  void updateValueFromHive(String hiveKey, Box hive) {
+  void updateValueFromHive(
+    String hiveKey,
+    Box hive, {
+    bool onlyIfEmpty = false,
+  }) {
     return; // just stub
   }
 

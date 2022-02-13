@@ -84,42 +84,52 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   ///
   /// read hive data and notify
   @override
-  Future<void> updateValueFromHive(String hiveKey, Box hive) async {
+  Future<void> updateValueFromHive(
+    String hiveKey,
+    Box hive, {
+    bool onlyIfEmpty = false,
+  }) async {
     if (hiveKey.endsWith('http://${key.host}:${key.port}/clients')) {
       //
       // > Get ClientProfile from hive
       //
-      _clients = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
-          .map<ClientEntry>((json) {
-        return ClientEntry.fromJson(json);
-      }).map((el) {
-        return ClientProfile(
-          workerProfile: this,
-          entry: el,
-        );
-      }).toList(growable: false);
+      if (!onlyIfEmpty || _clients.isEmpty) {
+        _clients = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
+            .map<ClientEntry>((json) {
+          return ClientEntry.fromJson(json);
+        }).map((el) {
+          return ClientProfile(
+            workerProfile: this,
+            entry: el,
+          );
+        }).toList(growable: false);
 
-      await setClientSyncDate();
+        await setClientSyncDate();
+      }
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/planned')) {
       //
       // > Sync Planned services from hive
       //
-      _clientPlan = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
-          .map<ClientPlan>((json) {
-        return ClientPlan.fromJson(json);
-      }).toList(growable: false);
-      await setClientPlanSyncDate();
-      // maybe await it later to call notifyListeners before it?
-      await journal.updateBasedOnNewPlanDate();
+      if (!onlyIfEmpty || _clientPlan.isEmpty) {
+        _clientPlan = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
+            .map<ClientPlan>((json) {
+          return ClientPlan.fromJson(json);
+        }).toList(growable: false);
+        await setClientPlanSyncDate();
+        // maybe await it later to call notifyListeners before it?
+        await journal.updateBasedOnNewPlanDate();
+      }
     } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
       //
       // > Sync services from hive
       //
-      _services = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
-          .map<ServiceEntry>((json) {
-        return ServiceEntry.fromJson(json);
-      }).toList(growable: false);
-      await setServicesSyncDate();
+      if (!onlyIfEmpty || _clientPlan.isEmpty) {
+        _services = hiddenUpdateValueFromHive(hiveKey: hiveKey, hive: hive)
+            .map<ServiceEntry>((json) {
+          return ServiceEntry.fromJson(json);
+        }).toList(growable: false);
+        await setServicesSyncDate();
+      }
     } else {
       return;
     }
