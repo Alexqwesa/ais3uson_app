@@ -46,7 +46,10 @@ class DeleteDepartmentScreen extends StatelessWidget {
                   // > call dialog
                   //
                   onTap: () async {
-                    final result = await _showDialog(context, index);
+                    final result = await _showDialog(
+                      context,
+                      AppData.instance.profiles[index].key.dep,
+                    );
                     if (result == 'delete') {
                       AppData().profileDelete(index);
                       // ignore: use_build_context_synchronously
@@ -67,7 +70,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
 ///
 /// just simple dialog window,
 /// with delete/cancel buttons
-Future<String?> _showDialog(BuildContext context, int index) async {
+Future<String?> _showDialog(BuildContext context, String depName) async {
   return showDialog<String>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -81,7 +84,7 @@ Future<String?> _showDialog(BuildContext context, int index) async {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  AppData().profiles[index].key.dep,
+                  depName,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
