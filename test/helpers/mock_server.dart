@@ -16,7 +16,7 @@ final httpTestHeader = {
 /// Generate a MockClient using the Mockito package.
 @GenerateMocks([http.Client])
 http.Client getMockHttpClient() {
-  final client =  MockClient();
+  final client = MockClient();
 
   when(client.testReqGetAny)
       .thenAnswer((_) async => http.Response('{"title": "Test"}', 200));
@@ -27,16 +27,16 @@ http.Client getMockHttpClient() {
   when(client.testReqGetPlanned)
       .thenAnswer((_) async => http.Response(SERVER_DATA_PLANNED, 200));
   when(client.testReqGetStat).thenAnswer((_) async => http.Response(
-      '<html><head><title>Статистика WEB-сервера АИС ТриУСОН</title>'
-      '</head><body><p>Статистика WEB-сервера АИС ТриУСОН</p>'
-      '<p>Request: /stat</p>'
-      '<p>Thread: Thread-542</p>'
-      '<p>Thread Count: 5</p></body></html>',
-      200));
+        '<html><head><title>Статистика WEB-сервера АИС ТриУСОН</title>'
+        '</head><body><p>Статистика WEB-сервера АИС ТриУСОН</p>'
+        '<p>Request: /stat</p>'
+        '<p>Thread: Thread-542</p>'
+        '<p>Thread Count: 5</p></body></html>',
+        200,
+      ));
 
   return client;
 }
-
 
 extension ExtMock on MockClient {
   Map<String, String> get h => httpTestHeader;
@@ -57,9 +57,8 @@ extension ExtMock on MockClient {
       get(Uri.parse('http://80.87.196.11:48080/stat'), headers: h);
 
   Future<http.Response> get testReqPostAdd => post(
-    Uri.parse('http://80.87.196.11:48080/add'),
-    headers: h,
-    body: anyNamed('body'),
-  );
+        Uri.parse('http://80.87.196.11:48080/add'),
+        headers: h,
+        body: anyNamed('body'),
+      );
 }
-

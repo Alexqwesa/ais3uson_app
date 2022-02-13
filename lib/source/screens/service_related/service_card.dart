@@ -3,7 +3,6 @@ import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Displays one [ClientService].
 ///
