@@ -9,6 +9,7 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 /// Abstract mixin [SyncDataMixin]
@@ -29,6 +30,8 @@ mixin SyncDataMixin {
   ///
   /// Can be considered const, but can be changed for testing purposes.
   String hiveName = 'profiles';
+
+  HttpClient? sslClient;
 
   /// Should be reimplemented in children.
   ///
@@ -63,10 +66,18 @@ mixin SyncDataMixin {
     //
     // > main - call server
     //
-    final client = AppData().httpClient;
     try {
-      final url = Uri.parse(urlAddress);
-      final response = await client.get(url, headers: headers);
+      late http.Response response;
+      if (sslClient != null) {
+        final httpClient = IOClient(sslClient);
+        final url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
+        response = await httpClient.get(url, headers: headers);
+      } else {
+        final client = AppData.instance.httpClient;
+        final url = Uri.parse(urlAddress);
+        response = await client.get(url, headers: headers);
+      }
+
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {

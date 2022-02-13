@@ -6,9 +6,7 @@ import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 /// Basic data about client:
 /// - [name],
@@ -18,12 +16,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 ///
 /// {@category Data_Classes}
 // ignore: prefer_mixin
-class ClientProfile with ChangeNotifier, SyncDataMixin {
+class ClientProfile with ChangeNotifier {
   late WorkerProfile workerProfile;
   late ClientEntry entry;
-
-  @override
-  String get apiKey => workerProfile.apiKey;
 
   int get contractId => entry.contractId;
 
@@ -46,16 +41,6 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
     required this.entry,
   }) {
     workerProfile.addListener(updateServices);
-  }
-
-  /// Stub.
-  @override
-  void updateValueFromHive(
-    String hiveKey,
-    Box hive, {
-    bool onlyIfEmpty = false,
-  }) {
-    return; // just stub
   }
 
   /// Get data from [WorkerProfile] and filter only needed.

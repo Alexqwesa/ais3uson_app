@@ -17,8 +17,9 @@ class AddDepartmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workerKeys =
-        qrCodes.map((e) => WorkerKey.fromJson(jsonDecode(e))).toList();
+    final workerKeys = qrCodes
+        .map((e) => WorkerKey.fromJson(jsonDecode(e) as Map<String, dynamic>))
+        .toList();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -91,7 +92,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                           jsonDecode(
                                             controller.value.text
                                                 .replaceAll('\n', ''),
-                                          ),
+                                          ) as Map<String, dynamic>,
                                         ),
                                       );
                                       if (res) {

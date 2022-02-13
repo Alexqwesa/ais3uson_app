@@ -1,9 +1,12 @@
 // ignore_for_file: always_use_package_imports, flutter_style_todos
 
 import 'dart:async';
+import 'dart:developer' as dev;
+import 'dart:io';
 
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/data_classes/sync_mixin/sync_data_mixin.dart';
 import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/from_json/client_plan.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
@@ -11,7 +14,6 @@ import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
-import 'package:ais3uson_app/source/sync_mixin/sync_data_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -73,6 +75,21 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     name = key.name;
     journal =
         archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
+
+    if (key.certificate.isNotEmpty) {
+      final context = SecurityContext()
+        ..setTrustedCertificatesBytes(key.certificate);
+      sslClient = HttpClient(context: context)
+        ..badCertificateCallback = (cert, host, port) {
+          if (host == '80.87.196.11') { // for debug
+            return true;
+          }
+          dev.log('!!!!Bad certificate');
+          showErrorNotification('Ошибка! неправильный сертификат сервера!');
+
+          return false;
+        };
+    }
   }
 
   /// Update data after sync read from hive and notify.

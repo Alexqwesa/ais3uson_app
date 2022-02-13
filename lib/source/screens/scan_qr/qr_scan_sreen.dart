@@ -198,7 +198,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                           final res = await AppData().addProfileFromKey(
                             WorkerKey.fromJson(json.decode(
                               newKey,
-                            )),
+                            ) as Map<String, dynamic>),
                           );
                           if (!mounted) return;
                           if (res) {

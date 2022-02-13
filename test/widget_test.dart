@@ -61,10 +61,11 @@ void main() {
     // Add department
   });
   testWidgets('listOfProfiles smoke test part 2', (tester) async {
-    // Why hive didn't work here?
+    // only runAsync can work with async code (like file IO)
     await tester.runAsync<bool>(() {
-      return AppData.instance
-          .addProfileFromKey(WorkerKey.fromJson(jsonDecode(qrData2)));
+      return AppData.instance.addProfileFromKey(WorkerKey.fromJson(
+        jsonDecode(qrData2) as Map<String, dynamic>,
+      ));
     });
     const listOfProfiles = ListOfProfiles();
     await tester.pumpWidget(
