@@ -72,7 +72,7 @@
   await Hive.initFlutter();
   Singleton.register(AppData);
 
-  await AppData().postInit();
+  unawaited(AppData().postInit());
   runApp(const OverlaySupport.global(child: AppRoot()));
 }</code></pre>
 </section>
@@ -118,7 +118,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   

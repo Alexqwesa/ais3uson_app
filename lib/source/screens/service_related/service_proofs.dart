@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/camera.dart';
-import 'package:ais3uson_app/source/screens/service_related/proof_list.dart';
+import 'package:ais3uson_app/source/data_classes/proof_list.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 /// Display list of proofs assigned to [ClientService].
 ///
 /// On first build it create list from filesystem data.
+///
+/// {@category UIServices}
 class ServiceProof extends StatefulWidget {
   final ClientService clientService;
 

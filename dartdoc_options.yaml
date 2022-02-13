@@ -12,6 +12,9 @@ dartdoc:
     'Import_from_json':
       name: Import from json
       markdown: lib/source/from_json/README.md
+    'UIServices':
+      name: Classes to display service related data
+      markdown: lib/source/screens/service_related/README.md
 
   subCategoryOrder: [ 'worker_profile', 'Journal' , 'Data_Classes', 'Import_from_json' ]
   subCategories:

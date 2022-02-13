@@ -45,6 +45,8 @@
       
 <section class="desc markdown">
   <h1 id="ais-3uson-backend------">AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")</h1><img align="right" src="assets/ais-3uson-logo-128.png">
+<p><a href="https://github.com/Alexqwesa/ais3uson_app/actions?query=workflow%3ATest"><img src="https://github.com/Alexqwesa/ais3uson_app/workflows/Test/badge.svg" alt="Test Status"></a>
+<a href="https://codecov.io/gh/Alexqwesa/ais3uson_app"><img src="https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD" alt="codecov"></a></p>
 <p>A Flutter mobile backend for <a href="https://github.com/Alexqwesa/AIS-3USON">AIS-3USON</a></p>
 <p>Это мобильное приложение для ввода услуг в информационной системе "<a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a>" ("Автоматизированная Информационная Система Учета Услуг Учреждений Социального Обслуживания Населения").
 В данном приложении используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее - получатели СУ).</p>
@@ -71,7 +73,8 @@
 </li>
 </ul>
 <h2 id="-3">Использование</h2>
-<p>Данное приложение является дополнением для информационной системы "АИС ТриУСОН", и его использование неразрывно связано с основным приложением.</p>
+<p>Данное приложение является дополнением для информационной системы "АИС ТриУСОН", и его использование
+неразрывно связано с основным приложением.</p>
 <p><strong>Заведующие</strong> отделениями работают с полноценным клиентом "АИС ТриУСОН", и в их обязанности входит:</p>
 <ul>
 <li>предоставляют работникам QR коды для авторизации в данном приложении,</li>
@@ -84,32 +87,34 @@
 <li>вводят услуги по мере их оказания,</li>
 <li>периодически (или постоянно) подключаются к интернету для синхронизации данных приложения.</li>
 </ul>
+<p>Для не поддерживаемых ОС, также в целях проверки - доступно
+web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https://alexqwesa.github.io/web3uson/</a>
+).</p><img src="qr_web3uson.png">
 <h2 id="-">Реализованные возможности:</h2>
 <ul>
-<li><code>x</code> Добавление отделения (авторизация) по Qr-коду</li>
+<li><code>x</code> Добавление отделения (авторизация) по Qr-коду (и по строке текста)</li>
+<li><code>x</code> Добавление отделения тестового отделения</li>
 <li><code>x</code> Работа с обезличенными данными клиентов (реализовано на стороне SQL сервера)</li>
 <li><code>x</code> Отравка услуг в СУБД с подтверждением (уникальный uuid каждой записи)</li>
 <li><code>x</code> Работа онлайн и оффлайн (1 раз в день обязательная синхронизация)</li>
 <li><code>x</code> Прикрепление к услуге изображений-подтверждений (хранятся локально)</li>
 <li><code>x</code> Журнал введенных услуг за день</li>
 <li><code>x</code> Архивирование услуг введенных в предыдущие дни</li>
+<li><code>x</code> Просмотр архива услуг</li>
 <li><code>x</code> Проверка переполнения положенных услуг</li>
 <li><code>x</code> Резервное копирование ключей авторизации в облако</li>
 <li><code>x</code> Удаление услуг (только сегодняшних)</li>
+<li><code>x</code> Настраиваемый вид списка услуг</li>
 </ul>
 <h2 id="todo">TODO:</h2>
 <ul>
-<li><code> </code> Настраиваемый вид списка услуг</li>
 <li><code> </code> Напоминание о необходимости синхронизации</li>
 <li><code> </code> Кнопка: Синхронизировать ВСЕ!</li>
 <li><code> </code> Кнопка: Поделится ?</li>
-<li><code> </code> Архиваровать журнал по ?</li>
-<li><code> </code> Добавление отделения (авторизация) по строке</li>
 <li><code> </code> dynamic setting from BD: allow collect proofs, etc...</li>
 <li><code> </code> WorkerKey allow several servers (comma separated list)</li>
 <li><code> </code> maybe backup media data? only on full backup?</li>
-<li><code> </code> Просмотр архива услуг</li>
-<li><code> </code> use ssl, maybe use Dio?</li>
+<li><code> </code> use ssl</li>
 <li><code> </code> Distribute via Google Play</li>
 <li><code> </code> использовать темы для изменения размера шрифта</li>
 <li><code> </code> индикатор обновления?</li>
@@ -128,34 +133,22 @@
 <h3 id="---">Используемые в программе ресурсы</h3>
 <p>Изображения в папке images получены с сервиса <a href="http://www.flaticon.com">www.flaticon.com</a>, в соответствии требованиями сервиса, размещены ссылки:</p>
 <ul>
-<li>Some Icons in folder <em>images</em> made by <a href="http://www.freepik.com">Freepik</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="http://www.flaticon.com/authors/smashicons">Smashicons</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made
-by <a href="https://www.flaticon.com/authors/dinosoftlabs">DinosoftLabs</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/zafdesign">zafdesign</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/GOWI">GOWI</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/Konkapp">Konkapp</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made
-by <a href="https://www.flaticon.com/authors/photo3idea_studio">photo3idea_studio</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/monkik">monkik</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/Payungkead">Payungkead</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/Eucalyp">Eucalyp</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/kosonicon">kosonicon</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-<li>Some Icons in folder <em>images</em> made by <a href="https://www.flaticon.com/authors/wanicon">wanicon</a>
+<li>Some Icons in folder <em>images</em> made by authors: <a href="http://www.freepik.com">Freepik</a>
+, <a href="http://www.flaticon.com/authors/smashicons">Smashicons</a>
+, <a href="https://www.flaticon.com/authors/dinosoftlabs">DinosoftLabs</a>
+, <a href="https://www.flaticon.com/authors/zafdesign">zafdesign</a>
+, <a href="https://www.flaticon.com/authors/GOWI">GOWI</a>
+, <a href="https://www.flaticon.com/authors/Konkapp">Konkapp</a>
+, <a href="https://www.flaticon.com/authors/photo3idea_studio">photo3idea_studio</a>
+, <a href="https://www.flaticon.com/authors/monkik">monkik</a>
+, <a href="https://www.flaticon.com/authors/Payungkead">Payungkead</a>
+, <a href="https://www.flaticon.com/authors/Eucalyp">Eucalyp</a>
+, <a href="https://www.flaticon.com/authors/kosonicon">kosonicon</a>
+, <a href="https://www.flaticon.com/authors/wanicon">wanicon</a>
 from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
 </ul>
-<p>These images belongs to its owners, I am <a href="https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209">allowed to use them</a> in this project by permission of service <a href="http://www.flaticon.com">www.flaticon.com</a> (here is <a href="images/license.pdf">license</a>).</p>
+<p>These images belongs to its owners, I am <a href="https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209">allowed to use them</a> 
+in this project by permission of service <a href="http://www.flaticon.com">www.flaticon.com</a> (here is <a href="images/license.pdf">license</a>).</p>
 </section>
 
 
@@ -295,13 +288,6 @@ from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
 <dd> 
 </dd>
 
-          <dt id="list_services">
-  <span class="name"><a href="source_screens_service_related_list_services/source_screens_service_related_list_services-library.html">list_services</a></span> 
-
-</dt>
-<dd> 
-</dd>
-
           <dt id="main">
   <span class="name"><a href="main/main-library.html">main</a></span> 
 
@@ -310,7 +296,7 @@ from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
 </dd>
 
           <dt id="proof_list">
-  <span class="name"><a href="source_screens_service_related_proof_list/source_screens_service_related_proof_list-library.html">proof_list</a></span> 
+  <span class="name"><a href="source_data_classes_proof_list/source_data_classes_proof_list-library.html">proof_list</a></span> 
 
 </dt>
 <dd> 
@@ -325,6 +311,20 @@ from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
 
           <dt id="service_card">
   <span class="name"><a href="source_screens_service_related_service_card/source_screens_service_related_service_card-library.html">service_card</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="service_card_state">
+  <span class="name"><a href="source_screens_service_related_service_card_state/source_screens_service_related_service_card_state-library.html">service_card_state</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="service_card_view">
+  <span class="name"><a href="source_screens_service_related_service_card_view/source_screens_service_related_service_card_view-library.html">service_card_view</a></span> 
 
 </dt>
 <dd> 
@@ -417,6 +417,7 @@ from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
         <li><a href="topics/Import_from_json-topic.html">Import_from_json</a></li>
         <li><a href="topics/Journal-topic.html">Journal</a></li>
         <li><a href="topics/Root-topic.html">Root</a></li>
+        <li><a href="topics/UIServices-topic.html">UIServices</a></li>
       <li class="section-title">Libraries</li>
       <li><a href="source_screens_add_department_screen/source_screens_add_department_screen-library.html">add_department_screen</a></li>
       <li><a href="source_app_data/source_app_data-library.html">app_data</a></li>
@@ -437,11 +438,12 @@ from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
       <li><a href="Journal/Journal-library.html">Journal</a></li>
       <li><a href="source_journal_archive_journal_archive/source_journal_archive_journal_archive-library.html">journal_archive</a></li>
       <li><a href="source_screens_list_profiles/source_screens_list_profiles-library.html">list_profiles</a></li>
-      <li><a href="source_screens_service_related_list_services/source_screens_service_related_list_services-library.html">list_services</a></li>
       <li><a href="main/main-library.html">main</a></li>
-      <li><a href="source_screens_service_related_proof_list/source_screens_service_related_proof_list-library.html">proof_list</a></li>
+      <li><a href="source_data_classes_proof_list/source_data_classes_proof_list-library.html">proof_list</a></li>
       <li><a href="source_screens_scan_qr_qr_scan_sreen/source_screens_scan_qr_qr_scan_sreen-library.html">qr_scan_sreen</a></li>
       <li><a href="source_screens_service_related_service_card/source_screens_service_related_service_card-library.html">service_card</a></li>
+      <li><a href="source_screens_service_related_service_card_state/source_screens_service_related_service_card_state-library.html">service_card_state</a></li>
+      <li><a href="source_screens_service_related_service_card_view/source_screens_service_related_service_card_view-library.html">service_card_view</a></li>
       <li><a href="source_from_json_service_entry/source_from_json_service_entry-library.html">service_entry</a></li>
       <li><a href="source_journal_service_of_journal/source_journal_service_of_journal-library.html">service_of_journal</a></li>
       <li><a href="source_screens_service_related_service_proofs/source_screens_service_related_service_proofs-library.html">service_proofs</a></li>
@@ -463,7 +465,7 @@ from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   

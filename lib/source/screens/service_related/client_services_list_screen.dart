@@ -1,10 +1,17 @@
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
+import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// Show list of services assigned to client, allow input by click.
+///
+/// Create [ServiceCard] widget for each [ClientService].
+/// Support: resync button and change of view of the list.
+///
+/// {@category UIServices}
 class ClientServicesListScreen extends StatefulWidget {
   late final int profileNum;
 

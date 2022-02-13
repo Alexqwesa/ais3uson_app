@@ -1,10 +1,14 @@
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
+import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_proofs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// Display one [ClientService] on fullscreen.
+///
+/// {@category UIServices}
 class ClientServiceScreen extends StatefulWidget {
   final ClientService service;
 
@@ -141,6 +145,9 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
   }
 }
 
+/// Button to add new [ServiceOfJournal], used in [ClientServiceScreen].
+///
+/// {@category UIServices}
 class AddButton extends StatelessWidget {
   final ClientServiceScreen widget;
 
@@ -174,6 +181,9 @@ class AddButton extends StatelessWidget {
   }
 }
 
+/// Button to delete [ServiceOfJournal], used in [ClientServiceScreen].
+///
+/// {@category UIServices}
 class DeleteButton extends StatelessWidget {
   final ClientServiceScreen widget;
 

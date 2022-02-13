@@ -1,10 +1,13 @@
-// A screen that allows users to take a picture using a given camera.
 import 'dart:developer' as dev;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-// A screen that allows users to take a picture using a given camera.
+/// A screen that allows users to take a picture using a given camera.
+///
+/// Used to make proof images.
+///
+/// {@category UIServices}
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
 

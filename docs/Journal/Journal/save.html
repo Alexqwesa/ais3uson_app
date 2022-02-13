@@ -68,11 +68,10 @@
   hive = await Hive.openBox&lt;ServiceOfJournal&gt;(&#39;journal_$apiKey&#39;);
   for (final s in all) {
     try {
-      await hive.add(s);
-      &#47;&#47; ignore: avoid_catching_errors
-    } on HiveError {
-      &#47;&#47; just save if there are duplicate error
       await s.save();
+      &#47;&#47; ignore: avoid_catching_errors, avoid_catches_without_on_clauses
+    } catch (e) {
+      dev.log(&#39;can not save $s&#39;);
     }
   }
   await hive.compact();
@@ -161,7 +160,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   

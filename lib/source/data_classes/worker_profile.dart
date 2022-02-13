@@ -17,7 +17,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 /// A profile of worker.
 ///
-/// It created from authentication QR code (or text).
+/// It created from authentication QR code (or text) via [WorkerKey].
 ///
 /// It main purpose is to store [Journal] and get bunch of sync data via:
 /// - [syncHiveServices],

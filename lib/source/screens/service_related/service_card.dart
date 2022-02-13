@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// Displays one [ClientService].
+///
+/// {@category UIServices}
 class ServiceCard extends StatefulWidget {
   final ClientService service;
   final Size parentSize;
@@ -37,7 +39,7 @@ class _ServiceCardState extends State<ServiceCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceSize(widget.parentSize),
+      size: AppData.instance.serviceCardSize(widget.parentSize),
       child: Stack(
         children: [
           ColorFiltered(
@@ -92,113 +94,6 @@ class _ServiceCardState extends State<ServiceCard> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Display state of the client service: amount of done/added/rejected.
-///
-/// It get data from [ClientService.journal] and count these 3 numbers:
-/// - done - finished and outDated,
-/// - inProgress - added and stale,
-/// - error - rejected.
-class ServiceCardState extends StatelessWidget {
-  //
-  // icon data
-  //
-  static const icons = <Icon>[
-    Icon(
-      Icons.volunteer_activism,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.update,
-      color: Colors.orange,
-    ),
-    Icon(
-      Icons.do_not_touch_outlined,
-      color: Colors.red,
-    ),
-  ];
-
-  final ClientService clientService;
-
-  final bool rigthOfText;
-
-  const ServiceCardState({
-    required this.clientService,
-    Key? key,
-    this.rigthOfText = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: FittedBox(
-        alignment: Alignment.topLeft,
-        fit: BoxFit.fitHeight,
-        child: SizedBox(
-          height: 64 - (rigthOfText ? 10: 0),
-          width: 10 + (rigthOfText ? 14 : 0),
-          child: ChangeNotifierProvider<ClientService>.value(
-            value: clientService,
-            child: Consumer<ClientService>(
-              builder: (context, data, child) {
-                final listDoneProgressError =
-                    context.select<ClientService, List<int>>(
-                  (data) => data.listDoneProgressError,
-                );
-
-                return ListView.builder(
-                  itemCount: 3,
-                  shrinkWrap: true,
-                  itemBuilder: (context, i) {
-                    return FittedBox(
-                      child: Visibility(
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        visible: listDoneProgressError.elementAt(i) != 0,
-                        child: rigthOfText
-                            ? Container(
-                                color: Colors.white,
-                                child: Row(
-                                  children: [
-                                    icons.elementAt(i),
-                                    Text(
-                                      listDoneProgressError
-                                          .elementAt(i)
-                                          .toString(),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container(
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    icons.elementAt(i),
-                                    Text(
-                                      listDoneProgressError
-                                          .elementAt(i)
-                                          .toString(),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
       ),
     );
   }

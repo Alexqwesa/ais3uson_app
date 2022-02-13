@@ -1,12 +1,16 @@
+import 'dart:async';
+
+import 'package:ais3uson_app/source/data_classes/proof_list.dart';
 import 'package:ais3uson_app/source/from_json/client_plan.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/screens/service_related/proof_list.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:flutter/material.dart';
-import 'package:surf_lint_rules/surf_lint_rules.dart';
 
+/// Model for [ServiceCard] and [ClientService].
+///
 /// This is mostly a view model for data from:
 /// - [Journal],
 /// - [ServiceEntry],

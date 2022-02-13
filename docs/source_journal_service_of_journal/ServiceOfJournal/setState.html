@@ -71,9 +71,9 @@ if box closed - do nothing (think we are in archive).</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; setState(ServiceState value) async {
   _state = value;
-  if (value == ServiceState.finished) {
-    provDate = DateTime.now();
-  }
+  &#47;&#47; if (value == ServiceState.finished) {
+  &#47;&#47;   provDate = DateTime.now();
+  &#47;&#47; }
   if (box != null &amp;&amp; box!.isOpen) {
     if (isInBox) {
       await save();
@@ -151,7 +151,7 @@ if box closed - do nothing (think we are in archive).</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   

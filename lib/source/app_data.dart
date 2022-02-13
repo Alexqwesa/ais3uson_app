@@ -12,6 +12,7 @@ import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -202,7 +203,8 @@ class AppData with ChangeNotifier {
     return false;
   }
 
-  Size serviceSize(Size parentSize) {
+  /// Calculate size of [ServiceCard]. It is calculated here because it used in different places.
+  Size serviceCardSize(Size parentSize) {
     final parentWidth = parentSize.width;
     if (serviceView == 'tile') {
       final divider = (parentWidth - 20) ~/ 400.0;
@@ -224,6 +226,7 @@ class AppData with ChangeNotifier {
     }
   }
 
+  /// Just delete profile, notify and save left profiles.
   void profileDelete(int index) {
     _profiles.removeAt(index);
     notifyListeners();

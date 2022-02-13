@@ -87,29 +87,31 @@ Only <a href="../../source_global_helpers/hiveArchiveLimit-constant.html">hiveAr
     this code can lead to data duplication, but we can: TODO: deduplicate data on load.
     This is low priority since it can only happen if sudden kill of app happen in exact this moment.
   *&#47;
-  final forArchive = all
-      .where(
-        (el) =&gt;
-            el.provDate.isBefore(today) &amp;&amp;
-            [ServiceState.finished, ServiceState.outDated].contains(el.state),
-      )
-      .map(
-        (e) =&gt; ServiceOfJournal.copy(
-          servId: e.servId,
-          contractId: e.contractId,
-          workerId: e.workerId,
-          state: e.state,
-          uid: e.uid,
-          error: e.error,
-          provDate: e.provDate,
-        ),
-      );
+  final forDelete = all.where(
+    (el) =&gt;
+        el.provDate.isBefore(today) &amp;&amp;
+        [ServiceState.finished, ServiceState.outDated].contains(el.state),
+  );
+  final forArchive = forDelete.map(
+    (e) =&gt; ServiceOfJournal.copy(
+      servId: e.servId,
+      contractId: e.contractId,
+      workerId: e.workerId,
+      state: e.state,
+      uid: e.uid,
+      error: e.error,
+      provDate: e.provDate,
+    ),
+  );
   if (forArchive.isNotEmpty) {
     await hiveArchive.addAll(forArchive);
     &#47;&#47;
     &#47;&#47; &gt; delete finished old services and save hive
     &#47;&#47;
-    all.removeWhere(forArchive.contains);
+    forDelete.forEach((e) {
+      e.delete();
+    });
+    all.removeWhere(forDelete.contains);
     await save();
     &#47;&#47;
     &#47;&#47; &gt; only [hiveArchiveLimit] number of services stored, delete most old and close
@@ -213,7 +215,7 @@ Only <a href="../../source_global_helpers/hiveArchiveLimit-constant.html">hiveAr
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   

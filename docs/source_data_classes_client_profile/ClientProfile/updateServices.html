@@ -85,6 +85,7 @@
         workerDepId: wp.key.workerDepId,
       );
     }).toList(growable: true);
+    notifyListeners();
     &#47;&#47; ignore: avoid_catching_errors
   } on StateError catch (e) {
     if (e.message == &#39;No element&#39;) {
@@ -168,7 +169,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   

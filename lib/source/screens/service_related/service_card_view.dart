@@ -1,9 +1,11 @@
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
 
 /// Displays text, icon, etc of [ClientService] - default view.
+///
+/// {@category UIServices}
 class ServiceCardView extends StatelessWidget {
   final ClientService service;
   final Size parentWidth;
@@ -17,7 +19,7 @@ class ServiceCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceSize(parentWidth),
+      size: AppData.instance.serviceCardSize(parentWidth),
       child: Card(
         elevation: 12,
         child: Padding(
@@ -28,7 +30,7 @@ class ServiceCardView extends StatelessWidget {
                 height: 100,
                 child: ServiceCardState(
                   clientService: service,
-                  rigthOfText: true,
+                  rightOfText: true,
                 ),
               ),
               Column(
@@ -92,6 +94,8 @@ class ServiceCardView extends StatelessWidget {
 }
 
 /// Displays text, icon, etc of [ClientService] - tile view.
+///
+/// {@category UIServices}
 class ServiceCardTileView extends StatelessWidget {
   final ClientService service;
   final Size parentWidth;
@@ -105,7 +109,7 @@ class ServiceCardTileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceSize(parentWidth),
+      size: AppData.instance.serviceCardSize(parentWidth),
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: SizedBox(
@@ -176,7 +180,7 @@ class ServiceCardTileView extends StatelessWidget {
                       height: 88,
                       child: ServiceCardState(
                         clientService: service,
-                        rigthOfText: true,
+                        rightOfText: true,
                       ),
                     ),
                   ),

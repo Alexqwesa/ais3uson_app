@@ -70,13 +70,7 @@ if error - just return empty</p>
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">List&lt;ClientService&gt; get services {
-  if (_services.isEmpty) {
-    updateServices().then((value) =&gt; notifyListeners);
-  }
-
-  return _services;
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">List&lt;ClientService&gt; get services =&gt; _services;</code></pre>
 </section>
 
 </section>
@@ -151,7 +145,7 @@ if error - just return empty</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+1
+      1.0.1+3
   </span>
 
   
