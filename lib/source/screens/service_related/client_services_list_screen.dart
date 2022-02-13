@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
@@ -37,16 +35,6 @@ class ClientServicesListScreen extends StatefulWidget {
 }
 
 class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
-  @override
-  void initState() {
-    final clientProfile = widget.clientProfile;
-    if (clientProfile.services.isEmpty) {
-      unawaited(clientProfile.updateServices());
-      // unawaited( clientProfile.workerProfile.syncHivePlanned());
-    }
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +70,37 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
             ],
           ),
         ),
+        actions: [
+          PopupMenuButton<dynamic>(
+            icon: const Icon(Icons.more_vert),
+            itemBuilder: (context) => <PopupMenuEntry>[
+              PopupMenuItem<ListTile>(
+                child: ListTile(
+                  leading: const Icon(Icons.grid_3x3),
+                  title: const Text('Подбробно'),
+                  onTap: () {
+                    Navigator.pop(context, '');
+                    setState(() {
+                      AppData.instance.serviceView = '';
+                    });
+                  },
+                ),
+              ),
+              PopupMenuItem<ListTile>(
+                child: ListTile(
+                  leading: const Icon(Icons.list_alt),
+                  title: const Text('Список'),
+                  onTap: () {
+                    Navigator.pop(context, 'tile');
+                    setState(() {
+                      AppData.instance.serviceView = 'tile';
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: Center(
         child: ChangeNotifierProvider<ClientProfile>.value(
@@ -103,7 +122,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                                 (element) {
                                   return ServiceCard(
                                     service: element,
-                                    width: size.width,
+                                    parentSize: size,
                                   );
                                 },
                               ),

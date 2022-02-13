@@ -1,5 +1,6 @@
 // ignore_for_file: flutter_style_todos
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:developer' as dev;
@@ -39,6 +40,9 @@ class AppData with ChangeNotifier {
   late ScreenArguments lastScreen;
 
   http.Client httpClient = http.Client();
+
+  /// View of services List, can be: ['', 'tile', 'short']
+  String serviceView = '';
 
   // ignore: prefer_constructors_over_static_methods
   static AppData get instance => AppData();
@@ -127,6 +131,8 @@ class AppData with ChangeNotifier {
         await el.journal.hiveArchive.close();
       }
     }));
+
+    await prefs.setString('serviceView', serviceView);
   }
 
   /// Init Hive and its adapters.
@@ -157,6 +163,7 @@ class AppData with ChangeNotifier {
         WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
     }
+    serviceView = prefs.getString('serviceView') ?? '';
     notifyListeners();
     await Future.wait(_profiles.map((e) => e.postInit()));
     notifyListeners();
@@ -171,6 +178,7 @@ class AppData with ChangeNotifier {
       showErrorNotification('Ошибка: не удалось сохранить профиль отделения!');
     }
     notifyListeners();
+    await prefs.setString('serviceView', serviceView);
   }
 
   /// Add Profile from [WorkerKey].
@@ -192,5 +200,33 @@ class AppData with ChangeNotifier {
     }
 
     return false;
+  }
+
+  Size serviceSize(Size parentSize) {
+    final parentWidth = parentSize.width;
+    if (serviceView == 'tile') {
+      final divider = (parentWidth - 20) ~/ 400.0;
+      final cardWidth = parentWidth / divider;
+
+      return Size(
+        cardWidth * 1.0,
+        cardWidth / 4,
+      );
+    } else {
+      var divider = (parentWidth - 20) ~/ 250.0;
+      divider = divider > 1 ? divider : 2;
+      final cardWidth = parentWidth / divider;
+
+      return Size(
+        cardWidth * 1.0,
+        cardWidth * 1.2,
+      );
+    }
+  }
+
+  void profileDelete(int index) {
+    _profiles.removeAt(index);
+    notifyListeners();
+    unawaited(AppData().save());
   }
 }

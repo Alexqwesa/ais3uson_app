@@ -1,16 +1,18 @@
+import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// Displays one [ClientService].
 class ServiceCard extends StatefulWidget {
   final ClientService service;
-  final double width;
+  final Size parentSize;
 
   const ServiceCard({
     required this.service,
-    required this.width,
+    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
@@ -34,23 +36,37 @@ class _ServiceCardState extends State<ServiceCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ColorFiltered(
-          colorFilter: ColorFilter.mode(
-            enabled ? Colors.white : Colors.grey.withOpacity(.8),
-            BlendMode.multiply,
+    return SizedBox.fromSize(
+      size: AppData.instance.serviceSize(widget.parentSize),
+      child: Stack(
+        children: [
+          ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              enabled ? Colors.white : Colors.grey.withOpacity(.8),
+              BlendMode.multiply,
+            ),
+            child: Row(
+              children: [
+                //
+                // > select view
+                //
+                if (AppData().serviceView == '')
+                  ServiceCardView(
+                    service: widget.service,
+                    parentWidth: widget.parentSize,
+                  )
+                else if (AppData().serviceView == 'tile')
+                  ServiceCardTileView(
+                    service: widget.service,
+                    parentWidth: widget.parentSize,
+                  ),
+              ],
+            ),
           ),
-          child: ServiceCardView(
-            service: widget.service,
-            parentWidth: widget.width,
-          ),
-        ),
-        //
-        // InkWell animation and handler
-        //
-        Positioned.fill(
-          child: Material(
+          //
+          // InkWell animation and handler
+          //
+          Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
@@ -75,106 +91,7 @@ class _ServiceCardState extends State<ServiceCard> {
               child: Container(),
             ),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-/// Displays text, icon, etc of [ClientService].
-class ServiceCardView extends StatelessWidget {
-  final ClientService service;
-  final double parentWidth;
-  late final double cardWidth;
-
-  ServiceCardView({
-    required this.service,
-    required this.parentWidth,
-    Key? key,
-  }) : super(key: key) {
-    cardWidth = parentWidth / (parentWidth ~/ 250.0);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: cardWidth * 1.2,
-      width: cardWidth * 1.0,
-      child: Card(
-        elevation: 12,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: SizedBox(
-                height: 90,
-                child: Row(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Transform.scale(
-                        scale: 1.5,
-                        child: ServiceCardState(
-                          clientService: service,
-                        ),
-                      ),
-                    ),
-                    //
-                    // > service image
-                    //
-                    Expanded(
-                      child: Center(
-                        child: Hero(
-                          tag: service.servId,
-                          child: SizedBox(
-                            height: 90,
-                            width: 90,
-                            child: Image.asset(
-                              'images/${service.image}',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            //
-            // > service text
-            //
-            Center(
-              child: SizedBox(
-                height: cardWidth * 1.2 - 102,
-                width: 200,
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          service.shortText,
-                          textScaleFactor: 1.1,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                        child: Text(
-                          service.servTextAdd,
-                          softWrap: true,
-                          // overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -207,50 +124,79 @@ class ServiceCardState extends StatelessWidget {
 
   final ClientService clientService;
 
-  const ServiceCardState({required this.clientService, Key? key})
-      : super(key: key);
+  final bool rigthOfText;
+
+  const ServiceCardState({
+    required this.clientService,
+    Key? key,
+    this.rigthOfText = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(2, 14, 1, 1),
-      child: SizedBox(
-        height: 70,
-        width: 10,
-        child: ChangeNotifierProvider<ClientService>.value(
-          value: clientService,
-          child: Consumer<ClientService>(
-            builder: (context, data, child) {
-              final listDoneProgressError =
-                  context.select<ClientService, List<int>>(
-                (data) => data.listDoneProgressError,
-              );
+    return SizedBox.expand(
+      child: FittedBox(
+        alignment: Alignment.topLeft,
+        fit: BoxFit.fitHeight,
+        child: SizedBox(
+          height: 64 - (rigthOfText ? 10: 0),
+          width: 10 + (rigthOfText ? 14 : 0),
+          child: ChangeNotifierProvider<ClientService>.value(
+            value: clientService,
+            child: Consumer<ClientService>(
+              builder: (context, data, child) {
+                final listDoneProgressError =
+                    context.select<ClientService, List<int>>(
+                  (data) => data.listDoneProgressError,
+                );
 
-              return ListView.builder(
-                itemCount: 3,
-                shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, i) {
-                  return FittedBox(
-                    child: Visibility(
-                      maintainSize: true,
-                      maintainAnimation: true,
-                      maintainState: true,
-                      visible: listDoneProgressError.elementAt(i) != 0,
-                      child: Column(
-                        children: [
-                          icons.elementAt(i),
-                          Text(
-                            listDoneProgressError.elementAt(i).toString(),
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                        ],
+                return ListView.builder(
+                  itemCount: 3,
+                  shrinkWrap: true,
+                  itemBuilder: (context, i) {
+                    return FittedBox(
+                      child: Visibility(
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        visible: listDoneProgressError.elementAt(i) != 0,
+                        child: rigthOfText
+                            ? Container(
+                                color: Colors.white,
+                                child: Row(
+                                  children: [
+                                    icons.elementAt(i),
+                                    Text(
+                                      listDoneProgressError
+                                          .elementAt(i)
+                                          .toString(),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    icons.elementAt(i),
+                                    Text(
+                                      listDoneProgressError
+                                          .elementAt(i)
+                                          .toString(),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ],
+                                ),
+                              ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

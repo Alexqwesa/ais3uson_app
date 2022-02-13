@@ -47,14 +47,11 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                         //
                         // > service state icons
                         //
-                        Expanded(
-                          child: Align(
-                            child: Transform.scale(
-                              scale: 2.5,
-                              child: ServiceCardState(
-                                clientService: widget.service,
-                              ),
-                            ),
+                        SizedBox(
+                          height: width / 4,
+                          width: width / 6,
+                          child: ServiceCardState(
+                            clientService: widget.service,
                           ),
                         ),
 
