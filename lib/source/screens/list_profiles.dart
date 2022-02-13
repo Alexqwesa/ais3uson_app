@@ -54,6 +54,9 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             '/department',
                             arguments: ScreenArguments(profile: index),
                           );
+                          if (AppData().profiles[index].clients.isEmpty) {
+                            AppData.instance.profiles[index].syncHiveClients();
+                          }
                         },
                         subtitle: Align(
                           alignment: Alignment.topLeft,

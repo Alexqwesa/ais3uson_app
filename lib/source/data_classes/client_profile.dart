@@ -35,13 +35,7 @@ class ClientProfile with ChangeNotifier, SyncDataMixin {
   ///
   /// if list empty - try to fill it here,
   /// if error - just return empty
-  List<ClientService> get services {
-    if (_services.isEmpty) {
-      updateServices().then((value) => null);
-    }
-
-    return _services;
-  }
+  List<ClientService> get services => _services;
 
   List<ClientService> _services = [];
 

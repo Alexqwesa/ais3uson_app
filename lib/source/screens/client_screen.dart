@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
@@ -48,9 +50,6 @@ class _ClientScreenState extends State<ClientScreen> {
                 context.select<WorkerProfile, List<ClientProfile>>(
               (data) => data.clients.toList(),
             );
-            if (clientList.isEmpty) {
-              workerProfile.syncHiveClients();
-            }
 
             //
             // > build list
@@ -78,18 +77,25 @@ class _ClientScreenState extends State<ClientScreen> {
                               // textAlign: TextAlign.right,
                             ),
                           ),
-                          onTap: () {
-                            if (workerProfile.services.isEmpty) {
-                              workerProfile.syncHiveServices();
-                            }
-                            Navigator.pushNamed(
+                          onTap: () async {
+                            unawaited(Navigator.pushNamed(
                               context,
                               '/client_services',
                               arguments: ScreenArguments(
                                 profile: profileNum,
                                 contract: clientList[index].contractId,
                               ),
-                            );
+                            ));
+                            if (workerProfile.services.isEmpty) {
+                              await workerProfile.syncHiveServices();
+                            }
+                            if (workerProfile.clientPlan.isEmpty) {
+                              await workerProfile.syncHivePlanned();
+                            }
+                            final clientProfile = clientList[index];
+                            if (clientProfile.services.isEmpty) {
+                              await clientProfile.updateServices();
+                            }
                           },
                         ),
                       );
