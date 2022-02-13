@@ -11,7 +11,6 @@ import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -78,22 +77,5 @@ void main() {
     expect(find.text('Тестовое отделение 48080'), findsOneWidget);
     expect(find.textContaining('отсканируйте QR код'), findsNothing);
     await tester.pumpAndSettle();
-  });
-}
-
-Future<void> backButton(WidgetTester tester) async {
-  return TestAsyncUtils.guard<void>(() async {
-    var backButton = find.byTooltip('Back');
-    if (backButton.evaluate().isEmpty) {
-      backButton = find.byType(CupertinoNavigationBarBackButton);
-    }
-
-    expectSync(
-      backButton,
-      findsOneWidget,
-      reason: 'One back button expected on screen',
-    );
-
-    await tester.tap(backButton);
   });
 }
