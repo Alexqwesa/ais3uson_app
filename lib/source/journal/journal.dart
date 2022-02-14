@@ -18,6 +18,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 import 'package:synchronized/synchronized.dart';
 
 /// Journal of services
@@ -190,11 +191,17 @@ class Journal with ChangeNotifier {
   /// Return new state or null, didn't change service state itself.
   /// On error: show [showErrorNotification] to user.
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
-    final url = Uri.parse(urlAddress);
-    final http = AppData().httpClient;
+    var url = Uri.parse(urlAddress);
+    var http = AppData().httpClient;
     var ret = ServiceState.stalled;
     try {
       Response response;
+      final sslClient = workerProfile.sslClient;
+      if (sslClient != null) {
+        http = IOClient(sslClient);
+        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
+      }
+
       if (urlAddress.endsWith('/add')) {
         response = await http.post(url, headers: _httpHeaders, body: body);
       } else if (urlAddress.endsWith('/delete')) {

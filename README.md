@@ -1,4 +1,5 @@
 # AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")
+
 <img align="right" src="assets/ais-3uson-logo-128.png">
 
 [![Test Status](https://github.com/Alexqwesa/ais3uson_app/workflows/Test/badge.svg)](https://github.com/Alexqwesa/ais3uson_app/actions?query=workflow%3ATest)
@@ -6,10 +7,14 @@
 
 A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
-Это мобильное приложение для ввода услуг в информационной системе "[АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON)" ("Автоматизированная Информационная Система Учета Услуг Учреждений Социального Обслуживания Населения").
-В данном приложении используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее - получатели СУ).
+Это мобильное приложение для ввода услуг в информационной
+системе "[АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON)" ("Автоматизированная Информационная
+Система Учета Услуг Учреждений Социального Обслуживания Населения"). В данном приложении
+используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее -
+получатели СУ).
 
 ## Содержание
+
 - [Установка](#установка)
 - [Использование](#использование)
 - [Реализованные возможности](#реализованные-возможности)
@@ -19,13 +24,20 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 ## Установка
 
-- Установите пароль для пользователя web_user в вашей SQL базе данных (в установочных скриптах AIS-3USON этому пользователю назначены минимально необходимые привилегии).
-- Установите скрипт WEB-сервера AIS-3USON и пароль в соответствии с инструкцией ([ссылка на скрипт и инструкцию](https://github.com/Alexqwesa/AIS-3USON/blob/main/src/worker/web_worker/ais3uson_www.py)).
-- Рекомендуется использовать разные серверы для SQL-сервера и WEB-сервера, установите безопасное соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с помощью openSSH (man ssh или [подробное руководство на русском](https://habr.com/ru/post/331348/)).
-- Работники: 
-  - устанавливают приложение (здесь будут ссылки для установки), 
-  - // Заведующие предоставляют работникам сгенерированный в приложении [АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON) Qr код,
-  - работник запускают приложение и нажимают кнопку **+** (сканировать Qr-код). 
+- Установите пароль для пользователя web_user в вашей SQL базе данных (в установочных скриптах
+  AIS-3USON этому пользователю назначены минимально необходимые привилегии).
+- Установите скрипт WEB-сервера AIS-3USON и пароль в соответствии с
+  инструкцией ([ссылка на скрипт и инструкцию](https://github.com/Alexqwesa/AIS-3USON/blob/main/src/worker/web_worker/ais3uson_www.py))
+  .
+- Рекомендуется использовать разные серверы для SQL-сервера и WEB-сервера, установите безопасное
+  соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с
+  помощью openSSH (man ssh или [подробное руководство на русском](https://habr.com/ru/post/331348/))
+  .
+- Работники:
+  - устанавливают приложение (здесь будут ссылки для установки),
+  - // Заведующие предоставляют работникам сгенерированный в
+    приложении [АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON) Qr код,
+  - работник запускают приложение и нажимают кнопку **+** (сканировать Qr-код).
 
 ## Использование
 
@@ -65,15 +77,16 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Резервное копирование ключей авторизации в облако
 - [x] Удаление услуг (только сегодняшних)
 - [x] Настраиваемый вид списка услуг
+- [x] Защищенные соединения (https), нужно только добавить ключ на web-сервер и сертификат в QR-код
 
 ## TODO:
+
 - [ ] Напоминание о необходимости синхронизации
 - [ ] Кнопка: Синхронизировать ВСЕ!
 - [ ] Кнопка: Поделится ?
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] WorkerKey allow several servers (comma separated list)
 - [ ] maybe backup media data? only on full backup?
-- [ ] use ssl
 - [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта
 - [ ] индикатор обновления?
@@ -87,26 +100,33 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 
 ## Разработчики
 
-[@Alexqwesa](https://github.com/Alexqwesa) aka Savin Aleksander Viktorovich (Савин Александр Викторович)
+[@Alexqwesa](https://github.com/Alexqwesa) aka Savin Aleksander Viktorovich (Савин Александр
+Викторович)
 
 ## Лицензия
+
 [LGPLv3](LICENSE) © Savin Aleksander Viktorovich (Савин Александр Викторович)
 
 ### Используемые в программе ресурсы
-Изображения в папке images получены с сервиса [www.flaticon.com](http://www.flaticon.com), в соответствии требованиями сервиса, размещены ссылки:
+
+Изображения в папке images получены с сервиса [www.flaticon.com](http://www.flaticon.com), в
+соответствии требованиями сервиса, размещены ссылки:
+
 - Some Icons in folder *images* made by authors: [Freepik](http://www.freepik.com)
-, [Smashicons](http://www.flaticon.com/authors/smashicons)
-, [DinosoftLabs](https://www.flaticon.com/authors/dinosoftlabs)
-, [zafdesign](https://www.flaticon.com/authors/zafdesign)
-, [GOWI](https://www.flaticon.com/authors/GOWI)
-, [Konkapp](https://www.flaticon.com/authors/Konkapp)
-, [photo3idea_studio](https://www.flaticon.com/authors/photo3idea_studio)
-, [monkik](https://www.flaticon.com/authors/monkik)
-, [Payungkead](https://www.flaticon.com/authors/Payungkead)
-, [Eucalyp](https://www.flaticon.com/authors/Eucalyp)
-, [kosonicon](https://www.flaticon.com/authors/kosonicon)
-, [wanicon](https://www.flaticon.com/authors/wanicon)
+  , [Smashicons](http://www.flaticon.com/authors/smashicons)
+  , [DinosoftLabs](https://www.flaticon.com/authors/dinosoftlabs)
+  , [zafdesign](https://www.flaticon.com/authors/zafdesign)
+  , [GOWI](https://www.flaticon.com/authors/GOWI)
+  , [Konkapp](https://www.flaticon.com/authors/Konkapp)
+  , [photo3idea_studio](https://www.flaticon.com/authors/photo3idea_studio)
+  , [monkik](https://www.flaticon.com/authors/monkik)
+  , [Payungkead](https://www.flaticon.com/authors/Payungkead)
+  , [Eucalyp](https://www.flaticon.com/authors/Eucalyp)
+  , [kosonicon](https://www.flaticon.com/authors/kosonicon)
+  , [wanicon](https://www.flaticon.com/authors/wanicon)
   from [www.flaticon.com](http://www.flaticon.com)
 
-These images belongs to its owners, I am [allowed to use them](https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209) 
-in this project by permission of service [www.flaticon.com](http://www.flaticon.com) (here is [license](images/license.pdf)).
+These images belongs to its owners, I
+am [allowed to use them](https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209)
+in this project by permission of service [www.flaticon.com](http://www.flaticon.com) (here
+is [license](images/license.pdf)).

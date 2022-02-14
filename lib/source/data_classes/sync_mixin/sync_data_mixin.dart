@@ -67,16 +67,14 @@ mixin SyncDataMixin {
     // > main - call server
     //
     try {
-      late http.Response response;
+      var url = Uri.parse(urlAddress);
+      var client = AppData().httpClient;
+      http.Response response;
       if (sslClient != null) {
-        final httpClient = IOClient(sslClient);
-        final url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
-        response = await httpClient.get(url, headers: headers);
-      } else {
-        final client = AppData.instance.httpClient;
-        final url = Uri.parse(urlAddress);
-        response = await client.get(url, headers: headers);
+        client = IOClient(sslClient);
+        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
       }
+      response = await client.get(url, headers: headers);
 
       dev.log('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
