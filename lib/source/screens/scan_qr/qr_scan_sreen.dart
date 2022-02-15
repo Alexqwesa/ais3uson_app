@@ -93,10 +93,8 @@ class _QRScanScreenState extends State<QRScanScreen> {
                           });
                           await controller?.resumeCamera();
                         },
-                        child: const Expanded(
-                          child: Text(
-                            'Повторить поиск',
-                          ),
+                        child: const Text(
+                          'Повторить поиск',
                         ),
                       ),
                     ),
@@ -171,57 +169,55 @@ class _QRScanScreenState extends State<QRScanScreen> {
               //
               Visibility(
                 visible: result != null,
-                child: Expanded(
-                  child: Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 8, right: 8),
-                      child: ElevatedButton(
-                        child: const Text(
-                          'Добавить!',
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.green,
-                          ),
-                        ),
-                        //
-                        // > add new key
-                        //
-                        onPressed: () async {
-                          if (result == null) {
-                            return;
-                          }
-                          var newKey = result!.code!;
-                          if (newKey.startsWith('http://')) {
-                            newKey = newKey.substring(7, newKey.length);
-                          }
-                          final res = await AppData().addProfileFromKey(
-                            WorkerKey.fromJson(json.decode(
-                              newKey,
-                            ) as Map<String, dynamic>),
-                          );
-                          if (!mounted) return;
-                          if (res) {
-                            // Navigator.of(context).pop();
-                            await Navigator.of(context).pushNamed('/');
-                          } else {
-                            const snackBar = SnackBar(
-                              content: Text(
-                                'Ошибка добавления отделения, возможно отделение уже было добавлено',
-                              ),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          }
-
-                          setState(
-                            () {
-                              result = null;
-                              controller!.resumeCamera();
-                            },
-                          );
-                        },
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 8, right: 8),
+                    child: ElevatedButton(
+                      child: const Text(
+                        'Добавить!',
                       ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.green,
+                        ),
+                      ),
+                      //
+                      // > add new key
+                      //
+                      onPressed: () async {
+                        if (result == null) {
+                          return;
+                        }
+                        var newKey = result!.code!;
+                        if (newKey.startsWith('http://')) {
+                          newKey = newKey.substring(7, newKey.length);
+                        }
+                        final res = await AppData().addProfileFromKey(
+                          WorkerKey.fromJson(json.decode(
+                            newKey,
+                          ) as Map<String, dynamic>),
+                        );
+                        if (!mounted) return;
+                        if (res) {
+                          // Navigator.of(context).pop();
+                          await Navigator.of(context).pushNamed('/');
+                        } else {
+                          const snackBar = SnackBar(
+                            content: Text(
+                              'Ошибка добавления отделения, возможно отделение уже было добавлено',
+                            ),
+                          );
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackBar);
+                        }
+
+                        setState(
+                          () {
+                            result = null;
+                            controller!.resumeCamera();
+                          },
+                        );
+                      },
                     ),
                   ),
                 ),

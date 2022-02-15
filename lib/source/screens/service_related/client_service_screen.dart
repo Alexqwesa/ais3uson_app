@@ -53,7 +53,7 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
                         //
                         SizedBox(
                           height: width / 4,
-                          width: width / 6,
+                          width: width / 5,
                           child: ServiceCardState(
                             clientService: widget.service,
                           ),
