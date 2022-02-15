@@ -162,45 +162,42 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   const Divider(),
-                  Expanded(
-                    // todo: dialog add dep, with test dep button
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Тема:',
-                            style:
-                                Theme.of(context).textTheme.headline6,
-                          ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Тема:',
+                          style:
+                              Theme.of(context).textTheme.headline6,
                         ),
-                        ToggleSwitch(
-                          minWidth: 145.0,
-                          minHeight: 34,
-                          cornerRadius: 83.0,
-                          activeBgColors: [
-                            [Theme.of(context).primaryColor],
-                            [Theme.of(context).primaryColor],
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: const Color(0xffECEFF1),
-                          inactiveFgColor: Colors.black,
-                          initialLabelIndex:
-                              AppData.instance.standardTheme.themeIndex,
-                          totalSwitches: 2,
-                          labels: const ['Светлая', 'Темная'],
-                          radiusStyle: true,
-                          onToggle: (index) {
-                            setState(
-                              () {
-                                AppData.instance.standardTheme
-                                    .changeIndex(index!);
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+                      ToggleSwitch(
+                        minWidth: 145.0,
+                        minHeight: 34,
+                        cornerRadius: 83.0,
+                        activeBgColors: [
+                          [Theme.of(context).primaryColor],
+                          [Theme.of(context).primaryColor],
+                        ],
+                        activeFgColor: Colors.white,
+                        inactiveBgColor: const Color(0xffECEFF1),
+                        inactiveFgColor: Colors.black,
+                        initialLabelIndex:
+                            AppData.instance.standardTheme.themeIndex,
+                        totalSwitches: 2,
+                        labels: const ['Светлая', 'Темная'],
+                        radiusStyle: true,
+                        onToggle: (index) {
+                          setState(
+                            () {
+                              AppData.instance.standardTheme
+                                  .changeIndex(index!);
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
