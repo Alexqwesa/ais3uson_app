@@ -41,23 +41,26 @@ http.Client getMockHttpClient() {
 extension ExtMock on MockClient {
   Map<String, String> get h => httpTestHeader;
 
+  String get httpTcpIpPort =>
+      'http://alexqwesa.fvds.ru:48082'; // use the same address as in global_helpers.dart
+
   Future<http.Response> get testReqGetAny =>
       get(any); //, headers: anyNamed('header'));
 
   Future<http.Response> get testReqGetClients =>
-      get(Uri.parse('http://80.87.196.11:48080/clients'), headers: h);
+      get(Uri.parse('$httpTcpIpPort/clients'), headers: h);
 
   Future<http.Response> get testReqGetServices =>
-      get(Uri.parse('http://80.87.196.11:48080/services'), headers: h);
+      get(Uri.parse('$httpTcpIpPort/services'), headers: h);
 
   Future<http.Response> get testReqGetPlanned =>
-      get(Uri.parse('http://80.87.196.11:48080/planned'), headers: h);
+      get(Uri.parse('$httpTcpIpPort/planned'), headers: h);
 
   Future<http.Response> get testReqGetStat =>
-      get(Uri.parse('http://80.87.196.11:48080/stat'), headers: h);
+      get(Uri.parse('$httpTcpIpPort/stat'), headers: h);
 
   Future<http.Response> get testReqPostAdd => post(
-        Uri.parse('http://80.87.196.11:48080/add'),
+        Uri.parse('$httpTcpIpPort/add'),
         headers: h,
         body: anyNamed('body'),
       );

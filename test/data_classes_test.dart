@@ -41,20 +41,31 @@ void main() {
     await tearDownTestHive();
   });
   group('Data Class', () {
+    test('it create WorkerKey', () async {
+      final json = jsonDecode(qrDataShortKey) as Map<String, dynamic>;
+      expect(
+        WorkerKey.fromJson(json),
+        isA<WorkerKey>(),
+      );
+      final wKey = WorkerKey.fromJson(json);
+      expect(wKey.apiKey, json['api_key']);
+    });
     test('it create WorkerProfile from short key', () async {
       expect(
         WorkerProfile(
-          WorkerKey.fromJson(jsonDecode(qrDataShortKey) as Map<String, dynamic>),
+          WorkerKey.fromJson(
+            jsonDecode(qrDataShortKey) as Map<String, dynamic>,
+          ),
         ),
         isA<WorkerProfile>(),
       );
     });
     test('it convert json to WorkerKey', () async {
       final wKey =
-          WorkerKey.fromJson(jsonDecode(qrData2) as Map<String, dynamic>);
+          WorkerKey.fromJson(jsonDecode(qrDataWithSSL) as Map<String, dynamic>);
       expect(wKey, isA<WorkerKey>());
-      expect(wKey.apiKey, (jsonDecode(qrData2) as Map)['api_key']);
-      expect(wKey.toJson(), jsonDecode(qrData2));
+      expect(wKey.apiKey, (jsonDecode(qrDataWithSSL) as Map)['api_key']);
+      expect(wKey, jsonDecode(qrDataWithSSL));
     });
     test('it add services, with states: added, stale, rejected', () async {
       //
