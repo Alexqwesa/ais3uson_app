@@ -12,6 +12,14 @@ String qrDataWithSSL =
 
 void main() {
   group('Simple tests', () {
+    test('it convert json to WorkerKey with getters', () async {
+      final wKey =
+      WorkerKey.fromJson(jsonDecode(qrDataWithSSL) as Map<String, dynamic>);
+      expect(wKey, isA<WorkerKey>());
+      expect(wKey.apiKey, (jsonDecode(qrDataWithSSL) as Map)['api_key']);
+      expect(wKey.workerDepId,
+        (jsonDecode(qrDataWithSSL) as Map)['worker_dep_id'],);
+    });
     test('it create WorkerKey and convert to json', () async {
       final wKey = WorkerKey.fromJson(
         jsonDecode(qrDataWithSSL) as Map<String, dynamic>,

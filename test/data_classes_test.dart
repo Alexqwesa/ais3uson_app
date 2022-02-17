@@ -17,7 +17,18 @@ import 'package:singleton/singleton.dart';
 import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
 import 'helpers/mock_server.mocks.dart' as mock;
 
+/// [WorkerKey] modified for tests (ssl='no')
+WorkerKey wKeysData2() {
+  final json = jsonDecode(qrData2WithAutossl) as Map<String, dynamic>;
+  json['ssl'] = 'no';
+
+  return WorkerKey.fromJson(json);
+}
+
 void main() {
+  //
+  // > Setup
+  //
   tearDownAll(() async {
     Singleton.resetAllForTest();
     await tearDownTestHive();
@@ -40,16 +51,10 @@ void main() {
     Singleton.resetAllForTest();
     await tearDownTestHive();
   });
+  //
+  // > Tests start
+  //
   group('Data Class', () {
-    test('it create WorkerKey', () async {
-      final json = jsonDecode(qrDataShortKey) as Map<String, dynamic>;
-      expect(
-        WorkerKey.fromJson(json),
-        isA<WorkerKey>(),
-      );
-      final wKey = WorkerKey.fromJson(json);
-      expect(wKey.apiKey, json['api_key']);
-    });
     test('it create WorkerProfile from short key', () async {
       expect(
         WorkerProfile(
@@ -59,22 +64,14 @@ void main() {
         ),
         isA<WorkerProfile>(),
       );
-    });
-    test('it convert json to WorkerKey', () async {
-      final wKey =
-          WorkerKey.fromJson(jsonDecode(qrDataWithSSL) as Map<String, dynamic>);
-      expect(wKey, isA<WorkerKey>());
-      expect(wKey.apiKey, (jsonDecode(qrDataWithSSL) as Map)['api_key']);
-      expect(wKey, jsonDecode(qrDataWithSSL));
+      expect(wKeysData2(), isA<WorkerKey>());
     });
     test('it add services, with states: added, stale, rejected', () async {
       //
       // > prepare
       //
       final httpClient = AppData().httpClient as mock.MockClient;
-      final wp = WorkerProfile(
-        WorkerKey.fromJson(jsonDecode(qrData2) as Map<String, dynamic>),
-      );
+      final wp = WorkerProfile(wKeysData2());
       //
       // > configure addition successful
       //
@@ -120,7 +117,7 @@ void main() {
       final errorService =
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       final wKey = WorkerKey.fromJson(
-        jsonDecode(qrData2) as Map<String, dynamic>,
+        jsonDecode(qrData2WithAutossl) as Map<String, dynamic>,
       );
       var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(addedService);
@@ -149,9 +146,7 @@ void main() {
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       final errorService =
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
-      final wKey = WorkerKey.fromJson(
-        jsonDecode(qrData2) as Map<String, dynamic>,
-      );
+      final wKey = wKeysData2();
       final hive =
           await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(addedService);
@@ -186,10 +181,7 @@ void main() {
       // wp.dispose();
     });
     test('it check date of last sync before sync on load', () async {
-      final wKey = WorkerKey.fromJson(
-        jsonDecode(qrData2) as Map<String, dynamic>,
-      );
-      expect(wKey, isA<WorkerKey>());
+      final wKey = wKeysData2();
 
       final httpClient = AppData().httpClient as mock.MockClient;
       await AppData.instance.addProfileFromKey(wKey);
@@ -200,9 +192,7 @@ void main() {
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
     });
     test('it always sync old data on load', () async {
-      final wKey = WorkerKey.fromJson(
-        jsonDecode(qrData2) as Map<String, dynamic>,
-      );
+      final wKey = wKeysData2();
       expect(wKey, isA<WorkerKey>());
 
       final httpClient = AppData().httpClient as mock.MockClient;
@@ -226,9 +216,7 @@ void main() {
           ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       final todayService =
           ServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
-      final wKey = WorkerKey.fromJson(
-        jsonDecode(qrData2) as Map<String, dynamic>,
-      );
+      final wKey = wKeysData2();
       var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(yesterdayService);
       await hive.add(todayService);

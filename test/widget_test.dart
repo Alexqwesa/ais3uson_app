@@ -5,11 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'dart:convert';
-
 import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +13,7 @@ import 'package:hive_test/hive_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:singleton/singleton.dart';
 
+import 'data_classes_test.dart';
 import 'helpers/mock_server.dart';
 
 void main() {
@@ -62,10 +59,9 @@ void main() {
   });
   testWidgets('listOfProfiles smoke test part 2', (tester) async {
     // only runAsync can work with async code (like file IO)
+    final wKey = wKeysData2();
     await tester.runAsync<bool>(() {
-      return AppData.instance.addProfileFromKey(WorkerKey.fromJson(
-        jsonDecode(qrData2) as Map<String, dynamic>,
-      ));
+      return AppData.instance.addProfileFromKey(wKey);
     });
     const listOfProfiles = ListOfProfiles();
     await tester.pumpWidget(
@@ -75,7 +71,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     // Check
-    expect(find.text('Тестовое отделение 48080'), findsOneWidget);
+    expect(find.text(wKey.name), findsOneWidget);
     expect(find.textContaining('отсканируйте QR код'), findsNothing);
     await tester.pumpAndSettle();
   });
