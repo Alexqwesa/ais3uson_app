@@ -67,8 +67,8 @@ mixin SyncDataMixin {
     //
     // > main - call server
     //
+    var url = Uri.parse(urlAddress);
     try {
-      var url = Uri.parse(urlAddress);
       var client = AppData().httpClient;
       http.Response response;
       if (kIsWeb) {
@@ -79,7 +79,7 @@ mixin SyncDataMixin {
       }
       response = await client.get(url, headers: headers);
 
-      dev.log('$Uri response.statusCode = ${response.statusCode}');
+      dev.log('$url response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
           // for getting new test data
@@ -92,17 +92,20 @@ mixin SyncDataMixin {
       //
       // > just error handling
       //
+    } on HandshakeException {
+      showErrorNotification('Ошибка защищенного соединения!');
+      dev.log('Server HandshakeException error $url ');
     } on http.ClientException {
       showErrorNotification('Ошибка сервера!');
-      dev.log('Server error $Uri ');
+      dev.log('Server error $url ');
     } on SocketException {
       showErrorNotification('Ошибка: нет соединения с интернетом!');
-      dev.log('No internet connection $Uri ');
+      dev.log('No internet connection $url ');
     } on HttpException {
       showErrorNotification('Ошибка доступа к серверу!');
-      dev.log('Server access error $Uri ');
+      dev.log('Server access error $url ');
     } finally {
-      dev.log('sync ended $Uri ');
+      dev.log('sync ended $url ');
     }
   }
 

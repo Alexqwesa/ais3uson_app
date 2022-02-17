@@ -211,7 +211,7 @@ class Journal with ChangeNotifier {
       } else {
         response = await http.get(url, headers: _httpHeaders);
       }
-      dev.log('$urlAddress response.statusCode = ${response.statusCode}');
+      dev.log('$url response.statusCode = ${response.statusCode}');
       dev.log(response.body);
       //
       // > check response
@@ -231,17 +231,20 @@ class Journal with ChangeNotifier {
       //
       // > just error handling
       //
+    } on HandshakeException {
+      showErrorNotification('Ошибка защищенного соединения!');
+      dev.log('Server HandshakeException error $url ');
     } on ClientException {
       showErrorNotification('Ошибка сервера!');
-      dev.log('Server error $urlAddress ');
+      dev.log('Server error  $url  ');
     } on SocketException {
       showErrorNotification('Ошибка: нет соединения с интернетом!');
-      dev.log('No internet connection $urlAddress ');
+      dev.log('No internet connection $url ');
     } on HttpException {
       showErrorNotification('Ошибка доступа к серверу!');
-      dev.log('Server access error $urlAddress ');
+      dev.log('Server access error $url ');
     } finally {
-      dev.log('sync ended $urlAddress ');
+      dev.log('sync ended $url ');
     }
 
     return ret;
