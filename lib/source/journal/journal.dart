@@ -15,7 +15,7 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
@@ -197,7 +197,9 @@ class Journal with ChangeNotifier {
     try {
       Response response;
       final sslClient = workerProfile.sslClient;
-      if (sslClient != null) {
+      if (kIsWeb) {
+        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
+      } else if (sslClient != null) {
         http = IOClient(sslClient);
         url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
       }

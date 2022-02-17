@@ -14,7 +14,7 @@ import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /// A profile of worker.
@@ -71,25 +71,67 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
   /// Constructor [WorkerProfile] with [Journal] by default
   /// or with [JournalArchive].
+  ///
+  /// TODO: finish detect SSL code
   WorkerProfile(this.key, {DateTime? archiveDate}) {
     name = key.name;
     journal =
         archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
 
-    if (key.certificate.isNotEmpty) {
-      final context = SecurityContext()
-        ..setTrustedCertificatesBytes(key.certificate);
-      sslClient = HttpClient(context: context)
-        ..badCertificateCallback = (cert, host, port) {
-          if (host == '80.87.196.11') { // for debug
-            return true;
-          }
-          dev.log('!!!!Bad certificate');
-          showErrorNotification('Ошибка! неправильный сертификат сервера!');
+    if (kIsWeb) {
+      sslClient = null;
+    } else {
+      if (key.ssl == 'auto') {
+        // TODO:
+        sslClient = HttpClient()
+          ..badCertificateCallback = (cert, host, port) {
+            // if (host == '80.87.196.11') {
+            //   // for debug
+            //   return true;
+            // }
+            dev.log('!!!!Bad certificate');
+            showErrorNotification('Ошибка! неправильный сертификат сервера!');
 
-          return false;
-        };
+            return false;
+          };
+      }
+      // else if (key.ssl == 'no') {
+      //
+      // }
+
+      else if (key.ssl == 'yes') {
+        if (key.certBase64!.isNotEmpty) {
+          final context = SecurityContext()
+            ..setTrustedCertificatesBytes(key.certificate);
+          sslClient = HttpClient(context: context)
+            ..badCertificateCallback = (cert, host, port) {
+              // if (host == '80.87.196.11') {
+              //   // for debug
+              //   return true;
+              // }
+              dev.log('!!!!Bad certificate');
+              showErrorNotification('Ошибка! неправильный сертификат сервера!');
+
+              return false;
+            };
+        } else {
+          sslClient = HttpClient()
+            ..badCertificateCallback = (cert, host, port) {
+              dev.log('!!!!Bad certificate');
+              showErrorNotification('Ошибка! неправильный сертификат сервера!');
+
+              return false;
+            };
+        }
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    journal.dispose();
+
+    return super.dispose();
   }
 
   /// Update data after sync read from hive and notify.
@@ -106,7 +148,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     Box hive, {
     bool onlyIfEmpty = false,
   }) async {
-    if (hiveKey.endsWith('http://${key.host}:${key.port}/clients')) {
+    if (hiveKey.endsWith('://${key.host}:${key.port}/clients')) {
       //
       // > Get ClientProfile from hive
       //
@@ -123,7 +165,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
         await setClientSyncDate();
       }
-    } else if (hiveKey.endsWith('http://${key.host}:${key.port}/planned')) {
+    } else if (hiveKey.endsWith('://${key.host}:${key.port}/planned')) {
       //
       // > Sync Planned services from hive
       //
@@ -136,7 +178,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
         // maybe await it later to call notifyListeners before it?
         await journal.updateBasedOnNewPlanDate();
       }
-    } else if (hiveKey.endsWith('http://${key.host}:${key.port}/services')) {
+    } else if (hiveKey.endsWith('://${key.host}:${key.port}/services')) {
       //
       // > Sync services from hive
       //
@@ -154,13 +196,6 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     // > And finally notify
     //
     notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    journal.dispose();
-
-    return super.dispose();
   }
 
   Future<DateTime> servicesSyncDate() async {

@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -70,13 +71,15 @@ mixin SyncDataMixin {
       var url = Uri.parse(urlAddress);
       var client = AppData().httpClient;
       http.Response response;
-      if (sslClient != null) {
+      if (kIsWeb) {
+        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
+      } else if (sslClient != null) {
         client = IOClient(sslClient);
         url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
       }
       response = await client.get(url, headers: headers);
 
-      dev.log('$urlAddress response.statusCode = ${response.statusCode}');
+      dev.log('$Uri response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
           // for getting new test data
@@ -91,15 +94,15 @@ mixin SyncDataMixin {
       //
     } on http.ClientException {
       showErrorNotification('Ошибка сервера!');
-      dev.log('Server error $urlAddress ');
+      dev.log('Server error $Uri ');
     } on SocketException {
       showErrorNotification('Ошибка: нет соединения с интернетом!');
-      dev.log('No internet connection $urlAddress ');
+      dev.log('No internet connection $Uri ');
     } on HttpException {
       showErrorNotification('Ошибка доступа к серверу!');
-      dev.log('Server access error $urlAddress ');
+      dev.log('Server access error $Uri ');
     } finally {
-      dev.log('sync ended $urlAddress ');
+      dev.log('sync ended $Uri ');
     }
   }
 
