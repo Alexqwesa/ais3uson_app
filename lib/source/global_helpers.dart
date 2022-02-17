@@ -23,7 +23,7 @@ final startDate = DateTime(1900);
 /// test worker key in json format
 String qrDataShortKey =
     '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", '''
-    '''"worker_dep_id": 1, "api_key": "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c", "dep": "https://alexqwesa.fvds.ru:48081 отделение, '''
+    '''"worker_dep_id": 1, "api_key": "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c", "dep": "https://alexqwesa.fvds.ru:48081 отделение", '''
     '''"db": "kcson", "host": "alexqwesa.fvds.ru", "port": "48081"}''';
 String qrData2 =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
