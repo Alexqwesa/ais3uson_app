@@ -40,7 +40,10 @@ analyzer:
   exclude:
     - packages/**/lib/generated_plugin_registrant.dart
     - packages/**/test/mock_server.mocks.dart
-
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  errors:
+    invalid_annotation_target: ignore
 dart_code_metrics:
   anti-patterns:
     - long-method

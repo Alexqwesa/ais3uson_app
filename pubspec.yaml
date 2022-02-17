@@ -27,11 +27,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_html: any
+  freezed_annotation:
   google_fonts: any
   hive_flutter: any
   hive_generator: any
   http: any
   intl: any
+  json_annotation:
   lint: any
   overlay_support: any # ^1.2.1
   path_provider: any
@@ -57,10 +59,13 @@ dev_dependencies:
   flutter_lints: any
   flutter_test:
     sdk: flutter
+  freezed:
   hive_test: any
   integration_test:
     sdk: flutter
+  json_serializable:
   mockito: any
+
 
 #  hive_generator: any
 # For information on the generic Dart part of this file, see the
