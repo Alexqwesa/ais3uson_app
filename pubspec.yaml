@@ -27,7 +27,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_html: any
-  freezed_annotation:
+  freezed_annotation: any
   google_fonts: any
   hive_flutter: any
   hive_generator: any
@@ -39,7 +39,7 @@ dependencies:
   path_provider: any
   peanut: any
   provider: any
-  qr_code_scanner: ^0.6.1
+  qr_code_scanner: ^0.7.0
   quiver: any
   shared_preferences: any
   singleton: ^0.0.3-nullsafety
