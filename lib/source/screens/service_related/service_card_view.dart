@@ -132,7 +132,7 @@ class ServiceCardSquareView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         height: 3,
                       ),
                       //

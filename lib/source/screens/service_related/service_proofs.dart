@@ -1,10 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/proof_list.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/service_related/camera.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 /// Display list of proofs assigned to [ClientService].
@@ -29,230 +33,267 @@ class _ServiceProofState extends State<ServiceProof> {
   List<String> imagePaths = [];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final clientService = widget.clientService;
     final proofList = clientService.proofList;
-    // var proofGroups = proofList.proofGroups;
-
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            //
-            // > header
-            //
-            Center(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Divider(),
-                  ),
-                  Text(
-                    'НЕОБЯЗАТЕЛЬНО!',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  Text(
-                    'Подтверждение оказания услуги:',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Сделайте снимки или аудиозаписи подтверждающие оказание услуги:',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // height: MediaQuery.of(context).size.height,
-            ChangeNotifierProvider.value(
-              value: proofList,
-              child: Consumer(
-                builder: buildProofList,
-              ),
-            ),
-            FloatingActionButton(
-              onPressed: proofList.addNewGroup,
-              child: const Icon(Icons.add),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-// ignore: long-method
-  Widget buildProofList(
-    BuildContext context,
-    ProofList proofList,
-    Widget? child,
-  ) {
-    final proofGroups = proofList.proofGroups;
 
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         //
-        // > column's titles
+        // > header
         //
-        if (proofList.proofGroups.isNotEmpty)
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: Text(
-                    'До:',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    'После:',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-        //
-        // > main columns
-        //
-        if (proofList.proofGroups.isNotEmpty)
-          Column(
-            mainAxisSize: MainAxisSize.min,
+        Center(
+          child: Column(
             children: [
-              for (int i = 0; i < proofList.proofGroups.length; i++)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox.square(
-                        dimension: MediaQuery.of(context).size.width / 2.4,
-                        child: Center(
-                          child: (proofGroups[i].beforeImg != null)
-                              ? Hero(
-                                  tag: ValueKey(
-                                    proofGroups[i].beforeImg.toString(),
-                                  ),
-                                  child: GestureDetector(
-                                    child: proofGroups[i].beforeImg,
-                                    onTap: () {
-                                      unawaited(
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute<XFile>(
-                                            builder: (context) =>
-                                                DisplayPictureScreen(
-                                              image: proofGroups[i].beforeImg!,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                )
-                              : FloatingActionButton(
-                                  heroTag: ValueKey('before_$i'),
-                                  child: const Icon(Icons.camera_alt),
-                                  onPressed: () async {
-                                    final cameras = await availableCameras();
-                                    // final firstCamera = cameras.first;
-                                    if (!mounted) return;
-                                    final defaultImgPath = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute<XFile>(
-                                        builder: (context) => TakePictureScreen(
-                                          // Pass the appropriate camera to the TakePictureScreen widget.
-                                          camera: cameras.first,
-                                        ),
-                                      ),
-                                    );
-                                    await proofList.addImage(
-                                      i,
-                                      defaultImgPath,
-                                      'before_',
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-                    ),
-                    // const VerticalDivider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox.square(
-                        dimension: MediaQuery.of(context).size.width / 2.4,
-                        child: Center(
-                          child: (proofGroups[i].afterImg != null)
-                              ? Hero(
-                                  tag: ValueKey(
-                                    proofGroups[i].afterImg.toString(),
-                                  ),
-                                  child: GestureDetector(
-                                    child: proofGroups[i].afterImg,
-                                    onTap: () {
-                                      unawaited(
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute<XFile>(
-                                            builder: (context) =>
-                                                DisplayPictureScreen(
-                                              image: proofGroups[i].afterImg!,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                )
-                              : FloatingActionButton(
-                                  heroTag: ValueKey(i),
-                                  child: const Icon(Icons.camera_alt),
-                                  onPressed: () async {
-                                    final cameras = await availableCameras();
-                                    // final firstCamera = cameras.first;
-                                    if (!mounted) return;
-                                    final defaultImgPath = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute<XFile>(
-                                        builder: (context) => TakePictureScreen(
-                                          // Pass the appropriate camera to the TakePictureScreen widget.
-                                          camera: cameras.first,
-                                        ),
-                                      ),
-                                    );
-                                    await proofList.addImage(
-                                      i,
-                                      defaultImgPath,
-                                      'after_',
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-                    ),
-                  ],
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Divider(),
+              ),
+              Text(
+                'НЕОБЯЗАТЕЛЬНО!',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Text(
+                'Подтверждение оказания услуги:',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Сделайте снимки или аудиозаписи подтверждающие оказание услуги:',
+                  textAlign: TextAlign.center,
                 ),
+              ),
             ],
           ),
+        ),
+        //
+        // > Display list of proofs in two columns
+        //
+        BuildProofList(proofList: proofList),
+        //
+        // > add new record(proof row) button
+        //
+        FloatingActionButton(
+          onPressed: proofList.addNewGroup,
+          child: const Icon(Icons.add),
+        ),
       ],
+    );
+  }
+}
+
+/// Display list of proofs in two columns.
+///
+/// If there is missing image - display add button [AddProofButton].
+class BuildProofList extends StatelessWidget {
+  final ProofList proofList;
+
+  const BuildProofList({required this.proofList, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final proofGroups = proofList.proofGroups;
+
+    return ChangeNotifierProvider.value(
+      value: proofList,
+      child: Consumer<ProofList>(
+        builder: (context, proofList, _) {
+          return Column(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  //
+                  // > column's titles
+                  //
+                  if (proofList.proofGroups.isNotEmpty)
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'До:',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'После:',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  //
+                  // > main columns
+                  //
+
+                  if (proofList.proofGroups.isNotEmpty)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (int i = 0; i < proofList.proofGroups.length; i++)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox.square(
+                                    child: Center(
+                                      child: (proofGroups[i].beforeImg != null)
+                                          ? FittedBox(
+                                              child: Hero(
+                                                tag: ValueKey(
+                                                  proofGroups[i]
+                                                      .beforeImg
+                                                      .toString(),
+                                                ),
+                                                child: GestureDetector(
+                                                  child:
+                                                      proofGroups[i].beforeImg,
+                                                  onTap: () {
+                                                    unawaited(
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute<
+                                                            XFile>(
+                                                          builder: (context) =>
+                                                              DisplayPictureScreen(
+                                                            image:
+                                                                proofGroups[i]
+                                                                    .beforeImg!,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          : Center(
+                                              child: AddProofButton(
+                                                i: i,
+                                                addCall: proofList.addImage,
+                                                strType: 'before_',
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox.square(
+                                    // dimension: MediaQuery.of(context).size.width / 2.4,
+                                    child: Center(
+                                      child: (proofGroups[i].afterImg != null)
+                                          ? FittedBox(
+                                        child: Hero(
+                                                tag: ValueKey(
+                                                  proofGroups[i]
+                                                      .afterImg
+                                                      .toString(),
+                                                ),
+                                                child: GestureDetector(
+                                                  child:
+                                                      proofGroups[i].afterImg,
+                                                  onTap: () {
+                                                    unawaited(
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute<
+                                                            XFile>(
+                                                          builder: (context) =>
+                                                              DisplayPictureScreen(
+                                                            image:
+                                                                proofGroups[i]
+                                                                    .afterImg!,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                          )
+                                          : AddProofButton(
+                                              i: i,
+                                              addCall: proofList.addImage,
+                                              strType: 'after_',
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                ],
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Display add button for add proof.
+class AddProofButton extends StatelessWidget {
+  final int i;
+  final Function(int, XFile?, String) addCall;
+  final String strType;
+
+  const AddProofButton({
+    required this.i,
+    required this.addCall,
+    required this.strType,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FloatingActionButton(
+        heroTag: ValueKey(strType + i.toString()),
+        child: const Icon(Icons.camera_alt),
+        onPressed: () async {
+          late final List<CameraDescription> cameras;
+          try {
+            cameras = await availableCameras();
+          } on MissingPluginException {
+            showErrorNotification(
+              'Ошибка: нет доступа к камере!',
+            );
+
+            return;
+          }
+          // if (!mounted) return;
+          final defaultImgPath = await Navigator.push(
+            context,
+            MaterialPageRoute<XFile>(
+              builder: (context) => TakePictureScreen(
+                // Pass the appropriate camera to the TakePictureScreen widget.
+                camera: cameras.first,
+              ),
+            ),
+          );
+          await addCall(i, defaultImgPath, strType);
+        },
+      ),
     );
   }
 }

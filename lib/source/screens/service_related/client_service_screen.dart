@@ -35,108 +35,112 @@ class _ClientServiceScreenState extends State<ClientServiceScreen> {
           widget.service.shortText,
         ),
       ),
-      body: Center(
-        child: SizedBox(
-          width: width,
-          child: Card(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12.0, 20, 12, 12),
-                  child: SizedBox(
-                    height: width / 3,
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        //
-                        // > service state icons
-                        //
-                        SizedBox(
-                          height: width / 4,
-                          width: width / 5,
-                          child: ServiceCardState(
-                            clientService: widget.service,
+      body: SingleChildScrollView(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: width,
+            child: Card(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12.0, 20, 12, 12),
+                    child: SizedBox(
+                      height: width / 3,
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          //
+                          // > service state icons
+                          //
+                          SizedBox(
+                            height: width / 4,
+                            width: width / 5,
+                            child: ServiceCardState(
+                              clientService: widget.service,
+                              rightOfText: true,
+                            ),
                           ),
-                        ),
 
-                        const Spacer(),
-                        //
-                        // > service image
-                        //
-                        Expanded(
-                          flex: 6,
-                          child: Center(
-                            child: Hero(
-                              tag: widget.service.servId,
-                              child: SizedBox(
-                                height: width / 2,
-                                width: width / 2,
-                                child: Image.asset(
-                                  'images/${widget.service.image}',
+                          const Spacer(),
+                          //
+                          // > service image
+                          //
+                          Expanded(
+                            flex: 6,
+                            child: Center(
+                              child: Hero(
+                                tag: widget.service.servId,
+                                child: SizedBox(
+                                  height: width / 2,
+                                  width: width / 2,
+                                  child: Image.asset(
+                                    'images/${widget.service.image}',
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
 
-                        const Spacer(),
-                        Expanded(
-                          flex: 3,
-                          // height: width / 2,
-                          // width: width / 4,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //
-                              // > buttons Add / Delete
-                              //
-                              AddButton(widget: widget),
-                              const Spacer(),
-                              DeleteButton(widget: widget),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                //
-                // > service text
-                //
-                Center(
-                  child: SizedBox(
-                    // height: width * 1.2 - 102,
-                    // width: 200,
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              widget.service.shortText,
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
-                            child: Text(
-                              widget.service.servTextAdd,
-                              softWrap: true,
-                              textAlign: TextAlign.justify,
-                              // overflow: TextOverflow.ellipsis,
+                          const Spacer(),
+                          Expanded(
+                            flex: 3,
+                            // height: width / 2,
+                            // width: width / 4,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //
+                                // > buttons Add / Delete
+                                //
+                                AddButton(widget: widget),
+                                const Spacer(),
+                                DeleteButton(widget: widget),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
-                //
-                // > prof of service
-                //
-                if (!kIsWeb) ServiceProof(clientService: widget.service),
-              ],
+                  //
+                  // > service text
+                  //
+                  Center(
+                    child: SizedBox(
+                      height: 200,
+                      // width: 200,
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                widget.service.shortText,
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
+                              child: Text(
+                                widget.service.servTextAdd,
+                                softWrap: true,
+                                textAlign: TextAlign.justify,
+                                // overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  //
+                  // > prof of service
+                  //
+                  if (!kIsWeb) ServiceProof(clientService: widget.service),
+                ],
+              ),
             ),
           ),
         ),
