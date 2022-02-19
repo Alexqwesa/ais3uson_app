@@ -105,6 +105,18 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                   },
                 ),
               ),
+              PopupMenuItem<ListTile>(
+                child: ListTile(
+                  leading: const Icon(Icons.image),
+                  title: const Text('Значки'),
+                  onTap: () {
+                    Navigator.pop(context, 'square');
+                    setState(() {
+                      AppData.instance.serviceView = 'square';
+                    });
+                  },
+                ),
+              ),
             ],
           ),
         ],
