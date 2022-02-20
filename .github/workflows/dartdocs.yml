@@ -29,7 +29,8 @@ jobs:
           cache-path: ${{ runner.tool_cache }}/flutter
      
       - name: Add dartdoc
-        run: dart pub add dartdoc
+        run: dart pub add dartdoc  || true
+
       - name: Install dependencies
         run: flutter pub get
 
