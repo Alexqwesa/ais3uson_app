@@ -1,5 +1,3 @@
-// ignore_for_file: always_use_package_imports, avoid_annotating_with_dynamic
-
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/source/app_data.dart';
@@ -7,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 
-/// About page + dev tests
-///
-/// about and test buttons...
+/// About page + tests
 class DevScreen extends StatelessWidget {
   const DevScreen({Key? key}) : super(key: key);
 
@@ -19,30 +15,57 @@ class DevScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('О приложении'),
       ),
-      body: Container(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height,
-        ),
+      body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
             child: Center(
               child: Column(
-                children: const [
+                children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
-                      textScaleFactor: 1.5,
                       textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                   Text(
-                    'Разработчик: Савин Александр Викторович',
+                    'Разработчик: Савин Александр Викторович aka Alexqwesa',
+                    style: Theme.of(context).textTheme.headline3,
                   ),
+                  const Divider(),
+                  Html(
+                    data: '''
+                    <div>
+                        <p dir="auto">Изображения в папке images получены с сервиса <a href="http://www.flaticon.com" rel="nofollow">www.flaticon.com</a>, в
+                            соответствии требованиями сервиса, размещены ссылки:</p>
+
+                          Some Icons in folder <em>images</em> made by authors: <a href="http://www.freepik.com" rel="nofollow">Freepik</a>
+                            , <a href="http://www.flaticon.com/authors/smashicons" rel="nofollow">Smashicons</a>
+                        , <a href="https://www.flaticon.com/authors/dinosoftlabs" rel="nofollow">DinosoftLabs</a>
+                        , <a href="https://www.flaticon.com/authors/zafdesign" rel="nofollow">zafdesign</a>
+                        , <a href="https://www.flaticon.com/authors/GOWI" rel="nofollow">GOWI</a>
+                        , <a href="https://www.flaticon.com/authors/Konkapp" rel="nofollow">Konkapp</a>
+                        , <a href="https://www.flaticon.com/authors/photo3idea_studio" rel="nofollow">photo3idea_studio</a>
+                        , <a href="https://www.flaticon.com/authors/monkik" rel="nofollow">monkik</a>
+                        , <a href="https://www.flaticon.com/authors/Payungkead" rel="nofollow">Payungkead</a>
+                        , <a href="https://www.flaticon.com/authors/Eucalyp" rel="nofollow">Eucalyp</a>
+                        , <a href="https://www.flaticon.com/authors/kosonicon" rel="nofollow">kosonicon</a>
+                        , <a href="https://www.flaticon.com/authors/wanicon" rel="nofollow">wanicon</a>
+                        from <a href="http://www.flaticon.com" rel="nofollow">www.flaticon.com</a>
+
+                        These images belongs to its owners, I
+                        am <a href="https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209" rel="nofollow">allowed to use them</a>
+                        in this project by permission of service <a href="http://www.flaticon.com" rel="nofollow">www.flaticon.com</a>.
+                  </div>
+                  ''',
+                  ),
+
+                  const Divider(),
                   //
                   // > Get stat
                   //
-                  CheckWorkerServer(),
+                  const CheckWorkerServer(),
                   // Expanded(child: ListOfAllServices()),
                 ],
               ),
@@ -67,43 +90,141 @@ class CheckWorkerServer extends StatefulWidget {
 }
 
 class _CheckWorkerServer extends State<CheckWorkerServer> {
-  String _testHTTP = '';
+  Future<http.Response>? _httpFuture;
+  Future<http.Response>? _httpsFuture;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: <Widget>[
         ElevatedButton(
           onPressed: checkHTTP,
           child: const Text('Соединение!'),
         ),
-        Flexible(
-          child: Html(data: _testHTTP),
+        // if (_httpFuture != null)
+        Column(
+          children: [
+            const Text('Http Response:'),
+            FutureBuilder(
+              future: _httpFuture,
+              builder: buildHttpFuture,
+            ),
+          ],
+        ),
+        // if (_httpsFuture != null)
+        Column(
+          children: [
+            const Text('Https Response:'),
+            FutureBuilder(
+              future: _httpsFuture,
+              builder: buildHttpFuture,
+            ),
+          ],
         ),
       ],
     );
   }
 
+  /// Get statistic from server, check both http and https.
   Future<void> checkHTTP() async {
-    final url = Uri.parse(
-      'http://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/stat',
-    );
     try {
-      await http.get(url).then((response) {
-        if (response.statusCode == 200) {
-          setState(() {
-            _testHTTP = response.body;
-          });
-        }
-      }).catchError((dynamic e) {
-        setState(() {
-          _testHTTP = e.toString();
-          dev.log(e.toString());
-        });
-      }).whenComplete(() => dev.log(_testHTTP));
+      //
+      // > http
+      //
+      var url = Uri.parse(
+        'http://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/stat',
+      );
+      _httpFuture = http.get(url);
+      //
+      // > https
+      //
+      url = Uri.parse(
+        'https://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/stat',
+      );
+      _httpsFuture = http.get(url);
+      setState(() {
+        _httpFuture = _httpFuture; // stub
+      });
+      await _httpsFuture;
+      await _httpFuture;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      dev.log('Error $e');
+      dev.log(e
+          .toString()); // this is handled exception but android studio thinks it unhandled! bug?
     }
+  }
+
+  /// Function for FutureBuilder
+  // ignore:long-method
+  Widget buildHttpFuture(
+    BuildContext context,
+    AsyncSnapshot<http.Response> snapshot,
+  ) {
+    List<Widget> children;
+    if (snapshot.hasData) {
+      children = <Widget>[
+        // FractionallySizedBox(
+        //   widthFactor: 1,
+        //   child:
+        Card(
+          child: Column(
+            children: [
+              const Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Html(
+                  data: snapshot.data?.body,
+                  shrinkWrap: true,
+                ),
+              ),
+            ],
+          ),
+          // ),
+        ),
+      ];
+    } else if (snapshot.hasError) {
+      children = <Widget>[
+        Card(
+          child: Column(
+            children: [
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            ],
+          ),
+        ),
+      ];
+    } else if (snapshot.connectionState == ConnectionState.none) {
+      children = [];
+    } else {
+      children = const <Widget>[
+        SizedBox(
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator(),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 16),
+          child: Text('Awaiting result...'),
+        ),
+      ];
+    }
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: children,
+      ),
+    );
   }
 }
