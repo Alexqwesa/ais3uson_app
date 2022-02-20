@@ -254,7 +254,7 @@ packages:
     source: hosted
     version: "2.2.1"
   dartdoc:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dartdoc
       url: "https://pub.dartlang.org"
