@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
           ? null
           : Drawer(
               child: ListView(
+                controller: ScrollController(),
                 children: [
                   //
                   // > logo
@@ -132,8 +133,7 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.archive),
                     title: const Text('Архив ввода услуг'),
                     onTap: () {
-                      AppData.instance.isArchive =
-                          !AppData.instance.isArchive;
+                      AppData.instance.isArchive = !AppData.instance.isArchive;
                       Navigator.pop(context, 'archive');
                     },
                   ),
@@ -168,8 +168,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           'Тема:',
-                          style:
-                              Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       ToggleSwitch(

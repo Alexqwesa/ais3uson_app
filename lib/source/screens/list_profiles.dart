@@ -28,6 +28,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
 
           return workerKeys.isNotEmpty
               ? ListView.builder(
+                  controller: ScrollController(),
                   itemCount: workerKeys.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
