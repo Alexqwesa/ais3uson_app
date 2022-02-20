@@ -18,22 +18,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          # flutter-version: 2.14
+          channel: 'stable'
+          cache: true
+          cache-key: flutter # optional, change this to force refresh cache
+          cache-path: ${{ runner.tool_cache }}/flutter
+     
       - name: Add dartdoc
         run: dart pub add dartdoc
       - name: Install dependencies
-        run: dart pub get
-
+        run: flutter pub get
 
       - name: Generate docs
         run: ./regenerate_documentation.sh
 
-
+      - name: Uplad docs
       - uses: actions-go/push@master
         with:
           create-commit: true
