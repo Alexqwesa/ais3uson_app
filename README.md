@@ -33,8 +33,9 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
   соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с
   помощью openSSH (man ssh или [подробное руководство на русском](https://habr.com/ru/post/331348/))
   .
+  <img align="right" src="qrcode_ais3uson_app_on_google_play.png" width="180">
 - Работники:
-    - устанавливают приложение (здесь будут ссылки для установки),
+    - устанавливают приложение, [>>> установить из каталога Google <<<](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app),
     - // Заведующие предоставляют работникам сгенерированный в
       приложении [АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON) Qr код,
     - работник запускают приложение и нажимают кнопку **+** (сканировать Qr-код).
@@ -83,6 +84,7 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 
 ## TODO:
 
+- [ ] Повышенный уровень защиты: SSL Pinning
 - [ ] Напоминание о необходимости синхронизации
 - [ ] Кнопка: Синхронизировать ВСЕ!
 - [ ] Кнопка: Поделится ?
