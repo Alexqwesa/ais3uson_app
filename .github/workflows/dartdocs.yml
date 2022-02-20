@@ -36,7 +36,7 @@ jobs:
       - name: Generate docs
         run: ./regenerate_documentation.sh
 
-      - name: Uplad docs
+      # - name: Uplad docs
       - uses: actions-go/push@master
         with:
           create-commit: true
