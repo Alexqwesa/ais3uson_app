@@ -134,4 +134,4 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 These images belongs to its owners, I
 am [allowed to use them](https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209)
 in this project by permission of service [www.flaticon.com](http://www.flaticon.com) (here
-is [license](images/license.pdf)).
+is [license](images/_license.pdf)).
