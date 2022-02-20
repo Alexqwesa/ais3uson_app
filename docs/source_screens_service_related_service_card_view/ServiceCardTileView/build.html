@@ -110,20 +110,21 @@ Widget build(BuildContext context) {
   return SizedBox.fromSize(
     size: AppData.instance.serviceCardSize(parentWidth),
     child: FittedBox(
-      fit: BoxFit.fitWidth,
+      fit: BoxFit.fill,
       child: SizedBox(
         height: 100,
         width: 400,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
           child: Card(
-            elevation: 12,
+            elevation: service.addAllowed ? 6 : 0,
             child: Stack(
               children: [
                 Row(
                   children: &lt;Widget&gt;[
                     SizedBox(
                       height: 90,
+                      width: 90,
                       child: Hero(
                         tag: service.servId,
                         child: Image.asset(
@@ -134,36 +135,32 @@ Widget build(BuildContext context) {
                     &#47;&#47;
                     &#47;&#47; &gt; service text
                     &#47;&#47;
-                    Expanded(
-                      child: SizedBox(
-                        height: 100,
-                        width: 288,
-                        child: SingleChildScrollView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Text(
-                                  service.shortText,
-                                  textScaleFactor: 1.1,
-                                  textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.bodyText1,
-                                ),
+                    SizedBox(
+                      height: 100,
+                      width: 288,
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Text(
+                                service.shortText,
+                                textScaleFactor: 1.1,
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                                child: Text(
-                                  service.servTextAdd,
-                                  textAlign: TextAlign.left,
-                                  softWrap: true,
-                                  &#47;&#47; overflow: TextOverflow.ellipsis,
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                              child: Text(
+                                service.servTextAdd,
+                                textAlign: TextAlign.left,
+                                softWrap: true,
+                                &#47;&#47; overflow: TextOverflow.ellipsis,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -257,7 +254,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+3
+      1.0.1+6
   </span>
 
   

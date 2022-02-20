@@ -72,11 +72,19 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;ServiceState?&gt; commitUrl(String urlAddress, {String? body}) async {
-  final url = Uri.parse(urlAddress);
-  final http = AppData().httpClient;
+  var url = Uri.parse(urlAddress);
+  var http = AppData().httpClient;
   var ret = ServiceState.stalled;
   try {
     Response response;
+    final sslClient = workerProfile.sslClient;
+    if (kIsWeb) {
+      url = Uri.parse(urlAddress.replaceFirst(&#39;http&#39;, &#39;https&#39;));
+    } else if (sslClient != null) {
+      http = IOClient(sslClient);
+      url = Uri.parse(urlAddress.replaceFirst(&#39;http&#39;, &#39;https&#39;));
+    }
+
     if (urlAddress.endsWith(&#39;&#47;add&#39;)) {
       response = await http.post(url, headers: _httpHeaders, body: body);
     } else if (urlAddress.endsWith(&#39;&#47;delete&#39;)) {
@@ -84,7 +92,7 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
     } else {
       response = await http.get(url, headers: _httpHeaders);
     }
-    dev.log(&#39;$urlAddress response.statusCode = ${response.statusCode}&#39;);
+    dev.log(&#39;$url response.statusCode = ${response.statusCode}&#39;);
     dev.log(response.body);
     &#47;&#47;
     &#47;&#47; &gt; check response
@@ -104,17 +112,20 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
     &#47;&#47;
     &#47;&#47; &gt; just error handling
     &#47;&#47;
+  } on HandshakeException {
+    showErrorNotification(&#39;Ошибка защищенного соединения!&#39;);
+    dev.log(&#39;Server HandshakeException error $url &#39;);
   } on ClientException {
     showErrorNotification(&#39;Ошибка сервера!&#39;);
-    dev.log(&#39;Server error $urlAddress &#39;);
+    dev.log(&#39;Server error  $url  &#39;);
   } on SocketException {
     showErrorNotification(&#39;Ошибка: нет соединения с интернетом!&#39;);
-    dev.log(&#39;No internet connection $urlAddress &#39;);
+    dev.log(&#39;No internet connection $url &#39;);
   } on HttpException {
     showErrorNotification(&#39;Ошибка доступа к серверу!&#39;);
-    dev.log(&#39;Server access error $urlAddress &#39;);
+    dev.log(&#39;Server access error $url &#39;);
   } finally {
-    dev.log(&#39;sync ended $urlAddress &#39;);
+    dev.log(&#39;sync ended $url &#39;);
   }
 
   return ret;
@@ -203,7 +214,7 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+3
+      1.0.1+6
   </span>
 
   

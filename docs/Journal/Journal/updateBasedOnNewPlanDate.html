@@ -72,7 +72,8 @@ after <code>WorkerProfile._clientPlan</code> synchronized.</p>
   all.where((e) =&gt; e.state == ServiceState.finished).forEach(
     (element) async {
       &#47;&#47; TODO: rework it?
-      if (element.provDate.isBefore(workerProfile.clientPlan[0].checkDate)) {
+      if (element.provDate
+          .isBefore(await workerProfile.clientPlanSyncDate())) {
         await element.setState(ServiceState.outDated);
       }
     },
@@ -162,7 +163,7 @@ after <code>WorkerProfile._clientPlan</code> synchronized.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+3
+      1.0.1+6
   </span>
 
   

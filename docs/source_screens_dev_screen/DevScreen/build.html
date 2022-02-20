@@ -111,30 +111,57 @@ Widget build(BuildContext context) {
     appBar: AppBar(
       title: const Text(&#39;О приложении&#39;),
     ),
-    body: Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height,
-      ),
+    body: SingleChildScrollView(
       child: Center(
         child: SizedBox(
           child: Center(
             child: Column(
-              children: const [
+              children: [
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     &#39;Мобльное приложение для ввода услуг АИС &quot;ТриУСОН&quot; &#39;,
-                    textScaleFactor: 1.5,
                     textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
                   ),
                 ),
                 Text(
-                  &#39;Разработчик: Савин Александр Викторович&#39;,
+                  &#39;Разработчик: Савин Александр Викторович aka Alexqwesa&#39;,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
+                const Divider(),
+                Html(
+                  data: &#39;&#39;&#39;
+                  &lt;div&gt;
+                      &lt;p dir=&quot;auto&quot;&gt;Изображения в папке images получены с сервиса &lt;a href=&quot;http:&#47;&#47;www.flaticon.com&quot; rel=&quot;nofollow&quot;&gt;www.flaticon.com&lt;&#47;a&gt;, в
+                          соответствии требованиями сервиса, размещены ссылки:&lt;&#47;p&gt;
+
+                        Some Icons in folder &lt;em&gt;images&lt;&#47;em&gt; made by authors: &lt;a href=&quot;http:&#47;&#47;www.freepik.com&quot; rel=&quot;nofollow&quot;&gt;Freepik&lt;&#47;a&gt;
+                          , &lt;a href=&quot;http:&#47;&#47;www.flaticon.com&#47;authors&#47;smashicons&quot; rel=&quot;nofollow&quot;&gt;Smashicons&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;dinosoftlabs&quot; rel=&quot;nofollow&quot;&gt;DinosoftLabs&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;zafdesign&quot; rel=&quot;nofollow&quot;&gt;zafdesign&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;GOWI&quot; rel=&quot;nofollow&quot;&gt;GOWI&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;Konkapp&quot; rel=&quot;nofollow&quot;&gt;Konkapp&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;photo3idea_studio&quot; rel=&quot;nofollow&quot;&gt;photo3idea_studio&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;monkik&quot; rel=&quot;nofollow&quot;&gt;monkik&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;Payungkead&quot; rel=&quot;nofollow&quot;&gt;Payungkead&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;Eucalyp&quot; rel=&quot;nofollow&quot;&gt;Eucalyp&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;kosonicon&quot; rel=&quot;nofollow&quot;&gt;kosonicon&lt;&#47;a&gt;
+                      , &lt;a href=&quot;https:&#47;&#47;www.flaticon.com&#47;authors&#47;wanicon&quot; rel=&quot;nofollow&quot;&gt;wanicon&lt;&#47;a&gt;
+                      from &lt;a href=&quot;http:&#47;&#47;www.flaticon.com&quot; rel=&quot;nofollow&quot;&gt;www.flaticon.com&lt;&#47;a&gt;
+
+                      These images belongs to its owners, I
+                      am &lt;a href=&quot;https:&#47;&#47;web.archive.org&#47;web&#47;20211109140855&#47;https:&#47;&#47;support.flaticon.com&#47;hc&#47;en-us&#47;articles&#47;207248209&quot; rel=&quot;nofollow&quot;&gt;allowed to use them&lt;&#47;a&gt;
+                      in this project by permission of service &lt;a href=&quot;http:&#47;&#47;www.flaticon.com&quot; rel=&quot;nofollow&quot;&gt;www.flaticon.com&lt;&#47;a&gt;.
+                &lt;&#47;div&gt;
+                &#39;&#39;&#39;,
+                ),
+
+                const Divider(),
                 &#47;&#47;
                 &#47;&#47; &gt; Get stat
                 &#47;&#47;
-                CheckWorkerServer(),
+                const CheckWorkerServer(),
                 &#47;&#47; Expanded(child: ListOfAllServices()),
               ],
             ),
@@ -208,7 +235,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+3
+      1.0.1+6
   </span>
 
   

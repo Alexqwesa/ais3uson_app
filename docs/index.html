@@ -48,8 +48,11 @@
 <p><a href="https://github.com/Alexqwesa/ais3uson_app/actions?query=workflow%3ATest"><img src="https://github.com/Alexqwesa/ais3uson_app/workflows/Test/badge.svg" alt="Test Status"></a>
 <a href="https://codecov.io/gh/Alexqwesa/ais3uson_app"><img src="https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD" alt="codecov"></a></p>
 <p>A Flutter mobile backend for <a href="https://github.com/Alexqwesa/AIS-3USON">AIS-3USON</a></p>
-<p>Это мобильное приложение для ввода услуг в информационной системе "<a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a>" ("Автоматизированная Информационная Система Учета Услуг Учреждений Социального Обслуживания Населения").
-В данном приложении используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее - получатели СУ).</p>
+<p>Это мобильное приложение для ввода услуг в информационной
+системе "<a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a>" ("Автоматизированная Информационная
+Система Учета Услуг Учреждений Социального Обслуживания Населения"). В данном приложении
+используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее -
+получатели СУ).</p>
 <h2 id="">Содержание</h2>
 <ul>
 <li><a href="#установка">Установка</a></li>
@@ -61,13 +64,21 @@
 </ul>
 <h2 id="-2">Установка</h2>
 <ul>
-<li>Установите пароль для пользователя web_user в вашей SQL базе данных (в установочных скриптах AIS-3USON этому пользователю назначены минимально необходимые привилегии).</li>
-<li>Установите скрипт WEB-сервера AIS-3USON и пароль в соответствии с инструкцией (<a href="https://github.com/Alexqwesa/AIS-3USON/blob/main/src/worker/web_worker/ais3uson_www.py">ссылка на скрипт и инструкцию</a>).</li>
-<li>Рекомендуется использовать разные серверы для SQL-сервера и WEB-сервера, установите безопасное соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с помощью openSSH (man ssh или <a href="https://habr.com/ru/post/331348/">подробное руководство на русском</a>).</li>
+<li>Установите пароль для пользователя web_user в вашей SQL базе данных (в установочных скриптах
+AIS-3USON этому пользователю назначены минимально необходимые привилегии).</li>
+<li>Установите скрипт WEB-сервера AIS-3USON и пароль в соответствии с
+инструкцией (<a href="https://github.com/Alexqwesa/AIS-3USON/blob/main/src/worker/web_worker/ais3uson_www.py">ссылка на скрипт и инструкцию</a>)
+.</li>
+<li>Рекомендуется использовать разные серверы для SQL-сервера и WEB-сервера, установите безопасное
+соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с
+помощью openSSH (man ssh или <a href="https://habr.com/ru/post/331348/">подробное руководство на русском</a>)
+.
+<img align="right" src="qrcode_ais3uson_app_on_google_play.png" width="180"></li>
 <li>Работники:
 <ul>
-<li>устанавливают приложение (здесь будут ссылки для установки),</li>
-<li>// Заведующие предоставляют работникам сгенерированный в приложении <a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a> Qr код,</li>
+<li>устанавливают приложение, <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">&gt;&gt;&gt; установить из каталога Google &lt;&lt;&lt;</a>,</li>
+<li>// Заведующие предоставляют работникам сгенерированный в
+приложении <a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a> Qr код,</li>
 <li>работник запускают приложение и нажимают кнопку <strong>+</strong> (сканировать Qr-код).</li>
 </ul>
 </li>
@@ -105,17 +116,20 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 <li><code>x</code> Резервное копирование ключей авторизации в облако</li>
 <li><code>x</code> Удаление услуг (только сегодняшних)</li>
 <li><code>x</code> Настраиваемый вид списка услуг</li>
+<li><code>x</code> Защищенные соединения (https), нужно только добавить ssl сертификат и ключ на web-сервер (
+можно использовать и самоподписанный сертификат, если добавить его в QR-код, однако данный способ
+не работает в браузерах)</li>
+<li><code>x</code> Доступно для скачивания на <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">Google Play Market</a></li>
 </ul>
 <h2 id="todo">TODO:</h2>
 <ul>
+<li><code> </code> Повышенный уровень защиты: SSL Pinning</li>
 <li><code> </code> Напоминание о необходимости синхронизации</li>
 <li><code> </code> Кнопка: Синхронизировать ВСЕ!</li>
 <li><code> </code> Кнопка: Поделится ?</li>
 <li><code> </code> dynamic setting from BD: allow collect proofs, etc...</li>
 <li><code> </code> WorkerKey allow several servers (comma separated list)</li>
 <li><code> </code> maybe backup media data? only on full backup?</li>
-<li><code> </code> use ssl</li>
-<li><code> </code> Distribute via Google Play</li>
 <li><code> </code> использовать темы для изменения размера шрифта</li>
 <li><code> </code> индикатор обновления?</li>
 <li><code> </code> услуги по типам</li>
@@ -125,13 +139,16 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 <li><code> </code> вводить услуги жестом, а не onTap ???</li>
 <li><code> </code> 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?</li>
 <li><code> </code> try autoreconnect few times(with timeout) if there is a problem with network</li>
+<li><code> </code> add server tests</li>
 </ul>
 <h2 id="-4">Разработчики</h2>
-<p><a href="https://github.com/Alexqwesa">@Alexqwesa</a> aka Savin Aleksander Viktorovich (Савин Александр Викторович)</p>
+<p><a href="https://github.com/Alexqwesa">@Alexqwesa</a> aka Savin Aleksander Viktorovich (Савин Александр
+Викторович)</p>
 <h2 id="-5">Лицензия</h2>
 <p><a href="LICENSE">LGPLv3</a> © Savin Aleksander Viktorovich (Савин Александр Викторович)</p>
 <h3 id="---">Используемые в программе ресурсы</h3>
-<p>Изображения в папке images получены с сервиса <a href="http://www.flaticon.com">www.flaticon.com</a>, в соответствии требованиями сервиса, размещены ссылки:</p>
+<p>Изображения в папке images получены с сервиса <a href="http://www.flaticon.com">www.flaticon.com</a>, в
+соответствии требованиями сервиса, размещены ссылки:</p>
 <ul>
 <li>Some Icons in folder <em>images</em> made by authors: <a href="http://www.freepik.com">Freepik</a>
 , <a href="http://www.flaticon.com/authors/smashicons">Smashicons</a>
@@ -147,8 +164,10 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 , <a href="https://www.flaticon.com/authors/wanicon">wanicon</a>
 from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
 </ul>
-<p>These images belongs to its owners, I am <a href="https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209">allowed to use them</a> 
-in this project by permission of service <a href="http://www.flaticon.com">www.flaticon.com</a> (here is <a href="images/license.pdf">license</a>).</p>
+<p>These images belongs to its owners, I
+am <a href="https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209">allowed to use them</a>
+in this project by permission of service <a href="http://www.flaticon.com">www.flaticon.com</a> (here
+is <a href="images/license.pdf">license</a>).</p>
 </section>
 
 
@@ -366,7 +385,7 @@ in this project by permission of service <a href="http://www.flaticon.com">www.f
 </dd>
 
           <dt id="sync_data_mixin">
-  <span class="name"><a href="source_sync_mixin_sync_data_mixin/source_sync_mixin_sync_data_mixin-library.html">sync_data_mixin</a></span> 
+  <span class="name"><a href="source_data_classes_sync_mixin_sync_data_mixin/source_data_classes_sync_mixin_sync_data_mixin-library.html">sync_data_mixin</a></span> 
 
 </dt>
 <dd> 
@@ -449,7 +468,7 @@ in this project by permission of service <a href="http://www.flaticon.com">www.f
       <li><a href="source_screens_service_related_service_proofs/source_screens_service_related_service_proofs-library.html">service_proofs</a></li>
       <li><a href="source_journal_service_state/source_journal_service_state-library.html">service_state</a></li>
       <li><a href="source_screens_settings_screen/source_screens_settings_screen-library.html">settings_screen</a></li>
-      <li><a href="source_sync_mixin_sync_data_mixin/source_sync_mixin_sync_data_mixin-library.html">sync_data_mixin</a></li>
+      <li><a href="source_data_classes_sync_mixin_sync_data_mixin/source_data_classes_sync_mixin_sync_data_mixin-library.html">sync_data_mixin</a></li>
       <li><a href="themes_data/themes_data-library.html">themes_data</a></li>
       <li><a href="source_from_json_worker_key/source_from_json_worker_key-library.html">worker_key</a></li>
       <li><a href="source_data_classes_worker_profile/source_data_classes_worker_profile-library.html">worker_profile</a></li>
@@ -465,7 +484,7 @@ in this project by permission of service <a href="http://www.flaticon.com">www.f
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+3
+      1.0.1+6
   </span>
 
   
