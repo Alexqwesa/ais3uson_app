@@ -20,72 +20,78 @@ class ServiceCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
       size: AppData.instance.serviceCardSize(parentWidth),
-      child: Card(
-        elevation: service.addAllowed ? 6 : 0,
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Stack(
-            children: [
-              SizedBox(
-                height: 100,
-                child: ServiceCardState(
-                  clientService: service,
-                  rightOfText: true,
-                ),
-              ),
-              Column(
-                children: <Widget>[
+      child: FittedBox(
+        child: SizedBox(
+          width: 205,
+          height: 230,
+          child: Card(
+            elevation: service.addAllowed ? 6 : 0,
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Stack(
+                children: [
                   SizedBox(
-                    height: 90,
-                    //
-                    // > service image
-                    //
-                    child: Hero(
-                      tag: service.servId,
-                      child: SizedBox(
-                        height: 90,
-                        width: 90,
-                        child: Image.asset(
-                          'images/${service.image}',
-                        ),
-                      ),
+                    height: 100,
+                    child: ServiceCardState(
+                      clientService: service,
+                      rightOfText: true,
                     ),
                   ),
-                  //
-                  // > service text
-                  //
-                  Center(
-                    child: SizedBox(
-                      height: 120,
-                      child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                service.shortText,
-                                textScaleFactor: 1.1,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
+                  Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 90,
+                        //
+                        // > service image
+                        //
+                        child: Hero(
+                          tag: service.servId,
+                          child: SizedBox(
+                            height: 90,
+                            width: 90,
+                            child: Image.asset(
+                              'images/${service.image}',
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                              child: Text(
-                                service.servTextAdd,
-                                softWrap: true,
-                                // overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                      //
+                      // > service text
+                      //
+                      Center(
+                        child: SizedBox(
+                          height: 128,
+                          child: SingleChildScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Text(
+                                    service.shortText,
+                                    textScaleFactor: 1.1,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                                  child: Text(
+                                    service.servTextAdd,
+                                    softWrap: true,
+                                    // overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
