@@ -10,30 +10,26 @@ fi
 # Clean old
 rm -rf doc/api/
 
-# Generate
-dartdoc
+# Generate or exit
+flutter pub global activate dartdoc # hope this fix https://githubhot.com/repo/dart-lang/dartdoc/issues/2934
+flutter pub global run dartdoc . || exit 1
+#dartdoc || exit 1
+
 
 ## Add missed files
-#for f in $(find ./lib/ -name "*.png" -print) ; do
-#    dir=`dirname $f`
-#    dir=${dir#"./lib/"}
-#    dir=${dir//"/"/"_"}
-#    set -x
-#    cp -a "$f" "doc/api/${dir}_$(basename $f .png)/$(basename $f)"
-#    set +x
-#done
-
 cp LICENSE doc/api/
 mkdir doc/api/images/
 cp images/license.pdf doc/api/images/
 mkdir doc/api/assets/
 cp assets/ais-3uson-logo-128.png doc/api/assets/
 
-
-# open generated docs in browser
-dhttpd --path doc/api &
-xdg-open  http://localhost:8080 &
-
 # gitHub wants docs dir - conform
 rm -rf docs/*
 cp -a doc/api/* docs/
+
+# open generated docs in browser
+if [ `echo $DISPLAY`  ==  '' ] ; then
+  exit 1
+fi
+dhttpd --path doc/api &
+xdg-open  http://localhost:8080 &
