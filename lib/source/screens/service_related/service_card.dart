@@ -3,11 +3,15 @@ import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Displays one [ClientService].
 ///
+/// This widget check is service enabled.
+/// And decide which View to use(like: [ServiceCardView], [ServiceCardTileView], [ServiceCardSquareView]...)
+///
 /// {@category UIServices}
-class ServiceCard extends StatefulWidget {
+class ServiceCard extends StatelessWidget {
   final ClientService service;
   final Size parentSize;
 
@@ -18,50 +22,53 @@ class ServiceCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ServiceCardState createState() => _ServiceCardState();
-}
-
-class _ServiceCardState extends State<ServiceCard> {
-  bool enabled = true;
-
-  @override
-  void initState() {
-    enabled = widget.service.left > 0;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceCardSize(widget.parentSize),
+      size: AppData.instance.serviceCardSize(parentSize),
       child: Stack(
         children: [
-          ColorFiltered(
-            colorFilter: ColorFilter.mode(
-              enabled ? Colors.white : Colors.grey.withOpacity(.8),
-              BlendMode.multiply,
-            ),
-            child: Row(
-              children: [
-                //
-                // > select view
-                //
-                if (AppData().serviceView == '')
-                  ServiceCardView(
-                    service: widget.service,
-                    parentWidth: widget.parentSize,
-                  )
-                else if (AppData().serviceView == 'tile')
-                  ServiceCardTileView(
-                    service: widget.service,
-                    parentWidth: widget.parentSize,
+          ChangeNotifierProvider.value(
+            value: service,
+            child: Consumer<ClientService>(
+              builder: (context, state, _) {
+                return ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    service.addAllowed
+                        ? Colors.white.withOpacity(0)
+                        : Colors.grey,
+                    BlendMode.multiply,
                   ),
-              ],
+                  child: ChangeNotifierProvider.value(
+                    value: AppData.instance,
+                    child: Consumer<AppData>(
+                      builder: (context, data, _) {
+                        return Row(
+                          children: [
+                            //
+                            // > select view
+                            //
+                            if (AppData().serviceView == '')
+                              ServiceCardView(
+                                service: service,
+                                parentWidth: parentSize,
+                              )
+                            else if (AppData().serviceView == 'tile')
+                              ServiceCardTileView(
+                                service: service,
+                                parentWidth: parentSize,
+                              )
+                            else if (AppData().serviceView == 'square')
+                              ServiceCardSquareView(
+                                service: service,
+                                parentWidth: parentSize,
+                              ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           //
@@ -70,20 +77,14 @@ class _ServiceCardState extends State<ServiceCard> {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  enabled = widget.service.left > 0;
-                  if (enabled) widget.service.add();
-                  enabled = widget.service.left > 0;
-                });
-              },
+              onTap: service.add,
               onLongPress: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute<ClientServiceScreen>(
                     builder: (context) {
                       return ClientServiceScreen(
-                        service: widget.service,
+                        service: service,
                       );
                     },
                   ),

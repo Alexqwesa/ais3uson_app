@@ -21,7 +21,7 @@ class ServiceCardView extends StatelessWidget {
     return SizedBox.fromSize(
       size: AppData.instance.serviceCardSize(parentWidth),
       child: Card(
-        elevation: 12,
+        elevation: service.addAllowed ? 6 : 0,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
           child: Stack(
@@ -95,6 +95,8 @@ class ServiceCardView extends StatelessWidget {
 
 /// Displays icon, and caption of [ClientService] - square view.
 ///
+/// Note: this view is broken, bug report: https://github.com/flutter/flutter/issues/98809
+///
 /// {@category UIServices}
 class ServiceCardSquareView extends StatelessWidget {
   final ClientService service;
@@ -119,7 +121,7 @@ class ServiceCardSquareView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
                 child: Card(
-                  elevation: 6,
+                  elevation: service.addAllowed ? 6 : 0,
                   child: Column(
                     children: <Widget>[
                       Hero(
@@ -197,7 +199,7 @@ class ServiceCardTileView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
-              elevation: 6,
+              elevation: service.addAllowed ? 6 : 0,
               child: Stack(
                 children: [
                   Row(
