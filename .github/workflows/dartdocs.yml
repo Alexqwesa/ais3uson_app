@@ -36,6 +36,9 @@ jobs:
       - name: Generate docs
         run:  bash -x regenerate_documentation.sh
 
+      - name: Git add  docs
+        run:  git add -a docs/
+        
       # - name: Uplad docs
       - uses: actions-go/push@master
         with:
