@@ -421,7 +421,8 @@ class Journal with ChangeNotifier {
     all.where((e) => e.state == ServiceState.finished).forEach(
       (element) async {
         // TODO: rework it?
-        if (element.provDate.isBefore(workerProfile.clientPlan[0].checkDate)) {
+        if (element.provDate
+            .isBefore(await workerProfile.clientPlanSyncDate())) {
           await element.setState(ServiceState.outDated);
         }
       },
