@@ -34,7 +34,7 @@ jobs:
         run: flutter pub get
 
       - name: Generate docs
-        run: ./regenerate_documentation.sh
+        run:  bash -x regenerate_documentation.sh
 
       # - name: Uplad docs
       - uses: actions-go/push@master
