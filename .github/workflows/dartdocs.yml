@@ -29,7 +29,8 @@ jobs:
           cache-path: ${{ runner.tool_cache }}/flutter
      
       - name: Add dartdoc
-        run: dart pub add dartdoc
+        run: dart pub add dartdoc  || true
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -37,7 +38,7 @@ jobs:
         run:  bash -x regenerate_documentation.sh
 
       - name: Git add  docs
-        run:  git add -a docs/
+        run:  git add -A docs/
         
       # - name: Uplad docs
       - uses: actions-go/push@master
