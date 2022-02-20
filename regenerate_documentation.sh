@@ -11,7 +11,7 @@ fi
 rm -rf doc/api/
 
 # Generate or exit
-flutter pub global activate dartdoc # hope this fix https://githubhot.com/repo/dart-lang/dartdoc/issues/2934
+flutter pub global activate dartdoc # fix for https://githubhot.com/repo/dart-lang/dartdoc/issues/2934
 flutter pub global run dartdoc . || exit 1
 #dartdoc || exit 1
 
@@ -19,9 +19,11 @@ flutter pub global run dartdoc . || exit 1
 ## Add missed files
 cp LICENSE doc/api/
 mkdir doc/api/images/
-cp images/license.pdf doc/api/images/
+cp images/_license.pdf doc/api/images/
 mkdir doc/api/assets/
 cp assets/ais-3uson-logo-128.png doc/api/assets/
+cp qr_web3uson.png doc/api/
+cp qrcode_ais3uson_app_on_google_play.png doc/api/
 
 # gitHub wants docs dir - conform
 rm -rf docs/*
