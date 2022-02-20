@@ -81,6 +81,7 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Защищенные соединения (https), нужно только добавить ssl сертификат и ключ на web-сервер (
   можно использовать и самоподписанный сертификат, если добавить его в QR-код, однако данный способ
   не работает в браузерах)
+- [x] Доступно для скачивания на [Google Play Market](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 
 ## TODO:
 
@@ -91,7 +92,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] WorkerKey allow several servers (comma separated list)
 - [ ] maybe backup media data? only on full backup?
-- [ ] Distribute via Google Play
 - [ ] использовать темы для изменения размера шрифта
 - [ ] индикатор обновления?
 - [ ] услуги по типам
