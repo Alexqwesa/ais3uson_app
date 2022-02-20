@@ -24,6 +24,7 @@ environment:
 dependencies:
   camera: any
   collection: any
+  dartdoc: ^5.0.0
   flutter:
     sdk: flutter
   flutter_html: any
@@ -54,7 +55,6 @@ dependencies:
 dev_dependencies:
   build_runner: any
   dart_code_metrics: any
-  dartdoc: ^5.0.0
   flutter_launcher_icons: any
   flutter_lints: any
   flutter_test:
