@@ -5,7 +5,7 @@
 /// contract_id : 2
 /// serv_id : 1
 /// planned : 10
-/// filled : "None"
+/// filled : 5
 ///
 /// {@category Import_from_json}
 class ClientPlan {

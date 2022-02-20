@@ -136,7 +136,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                   child: servList.isNotEmpty
                       ? Center(
                           child: Wrap(
-                            children: List.of(
+                            children:
                               servList.map(
                                 (element) {
                                   return ServiceCard(
@@ -144,9 +144,8 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                                     parentSize: size,
                                   );
                                 },
-                              ),
                               // growable: false,
-                            ),
+                            ).toList(),
                           ),
                         )
                       : const Text(

@@ -222,7 +222,6 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
 
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: children,
       ),
     );
