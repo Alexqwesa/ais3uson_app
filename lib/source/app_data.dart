@@ -276,5 +276,6 @@ class AppData with ChangeNotifier {
     );
     _profiles.removeAt(index);
     notifyListeners();
+    unawaited(AppData().save());
   }
 }
