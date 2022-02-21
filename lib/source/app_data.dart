@@ -30,13 +30,13 @@ import 'package:singleton/singleton.dart';
 /// It save/restore hive and notifies listeners.
 // ignore: prefer_mixin
 class AppData with ChangeNotifier {
-  /// Store Singleton
-  late final SharedPreferences prefs;
 
   final standardTheme = StandardTheme();
 
   /// Global Storage [hiveData]
   late Box hiveData;
+
+  SharedPreferences? prefs;
 
   late ScreenArguments lastScreen;
 
@@ -53,7 +53,7 @@ class AppData with ChangeNotifier {
   set serviceView(String value) {
     _serviceView = value;
 
-    unawaited(prefs.setString('serviceView', serviceView));
+    unawaited(prefs?.setString('serviceView', serviceView));
   }
 
   List<WorkerProfile> get profiles => _profiles;
@@ -144,7 +144,7 @@ class AppData with ChangeNotifier {
       }
     }));
 
-    await prefs.setString('serviceView', serviceView);
+    await prefs?.setString('serviceView', serviceView);
   }
 
   /// Init Hive and its adapters.
@@ -170,12 +170,12 @@ class AppData with ChangeNotifier {
     ScreenArguments(profile: 0);
     prefs = await SharedPreferences.getInstance();
     for (final Map<dynamic, dynamic> keyFromHive
-        in jsonDecode(prefs.getString('WorkerKeys') ?? '[]')) {
+        in jsonDecode(prefs!.getString('WorkerKeys') ?? '[]')) {
       _profiles.add(
         WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
     }
-    serviceView = prefs.getString('serviceView') ?? '';
+    serviceView = prefs!.getString('serviceView') ?? '';
     notifyListeners();
     await Future.wait(_profiles.map((e) => e.postInit()));
     notifyListeners();
@@ -193,15 +193,15 @@ class AppData with ChangeNotifier {
   }
 
   Future<void> save() async {
-    final res = await prefs.setString(
+    final res = await prefs?.setString(
       'WorkerKeys',
       jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
     );
-    if (!res) {
+    if (res == null || !res) {
       showErrorNotification('Ошибка: не удалось сохранить профиль отделения!');
     }
     notifyListeners();
-    await prefs.setString('serviceView', serviceView);
+    await prefs?.setString('serviceView', serviceView);
   }
 
   /// Add Profile from [WorkerKey].

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Theme with support switching dark/light.
 ///
@@ -153,7 +154,16 @@ class StandardTheme with ChangeNotifier {
 
   ThemeMode current() {
     if (themeIndex == -1) {
-      themeIndex = AppData.instance.prefs.getInt('themeIndex') ?? 0;
+      if (AppData.instance.prefs != null) {
+        themeIndex = AppData.instance.prefs!.getInt('themeIndex') ?? 0;
+      } else {
+        () async {
+          AppData.instance.prefs = await SharedPreferences.getInstance();
+        }()
+            .then((value) {
+          changeIndex(AppData.instance.prefs!.getInt('themeIndex') ?? 0);
+        });
+      }
     }
 
     return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
@@ -162,6 +172,6 @@ class StandardTheme with ChangeNotifier {
   void changeIndex(int index) {
     themeIndex = index;
     notifyListeners();
-    unawaited(AppData.instance.prefs.setInt('themeIndex', themeIndex));
+    unawaited(AppData.instance.prefs!.setInt('themeIndex', themeIndex));
   }
 }
