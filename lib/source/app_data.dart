@@ -42,21 +42,29 @@ class AppData with ChangeNotifier {
 
   http.Client httpClient = http.Client();
 
-  /// View of services List, can be: ['', 'tile', 'short']
-  String serviceView = '';
+  /// Dates which have archived services
+  Set<DateTime> datesInArchive = <DateTime>{};
 
   // ignore: prefer_constructors_over_static_methods
   static AppData get instance => AppData();
 
-  List<WorkerProfile> get profiles => _profiles;
+  String get serviceView => _serviceView;
 
-  String get apiKey => profiles.first.key.apiKey;
+  set serviceView(String value) {
+    _serviceView = value;
+
+    unawaited(prefs.setString('serviceView', serviceView));
+  }
+
+  List<WorkerProfile> get profiles => _profiles;
 
   /// workerKeys - is user authentication data,
   Iterable<WorkerKey> get workerKeys => _profiles.map((e) => e.key);
 
+  /// Is displayed usual view of App or archive view
   bool get isArchive => _isArchive;
 
+  /// Date of last archiving
   DateTime get archiveDate => _archiveDate;
 
   set archiveDate(DateTime? newValue) {
@@ -95,6 +103,9 @@ class AppData with ChangeNotifier {
   // List<WorkerProfile> _archiveProfiles = [];
 
   var _archiveDate = DateTime.now().add(const Duration(days: -1));
+
+  /// View of services List, can be: '', 'tile', 'short'
+  String _serviceView = '';
 
   /// Profiles list
   List<WorkerProfile> _profiles = [];
@@ -168,6 +179,17 @@ class AppData with ChangeNotifier {
     notifyListeners();
     await Future.wait(_profiles.map((e) => e.postInit()));
     notifyListeners();
+
+    datesInArchive.addAll(
+      workerKeys
+          .map(
+            (e) => hiveData.get(
+              'archiveDates_${e.apiKey}',
+              defaultValue: <DateTime>[],
+            ) as List<DateTime>,
+          )
+          .expand((element) => element),
+    );
   }
 
   Future<void> save() async {
@@ -246,8 +268,13 @@ class AppData with ChangeNotifier {
 
   /// Just delete profile, notify and save left profiles.
   void profileDelete(int index) {
+    hiveData
+        .delete('archiveDates_${_profiles[index].apiKey}')
+        .then((value) => unawaited(AppData().save()));
+    unawaited(
+      Hive.deleteBoxFromDisk('journal_archive_${_profiles[index].apiKey}'),
+    );
     _profiles.removeAt(index);
     notifyListeners();
-    unawaited(AppData().save());
   }
 }
