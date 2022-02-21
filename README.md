@@ -102,6 +102,10 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?
 - [ ] try autoreconnect few times(with timeout) if there is a problem with network
 - [ ] add server tests
+- [ ] use badges
+- [ ] tutorial
+- [ ] translations
+- [ ] export to csv file
 
 ## Разработчики
 
