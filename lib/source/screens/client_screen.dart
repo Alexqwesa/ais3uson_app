@@ -60,7 +60,7 @@ class _ClientScreenState extends State<ClientScreen> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Card(
-                        margin: const EdgeInsets.fromLTRB(8, 1, 8, 0),
+                        margin: const EdgeInsets.fromLTRB(8, 4, 8, 0),
                         child: ListTile(
                           leading: Transform.scale(
                             scale: 1.5,
@@ -68,13 +68,16 @@ class _ClientScreenState extends State<ClientScreen> {
                           ),
                           title: Text(
                             clientList[index].name,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.headline5,
                           ),
-                          subtitle: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              clientList[index].contract,
-                              // textAlign: TextAlign.right,
+                          subtitle: Padding(
+                            padding: const EdgeInsets.fromLTRB(25.0, 8, 0 ,4),
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                clientList[index].contract,
+                                // textAlign: TextAlign.right,
+                              ),
                             ),
                           ),
                           onTap: () async {
@@ -101,12 +104,13 @@ class _ClientScreenState extends State<ClientScreen> {
                       );
                     },
                   )
-                : const Center(
+                : Center(
                     child: Text(
                       'Список получателей СУ пуст, \n\n'
                       'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
                       'обновите список',
                       textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                   );
           },

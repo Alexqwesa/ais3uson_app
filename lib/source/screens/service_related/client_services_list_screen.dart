@@ -42,7 +42,6 @@ class ClientServicesListScreen extends StatefulWidget {
 }
 
 class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -136,23 +135,23 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                   child: servList.isNotEmpty
                       ? Center(
                           child: Wrap(
-                            children:
-                              servList.map(
-                                (element) {
-                                  return ServiceCard(
-                                    service: element,
-                                    parentSize: size,
-                                  );
-                                },
+                            children: servList.map(
+                              (element) {
+                                return ServiceCard(
+                                  service: element,
+                                  parentSize: size,
+                                );
+                              },
                               // growable: false,
                             ).toList(),
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'Список положенных услуг пуст, \n\n'
                           'возможно заведующий отделением уже закрыл договор\n\n'
                           'обновите список',
                           textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                 );
               },

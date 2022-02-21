@@ -65,9 +65,9 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(workerKeys[index].name),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('Какой-нибудь текст'),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${workerKeys[index].comment}'),
                               ),
                             ],
                           ),
@@ -76,8 +76,11 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                     );
                   },
                 )
-              : const Center(
-                  child: Text('Авторизируйтесь (отсканируйте QR код) '),
+              : Center(
+                  child: Text(
+                    'Авторизируйтесь (отсканируйте QR код) ',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
                 );
         },
       ),
