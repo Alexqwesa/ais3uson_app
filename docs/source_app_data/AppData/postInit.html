@@ -88,15 +88,26 @@
   ScreenArguments(profile: 0);
   prefs = await SharedPreferences.getInstance();
   for (final Map&lt;dynamic, dynamic&gt; keyFromHive
-      in jsonDecode(prefs.getString(&#39;WorkerKeys&#39;) ?? &#39;[]&#39;)) {
+      in jsonDecode(prefs!.getString(&#39;WorkerKeys&#39;) ?? &#39;[]&#39;)) {
     _profiles.add(
       WorkerProfile(WorkerKey.fromJson(keyFromHive.cast&lt;String, dynamic&gt;())),
     );
   }
-  serviceView = prefs.getString(&#39;serviceView&#39;) ?? &#39;&#39;;
+  serviceView = prefs!.getString(&#39;serviceView&#39;) ?? &#39;&#39;;
   notifyListeners();
   await Future.wait(_profiles.map((e) =&gt; e.postInit()));
   notifyListeners();
+
+  datesInArchive.addAll(
+    workerKeys
+        .map(
+          (e) =&gt; hiveData.get(
+            &#39;archiveDates_${e.apiKey}&#39;,
+            defaultValue: &lt;DateTime&gt;[],
+          ) as List&lt;DateTime&gt;,
+        )
+        .expand((element) =&gt; element),
+  );
 }</code></pre>
 </section>
 
@@ -128,8 +139,8 @@
     <li class="section-title">
       <a href="../../source_app_data/AppData-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../source_app_data/AppData/apiKey.html">apiKey</a></li>
     <li><a href="../../source_app_data/AppData/archiveDate.html">archiveDate</a></li>
+    <li><a href="../../source_app_data/AppData/datesInArchive.html">datesInArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_app_data/AppData/hiveData.html">hiveData</a></li>

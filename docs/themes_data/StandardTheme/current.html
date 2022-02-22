@@ -65,6 +65,19 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">ThemeMode current() {
+  if (themeIndex == -1) {
+    if (AppData.instance.prefs != null) {
+      themeIndex = AppData.instance.prefs!.getInt(&#39;themeIndex&#39;) ?? 0;
+    } else {
+      () async {
+        AppData.instance.prefs = await SharedPreferences.getInstance();
+      }()
+          .then((value) {
+        changeIndex(AppData.instance.prefs!.getInt(&#39;themeIndex&#39;) ?? 0);
+      });
+    }
+  }
+
   return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
 }</code></pre>
 </section>

@@ -65,15 +65,15 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; save() async {
-  final res = await prefs.setString(
+  final res = await prefs?.setString(
     &#39;WorkerKeys&#39;,
     jsonEncode(workerKeys.map((e) =&gt; e.toJson()).toList()),
   );
-  if (!res) {
+  if (res == null || !res) {
     showErrorNotification(&#39;Ошибка: не удалось сохранить профиль отделения!&#39;);
   }
   notifyListeners();
-  await prefs.setString(&#39;serviceView&#39;, serviceView);
+  await prefs?.setString(&#39;serviceView&#39;, serviceView);
 }</code></pre>
 </section>
 
@@ -105,8 +105,8 @@
     <li class="section-title">
       <a href="../../source_app_data/AppData-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../source_app_data/AppData/apiKey.html">apiKey</a></li>
     <li><a href="../../source_app_data/AppData/archiveDate.html">archiveDate</a></li>
+    <li><a href="../../source_app_data/AppData/datesInArchive.html">datesInArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_app_data/AppData/hiveData.html">hiveData</a></li>
