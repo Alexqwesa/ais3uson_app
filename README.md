@@ -52,10 +52,10 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 **Работники:**
 
-- устанавливают приложение на своем мобильном устройстве(ссылка для установки),
-- сканируют Qr-код(у заведующих),
+- устанавливают приложение на своем мобильном устройстве( [ссылка для установки](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app) ),
+- сканируют Qr-код(предоставленный заведующим отделением/менеджером),
 - вводят услуги по мере их оказания,
-- периодически (или постоянно) подключаются к интернету для синхронизации данных приложения.
+- периодически (или постоянно) подключаются к интернету для синхронизации данных приложения(не реже раза в сутки).
 
 Для не поддерживаемых ОС, также в целях проверки - доступно
 web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexqwesa.github.io/web3uson/)
@@ -113,6 +113,10 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 
 [@Alexqwesa](https://github.com/Alexqwesa) aka Savin Aleksander Viktorovich (Савин Александр
 Викторович)
+
+### [Документация для разработчиков](https://alexqwesa.github.io/ais3uson_app/)
+
+- [Автоматически сгенерированная](https://alexqwesa.github.io/ais3uson_app/)
 
 ## Лицензия
 
