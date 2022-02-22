@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Theme with support switching dark/light.
 ///
@@ -42,7 +46,7 @@ class StandardTheme with ChangeNotifier {
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
-    headline6: GoogleFonts.openSans(
+    headline6: GoogleFonts.ubuntu(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
@@ -93,7 +97,7 @@ class StandardTheme with ChangeNotifier {
   );
 
   /// store theme state: light/dark
-  int themeIndex = 0;
+  int themeIndex = -1;
 
   static ThemeData light() {
     return ThemeData(
@@ -149,11 +153,25 @@ class StandardTheme with ChangeNotifier {
   }
 
   ThemeMode current() {
+    if (themeIndex == -1) {
+      if (AppData.instance.prefs != null) {
+        themeIndex = AppData.instance.prefs!.getInt('themeIndex') ?? 0;
+      } else {
+        () async {
+          AppData.instance.prefs = await SharedPreferences.getInstance();
+        }()
+            .then((value) {
+          changeIndex(AppData.instance.prefs!.getInt('themeIndex') ?? 0);
+        });
+      }
+    }
+
     return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
   }
 
   void changeIndex(int index) {
     themeIndex = index;
     notifyListeners();
+    unawaited(AppData.instance.prefs!.setInt('themeIndex', themeIndex));
   }
 }

@@ -57,60 +57,98 @@ class _ClientScreenState extends State<ClientScreen> {
             return clientList.isNotEmpty
                 ? ListView.builder(
                     itemCount: clientList.length,
-                    shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Card(
-                        margin: const EdgeInsets.fromLTRB(8, 1, 8, 0),
-                        child: ListTile(
-                          leading: Transform.scale(
-                            scale: 1.5,
-                            child: const Icon(Icons.person),
+                      return Center(
+                        child: SizedBox(
+                          width: 550.0,
+                          child: ClientCardWidgetOfList(
+                            index: index,
+                            client: clientList[index],
                           ),
-                          title: Text(
-                            clientList[index].name,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          subtitle: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              clientList[index].contract,
-                              // textAlign: TextAlign.right,
-                            ),
-                          ),
-                          onTap: () async {
-                            unawaited(Navigator.pushNamed(
-                              context,
-                              '/client_services',
-                              arguments: ScreenArguments(
-                                profile: profileNum,
-                                contract: clientList[index].contractId,
-                              ),
-                            ));
-                            if (workerProfile.services.isEmpty) {
-                              await workerProfile.syncHiveServices();
-                            }
-                            if (workerProfile.clientPlan.isEmpty) {
-                              await workerProfile.syncHivePlanned();
-                            }
-                            final clientProfile = clientList[index];
-                            if (clientProfile.services.isEmpty) {
-                              await clientProfile.updateServices();
-                            }
-                          },
                         ),
                       );
                     },
                   )
-                : const Center(
+                : Center(
                     child: Text(
                       'Список получателей СУ пуст, \n\n'
                       'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
                       'обновите список',
                       textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                   );
           },
         ),
+      ),
+    );
+  }
+}
+
+class ClientCardWidgetOfList extends StatelessWidget {
+  final ClientProfile client;
+  final int index;
+
+  const ClientCardWidgetOfList({
+    required this.index,
+    required this.client,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final workerProfile = client.workerProfile;
+
+    return Card(
+      margin: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+      child: ListTile(
+        leading: Transform.scale(
+          scale: 1.5,
+          child: Icon(
+            Icons.person,
+            color: HSVColor.fromColor(
+              Theme.of(context).primaryColor,
+            )
+                .withHue(
+                  (index * 157 + 100) % 360,
+                )
+                .toColor(),
+          ),
+        ),
+        title: Text(
+          client.name,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.fromLTRB(25.0, 8, 0, 4),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              client.contract,
+              // textAlign: TextAlign.right,
+            ),
+          ),
+        ),
+        onTap: () async {
+          unawaited(Navigator.pushNamed(
+            context,
+            '/client_services',
+            arguments: ScreenArguments(
+              profile: client.workerProfile.index,
+              contract: client.contractId,
+            ),
+          ));
+          if (workerProfile.services.isEmpty) {
+            await workerProfile.syncHiveServices();
+          }
+          if (workerProfile.clientPlan.isEmpty) {
+            await workerProfile.syncHivePlanned();
+          }
+          final clientProfile = client;
+          if (clientProfile.services.isEmpty) {
+            await clientProfile.updateServices();
+          }
+        },
       ),
     );
   }

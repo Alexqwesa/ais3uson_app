@@ -17,6 +17,11 @@ class AddDepartmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var columnWidth = MediaQuery.of(context).size.width;
+    columnWidth = MediaQuery.of(context).size.width <
+            1 * MediaQuery.of(context).size.height
+        ? columnWidth
+        : columnWidth / 2;
     final workerKeys = qrCodes
         .map((e) => WorkerKey.fromJson(jsonDecode(e) as Map<String, dynamic>))
         .toList();
@@ -35,153 +40,165 @@ class AddDepartmentScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: AspectRatio(
-          aspectRatio: 3 / 5,
-          child: FittedBox(
-            child: SizedBox(
-              height: 700,
-              width: 350,
-              child: Column(
-                children: <Widget>[
-                  //
-                  // > returned text
-                  //
-                  SizedBox(
-                    height: 280,
-                    child: Card(
-                      margin: const EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              ' Вставте текст-ключ отделения в это поле: ',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headline6,
-                              softWrap: true,
+      body: Wrap(
+        children: [
+          SizedBox(
+            width: columnWidth,
+            child: FittedBox(
+              child: SizedBox(
+                height: 280,
+                width: 350,
+                child: Column(
+                  children: <Widget>[
+                    //
+                    // > returned text
+                    //
+                    SizedBox(
+                      height: 280,
+                      child: Card(
+                        margin: const EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                ' Вставте текст-ключ отделения в это поле: ',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline6,
+                                softWrap: true,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            // height: screenHeight,
-                            child: SimpleTextField(
-                              controller: controller,
+                            SizedBox(
+                              // height: screenHeight,
+                              child: SimpleTextField(
+                                controller: controller,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
-                            child: Row(
-                              children: [
-                                TextButton(
-                                  child: const Text(
-                                    'Очистить',
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                    child: const Text(
+                                      'Очистить',
+                                    ),
+                                    onPressed: controller.clear,
                                   ),
-                                  onPressed: controller.clear,
-                                ),
-                                const Spacer(),
-                                ElevatedButton(
-                                  child: const Text(
-                                    'Добавить отделение',
-                                  ),
-                                  onPressed: () async {
-                                    try {
-                                      Navigator.pop(context, 'added');
-                                      final res =
-                                          await AppData().addProfileFromKey(
-                                        WorkerKey.fromJson(
-                                          jsonDecode(
-                                            controller.value.text
-                                                .replaceAll('\n', ''),
-                                          ) as Map<String, dynamic>,
-                                        ),
-                                      );
-                                      if (res) {
-                                        await AppData().save();
-                                      } else {
+                                  const Spacer(),
+                                  ElevatedButton(
+                                    child: const Text(
+                                      'Добавить отделение',
+                                    ),
+                                    onPressed: () async {
+                                      try {
+                                        Navigator.pop(context, 'added');
+                                        final res =
+                                            await AppData().addProfileFromKey(
+                                          WorkerKey.fromJson(
+                                            jsonDecode(
+                                              controller.value.text
+                                                  .replaceAll('\n', ''),
+                                            ) as Map<String, dynamic>,
+                                          ),
+                                        );
+                                        if (res) {
+                                          await AppData().save();
+                                        } else {
+                                          showErrorNotification(
+                                            'Не удалось добавить отделение. Возможно оно уже есть в списке. ',
+                                          );
+                                          // ignore: use_build_context_synchronously
+                                          FocusScope.of(context).requestFocus(
+                                            FocusNode(),
+                                          );
+                                        }
+                                      } on FormatException {
                                         showErrorNotification(
-                                          'Не удалось добавить отделение. Возможно оно уже есть в списке. ',
+                                          'Не удалось добавить отделение. Возможно неправильный формат строки.',
                                         );
                                         // ignore: use_build_context_synchronously
                                         FocusScope.of(context).requestFocus(
                                           FocusNode(),
                                         );
                                       }
-                                    } on FormatException {
-                                      showErrorNotification(
-                                        'Не удалось добавить отделение. Возможно неправильный формат строки.',
-                                      );
-                                      // ignore: use_build_context_synchronously
-                                      FocusScope.of(context).requestFocus(
-                                        FocusNode(),
-                                      );
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        'Либо добавьте тестовое отделение из списка ниже:',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ),
-                  ),
-
-                  ListView.builder(
-                    itemCount: workerKeys.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Card(
-                          child: ListTile(
-                            leading: Transform.rotate(
-                              angle: pi / 30,
-                              child: const Icon(
-                                Icons.group,
-                                // color: Colors.green,
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                            title: Text(workerKeys[index].dep),
-                            trailing: const Icon(
-                              Icons.add,
-                              color: Colors.green,
-                            ),
-                            subtitle: Text(workerKeys[index].name),
-                            //
-                            // > call dialog
-                            //
-                            onTap: () async {
-                              Navigator.pop(context, 'added');
-                              final res = await AppData()
-                                  .addProfileFromKey(workerKeys[index]);
-                              if (res) {
-                                await AppData().save();
-                              } else {
-                                showErrorNotification(
-                                  'Не удалось добавить отделение. Возможно оно уже есть в списке.',
-                                );
-                              }
-                            },
-                          ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+          SizedBox(
+            width: columnWidth,
+            child: FittedBox(
+              child: SizedBox(
+                width: 450,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          'Либо добавьте тестовое отделение из списка ниже:',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                    ),
+                    ListView.builder(
+                      itemCount: workerKeys.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Card(
+                            child: ListTile(
+                              leading: Transform.rotate(
+                                angle: pi / 30,
+                                child: const Icon(
+                                  Icons.group,
+                                  // color: Colors.green,
+                                ),
+                              ),
+                              title: Text(workerKeys[index].dep),
+                              trailing: const Icon(
+                                Icons.add,
+                                color: Colors.green,
+                              ),
+                              subtitle: Text(workerKeys[index].name),
+                              //
+                              // > call dialog
+                              //
+                              onTap: () async {
+                                Navigator.pop(context, 'added');
+                                final res = await AppData()
+                                    .addProfileFromKey(workerKeys[index]);
+                                if (res) {
+                                  await AppData().save();
+                                } else {
+                                  showErrorNotification(
+                                    'Не удалось добавить отделение. Возможно оно уже есть в списке.',
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

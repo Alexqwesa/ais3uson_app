@@ -30,33 +30,41 @@ import 'package:singleton/singleton.dart';
 /// It save/restore hive and notifies listeners.
 // ignore: prefer_mixin
 class AppData with ChangeNotifier {
-  /// Store Singleton
-  late final SharedPreferences prefs;
 
   final standardTheme = StandardTheme();
 
   /// Global Storage [hiveData]
   late Box hiveData;
 
+  SharedPreferences? prefs;
+
   late ScreenArguments lastScreen;
 
   http.Client httpClient = http.Client();
 
-  /// View of services List, can be: ['', 'tile', 'short']
-  String serviceView = '';
+  /// Dates which have archived services
+  Set<DateTime> datesInArchive = <DateTime>{};
 
   // ignore: prefer_constructors_over_static_methods
   static AppData get instance => AppData();
 
-  List<WorkerProfile> get profiles => _profiles;
+  String get serviceView => _serviceView;
 
-  String get apiKey => profiles.first.key.apiKey;
+  set serviceView(String value) {
+    _serviceView = value;
+
+    unawaited(prefs?.setString('serviceView', serviceView));
+  }
+
+  List<WorkerProfile> get profiles => _profiles;
 
   /// workerKeys - is user authentication data,
   Iterable<WorkerKey> get workerKeys => _profiles.map((e) => e.key);
 
+  /// Is displayed usual view of App or archive view
   bool get isArchive => _isArchive;
 
+  /// Date of last archiving
   DateTime get archiveDate => _archiveDate;
 
   set archiveDate(DateTime? newValue) {
@@ -96,6 +104,9 @@ class AppData with ChangeNotifier {
 
   var _archiveDate = DateTime.now().add(const Duration(days: -1));
 
+  /// View of services List, can be: '', 'tile', 'short'
+  String _serviceView = '';
+
   /// Profiles list
   List<WorkerProfile> _profiles = [];
 
@@ -133,7 +144,7 @@ class AppData with ChangeNotifier {
       }
     }));
 
-    await prefs.setString('serviceView', serviceView);
+    await prefs?.setString('serviceView', serviceView);
   }
 
   /// Init Hive and its adapters.
@@ -159,27 +170,38 @@ class AppData with ChangeNotifier {
     ScreenArguments(profile: 0);
     prefs = await SharedPreferences.getInstance();
     for (final Map<dynamic, dynamic> keyFromHive
-        in jsonDecode(prefs.getString('WorkerKeys') ?? '[]')) {
+        in jsonDecode(prefs!.getString('WorkerKeys') ?? '[]')) {
       _profiles.add(
         WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
     }
-    serviceView = prefs.getString('serviceView') ?? '';
+    serviceView = prefs!.getString('serviceView') ?? '';
     notifyListeners();
     await Future.wait(_profiles.map((e) => e.postInit()));
     notifyListeners();
+
+    datesInArchive.addAll(
+      workerKeys
+          .map(
+            (e) => hiveData.get(
+              'archiveDates_${e.apiKey}',
+              defaultValue: <DateTime>[],
+            ) as List<DateTime>,
+          )
+          .expand((element) => element),
+    );
   }
 
   Future<void> save() async {
-    final res = await prefs.setString(
+    final res = await prefs?.setString(
       'WorkerKeys',
       jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
     );
-    if (!res) {
+    if (res == null || !res) {
       showErrorNotification('Ошибка: не удалось сохранить профиль отделения!');
     }
     notifyListeners();
-    await prefs.setString('serviceView', serviceView);
+    await prefs?.setString('serviceView', serviceView);
   }
 
   /// Add Profile from [WorkerKey].
@@ -246,6 +268,12 @@ class AppData with ChangeNotifier {
 
   /// Just delete profile, notify and save left profiles.
   void profileDelete(int index) {
+    hiveData
+        .delete('archiveDates_${_profiles[index].apiKey}')
+        .then((value) => unawaited(AppData().save()));
+    unawaited(
+      Hive.deleteBoxFromDisk('journal_archive_${_profiles[index].apiKey}'),
+    );
     _profiles.removeAt(index);
     notifyListeners();
     unawaited(AppData().save());

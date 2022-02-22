@@ -81,6 +81,10 @@ class _AppRootState extends State<AppRoot> {
                               AppData.instance.archiveDate.day - 365,
                             ),
                             lastDate: lastDate,
+                            selectableDayPredicate: (date) {
+                              return AppData.instance.datesInArchive
+                                  .contains(date);
+                            },
                           );
                         },
                       );
