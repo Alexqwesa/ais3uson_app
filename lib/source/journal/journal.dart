@@ -337,7 +337,7 @@ class Journal with ChangeNotifier {
       (el) =>
           el.provDate.isBefore(today) &&
           [ServiceState.finished, ServiceState.outDated].contains(el.state),
-    );
+    ).toList(); // don't lose this list after delete from all
     final forArchive = forDelete.map(
       (e) => ServiceOfJournal.copy(
         servId: e.servId,
@@ -372,8 +372,15 @@ class Journal with ChangeNotifier {
         ); // or maybe better deleteAll, ?
         // await hiveArchive.addAll(archList.slice(0, hiveArchiveLimit));
       }
-      final dateList =
-          archList.slice(hiveArchiveLimit).map((element) => element.provDate);
+      final dateList = archList
+          .slice(
+            0,
+            hiveArchiveLimit < archList.length
+                ? hiveArchiveLimit
+                : archList.length,
+          )
+          .map((element) => element.provDate)
+          .toList();
       await AppData.instance.hiveData.put(
         'archiveDates_$apiKey',
         dateList,
