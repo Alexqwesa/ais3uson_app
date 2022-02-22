@@ -69,6 +69,12 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void profileDelete(int index) {
+  hiveData
+      .delete(&#39;archiveDates_${_profiles[index].apiKey}&#39;)
+      .then((value) =&gt; unawaited(AppData().save()));
+  unawaited(
+    Hive.deleteBoxFromDisk(&#39;journal_archive_${_profiles[index].apiKey}&#39;),
+  );
   _profiles.removeAt(index);
   notifyListeners();
   unawaited(AppData().save());
@@ -103,8 +109,8 @@
     <li class="section-title">
       <a href="../../source_app_data/AppData-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../source_app_data/AppData/apiKey.html">apiKey</a></li>
     <li><a href="../../source_app_data/AppData/archiveDate.html">archiveDate</a></li>
+    <li><a href="../../source_app_data/AppData/datesInArchive.html">datesInArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_app_data/AppData/hiveData.html">hiveData</a></li>

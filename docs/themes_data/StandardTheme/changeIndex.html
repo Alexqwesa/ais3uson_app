@@ -68,6 +68,7 @@
   <pre class="language-dart"><code class="language-dart">void changeIndex(int index) {
   themeIndex = index;
   notifyListeners();
+  unawaited(AppData.instance.prefs!.setInt(&#39;themeIndex&#39;, themeIndex));
 }</code></pre>
 </section>
 

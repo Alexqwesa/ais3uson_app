@@ -91,7 +91,7 @@ Only <a href="../../source_global_helpers/hiveArchiveLimit-constant.html">hiveAr
     (el) =&gt;
         el.provDate.isBefore(today) &amp;&amp;
         [ServiceState.finished, ServiceState.outDated].contains(el.state),
-  );
+  ).toList(); &#47;&#47; don&#39;t lose this list after delete from all
   final forArchive = forDelete.map(
     (e) =&gt; ServiceOfJournal.copy(
       servId: e.servId,
@@ -108,25 +108,38 @@ Only <a href="../../source_global_helpers/hiveArchiveLimit-constant.html">hiveAr
     &#47;&#47;
     &#47;&#47; &gt; delete finished old services and save hive
     &#47;&#47;
+    all.removeWhere(forDelete.contains);
     forDelete.forEach((e) {
       e.delete();
     });
-    all.removeWhere(forDelete.contains);
     await save();
     &#47;&#47;
     &#47;&#47; &gt; only [hiveArchiveLimit] number of services stored, delete most old and close
     &#47;&#47;
     &#47;&#47; todo: check if hiveArch always place new services last, in that case we can just use deleteAt()
+    final archList = hiveArchive.values.toList()
+      ..sort((a, b) =&gt; a.provDate.compareTo(b.provDate))
+      ..reversed;
     if (hiveArchive.length &gt; hiveArchiveLimit) {
-      final archList = hiveArchive.values.toList();
-      archList
-        ..sort((a, b) =&gt; a.provDate.isBefore(b.provDate) ? 1 : -1)
-        ..removeRange(hiveArchiveLimit, archList.length);
-      await hiveArchive.deleteFromDisk(); &#47;&#47; or maybe better deleteAll ?
-      hiveArchive =
-          await Hive.openBox&lt;ServiceOfJournal&gt;(&#39;journal_archive_$apiKey&#39;);
-      await hiveArchive.addAll(archList);
+      await hiveArchive.deleteAll(
+        archList.slice(hiveArchiveLimit),
+      ); &#47;&#47; or maybe better deleteAll, ?
+      &#47;&#47; await hiveArchive.addAll(archList.slice(0, hiveArchiveLimit));
     }
+    final dateList = archList
+        .slice(
+          0,
+          hiveArchiveLimit &lt; archList.length
+              ? hiveArchiveLimit
+              : archList.length,
+        )
+        .map((element) =&gt; element.provDate)
+        .toList();
+    await AppData.instance.hiveData.put(
+      &#39;archiveDates_$apiKey&#39;,
+      dateList,
+    );
+    AppData.instance.datesInArchive.addAll(dateList);
     await hiveArchive.compact();
     await hiveArchive.close();
   }

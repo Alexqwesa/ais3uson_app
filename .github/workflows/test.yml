@@ -56,7 +56,7 @@ jobs:
           token: ${{secrets.CODECOV_TOKEN}}
           # flags: unittests # optional
           directory: ./coverage/
-          version: "v0.1.15"
+          # version: "v0.1.15"
           verbose: true # optional (default = false)
           # name: codecov # optional
           # files: lcov.info
