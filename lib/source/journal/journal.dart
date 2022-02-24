@@ -318,7 +318,7 @@ class Journal with ChangeNotifier {
   /// services which didn't committed yet(stale/rejected).
   ///
   /// Archive is only for committed services.
-  /// Only [hiveArchiveLimit] number of services could be stored in archive, most old will be deleted first.
+  /// Only [AppData.instance.hiveArchiveLimit] number of services could be stored in archive, most old will be deleted first.
   Future<void> archiveOldServices() async {
     //
     // > open hive archive and add old services
@@ -333,11 +333,13 @@ class Journal with ChangeNotifier {
       this code can lead to data duplication, but we can: TODO: deduplicate data on load.
       This is low priority since it can only happen if sudden kill of app happen in exact this moment.
     */
-    final forDelete = all.where(
-      (el) =>
-          el.provDate.isBefore(today) &&
-          [ServiceState.finished, ServiceState.outDated].contains(el.state),
-    ).toList(); // don't lose this list after delete from all
+    final forDelete = all
+        .where(
+          (el) =>
+              el.provDate.isBefore(today) &&
+              [ServiceState.finished, ServiceState.outDated].contains(el.state),
+        )
+        .toList(); // don't lose this list after delete from all
     final forArchive = forDelete.map(
       (e) => ServiceOfJournal.copy(
         servId: e.servId,
@@ -366,6 +368,7 @@ class Journal with ChangeNotifier {
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
+      final hiveArchiveLimit = AppData().hiveArchiveLimit;
       if (hiveArchive.length > hiveArchiveLimit) {
         await hiveArchive.deleteAll(
           archList.slice(hiveArchiveLimit),

@@ -30,7 +30,6 @@ import 'package:singleton/singleton.dart';
 /// It save/restore hive and notifies listeners.
 // ignore: prefer_mixin
 class AppData with ChangeNotifier {
-
   final standardTheme = StandardTheme();
 
   /// Global Storage [hiveData]
@@ -41,6 +40,8 @@ class AppData with ChangeNotifier {
   late ScreenArguments lastScreen;
 
   http.Client httpClient = http.Client();
+
+  int hiveArchiveLimit = 1000;
 
   /// Dates which have archived services
   Set<DateTime> datesInArchive = <DateTime>{};
@@ -176,6 +177,7 @@ class AppData with ChangeNotifier {
       );
     }
     serviceView = prefs!.getString('serviceView') ?? '';
+    hiveArchiveLimit = prefs!.getInt('hiveArchiveLimit') ?? 1000;
     notifyListeners();
     await Future.wait(_profiles.map((e) => e.postInit()));
     notifyListeners();
