@@ -6,29 +6,29 @@ part of 'service_of_journal.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ServiceOfJournalAdapter extends TypeAdapter<ServiceOfJournal> {
+class ServiceOfJournalAdapter extends TypeAdapter<_$_ServiceOfJournal> {
   @override
   final int typeId = 0;
 
   @override
-  ServiceOfJournal read(BinaryReader reader) {
+  _$_ServiceOfJournal read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ServiceOfJournal(
+    return _$_ServiceOfJournal(
       servId: fields[0] as int,
       contractId: fields[1] as int,
       workerId: fields[2] as int,
-    )
-      ..provDate = fields[3] as DateTime
-      ..error = fields[5] as String
-      ..uid = fields[6] as String
-      .._state = fields[7] as ServiceState;
+      provDate: fields[3] as DateTime,
+      uid: fields[4] as String,
+      state: fields[5] as ServiceState,
+      error: fields[6] as String,
+    );
   }
 
   @override
-  void write(BinaryWriter writer, ServiceOfJournal obj) {
+  void write(BinaryWriter writer, _$_ServiceOfJournal obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -39,12 +39,12 @@ class ServiceOfJournalAdapter extends TypeAdapter<ServiceOfJournal> {
       ..write(obj.workerId)
       ..writeByte(3)
       ..write(obj.provDate)
-      ..writeByte(5)
-      ..write(obj.error)
-      ..writeByte(6)
+      ..writeByte(4)
       ..write(obj.uid)
-      ..writeByte(7)
-      ..write(obj._state);
+      ..writeByte(5)
+      ..write(obj.state)
+      ..writeByte(6)
+      ..write(obj.error);
   }
 
   @override

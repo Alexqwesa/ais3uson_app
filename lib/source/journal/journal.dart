@@ -5,9 +5,9 @@
 library Journal;
 
 import 'dart:convert';
-import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
@@ -40,41 +40,28 @@ class Journal with ChangeNotifier {
   //
   // > main list of services
   //
-  List<ServiceOfJournal> all = [];
+  List<ServiceOfJournal> added = [];
+  List<ServiceOfJournal> finished = [];
+  List<ServiceOfJournal> outDated = [];
+  List<ServiceOfJournal> rejected = [];
 
   String get apiKey => workerProfile.key.apiKey;
 
   int get workerDepId => workerProfile.key.workerDepId;
 
-  Iterable<ServiceOfJournal> get stalled =>
-      all.where((element) => element.state == ServiceState.stalled);
+  Iterable<ServiceOfJournal> get affect => added + finished;
 
-  Iterable<ServiceOfJournal> get added =>
-      all.where((element) => element.state == ServiceState.added);
+  Iterable<ServiceOfJournal> get servicesForSync => added;
 
-  Iterable<ServiceOfJournal> get finished =>
-      all.where((element) => element.state == ServiceState.finished);
+  Iterable<ServiceOfJournal> get all =>
+      [...added, ...finished, ...rejected, ...outDated];
 
-  Iterable<ServiceOfJournal> get rejected =>
-      all.where((element) => element.state == ServiceState.rejected);
+  DateTime get now => DateTime.now();
 
-  Iterable<ServiceOfJournal> get outDated =>
-      all.where((element) => element.state == ServiceState.outDated);
+  DateTime get today => DateTime(now.year, now.month, now.day);
 
-  Iterable<ServiceOfJournal> get affect => all.where(
-        (element) => [
-          ServiceState.stalled,
-          ServiceState.added,
-          ServiceState.finished,
-        ].contains(element.state),
-      );
-
-  Iterable<ServiceOfJournal> get servicesForSync => all.where(
-        (element) => [
-          ServiceState.stalled,
-          ServiceState.added,
-        ].contains(element.state),
-      );
+  Iterable<ServiceOfJournal> get _forDelete =>
+      (finished + outDated).where((el) => el.provDate.isBefore(today));
 
   Journal(this.workerProfile) {
     _httpHeaders = {}
@@ -96,7 +83,24 @@ class Journal with ChangeNotifier {
 
   Future<void> postInit() async {
     hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
-    all = hive.values.toList();
+    hive.values.forEach((element) {
+      switch (element.state) {
+        case ServiceState.added:
+          added.add(element);
+          break;
+        case ServiceState.finished:
+          finished.add(element);
+          break;
+        case ServiceState.rejected:
+          rejected.add(element);
+          break;
+        case ServiceState.outDated:
+          outDated.add(element);
+          break;
+        default:
+          throw StateError('wrong ServiceState');
+      }
+    });
     await archiveOldServices();
     notifyListeners();
   }
@@ -108,14 +112,14 @@ class Journal with ChangeNotifier {
         await s.save();
         // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
       } catch (e) {
-        dev.log('can not save $s');
+        log.severe('can not save $s');
       }
     }
     await hive.compact();
   }
 
   Future<bool> post(ServiceOfJournal se) async {
-    all.add(se);
+    added.add(se);
     try {
       hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
       await hive.add(se);
@@ -174,7 +178,7 @@ class Journal with ChangeNotifier {
     //
     // > check: is it in right state (not finished etc...)
     //
-    if (![ServiceState.added, ServiceState.stalled].contains(serv.state)) {
+    if (ServiceState.added != serv.state) {
       return serv.state;
     }
     //
@@ -193,7 +197,7 @@ class Journal with ChangeNotifier {
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     var url = Uri.parse(urlAddress);
     var http = AppData().httpClient;
-    var ret = ServiceState.stalled;
+    var ret = ServiceState.added;
     try {
       Response response;
       final sslClient = workerProfile.sslClient;
@@ -211,8 +215,9 @@ class Journal with ChangeNotifier {
       } else {
         response = await http.get(url, headers: _httpHeaders);
       }
-      dev.log('$url response.statusCode = ${response.statusCode}');
-      dev.log(response.body);
+      log.info(
+        '$url response.statusCode = ${response.statusCode}\n\n ${response.body}',
+      );
       //
       // > check response
       //
@@ -225,7 +230,7 @@ class Journal with ChangeNotifier {
               ? ServiceState.finished
               : ServiceState.rejected;
         } else {
-          ret = ServiceState.stalled;
+          ret = ServiceState.added;
         }
       }
       //
@@ -233,18 +238,18 @@ class Journal with ChangeNotifier {
       //
     } on HandshakeException {
       showErrorNotification('Ошибка защищенного соединения!');
-      dev.log('Server HandshakeException error $url ');
+      log.severe('Server HandshakeException error $url ');
     } on ClientException {
       showErrorNotification('Ошибка сервера!');
-      dev.log('Server error  $url  ');
+      log.severe('Server error  $url  ');
     } on SocketException {
       showErrorNotification('Ошибка: нет соединения с интернетом!');
-      dev.log('No internet connection $url ');
+      log.warning('No internet connection $url ');
     } on HttpException {
       showErrorNotification('Ошибка доступа к серверу!');
-      dev.log('Server access error $url ');
+      log.severe('Server access error $url ');
     } finally {
-      dev.log('sync ended $url ');
+      log.fine('sync ended $url ');
     }
 
     return ret;
@@ -259,16 +264,35 @@ class Journal with ChangeNotifier {
     // > main loop, synchronized
     //
     await _lock.synchronized(() async {
-      final servList = servicesForSync.toList(); // work with copy of list
-      try {
-        for (final s in servList) {
-          await s.setState(await commitAdd(s) ?? s.state);
+      await Future.wait(servicesForSync.map((s) async {
+        try {
+          switch (await commitAdd(s)) {
+            case ServiceState.added:
+              log.info('stale service $s');
+              break; // no changes - do nothing
+            case ServiceState.finished:
+              log.finest('stale service $s');
+              finished.add(s.copyWith(state: ServiceState.finished));
+              added.remove(s);
+              await s.delete();
+              break;
+            case ServiceState.rejected:
+              log.warning('stale service $s');
+              rejected.add(s.copyWith(state: ServiceState.rejected));
+              added.remove(s);
+              await s.delete();
+              break;
+            case ServiceState.outDated:
+              throw StateError('commit can not make service outDated');
+            default:
+              throw StateError('impossible');
+          }
+          // ignore: avoid_catches_without_on_clauses
+        } catch (e) {
+          log.severe('Sync services: $e');
         }
-        servList.forEach((element) => dev.log(element.state.toString()));
-        // ignore: avoid_catches_without_on_clauses
-      } catch (e) {
-        dev.log(e.toString());
-      }
+      }));
+
       notifyListeners();
     });
   }
@@ -280,9 +304,9 @@ class Journal with ChangeNotifier {
     //
     // find service
     //
-    serv ??= all.lastWhereOrNull((element) => element.uid == uuid);
+    serv ??= all.firstWhereOrNull((element) => element.uid == uuid);
     if (serv == null) {
-      dev.log('Error: delete: not found by uuid');
+      log.severe('Error: delete: not found by uuid');
 
       return;
     }
@@ -299,15 +323,36 @@ class Journal with ChangeNotifier {
     // delete
     //
     try {
-      all.removeAt(
-        all.indexOf(serv),
-      );
+      await deleteService([serv]);
       notifyListeners();
-      await serv.delete();
       // ignore: avoid_catching_errors
     } on RangeError {
-      dev.log('RangeError double delete');
+      log.severe('RangeError double delete');
     }
+  }
+
+  Future<void> deleteService(List<ServiceOfJournal> forDelete) async {
+    forDelete.forEach((e) {
+      switch (e.state) {
+        case ServiceState.added:
+          added.remove(e);
+          break;
+        case ServiceState.finished:
+          finished.remove(e);
+          break;
+        case ServiceState.rejected:
+          rejected.remove(e);
+          break;
+        case ServiceState.outDated:
+          outDated.remove(e);
+          break;
+        default:
+          throw StateError('Impossible state');
+      }
+
+      e.delete();
+    });
+    await save();
   }
 
   /// This function move old finished(and outDated) services to [hiveArchive].
@@ -323,44 +368,16 @@ class Journal with ChangeNotifier {
     //
     // > open hive archive and add old services
     //
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
     hiveArchive =
         await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
-    /*
-      We could have just removed element first from list of active elements,
-      but this could lead to dataloss,
-      this code can lead to data duplication, but we can: TODO: deduplicate data on load.
-      This is low priority since it can only happen if sudden kill of app happen in exact this moment.
-    */
-    final forDelete = all
-        .where(
-          (el) =>
-              el.provDate.isBefore(today) &&
-              [ServiceState.finished, ServiceState.outDated].contains(el.state),
-        )
-        .toList(); // don't lose this list after delete from all
-    final forArchive = forDelete.map(
-      (e) => ServiceOfJournal.copy(
-        servId: e.servId,
-        contractId: e.contractId,
-        workerId: e.workerId,
-        state: e.state,
-        uid: e.uid,
-        error: e.error,
-        provDate: e.provDate,
-      ),
-    );
+    final forDelete = _forDelete.toList(); // don't lose this list after delete
+    final forArchive = forDelete.map((e) => e.copyWith());
     if (forArchive.isNotEmpty) {
-      await hiveArchive.addAll(forArchive);
+      await hiveArchive.addAll(forArchive); // check duplicates error
       //
       // > delete finished old services and save hive
       //
-      all.removeWhere(forDelete.contains);
-      forDelete.forEach((e) {
-        e.delete();
-      });
-      await save();
+      await deleteService(forDelete);
       //
       // > only [hiveArchiveLimit] number of services stored, delete most old and close
       //
@@ -373,7 +390,6 @@ class Journal with ChangeNotifier {
         await hiveArchive.deleteAll(
           archList.slice(hiveArchiveLimit),
         ); // or maybe better deleteAll, ?
-        // await hiveArchive.addAll(archList.slice(0, hiveArchiveLimit));
       }
       final dateList = archList
           .slice(
@@ -409,7 +425,7 @@ class Journal with ChangeNotifier {
       final serv = servList.lastWhere(
         (element) => element.state == ServiceState.rejected,
         orElse: () => servList.lastWhere(
-          (element) => element.state == ServiceState.stalled,
+          (element) => element.state == ServiceState.added,
           orElse: () => servList.lastWhere(
             (element) => element.state == ServiceState.finished,
             orElse: () => servList.lastWhere(
@@ -423,7 +439,7 @@ class Journal with ChangeNotifier {
       return uid;
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
-      dev.log(
+      log.severe(
         'Error: $e, can not delete service #$servId of contract #$contractId',
       );
     }
@@ -434,12 +450,13 @@ class Journal with ChangeNotifier {
   /// Mark all finished service as [ServiceState.outDated]
   /// after [WorkerProfile._clientPlan] synchronized.
   Future<void> updateBasedOnNewPlanDate() async {
-    all.where((e) => e.state == ServiceState.finished).forEach(
+    added.where((e) => e.state == ServiceState.finished).forEach(
       (element) async {
         // TODO: rework it?
         if (element.provDate
             .isBefore(await workerProfile.clientPlanSyncDate())) {
-          await element.setState(ServiceState.outDated);
+          outDated.add(element.copyWith(state: ServiceState.outDated));
+          await deleteService([element]);
         }
       },
     );

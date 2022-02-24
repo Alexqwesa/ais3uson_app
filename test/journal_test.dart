@@ -102,16 +102,14 @@ void main() {
       // > prepare
       //
       final addedService =
-          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
-      final errorService =
-          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
-      final wKey = WorkerKey.fromJson(
-        jsonDecode(qrData2WithAutossl) as Map<String, dynamic>,
+          autoServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
+      final errorService = addedService.copyWith(
+        state: ServiceState.rejected,
       );
+      final wKey = wKeysData2();
       var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(addedService);
       await hive.add(errorService);
-      await errorService.setState(ServiceState.rejected);
       expect(errorService.state, ServiceState.rejected);
       //
       // > test hive
@@ -132,15 +130,17 @@ void main() {
     });
     test('it add new serviceOfJournal to journal', () async {
       final addedService =
-          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
-      final errorService =
-          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
+          autoServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
+      final errorService = addedService.copyWith(
+        state: ServiceState.rejected,
+      );
       final wKey = wKeysData2();
       final hive =
           await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(addedService);
       await hive.add(errorService);
-      await errorService.setState(ServiceState.rejected);
+      await hive.add(addedService.copyWith(servId: 828, uid: '12345'));
+      await hive.add(errorService.copyWith(servId: 828, uid: '123456'));
       expect(errorService.state, ServiceState.rejected);
       //
       // > init WorkerProfile and mock http
@@ -156,6 +156,7 @@ void main() {
       // > start journal test
       //
       expect(wp.journal.hive.values.last.state, ServiceState.rejected);
+      expect(wp.clients[0].services[1].listDoneProgressError, [0, 1, 1]);
       expect(wp.clients[0].services[0].listDoneProgressError, [0, 1, 1]);
       expect(wp.clients[0].services[0].deleteAllowed, true);
       await wp.clients[0].services[0].delete();
@@ -166,25 +167,25 @@ void main() {
       expect(wp.clients[0].services[0].listDoneProgressError, [3, 0, 0]);
       await wp.journal.commitAll();
       expect(wp.clients[0].services[0].listDoneProgressError, [3, 0, 0]);
-      expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 3);
+      expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
     test('it archive yesterday services', () async {
       //
       // > prepare
       //
-      final yesterdayService =
-          ServiceOfJournal(servId: 828, contractId: 1, workerId: 1);
       final todayService =
-          ServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
+          autoServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
+      final yesterday = DateTime.now().add(const Duration(days: -1));
+      final yesterdayService = todayService.copyWith(
+        servId: 828,
+        provDate: yesterday,
+        state: ServiceState.finished,
+      );
       final wKey = wKeysData2();
       var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(yesterdayService);
       await hive.add(todayService);
-      final yesterday = DateTime.now().add(const Duration(days: -1));
-      await yesterdayService.setState(ServiceState.finished);
-      yesterdayService.provDate = yesterday;
-      await yesterdayService.save();
       expect(yesterdayService.provDate, yesterday);
       expect(yesterdayService.state, ServiceState.finished);
       //
@@ -204,7 +205,7 @@ void main() {
       // > test what yesterday services are in archive
       //
       expect(
-        AppData.instance.profiles.first.journal.all.first.uid,
+        AppData.instance.profiles.first.journal.added.first.uid,
         todayService.uid,
       );
       final hiveArchive = await Hive.openBox<ServiceOfJournal>(

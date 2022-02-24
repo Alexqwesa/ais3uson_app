@@ -69,10 +69,7 @@ class ClientService with ChangeNotifier {
               element.contractId == contractId && element.servId == service.id)
           .length;
 
-  int get stalled => journal.servicesForSync
-      .where((element) =>
-          element.contractId == contractId && element.servId == service.id)
-      .length;
+  int get stalled => added;
 
   int get rejected => journal.rejected
       .where((element) =>
@@ -84,7 +81,7 @@ class ClientService with ChangeNotifier {
           element.contractId == contractId && element.servId == service.id)
       .length;
 
-  int get left => plan - filled - stalled - done - added;
+  int get left => plan - filled - done - added;
 
   bool get addAllowed => left > 0;
 
@@ -134,7 +131,7 @@ class ClientService with ChangeNotifier {
   Future<void> add() async {
     if (addAllowed) {
       await journal.post(
-        ServiceOfJournal(
+        autoServiceOfJournal(
           servId: planned.servId,
           contractId: planned.contractId,
           workerId: workerDepId,

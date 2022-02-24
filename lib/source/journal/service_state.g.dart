@@ -15,8 +15,6 @@ class ServiceStateAdapter extends TypeAdapter<ServiceState> {
     switch (reader.readByte()) {
       case 0:
         return ServiceState.added;
-      case 1:
-        return ServiceState.stalled;
       case 2:
         return ServiceState.finished;
       case 3:
@@ -33,9 +31,6 @@ class ServiceStateAdapter extends TypeAdapter<ServiceState> {
     switch (obj) {
       case ServiceState.added:
         writer.writeByte(0);
-        break;
-      case ServiceState.stalled:
-        writer.writeByte(1);
         break;
       case ServiceState.finished:
         writer.writeByte(2);

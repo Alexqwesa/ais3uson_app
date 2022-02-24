@@ -17,10 +17,22 @@ class JournalArchive extends Journal {
   @override
   Future<void> postInit() async {
     hive = await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
-    all = hive.values
-        .where((element) =>
-            element.provDate.daysSinceEpoch == aDate.daysSinceEpoch)
-        .toList();
+    hive.values.forEach((element) {
+      switch (element.state) {
+        case ServiceState.added:
+          throw StateError('wrong ServiceState');
+        case ServiceState.finished:
+          finished.add(element);
+          break;
+        case ServiceState.rejected:
+          throw StateError('wrong ServiceState');
+        case ServiceState.outDated:
+          outDated.add(element);
+          break;
+        default:
+          throw StateError('wrong ServiceState');
+      }
+    });
     await hive.close();
     notifyListeners();
   }

@@ -36,6 +36,7 @@ dependencies:
   intl: any
   json_annotation:
   lint: any
+  logging: any
   overlay_support: any # ^1.2.1
   path_provider: any
   peanut: any

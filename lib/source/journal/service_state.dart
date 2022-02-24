@@ -22,8 +22,6 @@ part 'service_state.g.dart';
 enum ServiceState {
   @HiveField(0)
   added,
-  @HiveField(1)
-  stalled,
   @HiveField(2)
   finished,
   @HiveField(3)

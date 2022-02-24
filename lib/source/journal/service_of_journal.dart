@@ -1,7 +1,10 @@
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+part 'service_of_journal.freezed.dart';
 
 part 'service_of_journal.g.dart';
 
@@ -9,68 +12,42 @@ part 'service_of_journal.g.dart';
 ///
 /// It is created in state [ServiceState.added], with current, date and unique uuid.
 ///
-/// [Journal] send services in states [ServiceState.added] and [ServiceState.stalled]
-/// to DB, and marked them [ServiceState.finished] or [ServiceState.rejected].
+/// [Journal] send services in state [ServiceState.added]
+/// to DB, and marked(recreate) them [ServiceState.finished] or [ServiceState.rejected].
 ///
 /// Services in state [ServiceState.finished] or  [ServiceState.outDated] send to
 /// [Journal.hiveArchive] on next day.
 ///
-/// {@category Journal}
-@HiveType(typeId: 0)
-class ServiceOfJournal with HiveObjectMixin {
-  @HiveField(0)
-  final int servId;
-  @HiveField(1)
-  final int contractId;
-  @HiveField(2)
-  final int workerId;
-  @HiveField(3)
-  //
-  // > preinited vars
-  //
-  @HiveField(4)
-  DateTime provDate = DateTime.now();
-  @HiveField(5)
-  String error = '';
-  @HiveField(6)
-  String uid = uuid.v4();
+/// {@category Journal
+@freezed
+class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
+  @HiveType(typeId: 0)
+  factory ServiceOfJournal({
+    @HiveField(0) required int servId,
+    @HiveField(1) required int contractId,
+    @HiveField(2) required int workerId,
+    @HiveField(3) required DateTime provDate,
+    @HiveField(4) required String uid,
+    @HiveField(5) @Default(ServiceState.added) ServiceState state,
+    @HiveField(6) @Default('') String error,
+  }) = _ServiceOfJournal;
 
-  ServiceState get state => _state;
+  ServiceOfJournal._();
+}
 
-  @HiveField(7)
-  ServiceState _state = ServiceState.added;
-
-  ServiceOfJournal({
-    required this.servId,
-    required this.contractId,
-    required this.workerId,
-  });
-
-  ServiceOfJournal.copy({
-    required this.servId,
-    required this.contractId,
-    required this.workerId,
-    required this.provDate,
-    required ServiceState state,
-    required this.error,
-    required this.uid,
-  }) {
-    _state = state;
-  }
-
-  /// Set new state and save itself,
-  /// if box closed - do nothing (think we are in archive).
-  Future<void> setState(ServiceState value) async {
-    _state = value;
-    // if (value == ServiceState.finished) {
-    //   provDate = DateTime.now();
-    // }
-    if (box != null && box!.isOpen) {
-      if (isInBox) {
-        await save();
-      } else {
-        showErrorNotification('Ошибка сохранения записи журнала');
-      }
-    }
-  }
+ServiceOfJournal autoServiceOfJournal({
+  required int servId,
+  required int contractId,
+  required int workerId,
+  DateTime? provDate,
+  ServiceState? state,
+}) {
+  return ServiceOfJournal(
+    servId: servId,
+    contractId: contractId,
+    workerId: workerId,
+    uid: uuid.v4(),
+    provDate: provDate ?? DateTime.now(),
+    state: state ?? ServiceState.added,
+  );
 }
