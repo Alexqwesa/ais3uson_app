@@ -80,9 +80,6 @@ void write(BinaryWriter writer, ServiceState obj) {
     case ServiceState.added:
       writer.writeByte(0);
       break;
-    case ServiceState.stalled:
-      writer.writeByte(1);
-      break;
     case ServiceState.finished:
       writer.writeByte(2);
       break;

@@ -74,9 +74,9 @@
   &#47;&#47;
   &#47;&#47; find service
   &#47;&#47;
-  serv ??= all.lastWhereOrNull((element) =&gt; element.uid == uuid);
+  serv ??= all.firstWhereOrNull((element) =&gt; element.uid == uuid);
   if (serv == null) {
-    dev.log(&#39;Error: delete: not found by uuid&#39;);
+    log.severe(&#39;Error: delete: not found by uuid&#39;);
 
     return;
   }
@@ -93,14 +93,11 @@
   &#47;&#47; delete
   &#47;&#47;
   try {
-    all.removeAt(
-      all.indexOf(serv),
-    );
+    await deleteService([serv]);
     notifyListeners();
-    await serv.delete();
     &#47;&#47; ignore: avoid_catching_errors
   } on RangeError {
-    dev.log(&#39;RangeError double delete&#39;);
+    log.severe(&#39;RangeError double delete&#39;);
   }
 }</code></pre>
 </section>
@@ -142,11 +139,12 @@
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../Journal/Journal/hive.html">hive</a></li>
     <li><a href="../../Journal/Journal/hiveArchive.html">hiveArchive</a></li>
+    <li><a href="../../Journal/Journal/now.html">now</a></li>
     <li><a href="../../Journal/Journal/outDated.html">outDated</a></li>
     <li><a href="../../Journal/Journal/rejected.html">rejected</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../Journal/Journal/servicesForSync.html">servicesForSync</a></li>
-    <li><a href="../../Journal/Journal/stalled.html">stalled</a></li>
+    <li><a href="../../Journal/Journal/today.html">today</a></li>
     <li><a href="../../Journal/Journal/workerDepId.html">workerDepId</a></li>
     <li><a href="../../Journal/Journal/workerProfile.html">workerProfile</a></li>
 
@@ -158,6 +156,7 @@
     <li><a href="../../Journal/Journal/commitDel.html">commitDel</a></li>
     <li><a href="../../Journal/Journal/commitUrl.html">commitUrl</a></li>
     <li><a href="../../Journal/Journal/delete.html">delete</a></li>
+    <li><a href="../../Journal/Journal/deleteService.html">deleteService</a></li>
     <li><a href="../../Journal/Journal/dispose.html">dispose</a></li>
     <li><a href="../../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
