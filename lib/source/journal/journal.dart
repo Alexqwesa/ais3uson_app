@@ -19,7 +19,6 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
-import 'package:surf_lint_rules/surf_lint_rules.dart';
 import 'package:synchronized/synchronized.dart';
 
 /// Journal of services
@@ -121,6 +120,7 @@ class Journal with ChangeNotifier {
     await hive.compact();
   }
 
+  /// Add new [ServiceOfJournal] to [Journal] and call [commitAll].
   Future<bool> post(ServiceOfJournal se) async {
     added.add(se);
     try {
@@ -131,6 +131,9 @@ class Journal with ChangeNotifier {
       showErrorNotification(
         'Ошибка: не удалось сохранить запись журнала, проверьте сводобное место на устройстве',
       );
+      await commitAll(); // still call?
+
+      return false;
     }
     await commitAll();
 
@@ -267,23 +270,19 @@ class Journal with ChangeNotifier {
     // > main loop, synchronized
     //
     await _lock.synchronized(() async {
-      await Future.wait(servicesForSync.map((s) async {
+      await Future.wait(servicesForSync.map((serv) async {
         try {
-          switch (await commitAdd(s)) {
+          switch (await commitAdd(serv)) {
             case ServiceState.added:
-              log.info('stale service $s');
+              log.info('stale service $serv');
               break; // no changes - do nothing
             case ServiceState.finished:
-              log.finest('stale service $s');
-              finished.add(s.copyWith(state: ServiceState.finished));
-              added.remove(s);
-              await s.delete();
+              log.finest('stale service $serv');
+              toFinished(serv);
               break;
             case ServiceState.rejected:
-              log.warning('stale service $s');
-              rejected.add(s.copyWith(state: ServiceState.rejected));
-              added.remove(s);
-              await s.delete();
+              log.warning('stale service $serv');
+              toRejected(serv);
               break;
             case ServiceState.outDated:
               throw StateError('commit can not make service outDated');
@@ -326,36 +325,12 @@ class Journal with ChangeNotifier {
     // delete
     //
     try {
-      await deleteService([serv]);
+      toDelete([serv]);
       notifyListeners();
       // ignore: avoid_catching_errors
     } on RangeError {
       log.severe('RangeError double delete');
     }
-  }
-
-  Future<void> deleteService(List<ServiceOfJournal> forDelete) async {
-    forDelete.forEach((e) {
-      switch (e.state) {
-        case ServiceState.added:
-          added.remove(e);
-          break;
-        case ServiceState.finished:
-          finished.remove(e);
-          break;
-        case ServiceState.rejected:
-          rejected.remove(e);
-          break;
-        case ServiceState.outDated:
-          outDated.remove(e);
-          break;
-        default:
-          throw StateError('Impossible state');
-      }
-
-      e.delete();
-    });
-    await save();
   }
 
   /// This function move old finished(and outDated) services to [hiveArchive].
@@ -380,7 +355,7 @@ class Journal with ChangeNotifier {
       //
       // > delete finished old services and save hive
       //
-      await deleteService(forDelete);
+      toDelete(forDelete);
       //
       // > only [hiveArchiveLimit] number of services stored, delete most old and close
       //
@@ -459,9 +434,99 @@ class Journal with ChangeNotifier {
         if (element.provDate
             .isBefore(await workerProfile.clientPlanSyncDate())) {
           outDated.add(element.copyWith(state: ServiceState.outDated));
-          await deleteService([element]);
         }
       },
     );
+  }
+
+  /// Remove [ServiceOfJournal] from lists of [Journal] and from Hive.
+  void toDelete(List<ServiceOfJournal> forDelete) {
+    forDelete.forEach((e) {
+      switch (e.state) {
+        case ServiceState.added:
+          added.remove(e);
+          break;
+        case ServiceState.finished:
+          finished.remove(e);
+          break;
+        case ServiceState.rejected:
+          rejected.remove(e);
+          break;
+        case ServiceState.outDated:
+          outDated.remove(e);
+          break;
+        default:
+          throw StateError('Impossible state');
+      }
+
+      e.delete();
+    });
+    notifyListeners();
+  }
+
+  /// Shortcut for [moveServiceTo].
+  ServiceOfJournal toOutDated(ServiceOfJournal service) =>
+      moveServiceTo(service, ServiceState.outDated);
+
+  /// Shortcut for [moveServiceTo].
+  ServiceOfJournal toRejected(ServiceOfJournal service) =>
+      moveServiceTo(service, ServiceState.rejected);
+
+  /// Shortcut for [moveServiceTo].
+  ServiceOfJournal toFinished(ServiceOfJournal service) =>
+      moveServiceTo(service, ServiceState.finished);
+
+  /// Move service - create new in dst, delete old in src list of [Journal].
+  ///
+  /// Take care of [Journal] lists and Hive.
+  ServiceOfJournal moveServiceTo(
+    ServiceOfJournal service,
+    ServiceState newState,
+  ) {
+    //
+    // > remove
+    //
+    switch (service.state) {
+      case ServiceState.added:
+        added.remove(service);
+        break;
+      case ServiceState.finished:
+        finished.remove(service);
+        break;
+      case ServiceState.rejected:
+        rejected.remove(service);
+        break;
+      case ServiceState.outDated:
+        outDated.remove(service);
+        break;
+      default:
+        throw StateError('Impossible state');
+    }
+    //
+    // > add
+    //
+    final newService = service.copyWith(state: newState);
+    switch (newService.state) {
+      case ServiceState.added:
+        added.add(newService);
+        break;
+      case ServiceState.finished:
+        finished.add(newService);
+        break;
+      case ServiceState.rejected:
+        rejected.add(newService);
+        break;
+      case ServiceState.outDated:
+        outDated.add(newService);
+        break;
+      default:
+        throw StateError('Impossible state');
+    }
+    hive.add(newService);
+    newService.save();
+    service.delete();
+    notifyListeners();
+
+    return newService;
   }
 }
