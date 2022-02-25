@@ -35,6 +35,10 @@ class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
   ServiceOfJournal._();
 }
 
+/// Helper for ServiceOfJournal - call const constructor with dynamic default values.
+/// - uid: uuid.v4(),
+/// - provDate: provDate ?? DateTime.now().
+// ignore: long-parameter-list
 ServiceOfJournal autoServiceOfJournal({
   required int servId,
   required int contractId,

@@ -214,5 +214,47 @@ void main() {
       expect(AppData.instance.profiles.first.journal.hive.values.length, 1);
       expect(hiveArchive.length, 1);
     });
+    test(
+      'it store only hiveArchiveLimit number of services in archive',
+      () async {
+        //
+        // > prepare
+        //
+        final yesterday = DateTime.now().add(const Duration(days: -1));
+        //
+        // > put to hive
+        //
+        final wKey = wKeysData2();
+        final hive =
+            await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+        for (var i = 0; i < 20; i++) {
+          await hive.add(autoServiceOfJournal(
+            servId: 830,
+            contractId: 1,
+            workerId: 1,
+            provDate: yesterday,
+            state: ServiceState.finished,
+          ));
+          await hive.add(
+            autoServiceOfJournal(servId: 830, contractId: 1, workerId: 1),
+          );
+        }
+        //
+        // > AppData init
+        //
+        await AppData.instance.postInit();
+        AppData().hiveArchiveLimit = 10;
+        await AppData.instance.addProfileFromKey(wKey);
+        // await AppData.instance
+        //
+        // > test what yesterday services are in archive
+        //
+        final hiveArchive = await Hive.openBox<ServiceOfJournal>(
+          'journal_archive_${AppData.instance.profiles.first.apiKey}',
+        );
+        expect(AppData.instance.profiles.first.journal.hive.values.length, 20);
+        expect(hiveArchive.length, 10);
+      },
+    );
   });
 }

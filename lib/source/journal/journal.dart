@@ -388,8 +388,8 @@ class Journal with ChangeNotifier {
       final hiveArchiveLimit = AppData().hiveArchiveLimit;
       if (hiveArchive.length > hiveArchiveLimit) {
         await hiveArchive.deleteAll(
-          archList.slice(hiveArchiveLimit),
-        ); // or maybe better deleteAll, ?
+          archList.slice(hiveArchiveLimit).map<dynamic>((e) => e.key),
+        );
       }
       final dateList = archList
           .slice(
