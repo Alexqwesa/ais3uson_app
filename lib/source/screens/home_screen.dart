@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                   ListTile(
                     leading: const Icon(Icons.group_add),
                     title: const Text(
-                      'Добавить отделение из строки текста или тестовое отделение',
+                      'Добавить отделение из строки текста',
                     ),
                     onTap: () {
                       Navigator.pop(

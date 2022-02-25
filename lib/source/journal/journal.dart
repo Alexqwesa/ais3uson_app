@@ -19,6 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
+import 'package:surf_lint_rules/surf_lint_rules.dart';
 import 'package:synchronized/synchronized.dart';
 
 /// Journal of services
@@ -44,6 +45,8 @@ class Journal with ChangeNotifier {
   List<ServiceOfJournal> finished = [];
   List<ServiceOfJournal> outDated = [];
   List<ServiceOfJournal> rejected = [];
+
+  String get journalHiveName => 'journal_$apiKey';
 
   String get apiKey => workerProfile.key.apiKey;
 
@@ -82,7 +85,7 @@ class Journal with ChangeNotifier {
   }
 
   Future<void> postInit() async {
-    hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+    hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
     hive.values.forEach((element) {
       switch (element.state) {
         case ServiceState.added:
@@ -106,7 +109,7 @@ class Journal with ChangeNotifier {
   }
 
   Future<void> save() async {
-    hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+    hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
     for (final s in all) {
       try {
         await s.save();
@@ -121,7 +124,7 @@ class Journal with ChangeNotifier {
   Future<bool> post(ServiceOfJournal se) async {
     added.add(se);
     try {
-      hive = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+      hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
       await hive.add(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {

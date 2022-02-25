@@ -78,7 +78,8 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                 )
               : Center(
                   child: Text(
-                    'Авторизируйтесь (отсканируйте QR код) ',
+                    'Авторизируйтесь \n(отсканируйте QR код) ',
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 );
