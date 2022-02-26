@@ -7,7 +7,7 @@ import 'package:ais3uson_app/source/screens/clients_screen.dart';
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
 import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
-import 'package:ais3uson_app/source/screens/scan_qr/qr_scan_sreen.dart';
+import 'package:ais3uson_app/source/screens/qr_scan_sreen.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';

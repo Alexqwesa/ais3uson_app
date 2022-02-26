@@ -2,14 +2,17 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 
-/// Add department from text string.
+/// Show screen where user can add [WorkerProfile] from text string.
 ///
 /// Used in case of devices without camera...
 /// Also used to add test department.
+///
+/// {@category WorkerProfiles}
 class AddDepartmentScreen extends StatelessWidget {
   final controller = TextEditingController();
 

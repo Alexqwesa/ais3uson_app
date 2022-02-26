@@ -1,8 +1,12 @@
 import 'dart:math';
 
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:flutter/material.dart';
 
+/// Show screen where user can delete [WorkerProfile].
+///
+/// {@category WorkerProfiles}
 class DeleteDepartmentScreen extends StatelessWidget {
   const DeleteDepartmentScreen({Key? key}) : super(key: key);
 

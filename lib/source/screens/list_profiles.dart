@@ -1,9 +1,13 @@
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// Widget: show list of [WorkerProfile].
+///
+/// {@category WorkerProfiles}
 class ListOfProfiles extends StatefulWidget {
   const ListOfProfiles({Key? key}) : super(key: key);
 
@@ -46,10 +50,13 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                           workerKeys[index].dep,
                           style: Theme.of(context).textTheme.headline6,
                         ),
-
-                        // visualDensity:
-                        //     VisualDensity(horizontal: 1, vertical: 1),
+                        //
+                        // > onTap call
+                        //
                         onTap: () {
+                          AppData.instance.setLastWorker(
+                            AppData().profiles[index],
+                          );
                           Navigator.pushNamed(
                             context,
                             '/department',

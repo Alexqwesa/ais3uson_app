@@ -3,11 +3,15 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+/// Show screen where user scan QR code to add [WorkerProfile] from QR code.
+///
+/// {@category WorkerProfiles}
 class QRScanScreen extends StatefulWidget {
   const QRScanScreen({Key? key}) : super(key: key);
 
@@ -207,8 +211,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                               'Ошибка добавления отделения, возможно отделение уже было добавлено',
                             ),
                           );
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(snackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
 
                         setState(

@@ -1,10 +1,14 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+/// Show screen with main menu and with list of [WorkerProfile].
+///
+/// {@category WorkerProfiles}
 class HomePage extends StatefulWidget {
   final String title;
 
@@ -188,12 +192,8 @@ class _HomePageState extends State<HomePage> {
                         labels: const ['Светлая', 'Темная'],
                         radiusStyle: true,
                         onToggle: (index) {
-                          setState(
-                            () {
                               AppData.instance.standardTheme
                                   .changeIndex(index!);
-                            },
-                          );
                         },
                       ),
                     ],
