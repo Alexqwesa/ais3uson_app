@@ -76,7 +76,7 @@
       &#39;${record.level.name.substring(0, 3)}:  ${record.message}&#39;, &#47;&#47;${record.time}:
     );
   });
-  await Hive.initFlutter();
+  await Hive.initFlutter(&#39;Ais3uson&#39;);
   Singleton.register(AppData);
 
   unawaited(AppData().postInit());
