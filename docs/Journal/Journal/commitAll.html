@@ -74,23 +74,19 @@ it change state of services and called <a href="https://api.flutter.dev/flutter/
   &#47;&#47; &gt; main loop, synchronized
   &#47;&#47;
   await _lock.synchronized(() async {
-    await Future.wait(servicesForSync.map((s) async {
+    await Future.wait(servicesForSync.map((serv) async {
       try {
-        switch (await commitAdd(s)) {
+        switch (await commitAdd(serv)) {
           case ServiceState.added:
-            log.info(&#39;stale service $s&#39;);
+            log.info(&#39;stale service $serv&#39;);
             break; &#47;&#47; no changes - do nothing
           case ServiceState.finished:
-            log.finest(&#39;stale service $s&#39;);
-            finished.add(s.copyWith(state: ServiceState.finished));
-            added.remove(s);
-            await s.delete();
+            log.finest(&#39;stale service $serv&#39;);
+            toFinished(serv);
             break;
           case ServiceState.rejected:
-            log.warning(&#39;stale service $s&#39;);
-            rejected.add(s.copyWith(state: ServiceState.rejected));
-            added.remove(s);
-            await s.delete();
+            log.warning(&#39;stale service $serv&#39;);
+            toRejected(serv);
             break;
           case ServiceState.outDated:
             throw StateError(&#39;commit can not make service outDated&#39;);
@@ -145,6 +141,7 @@ it change state of services and called <a href="https://api.flutter.dev/flutter/
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../Journal/Journal/hive.html">hive</a></li>
     <li><a href="../../Journal/Journal/hiveArchive.html">hiveArchive</a></li>
+    <li><a href="../../Journal/Journal/journalHiveName.html">journalHiveName</a></li>
     <li><a href="../../Journal/Journal/now.html">now</a></li>
     <li><a href="../../Journal/Journal/outDated.html">outDated</a></li>
     <li><a href="../../Journal/Journal/rejected.html">rejected</a></li>
@@ -162,15 +159,19 @@ it change state of services and called <a href="https://api.flutter.dev/flutter/
     <li><a href="../../Journal/Journal/commitDel.html">commitDel</a></li>
     <li><a href="../../Journal/Journal/commitUrl.html">commitUrl</a></li>
     <li><a href="../../Journal/Journal/delete.html">delete</a></li>
-    <li><a href="../../Journal/Journal/deleteService.html">deleteService</a></li>
     <li><a href="../../Journal/Journal/dispose.html">dispose</a></li>
     <li><a href="../../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
+    <li><a href="../../Journal/Journal/moveServiceTo.html">moveServiceTo</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
     <li><a href="../../Journal/Journal/post.html">post</a></li>
     <li><a href="../../Journal/Journal/postInit.html">postInit</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li><a href="../../Journal/Journal/save.html">save</a></li>
+    <li><a href="../../Journal/Journal/toDelete.html">toDelete</a></li>
+    <li><a href="../../Journal/Journal/toFinished.html">toFinished</a></li>
+    <li><a href="../../Journal/Journal/toOutDated.html">toOutDated</a></li>
+    <li><a href="../../Journal/Journal/toRejected.html">toRejected</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
     <li><a href="../../Journal/Journal/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
 

@@ -200,6 +200,17 @@
 
 </dd>
 
+        <dt id="journalHiveName" class="property inherited">
+  <span class="name"><a href="../Journal/Journal/journalHiveName.html">journalHiveName</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
         <dt id="now" class="property inherited">
   <span class="name"><a href="../Journal/Journal/now.html">now</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> 
@@ -385,19 +396,6 @@
 
 </dd>
 
-        <dt id="deleteService" class="callable inherited">
-  <span class="name"><a href="../Journal/Journal/deleteService.html">deleteService</a></span><span class="signature">(<wbr><span class="parameter" id="deleteService-param-forDelete"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> <span class="parameter-name">forDelete</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-   
-  <div class="features">inherited</div>
-
-</dd>
-
         <dt id="dispose" class="callable inherited">
   <span class="name"><a href="../Journal/Journal/dispose.html">dispose</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
@@ -423,6 +421,19 @@ disposed). <a href="../Journal/Journal/dispose.html">[...]</a>
 </dt>
 <dd class="inherited">
   Helper, only used in <a href="../source_data_classes_client_service/ClientService-class.html">ClientService</a>, for deleting last <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a>. <a href="../Journal/Journal/getUuidOfLastService.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="moveServiceTo" class="callable inherited">
+  <span class="name"><a href="../Journal/Journal/moveServiceTo.html">moveServiceTo</a></span><span class="signature">(<wbr><span class="parameter" id="moveServiceTo-param-service"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="moveServiceTo-param-newState"><span class="type-annotation"><a href="../source_journal_service_state/ServiceState.html">ServiceState</a></span> <span class="parameter-name">newState</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Move service - create new in dst, delete old in src list of <a href="../Journal/Journal-class.html">Journal</a>. <a href="../Journal/Journal/moveServiceTo.html">[...]</a>
   <div class="features">inherited</div>
 
 </dd>
@@ -502,6 +513,58 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
 </dt>
 <dd class="inherited">
    
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toDelete" class="callable inherited">
+  <span class="name"><a href="../Journal/Journal/toDelete.html">toDelete</a></span><span class="signature">(<wbr><span class="parameter" id="toDelete-param-forDelete"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> <span class="parameter-name">forDelete</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Remove <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a> from lists of <a href="../Journal/Journal-class.html">Journal</a> and from Hive. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toFinished" class="callable inherited">
+  <span class="name"><a href="../Journal/Journal/toFinished.html">toFinished</a></span><span class="signature">(<wbr><span class="parameter" id="toFinished-param-service"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Shortcut for <a href="../Journal/Journal/moveServiceTo.html">moveServiceTo</a>. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toOutDated" class="callable inherited">
+  <span class="name"><a href="../Journal/Journal/toOutDated.html">toOutDated</a></span><span class="signature">(<wbr><span class="parameter" id="toOutDated-param-service"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Shortcut for <a href="../Journal/Journal/moveServiceTo.html">moveServiceTo</a>. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toRejected" class="callable inherited">
+  <span class="name"><a href="../Journal/Journal/toRejected.html">toRejected</a></span><span class="signature">(<wbr><span class="parameter" id="toRejected-param-service"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Shortcut for <a href="../Journal/Journal/moveServiceTo.html">moveServiceTo</a>. 
   <div class="features">inherited</div>
 
 </dd>
@@ -611,6 +674,7 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li class="inherited"><a href="../Journal/Journal/hive.html">hive</a></li>
     <li class="inherited"><a href="../Journal/Journal/hiveArchive.html">hiveArchive</a></li>
+    <li class="inherited"><a href="../Journal/Journal/journalHiveName.html">journalHiveName</a></li>
     <li class="inherited"><a href="../Journal/Journal/now.html">now</a></li>
     <li class="inherited"><a href="../Journal/Journal/outDated.html">outDated</a></li>
     <li class="inherited"><a href="../Journal/Journal/rejected.html">rejected</a></li>
@@ -628,15 +692,19 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/commitDel.html">commitDel</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/commitUrl.html">commitUrl</a></li>
     <li class="inherited"><a href="../Journal/Journal/delete.html">delete</a></li>
-    <li class="inherited"><a href="../Journal/Journal/deleteService.html">deleteService</a></li>
     <li class="inherited"><a href="../Journal/Journal/dispose.html">dispose</a></li>
     <li class="inherited"><a href="../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
+    <li class="inherited"><a href="../Journal/Journal/moveServiceTo.html">moveServiceTo</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/post.html">post</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/postInit.html">postInit</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="../Journal/Journal/save.html">save</a></li>
+    <li class="inherited"><a href="../Journal/Journal/toDelete.html">toDelete</a></li>
+    <li class="inherited"><a href="../Journal/Journal/toFinished.html">toFinished</a></li>
+    <li class="inherited"><a href="../Journal/Journal/toOutDated.html">toOutDated</a></li>
+    <li class="inherited"><a href="../Journal/Journal/toRejected.html">toRejected</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
 
