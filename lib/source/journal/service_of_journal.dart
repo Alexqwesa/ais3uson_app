@@ -18,10 +18,10 @@ part 'service_of_journal.g.dart';
 /// Services in state [ServiceState.finished] or  [ServiceState.outDated] send to
 /// [Journal.hiveArchive] on next day.
 ///
-/// {@category Journal
+/// {@category Journal}
 @freezed
 class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
-  @HiveType(typeId: 0)
+  @HiveType(typeId: 0) // , adapterName: 'ServiceOfJournalAdapter')
   factory ServiceOfJournal({
     @HiveField(0) required int servId,
     @HiveField(1) required int contractId,
