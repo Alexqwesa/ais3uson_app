@@ -35,7 +35,9 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
   .
   <img align="right" src="qrcode_ais3uson_app_on_google_play.png" width="180">
 - Работники:
-    - устанавливают приложение, [>>> установить из каталога Google <<<](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app),
+    - устанавливают
+      приложение, [>>> установить из каталога Google <<<](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
+      ,
     - // Заведующие предоставляют работникам сгенерированный в
       приложении [АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON) Qr код,
     - работник запускают приложение и нажимают кнопку **+** (сканировать Qr-код).
@@ -52,10 +54,13 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 **Работники:**
 
-- устанавливают приложение на своем мобильном устройстве( [ссылка для установки](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app) ),
+- устанавливают приложение на своем мобильном
+  устройстве( [ссылка для установки](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app) )
+  ,
 - сканируют Qr-код(предоставленный заведующим отделением/менеджером),
 - вводят услуги по мере их оказания,
-- периодически (или постоянно) подключаются к интернету для синхронизации данных приложения(не реже раза в сутки).
+- периодически (или постоянно) подключаются к интернету для синхронизации данных приложения(не реже
+  раза в сутки).
 
 Для не поддерживаемых ОС, также в целях проверки - доступно
 web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexqwesa.github.io/web3uson/)
@@ -81,7 +86,8 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Защищенные соединения (https), нужно только добавить ssl сертификат и ключ на web-сервер (
   можно использовать и самоподписанный сертификат, если добавить его в QR-код, однако данный способ
   не работает в браузерах)
-- [x] Доступно для скачивания на [Google Play Market](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
+- [x] Доступно для скачивания
+  на [Google Play Market](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 
 ## TODO:
 
@@ -116,7 +122,7 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 
 ### [Документация для разработчиков](https://alexqwesa.github.io/ais3uson_app/)
 
-- [Автоматически сгенерированная](https://alexqwesa.github.io/ais3uson_app/)
+- [Автоматически сгенерированная документация для разработчиков](https://alexqwesa.github.io/ais3uson_app/)
 
 ## Лицензия
 

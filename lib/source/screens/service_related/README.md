@@ -1,6 +1,6 @@
 # UIServices - Classes to display service related data
 
-There are is two screens to display services:
+There are two screens to display services:
 - [ClientServicesListScreen] to display **list** of services,
 - [ClientServicesScreen] to display **one** service.
 

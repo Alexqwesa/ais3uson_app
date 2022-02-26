@@ -15,8 +15,11 @@ dartdoc:
     'UIServices':
       name: Classes to display service related data
       markdown: lib/source/screens/service_related/README.md
+    'WorkerProfiles':
+      name: Classes to manage worker profiles
+      markdown: lib/source/screens/README.md
 
-  subCategoryOrder: [ 'worker_profile', 'Journal' , 'Data_Classes', 'Import_from_json' ]
+  subCategoryOrder: [ 'WorkerProfiles', 'Journal' , 'Data_Classes', 'Import_from_json' ]
   subCategories:
 #    Root: [ 'main', 'app_root' ]
     #    Journal: [ 'journal' ]
