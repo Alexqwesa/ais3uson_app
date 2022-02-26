@@ -13,7 +13,6 @@ import 'package:hive_test/hive_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:singleton/singleton.dart';
 
-import 'data_classes_test.dart';
 import 'helpers/mock_server.dart';
 
 void main() {
@@ -39,7 +38,7 @@ void main() {
     Singleton.resetAllForTest();
     await tearDownTestHive();
   });
-  testWidgets('listOfProfiles smoke test', (tester) async {
+  testWidgets('listOfProfiles shows empty message', (tester) async {
     // Init , WidgetTester tester
     const listOfProfiles = ListOfProfiles(
       key: ValueKey(111),
@@ -56,23 +55,5 @@ void main() {
     expect(find.text('Тестовое отделение 48080'), findsNothing);
     expect(find.text('Тестовое отделение'), findsNothing);
     // Add department
-  });
-  testWidgets('listOfProfiles smoke test part 2', (tester) async {
-    // only runAsync can work with async code (like file IO)
-    final wKey = wKeysData2();
-    await tester.runAsync<bool>(() {
-      return AppData.instance.addProfileFromKey(wKey);
-    });
-    const listOfProfiles = ListOfProfiles();
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: listOfProfiles,
-      ),
-    );
-    await tester.pumpAndSettle();
-    // Check
-    expect(find.text(wKey.name), findsOneWidget);
-    expect(find.textContaining('отсканируйте QR код'), findsNothing);
-    await tester.pumpAndSettle();
   });
 }
