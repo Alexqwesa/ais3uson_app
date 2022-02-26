@@ -69,6 +69,11 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  &#47;&#47; if (kDebugMode){
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+      dev.log(&#39;${record.level.name}: ${record.time}: ${record.message}&#39;);
+  });
   await Hive.initFlutter();
   Singleton.register(AppData);
 
@@ -100,6 +105,8 @@
 
 
 
+  <li class="section-title"><a href="../main/main-library.html#properties">Properties</a></li>
+  <li><a href="../main/log.html">log</a></li>
 
   <li class="section-title"><a href="../main/main-library.html#functions">Functions</a></li>
   <li><a href="../main/main.html">main</a></li>

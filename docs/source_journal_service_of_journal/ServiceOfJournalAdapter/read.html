@@ -57,7 +57,7 @@
   </ol>
 </div>
 
-<span class="returntype"><a href="../../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+<span class="returntype">_$_ServiceOfJournal</span>
 <span class="name ">read</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="read-param-reader"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.5/hive/BinaryReader-class.html">BinaryReader</a></span> <span class="parameter-name">reader</span></span></li>
 </ol>)
 
@@ -74,20 +74,20 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-ServiceOfJournal read(BinaryReader reader) {
+_$_ServiceOfJournal read(BinaryReader reader) {
   final numOfFields = reader.readByte();
   final fields = &lt;int, dynamic&gt;{
     for (int i = 0; i &lt; numOfFields; i++) reader.readByte(): reader.read(),
   };
-  return ServiceOfJournal(
+  return _$_ServiceOfJournal(
     servId: fields[0] as int,
     contractId: fields[1] as int,
     workerId: fields[2] as int,
-  )
-    ..provDate = fields[3] as DateTime
-    ..error = fields[5] as String
-    ..uid = fields[6] as String
-    .._state = fields[7] as ServiceState;
+    provDate: fields[3] as DateTime,
+    uid: fields[4] as String,
+    state: fields[5] as ServiceState,
+    error: fields[6] as String,
+  );
 }</code></pre>
 </section>
 

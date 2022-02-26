@@ -94,6 +94,7 @@
     );
   }
   serviceView = prefs!.getString(&#39;serviceView&#39;) ?? &#39;&#39;;
+  hiveArchiveLimit = prefs!.getInt(&#39;hiveArchiveLimit&#39;) ?? 1000;
   notifyListeners();
   await Future.wait(_profiles.map((e) =&gt; e.postInit()));
   notifyListeners();
@@ -143,6 +144,7 @@
     <li><a href="../../source_app_data/AppData/datesInArchive.html">datesInArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
+    <li><a href="../../source_app_data/AppData/hiveArchiveLimit.html">hiveArchiveLimit</a></li>
     <li><a href="../../source_app_data/AppData/hiveData.html">hiveData</a></li>
     <li><a href="../../source_app_data/AppData/httpClient.html">httpClient</a></li>
     <li><a href="../../source_app_data/AppData/isArchive.html">isArchive</a></li>
