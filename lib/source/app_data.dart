@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:developer' as dev;
 
+import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
@@ -45,6 +46,11 @@ class AppData with ChangeNotifier {
 
   /// Dates which have archived services
   Set<DateTime> datesInArchive = <DateTime>{};
+
+  ClientProfile? lastClient;
+  WorkerProfile? lastWorker;
+
+  bool inited = false;
 
   // ignore: prefer_constructors_over_static_methods
   static AppData get instance => AppData();
@@ -155,6 +161,10 @@ class AppData with ChangeNotifier {
     //
     // > Init Hive
     //
+    if (inited) {
+      return;
+    }
+    inited = true;
     try {
       // never fail on double adapter registration
       Hive
@@ -181,17 +191,18 @@ class AppData with ChangeNotifier {
     notifyListeners();
     await Future.wait(_profiles.map((e) => e.postInit()));
     notifyListeners();
-
-    datesInArchive.addAll(
-      workerKeys
-          .map(
-            (e) => hiveData.get(
-              'archiveDates_${e.apiKey}',
-              defaultValue: <DateTime>[],
-            ) as List<DateTime>,
-          )
-          .expand((element) => element),
-    );
+    unawaited(() async {
+      datesInArchive.addAll(
+        workerKeys
+            .map(
+              (e) => hiveData.get(
+                'archiveDates_${e.apiKey}',
+                defaultValue: <DateTime>[],
+              ) as List<DateTime>,
+            )
+            .expand((element) => element),
+      );
+    }());
   }
 
   Future<void> save() async {
@@ -279,5 +290,71 @@ class AppData with ChangeNotifier {
     _profiles.removeAt(index);
     notifyListeners();
     unawaited(AppData().save());
+  }
+
+  Future<ClientProfile?> getLastClient() async {
+    await postInit();
+    var returnLastClient = lastClient;
+    if (returnLastClient == null) {
+      final worker = await getLastWorker();
+      if (worker != null) {
+        lastClient = getClientByContractId(worker, prefs?.getInt('contractId'));
+      }
+    }
+    returnLastClient = lastClient;
+
+    return Future(() async => returnLastClient);
+  }
+
+  /// Find client in [WorkerProfile] by [ClientProfile.contractId] or return first, or null.
+  ClientProfile? getClientByContractId(WorkerProfile workerProfile, int? cId) {
+    if (workerProfile.clients.isNotEmpty) {
+      for (final client in workerProfile.clients) {
+        if (client.contractId == cId) {
+          return client;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  WorkerProfile? getWorkerByApiKey(String? key) {
+    if (key != null) {
+      for (final w in profiles) {
+        if (w.apiKey == key) {
+          return w;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  Future<WorkerProfile?> getLastWorker() async {
+    await postInit();
+    var returnLast = lastWorker;
+    if (returnLast == null) {
+      lastWorker = getWorkerByApiKey(prefs?.getString('WorkerApiKey'));
+      returnLast = lastWorker;
+    }
+    if (returnLast == null && profiles.isNotEmpty) {
+      lastWorker = profiles.first;
+      returnLast = lastWorker;
+    }
+
+    return Future(() async => returnLast);
+  }
+
+  Future<bool> setLastWorker(WorkerProfile wp) async {
+    lastWorker = wp;
+
+    return prefs!.setString('WorkerApiKey', wp.apiKey);
+  }
+
+  Future<bool> setLastClient(ClientProfile client) async {
+    lastClient = client;
+
+    return prefs!.setInt('contractId', client.contractId);
   }
 }

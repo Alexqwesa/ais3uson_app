@@ -10,6 +10,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:singleton/singleton.dart';
 
 final log = Logger('MyClassName');
+
 /// Init application,init [Hive], create [AppData] and postInit it.
 ///
 /// Create [OverlaySupport] and call [AppRoot].
@@ -20,7 +21,9 @@ Future<void> main() async {
   // if (kDebugMode){
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-      dev.log('${record.level.name}: ${record.time}: ${record.message}');
+    dev.log(
+      '${record.level.name.substring(0, 3)}:  ${record.message}', //${record.time}:
+    );
   });
   await Hive.initFlutter();
   Singleton.register(AppData);
