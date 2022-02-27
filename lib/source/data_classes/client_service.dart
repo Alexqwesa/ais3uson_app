@@ -69,8 +69,6 @@ class ClientService with ChangeNotifier {
               element.contractId == contractId && element.servId == service.id)
           .length;
 
-  int get stalled => added;
-
   int get rejected => journal.rejected
       .where((element) =>
           element.contractId == contractId && element.servId == service.id)
@@ -87,7 +85,7 @@ class ClientService with ChangeNotifier {
 
   bool get deleteAllowed => inJournal > 0;
 
-  List<int> get listDoneProgressError => <int>[done, stalled, rejected];
+  List<int> get listDoneProgressError => <int>[done, added, rejected];
 
   ProofList get proofList {
     if (_proofList != null) {

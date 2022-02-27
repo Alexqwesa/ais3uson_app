@@ -54,11 +54,14 @@ class ClientProfile with ChangeNotifier {
       final wp = workerProfile;
       _services = wp.clientPlan.where((element) {
         return element.contractId == contractId &&
+            // this line is important because it prevent errors if client has services
+            // that no used anymore,
+            // TODO: make this check and show error message somewhere before
             wp.services.map((e) => e.id).contains(element.servId);
       }).map((e) {
         return ClientService(
           service: wp.services.firstWhere((serv) => serv.id == e.servId),
-          planned: wp.clientPlan.firstWhere((plan) => plan.servId == e.servId),
+          planned: e,
           journal: wp.journal,
           workerDepId: wp.key.workerDepId,
         );
