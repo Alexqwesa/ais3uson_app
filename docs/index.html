@@ -44,8 +44,8 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <h1 id="ais-3uson-backend------">AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")</h1><img align="right" src="assets/ais-3uson-logo-128.png">
-<p><a href="https://github.com/Alexqwesa/ais3uson_app/actions?query=workflow%3ATest"><img src="https://github.com/Alexqwesa/ais3uson_app/workflows/Test/badge.svg" alt="Test Status"></a>
+  <h1 id="ais-3uson-backend------img-altget-it-on-google-play-height55-srchttpsgithubcomstevericheygoogle-play-badge-svgblobmasterimgen_getsvg-httpsplaygooglecomstoreappsdetailsidcomais3usonappais3uson_app">AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")<a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app"><img alt="get it on Google Play" height="55" src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg"></a></h1><img align="right" src="assets/ais-3uson-logo-128.png">
+<p><a href="https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml"><img src="https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml/badge.svg" alt="Test"></a>
 <a href="https://codecov.io/gh/Alexqwesa/ais3uson_app"><img src="https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD" alt="codecov"></a></p>
 <p>A Flutter mobile backend for <a href="https://github.com/Alexqwesa/AIS-3USON">AIS-3USON</a></p>
 <p>Это мобильное приложение для ввода услуг в информационной
@@ -129,7 +129,9 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 </ul>
 <h2 id="todo">TODO:</h2>
 <ul>
-<li><code> </code> Резервный способ сбора и хранения услуг (на случай недоступности mysql сервера)</li>
+<li><code> </code> Резервный способ сбора и хранения услуг (на случай недоступности mysql сервера), shadow
+server?</li>
+<li><code> </code> Резервный web-сервер(WorkerKey allow several servers (comma separated list))</li>
 <li><code> </code> Показ общего колличества услуг по дням</li>
 <li><code> </code> Настраиваемый размер виджетов</li>
 <li><code> </code> Повышенный уровень защиты: SSL Pinning</li>
@@ -137,7 +139,6 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 <li><code> </code> Кнопка: Синхронизировать ВСЕ!</li>
 <li><code> </code> Кнопка: Поделится ?</li>
 <li><code> </code> dynamic setting from BD: allow collect proofs, etc...</li>
-<li><code> </code> WorkerKey allow several servers (comma separated list)</li>
 <li><code> </code> maybe backup media data? only on full backup?</li>
 <li><code> </code> использовать темы для изменения размера шрифта</li>
 <li><code> </code> индикатор обновления?</li>
@@ -145,7 +146,9 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 <li><code> </code> дополнительные ограничения доступных услуг?</li>
 <li><code> </code> сообщения от заведующих (по группам работников, одному, всем)</li>
 <li><code> </code> закончившиеся услуги - в конец списка?</li>
-<li><code> </code> вводить услуги жестом, а не onTap ???</li>
+<li><code> </code> вводить услуги жестом, а не onTap ??? (оказанные услуги в конец списка после разделителя)</li>
+<li><code> </code> Хранить все данные о вводе в архиве ввода(запретить загрузку по сети)</li>
+<li><code> </code> Кнопка получения архива ввода</li>
 <li><code> </code> 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?</li>
 <li><code> </code> try autoreconnect few times(with timeout) if there is a problem with network</li>
 <li><code> </code> add server tests</li>
@@ -502,7 +505,7 @@ is <a href="images/_license.pdf">license</a>).</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   

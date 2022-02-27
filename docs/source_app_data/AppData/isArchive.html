@@ -96,12 +96,12 @@
     if (_isArchive) {
       _profiles = _realProfiles;
     } else {
-      &#47;&#47; if (_archiveProfiles.length == profiles.length) { &#47;&#47;todo more checks
-      &#47;&#47;   _profiles = _archiveProfiles;
-      &#47;&#47; }
+      &#47;&#47;
+      &#47;&#47; &gt; create and init new profiles
+      &#47;&#47;
       _realProfiles = _profiles;
       _profiles = _profiles.map((e) {
-        return WorkerProfile(e.key, archiveDate: DateTime.now());
+        return WorkerProfile(e.key, archiveDate: archiveDate);
       }).toList();
       profiles.forEach((element) {
         element.postInit();
@@ -203,7 +203,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   

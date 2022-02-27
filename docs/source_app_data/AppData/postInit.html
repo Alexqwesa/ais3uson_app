@@ -78,8 +78,9 @@
   inited = true;
   try {
     &#47;&#47; never fail on double adapter registration
-    Hive..registerAdapter(ServiceOfJournalAdapter())..registerAdapter(
-        ServiceStateAdapter());
+    Hive
+      ..registerAdapter(ServiceOfJournalAdapter())
+      ..registerAdapter(ServiceStateAdapter());
     &#47;&#47; ignore: avoid_catching_errors
   } on HiveError catch (e) {
     dev.log(e.toString());
@@ -91,7 +92,7 @@
   ScreenArguments(profile: 0);
   prefs = await SharedPreferences.getInstance();
   for (final Map&lt;dynamic, dynamic&gt; keyFromHive
-  in jsonDecode(prefs!.getString(&#39;WorkerKeys&#39;) ?? &#39;[]&#39;)) {
+      in jsonDecode(prefs!.getString(&#39;WorkerKeys&#39;) ?? &#39;[]&#39;)) {
     _profiles.add(
       WorkerProfile(WorkerKey.fromJson(keyFromHive.cast&lt;String, dynamic&gt;())),
     );
@@ -104,23 +105,23 @@
   unawaited(() async {
     datesInArchive.addAll(
       workerKeys
-      &#47;&#47;
-      &#47;&#47; &gt; get values from hive
-      &#47;&#47;
+          &#47;&#47;
+          &#47;&#47; &gt; get values from hive
+          &#47;&#47;
           .map&lt;dynamic&gt;(
-            (e) =&gt;
-            hiveData.get(
+            (e) =&gt; hiveData.get(
               &#39;archiveDates_${e.apiKey}&#39;,
               defaultValue: &lt;DateTime&gt;[],
             ),
-      )
-      &#47;&#47;
-      &#47;&#47; &gt; just type cast
-      &#47;&#47;
-      &#47;&#47; ignore: avoid_annotating_with_dynamic
+          )
+          &#47;&#47;
+          &#47;&#47; &gt; just type cast
+          &#47;&#47;
+          &#47;&#47; ignore: avoid_annotating_with_dynamic
           .expand&lt;dynamic&gt;((dynamic element) =&gt; element as Iterable&lt;dynamic&gt;)
-      &#47;&#47; ignore: avoid_annotating_with_dynamic
-          .map&lt;DateTime&gt;((dynamic e) =&gt; e as DateTime),
+          &#47;&#47; ignore: avoid_annotating_with_dynamic
+          .map&lt;DateTime&gt;((dynamic e) =&gt; e as DateTime)
+          .map((e) =&gt; DateTime(e.year, e.month, e.day)), &#47;&#47; not necessary
     );
   }());
 }</code></pre>
@@ -213,7 +214,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   

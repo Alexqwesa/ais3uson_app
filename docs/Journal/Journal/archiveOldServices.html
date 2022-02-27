@@ -113,7 +113,9 @@ Only <code>AppData.instance.hiveArchiveLimit</code> number of services could be 
       &#39;archiveDates_$apiKey&#39;,
       dateList,
     );
-    AppData.instance.datesInArchive.addAll(dateList);
+    AppData.instance.datesInArchive.addAll(
+      dateList.map((e) =&gt; DateTime(e.year, e.month, e.day)),
+    );
     await hiveArchive.compact();
     await hiveArchive.close();
   }
@@ -209,7 +211,7 @@ Only <code>AppData.instance.hiveArchiveLimit</code> number of services could be 
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   
