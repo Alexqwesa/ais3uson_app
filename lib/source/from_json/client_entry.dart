@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -31,9 +33,9 @@ class ClientEntry with _$ClientEntry {
     required int contract_id,
     required int dep_id,
     required int client_id,
+    required int dhw_id,
     @Default('ERROR') String contract,
     @Default('ERROR') String client,
-    required int dhw_id,
   }) = _ClientEntry;
 
   const ClientEntry._();
