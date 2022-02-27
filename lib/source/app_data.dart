@@ -93,6 +93,9 @@ class AppData with ChangeNotifier {
         _profiles = _profiles.map((e) {
           return WorkerProfile(e.key, archiveDate: DateTime.now());
         }).toList();
+        profiles.forEach((element) {
+          element.postInit();
+        });
         // _archiveProfiles = _profiles;
       }
 
@@ -167,9 +170,8 @@ class AppData with ChangeNotifier {
     inited = true;
     try {
       // never fail on double adapter registration
-      Hive
-        ..registerAdapter(ServiceOfJournalAdapter())
-        ..registerAdapter(ServiceStateAdapter());
+      Hive..registerAdapter(ServiceOfJournalAdapter())..registerAdapter(
+          ServiceStateAdapter());
       // ignore: avoid_catching_errors
     } on HiveError catch (e) {
       dev.log(e.toString());
@@ -181,7 +183,7 @@ class AppData with ChangeNotifier {
     ScreenArguments(profile: 0);
     prefs = await SharedPreferences.getInstance();
     for (final Map<dynamic, dynamic> keyFromHive
-        in jsonDecode(prefs!.getString('WorkerKeys') ?? '[]')) {
+    in jsonDecode(prefs!.getString('WorkerKeys') ?? '[]')) {
       _profiles.add(
         WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
@@ -194,21 +196,22 @@ class AppData with ChangeNotifier {
     unawaited(() async {
       datesInArchive.addAll(
         workerKeys
-            //
-            // > get values from hive
-            //
+        //
+        // > get values from hive
+        //
             .map<dynamic>(
-              (e) => hiveData.get(
+              (e) =>
+              hiveData.get(
                 'archiveDates_${e.apiKey}',
                 defaultValue: <DateTime>[],
               ),
-            )
-            //
-            // > just type cast
-            //
-            // ignore: avoid_annotating_with_dynamic
+        )
+        //
+        // > just type cast
+        //
+        // ignore: avoid_annotating_with_dynamic
             .expand<dynamic>((dynamic element) => element as Iterable<dynamic>)
-            // ignore: avoid_annotating_with_dynamic
+        // ignore: avoid_annotating_with_dynamic
             .map<DateTime>((dynamic e) => e as DateTime),
       );
     }());
@@ -231,7 +234,7 @@ class AppData with ChangeNotifier {
   /// Check for duplicates before addition, save and notify listeners.
   Future<bool> addProfileFromKey(WorkerKey key) async {
     if (_profiles
-            .firstWhereOrNull((element) => element.key.apiKey == key.apiKey) ==
+        .firstWhereOrNull((element) => element.key.apiKey == key.apiKey) ==
         null) {
       final wp = WorkerProfile(key);
       _profiles.add(wp);
