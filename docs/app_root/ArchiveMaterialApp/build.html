@@ -134,19 +134,20 @@ Widget build(BuildContext context) {
                     return IconButton(
                       icon: const Icon(Icons.date_range),
                       onPressed: () async {
-                        final lastDate =
-                            DateTime.now().add(const Duration(days: -1));
+                        final datesInArchive =
+                            AppData.instance.datesInArchive;
                         AppData.instance.archiveDate = await showDatePicker(
                           context: context,
+                          selectableDayPredicate: datesInArchive.contains,
                           initialDate: AppData.instance.archiveDate,
-                          firstDate: DateTime(
-                            AppData.instance.archiveDate.day - 365,
+                          lastDate: datesInArchive.reduce(
+                            (value, element) =&gt;
+                                value.isAfter(element) ? value : element,
                           ),
-                          lastDate: lastDate,
-                          &#47;&#47; selectableDayPredicate: (date) {
-                          &#47;&#47;   return AppData.instance.datesInArchive
-                          &#47;&#47;       .contains(date);
-                          &#47;&#47; },
+                          firstDate: datesInArchive.reduce(
+                            (value, element) =&gt;
+                                value.isBefore(element) ? value : element,
+                          ),
                         );
                       },
                     );
@@ -240,7 +241,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   

@@ -72,20 +72,25 @@
   <pre class="language-dart"><code class="language-dart">@override
 Future&lt;void&gt; postInit() async {
   hive = await Hive.openBox&lt;ServiceOfJournal&gt;(&#39;journal_archive_$apiKey&#39;);
+  finished = &lt;ServiceOfJournal&gt;[];
+  outDated = &lt;ServiceOfJournal&gt;[];
   hive.values.forEach((element) {
-    switch (element.state) {
-      case ServiceState.added:
-        throw StateError(&#39;wrong ServiceState&#39;);
-      case ServiceState.finished:
-        finished.add(element);
-        break;
-      case ServiceState.rejected:
-        throw StateError(&#39;wrong ServiceState&#39;);
-      case ServiceState.outDated:
-        outDated.add(element);
-        break;
-      default:
-        throw StateError(&#39;wrong ServiceState&#39;);
+    if (element.provDate.isAfter(aDate) &amp;&amp;
+        element.provDate.isBefore(aDate.add(const Duration(days: 1)))) {
+      switch (element.state) {
+        case ServiceState.added:
+          throw StateError(&#39;wrong ServiceState&#39;);
+        case ServiceState.finished:
+          finished.add(element);
+          break;
+        case ServiceState.rejected:
+          throw StateError(&#39;wrong ServiceState&#39;);
+        case ServiceState.outDated:
+          outDated.add(element);
+          break;
+        default:
+          throw StateError(&#39;wrong ServiceState&#39;);
+      }
     }
   });
   await hive.close();
@@ -183,7 +188,7 @@ Future&lt;void&gt; postInit() async {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   

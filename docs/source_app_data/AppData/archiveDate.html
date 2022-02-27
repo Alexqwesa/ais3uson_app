@@ -62,13 +62,20 @@
 
 
 <section class="desc markdown">
-  <p>Date of last archiving</p>
+  <p>When app is in <a href="../../source_app_data/AppData/isArchive.html">isArchive</a> mode it will display this date.</p>
 </section>
 
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">DateTime get archiveDate =&gt; _archiveDate;</code></pre>
+  <pre class="language-dart"><code class="language-dart">DateTime get archiveDate {
+  if (_archiveDate == null) {
+    final dt = DateTime.now().add(const Duration(days: -1));
+    _archiveDate = DateTime(dt.year, dt.month, dt.day);
+  }
+
+  return _archiveDate!;
+}</code></pre>
 </section>
 
 </section>
@@ -85,12 +92,22 @@
 </section>
 
 
+<section class="desc markdown">
+  <p>This value can be set only from <a href="../../source_app_data/AppData/isArchive.html">isArchive</a>, then _archiveDate is already inited.</p>
+</section>
 
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">set archiveDate(DateTime? newValue) {
   _archiveDate = newValue ?? _archiveDate;
+  &#47;&#47;
+  &#47;&#47; &gt; just reinit [JournalArchive]
+  &#47;&#47;
+  _profiles.forEach((w) async {
+    (w.journal as JournalArchive).aDate = archiveDate;
+    await w.journal.postInit();
+  });
   notifyListeners();
 }</code></pre>
 </section>
@@ -183,7 +200,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+6
+      1.0.1+7
   </span>
 
   
