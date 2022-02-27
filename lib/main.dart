@@ -25,7 +25,7 @@ Future<void> main() async {
       '${record.level.name.substring(0, 3)}:  ${record.message}', //${record.time}:
     );
   });
-  await Hive.initFlutter();
+  await Hive.initFlutter('Ais3uson');
   Singleton.register(AppData);
 
   unawaited(AppData().postInit());

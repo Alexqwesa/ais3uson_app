@@ -22,30 +22,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    AppData.instance.standardTheme.addListener(() {
-      setState(() {
-        return;
-      });
-    });
-    AppData.instance.addListener(() {
-      setState(() {
-        return;
-      });
-    });
+    AppData.instance.standardTheme.addListener(_standardListener);
+    AppData.instance.addListener(_standardListener);
   }
 
   @override
   void dispose() {
-    AppData.instance.removeListener(() {
-      setState(() {
-        return;
-      });
-    });
-    AppData.instance.standardTheme.removeListener(() {
-      setState(() {
-        return;
-      });
-    });
+    AppData.instance.removeListener(_standardListener);
+    AppData.instance.standardTheme.removeListener(_standardListener);
 
     return super.dispose();
   }
@@ -192,8 +176,7 @@ class _HomePageState extends State<HomePage> {
                         labels: const ['Светлая', 'Темная'],
                         radiusStyle: true,
                         onToggle: (index) {
-                              AppData.instance.standardTheme
-                                  .changeIndex(index!);
+                          AppData.instance.standardTheme.changeIndex(index!);
                         },
                       ),
                     ],
@@ -237,5 +220,11 @@ class _HomePageState extends State<HomePage> {
               child: const Icon(Icons.add),
             ),
     );
+  }
+
+  void _standardListener() {
+    setState(() {
+      return;
+    });
   }
 }

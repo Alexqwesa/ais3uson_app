@@ -194,13 +194,22 @@ class AppData with ChangeNotifier {
     unawaited(() async {
       datesInArchive.addAll(
         workerKeys
-            .map(
+            //
+            // > get values from hive
+            //
+            .map<dynamic>(
               (e) => hiveData.get(
                 'archiveDates_${e.apiKey}',
                 defaultValue: <DateTime>[],
-              ) as List<DateTime>,
+              ),
             )
-            .expand((element) => element),
+            //
+            // > just type cast
+            //
+            // ignore: avoid_annotating_with_dynamic
+            .expand<dynamic>((dynamic element) => element as Iterable<dynamic>)
+            // ignore: avoid_annotating_with_dynamic
+            .map<DateTime>((dynamic e) => e as DateTime),
       );
     }());
   }

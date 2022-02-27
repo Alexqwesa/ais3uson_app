@@ -29,11 +29,14 @@ class _AppRootState extends State<AppRoot> {
   @override
   void initState() {
     super.initState();
-    AppData.instance.addListener(() {
-      setState(() {
-        return;
-      });
-    });
+    AppData.instance.addListener(_standardListener);
+  }
+
+  @override
+  void dispose() {
+    AppData.instance.removeListener(_standardListener);
+
+    return super.dispose();
   }
 
   @override
@@ -41,6 +44,12 @@ class _AppRootState extends State<AppRoot> {
     return AppData.instance.isArchive
         ? const ArchiveMaterialApp()
         : const MainMaterialApp();
+  }
+
+  void _standardListener() {
+    setState(() {
+      return;
+    });
   }
 }
 

@@ -46,7 +46,12 @@ class ProofList with ChangeNotifier {
   Future<void> crawler() async {
     Directory appDocDir;
     try {
-      appDocDir = await getApplicationDocumentsDirectory();
+      appDocDir = Directory(
+        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
+      );
+      if (!appDocDir.existsSync()) {
+        return;
+      }
     } on MissingPlatformDirectoryException {
       showErrorNotification('Ошибка доступа к файловой системе!');
 
