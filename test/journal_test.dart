@@ -55,7 +55,7 @@ void main() {
   // > Tests start
   //
   group('Journal', () {
-    test('it add services, with states: added, stale, rejected', () async {
+    test('it add services, with different states', () async {
       //
       // > prepare
       //
@@ -247,7 +247,7 @@ void main() {
         await AppData.instance.addProfileFromKey(wKey);
         // await AppData.instance
         //
-        // > test what yesterday services are in archive
+        // > test that yesterday services are in archive
         //
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
           'journal_archive_${AppData.instance.profiles.first.apiKey}',
@@ -256,5 +256,45 @@ void main() {
         expect(hiveArchive.length, 10);
       },
     );
+    test('it add new services to a client', () async {
+      // crete worker profile
+      final wKey = wKeysData2();
+      expect(wKey, isA<WorkerKey>());
+      await AppData.instance.addProfileFromKey(wKey);
+      // add servcies
+      final client = AppData.instance.profiles.first.clients.first;
+      final service3 = client.services[3];
+      expect(service3.shortText, 'Покупка продуктов питания');
+      await service3.add();
+      await service3.add();
+      await service3.add();
+
+      expect(service3.listDoneProgressError, [0, 3, 0]);
+      await client.workerProfile.journal.commitAll();
+      expect(service3.listDoneProgressError, [0, 3, 0]);
+      final httpClient =
+          AppData().httpClient as mock.MockClient; // as MockHttpClientLibrary;
+      when(ExtMock(httpClient).testReqPostAdd)
+          .thenAnswer((_) async => http.Response('{"id": 1}', 200));
+      await client.workerProfile.journal.commitAll();
+      expect(service3.listDoneProgressError, [3, 0, 0]);
+    });
+    test('it add new services only to one client', () async {
+      // crete worker profile
+      final wKey = wKeysData2();
+      expect(wKey, isA<WorkerKey>());
+      await AppData.instance.addProfileFromKey(wKey);
+      // add servcies
+      final client = AppData.instance.profiles.first.clients.first;
+      final client2 = AppData.instance.profiles.first.clients[2];
+      final service3 = client.services[3];
+      expect(service3.shortText, 'Покупка продуктов питания');
+      await service3.add();
+      await service3.add();
+      await service3.add();
+      expect(service3.listDoneProgressError, [0, 3, 0]);
+      expect(client2.services[3].shortText, 'Покупка продуктов питания');
+      expect(client2.services[3].listDoneProgressError, [0, 0, 0]);
+    });
   });
 }

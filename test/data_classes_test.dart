@@ -62,7 +62,7 @@ void main() {
       );
       expect(wKeysData2(), isA<WorkerKey>());
     });
-    test('it create WorkerProfiles from SharedPreferences', () async {
+    test('it create WorkerProfiles', () async {
       expect(
         WorkerProfile(
           WorkerKey.fromJson(
@@ -101,6 +101,26 @@ void main() {
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
+    });
+    test('it create list of clients with list of services', () async {
+      // crete worker profile
+      final wKey = wKeysData2();
+      expect(wKey, isA<WorkerKey>());
+      await AppData.instance.addProfileFromKey(wKey);
+      // test http
+      final httpClient = AppData().httpClient as mock.MockClient;
+      expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
+      expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
+      expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
+      // test profile
+      expect(AppData.instance.profiles.first.clients.length, 10);
+      expect(AppData.instance.profiles.first.clients.first.contractId, 1);
+      final client = AppData.instance.profiles.first.clients.first;
+      // test service
+      final service3 = client.services[3];
+      expect(service3.plan, 104);
+      expect(service3.shortText, 'Покупка продуктов питания');
+      expect(service3.image, 'grocery-cart.png');
     });
   });
 }
