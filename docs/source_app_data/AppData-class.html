@@ -170,6 +170,17 @@
 
 </dd>
 
+        <dt id="inited" class="property">
+  <span class="name"><a href="../source_app_data/AppData/inited.html">inited</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read / write</div>
+
+</dd>
+
         <dt id="isArchive" class="property">
   <span class="name"><a href="../source_app_data/AppData/isArchive.html">isArchive</a></span>
   <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
@@ -181,9 +192,31 @@
 
 </dd>
 
+        <dt id="lastClient" class="property">
+  <span class="name"><a href="../source_app_data/AppData/lastClient.html">lastClient</a></span>
+  <span class="signature">&#8596; <a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a>?</span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read / write</div>
+
+</dd>
+
         <dt id="lastScreen" class="property">
   <span class="name"><a href="../source_app_data/AppData/lastScreen.html">lastScreen</a></span>
   <span class="signature">&#8596; <a href="../source_global_helpers/ScreenArguments-class.html">ScreenArguments</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read / write</div>
+
+</dd>
+
+        <dt id="lastWorker" class="property">
+  <span class="name"><a href="../source_app_data/AppData/lastWorker.html">lastWorker</a></span>
+  <span class="signature">&#8596; <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a>?</span> 
 
 </dt>
 <dd>
@@ -319,6 +352,58 @@ disposed). <a href="../source_app_data/AppData/dispose.html">[...]</a>
 
 </dd>
 
+        <dt id="getClientByContractId" class="callable">
+  <span class="name"><a href="../source_app_data/AppData/getClientByContractId.html">getClientByContractId</a></span><span class="signature">(<wbr><span class="parameter" id="getClientByContractId-param-workerProfile"><span class="type-annotation"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">workerProfile</span>, </span><span class="parameter" id="getClientByContractId-param-cId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">cId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Find client in <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> by <a href="../source_data_classes_client_profile/ClientProfile/contractId.html">ClientProfile.contractId</a> or return first, or null. 
+  
+
+</dd>
+
+        <dt id="getLastClient" class="callable">
+  <span class="name"><a href="../source_app_data/AppData/getLastClient.html">getLastClient</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a>?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="getLastWorker" class="callable">
+  <span class="name"><a href="../source_app_data/AppData/getLastWorker.html">getLastWorker</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a>?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="getWorkerByApiKey" class="callable">
+  <span class="name"><a href="../source_app_data/AppData/getWorkerByApiKey.html">getWorkerByApiKey</a></span><span class="signature">(<wbr><span class="parameter" id="getWorkerByApiKey-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
         <dt id="noSuchMethod" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
@@ -407,6 +492,32 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
 </dt>
 <dd>
   Calculate size of <a href="../source_screens_service_related_service_card/ServiceCard-class.html">ServiceCard</a>. It is calculated here because it used in different places. 
+  
+
+</dd>
+
+        <dt id="setLastClient" class="callable">
+  <span class="name"><a href="../source_app_data/AppData/setLastClient.html">setLastClient</a></span><span class="signature">(<wbr><span class="parameter" id="setLastClient-param-client"><span class="type-annotation"><a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span> <span class="parameter-name">client</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="setLastWorker" class="callable">
+  <span class="name"><a href="../source_app_data/AppData/setLastWorker.html">setLastWorker</a></span><span class="signature">(<wbr><span class="parameter" id="setLastWorker-param-wp"><span class="type-annotation"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">wp</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
   
 
 </dd>
@@ -515,8 +626,11 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li><a href="../source_app_data/AppData/hiveArchiveLimit.html">hiveArchiveLimit</a></li>
     <li><a href="../source_app_data/AppData/hiveData.html">hiveData</a></li>
     <li><a href="../source_app_data/AppData/httpClient.html">httpClient</a></li>
+    <li><a href="../source_app_data/AppData/inited.html">inited</a></li>
     <li><a href="../source_app_data/AppData/isArchive.html">isArchive</a></li>
+    <li><a href="../source_app_data/AppData/lastClient.html">lastClient</a></li>
     <li><a href="../source_app_data/AppData/lastScreen.html">lastScreen</a></li>
+    <li><a href="../source_app_data/AppData/lastWorker.html">lastWorker</a></li>
     <li><a href="../source_app_data/AppData/prefs.html">prefs</a></li>
     <li><a href="../source_app_data/AppData/profiles.html">profiles</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
@@ -529,6 +643,10 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li><a href="../source_app_data/AppData/addProfileFromKey.html">addProfileFromKey</a></li>
     <li><a href="../source_app_data/AppData/asyncDispose.html">asyncDispose</a></li>
     <li><a href="../source_app_data/AppData/dispose.html">dispose</a></li>
+    <li><a href="../source_app_data/AppData/getClientByContractId.html">getClientByContractId</a></li>
+    <li><a href="../source_app_data/AppData/getLastClient.html">getLastClient</a></li>
+    <li><a href="../source_app_data/AppData/getLastWorker.html">getLastWorker</a></li>
+    <li><a href="../source_app_data/AppData/getWorkerByApiKey.html">getWorkerByApiKey</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
     <li><a href="../source_app_data/AppData/postInit.html">postInit</a></li>
@@ -536,6 +654,8 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li><a href="../source_app_data/AppData/save.html">save</a></li>
     <li><a href="../source_app_data/AppData/serviceCardSize.html">serviceCardSize</a></li>
+    <li><a href="../source_app_data/AppData/setLastClient.html">setLastClient</a></li>
+    <li><a href="../source_app_data/AppData/setLastWorker.html">setLastWorker</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../source_app_data/AppData-class.html#operators">Operators</a></li>

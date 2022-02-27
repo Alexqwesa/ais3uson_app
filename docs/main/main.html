@@ -72,7 +72,9 @@
   &#47;&#47; if (kDebugMode){
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-      dev.log(&#39;${record.level.name}: ${record.time}: ${record.message}&#39;);
+    dev.log(
+      &#39;${record.level.name.substring(0, 3)}:  ${record.message}&#39;, &#47;&#47;${record.time}:
+    );
   });
   await Hive.initFlutter();
   Singleton.register(AppData);
