@@ -1,9 +1,10 @@
-# AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")
+# AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")[<img alt="get it on Google Play" height="55" src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" />](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 
 <img align="right" src="assets/ais-3uson-logo-128.png">
 
 [![Test](https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml/badge.svg)](https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD)](https://codecov.io/gh/Alexqwesa/ais3uson_app)
+
 
 A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
