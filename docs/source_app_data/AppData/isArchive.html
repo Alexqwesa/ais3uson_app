@@ -103,6 +103,9 @@
       _profiles = _profiles.map((e) {
         return WorkerProfile(e.key, archiveDate: DateTime.now());
       }).toList();
+      profiles.forEach((element) {
+        element.postInit();
+      });
       &#47;&#47; _archiveProfiles = _profiles;
     }
 

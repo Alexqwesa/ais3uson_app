@@ -72,7 +72,12 @@
 Future&lt;void&gt; crawler() async {
   Directory appDocDir;
   try {
-    appDocDir = await getApplicationDocumentsDirectory();
+    appDocDir = Directory(
+      &#39;${(await getApplicationDocumentsDirectory()).path}&#47;Ais3uson&#39;,
+    );
+    if (!appDocDir.existsSync()) {
+      return;
+    }
   } on MissingPlatformDirectoryException {
     showErrorNotification(&#39;Ошибка доступа к файловой системе!&#39;);
 

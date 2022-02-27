@@ -71,7 +71,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; addProfileFromKey(WorkerKey key) async {
   if (_profiles
-          .firstWhereOrNull((element) =&gt; element.key.apiKey == key.apiKey) ==
+      .firstWhereOrNull((element) =&gt; element.key.apiKey == key.apiKey) ==
       null) {
     final wp = WorkerProfile(key);
     _profiles.add(wp);
