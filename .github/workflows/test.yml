@@ -79,7 +79,7 @@ jobs:
           git config user.name "Github Actions"
           git remote add upstream "https://token:$token@github.com/Alexqwesa/web3uson.git"
           git fetch upstream
-          git checkout master
+          git checkout main
           cp -a ../build/web/* ./docs/
           git add --all
           git commit -m "Deploy ais3uson to web"
