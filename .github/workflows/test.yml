@@ -62,3 +62,25 @@ jobs:
           # files: lcov.info
           # fail_ci_if_error: true # optional (default = false)
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          
+        
+      - name: Build web3uson
+        run: flutter build web --release
+
+        
+      - name: Deploy ais3uson to web
+        if: success() 
+        env:
+          token: "${{ secrets.WEB3USON }}"
+        run: |
+          git clone https://github.com/Alexqwesa/web3uson.git
+          cd web3uson
+          git config user.email "Alexqwesa@example.com"
+          git config user.name "Github Actions"
+          git remote add upstream "https://token:$token@github.com/Alexqwesa/web3uson.git"
+          git fetch upstream
+          git checkout master
+          cp -a ../build/web/* ./docs/
+          git add --all
+          git commit -m "Deploy ais3uson to web"
+          git push
