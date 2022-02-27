@@ -73,7 +73,7 @@ void main() {
       );
     });
     test(
-      'it create list of days with archived services',
+      'it collect list of dates from archived services',
       () async {
         //
         // > prepare

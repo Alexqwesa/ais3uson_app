@@ -91,6 +91,8 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 
 ## TODO:
 
+- [ ] услуги по типам
+- [ ] индикатор обновления?
 - [ ] Резервный способ сбора и хранения услуг (на случай недоступности mysql сервера), shadow
   server?
 - [ ] Резервный web-сервер(WorkerKey allow several servers (comma separated list))
@@ -103,8 +105,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] maybe backup media data? only on full backup?
 - [ ] использовать темы для изменения размера шрифта
-- [ ] индикатор обновления?
-- [ ] услуги по типам
 - [ ] дополнительные ограничения доступных услуг?
 - [ ] сообщения от заведующих (по группам работников, одному, всем)
 - [ ] закончившиеся услуги - в конец списка?
@@ -118,6 +118,8 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] tutorial
 - [ ] translations
 - [ ] export to csv file
+- [ ] split AppData? use get_it
+- [ ] настраиваемый размер карточек услуг
 
 ## Разработчики
 
