@@ -296,5 +296,100 @@ void main() {
       expect(client2.services[3].shortText, 'Покупка продуктов питания');
       expect(client2.services[3].listDoneProgressError, [0, 0, 0]);
     });
+    test(
+      'it add services and delete them in order: rejected->added->finished->outDated',
+      () async {
+        final httpClient = AppData().httpClient as mock.MockClient;
+        expect(verifyNever(ExtMock(httpClient).testReqPostAdd).callCount, 0);
+        // crete worker profile
+        final wKey = wKeysData2();
+        expect(wKey, isA<WorkerKey>());
+        await AppData.instance.addProfileFromKey(wKey);
+        // add servcies
+        final client = AppData.instance.profiles.first.clients.first;
+        final service3 = client.services[3];
+        for (var i = 0; i < 10; i++) {
+          await service3.add();
+        }
+        //
+        // > add 10 service
+        //
+        expect(service3.listDoneProgressError, [0, 10, 0]);
+        expect(
+            verify(ExtMock(httpClient).testReqPostAdd).callCount, (10 + 1) * 5);
+        when(ExtMock(httpClient).testReqPostAdd)
+            .thenAnswer((_) async => http.Response('{"id": 1}', 200));
+        await client.workerProfile.journal.commitAll();
+        expect(service3.listDoneProgressError, [10, 0, 0]);
+        expect(client.workerProfile.journal.finished.length, 10);
+        //
+        // > mark outdated
+        //
+        // service3.servicesInJournal.forEach((element) {
+        //   element.provDate.add(const Duration(hours: -2));
+        // });
+        // client.workerProfile.services.clear();
+        await service3.journal.workerProfile.syncHivePlanned();
+        expect(client.workerProfile.journal.finished.length, 10);
+        await client.workerProfile.journal.updateBasedOnNewPlanDate();
+        expect(client.workerProfile.journal.outDated.length, 10);
+        expect(service3.listDoneProgressError, [10, 0, 0]);
+        //
+        // > add 10 finished
+        //
+        for (var i = 0; i < 10; i++) {
+          await service3.add();
+        }
+        expect(service3.listDoneProgressError, [20, 0, 0]);
+        expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 20);
+        //
+        // > add 10 rejected
+        //
+        when(ExtMock(httpClient).testReqPostAdd)
+            .thenAnswer((_) async => http.Response('{"id": 0}', 200));
+        for (var i = 0; i < 10; i++) {
+          await service3.add();
+        }
+        expect(service3.listDoneProgressError, [20, 0, 10]);
+        expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 10);
+        //
+        // > add 10 stale
+        //
+        when(ExtMock(httpClient).testReqPostAdd)
+            .thenAnswer((_) async => http.Response('', 500));
+        for (var i = 0; i < 10; i++) {
+          await service3.add();
+        }
+        expect(service3.listDoneProgressError, [20, 10, 10]);
+        expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
+        expect(
+          verify(ExtMock(httpClient).testReqPostAdd).callCount,
+          (10 + 1) * 5,
+        );
+        //
+        // > delete
+        //
+        when(ExtMock(httpClient).testReqDelete)
+            .thenAnswer((_) async => http.Response('{"id": 0}', 200));
+        for (var i = 0; i < 10; i++) {
+          await service3.delete();
+        }
+        expect(service3.listDoneProgressError, [20, 10, 0]);
+        for (var i = 0; i < 10; i++) {
+          await service3.delete();
+        }
+        expect(service3.listDoneProgressError, [20, 0, 0]);
+        for (var i = 0; i < 10; i++) {
+          await service3.delete();
+        }
+        expect(service3.listDoneProgressError, [10, 0, 0]);
+        expect(client.workerProfile.journal.outDated.length, 10);
+        for (var i = 0; i < 10; i++) {
+          await service3.delete();
+        }
+        expect(service3.listDoneProgressError, [0, 0, 0]);
+        expect(verify(ExtMock(httpClient).testReqDelete).callCount, 20);
+      },
+    );
   });
 }

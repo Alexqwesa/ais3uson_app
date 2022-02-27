@@ -64,4 +64,10 @@ extension ExtMock on MockClient {
         headers: h,
         body: anyNamed('body'),
       );
+
+  Future<http.Response> get testReqDelete => delete(
+        Uri.parse('$httpTcpIpPort/delete'),
+        headers: h,
+        body: anyNamed('body'),
+      );
 }
