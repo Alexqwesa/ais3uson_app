@@ -277,11 +277,11 @@ class Journal with ChangeNotifier {
               log.info('stale service $serv');
               break; // no changes - do nothing
             case ServiceState.finished:
-              log.finest('stale service $serv');
+              log.finest('finished service $serv');
               toFinished(serv);
               break;
             case ServiceState.rejected:
-              log.warning('stale service $serv');
+              log.warning('rejected service $serv');
               toRejected(serv);
               break;
             case ServiceState.outDated:
@@ -430,12 +430,12 @@ class Journal with ChangeNotifier {
   /// Mark all finished service as [ServiceState.outDated]
   /// after [WorkerProfile._clientPlan] synchronized.
   Future<void> updateBasedOnNewPlanDate() async {
-    added.where((e) => e.state == ServiceState.finished).forEach(
+    finished.forEach(
       (element) async {
         // TODO: rework it?
         if (element.provDate
             .isBefore(await workerProfile.clientPlanSyncDate())) {
-          outDated.add(element.copyWith(state: ServiceState.outDated));
+          toOutDated(element);
         }
       },
     );
