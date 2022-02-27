@@ -54,6 +54,10 @@ class ClientService with ChangeNotifier {
   //
   // > journal getters
   //
+  Iterable<ServiceOfJournal> get servicesInJournal =>
+      journal.all.where((element) =>
+          element.contractId == contractId && element.servId == service.id);
+
   int get added => journal.added
       .where((element) =>
           element.contractId == contractId && element.servId == service.id)

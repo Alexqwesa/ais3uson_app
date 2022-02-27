@@ -55,37 +55,6 @@ final Map<String, String> httpHeaders = {
   'Accept': 'application/json',
 };
 
-/// cutFromStart
-///
-/// cutting [cut] from [input] from the start of [input]
-/// and replace it by ...
-/// Note: It is assumed that both string is trimmed
-String cutFromStart(String input, String cut) {
-  final re = RegExp(' ');
-  var cutIndex = 0;
-  for (final lst in zip<RegExpMatch>(
-    [re.allMatches(input), re.allMatches(cut)],
-  )) {
-    final in_ = lst[0];
-    final cu_ = lst[1];
-    final inWord = input.substring(cutIndex, in_.start);
-    final cutWord = cut.substring(cutIndex, cu_.start);
-    final match = inWord.matchAsPrefix(cutWord);
-    if (match == null) {
-      break;
-    } else if (match.end != inWord.length) {
-      cutIndex = match.end;
-      break;
-    } else {
-      cutIndex = cu_.end;
-    }
-  }
-
-  return cutIndex == 0
-      ? input
-      : '...${input.substring(cutIndex, input.length)}';
-}
-
 /// showErrorNotification
 ///
 /// just display error to user
