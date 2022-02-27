@@ -81,11 +81,11 @@ it change state of services and called <a href="https://api.flutter.dev/flutter/
             log.info(&#39;stale service $serv&#39;);
             break; &#47;&#47; no changes - do nothing
           case ServiceState.finished:
-            log.finest(&#39;stale service $serv&#39;);
+            log.finest(&#39;finished service $serv&#39;);
             toFinished(serv);
             break;
           case ServiceState.rejected:
-            log.warning(&#39;stale service $serv&#39;);
+            log.warning(&#39;rejected service $serv&#39;);
             toRejected(serv);
             break;
           case ServiceState.outDated:
