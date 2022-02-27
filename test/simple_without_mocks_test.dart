@@ -1,9 +1,14 @@
+// ignore_for_file: avoid_annotating_with_dynamic
+
 import 'dart:convert';
 
+import 'package:ais3uson_app/source/from_json/client_entry.dart';
+import 'package:ais3uson_app/source/from_json/client_plan.dart';
+import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
-
-// import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'helpers/default_data.dart';
 
 String qrDataWithSSL =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения ", '''
@@ -14,11 +19,13 @@ void main() {
   group('Simple tests', () {
     test('it convert json to WorkerKey with getters', () async {
       final wKey =
-      WorkerKey.fromJson(jsonDecode(qrDataWithSSL) as Map<String, dynamic>);
+          WorkerKey.fromJson(jsonDecode(qrDataWithSSL) as Map<String, dynamic>);
       expect(wKey, isA<WorkerKey>());
       expect(wKey.apiKey, (jsonDecode(qrDataWithSSL) as Map)['api_key']);
-      expect(wKey.workerDepId,
-        (jsonDecode(qrDataWithSSL) as Map)['worker_dep_id'],);
+      expect(
+        wKey.workerDepId,
+        (jsonDecode(qrDataWithSSL) as Map)['worker_dep_id'],
+      );
     });
     test('it create WorkerKey and convert to json', () async {
       final wKey = WorkerKey.fromJson(
@@ -29,6 +36,30 @@ void main() {
         wKey.toJson(),
         jsonDecode(qrDataWithSSL) as Map<String, dynamic>,
       );
+    });
+    test('it create clients from json', () async {
+      final clients =
+          // ignore: avoid_dynamic_calls
+          jsonDecode(SERVER_DATA_CLIENTS).map<ClientEntry>(
+        (dynamic e) => ClientEntry.fromJson(e as Map<String, dynamic>),
+      ) as Iterable<ClientEntry>;
+      expect(clients.first, isA<ClientEntry>());
+    });
+    test('it create clientPlan from json', () async {
+      final clientPlan =
+          // ignore: avoid_dynamic_calls
+          jsonDecode(SERVER_DATA_PLANNED).map<ClientPlan>(
+        (dynamic e) => ClientPlan.fromJson(e as Map<String, dynamic>),
+      ) as Iterable<ClientPlan>;
+      expect(clientPlan.first, isA<ClientPlan>());
+    });
+    test('it create services from json', () async {
+      final services =
+          // ignore: avoid_dynamic_calls
+          jsonDecode(SERVER_DATA_SERVICES).map<ServiceEntry>(
+        (dynamic e) => ServiceEntry.fromJson(e as Map<String, dynamic>),
+      ) as Iterable<ServiceEntry>;
+      expect(services.first, isA<ServiceEntry>());
     });
   });
 }

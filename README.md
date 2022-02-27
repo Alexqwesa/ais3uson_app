@@ -5,7 +5,6 @@
 [![Test](https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml/badge.svg)](https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD)](https://codecov.io/gh/Alexqwesa/ais3uson_app)
 
-
 A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 Это мобильное приложение для ввода услуг в информационной
@@ -119,8 +118,9 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] tutorial
 - [ ] translations
 - [ ] export to csv file
-- [ ] split AppData? use get_it
+- [ ] split AppData?
 - [ ] настраиваемый размер карточек услуг
+- [ ] use bloc/getx/get_it/...
 
 ## Разработчики
 
