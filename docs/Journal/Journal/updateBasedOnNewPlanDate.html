@@ -69,12 +69,12 @@ after <code>WorkerProfile._clientPlan</code> synchronized.</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; updateBasedOnNewPlanDate() async {
-  added.where((e) =&gt; e.state == ServiceState.finished).forEach(
+  finished.forEach(
     (element) async {
       &#47;&#47; TODO: rework it?
       if (element.provDate
           .isBefore(await workerProfile.clientPlanSyncDate())) {
-        outDated.add(element.copyWith(state: ServiceState.outDated));
+        toOutDated(element);
       }
     },
   );
