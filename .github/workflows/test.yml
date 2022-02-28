@@ -66,22 +66,16 @@ jobs:
         
       - name: Build web3uson
         run: flutter build web --release
-
+        
         
       - name: Deploy ais3uson to web
-        if: success() 
+        uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          token: "${{ secrets.WEB3USON }}"
-        run: |
-          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
-          git clone https://github.com/Alexqwesa/web3uson.git
-          cd web3uson
-          git config user.email "Alexqwesa@example.com"
-          git config user.name "Github Actions"
-          git remote add upstream "https://token:$token@github.com/Alexqwesa/web3uson.git"
-          git fetch upstream
-          git checkout main
-          cp -a ../build/web/* ./docs/
-          git add --all
-          git commit -m "Deploy ais3uson to web"
-          git push
+          API_TOKEN_GITHUB: ${{ secrets.WEB3USON }}
+        with:
+          source_file: 'build/web/'
+          destination_repo: 'Alexqwesa/web3uson'
+          destination_folder: 'docs/'
+          user_email: 'example@email.com'
+          user_name: 'Alexqwesa'
+          commit_message: 'Deploy ais3uson to web'
