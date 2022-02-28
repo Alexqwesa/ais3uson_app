@@ -382,7 +382,9 @@ class Journal with ChangeNotifier {
         'archiveDates_$apiKey',
         dateList,
       );
-      AppData.instance.datesInArchive.addAll(dateList);
+      AppData.instance.datesInArchive.addAll(
+        dateList.map((e) => DateTime(e.year, e.month, e.day)),
+      );
       await hiveArchive.compact();
       await hiveArchive.close();
     }

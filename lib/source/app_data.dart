@@ -227,7 +227,8 @@ class AppData with ChangeNotifier {
         // ignore: avoid_annotating_with_dynamic
             .expand<dynamic>((dynamic element) => element as Iterable<dynamic>)
         // ignore: avoid_annotating_with_dynamic
-            .map<DateTime>((dynamic e) => e as DateTime),
+            .map<DateTime>((dynamic e) => e as DateTime)
+            .map((e) => DateTime(e.year, e.month, e.day)), // not necessary
       );
     }());
   }
