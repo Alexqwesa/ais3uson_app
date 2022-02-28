@@ -90,19 +90,20 @@ class ArchiveMaterialApp extends StatelessWidget {
                       return IconButton(
                         icon: const Icon(Icons.date_range),
                         onPressed: () async {
-                          final lastDate =
-                              DateTime.now().add(const Duration(days: -1));
+                          final datesInArchive =
+                              AppData.instance.datesInArchive;
                           AppData.instance.archiveDate = await showDatePicker(
                             context: context,
+                            selectableDayPredicate: datesInArchive.contains,
                             initialDate: AppData.instance.archiveDate,
-                            firstDate: DateTime(
-                              AppData.instance.archiveDate.day - 365,
+                            lastDate: datesInArchive.reduce(
+                              (value, element) =>
+                                  value.isAfter(element) ? value : element,
                             ),
-                            lastDate: lastDate,
-                            // selectableDayPredicate: (date) {
-                            //   return AppData.instance.datesInArchive
-                            //       .contains(date);
-                            // },
+                            firstDate: datesInArchive.reduce(
+                              (value, element) =>
+                                  value.isBefore(element) ? value : element,
+                            ),
                           );
                         },
                       );
