@@ -71,11 +71,26 @@ class AppData with ChangeNotifier {
   /// Is displayed usual view of App or archive view
   bool get isArchive => _isArchive;
 
-  /// Date of last archiving
-  DateTime get archiveDate => _archiveDate;
+  /// When app is in [isArchive] mode it will display this date.
+  DateTime get archiveDate {
+    if (_archiveDate == null) {
+      final dt = DateTime.now().add(const Duration(days: -1));
+      _archiveDate = DateTime(dt.year, dt.month, dt.day);
+    }
 
+    return _archiveDate!;
+  }
+
+  /// This value can be set only from [isArchive], then _archiveDate is already inited.
   set archiveDate(DateTime? newValue) {
     _archiveDate = newValue ?? _archiveDate;
+    //
+    // > just reinit [JournalArchive]
+    //
+    _profiles.forEach((w) async {
+      (w.journal as JournalArchive).aDate = archiveDate;
+      await w.journal.postInit();
+    });
     notifyListeners();
   }
 
@@ -86,12 +101,12 @@ class AppData with ChangeNotifier {
       if (_isArchive) {
         _profiles = _realProfiles;
       } else {
-        // if (_archiveProfiles.length == profiles.length) { //todo more checks
-        //   _profiles = _archiveProfiles;
-        // }
+        //
+        // > create and init new profiles
+        //
         _realProfiles = _profiles;
         _profiles = _profiles.map((e) {
-          return WorkerProfile(e.key, archiveDate: DateTime.now());
+          return WorkerProfile(e.key, archiveDate: archiveDate);
         }).toList();
         profiles.forEach((element) {
           element.postInit();
@@ -112,7 +127,7 @@ class AppData with ChangeNotifier {
 
   // List<WorkerProfile> _archiveProfiles = [];
 
-  var _archiveDate = DateTime.now().add(const Duration(days: -1));
+  DateTime? _archiveDate;
 
   /// View of services List, can be: '', 'tile', 'short'
   String _serviceView = '';
