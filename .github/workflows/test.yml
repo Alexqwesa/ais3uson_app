@@ -67,15 +67,18 @@ jobs:
       - name: Build web3uson
         run: flutter build web --release
         
-        
+      - name: Move web to docs
+        run: |
+          mv 'build/web/' 'build/docs/'
+          
       - name: Deploy ais3uson to web
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.WEB3USON }}
         with:
-          source_file: 'build/web/'
+          source_file: 'build/docs/'
           destination_repo: 'Alexqwesa/web3uson'
-          destination_folder: 'docs/'
+          # destination_folder: 'docs/'
           user_email: 'alexo.veto@gmail.com'
           user_name: 'Alexqwesa'
           commit_message: 'Deploy ais3uson to web'
