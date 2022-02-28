@@ -84,5 +84,4 @@ jobs:
           cp -a ../build/web/* ./docs/
           git add --all
           git commit -m "Deploy ais3uson to web"
-          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
           git push
