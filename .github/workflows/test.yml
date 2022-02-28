@@ -76,6 +76,6 @@ jobs:
           source_file: 'build/web/'
           destination_repo: 'Alexqwesa/web3uson'
           destination_folder: 'docs/'
-          user_email: 'example@email.com'
+          user_email: 'alexo.veto@gmail.com'
           user_name: 'Alexqwesa'
           commit_message: 'Deploy ais3uson to web'
