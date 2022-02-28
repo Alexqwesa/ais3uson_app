@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:camera/camera.dart';
@@ -21,14 +23,12 @@ import 'package:path_provider/path_provider.dart';
 // ignore: prefer_mixin
 class ProofList with ChangeNotifier {
   final int workerId;
-
   final int contractId;
-
-  final String date;
-
   final int serviceId;
-
-  int iName = 1;
+  final String date;
+  final String client;
+  final String worker;
+  final String service;
 
   List<ProofGroup> proofGroups = [];
 
@@ -36,8 +36,11 @@ class ProofList with ChangeNotifier {
     this.workerId,
     this.contractId,
     this.date,
-    this.serviceId,
-  );
+    this.serviceId, {
+    this.worker = '',
+    this.client = '',
+    this.service = '',
+  });
 
   /// Crawl through file system to generate [ProofGroup]s.
   ///
@@ -105,7 +108,7 @@ class ProofList with ChangeNotifier {
 
   void addNewGroup() {
     proofGroups.add(
-      ProofGroup.empty((iName++).toString()),
+      ProofGroup.empty((proofGroups.length).toString()),
     );
     notifyListeners();
   }
@@ -134,36 +137,51 @@ class ProofList with ChangeNotifier {
     //
     Directory appDocDir;
     try {
-      appDocDir = await getApplicationDocumentsDirectory();
+      appDocDir = Directory(
+        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
+      );
+      if (!appDocDir.existsSync()) {
+        appDocDir.createSync(recursive: true);
+      }
     } on MissingPlatformDirectoryException {
+      log.severe('Can not find folder');
+
       return;
     } on MissingPluginException {
+      log.severe('Can not find plugin');
+
       return;
     }
-    // Todo: add names
-    final newPath = Directory(
-      path.join(
-        appDocDir.path,
-        '${workerId}_',
-        '${contractId}_',
+    //
+    // > create path without special characters
+    //
+    const regex = r'[^\p{Alphabetic}\p{Decimal_Number}_ .\s]+';
+    final newPath = Directory([
+      appDocDir.path,
+      ...[
+        '${workerId}_$worker',
+        '${contractId}_$client',
         '${date}_',
-        '${serviceId}_',
+        '${serviceId}_$service',
         'group_${i}_',
-      ),
-    );
+      ]
+          .map((e) => e.replaceAll(RegExp(regex, unicode: true), ''))
+          .map((e) => e.substring(0, e.length > 150 ? 150 : e.length)),
+    ].reduce(path.join));
     await newPath.create(recursive: true);
     //
     // > move file to group path
     //
-    var imgFile = File.fromRawPath(
+    final _imgFile = File.fromRawPath(
       Uint8List.fromList(utf8.encode(xFile.path)),
     );
-    imgFile = await imgFile.rename(
+    final imgFile = _imgFile.copySync(
       path.join(
         newPath.path,
         '${prefix}img_${path.basename(xFile.path)}',
       ),
     );
+    unawaited(_imgFile.delete());
     //
     // > update list
     //

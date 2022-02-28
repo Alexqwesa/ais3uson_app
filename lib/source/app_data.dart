@@ -170,6 +170,9 @@ class AppData with ChangeNotifier {
     }));
 
     await prefs?.setString('serviceView', serviceView);
+
+    _profiles = [];
+    inited = false;
   }
 
   /// Init Hive and its adapters.
@@ -307,7 +310,7 @@ class AppData with ChangeNotifier {
     }
   }
 
-  /// Just delete profile, notify and save left profiles.
+  /// Just delete profile, notify and save remain profiles.
   void profileDelete(int index) {
     hiveData
         .delete('archiveDates_${_profiles[index].apiKey}')

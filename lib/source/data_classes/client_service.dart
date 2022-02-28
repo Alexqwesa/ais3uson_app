@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/proof_list.dart';
 import 'package:ais3uson_app/source/from_json/client_plan.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
@@ -23,12 +24,13 @@ import 'package:flutter/material.dart';
 class ClientService with ChangeNotifier {
   late final ServiceEntry service;
   late final ClientPlan planned;
-  late final int workerDepId;
 
   /// Reference to existed journal
   late final Journal journal;
 
   String get apiKey => journal.apiKey;
+
+  int get workerDepId => journal.workerProfile.key.workerDepId;
 
   //
   // > from json classes
@@ -100,12 +102,18 @@ class ClientService with ChangeNotifier {
         contractId,
         standardFormat.format(DateTime.now()),
         servId,
+        client: client.name,
+        worker: journal.workerProfile.name,
+        service: service.shortText,
       );
-      unawaited(_proofList!.crawler());
+      _proofList!.crawler();
 
       return _proofList!;
     }
   }
+
+  ClientProfile get client => journal.workerProfile.clients
+      .firstWhere((element) => element.contractId == contractId);
 
   /// [ProofList] of this service at current date.
   ProofList? _proofList;
@@ -114,7 +122,6 @@ class ClientService with ChangeNotifier {
     required this.journal,
     required this.service,
     required this.planned,
-    required this.workerDepId,
   }) {
     journal.addListener(notifyListeners);
   }

@@ -63,7 +63,6 @@ class ClientProfile with ChangeNotifier {
           service: wp.services.firstWhere((serv) => serv.id == e.servId),
           planned: e,
           journal: wp.journal,
-          workerDepId: wp.key.workerDepId,
         );
       }).toList(growable: true);
       notifyListeners();

@@ -122,7 +122,10 @@ void main() {
         final roundYesterday =
             DateTime(yesterday.year, yesterday.month, yesterday.day);
         final roundBeforYesterday = DateTime(
-            beforeYesterday.year, beforeYesterday.month, beforeYesterday.day);
+          beforeYesterday.year,
+          beforeYesterday.month,
+          beforeYesterday.day,
+        );
         expect(AppData.instance.archiveDate, roundYesterday);
         expect(AppData.instance.datesInArchive.length, 2);
         expect(

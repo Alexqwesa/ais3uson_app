@@ -308,7 +308,8 @@ void main() {
         // add servcies
         final client = AppData.instance.profiles.first.clients.first;
         final service3 = client.services[3];
-        for (var i = 0; i < 10; i++) {
+        const servNum = 10;
+        for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
         //
@@ -316,7 +317,9 @@ void main() {
         //
         expect(service3.listDoneProgressError, [0, 10, 0]);
         expect(
-            verify(ExtMock(httpClient).testReqPostAdd).callCount, (10 + 1) * 5);
+          verify(ExtMock(httpClient).testReqPostAdd).callCount,
+          (servNum + 1) * (servNum / 2),
+        );
         when(ExtMock(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 1}', 200));
         await client.workerProfile.journal.commitAll();
@@ -337,7 +340,7 @@ void main() {
         //
         // > add 10 finished
         //
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
         expect(service3.listDoneProgressError, [20, 0, 0]);
@@ -347,7 +350,7 @@ void main() {
         //
         when(ExtMock(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 0}', 200));
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
         expect(service3.listDoneProgressError, [20, 0, 10]);
@@ -357,34 +360,34 @@ void main() {
         //
         when(ExtMock(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('', 500));
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
         expect(service3.listDoneProgressError, [20, 10, 10]);
         expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
         expect(
           verify(ExtMock(httpClient).testReqPostAdd).callCount,
-          (10 + 1) * 5,
+          (servNum + 1) * (servNum / 2),
         );
         //
         // > delete
         //
         when(ExtMock(httpClient).testReqDelete)
             .thenAnswer((_) async => http.Response('{"id": 0}', 200));
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
         expect(service3.listDoneProgressError, [20, 10, 0]);
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
         expect(service3.listDoneProgressError, [20, 0, 0]);
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
         expect(service3.listDoneProgressError, [10, 0, 0]);
         expect(client.workerProfile.journal.outDated.length, 10);
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
         expect(service3.listDoneProgressError, [0, 0, 0]);
