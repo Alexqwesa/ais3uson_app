@@ -5,7 +5,7 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// Widget: show list of [WorkerProfile].
+/// Helper for HomeScreen, this widget: show list of [WorkerProfile].
 ///
 /// {@category WorkerProfiles}
 class ListOfProfiles extends StatefulWidget {

@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Center(
                     child: Text(
-                      'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
+                      'Приложение для ввода услуг в АИС "ТриУСОН" ',
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
