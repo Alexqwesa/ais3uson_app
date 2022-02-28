@@ -74,8 +74,11 @@
       contractId,
       standardFormat.format(DateTime.now()),
       servId,
+      client: client.name,
+      worker: journal.workerProfile.name,
+      service: service.shortText,
     );
-    unawaited(_proofList!.crawler());
+    _proofList!.crawler();
 
     return _proofList!;
   }
@@ -115,6 +118,7 @@
     <li><a href="../../source_data_classes_client_service/ClientService/addAllowed.html">addAllowed</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/added.html">added</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/apiKey.html">apiKey</a></li>
+    <li><a href="../../source_data_classes_client_service/ClientService/client.html">client</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/contractId.html">contractId</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/deleteAllowed.html">deleteAllowed</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/done.html">done</a></li>
