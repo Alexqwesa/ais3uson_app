@@ -73,14 +73,16 @@ jobs:
         env:
           token: "${{ secrets.WEB3USON }}"
         run: |
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
           git clone https://github.com/Alexqwesa/web3uson.git
           cd web3uson
           git config user.email "Alexqwesa@example.com"
           git config user.name "Github Actions"
-          git remote add upstream "https://Alexqwesa:$token@github.com/Alexqwesa/web3uson.git"
+          git remote add upstream "https://token:$token@github.com/Alexqwesa/web3uson.git"
           git fetch upstream
           git checkout main
           cp -a ../build/web/* ./docs/
           git add --all
           git commit -m "Deploy ais3uson to web"
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
           git push
