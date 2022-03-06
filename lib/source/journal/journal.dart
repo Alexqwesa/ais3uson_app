@@ -200,6 +200,14 @@ class Journal with ChangeNotifier {
   ///
   /// Return new state or null, didn't change service state itself.
   /// On error: show [showErrorNotification] to user.
+  ///
+  /// Note for web platform:
+  /// Https is always used for web platform, because:
+  /// get real ssl certificate is much easier and safer
+  /// than configure browser to accept self-signed certificate on all clients,
+  /// or find host without https support.
+  ///
+  /// {@category Network}
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     var url = Uri.parse(urlAddress);
     var http = AppData().httpClient;
@@ -208,6 +216,7 @@ class Journal with ChangeNotifier {
       Response response;
       final sslClient = workerProfile.sslClient;
       if (kIsWeb) {
+        // Always use https for web platform
         url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
       } else if (sslClient != null) {
         http = IOClient(sslClient);
@@ -302,6 +311,8 @@ class Journal with ChangeNotifier {
   /// Delete service [serv] (or find serv by [uuid]) from journal.
   ///
   /// Also notify listeners and save.
+  /// Note: since services are deleted by uuid double deletes is not a problem.
+  /// (Async lock is not needed.)
   Future<void> delete({ServiceOfJournal? serv, String? uuid}) async {
     //
     // find service
@@ -329,7 +340,7 @@ class Journal with ChangeNotifier {
       notifyListeners();
       // ignore: avoid_catching_errors
     } on RangeError {
-      log.severe('RangeError double delete');
+      log.info('RangeError double delete');
     }
   }
 
@@ -341,7 +352,7 @@ class Journal with ChangeNotifier {
   /// services which didn't committed yet(stale/rejected).
   ///
   /// Archive is only for committed services.
-  /// Only [AppData.instance.hiveArchiveLimit] number of services could be stored in archive, most old will be deleted first.
+  /// Only [AppData.hiveArchiveLimit] number of services could be stored in archive, most old will be deleted first.
   Future<void> archiveOldServices() async {
     //
     // > open hive archive and add old services
@@ -430,15 +441,17 @@ class Journal with ChangeNotifier {
   /// Mark all finished service as [ServiceState.outDated]
   /// after [WorkerProfile._clientPlan] synchronized.
   Future<void> updateBasedOnNewPlanDate() async {
-    finished.forEach(
-      (element) async {
-        // TODO: rework it?
-        if (element.provDate
-            .isBefore(await workerProfile.clientPlanSyncDate())) {
-          toOutDated(element);
-        }
-      },
-    );
+    await _lock.synchronized(() async {
+      finished.forEach(
+        (element) async {
+          // TODO: rework it?
+          if (element.provDate
+              .isBefore(await workerProfile.clientPlanSyncDate())) {
+            toOutDated(element);
+          }
+        },
+      );
+    });
   }
 
   /// Remove [ServiceOfJournal] from lists of [Journal] and from Hive.

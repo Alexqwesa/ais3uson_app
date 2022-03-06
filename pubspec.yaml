@@ -24,7 +24,7 @@ environment:
 dependencies:
   camera: any
   collection: any
-  dartdoc: ^5.0.0
+  dartdoc: ^5.0.1
   flutter:
     sdk: flutter
   flutter_html: any
