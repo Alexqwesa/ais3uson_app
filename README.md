@@ -1,4 +1,4 @@
-# AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")[<img alt="get it on Google Play" height="55" src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" />](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
+# AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")[<img alt="get it on Google Play" height="55" src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg" />](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 
 <img align="right" src="assets/ais-3uson-logo-128.png">
 

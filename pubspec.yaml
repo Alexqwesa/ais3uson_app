@@ -28,12 +28,16 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_html: any
+  flutter_intl: any
+  flutter_localizations:
+    sdk: flutter
   freezed_annotation: any
   google_fonts: any
   hive_flutter: any
   hive_generator: any
   http: any
   intl: any
+  #  intl_utils: any
   json_annotation:
   lint: any
   logging: any
@@ -115,5 +119,6 @@ flutter:
   assets:
     - images/
     - assets/
-
-
+flutter_intl:
+  enabled: true
+  main_locale: ru

@@ -39,7 +39,10 @@ analyzer:
     - dart_code_metrics
   exclude:
     - packages/**/lib/generated_plugin_registrant.dart
-    - packages/**/test/mock_server.mocks.dart
+    - test/helpers/mock_server.mocks.dart
+    - test/helpers/*.mocks.dart
+    - lib/generated/**
+    - lib/generated/**/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
   errors:

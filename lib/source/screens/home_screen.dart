@@ -1,5 +1,6 @@
 // ignore_for_file: always_use_package_imports
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Center(
                     child: Text(
-                      'Приложение для ввода услуг в АИС "ТриУСОН" ',
+                      S.of(context).shortAboutApp,
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),

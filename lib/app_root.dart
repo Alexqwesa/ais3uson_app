@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/screens/add_department_screen.dart';
@@ -13,6 +14,7 @@ import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 /// Root widget of whole app.
@@ -64,6 +66,16 @@ class ArchiveMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //
+      // > l10n
+      //
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -153,6 +165,16 @@ class MainMaterialApp extends StatelessWidget {
       child: Consumer<StandardTheme>(
         builder: (context, data, child) {
           return MaterialApp(
+            //
+            // > l10n
+            //
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
             title: 'AIS 3USON App',
             //
             // > theme
