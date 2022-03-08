@@ -112,6 +112,16 @@ Widget build(BuildContext context) {
     child: Consumer&lt;StandardTheme&gt;(
       builder: (context, data, child) {
         return MaterialApp(
+          &#47;&#47;
+          &#47;&#47; &gt; l10n
+          &#47;&#47;
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           title: &#39;AIS 3USON App&#39;,
           &#47;&#47;
           &#47;&#47; &gt; theme
@@ -131,8 +141,8 @@ Widget build(BuildContext context) {
             &#39;&#47;scan_qr&#39;: &#47;*     *&#47; (context) =&gt; const QRScanScreen(),
             &#39;&#47;dev&#39;: &#47;*         *&#47; (context) =&gt; const DevScreen(),
             &#39;&#47;delete_department&#39;: (context) =&gt; const DeleteDepartmentScreen(),
-            &#39;&#47;&#39;: &#47;*            *&#47; (context) =&gt; const HomePage(
-                  title: &#39;Список отделений&#39;,
+            &#39;&#47;&#39;: &#47;*            *&#47; (context) =&gt; HomePage(
+                  title: S.of(context).depList,
                 ),
           },
           debugShowCheckedModeBanner: false,

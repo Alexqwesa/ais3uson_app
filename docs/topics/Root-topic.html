@@ -45,7 +45,7 @@
   <h1><span class="kind-category">Root</span> Topic</h1>
   
 <section class="desc markdown">
-  <h1 id="ais-3uson-backend------img-altget-it-on-google-play-height55-srchttpsgithubcomstevericheygoogle-play-badge-svgblobmasterimgen_getsvg-httpsplaygooglecomstoreappsdetailsidcomais3usonappais3uson_app">AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")<a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app"><img alt="get it on Google Play" height="55" src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg"></a></h1><img align="right" src="assets/ais-3uson-logo-128.png">
+  <h1 id="ais-3uson-backend------img-altget-it-on-google-play-height55-srchttpsrawgithubusercontentcomstevericheygoogle-play-badge-svgmasterimgen_getsvg-httpsplaygooglecomstoreappsdetailsidcomais3usonappais3uson_app">AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")<a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app"><img alt="get it on Google Play" height="55" src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg"></a></h1><img align="right" src="assets/ais-3uson-logo-128.png">
 <p><a href="https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml"><img src="https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml/badge.svg" alt="Test"></a>
 <a href="https://codecov.io/gh/Alexqwesa/ais3uson_app"><img src="https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD" alt="codecov"></a></p>
 <p>A Flutter mobile backend for <a href="https://github.com/Alexqwesa/AIS-3USON">AIS-3USON</a></p>
@@ -127,6 +127,7 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 не работает в браузерах)</li>
 <li><code>x</code> Доступно для скачивания
 на <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">Google Play Market</a></li>
+<li><code>x</code> Созданы тесты для проверки правильности работы программы</li>
 </ul>
 <h2 id="todo">TODO:</h2>
 <ul>
@@ -140,23 +141,25 @@ server?</li>
 <li><code> </code> Повышенный уровень защиты: SSL Pinning</li>
 <li><code> </code> Напоминание о необходимости синхронизации</li>
 <li><code> </code> Кнопка: Синхронизировать ВСЕ!</li>
+<li><code> </code> Экспорт журнала ввода в json / + импорт (в программе для заведующих)</li>
 <li><code> </code> Кнопка: Поделится ?</li>
+<li><code> </code> Разные интервалы обновлений для сервисов(раз в 3 дня), список клиентов(12 часов), положено
+услуг (раз в день),</li>
+<li><code> </code> Контрольная сумма для списка услуг? (желательно на стороне SQL сервера)</li>
+<li><code> </code> Возможность загрузки некоторых картинок с сервера</li>
 <li><code> </code> dynamic setting from BD: allow collect proofs, etc...</li>
 <li><code> </code> maybe backup media data? only on full backup?</li>
 <li><code> </code> использовать темы для изменения размера шрифта</li>
 <li><code> </code> дополнительные ограничения доступных услуг?</li>
 <li><code> </code> сообщения от заведующих (по группам работников, одному, всем)</li>
 <li><code> </code> закончившиеся услуги - в конец списка?</li>
-<li><code> </code> вводить услуги жестом, а не onTap ??? (оказанные услуги в конец списка после разделителя)</li>
-<li><code> </code> Хранить все данные о вводе в архиве ввода(запретить загрузку по сети)</li>
-<li><code> </code> Кнопка получения архива ввода</li>
-<li><code> </code> 2 секунды на отмену ввода услуги или журнал введенных сегодня услуг с возможностью отмены?</li>
+<li><code> </code> вводить услуги жестом, а не onTap ???</li>
+<li><code> </code> Разрешить загрузку введенных услуг с сервера, если их нет в локальном журнале Hive? (Кнопка получения архива ввода)</li>
 <li><code> </code> try autoreconnect few times(with timeout) if there is a problem with network</li>
 <li><code> </code> add server tests</li>
 <li><code> </code> use badges</li>
 <li><code> </code> tutorial</li>
-<li><code> </code> translations</li>
-<li><code> </code> export to csv file</li>
+<li><code> </code> translations - in progress</li>
 <li><code> </code> split AppData?</li>
 <li><code> </code> настраиваемый размер карточек услуг</li>
 <li><code> </code> use bloc/getx/get_it/...</li>
@@ -309,8 +312,12 @@ is <a href="images/_license.pdf">license</a>).</p>
       <li><a href="../source_screens_home_screen/source_screens_home_screen-library.html">home_screen</a></li>
       <li><a href="../Journal/Journal-library.html">Journal</a></li>
       <li><a href="../source_journal_archive_journal_archive/source_journal_archive_journal_archive-library.html">journal_archive</a></li>
+      <li><a href="../generated_l10n/generated_l10n-library.html">l10n</a></li>
       <li><a href="../source_screens_list_profiles/source_screens_list_profiles-library.html">list_profiles</a></li>
       <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../generated_intl_messages_all/generated_intl_messages_all-library.html">messages_all</a></li>
+      <li><a href="../generated_intl_messages_de/generated_intl_messages_de-library.html">messages_de</a></li>
+      <li><a href="../generated_intl_messages_ru/generated_intl_messages_ru-library.html">messages_ru</a></li>
       <li><a href="../source_data_classes_proof_list/source_data_classes_proof_list-library.html">proof_list</a></li>
       <li><a href="../source_screens_qr_scan_sreen/source_screens_qr_scan_sreen-library.html">qr_scan_sreen</a></li>
       <li><a href="../source_screens_service_related_service_card/source_screens_service_related_service_card-library.html">service_card</a></li>

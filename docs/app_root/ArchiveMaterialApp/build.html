@@ -108,6 +108,16 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return MaterialApp(
+    &#47;&#47;
+    &#47;&#47; &gt; l10n
+    &#47;&#47;
+    localizationsDelegates: const [
+      S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: S.delegate.supportedLocales,
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       resizeToAvoidBottomInset: false,

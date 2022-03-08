@@ -63,7 +63,9 @@
     
 <section class="desc markdown">
   <p>Delete service <code>serv</code> (or find serv by <code>uuid</code>) from journal.</p>
-<p>Also notify listeners and save.</p>
+<p>Also notify listeners and save.
+Note: since services are deleted by uuid double deletes is not a problem.
+(Async lock is not needed.)</p>
 </section>
 
 
@@ -97,7 +99,7 @@
     notifyListeners();
     &#47;&#47; ignore: avoid_catching_errors
   } on RangeError {
-    log.severe(&#39;RangeError double delete&#39;);
+    log.info(&#39;RangeError double delete&#39;);
   }
 }</code></pre>
 </section>
