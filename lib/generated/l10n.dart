@@ -80,10 +80,10 @@ class S {
     );
   }
 
-  /// `Удалить отделение`
+  /// `Удаление отделения`
   String get deleteDep {
     return Intl.message(
-      'Удалить отделение',
+      'Удаление отделения',
       name: 'deleteDep',
       desc: '',
       args: [],
@@ -179,6 +179,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Вспышка`
+  String get flashLight {
+    return Intl.message(
+      'Вспышка',
+      name: 'flashLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Загрузка...`
+  String get loading {
+    return Intl.message(
+      'Загрузка...',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить!`
+  String get add {
+    return Intl.message(
+      'Добавить!',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Соединение!`
+  String get testConnection {
+    return Intl.message(
+      'Соединение!',
+      name: 'testConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Список отделений пуст!`
+  String get emptyDepList {
+    return Intl.message(
+      'Список отделений пуст!',
+      name: 'emptyDepList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выберите отделение для удаления...`
+  String get selectDepForDelete {
+    return Intl.message(
+      'Выберите отделение для удаления...',
+      name: 'selectDepForDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вы уверены что хотите удалить отделение: `
+  String get areYouSureToDelete {
+    return Intl.message(
+      'Вы уверены что хотите удалить отделение: ',
+      name: 'areYouSureToDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка`
+  String get error {
+    return Intl.message(
+      'Ошибка',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -188,6 +268,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'ru'),
       Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'en'),
     ];
   }
 

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Выберите отделение для удаления...'),
+        title: Text(S.of(context).selectDepForDelete),
         backgroundColor: Colors.red,
         actions: [
           IconButton(
@@ -63,8 +64,8 @@ class DeleteDepartmentScreen extends StatelessWidget {
                 );
               },
             )
-          : const Center(
-              child: Text('Список отделений пуст! '),
+          : Center(
+              child: Text(S.of(context).emptyDepList),
             ),
     );
   }
@@ -80,11 +81,11 @@ Future<String?> _showDialog(BuildContext context, String depName) async {
     barrierDismissible: false, // user must tap button!
     builder: (context) {
       return AlertDialog(
-        title: const Text('Удаление отделения'),
+        title: Text(S.of(context).deleteDep),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              const Text('Вы уверены что хотите удалить отделение: '),
+              Text(S.of(context).areYouSureToDelete),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -98,15 +99,15 @@ Future<String?> _showDialog(BuildContext context, String depName) async {
         actions: <Widget>[
           ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Colors.red),
-            child: const Text(
-              'Удалить',
+            child: Text(
+              MaterialLocalizations.of(context).deleteButtonTooltip,
             ),
             onPressed: () {
               Navigator.of(context).pop('delete');
             },
           ),
           TextButton(
-            child: const Text('Отмена'),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
             onPressed: () {
               Navigator.of(context).pop('cancel');
             },

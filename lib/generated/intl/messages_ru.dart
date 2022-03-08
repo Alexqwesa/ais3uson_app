@@ -23,21 +23,32 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О прилжонии"),
+        "add": MessageLookupByLibrary.simpleMessage("Добавить!"),
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Добавить отделение из строки текста"),
         "archive": MessageLookupByLibrary.simpleMessage("Архив ввода услуг"),
+        "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
+            "Вы уверены что хотите удалить отделение: "),
         "dark": MessageLookupByLibrary.simpleMessage("Темная"),
         "data": MessageLookupByLibrary.simpleMessage("Данные: "),
-        "deleteDep": MessageLookupByLibrary.simpleMessage("Удалить отделение"),
+        "deleteDep": MessageLookupByLibrary.simpleMessage("Удаление отделения"),
         "depList": MessageLookupByLibrary.simpleMessage("Список отделений"),
+        "emptyDepList":
+            MessageLookupByLibrary.simpleMessage("Список отделений пуст!"),
+        "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
+        "flashLight": MessageLookupByLibrary.simpleMessage("Вспышка"),
         "light": MessageLookupByLibrary.simpleMessage("Светлая"),
+        "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
         "scanQrCode": MessageLookupByLibrary.simpleMessage(
             "Сканировать QR код отделения"),
         "searchQR": MessageLookupByLibrary.simpleMessage(
             "Выполняется поиск QR-кода..."),
+        "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
+            "Выберите отделение для удаления..."),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "Приложение для учета услуг АИС ТриУСОН"),
+        "testConnection": MessageLookupByLibrary.simpleMessage("Соединение!"),
         "theme": MessageLookupByLibrary.simpleMessage("Тема:")
       };
 }

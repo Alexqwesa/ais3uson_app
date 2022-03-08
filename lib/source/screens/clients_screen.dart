@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
@@ -25,7 +26,7 @@ class _ClientScreenState extends State<ClientScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Загрузка')),
+            appBar: AppBar(title: Text(S.of(context).loading)),
             body: const Center(
               child: CircularProgressIndicator(),
             ),
@@ -98,7 +99,7 @@ class _ClientScreenState extends State<ClientScreen> {
         } else {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Ошибка'),
+              title: Text(S.of(context).error),
             ),
           );
         }

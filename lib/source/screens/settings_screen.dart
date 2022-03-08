@@ -1,3 +1,4 @@
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class SettingsScreen extends StatelessWidget {
       value: AppData.instance,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Настройки:'),
+          title: Text('${S.of(context).settings}:'),
         ),
         // body: ListView(),
         body: const Center(

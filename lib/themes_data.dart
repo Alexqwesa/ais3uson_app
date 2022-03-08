@@ -89,7 +89,7 @@ class StandardTheme with ChangeNotifier {
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
-    headline6: GoogleFonts.openSans(
+    headline6: GoogleFonts.ubuntu(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,

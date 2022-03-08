@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -13,7 +14,7 @@ class DevScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('О приложении'),
+        title: Text(S.of(context).about),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -24,7 +25,7 @@ class DevScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Мобльное приложение для ввода услуг АИС "ТриУСОН" ',
+                      S.of(context).shortAboutApp,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline2,
                     ),
@@ -99,9 +100,9 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
       children: <Widget>[
         ElevatedButton(
           onPressed: checkHTTP,
-          child: const Text('Соединение!'),
+          child: Text(S.of(context).testConnection),
         ),
-        // if (_httpFuture != null)
+        if (_httpFuture != null)
         Column(
           children: [
             const Text('Http Response:'),
@@ -111,7 +112,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
             ),
           ],
         ),
-        // if (_httpsFuture != null)
+        if (_httpsFuture != null)
         Column(
           children: [
             const Text('Https Response:'),

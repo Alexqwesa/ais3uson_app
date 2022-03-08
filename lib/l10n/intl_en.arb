@@ -1,5 +1,5 @@
 {
-  "@@locale": "__",
+  "@@locale": "en",
   "shortAboutApp": "App for accounting services AIS 3USON",
   "addDepFromText":  "Add department from text",
   "scanQrCode": "Add department from QR code",

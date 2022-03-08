@@ -140,7 +140,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                                     int doNothing;
                                   });
                                 },
-                                child: const Text('Вспышка'),
+                                child: Text(S.of(context).flashLight),
                               ),
                             );
                           },
@@ -163,7 +163,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                                   ? describeEnum(snapshot.data!) == 'front'
                                       ? const Text('2 камера')
                                       : const Text('1 камера')
-                                  : const Text('Загрузка');
+                                  : Text(S.of(context).loading);
                             },
                           ),
                         ),
@@ -181,8 +181,8 @@ class _QRScanScreenState extends State<QRScanScreen> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 8, right: 8),
                     child: ElevatedButton(
-                      child: const Text(
-                        'Добавить!',
+                      child:  Text(
+                        S.of(context).add,
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(

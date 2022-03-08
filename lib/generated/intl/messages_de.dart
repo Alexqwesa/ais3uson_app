@@ -23,21 +23,34 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Uber App"),
+        "add": MessageLookupByLibrary.simpleMessage("Addieren!"),
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Abteilung aus Text hinzufügen"),
         "archive": MessageLookupByLibrary.simpleMessage("Archiv"),
+        "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
+            "Sind Sie sicher, dass Sie die Abteilung löschen möchten: "),
         "dark": MessageLookupByLibrary.simpleMessage("dunkel"),
         "data": MessageLookupByLibrary.simpleMessage("Daten: "),
-        "deleteDep": MessageLookupByLibrary.simpleMessage("Abteilung löschen"),
+        "deleteDep":
+            MessageLookupByLibrary.simpleMessage("Abteilung löschende"),
         "depList":
             MessageLookupByLibrary.simpleMessage("Liste der Abteilungen"),
+        "emptyDepList": MessageLookupByLibrary.simpleMessage(
+            "Liste der Abteilungen ist leer!"),
+        "error": MessageLookupByLibrary.simpleMessage("Fehler"),
+        "flashLight": MessageLookupByLibrary.simpleMessage("Blitz"),
         "light": MessageLookupByLibrary.simpleMessage("hell"),
+        "loading": MessageLookupByLibrary.simpleMessage("Laden..."),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Abteilung aus QR hinzufügen"),
         "searchQR": MessageLookupByLibrary.simpleMessage("QR suchen..."),
+        "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
+            "Wählen Sie die zu löschende Abteilung..."),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App für Dienstleistungen zählen AIS 3USON"),
+        "testConnection":
+            MessageLookupByLibrary.simpleMessage("Testverbindung!"),
         "theme": MessageLookupByLibrary.simpleMessage("Thema:")
       };
 }

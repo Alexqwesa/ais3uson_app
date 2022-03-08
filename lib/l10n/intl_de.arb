@@ -12,6 +12,15 @@
   "archive": "Archiv",
   "depList": "Liste der Abteilungen",
   "searchQR": "QR suchen...",
-  "data": "Daten: "
+  "data": "Daten: ",
+  "flashLight": "Blitz",
+  "loading": "Laden...",
+  "add": "Addieren!",
+  "testConnection": "Testverbindung!",
+  "emptyDepList": "Liste der Abteilungen ist leer!",
+  "selectDepForDelete": "Wählen Sie die zu löschende Abteilung...",
+  "deleteDep": "Abteilung löschende",
+  "areYouSureToDelete": "Sind Sie sicher, dass Sie die Abteilung löschen möchten: ",
+  "error": "Fehler"
 
 }
