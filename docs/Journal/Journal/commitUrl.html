@@ -65,6 +65,12 @@
   <p>Try to commit service(send http post request).</p>
 <p>Return new state or null, didn't change service state itself.
 On error: show <a href="../../source_global_helpers/showErrorNotification.html">showErrorNotification</a> to user.</p>
+<p>Note for web platform:
+Https is always used for web platform, because:
+get real ssl certificate is much easier and safer
+than configure browser to accept self-signed certificate on all clients,
+or find host without https support.</p>
+<p>{@category Network}</p>
 </section>
 
 
@@ -79,6 +85,7 @@ On error: show <a href="../../source_global_helpers/showErrorNotification.html">
     Response response;
     final sslClient = workerProfile.sslClient;
     if (kIsWeb) {
+      &#47;&#47; Always use https for web platform
       url = Uri.parse(urlAddress.replaceFirst(&#39;http&#39;, &#39;https&#39;));
     } else if (sslClient != null) {
       http = IOClient(sslClient);

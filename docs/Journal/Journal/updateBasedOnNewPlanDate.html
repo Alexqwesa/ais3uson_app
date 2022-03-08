@@ -69,15 +69,17 @@ after <code>WorkerProfile._clientPlan</code> synchronized.</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; updateBasedOnNewPlanDate() async {
-  finished.forEach(
-    (element) async {
-      &#47;&#47; TODO: rework it?
-      if (element.provDate
-          .isBefore(await workerProfile.clientPlanSyncDate())) {
-        toOutDated(element);
-      }
-    },
-  );
+  await _lock.synchronized(() async {
+    finished.forEach(
+      (element) async {
+        &#47;&#47; TODO: rework it?
+        if (element.provDate
+            .isBefore(await workerProfile.clientPlanSyncDate())) {
+          toOutDated(element);
+        }
+      },
+    );
+  });
 }</code></pre>
 </section>
 
