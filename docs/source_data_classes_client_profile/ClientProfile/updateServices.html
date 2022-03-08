@@ -85,7 +85,6 @@
         service: wp.services.firstWhere((serv) =&gt; serv.id == e.servId),
         planned: e,
         journal: wp.journal,
-        workerDepId: wp.key.workerDepId,
       );
     }).toList(growable: true);
     notifyListeners();
