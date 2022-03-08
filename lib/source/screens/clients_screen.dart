@@ -133,7 +133,10 @@ class ClientCardWidgetOfList extends StatelessWidget {
               Theme.of(context).primaryColor,
             )
                 .withHue(
-                  (index * 157 + 100) % 360,
+                  (index * 103 + 100) % 360,
+                )
+                .withSaturation(
+                  10 / (index.toDouble() + 10),
                 )
                 .toColor(),
           ),
