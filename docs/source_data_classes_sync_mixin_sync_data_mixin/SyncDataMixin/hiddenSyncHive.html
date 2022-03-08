@@ -117,19 +117,19 @@ and call <a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataM
     &#47;&#47; &gt; just error handling
     &#47;&#47;
   } on HandshakeException {
-    showErrorNotification(&#39;Ошибка защищенного соединения!&#39;);
-    dev.log(&#39;Server HandshakeException error $url &#39;);
-  } on http.ClientException {
-    showErrorNotification(&#39;Ошибка сервера!&#39;);
-    dev.log(&#39;Server error $url &#39;);
+    showErrorNotification(locator&lt;S&gt;().sslError);
+    log.severe(&#39;Server HandshakeException error $url &#39;);
+  } on ClientException {
+    showErrorNotification(locator&lt;S&gt;().serverError);
+    log.severe(&#39;Server error  $url  &#39;);
   } on SocketException {
-    showErrorNotification(&#39;Ошибка: нет соединения с интернетом!&#39;);
-    dev.log(&#39;No internet connection $url &#39;);
+    showErrorNotification(locator&lt;S&gt;().internetError);
+    log.warning(&#39;No internet connection $url &#39;);
   } on HttpException {
-    showErrorNotification(&#39;Ошибка доступа к серверу!&#39;);
-    dev.log(&#39;Server access error $url &#39;);
+    showErrorNotification(locator&lt;S&gt;().httpAccessError);
+    log.severe(&#39;Server access error $url &#39;);
   } finally {
-    dev.log(&#39;sync ended $url &#39;);
+    log.fine(&#39;sync ended $url &#39;);
   }
 }</code></pre>
 </section>

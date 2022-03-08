@@ -111,7 +111,7 @@ Widget build(BuildContext context) {
     value: AppData.instance,
     child: Scaffold(
       appBar: AppBar(
-        title: const Text(&#39;Настройки:&#39;),
+        title: Text(&#39;${S.of(context).settings}:&#39;),
       ),
       &#47;&#47; body: ListView(),
       body: const Center(

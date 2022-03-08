@@ -111,7 +111,7 @@ Widget build(BuildContext context) {
 
   return Scaffold(
     appBar: AppBar(
-      title: const Text(&#39;Выберите отделение для удаления...&#39;),
+      title: Text(S.of(context).selectDepForDelete),
       backgroundColor: Colors.red,
       actions: [
         IconButton(
@@ -158,8 +158,8 @@ Widget build(BuildContext context) {
               );
             },
           )
-        : const Center(
-            child: Text(&#39;Список отделений пуст! &#39;),
+        : Center(
+            child: Text(S.of(context).emptyDepList),
           ),
   );
 }</code></pre>
