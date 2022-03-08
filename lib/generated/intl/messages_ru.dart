@@ -22,7 +22,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about": MessageLookupByLibrary.simpleMessage("О прилжонии"),
+        "addDepFromText": MessageLookupByLibrary.simpleMessage(
+            "Добавить отделение из строки текста"),
+        "archive": MessageLookupByLibrary.simpleMessage("Архив ввода услуг"),
+        "dark": MessageLookupByLibrary.simpleMessage("Темная"),
+        "data": MessageLookupByLibrary.simpleMessage("Данные: "),
+        "deleteDep": MessageLookupByLibrary.simpleMessage("Удалить отделение"),
+        "depList": MessageLookupByLibrary.simpleMessage("Список отделений"),
+        "light": MessageLookupByLibrary.simpleMessage("Светлая"),
+        "scanQrCode": MessageLookupByLibrary.simpleMessage(
+            "Сканировать QR код отделения"),
+        "searchQR": MessageLookupByLibrary.simpleMessage(
+            "Выполняется поиск QR-кода..."),
+        "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
-            "Приложение для учета услуг АИС ТриУСОН")
+            "Приложение для учета услуг АИС ТриУСОН"),
+        "theme": MessageLookupByLibrary.simpleMessage("Тема:")
       };
 }

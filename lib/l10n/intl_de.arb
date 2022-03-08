@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "shortAboutApp": "App für Dienstleistungen zählen AIS 3USON",
+  "deleteDep": "Abteilung löschen",
+  "addDepFromText": "Abteilung aus Text hinzufügen",
+  "scanQrCode": "Abteilung aus QR hinzufügen",
+  "about": "Uber App",
+  "settings": "Einstellungen",
+  "theme": "Thema:",
+  "light": "hell",
+  "dark": "dunkel",
+  "archive": "Archiv",
+  "depList": "Liste der Abteilungen",
+  "searchQR": "QR suchen...",
+  "data": "Daten: "
+
+}

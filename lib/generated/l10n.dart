@@ -59,6 +59,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Добавить отделение из строки текста`
+  String get addDepFromText {
+    return Intl.message(
+      'Добавить отделение из строки текста',
+      name: 'addDepFromText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сканировать QR код отделения`
+  String get scanQrCode {
+    return Intl.message(
+      'Сканировать QR код отделения',
+      name: 'scanQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Удалить отделение`
+  String get deleteDep {
+    return Intl.message(
+      'Удалить отделение',
+      name: 'deleteDep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `О прилжонии`
+  String get about {
+    return Intl.message(
+      'О прилжонии',
+      name: 'about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Настройки`
+  String get settings {
+    return Intl.message(
+      'Настройки',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Тема:`
+  String get theme {
+    return Intl.message(
+      'Тема:',
+      name: 'theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Светлая`
+  String get light {
+    return Intl.message(
+      'Светлая',
+      name: 'light',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Темная`
+  String get dark {
+    return Intl.message(
+      'Темная',
+      name: 'dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Архив ввода услуг`
+  String get archive {
+    return Intl.message(
+      'Архив ввода услуг',
+      name: 'archive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Список отделений`
+  String get depList {
+    return Intl.message(
+      'Список отделений',
+      name: 'depList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выполняется поиск QR-кода...`
+  String get searchQR {
+    return Intl.message(
+      'Выполняется поиск QR-кода...',
+      name: 'searchQR',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Данные: `
+  String get data {
+    return Intl.message(
+      'Данные: ',
+      name: 'data',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -67,6 +187,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'de'),
     ];
   }
 

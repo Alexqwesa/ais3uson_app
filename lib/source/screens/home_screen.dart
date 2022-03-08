@@ -76,8 +76,8 @@ class _HomePageState extends State<HomePage> {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.group_add),
-                    title: const Text(
-                      'Добавить отделение из строки текста',
+                    title: Text(
+                      S.of(context).addDepFromText,
                     ),
                     onTap: () {
                       Navigator.pop(
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                       Icons.add,
                       color: Colors.green,
                     ),
-                    title: const Text('Сканировать QR код'),
+                    title: Text(S.of(context).scanQrCode),
                     onTap: () {
                       Navigator.pop(context, 'qr');
                       Navigator.pushNamed(
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.delete),
-                    title: const Text('Удалить отделение'),
+                    title: Text(S.of(context).deleteDep),
                     onTap: () {
                       Navigator.pop(context, 'delete_department');
                       Navigator.pushNamed(
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.archive),
-                    title: const Text('Архив ввода услуг'),
+                    title: Text(S.of(context).archive),
                     onTap: () {
                       AppData.instance.isArchive = !AppData.instance.isArchive;
                       Navigator.pop(context, 'archive');
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.settings),
-                    title: const Text('Настройки'),
+                    title: Text(S.of(context).settings),
                     onTap: () {
                       Navigator.pop(context, 'settings');
                       Navigator.pushNamed(
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.adb),
-                    title: const Text('О программе'),
+                    title: Text(S.of(context).about),
                     onTap: () {
                       Navigator.pop(context, 'dev');
                       Navigator.pushNamed(
@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Тема:',
+                          S.of(context).theme                         ,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                         initialLabelIndex:
                             AppData.instance.standardTheme.themeIndex,
                         totalSwitches: 2,
-                        labels: const ['Светлая', 'Темная'],
+                        labels: [S.of(context).light, S.of(context).dark],
                         radiusStyle: true,
                         onToggle: (index) {
                           AppData.instance.standardTheme.changeIndex(index!);
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                   '/scan_qr',
                 );
               },
-              tooltip: 'Добавить отделение',
+              tooltip: S.of(context).scanQrCode,
               child: const Icon(Icons.add),
             ),
     );

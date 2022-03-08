@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
@@ -63,8 +64,11 @@ class _QRScanScreenState extends State<QRScanScreen> {
               margin: const EdgeInsets.all(8),
               child: Center(
                 child: (result == null)
-                    ? const Text('Выполняется поиск Qr-кода...')
-                    : Text(' Данные: ${result!.code}', softWrap: true),
+                    ? Text(S.of(context).searchQR)
+                    : Text(
+                        '${S.of(context).data}${result!.code}',
+                        softWrap: true,
+                      ),
               ),
             ),
           ),

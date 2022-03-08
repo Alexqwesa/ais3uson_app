@@ -142,7 +142,7 @@ class AddDepartmentScreen extends StatelessWidget {
             width: columnWidth,
             child: FittedBox(
               child: SizedBox(
-                width: 450,
+                width: 350,
                 child: Column(
                   children: [
                     Center(

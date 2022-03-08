@@ -1,4 +1,16 @@
 {
   "@@locale": "en",
-  "shortAboutApp": "App for accounting services AIS 3USON"
+  "shortAboutApp": "App for accounting services AIS 3USON",
+  "addDepFromText":  "Add department from text",
+  "scanQrCode": "Add department from QR code",
+  "deleteDep": "Delete department",
+  "about": "About",
+  "settings": "Settings",
+  "theme": "Theme:",
+  "light": "Light",
+  "dark": "Dark",
+  "archive": "Archive",
+  "depList": "List of departments",
+  "searchQR": "searching QR...",
+  "data": "Data: "
 }

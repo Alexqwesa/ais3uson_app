@@ -194,8 +194,8 @@ class MainMaterialApp extends StatelessWidget {
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
               '/dev': /*         */ (context) => const DevScreen(),
               '/delete_department': (context) => const DeleteDepartmentScreen(),
-              '/': /*            */ (context) => const HomePage(
-                    title: 'Список отделений',
+              '/': /*            */ (context) => HomePage(
+                    title: S.of(context).depList,
                   ),
             },
             debugShowCheckedModeBanner: false,
