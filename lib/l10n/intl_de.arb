@@ -21,6 +21,10 @@
   "selectDepForDelete": "Wählen Sie die zu löschende Abteilung...",
   "deleteDep": "Abteilung löschende",
   "areYouSureToDelete": "Sind Sie sicher, dass Sie die Abteilung löschen möchten: ",
-  "error": "Fehler"
+  "error": "Fehler",
+  "sslError": "Fehler bei sicherer Verbindung!",
+  "serverError": "Fehler: Serverfehler!",
+  "internetError": "Fehler: keine Internetverbindung!",
+  "httpAccessError": "Fehler: Serverzugriffsfehler!" 
 
 }

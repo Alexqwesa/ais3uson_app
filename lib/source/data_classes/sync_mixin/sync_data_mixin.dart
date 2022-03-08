@@ -4,12 +4,15 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -93,19 +96,19 @@ mixin SyncDataMixin {
       // > just error handling
       //
     } on HandshakeException {
-      showErrorNotification('Ошибка защищенного соединения!');
-      dev.log('Server HandshakeException error $url ');
-    } on http.ClientException {
-      showErrorNotification('Ошибка сервера!');
-      dev.log('Server error $url ');
+      showErrorNotification(locator<S>().sslError);
+      log.severe('Server HandshakeException error $url ');
+    } on ClientException {
+      showErrorNotification(locator<S>().serverError);
+      log.severe('Server error  $url  ');
     } on SocketException {
-      showErrorNotification('Ошибка: нет соединения с интернетом!');
-      dev.log('No internet connection $url ');
+      showErrorNotification(locator<S>().internetError);
+      log.warning('No internet connection $url ');
     } on HttpException {
-      showErrorNotification('Ошибка доступа к серверу!');
-      dev.log('Server access error $url ');
+      showErrorNotification(locator<S>().httpAccessError);
+      log.severe('Server access error $url ');
     } finally {
-      dev.log('sync ended $url ');
+      log.fine('sync ended $url ');
     }
   }
 

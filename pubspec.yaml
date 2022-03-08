@@ -32,6 +32,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   freezed_annotation: any
+  get_it: any
   google_fonts: any
   hive_flutter: any
   hive_generator: any

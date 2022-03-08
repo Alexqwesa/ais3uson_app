@@ -37,6 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Список отделений пуст!"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "flashLight": MessageLookupByLibrary.simpleMessage("Вспышка"),
+        "httpAccessError":
+            MessageLookupByLibrary.simpleMessage("Ошибка доступа к серверу!"),
+        "internetError": MessageLookupByLibrary.simpleMessage(
+            "Ошибка: нет соединения с интернетом!"),
         "light": MessageLookupByLibrary.simpleMessage("Светлая"),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
         "scanQrCode": MessageLookupByLibrary.simpleMessage(
@@ -45,9 +49,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Выполняется поиск QR-кода..."),
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
             "Выберите отделение для удаления..."),
+        "serverError": MessageLookupByLibrary.simpleMessage("Ошибка сервера!"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "Приложение для учета услуг АИС ТриУСОН"),
+        "sslError": MessageLookupByLibrary.simpleMessage(
+            "Ошибка защищенного соединения!"),
         "testConnection": MessageLookupByLibrary.simpleMessage("Соединение!"),
         "theme": MessageLookupByLibrary.simpleMessage("Тема:")
       };

@@ -37,6 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "List of departments is empty!"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "flashLight": MessageLookupByLibrary.simpleMessage("Flash"),
+        "httpAccessError":
+            MessageLookupByLibrary.simpleMessage("Error: server access error!"),
+        "internetError": MessageLookupByLibrary.simpleMessage(
+            "Error: no Internet connection!"),
         "light": MessageLookupByLibrary.simpleMessage("Light"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "scanQrCode":
@@ -44,9 +48,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchQR": MessageLookupByLibrary.simpleMessage("searching QR..."),
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
             "Select department to delete..."),
+        "serverError":
+            MessageLookupByLibrary.simpleMessage("Error: server error!"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App for accounting services AIS 3USON"),
+        "sslError": MessageLookupByLibrary.simpleMessage(
+            "Error: secure connection error!"),
         "testConnection":
             MessageLookupByLibrary.simpleMessage("Test connection!"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme:")

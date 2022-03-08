@@ -39,6 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Liste der Abteilungen ist leer!"),
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
         "flashLight": MessageLookupByLibrary.simpleMessage("Blitz"),
+        "httpAccessError": MessageLookupByLibrary.simpleMessage(
+            "Fehler: Serverzugriffsfehler!"),
+        "internetError": MessageLookupByLibrary.simpleMessage(
+            "Fehler: keine Internetverbindung!"),
         "light": MessageLookupByLibrary.simpleMessage("hell"),
         "loading": MessageLookupByLibrary.simpleMessage("Laden..."),
         "scanQrCode":
@@ -46,9 +50,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchQR": MessageLookupByLibrary.simpleMessage("QR suchen..."),
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
             "Wählen Sie die zu löschende Abteilung..."),
+        "serverError":
+            MessageLookupByLibrary.simpleMessage("Fehler: Serverfehler!"),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App für Dienstleistungen zählen AIS 3USON"),
+        "sslError": MessageLookupByLibrary.simpleMessage(
+            "Fehler bei sicherer Verbindung!"),
         "testConnection":
             MessageLookupByLibrary.simpleMessage("Testverbindung!"),
         "theme": MessageLookupByLibrary.simpleMessage("Thema:")

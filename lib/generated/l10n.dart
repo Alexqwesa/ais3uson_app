@@ -259,6 +259,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Ошибка защищенного соединения!`
+  String get sslError {
+    return Intl.message(
+      'Ошибка защищенного соединения!',
+      name: 'sslError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка сервера!`
+  String get serverError {
+    return Intl.message(
+      'Ошибка сервера!',
+      name: 'serverError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка: нет соединения с интернетом!`
+  String get internetError {
+    return Intl.message(
+      'Ошибка: нет соединения с интернетом!',
+      name: 'internetError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка доступа к серверу!`
+  String get httpAccessError {
+    return Intl.message(
+      'Ошибка доступа к серверу!',
+      name: 'httpAccessError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

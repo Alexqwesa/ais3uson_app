@@ -7,6 +7,7 @@ library Journal;
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
@@ -252,16 +253,16 @@ class Journal with ChangeNotifier {
       // > just error handling
       //
     } on HandshakeException {
-      showErrorNotification('Ошибка защищенного соединения!');
+      showErrorNotification(locator<S>().sslError);
       log.severe('Server HandshakeException error $url ');
     } on ClientException {
-      showErrorNotification('Ошибка сервера!');
+      showErrorNotification(locator<S>().serverError);
       log.severe('Server error  $url  ');
     } on SocketException {
-      showErrorNotification('Ошибка: нет соединения с интернетом!');
+      showErrorNotification(locator<S>().internetError);
       log.warning('No internet connection $url ');
     } on HttpException {
-      showErrorNotification('Ошибка доступа к серверу!');
+      showErrorNotification(locator<S>().httpAccessError);
       log.severe('Server access error $url ');
     } finally {
       log.fine('sync ended $url ');

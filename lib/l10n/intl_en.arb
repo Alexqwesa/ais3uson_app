@@ -21,5 +21,9 @@
   "selectDepForDelete": "Select department to delete...",
   "deleteDep": "Delete department",
   "areYouSureToDelete": "Are you sure that you want to delete department: ",
-  "error": "Error"
+  "error": "Error",
+  "sslError": "Error: secure connection error!",
+  "serverError": "Error: server error!",
+  "internetError": "Error: no Internet connection!",
+  "httpAccessError": "Error: server access error!"
 }
