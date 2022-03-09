@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the build method from the BuildProofList class, for the Dart programming language.">
-  <title>build method - BuildProofList class - service_proofs library - Dart API</title>
+  <meta name="description" content="API docs for the build method from the ImageOrButtonAdd class, for the Dart programming language.">
+  <title>build method - ImageOrButtonAdd class - service_proofs library - Dart API</title>
 
 
   
@@ -31,7 +31,7 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../source_screens_service_related_service_proofs/source_screens_service_related_service_proofs-library.html">service_proofs</a></li>
-    <li><a href="../../source_screens_service_related_service_proofs/BuildProofList-class.html">BuildProofList</a></li>
+    <li><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd-class.html">ImageOrButtonAdd</a></li>
     <li class="self-crumb">build method</li>
   </ol>
   <div class="self-name">build</div>
@@ -93,7 +93,7 @@ and</li>
 <li>any ambient state obtained from the <code>context</code> using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
-<p>If a widget's <a href="../../source_screens_service_related_service_proofs/BuildProofList/build.html">build</a> method is to depend on anything else, use a
+<p>If a widget's <a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd/build.html">build</a> method is to depend on anything else, use a
 <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
 <p>See also:</p>
 <ul>
@@ -107,100 +107,31 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  final proofGroups = proofList.proofGroups;
-
-  return ChangeNotifierProvider.value(
-    value: proofList,
-    child: Consumer&lt;ProofList&gt;(
-      builder: (context, proofList, _) {
-        return Column(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                &#47;&#47;
-                &#47;&#47; &gt; column&#39;s titles
-                &#47;&#47;
-                if (proofList.proofGroups.isNotEmpty)
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            &#39;До:&#39;,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
+  return Center(
+    child: (image != null)
+        ? FittedBox(
+            child: Hero(
+              tag: ValueKey(
+                image.toString(),
+              ),
+              child: GestureDetector(
+                child: image,
+                onTap: () {
+                  unawaited(
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute&lt;XFile&gt;(
+                        builder: (context) =&gt; DisplayPictureScreen(
+                          image: image!,
                         ),
-                        Expanded(
-                          child: Text(
-                            &#39;После:&#39;,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-
-                &#47;&#47;
-                &#47;&#47; &gt; main columns
-                &#47;&#47;
-
-                if (proofList.proofGroups.isNotEmpty)
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (int i = 0; i &lt; proofList.proofGroups.length; i++)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox.square(
-                                  child: Expanded(
-                                    child: ImageOrButtonAdd(
-                                      image: proofGroups[i].beforeImg,
-                                      addProfButton: AddProofButton(
-                                        i: i,
-                                        addCall: proofList.addImage,
-                                        strType: &#39;before_&#39;,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox.square(
-                                  &#47;&#47; dimension: MediaQuery.of(context).size.width &#47; 2.4,
-                                  child: Expanded(
-                                    child: ImageOrButtonAdd(
-                                      image: proofGroups[i].afterImg,
-                                      addProfButton: AddProofButton(
-                                        i: i,
-                                        addCall: proofList.addImage,
-                                        strType: &#39;after_&#39;,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-              ],
+                  );
+                },
+              ),
             ),
-          ],
-        );
-      },
-    ),
+          )
+        : Center(child: addProfButton),
   );
 }</code></pre>
 </section>
@@ -218,28 +149,29 @@ Widget build(BuildContext context) {
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../../index.html">ais3uson_app</a></li>
   <li><a href="../../source_screens_service_related_service_proofs/source_screens_service_related_service_proofs-library.html">service_proofs</a></li>
-  <li><a href="../../source_screens_service_related_service_proofs/BuildProofList-class.html">BuildProofList</a></li>
+  <li><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd-class.html">ImageOrButtonAdd</a></li>
   <li class="self-crumb">build method</li>
 </ol>
 
 
-    <h5>BuildProofList class</h5>
+    <h5>ImageOrButtonAdd class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../source_screens_service_related_service_proofs/BuildProofList-class.html#constructors">Constructors</a></li>
-    <li><a href="../../source_screens_service_related_service_proofs/BuildProofList/BuildProofList.html">BuildProofList</a></li>
+    <li class="section-title"><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd-class.html#constructors">Constructors</a></li>
+    <li><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd/ImageOrButtonAdd.html">ImageOrButtonAdd</a></li>
 
 
     <li class="section-title">
-      <a href="../../source_screens_service_related_service_proofs/BuildProofList-class.html#instance-properties">Properties</a>
+      <a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd/addProfButton.html">addProfButton</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+    <li><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd/image.html">image</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
-    <li><a href="../../source_screens_service_related_service_proofs/BuildProofList/proofList.html">proofList</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../../source_screens_service_related_service_proofs/BuildProofList-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../source_screens_service_related_service_proofs/BuildProofList/build.html">build</a></li>
+    <li class="section-title"><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd-class.html#instance-methods">Methods</a></li>
+    <li><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd/build.html">build</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
@@ -250,7 +182,7 @@ Widget build(BuildContext context) {
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
 
-    <li class="section-title inherited"><a href="../../source_screens_service_related_service_proofs/BuildProofList-class.html#operators">Operators</a></li>
+    <li class="section-title inherited"><a href="../../source_screens_service_related_service_proofs/ImageOrButtonAdd-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
 
 
