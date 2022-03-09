@@ -149,44 +149,15 @@ class BuildProofList extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox.square(
-                                    child: Center(
-                                      child: (proofGroups[i].beforeImg != null)
-                                          ? FittedBox(
-                                              child: Hero(
-                                                tag: ValueKey(
-                                                  proofGroups[i]
-                                                      .beforeImg
-                                                      .toString(),
-                                                ),
-                                                child: GestureDetector(
-                                                  child:
-                                                      proofGroups[i].beforeImg,
-                                                  onTap: () {
-                                                    unawaited(
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute<
-                                                            XFile>(
-                                                          builder: (context) =>
-                                                              DisplayPictureScreen(
-                                                            image:
-                                                                proofGroups[i]
-                                                                    .beforeImg!,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            )
-                                          : Center(
-                                              child: AddProofButton(
-                                                i: i,
-                                                addCall: proofList.addImage,
-                                                strType: 'before_',
-                                              ),
-                                            ),
+                                    child: Expanded(
+                                      child: ImageOrButtonAdd(
+                                        image: proofGroups[i].beforeImg,
+                                        addProfButton: AddProofButton(
+                                          i: i,
+                                          addCall: proofList.addImage,
+                                          strType: 'before_',
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -196,42 +167,15 @@ class BuildProofList extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox.square(
                                     // dimension: MediaQuery.of(context).size.width / 2.4,
-                                    child: Center(
-                                      child: (proofGroups[i].afterImg != null)
-                                          ? FittedBox(
-                                        child: Hero(
-                                                tag: ValueKey(
-                                                  proofGroups[i]
-                                                      .afterImg
-                                                      .toString(),
-                                                ),
-                                                child: GestureDetector(
-                                                  child:
-                                                      proofGroups[i].afterImg,
-                                                  onTap: () {
-                                                    unawaited(
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute<
-                                                            XFile>(
-                                                          builder: (context) =>
-                                                              DisplayPictureScreen(
-                                                            image:
-                                                                proofGroups[i]
-                                                                    .afterImg!,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                          )
-                                          : AddProofButton(
-                                              i: i,
-                                              addCall: proofList.addImage,
-                                              strType: 'after_',
-                                            ),
+                                    child: Expanded(
+                                      child: ImageOrButtonAdd(
+                                        image: proofGroups[i].afterImg,
+                                        addProfButton: AddProofButton(
+                                          i: i,
+                                          addCall: proofList.addImage,
+                                          strType: 'after_',
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -246,6 +190,47 @@ class BuildProofList extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class ImageOrButtonAdd extends StatelessWidget {
+  final Widget addProfButton;
+  final Image? image;
+
+  const ImageOrButtonAdd({
+    required this.addProfButton,
+    required this.image,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: (image != null)
+          ? FittedBox(
+              child: Hero(
+                tag: ValueKey(
+                  image.toString(),
+                ),
+                child: GestureDetector(
+                  child: image,
+                  onTap: () {
+                    unawaited(
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<XFile>(
+                          builder: (context) => DisplayPictureScreen(
+                            image: image!,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            )
+          : Center(child: addProfButton),
     );
   }
 }
