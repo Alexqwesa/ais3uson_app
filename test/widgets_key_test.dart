@@ -5,23 +5,31 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/screens/clients_screen.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:singleton/singleton.dart';
 
 import 'data_classes_test.dart';
 import 'helpers/mock_server.dart';
+import 'helpers/setup_and_teardown_helpers.dart';
+
+final locator = GetIt.instance;
 
 void main() {
   tearDownAll(() async {
     Singleton.resetAllForTest();
     await tearDownTestHive();
+  });
+  setUpAll(() async {
+    locator.registerLazySingleton<S>(() => S());
   });
   setUp(() async {
     // Cleanup
@@ -60,13 +68,14 @@ void main() {
   testWidgets('it show list of clients profiles', (tester) async {
     const listOf = ClientScreen();
     await tester.pumpWidget(
-      const MaterialApp(
-        home: listOf,
-      ),
+      localizedMaterialApp(listOf),
     );
     await tester.pumpAndSettle();
     // Check
-    expect(find.text(AppData.instance.profiles.first.clients.first.contract), findsOneWidget);
+    expect(
+      find.text(AppData.instance.profiles.first.clients.first.contract),
+      findsOneWidget,
+    );
     expect(find.textContaining('Список получателей СУ пуст'), findsNothing);
   });
   testWidgets('it show list of services', (tester) async {

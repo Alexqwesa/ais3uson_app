@@ -108,7 +108,9 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(title: const Text(&#39;Display the Picture&#39;)),
+    appBar: AppBar(
+      title: Text(MaterialLocalizations.of(context).backButtonTooltip),
+    ),
     &#47;&#47; The image is stored as a file on the device. Use the `Image.file`
     &#47;&#47; constructor with the given path to display the image.
     body: Center(

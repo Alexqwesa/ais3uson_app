@@ -109,7 +109,7 @@ and</li>
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: const Text(&#39;О приложении&#39;),
+      title: Text(S.of(context).about),
     ),
     body: SingleChildScrollView(
       child: Center(
@@ -120,7 +120,7 @@ Widget build(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    &#39;Мобльное приложение для ввода услуг АИС &quot;ТриУСОН&quot; &#39;,
+                    S.of(context).shortAboutApp,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),

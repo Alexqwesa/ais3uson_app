@@ -121,16 +121,16 @@ or find host without https support.</p>
     &#47;&#47; &gt; just error handling
     &#47;&#47;
   } on HandshakeException {
-    showErrorNotification(&#39;Ошибка защищенного соединения!&#39;);
+    showErrorNotification(locator&lt;S&gt;().sslError);
     log.severe(&#39;Server HandshakeException error $url &#39;);
   } on ClientException {
-    showErrorNotification(&#39;Ошибка сервера!&#39;);
+    showErrorNotification(locator&lt;S&gt;().serverError);
     log.severe(&#39;Server error  $url  &#39;);
   } on SocketException {
-    showErrorNotification(&#39;Ошибка: нет соединения с интернетом!&#39;);
+    showErrorNotification(locator&lt;S&gt;().internetError);
     log.warning(&#39;No internet connection $url &#39;);
   } on HttpException {
-    showErrorNotification(&#39;Ошибка доступа к серверу!&#39;);
+    showErrorNotification(locator&lt;S&gt;().httpAccessError);
     log.severe(&#39;Server access error $url &#39;);
   } finally {
     log.fine(&#39;sync ended $url &#39;);
