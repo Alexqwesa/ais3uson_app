@@ -1,3 +1,4 @@
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
@@ -85,7 +86,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                 )
               : Center(
                   child: Text(
-                    'Авторизируйтесь \n(отсканируйте QR код) ',
+                    S.of(context).authorizePlease,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline5,
                   ),

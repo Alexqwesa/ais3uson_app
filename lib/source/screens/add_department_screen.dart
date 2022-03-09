@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
@@ -32,7 +34,7 @@ class AddDepartmentScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Вставте код отделение в виде текста...'),
+        title: Text(S.of(context).putDepText),
         backgroundColor: Colors.green,
         actions: [
           IconButton(
@@ -65,7 +67,7 @@ class AddDepartmentScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                ' Вставте текст-ключ отделения в это поле: ',
+                                S.of(context).putDepTextField,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.headline6,
                                 softWrap: true,
@@ -82,16 +84,12 @@ class AddDepartmentScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   TextButton(
-                                    child: const Text(
-                                      'Очистить',
-                                    ),
+                                    child: Text(S.of(context).clear),
                                     onPressed: controller.clear,
                                   ),
                                   const Spacer(),
                                   ElevatedButton(
-                                    child: const Text(
-                                      'Добавить отделение',
-                                    ),
+                                    child: Text(S.of(context).addDep),
                                     onPressed: () async {
                                       try {
                                         Navigator.pop(context, 'added');
@@ -108,7 +106,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                           await AppData().save();
                                         } else {
                                           showErrorNotification(
-                                            'Не удалось добавить отделение. Возможно оно уже есть в списке. ',
+                                            locator<S>().cantAddDepDuplicate,
                                           );
                                           // ignore: use_build_context_synchronously
                                           FocusScope.of(context).requestFocus(
@@ -117,7 +115,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                         }
                                       } on FormatException {
                                         showErrorNotification(
-                                          'Не удалось добавить отделение. Возможно неправильный формат строки.',
+                                          locator<S>().cantAddDepBadFormat,
                                         );
                                         // ignore: use_build_context_synchronously
                                         FocusScope.of(context).requestFocus(
@@ -149,7 +147,7 @@ class AddDepartmentScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          'Либо добавьте тестовое отделение из списка ниже:',
+                          S.of(context).orTestDepList,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline6,
                         ),
@@ -187,7 +185,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                   await AppData().save();
                                 } else {
                                   showErrorNotification(
-                                    'Не удалось добавить отделение. Возможно оно уже есть в списке.',
+                                    locator<S>().cantAddDepDuplicate,
                                   );
                                 }
                               },
@@ -225,12 +223,9 @@ class SimpleTextField extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         maxLines: 5,
         cursorColor: Colors.teal,
-        decoration: const InputDecoration(
-          hintText:
-              'Вставьте текст qr-кода отделения здесь, это резервный способ '
-              'добавления отделения, например для тех у кого не работает камера на телефоне...'
-              ' \n рекомендуемый способ - сканировать QR код!',
-          border: OutlineInputBorder(),
+        decoration: InputDecoration(
+          hintText: S.of(context).putDepTextFieldHint,
+          border: const OutlineInputBorder(),
           isDense: true,
         ),
       ),

@@ -25,5 +25,19 @@
   "sslError": "Error: secure connection error!",
   "serverError": "Error: server error!",
   "internetError": "Error: no Internet connection!",
-  "httpAccessError": "Error: server access error!"
+  "httpAccessError": "Error: server access error!",
+  "clear": "Clear",
+  "addDep": "Add department",
+  "putDepText": "Put department code into this text field...",
+  "putDepTextField": "Put department code here",
+  "orTestDepList": "Or add example department from list:",
+  "cantAddDepDuplicate": "Can't add department. Maybe it is already exist.",
+  "cantAddDepBadFormat": "Can't add department. Wrong format of string.",
+  "putDepTextFieldHint": "Put department code here (this is redundant mode of department addition), it useful in case of broken or absent camera... \n the recommended way is: scan QR-code!",
+  "authorizePlease": "Please, authorize \n (scan QR-code). \n (Or add example department)",
+  "emptyListOfPeople": "List of clients is empty, \n\n please ask your manager to add people into your list \n\n then click on refresh button.",
+  "detailed": "Detailed",
+  "list": "List",
+  "small": "Small"
+
 }

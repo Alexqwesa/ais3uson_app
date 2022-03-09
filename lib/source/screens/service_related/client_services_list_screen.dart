@@ -1,3 +1,4 @@
+import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
@@ -86,7 +87,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                     PopupMenuItem<ListTile>(
                       child: ListTile(
                         leading: const Icon(Icons.grid_3x3),
-                        title: const Text('Подбробно'),
+                        title: Text(S.of(context).detailed),
                         onTap: () {
                           Navigator.pop(context, '');
                           setState(() {
@@ -98,7 +99,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                     PopupMenuItem<ListTile>(
                       child: ListTile(
                         leading: const Icon(Icons.list_alt),
-                        title: const Text('Список'),
+                        title: Text(S.of(context).list),
                         onTap: () {
                           Navigator.pop(context, 'tile');
                           setState(() {
@@ -110,7 +111,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                     PopupMenuItem<ListTile>(
                       child: ListTile(
                         leading: const Icon(Icons.image),
-                        title: const Text('Значки'),
+                        title: Text(S.of(context).small),
                         onTap: () {
                           Navigator.pop(context, 'square');
                           setState(() {
@@ -166,7 +167,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
         } else {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Ошибка'),
+              title: Text(S.of(context).emptyListOfPeople),
             ),
           );
         }

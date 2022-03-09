@@ -24,17 +24,28 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О прилжонии"),
         "add": MessageLookupByLibrary.simpleMessage("Добавить!"),
+        "addDep": MessageLookupByLibrary.simpleMessage("Добавить отделение"),
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Добавить отделение из строки текста"),
         "archive": MessageLookupByLibrary.simpleMessage("Архив ввода услуг"),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
             "Вы уверены что хотите удалить отделение: "),
+        "authorizePlease": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, авторизируйтесь \n(отсканируйте QR код) \n (Или добавьте тестовое отделение)"),
+        "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
+            "Не удалось добавить отделение. Возможно неправильный формат строки."),
+        "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
+            "Не удалось добавить отделение. Возможно оно уже есть в списке."),
+        "clear": MessageLookupByLibrary.simpleMessage("Очистить"),
         "dark": MessageLookupByLibrary.simpleMessage("Темная"),
         "data": MessageLookupByLibrary.simpleMessage("Данные: "),
         "deleteDep": MessageLookupByLibrary.simpleMessage("Удаление отделения"),
         "depList": MessageLookupByLibrary.simpleMessage("Список отделений"),
+        "detailed": MessageLookupByLibrary.simpleMessage("Подбробно"),
         "emptyDepList":
             MessageLookupByLibrary.simpleMessage("Список отделений пуст!"),
+        "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
+            "Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "flashLight": MessageLookupByLibrary.simpleMessage("Вспышка"),
         "httpAccessError":
@@ -42,7 +53,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "internetError": MessageLookupByLibrary.simpleMessage(
             "Ошибка: нет соединения с интернетом!"),
         "light": MessageLookupByLibrary.simpleMessage("Светлая"),
+        "list": MessageLookupByLibrary.simpleMessage("Список"),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
+        "orTestDepList": MessageLookupByLibrary.simpleMessage(
+            "Либо добавьте тестовое отделение из списка ниже:"),
+        "putDepText": MessageLookupByLibrary.simpleMessage(
+            "Вставте код отделение в виде текста..."),
+        "putDepTextField": MessageLookupByLibrary.simpleMessage(
+            "Вставте текст-код отделение сюда..."),
+        "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
+            "Вставьте текст qr-кода отделения здесь, это резервный способ добавления отделения, например для тех у кого не работает камера на телефоне... \n рекомендуемый способ - сканировать QR код!"),
         "scanQrCode": MessageLookupByLibrary.simpleMessage(
             "Сканировать QR код отделения"),
         "searchQR": MessageLookupByLibrary.simpleMessage(
@@ -53,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "Приложение для учета услуг АИС ТриУСОН"),
+        "small": MessageLookupByLibrary.simpleMessage("Значки"),
         "sslError": MessageLookupByLibrary.simpleMessage(
             "Ошибка защищенного соединения!"),
         "testConnection": MessageLookupByLibrary.simpleMessage("Соединение!"),

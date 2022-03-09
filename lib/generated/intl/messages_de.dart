@@ -24,19 +24,30 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Uber App"),
         "add": MessageLookupByLibrary.simpleMessage("Addieren!"),
+        "addDep": MessageLookupByLibrary.simpleMessage("Abteilung hinzufügen"),
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Abteilung aus Text hinzufügen"),
         "archive": MessageLookupByLibrary.simpleMessage("Archiv"),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
             "Sind Sie sicher, dass Sie die Abteilung löschen möchten: "),
+        "authorizePlease": MessageLookupByLibrary.simpleMessage(
+            "Bitte autorisieren Sie \n (QR-Code scannen). \n (Oder Beispielabteilung hinzufügen)"),
+        "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
+            "Abteilung kann nicht hinzugefügt werden. Falsches Format der Zeichenfolge."),
+        "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
+            "Abteilung kann nicht hinzugefügt werden. Vielleicht ist es bereits vorhanden."),
+        "clear": MessageLookupByLibrary.simpleMessage("löschen"),
         "dark": MessageLookupByLibrary.simpleMessage("dunkel"),
         "data": MessageLookupByLibrary.simpleMessage("Daten: "),
         "deleteDep":
             MessageLookupByLibrary.simpleMessage("Abteilung löschende"),
         "depList":
             MessageLookupByLibrary.simpleMessage("Liste der Abteilungen"),
+        "detailed": MessageLookupByLibrary.simpleMessage("Eingehend"),
         "emptyDepList": MessageLookupByLibrary.simpleMessage(
             "Liste der Abteilungen ist leer!"),
+        "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
+            "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche \'Aktualisieren\'. "),
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
         "flashLight": MessageLookupByLibrary.simpleMessage("Blitz"),
         "httpAccessError": MessageLookupByLibrary.simpleMessage(
@@ -44,7 +55,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "internetError": MessageLookupByLibrary.simpleMessage(
             "Fehler: keine Internetverbindung!"),
         "light": MessageLookupByLibrary.simpleMessage("hell"),
+        "list": MessageLookupByLibrary.simpleMessage("Liste"),
         "loading": MessageLookupByLibrary.simpleMessage("Laden..."),
+        "orTestDepList": MessageLookupByLibrary.simpleMessage(
+            "Oder Beispielabteilung aus Liste hinzufügen: "),
+        "putDepText": MessageLookupByLibrary.simpleMessage(
+            "Geben Sie den Abteilungscode in dieses Textfeld ein..."),
+        "putDepTextField": MessageLookupByLibrary.simpleMessage(
+            "Geben Sie hier den Abteilungscode ein"),
+        "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
+            "Geben Sie hier den Abteilungscode ein (dies ist ein redundanter Modus der Abteilungsergänzung), dies ist nützlich im Falle einer defekten oder fehlenden Kamera ... \n Der empfohlene Weg ist: QR-Code scannen!"),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Abteilung aus QR hinzufügen"),
         "searchQR": MessageLookupByLibrary.simpleMessage("QR suchen..."),
@@ -55,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App für Dienstleistungen zählen AIS 3USON"),
+        "small": MessageLookupByLibrary.simpleMessage("Klein"),
         "sslError": MessageLookupByLibrary.simpleMessage(
             "Fehler bei sicherer Verbindung!"),
         "testConnection":

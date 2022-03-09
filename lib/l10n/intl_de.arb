@@ -25,6 +25,20 @@
   "sslError": "Fehler bei sicherer Verbindung!",
   "serverError": "Fehler: Serverfehler!",
   "internetError": "Fehler: keine Internetverbindung!",
-  "httpAccessError": "Fehler: Serverzugriffsfehler!" 
+  "httpAccessError": "Fehler: Serverzugriffsfehler!",
+  "clear": "löschen",
+  "addDep": "Abteilung hinzufügen",
+  "putDepText": "Geben Sie den Abteilungscode in dieses Textfeld ein...",
+  "putDepTextField": "Geben Sie hier den Abteilungscode ein",
+  "orTestDepList": "Oder Beispielabteilung aus Liste hinzufügen: ",
+  "cantAddDepDuplicate": "Abteilung kann nicht hinzugefügt werden. Vielleicht ist es bereits vorhanden.",
+  "cantAddDepBadFormat": "Abteilung kann nicht hinzugefügt werden. Falsches Format der Zeichenfolge.",
+    "putDepTextFieldHint": "Geben Sie hier den Abteilungscode ein (dies ist ein redundanter Modus der Abteilungsergänzung), dies ist nützlich im Falle einer defekten oder fehlenden Kamera ... \n Der empfohlene Weg ist: QR-Code scannen!",
+  "authorizePlease": "Bitte autorisieren Sie \n (QR-Code scannen). \n (Oder Beispielabteilung hinzufügen)",
+  "emptyListOfPeople": "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche 'Aktualisieren'. ",
+  "detailed": "Eingehend",
+  "list": "Liste",
+  "small": "Klein"
+
 
 }

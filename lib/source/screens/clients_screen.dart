@@ -85,9 +85,7 @@ class _ClientScreenState extends State<ClientScreen> {
                         )
                       : Center(
                           child: Text(
-                            'Список получателей СУ пуст, \n\n'
-                            'попросите заведующего отделением добавить людей в ваш список обслуживаемых и \n\n'
-                            'обновите список',
+                            S.of(context).emptyListOfPeople,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headline5,
                           ),

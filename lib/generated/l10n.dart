@@ -299,6 +299,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Очистить`
+  String get clear {
+    return Intl.message(
+      'Очистить',
+      name: 'clear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить отделение`
+  String get addDep {
+    return Intl.message(
+      'Добавить отделение',
+      name: 'addDep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вставте код отделение в виде текста...`
+  String get putDepText {
+    return Intl.message(
+      'Вставте код отделение в виде текста...',
+      name: 'putDepText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вставте текст-код отделение сюда...`
+  String get putDepTextField {
+    return Intl.message(
+      'Вставте текст-код отделение сюда...',
+      name: 'putDepTextField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Либо добавьте тестовое отделение из списка ниже:`
+  String get orTestDepList {
+    return Intl.message(
+      'Либо добавьте тестовое отделение из списка ниже:',
+      name: 'orTestDepList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Не удалось добавить отделение. Возможно оно уже есть в списке.`
+  String get cantAddDepDuplicate {
+    return Intl.message(
+      'Не удалось добавить отделение. Возможно оно уже есть в списке.',
+      name: 'cantAddDepDuplicate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Не удалось добавить отделение. Возможно неправильный формат строки.`
+  String get cantAddDepBadFormat {
+    return Intl.message(
+      'Не удалось добавить отделение. Возможно неправильный формат строки.',
+      name: 'cantAddDepBadFormat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вставьте текст qr-кода отделения здесь, это резервный способ добавления отделения, например для тех у кого не работает камера на телефоне... \n рекомендуемый способ - сканировать QR код!`
+  String get putDepTextFieldHint {
+    return Intl.message(
+      'Вставьте текст qr-кода отделения здесь, это резервный способ добавления отделения, например для тех у кого не работает камера на телефоне... \n рекомендуемый способ - сканировать QR код!',
+      name: 'putDepTextFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пожалуйста, авторизируйтесь \n(отсканируйте QR код) \n (Или добавьте тестовое отделение)`
+  String get authorizePlease {
+    return Intl.message(
+      'Пожалуйста, авторизируйтесь \n(отсканируйте QR код) \n (Или добавьте тестовое отделение)',
+      name: 'authorizePlease',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список`
+  String get emptyListOfPeople {
+    return Intl.message(
+      'Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список',
+      name: 'emptyListOfPeople',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Подбробно`
+  String get detailed {
+    return Intl.message(
+      'Подбробно',
+      name: 'detailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Список`
+  String get list {
+    return Intl.message(
+      'Список',
+      name: 'list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Значки`
+  String get small {
+    return Intl.message(
+      'Значки',
+      name: 'small',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
