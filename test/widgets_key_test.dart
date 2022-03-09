@@ -56,8 +56,8 @@ void main() {
   testWidgets('it show list of worker profiles', (tester) async {
     const listOfProfiles = ListOfProfiles();
     await tester.pumpWidget(
-      const MaterialApp(
-        home: listOfProfiles,
+      localizedMaterialApp(
+        listOfProfiles,
       ),
     );
     await tester.pumpAndSettle();
