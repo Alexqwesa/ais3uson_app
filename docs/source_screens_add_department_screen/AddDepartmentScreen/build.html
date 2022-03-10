@@ -119,7 +119,7 @@ Widget build(BuildContext context) {
   return Scaffold(
     resizeToAvoidBottomInset: false,
     appBar: AppBar(
-      title: const Text(&#39;Вставте код отделение в виде текста...&#39;),
+      title: Text(S.of(context).putDepText),
       backgroundColor: Colors.green,
       actions: [
         IconButton(
@@ -152,7 +152,7 @@ Widget build(BuildContext context) {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              &#39; Вставте текст-ключ отделения в это поле: &#39;,
+                              S.of(context).putDepTextField,
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headline6,
                               softWrap: true,
@@ -169,16 +169,12 @@ Widget build(BuildContext context) {
                             child: Row(
                               children: [
                                 TextButton(
-                                  child: const Text(
-                                    &#39;Очистить&#39;,
-                                  ),
+                                  child: Text(S.of(context).clear),
                                   onPressed: controller.clear,
                                 ),
                                 const Spacer(),
                                 ElevatedButton(
-                                  child: const Text(
-                                    &#39;Добавить отделение&#39;,
-                                  ),
+                                  child: Text(S.of(context).addDep),
                                   onPressed: () async {
                                     try {
                                       Navigator.pop(context, &#39;added&#39;);
@@ -195,7 +191,7 @@ Widget build(BuildContext context) {
                                         await AppData().save();
                                       } else {
                                         showErrorNotification(
-                                          &#39;Не удалось добавить отделение. Возможно оно уже есть в списке. &#39;,
+                                          locator&lt;S&gt;().cantAddDepDuplicate,
                                         );
                                         &#47;&#47; ignore: use_build_context_synchronously
                                         FocusScope.of(context).requestFocus(
@@ -204,7 +200,7 @@ Widget build(BuildContext context) {
                                       }
                                     } on FormatException {
                                       showErrorNotification(
-                                        &#39;Не удалось добавить отделение. Возможно неправильный формат строки.&#39;,
+                                        locator&lt;S&gt;().cantAddDepBadFormat,
                                       );
                                       &#47;&#47; ignore: use_build_context_synchronously
                                       FocusScope.of(context).requestFocus(
@@ -236,7 +232,7 @@ Widget build(BuildContext context) {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
-                        &#39;Либо добавьте тестовое отделение из списка ниже:&#39;,
+                        S.of(context).orTestDepList,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline6,
                       ),
@@ -274,7 +270,7 @@ Widget build(BuildContext context) {
                                 await AppData().save();
                               } else {
                                 showErrorNotification(
-                                  &#39;Не удалось добавить отделение. Возможно оно уже есть в списке.&#39;,
+                                  locator&lt;S&gt;().cantAddDepDuplicate,
                                 );
                               }
                             },

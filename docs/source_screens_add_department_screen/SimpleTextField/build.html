@@ -116,12 +116,9 @@ Widget build(BuildContext context) {
       keyboardType: TextInputType.multiline,
       maxLines: 5,
       cursorColor: Colors.teal,
-      decoration: const InputDecoration(
-        hintText:
-            &#39;Вставьте текст qr-кода отделения здесь, это резервный способ &#39;
-            &#39;добавления отделения, например для тех у кого не работает камера на телефоне...&#39;
-            &#39; \n рекомендуемый способ - сканировать QR код!&#39;,
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        hintText: S.of(context).putDepTextFieldHint,
+        border: const OutlineInputBorder(),
         isDense: true,
       ),
     ),
