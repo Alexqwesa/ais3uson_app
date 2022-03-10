@@ -38,6 +38,7 @@ dependencies:
   hive_generator: any
   http: any
   intl: any
+  #  itertools: any
   #  intl_utils: any
   json_annotation:
   lint: any

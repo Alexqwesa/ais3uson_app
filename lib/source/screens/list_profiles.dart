@@ -75,7 +75,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                               Text(workerKeys[index].name),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${workerKeys[index].comment}'),
+                                child: Text(workerKeys[index].comment),
                               ),
                             ],
                           ),

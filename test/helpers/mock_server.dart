@@ -42,7 +42,7 @@ extension ExtMock on MockClient {
   Map<String, String> get h => httpTestHeader;
 
   String get httpTcpIpPort =>
-      'http://alexqwesa.fvds.ru:48082'; // use the same address as in global_helpers.dart
+      'https://alexqwesa.fvds.ru:48082'; // use the same address as in global_helpers.dart
 
   Future<http.Response> get testReqGetAny =>
       get(any); //, headers: anyNamed('header'));

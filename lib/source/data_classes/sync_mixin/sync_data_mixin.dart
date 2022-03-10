@@ -8,7 +8,6 @@ import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -70,15 +69,12 @@ mixin SyncDataMixin {
     //
     // > main - call server
     //
-    var url = Uri.parse(urlAddress);
+    final url = Uri.parse(urlAddress);
     try {
       var client = AppData().httpClient;
       http.Response response;
-      if (kIsWeb) {
-        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
-      } else if (sslClient != null) {
+      if (sslClient != null) {
         client = IOClient(sslClient);
-        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
       }
       response = await client.get(url, headers: headers);
 

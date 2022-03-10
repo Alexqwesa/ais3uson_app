@@ -29,11 +29,10 @@ class _$WorkerKeyTearOff {
       required int worker_dep_id,
       required String dep,
       required String db,
-      required String host,
-      required String port,
-      String? comment = '',
-      String? ssl = 'auto',
-      String? certBase64 = ''}) {
+      required String servers,
+      int activeServerIndex = 0,
+      String comment = '',
+      String certBase64 = ''}) {
     return _WorkerKey(
       app: app,
       name: name,
@@ -41,10 +40,9 @@ class _$WorkerKeyTearOff {
       worker_dep_id: worker_dep_id,
       dep: dep,
       db: db,
-      host: host,
-      port: port,
+      servers: servers,
+      activeServerIndex: activeServerIndex,
       comment: comment,
-      ssl: ssl,
       certBase64: certBase64,
     );
   }
@@ -65,11 +63,10 @@ mixin _$WorkerKey {
   int get worker_dep_id => throw _privateConstructorUsedError;
   String get dep => throw _privateConstructorUsedError;
   String get db => throw _privateConstructorUsedError;
-  String get host => throw _privateConstructorUsedError;
-  String get port => throw _privateConstructorUsedError;
-  String? get comment => throw _privateConstructorUsedError;
-  String? get ssl => throw _privateConstructorUsedError;
-  String? get certBase64 => throw _privateConstructorUsedError;
+  String get servers => throw _privateConstructorUsedError;
+  int get activeServerIndex => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
+  String get certBase64 => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -88,11 +85,10 @@ abstract class $WorkerKeyCopyWith<$Res> {
       int worker_dep_id,
       String dep,
       String db,
-      String host,
-      String port,
-      String? comment,
-      String? ssl,
-      String? certBase64});
+      String servers,
+      int activeServerIndex,
+      String comment,
+      String certBase64});
 }
 
 /// @nodoc
@@ -111,10 +107,9 @@ class _$WorkerKeyCopyWithImpl<$Res> implements $WorkerKeyCopyWith<$Res> {
     Object? worker_dep_id = freezed,
     Object? dep = freezed,
     Object? db = freezed,
-    Object? host = freezed,
-    Object? port = freezed,
+    Object? servers = freezed,
+    Object? activeServerIndex = freezed,
     Object? comment = freezed,
-    Object? ssl = freezed,
     Object? certBase64 = freezed,
   }) {
     return _then(_value.copyWith(
@@ -142,26 +137,22 @@ class _$WorkerKeyCopyWithImpl<$Res> implements $WorkerKeyCopyWith<$Res> {
           ? _value.db
           : db // ignore: cast_nullable_to_non_nullable
               as String,
-      host: host == freezed
-          ? _value.host
-          : host // ignore: cast_nullable_to_non_nullable
+      servers: servers == freezed
+          ? _value.servers
+          : servers // ignore: cast_nullable_to_non_nullable
               as String,
-      port: port == freezed
-          ? _value.port
-          : port // ignore: cast_nullable_to_non_nullable
-              as String,
+      activeServerIndex: activeServerIndex == freezed
+          ? _value.activeServerIndex
+          : activeServerIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       comment: comment == freezed
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
-              as String?,
-      ssl: ssl == freezed
-          ? _value.ssl
-          : ssl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       certBase64: certBase64 == freezed
           ? _value.certBase64
           : certBase64 // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -179,11 +170,10 @@ abstract class _$WorkerKeyCopyWith<$Res> implements $WorkerKeyCopyWith<$Res> {
       int worker_dep_id,
       String dep,
       String db,
-      String host,
-      String port,
-      String? comment,
-      String? ssl,
-      String? certBase64});
+      String servers,
+      int activeServerIndex,
+      String comment,
+      String certBase64});
 }
 
 /// @nodoc
@@ -203,10 +193,9 @@ class __$WorkerKeyCopyWithImpl<$Res> extends _$WorkerKeyCopyWithImpl<$Res>
     Object? worker_dep_id = freezed,
     Object? dep = freezed,
     Object? db = freezed,
-    Object? host = freezed,
-    Object? port = freezed,
+    Object? servers = freezed,
+    Object? activeServerIndex = freezed,
     Object? comment = freezed,
-    Object? ssl = freezed,
     Object? certBase64 = freezed,
   }) {
     return _then(_WorkerKey(
@@ -234,26 +223,22 @@ class __$WorkerKeyCopyWithImpl<$Res> extends _$WorkerKeyCopyWithImpl<$Res>
           ? _value.db
           : db // ignore: cast_nullable_to_non_nullable
               as String,
-      host: host == freezed
-          ? _value.host
-          : host // ignore: cast_nullable_to_non_nullable
+      servers: servers == freezed
+          ? _value.servers
+          : servers // ignore: cast_nullable_to_non_nullable
               as String,
-      port: port == freezed
-          ? _value.port
-          : port // ignore: cast_nullable_to_non_nullable
-              as String,
+      activeServerIndex: activeServerIndex == freezed
+          ? _value.activeServerIndex
+          : activeServerIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       comment: comment == freezed
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
-              as String?,
-      ssl: ssl == freezed
-          ? _value.ssl
-          : ssl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       certBase64: certBase64 == freezed
           ? _value.certBase64
           : certBase64 // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -268,10 +253,9 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
       required this.worker_dep_id,
       required this.dep,
       required this.db,
-      required this.host,
-      required this.port,
+      required this.servers,
+      this.activeServerIndex = 0,
       this.comment = '',
-      this.ssl = 'auto',
       this.certBase64 = ''})
       : super._();
 
@@ -291,22 +275,20 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
   @override
   final String db;
   @override
-  final String host;
-  @override
-  final String port;
+  final String servers;
   @JsonKey()
   @override
-  final String? comment;
+  final int activeServerIndex;
   @JsonKey()
   @override
-  final String? ssl;
+  final String comment;
   @JsonKey()
   @override
-  final String? certBase64;
+  final String certBase64;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'WorkerKey(app: $app, name: $name, api_key: $api_key, worker_dep_id: $worker_dep_id, dep: $dep, db: $db, host: $host, port: $port, comment: $comment, ssl: $ssl, certBase64: $certBase64)';
+    return 'WorkerKey(app: $app, name: $name, api_key: $api_key, worker_dep_id: $worker_dep_id, dep: $dep, db: $db, servers: $servers, activeServerIndex: $activeServerIndex, comment: $comment, certBase64: $certBase64)';
   }
 
   @override
@@ -320,10 +302,9 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('worker_dep_id', worker_dep_id))
       ..add(DiagnosticsProperty('dep', dep))
       ..add(DiagnosticsProperty('db', db))
-      ..add(DiagnosticsProperty('host', host))
-      ..add(DiagnosticsProperty('port', port))
+      ..add(DiagnosticsProperty('servers', servers))
+      ..add(DiagnosticsProperty('activeServerIndex', activeServerIndex))
       ..add(DiagnosticsProperty('comment', comment))
-      ..add(DiagnosticsProperty('ssl', ssl))
       ..add(DiagnosticsProperty('certBase64', certBase64));
   }
 
@@ -339,10 +320,10 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
                 .equals(other.worker_dep_id, worker_dep_id) &&
             const DeepCollectionEquality().equals(other.dep, dep) &&
             const DeepCollectionEquality().equals(other.db, db) &&
-            const DeepCollectionEquality().equals(other.host, host) &&
-            const DeepCollectionEquality().equals(other.port, port) &&
+            const DeepCollectionEquality().equals(other.servers, servers) &&
+            const DeepCollectionEquality()
+                .equals(other.activeServerIndex, activeServerIndex) &&
             const DeepCollectionEquality().equals(other.comment, comment) &&
-            const DeepCollectionEquality().equals(other.ssl, ssl) &&
             const DeepCollectionEquality()
                 .equals(other.certBase64, certBase64));
   }
@@ -356,10 +337,9 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(worker_dep_id),
       const DeepCollectionEquality().hash(dep),
       const DeepCollectionEquality().hash(db),
-      const DeepCollectionEquality().hash(host),
-      const DeepCollectionEquality().hash(port),
+      const DeepCollectionEquality().hash(servers),
+      const DeepCollectionEquality().hash(activeServerIndex),
       const DeepCollectionEquality().hash(comment),
-      const DeepCollectionEquality().hash(ssl),
       const DeepCollectionEquality().hash(certBase64));
 
   @JsonKey(ignore: true)
@@ -381,11 +361,10 @@ abstract class _WorkerKey extends WorkerKey {
       required int worker_dep_id,
       required String dep,
       required String db,
-      required String host,
-      required String port,
-      String? comment,
-      String? ssl,
-      String? certBase64}) = _$_WorkerKey;
+      required String servers,
+      int activeServerIndex,
+      String comment,
+      String certBase64}) = _$_WorkerKey;
   const _WorkerKey._() : super._();
 
   factory _WorkerKey.fromJson(Map<String, dynamic> json) =
@@ -404,15 +383,13 @@ abstract class _WorkerKey extends WorkerKey {
   @override
   String get db;
   @override
-  String get host;
+  String get servers;
   @override
-  String get port;
+  int get activeServerIndex;
   @override
-  String? get comment;
+  String get comment;
   @override
-  String? get ssl;
-  @override
-  String? get certBase64;
+  String get certBase64;
   @override
   @JsonKey(ignore: true)
   _$WorkerKeyCopyWith<_WorkerKey> get copyWith =>

@@ -159,8 +159,9 @@ class Journal with ChangeNotifier {
     //
     // > send Post
     //
+    final k = workerProfile.key;
     final urlAddress =
-        'http://${workerProfile.key.host}:${workerProfile.key.port}/delete';
+        '${k.activeServer}/delete';
 
     return commitUrl(urlAddress, body: body);
   }
@@ -191,8 +192,9 @@ class Journal with ChangeNotifier {
     //
     // > send Post
     //
+    final k = workerProfile.key;
     final urlAddress =
-        'http://${workerProfile.key.host}:${workerProfile.key.port}/add';
+        '${k.activeServer}/add';
 
     return commitUrl(urlAddress, body: body);
   }
@@ -210,18 +212,14 @@ class Journal with ChangeNotifier {
   ///
   /// {@category Network}
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
-    var url = Uri.parse(urlAddress);
+    final url = Uri.parse(urlAddress);
     var http = AppData().httpClient;
     var ret = ServiceState.added;
     try {
       Response response;
       final sslClient = workerProfile.sslClient;
-      if (kIsWeb) {
-        // Always use https for web platform
-        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
-      } else if (sslClient != null) {
+      if (sslClient != null) {
         http = IOClient(sslClient);
-        url = Uri.parse(urlAddress.replaceFirst('http', 'https'));
       }
 
       if (urlAddress.endsWith('/add')) {

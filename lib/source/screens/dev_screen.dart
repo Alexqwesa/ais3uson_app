@@ -133,14 +133,14 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
       // > http
       //
       var url = Uri.parse(
-        'http://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/stat',
+        'http://${AppData().profiles.first.key.activeHost}:${AppData().profiles.first.key.activePort}/stat',
       );
       _httpFuture = http.get(url);
       //
       // > https
       //
       url = Uri.parse(
-        'https://${AppData().profiles.first.key.host}:${AppData().profiles.first.key.port}/stat',
+        'https://${AppData().profiles.first.key.activeHost}:${AppData().profiles.first.key.activePort}/stat',
       );
       _httpsFuture = http.get(url);
       setState(() {

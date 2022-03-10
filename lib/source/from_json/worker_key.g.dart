@@ -13,10 +13,9 @@ _$_WorkerKey _$$_WorkerKeyFromJson(Map<String, dynamic> json) => _$_WorkerKey(
       worker_dep_id: json['worker_dep_id'] as int,
       dep: json['dep'] as String,
       db: json['db'] as String,
-      host: json['host'] as String,
-      port: json['port'] as String,
+      servers: json['servers'] as String,
+      activeServerIndex: json['activeServerIndex'] as int? ?? 0,
       comment: json['comment'] as String? ?? '',
-      ssl: json['ssl'] as String? ?? 'auto',
       certBase64: json['certBase64'] as String? ?? '',
     );
 
@@ -28,9 +27,8 @@ Map<String, dynamic> _$$_WorkerKeyToJson(_$_WorkerKey instance) =>
       'worker_dep_id': instance.worker_dep_id,
       'dep': instance.dep,
       'db': instance.db,
-      'host': instance.host,
-      'port': instance.port,
+      'servers': instance.servers,
+      'activeServerIndex': instance.activeServerIndex,
       'comment': instance.comment,
-      'ssl': instance.ssl,
       'certBase64': instance.certBase64,
     };

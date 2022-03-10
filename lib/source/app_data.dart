@@ -202,7 +202,7 @@ class AppData with ChangeNotifier {
     ScreenArguments(profile: 0);
     prefs = await SharedPreferences.getInstance();
     for (final Map<dynamic, dynamic> keyFromHive
-        in jsonDecode(prefs!.getString('WorkerKeys') ?? '[]')) {
+        in jsonDecode(prefs!.getString('WorkerKeys2') ?? '[]')) {
       _profiles.add(
         WorkerProfile(WorkerKey.fromJson(keyFromHive.cast<String, dynamic>())),
       );
@@ -238,7 +238,7 @@ class AppData with ChangeNotifier {
 
   Future<void> save() async {
     final res = await prefs?.setString(
-      'WorkerKeys',
+      'WorkerKeys2',
       jsonEncode(workerKeys.map((e) => e.toJson()).toList()),
     );
     if (res == null || !res) {
@@ -246,6 +246,7 @@ class AppData with ChangeNotifier {
     }
     notifyListeners();
     await prefs?.setString('serviceView', serviceView);
+    await prefs?.setString('WorkerKeys', ''); // cleanup old data
   }
 
   /// Add Profile from [WorkerKey].

@@ -20,20 +20,61 @@ part 'worker_key.g.dart';
 /// worker_dep_id: 1
 /// dep_id : 1
 /// dep : "Test Department"
-/// host : "192.168.0.102"
-/// port : "48080"
+/// servers: "https://alexqwesa.fvds.ru:48080|http://alexqwesa.fvds.ru:48081/|https://192.168.0.102:48082"
+/// host : "192.168.0.102" // obsolete
+/// port : "48080" // obsolete
 /// db : "kcson"
 /// comment : "any text"
 /// certBase64 : ""
 ///
+/// Note: https:// or http:// in servers strings is necessary!
 /// {@category Import_from_json}
 @freezed
 class WorkerKey with _$WorkerKey {
+  String get activeServer {
+    final server = servers.split('|')[activeServerIndex];
+
+    return server.endsWith('/')
+        ? server.substring(0, server.length - 1)
+        : server;
+  }
+
+  String get activeHttp {
+    return activeServer.split(':')[0];
+  }
+
+  String get activePort {
+    var port = '80';
+    if (activeServer.split(':').length > 2) {
+      port = activeServer.split(':')[2];
+      port = port.contains('/') ? port.substring(0, port.indexOf('/')) : port;
+    }
+
+    return port;
+  }
+
+  String get activeHost {
+    var address = activeServer.split(':')[1].substring('//'.length);
+    address = address.contains('/')
+        ? address.substring(0, address.indexOf('/'))
+        : address;
+
+    return address;
+  }
+
+  String get activePath {
+    final address = activeServer.split(':')[1].substring('//'.length);
+    final path =
+        address.contains('/') ? address.substring(address.indexOf('/')) : '/';
+
+    return path.endsWith('/') ? path : '$path/';
+  }
+
   int get workerDepId => worker_dep_id;
 
   String get apiKey => api_key;
 
-  Uint8List get certificate => const Base64Decoder().convert(certBase64!);
+  Uint8List get certificate => const Base64Decoder().convert(certBase64);
 
   const factory WorkerKey({
     required String app,
@@ -42,11 +83,10 @@ class WorkerKey with _$WorkerKey {
     required int worker_dep_id,
     required String dep,
     required String db,
-    required String host,
-    required String port,
-    @Default('') String? comment,
-    @Default('auto') String? ssl,
-    @Default('') String? certBase64,
+    required String servers,
+    @Default(0) int activeServerIndex,
+    @Default('') String comment,
+    @Default('') String certBase64,
   }) = _WorkerKey;
 
   const WorkerKey._();

@@ -81,12 +81,11 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     journal =
         archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
 
-    if (kIsWeb) {
-      sslClient = null;
-    } else {
-      if (key.ssl == 'auto') {
-        // TODO:
-        sslClient = HttpClient()
+    try {
+      if (key.certBase64.isNotEmpty) {
+        final context = SecurityContext()
+          ..setTrustedCertificatesBytes(key.certificate);
+        sslClient = HttpClient(context: context)
           ..badCertificateCallback = (cert, host, port) {
             // if (host == '80.87.196.11') {
             //   // for debug
@@ -98,35 +97,10 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
             return false;
           };
       }
-      // else if (key.ssl == 'no') {
-      //
-      // }
-
-      else if (key.ssl == 'yes') {
-        if (key.certBase64!.isNotEmpty) {
-          final context = SecurityContext()
-            ..setTrustedCertificatesBytes(key.certificate);
-          sslClient = HttpClient(context: context)
-            ..badCertificateCallback = (cert, host, port) {
-              // if (host == '80.87.196.11') {
-              //   // for debug
-              //   return true;
-              // }
-              dev.log('!!!!Bad certificate');
-              showErrorNotification('Ошибка! неправильный сертификат сервера!');
-
-              return false;
-            };
-        } else {
-          sslClient = HttpClient()
-            ..badCertificateCallback = (cert, host, port) {
-              dev.log('!!!!Bad certificate');
-              showErrorNotification('Ошибка! неправильный сертификат сервера!');
-
-              return false;
-            };
-        }
-      }
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      dev.log('!!!!Bad certificate');
+      showErrorNotification('Ошибка! Не удалось добавить сертификат отделения!');
     }
   }
 
@@ -151,7 +125,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     Box hive, {
     bool onlyIfEmpty = false,
   }) async {
-    if (hiveKey.endsWith('://${key.host}:${key.port}/clients')) {
+    if (hiveKey.endsWith('/clients')) {
       //
       // > Get ClientProfile from hive
       //
@@ -168,7 +142,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
         await setClientSyncDate();
       }
-    } else if (hiveKey.endsWith('://${key.host}:${key.port}/planned')) {
+    } else if (hiveKey.endsWith('/planned')) {
       //
       // > Sync Planned services from hive
       //
@@ -181,7 +155,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
         // maybe await it later to call notifyListeners before it?
         await journal.updateBasedOnNewPlanDate();
       }
-    } else if (hiveKey.endsWith('://${key.host}:${key.port}/services')) {
+    } else if (hiveKey.endsWith('/services')) {
       //
       // > Sync services from hive
       //
@@ -314,7 +288,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   Future<void> syncHiveClients() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:${key.port}/clients',
+      urlAddress: '${key.activeServer}/clients',
     );
   }
 
@@ -324,7 +298,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     }
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:${key.port}/planned',
+      urlAddress: '${key.activeServer}/planned',
     );
   }
 
@@ -338,7 +312,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   Future<void> syncHiveServices() async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
-      urlAddress: 'http://${key.host}:${key.port}/services',
+      urlAddress: '${key.activeServer}/services',
     );
   }
 

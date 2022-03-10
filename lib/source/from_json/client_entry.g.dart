@@ -11,9 +11,9 @@ _$_ClientEntry _$$_ClientEntryFromJson(Map<String, dynamic> json) =>
       contract_id: json['contract_id'] as int,
       dep_id: json['dep_id'] as int,
       client_id: json['client_id'] as int,
+      dhw_id: json['dhw_id'] as int,
       contract: json['contract'] as String? ?? 'ERROR',
       client: json['client'] as String? ?? 'ERROR',
-      dhw_id: json['dhw_id'] as int,
     );
 
 Map<String, dynamic> _$$_ClientEntryToJson(_$_ClientEntry instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_ClientEntryToJson(_$_ClientEntry instance) =>
       'contract_id': instance.contract_id,
       'dep_id': instance.dep_id,
       'client_id': instance.client_id,
+      'dhw_id': instance.dhw_id,
       'contract': instance.contract,
       'client': instance.client,
-      'dhw_id': instance.dhw_id,
     };

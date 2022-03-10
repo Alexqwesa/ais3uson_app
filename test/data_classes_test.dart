@@ -19,7 +19,7 @@ import 'helpers/mock_server.mocks.dart' as mock;
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {
   final json = jsonDecode(qrData2WithAutossl) as Map<String, dynamic>;
-  json['ssl'] = 'no';
+  // json['ssl'] = 'no';
 
   return WorkerKey.fromJson(json);
 }

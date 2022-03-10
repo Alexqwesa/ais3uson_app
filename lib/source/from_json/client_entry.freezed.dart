@@ -26,16 +26,16 @@ class _$ClientEntryTearOff {
       {required int contract_id,
       required int dep_id,
       required int client_id,
+      required int dhw_id,
       String contract = 'ERROR',
-      String client = 'ERROR',
-      required int dhw_id}) {
+      String client = 'ERROR'}) {
     return _ClientEntry(
       contract_id: contract_id,
       dep_id: dep_id,
       client_id: client_id,
+      dhw_id: dhw_id,
       contract: contract,
       client: client,
-      dhw_id: dhw_id,
     );
   }
 
@@ -52,9 +52,9 @@ mixin _$ClientEntry {
   int get contract_id => throw _privateConstructorUsedError;
   int get dep_id => throw _privateConstructorUsedError;
   int get client_id => throw _privateConstructorUsedError;
+  int get dhw_id => throw _privateConstructorUsedError;
   String get contract => throw _privateConstructorUsedError;
   String get client => throw _privateConstructorUsedError;
-  int get dhw_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,9 +71,9 @@ abstract class $ClientEntryCopyWith<$Res> {
       {int contract_id,
       int dep_id,
       int client_id,
+      int dhw_id,
       String contract,
-      String client,
-      int dhw_id});
+      String client});
 }
 
 /// @nodoc
@@ -89,9 +89,9 @@ class _$ClientEntryCopyWithImpl<$Res> implements $ClientEntryCopyWith<$Res> {
     Object? contract_id = freezed,
     Object? dep_id = freezed,
     Object? client_id = freezed,
+    Object? dhw_id = freezed,
     Object? contract = freezed,
     Object? client = freezed,
-    Object? dhw_id = freezed,
   }) {
     return _then(_value.copyWith(
       contract_id: contract_id == freezed
@@ -106,6 +106,10 @@ class _$ClientEntryCopyWithImpl<$Res> implements $ClientEntryCopyWith<$Res> {
           ? _value.client_id
           : client_id // ignore: cast_nullable_to_non_nullable
               as int,
+      dhw_id: dhw_id == freezed
+          ? _value.dhw_id
+          : dhw_id // ignore: cast_nullable_to_non_nullable
+              as int,
       contract: contract == freezed
           ? _value.contract
           : contract // ignore: cast_nullable_to_non_nullable
@@ -114,10 +118,6 @@ class _$ClientEntryCopyWithImpl<$Res> implements $ClientEntryCopyWith<$Res> {
           ? _value.client
           : client // ignore: cast_nullable_to_non_nullable
               as String,
-      dhw_id: dhw_id == freezed
-          ? _value.dhw_id
-          : dhw_id // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -133,9 +133,9 @@ abstract class _$ClientEntryCopyWith<$Res>
       {int contract_id,
       int dep_id,
       int client_id,
+      int dhw_id,
       String contract,
-      String client,
-      int dhw_id});
+      String client});
 }
 
 /// @nodoc
@@ -153,9 +153,9 @@ class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
     Object? contract_id = freezed,
     Object? dep_id = freezed,
     Object? client_id = freezed,
+    Object? dhw_id = freezed,
     Object? contract = freezed,
     Object? client = freezed,
-    Object? dhw_id = freezed,
   }) {
     return _then(_ClientEntry(
       contract_id: contract_id == freezed
@@ -170,6 +170,10 @@ class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
           ? _value.client_id
           : client_id // ignore: cast_nullable_to_non_nullable
               as int,
+      dhw_id: dhw_id == freezed
+          ? _value.dhw_id
+          : dhw_id // ignore: cast_nullable_to_non_nullable
+              as int,
       contract: contract == freezed
           ? _value.contract
           : contract // ignore: cast_nullable_to_non_nullable
@@ -178,10 +182,6 @@ class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
           ? _value.client
           : client // ignore: cast_nullable_to_non_nullable
               as String,
-      dhw_id: dhw_id == freezed
-          ? _value.dhw_id
-          : dhw_id // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -193,9 +193,9 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
       {required this.contract_id,
       required this.dep_id,
       required this.client_id,
+      required this.dhw_id,
       this.contract = 'ERROR',
-      this.client = 'ERROR',
-      required this.dhw_id})
+      this.client = 'ERROR'})
       : super._();
 
   factory _$_ClientEntry.fromJson(Map<String, dynamic> json) =>
@@ -207,18 +207,18 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
   final int dep_id;
   @override
   final int client_id;
+  @override
+  final int dhw_id;
   @JsonKey()
   @override
   final String contract;
   @JsonKey()
   @override
   final String client;
-  @override
-  final int dhw_id;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientEntry(contract_id: $contract_id, dep_id: $dep_id, client_id: $client_id, contract: $contract, client: $client, dhw_id: $dhw_id)';
+    return 'ClientEntry(contract_id: $contract_id, dep_id: $dep_id, client_id: $client_id, dhw_id: $dhw_id, contract: $contract, client: $client)';
   }
 
   @override
@@ -229,9 +229,9 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('contract_id', contract_id))
       ..add(DiagnosticsProperty('dep_id', dep_id))
       ..add(DiagnosticsProperty('client_id', client_id))
+      ..add(DiagnosticsProperty('dhw_id', dhw_id))
       ..add(DiagnosticsProperty('contract', contract))
-      ..add(DiagnosticsProperty('client', client))
-      ..add(DiagnosticsProperty('dhw_id', dhw_id));
+      ..add(DiagnosticsProperty('client', client));
   }
 
   @override
@@ -243,9 +243,9 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
                 .equals(other.contract_id, contract_id) &&
             const DeepCollectionEquality().equals(other.dep_id, dep_id) &&
             const DeepCollectionEquality().equals(other.client_id, client_id) &&
+            const DeepCollectionEquality().equals(other.dhw_id, dhw_id) &&
             const DeepCollectionEquality().equals(other.contract, contract) &&
-            const DeepCollectionEquality().equals(other.client, client) &&
-            const DeepCollectionEquality().equals(other.dhw_id, dhw_id));
+            const DeepCollectionEquality().equals(other.client, client));
   }
 
   @override
@@ -254,9 +254,9 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(contract_id),
       const DeepCollectionEquality().hash(dep_id),
       const DeepCollectionEquality().hash(client_id),
+      const DeepCollectionEquality().hash(dhw_id),
       const DeepCollectionEquality().hash(contract),
-      const DeepCollectionEquality().hash(client),
-      const DeepCollectionEquality().hash(dhw_id));
+      const DeepCollectionEquality().hash(client));
 
   @JsonKey(ignore: true)
   @override
@@ -274,9 +274,9 @@ abstract class _ClientEntry extends ClientEntry {
       {required int contract_id,
       required int dep_id,
       required int client_id,
+      required int dhw_id,
       String contract,
-      String client,
-      required int dhw_id}) = _$_ClientEntry;
+      String client}) = _$_ClientEntry;
   const _ClientEntry._() : super._();
 
   factory _ClientEntry.fromJson(Map<String, dynamic> json) =
@@ -289,11 +289,11 @@ abstract class _ClientEntry extends ClientEntry {
   @override
   int get client_id;
   @override
+  int get dhw_id;
+  @override
   String get contract;
   @override
   String get client;
-  @override
-  int get dhw_id;
   @override
   @JsonKey(ignore: true)
   _$ClientEntryCopyWith<_ClientEntry> get copyWith =>
