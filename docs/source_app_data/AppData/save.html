@@ -66,7 +66,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; save() async {
   final res = await prefs?.setString(
-    &#39;WorkerKeys&#39;,
+    &#39;WorkerKeys2&#39;,
     jsonEncode(workerKeys.map((e) =&gt; e.toJson()).toList()),
   );
   if (res == null || !res) {
@@ -74,6 +74,7 @@
   }
   notifyListeners();
   await prefs?.setString(&#39;serviceView&#39;, serviceView);
+  await prefs?.setString(&#39;WorkerKeys&#39;, &#39;&#39;); &#47;&#47; cleanup old data
 }</code></pre>
 </section>
 

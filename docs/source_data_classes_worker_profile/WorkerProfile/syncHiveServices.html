@@ -74,7 +74,7 @@ with wrong <a href="../../source_from_json_client_plan/ClientPlan/servId.html">C
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncHiveServices() async {
   await hiddenSyncHive(
     apiKey: key.apiKey,
-    urlAddress: &#39;http:&#47;&#47;${key.host}:${key.port}&#47;services&#39;,
+    urlAddress: &#39;${key.activeServer}&#47;services&#39;,
   );
 }</code></pre>
 </section>

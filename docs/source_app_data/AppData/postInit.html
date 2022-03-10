@@ -92,7 +92,7 @@
   ScreenArguments(profile: 0);
   prefs = await SharedPreferences.getInstance();
   for (final Map&lt;dynamic, dynamic&gt; keyFromHive
-      in jsonDecode(prefs!.getString(&#39;WorkerKeys&#39;) ?? &#39;[]&#39;)) {
+      in jsonDecode(prefs!.getString(&#39;WorkerKeys2&#39;) ?? &#39;[]&#39;)) {
     _profiles.add(
       WorkerProfile(WorkerKey.fromJson(keyFromHive.cast&lt;String, dynamic&gt;())),
     );

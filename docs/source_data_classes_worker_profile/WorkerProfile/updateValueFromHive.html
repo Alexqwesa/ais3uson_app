@@ -88,7 +88,7 @@ Future&lt;void&gt; updateValueFromHive(
   Box hive, {
   bool onlyIfEmpty = false,
 }) async {
-  if (hiveKey.endsWith(&#39;:&#47;&#47;${key.host}:${key.port}&#47;clients&#39;)) {
+  if (hiveKey.endsWith(&#39;&#47;clients&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Get ClientProfile from hive
     &#47;&#47;
@@ -105,7 +105,7 @@ Future&lt;void&gt; updateValueFromHive(
 
       await setClientSyncDate();
     }
-  } else if (hiveKey.endsWith(&#39;:&#47;&#47;${key.host}:${key.port}&#47;planned&#39;)) {
+  } else if (hiveKey.endsWith(&#39;&#47;planned&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Sync Planned services from hive
     &#47;&#47;
@@ -118,7 +118,7 @@ Future&lt;void&gt; updateValueFromHive(
       &#47;&#47; maybe await it later to call notifyListeners before it?
       await journal.updateBasedOnNewPlanDate();
     }
-  } else if (hiveKey.endsWith(&#39;:&#47;&#47;${key.host}:${key.port}&#47;services&#39;)) {
+  } else if (hiveKey.endsWith(&#39;&#47;services&#39;)) {
     &#47;&#47;
     &#47;&#47; &gt; Sync services from hive
     &#47;&#47;

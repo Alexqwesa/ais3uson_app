@@ -93,8 +93,9 @@
   &#47;&#47;
   &#47;&#47; &gt; send Post
   &#47;&#47;
+  final k = workerProfile.key;
   final urlAddress =
-      &#39;http:&#47;&#47;${workerProfile.key.host}:${workerProfile.key.port}&#47;add&#39;;
+      &#39;${k.activeServer}&#47;add&#39;;
 
   return commitUrl(urlAddress, body: body);
 }</code></pre>

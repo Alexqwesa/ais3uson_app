@@ -91,15 +91,12 @@ and call <a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataM
   &#47;&#47;
   &#47;&#47; &gt; main - call server
   &#47;&#47;
-  var url = Uri.parse(urlAddress);
+  final url = Uri.parse(urlAddress);
   try {
     var client = AppData().httpClient;
     http.Response response;
-    if (kIsWeb) {
-      url = Uri.parse(urlAddress.replaceFirst(&#39;http&#39;, &#39;https&#39;));
-    } else if (sslClient != null) {
+    if (sslClient != null) {
       client = IOClient(sslClient);
-      url = Uri.parse(urlAddress.replaceFirst(&#39;http&#39;, &#39;https&#39;));
     }
     response = await client.get(url, headers: headers);
 

@@ -71,7 +71,7 @@
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncHiveClients() async {
   await hiddenSyncHive(
     apiKey: key.apiKey,
-    urlAddress: &#39;http:&#47;&#47;${key.host}:${key.port}&#47;clients&#39;,
+    urlAddress: &#39;${key.activeServer}&#47;clients&#39;,
   );
 }</code></pre>
 </section>
