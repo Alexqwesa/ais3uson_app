@@ -29,6 +29,10 @@ class ClientEntry with _$ClientEntry {
 
   int get dhwId => dhw_id;
 
+  String get contractDuration => contract_duration;
+
+  double get maxPay => max_pay;
+
   const factory ClientEntry({
     required int contract_id,
     required int dep_id,
@@ -36,6 +40,10 @@ class ClientEntry with _$ClientEntry {
     required int dhw_id,
     @Default('ERROR') String contract,
     @Default('ERROR') String client,
+    @Default('') String contract_duration,
+    @Default('') String comment,
+    @Default(0.0) double percent,
+    @Default(double.infinity) double max_pay,
   }) = _ClientEntry;
 
   const ClientEntry._();

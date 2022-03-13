@@ -51,7 +51,7 @@ class ClientService with ChangeNotifier {
 
   String get shortText => service.shortText;
 
-  String get image => service.image;
+  String get image => service.imagePath;
 
   //
   // > journal getters

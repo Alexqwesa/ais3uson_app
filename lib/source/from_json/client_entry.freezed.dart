@@ -28,7 +28,11 @@ class _$ClientEntryTearOff {
       required int client_id,
       required int dhw_id,
       String contract = 'ERROR',
-      String client = 'ERROR'}) {
+      String client = 'ERROR',
+      String contract_duration = '',
+      String comment = '',
+      double percent = 0.0,
+      double max_pay = double.infinity}) {
     return _ClientEntry(
       contract_id: contract_id,
       dep_id: dep_id,
@@ -36,6 +40,10 @@ class _$ClientEntryTearOff {
       dhw_id: dhw_id,
       contract: contract,
       client: client,
+      contract_duration: contract_duration,
+      comment: comment,
+      percent: percent,
+      max_pay: max_pay,
     );
   }
 
@@ -55,6 +63,10 @@ mixin _$ClientEntry {
   int get dhw_id => throw _privateConstructorUsedError;
   String get contract => throw _privateConstructorUsedError;
   String get client => throw _privateConstructorUsedError;
+  String get contract_duration => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
+  double get percent => throw _privateConstructorUsedError;
+  double get max_pay => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -73,7 +85,11 @@ abstract class $ClientEntryCopyWith<$Res> {
       int client_id,
       int dhw_id,
       String contract,
-      String client});
+      String client,
+      String contract_duration,
+      String comment,
+      double percent,
+      double max_pay});
 }
 
 /// @nodoc
@@ -92,6 +108,10 @@ class _$ClientEntryCopyWithImpl<$Res> implements $ClientEntryCopyWith<$Res> {
     Object? dhw_id = freezed,
     Object? contract = freezed,
     Object? client = freezed,
+    Object? contract_duration = freezed,
+    Object? comment = freezed,
+    Object? percent = freezed,
+    Object? max_pay = freezed,
   }) {
     return _then(_value.copyWith(
       contract_id: contract_id == freezed
@@ -118,6 +138,22 @@ class _$ClientEntryCopyWithImpl<$Res> implements $ClientEntryCopyWith<$Res> {
           ? _value.client
           : client // ignore: cast_nullable_to_non_nullable
               as String,
+      contract_duration: contract_duration == freezed
+          ? _value.contract_duration
+          : contract_duration // ignore: cast_nullable_to_non_nullable
+              as String,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+      percent: percent == freezed
+          ? _value.percent
+          : percent // ignore: cast_nullable_to_non_nullable
+              as double,
+      max_pay: max_pay == freezed
+          ? _value.max_pay
+          : max_pay // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -135,7 +171,11 @@ abstract class _$ClientEntryCopyWith<$Res>
       int client_id,
       int dhw_id,
       String contract,
-      String client});
+      String client,
+      String contract_duration,
+      String comment,
+      double percent,
+      double max_pay});
 }
 
 /// @nodoc
@@ -156,6 +196,10 @@ class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
     Object? dhw_id = freezed,
     Object? contract = freezed,
     Object? client = freezed,
+    Object? contract_duration = freezed,
+    Object? comment = freezed,
+    Object? percent = freezed,
+    Object? max_pay = freezed,
   }) {
     return _then(_ClientEntry(
       contract_id: contract_id == freezed
@@ -182,6 +226,22 @@ class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
           ? _value.client
           : client // ignore: cast_nullable_to_non_nullable
               as String,
+      contract_duration: contract_duration == freezed
+          ? _value.contract_duration
+          : contract_duration // ignore: cast_nullable_to_non_nullable
+              as String,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+      percent: percent == freezed
+          ? _value.percent
+          : percent // ignore: cast_nullable_to_non_nullable
+              as double,
+      max_pay: max_pay == freezed
+          ? _value.max_pay
+          : max_pay // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -195,7 +255,11 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
       required this.client_id,
       required this.dhw_id,
       this.contract = 'ERROR',
-      this.client = 'ERROR'})
+      this.client = 'ERROR',
+      this.contract_duration = '',
+      this.comment = '',
+      this.percent = 0.0,
+      this.max_pay = double.infinity})
       : super._();
 
   factory _$_ClientEntry.fromJson(Map<String, dynamic> json) =>
@@ -215,10 +279,22 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
   @JsonKey()
   @override
   final String client;
+  @JsonKey()
+  @override
+  final String contract_duration;
+  @JsonKey()
+  @override
+  final String comment;
+  @JsonKey()
+  @override
+  final double percent;
+  @JsonKey()
+  @override
+  final double max_pay;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientEntry(contract_id: $contract_id, dep_id: $dep_id, client_id: $client_id, dhw_id: $dhw_id, contract: $contract, client: $client)';
+    return 'ClientEntry(contract_id: $contract_id, dep_id: $dep_id, client_id: $client_id, dhw_id: $dhw_id, contract: $contract, client: $client, contract_duration: $contract_duration, comment: $comment, percent: $percent, max_pay: $max_pay)';
   }
 
   @override
@@ -231,7 +307,11 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('client_id', client_id))
       ..add(DiagnosticsProperty('dhw_id', dhw_id))
       ..add(DiagnosticsProperty('contract', contract))
-      ..add(DiagnosticsProperty('client', client));
+      ..add(DiagnosticsProperty('client', client))
+      ..add(DiagnosticsProperty('contract_duration', contract_duration))
+      ..add(DiagnosticsProperty('comment', comment))
+      ..add(DiagnosticsProperty('percent', percent))
+      ..add(DiagnosticsProperty('max_pay', max_pay));
   }
 
   @override
@@ -245,7 +325,12 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.client_id, client_id) &&
             const DeepCollectionEquality().equals(other.dhw_id, dhw_id) &&
             const DeepCollectionEquality().equals(other.contract, contract) &&
-            const DeepCollectionEquality().equals(other.client, client));
+            const DeepCollectionEquality().equals(other.client, client) &&
+            const DeepCollectionEquality()
+                .equals(other.contract_duration, contract_duration) &&
+            const DeepCollectionEquality().equals(other.comment, comment) &&
+            const DeepCollectionEquality().equals(other.percent, percent) &&
+            const DeepCollectionEquality().equals(other.max_pay, max_pay));
   }
 
   @override
@@ -256,7 +341,11 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(client_id),
       const DeepCollectionEquality().hash(dhw_id),
       const DeepCollectionEquality().hash(contract),
-      const DeepCollectionEquality().hash(client));
+      const DeepCollectionEquality().hash(client),
+      const DeepCollectionEquality().hash(contract_duration),
+      const DeepCollectionEquality().hash(comment),
+      const DeepCollectionEquality().hash(percent),
+      const DeepCollectionEquality().hash(max_pay));
 
   @JsonKey(ignore: true)
   @override
@@ -276,7 +365,11 @@ abstract class _ClientEntry extends ClientEntry {
       required int client_id,
       required int dhw_id,
       String contract,
-      String client}) = _$_ClientEntry;
+      String client,
+      String contract_duration,
+      String comment,
+      double percent,
+      double max_pay}) = _$_ClientEntry;
   const _ClientEntry._() : super._();
 
   factory _ClientEntry.fromJson(Map<String, dynamic> json) =
@@ -294,6 +387,14 @@ abstract class _ClientEntry extends ClientEntry {
   String get contract;
   @override
   String get client;
+  @override
+  String get contract_duration;
+  @override
+  String get comment;
+  @override
+  double get percent;
+  @override
+  double get max_pay;
   @override
   @JsonKey(ignore: true)
   _$ClientEntryCopyWith<_ClientEntry> get copyWith =>
