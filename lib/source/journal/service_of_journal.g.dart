@@ -57,3 +57,37 @@ class ServiceOfJournalAdapter extends TypeAdapter<_$_ServiceOfJournal> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_ServiceOfJournal _$$_ServiceOfJournalFromJson(Map<String, dynamic> json) =>
+    _$_ServiceOfJournal(
+      servId: json['servId'] as int,
+      contractId: json['contractId'] as int,
+      workerId: json['workerId'] as int,
+      provDate: DateTime.parse(json['provDate'] as String),
+      uid: json['uid'] as String,
+      state: $enumDecodeNullable(_$ServiceStateEnumMap, json['state']) ??
+          ServiceState.added,
+      error: json['error'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$$_ServiceOfJournalToJson(_$_ServiceOfJournal instance) =>
+    <String, dynamic>{
+      'servId': instance.servId,
+      'contractId': instance.contractId,
+      'workerId': instance.workerId,
+      'provDate': instance.provDate.toIso8601String(),
+      'uid': instance.uid,
+      'state': _$ServiceStateEnumMap[instance.state],
+      'error': instance.error,
+    };
+
+const _$ServiceStateEnumMap = {
+  ServiceState.added: 'added',
+  ServiceState.finished: 'finished',
+  ServiceState.rejected: 'rejected',
+  ServiceState.outDated: 'outDated',
+};

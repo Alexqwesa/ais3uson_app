@@ -33,6 +33,9 @@ class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
   }) = _ServiceOfJournal;
 
   ServiceOfJournal._();
+
+  factory ServiceOfJournal.fromJson(Map<String, dynamic> json) =>
+      _$$_ServiceOfJournalFromJson(json);
 }
 
 /// Helper for ServiceOfJournal - call const constructor with dynamic default values.

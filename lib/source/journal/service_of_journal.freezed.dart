@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+ServiceOfJournal _$ServiceOfJournalFromJson(Map<String, dynamic> json) {
+  return _ServiceOfJournal.fromJson(json);
+}
+
 /// @nodoc
 class _$ServiceOfJournalTearOff {
   const _$ServiceOfJournalTearOff();
@@ -35,6 +39,10 @@ class _$ServiceOfJournalTearOff {
       state: state,
       error: error,
     );
+  }
+
+  ServiceOfJournal fromJson(Map<String, Object?> json) {
+    return ServiceOfJournal.fromJson(json);
   }
 }
 
@@ -58,6 +66,7 @@ mixin _$ServiceOfJournal {
   @HiveField(6)
   String get error => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ServiceOfJournalCopyWith<ServiceOfJournal> get copyWith =>
       throw _privateConstructorUsedError;
@@ -202,7 +211,7 @@ class __$ServiceOfJournalCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 @HiveType(typeId: 0)
 class _$_ServiceOfJournal extends _ServiceOfJournal {
   _$_ServiceOfJournal(
@@ -214,6 +223,9 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
       @HiveField(5) this.state = ServiceState.added,
       @HiveField(6) this.error = ''})
       : super._();
+
+  factory _$_ServiceOfJournal.fromJson(Map<String, dynamic> json) =>
+      _$$_ServiceOfJournalFromJson(json);
 
   @override
   @HiveField(0)
@@ -274,6 +286,11 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
   @override
   _$ServiceOfJournalCopyWith<_ServiceOfJournal> get copyWith =>
       __$ServiceOfJournalCopyWithImpl<_ServiceOfJournal>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ServiceOfJournalToJson(this);
+  }
 }
 
 abstract class _ServiceOfJournal extends ServiceOfJournal {
@@ -286,6 +303,9 @@ abstract class _ServiceOfJournal extends ServiceOfJournal {
       @HiveField(5) ServiceState state,
       @HiveField(6) String error}) = _$_ServiceOfJournal;
   _ServiceOfJournal._() : super._();
+
+  factory _ServiceOfJournal.fromJson(Map<String, dynamic> json) =
+      _$_ServiceOfJournal.fromJson;
 
   @override
   @HiveField(0)
