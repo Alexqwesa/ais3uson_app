@@ -19,7 +19,6 @@
   "testConnection": "Testverbindung!",
   "emptyDepList": "Liste der Abteilungen ist leer!",
   "selectDepForDelete": "Wählen Sie die zu löschende Abteilung...",
-  "deleteDep": "Abteilung löschende",
   "areYouSureToDelete": "Sind Sie sicher, dass Sie die Abteilung löschen möchten: ",
   "error": "Fehler",
   "sslError": "Fehler bei sicherer Verbindung!",
@@ -38,7 +37,12 @@
   "emptyListOfPeople": "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche 'Aktualisieren'. ",
   "detailed": "Eingehend",
   "list": "Liste",
-  "small": "Klein"
+  "small": "Klein",
+  "exportThisWeek": "Machen der Export aus diese Woche",
+  "exportLastWeek": "Machen der export aus letzte Woche",
+  "exportThisMonth": "Machen der Export aus diese Monat",
+  "exportLastMonth": "Machen der export aus letzte Monat",
+  "fileSavedTo": "Datei gespeichert in: "
 
 
 }

@@ -49,153 +49,149 @@ class AddDepartmentScreen extends StatelessWidget {
         children: [
           SizedBox(
             width: columnWidth,
-            child: FittedBox(
-              child: SizedBox(
-                height: 280,
-                width: 350,
-                child: Column(
-                  children: <Widget>[
-                    //
-                    // > returned text
-                    //
-                    SizedBox(
-                      height: 280,
-                      child: Card(
-                        margin: const EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                S.of(context).putDepTextField,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.headline6,
-                                softWrap: true,
-                              ),
+            child: SizedBox(
+              height: 280,
+              width: 350,
+              child: Column(
+                children: <Widget>[
+                  //
+                  // > returned text
+                  //
+                  SizedBox(
+                    height: 280,
+                    child: Card(
+                      margin: const EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              S.of(context).putDepTextField,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.headline6,
+                              softWrap: true,
                             ),
-                            SizedBox(
-                              // height: screenHeight,
-                              child: SimpleTextField(
-                                controller: controller,
-                              ),
+                          ),
+                          SizedBox(
+                            // height: screenHeight,
+                            child: SimpleTextField(
+                              controller: controller,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
-                              child: Row(
-                                children: [
-                                  TextButton(
-                                    child: Text(S.of(context).clear),
-                                    onPressed: controller.clear,
-                                  ),
-                                  const Spacer(),
-                                  ElevatedButton(
-                                    child: Text(S.of(context).addDep),
-                                    onPressed: () async {
-                                      try {
-                                        Navigator.pop(context, 'added');
-                                        final res =
-                                            await AppData().addProfileFromKey(
-                                          WorkerKey.fromJson(
-                                            jsonDecode(
-                                              controller.value.text
-                                                  .replaceAll('\n', ''),
-                                            ) as Map<String, dynamic>,
-                                          ),
-                                        );
-                                        if (res) {
-                                          await AppData().save();
-                                        } else {
-                                          showErrorNotification(
-                                            locator<S>().cantAddDepDuplicate,
-                                          );
-                                          // ignore: use_build_context_synchronously
-                                          FocusScope.of(context).requestFocus(
-                                            FocusNode(),
-                                          );
-                                        }
-                                      } on FormatException {
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
+                            child: Row(
+                              children: [
+                                TextButton(
+                                  child: Text(S.of(context).clear),
+                                  onPressed: controller.clear,
+                                ),
+                                const Spacer(),
+                                ElevatedButton(
+                                  child: Text(S.of(context).addDep),
+                                  onPressed: () async {
+                                    try {
+                                      Navigator.pop(context, 'added');
+                                      final res =
+                                          await AppData().addProfileFromKey(
+                                        WorkerKey.fromJson(
+                                          jsonDecode(
+                                            controller.value.text
+                                                .replaceAll('\n', ''),
+                                          ) as Map<String, dynamic>,
+                                        ),
+                                      );
+                                      if (res) {
+                                        await AppData().save();
+                                      } else {
                                         showErrorNotification(
-                                          locator<S>().cantAddDepBadFormat,
+                                          locator<S>().cantAddDepDuplicate,
                                         );
                                         // ignore: use_build_context_synchronously
                                         FocusScope.of(context).requestFocus(
                                           FocusNode(),
                                         );
                                       }
-                                    },
-                                  ),
-                                ],
-                              ),
+                                    } on FormatException {
+                                      showErrorNotification(
+                                        locator<S>().cantAddDepBadFormat,
+                                      );
+                                      // ignore: use_build_context_synchronously
+                                      FocusScope.of(context).requestFocus(
+                                        FocusNode(),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
           SizedBox(
             width: columnWidth,
-            child: FittedBox(
-              child: SizedBox(
-                width: 350,
-                child: Column(
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Text(
-                          S.of(context).orTestDepList,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
+            child: SizedBox(
+              width: 350,
+              child: Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        S.of(context).orTestDepList,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
-                    ListView.builder(
-                      itemCount: workerKeys.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Card(
-                            child: ListTile(
-                              leading: Transform.rotate(
-                                angle: pi / 30,
-                                child: const Icon(
-                                  Icons.group,
-                                  // color: Colors.green,
-                                ),
+                  ),
+                  ListView.builder(
+                    itemCount: workerKeys.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Card(
+                          child: ListTile(
+                            leading: Transform.rotate(
+                              angle: pi / 30,
+                              child: const Icon(
+                                Icons.group,
+                                // color: Colors.green,
                               ),
-                              title: Text(workerKeys[index].dep),
-                              trailing: const Icon(
-                                Icons.add,
-                                color: Colors.green,
-                              ),
-                              subtitle: Text(workerKeys[index].name),
-                              //
-                              // > call dialog
-                              //
-                              onTap: () async {
-                                Navigator.pop(context, 'added');
-                                final res = await AppData()
-                                    .addProfileFromKey(workerKeys[index]);
-                                if (res) {
-                                  await AppData().save();
-                                } else {
-                                  showErrorNotification(
-                                    locator<S>().cantAddDepDuplicate,
-                                  );
-                                }
-                              },
                             ),
+                            title: Text(workerKeys[index].dep),
+                            trailing: const Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                            subtitle: Text(workerKeys[index].name),
+                            //
+                            // > call dialog
+                            //
+                            onTap: () async {
+                              Navigator.pop(context, 'added');
+                              final res = await AppData()
+                                  .addProfileFromKey(workerKeys[index]);
+                              if (res) {
+                                await AppData().save();
+                              } else {
+                                showErrorNotification(
+                                  locator<S>().cantAddDepDuplicate,
+                                );
+                              }
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ),

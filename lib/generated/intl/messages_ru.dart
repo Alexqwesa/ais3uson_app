@@ -47,6 +47,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
+        "exportLastMonth":
+            MessageLookupByLibrary.simpleMessage("Экспорт предыдущего месяца"),
+        "exportLastWeek":
+            MessageLookupByLibrary.simpleMessage("Экспорт предыдущей недели"),
+        "exportThisMonth":
+            MessageLookupByLibrary.simpleMessage("Экспорт этого месяца"),
+        "exportThisWeek":
+            MessageLookupByLibrary.simpleMessage("Экспорт этой недели"),
+        "fileSavedTo":
+            MessageLookupByLibrary.simpleMessage("Файл сохранен в: "),
         "flashLight": MessageLookupByLibrary.simpleMessage("Вспышка"),
         "httpAccessError":
             MessageLookupByLibrary.simpleMessage("Ошибка доступа к серверу!"),

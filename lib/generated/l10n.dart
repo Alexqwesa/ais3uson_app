@@ -429,6 +429,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Экспорт этой недели`
+  String get exportThisWeek {
+    return Intl.message(
+      'Экспорт этой недели',
+      name: 'exportThisWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Экспорт предыдущей недели`
+  String get exportLastWeek {
+    return Intl.message(
+      'Экспорт предыдущей недели',
+      name: 'exportLastWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Экспорт этого месяца`
+  String get exportThisMonth {
+    return Intl.message(
+      'Экспорт этого месяца',
+      name: 'exportThisMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Экспорт предыдущего месяца`
+  String get exportLastMonth {
+    return Intl.message(
+      'Экспорт предыдущего месяца',
+      name: 'exportLastMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Файл сохранен в: `
+  String get fileSavedTo {
+    return Intl.message(
+      'Файл сохранен в: ',
+      name: 'fileSavedTo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

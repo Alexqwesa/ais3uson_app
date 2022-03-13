@@ -47,6 +47,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "List of clients is empty, \n\n please ask your manager to add people into your list \n\n then click on refresh button."),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "exportLastMonth":
+            MessageLookupByLibrary.simpleMessage("Export last month"),
+        "exportLastWeek":
+            MessageLookupByLibrary.simpleMessage("Export last week"),
+        "exportThisMonth":
+            MessageLookupByLibrary.simpleMessage("Export this month"),
+        "exportThisWeek":
+            MessageLookupByLibrary.simpleMessage("Export this week"),
+        "fileSavedTo":
+            MessageLookupByLibrary.simpleMessage("File is saved to: "),
         "flashLight": MessageLookupByLibrary.simpleMessage("Flash"),
         "httpAccessError":
             MessageLookupByLibrary.simpleMessage("Error: server access error!"),

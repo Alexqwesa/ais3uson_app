@@ -17,10 +17,13 @@ import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:synchronized/synchronized.dart';
+import 'package:universal_html/html.dart' as html;
 
 /// Journal of services
 ///
@@ -108,6 +111,62 @@ class Journal with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Return json String with all [ServiceOfJournal] between dates [start] and [end].
+  ///
+  /// It gets values from both hive and hiveArchive.
+  /// The [end] date is not included, the dates [DateTime] should be rounded to zero time.
+  Future<String> export(DateTime start, DateTime end) async {
+    await save();
+    hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
+    hiveArchive =
+        await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
+
+    return jsonEncode([
+      {'api_key': workerProfile.apiKey},
+      ...hive.values
+          .where((s) => s.provDate.isAfter(start) && s.provDate.isBefore(end))
+          .map((e) => e.toJson()),
+      ...hiveArchive.values
+          .where((s) => s.provDate.isAfter(start) && s.provDate.isBefore(end))
+          .map((e) => e.toJson()),
+    ]);
+  }
+
+  Future<void> exportToFile(DateTime start, DateTime end) async {
+    final content = await export(start, end);
+    // final _base64 = base64Encode(content.codeUnits);
+    final fileName =
+        '${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_'
+        '${standardFormat.format(start)}_${standardFormat.format(end)}.ais_json';
+    final filePath = await getSafePath([fileName]);
+    if (filePath == null) {
+      if (kIsWeb) {
+        final blob = html.Blob(
+          <String>[content],
+          'text/json',
+          'native',
+        );
+
+        html.AnchorElement(
+          href: html.Url.createObjectUrlFromBlob(blob).toString(),
+        )
+          ..setAttribute('download', fileName)
+          ..click();
+
+      }
+    } else {
+      File(filePath).writeAsStringSync(content);
+      try {
+        await Share.shareFiles([filePath]);
+      } on MissingPluginException {
+        showNotification(
+          locator<S>().fileSavedTo + filePath,
+          duration: const Duration(seconds: 10),
+        );
+      }
+    }
+  }
+
   Future<void> save() async {
     hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
     for (final s in all) {
@@ -160,8 +219,7 @@ class Journal with ChangeNotifier {
     // > send Post
     //
     final k = workerProfile.key;
-    final urlAddress =
-        '${k.activeServer}/delete';
+    final urlAddress = '${k.activeServer}/delete';
 
     return commitUrl(urlAddress, body: body);
   }
@@ -193,8 +251,7 @@ class Journal with ChangeNotifier {
     // > send Post
     //
     final k = workerProfile.key;
-    final urlAddress =
-        '${k.activeServer}/add';
+    final urlAddress = '${k.activeServer}/add';
 
     return commitUrl(urlAddress, body: body);
   }

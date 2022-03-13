@@ -19,7 +19,6 @@
   "testConnection": "Test connection!",
   "emptyDepList": "List of departments is empty!",
   "selectDepForDelete": "Select department to delete...",
-  "deleteDep": "Delete department",
   "areYouSureToDelete": "Are you sure that you want to delete department: ",
   "error": "Error",
   "sslError": "Error: secure connection error!",
@@ -38,6 +37,11 @@
   "emptyListOfPeople": "List of clients is empty, \n\n please ask your manager to add people into your list \n\n then click on refresh button.",
   "detailed": "Detailed",
   "list": "List",
-  "small": "Small"
+  "small": "Small",
+  "exportThisWeek": "Export this week",
+  "exportLastWeek": "Export last week",
+  "exportThisMonth": "Export this month",
+  "exportLastMonth": "Export last month",
+  "fileSavedTo": "File is saved to: "
 
 }

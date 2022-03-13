@@ -89,6 +89,9 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Доступно для скачивания
   на [Google Play Market](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 - [x] Созданы тесты для проверки правильности работы программы
+- [x] Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся поделится
+  (без дупликатов)
+
 
 ## TODO:
 

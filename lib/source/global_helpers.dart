@@ -59,15 +59,28 @@ final Map<String, String> httpHeaders = {
   'Accept': 'application/json',
 };
 
-/// showErrorNotification
-///
-/// just display error to user
+/// Display error Notification to user.
 void showErrorNotification(String text) {
   try {
     showSimpleNotification(
       Text(text),
       background: Colors.red[300],
       position: NotificationPosition.bottom,
+    );
+    // ignore: avoid_catches_without_on_clauses
+  } catch (e) {
+    dev.log(e.toString());
+  }
+}
+
+/// Display Notification.
+void showNotification(String text, {Duration? duration}) {
+  try {
+    showSimpleNotification(
+      Text(text),
+      background: Colors.green[400],
+      position: NotificationPosition.bottom,
+      duration: duration,
     );
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
@@ -114,10 +127,14 @@ String safeName(String s, {int length = 150}) {
   return e.substring(0, e.length > length ? length : e.length);
 }
 
-DateTime mostRecentMonday({DateTime? date , int addDays = 0}) {
+DateTime mostRecentMonday({DateTime? date, int addDays = 0}) {
   date ??= DateTime.now();
 
-  return DateTime(date.year, date.month, date.day - (date.weekday - 1) + addDays);
+  return DateTime(
+    date.year,
+    date.month,
+    date.day - (date.weekday - 1) + addDays,
+  );
 }
 
 DateTime mostRecentMonth({DateTime? date, int addMonths = 0}) {

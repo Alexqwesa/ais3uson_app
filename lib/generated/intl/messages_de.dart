@@ -39,8 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear": MessageLookupByLibrary.simpleMessage("löschen"),
         "dark": MessageLookupByLibrary.simpleMessage("dunkel"),
         "data": MessageLookupByLibrary.simpleMessage("Daten: "),
-        "deleteDep":
-            MessageLookupByLibrary.simpleMessage("Abteilung löschende"),
+        "deleteDep": MessageLookupByLibrary.simpleMessage("Abteilung löschen"),
         "depList":
             MessageLookupByLibrary.simpleMessage("Liste der Abteilungen"),
         "detailed": MessageLookupByLibrary.simpleMessage("Eingehend"),
@@ -49,6 +48,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche \'Aktualisieren\'. "),
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
+        "exportLastMonth": MessageLookupByLibrary.simpleMessage(
+            "Machen der export aus letzte Monat"),
+        "exportLastWeek": MessageLookupByLibrary.simpleMessage(
+            "Machen der export aus letzte Woche"),
+        "exportThisMonth": MessageLookupByLibrary.simpleMessage(
+            "Machen der Export aus diese Monat"),
+        "exportThisWeek": MessageLookupByLibrary.simpleMessage(
+            "Machen der Export aus diese Woche"),
+        "fileSavedTo":
+            MessageLookupByLibrary.simpleMessage("Datei gespeichert in: "),
         "flashLight": MessageLookupByLibrary.simpleMessage("Blitz"),
         "httpAccessError": MessageLookupByLibrary.simpleMessage(
             "Fehler: Serverzugriffsfehler!"),
