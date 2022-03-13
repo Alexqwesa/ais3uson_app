@@ -72,40 +72,17 @@
   &#47;&#47;
   &#47;&#47; &gt; create new path
   &#47;&#47;
-  Directory appDocDir;
-  try {
-    appDocDir = Directory(
-      &#39;${(await getApplicationDocumentsDirectory()).path}&#47;Ais3uson&#39;,
-    );
-    if (!appDocDir.existsSync()) {
-      appDocDir.createSync(recursive: true);
-    }
-  } on MissingPlatformDirectoryException {
-    log.severe(&#39;Can not find folder&#39;);
-
-    return;
-  } on MissingPluginException {
-    log.severe(&#39;Can not find plugin&#39;);
-
-    return;
-  }
-  &#47;&#47;
-  &#47;&#47; &gt; create path without special characters
-  &#47;&#47;
-  const regex = r&#39;[^\p{Alphabetic}\p{Decimal_Number}_ .\s]+&#39;;
-  final newPath = Directory([
-    appDocDir.path,
-    ...[
+  final safePath = await getSafePath(
+    [
       &#39;${workerId}_$worker&#39;,
       &#39;${contractId}_$client&#39;,
       &#39;${date}_&#39;,
       &#39;${serviceId}_$service&#39;,
       &#39;group_${i}_&#39;,
-    ]
-        .map((e) =&gt; e.replaceAll(RegExp(regex, unicode: true), &#39;&#39;))
-        .map((e) =&gt; e.substring(0, e.length &gt; 150 ? 150 : e.length)),
-  ].reduce(path.join));
-  await newPath.create(recursive: true);
+    ],
+  );
+  if (safePath == null) return;
+  final newPath = Directory(safePath)..createSync(recursive: true);
   &#47;&#47;
   &#47;&#47; &gt; move file to group path
   &#47;&#47;

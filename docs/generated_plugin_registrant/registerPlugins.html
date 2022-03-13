@@ -65,7 +65,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void registerPlugins(Registrar registrar) {
   CameraPlugin.registerWith(registrar);
+  SharePlusPlugin.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
+  UrlLauncherPlugin.registerWith(registrar);
   VideoPlayerPlugin.registerWith(registrar);
   WakelockWeb.registerWith(registrar);
   registrar.registerMessageHandler();
