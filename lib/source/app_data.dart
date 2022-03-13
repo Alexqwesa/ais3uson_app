@@ -42,7 +42,7 @@ class AppData with ChangeNotifier {
 
   http.Client httpClient = http.Client();
 
-  int hiveArchiveLimit = 1000;
+  int hiveArchiveLimit = 3000;  // maybe use months?
 
   /// Dates which have archived services
   Set<DateTime> datesInArchive = <DateTime>{};

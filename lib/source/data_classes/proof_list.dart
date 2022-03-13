@@ -3,12 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
@@ -135,40 +133,17 @@ class ProofList with ChangeNotifier {
     //
     // > create new path
     //
-    Directory appDocDir;
-    try {
-      appDocDir = Directory(
-        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
-      );
-      if (!appDocDir.existsSync()) {
-        appDocDir.createSync(recursive: true);
-      }
-    } on MissingPlatformDirectoryException {
-      log.severe('Can not find folder');
-
-      return;
-    } on MissingPluginException {
-      log.severe('Can not find plugin');
-
-      return;
-    }
-    //
-    // > create path without special characters
-    //
-    const regex = r'[^\p{Alphabetic}\p{Decimal_Number}_ .\s]+';
-    final newPath = Directory([
-      appDocDir.path,
-      ...[
+    final safePath = await getSafePath(
+      [
         '${workerId}_$worker',
         '${contractId}_$client',
         '${date}_',
         '${serviceId}_$service',
         'group_${i}_',
-      ]
-          .map((e) => e.replaceAll(RegExp(regex, unicode: true), ''))
-          .map((e) => e.substring(0, e.length > 150 ? 150 : e.length)),
-    ].reduce(path.join));
-    await newPath.create(recursive: true);
+      ],
+    );
+    if (safePath == null) return;
+    final newPath = Directory(safePath)..createSync(recursive: true);
     //
     // > move file to group path
     //

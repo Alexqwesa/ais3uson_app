@@ -261,7 +261,7 @@ void main() {
       final wKey = wKeysData2();
       expect(wKey, isA<WorkerKey>());
       await AppData.instance.addProfileFromKey(wKey);
-      // add servcies
+      // add services
       final client = AppData.instance.profiles.first.clients.first;
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
@@ -284,7 +284,7 @@ void main() {
       final wKey = wKeysData2();
       expect(wKey, isA<WorkerKey>());
       await AppData.instance.addProfileFromKey(wKey);
-      // add servcies
+      // add services
       final client = AppData.instance.profiles.first.clients.first;
       final client2 = AppData.instance.profiles.first.clients[2];
       final service3 = client.services[3];
@@ -305,7 +305,7 @@ void main() {
         final wKey = wKeysData2();
         expect(wKey, isA<WorkerKey>());
         await AppData.instance.addProfileFromKey(wKey);
-        // add servcies
+        // add services
         final client = AppData.instance.profiles.first.clients.first;
         final service3 = client.services[3];
         const servNum = 10;

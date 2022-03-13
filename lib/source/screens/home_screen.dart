@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          S.of(context).theme                         ,
+                          S.of(context).theme,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),

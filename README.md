@@ -120,10 +120,14 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] add server tests
 - [ ] use badges
 - [ ] tutorial
-- [ ] translations - in progress
+- [ ] translations - mostly done (en/ru/de)
 - [ ] split AppData?
 - [ ] настраиваемый размер карточек услуг
 - [ ] use bloc/getx/get_it/...
+- [ ] get list of revoked services by date from server
+- [ ] get list of date/money/services count from server for month, if some day disagree with local data - 
+get list of services by date from server?
+
 
 ## Разработчики
 

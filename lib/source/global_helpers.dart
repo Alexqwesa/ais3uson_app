@@ -1,9 +1,14 @@
 import 'dart:developer' as dev;
+import 'dart:io';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 //
@@ -68,4 +73,55 @@ void showErrorNotification(String text) {
   } catch (e) {
     dev.log(e.toString());
   }
+}
+
+/// Return string - new path with only safe characters in DocumentsDirectory.
+///
+/// It join all subFolders into path string and make safety checks.
+/// If file plugin or DocumentsDirectory didn't exist - return null.
+Future<String?> getSafePath(List<String> subFolders) async {
+  Directory appDocDir;
+  try {
+    appDocDir = Directory(
+      '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
+    );
+    if (!appDocDir.existsSync()) {
+      appDocDir.createSync(recursive: true);
+    }
+  } on MissingPlatformDirectoryException {
+    log.severe('Can not find folder');
+
+    return null;
+  } on MissingPluginException {
+    log.severe('Can not find plugin');
+
+    return null;
+  }
+  //
+  // > create path without special characters
+  //
+
+  return [
+    appDocDir.path,
+    ...subFolders.map(safeName),
+  ].reduce(path.join);
+}
+
+String safeName(String s, {int length = 150}) {
+  const regex = r'[^\p{Alphabetic}\p{Decimal_Number}_ .\s]+';
+  final e = s.replaceAll(RegExp(regex, unicode: true), '');
+
+  return e.substring(0, e.length > length ? length : e.length);
+}
+
+DateTime mostRecentMonday({DateTime? date , int addDays = 0}) {
+  date ??= DateTime.now();
+
+  return DateTime(date.year, date.month, date.day - (date.weekday - 1) + addDays);
+}
+
+DateTime mostRecentMonth({DateTime? date, int addMonths = 0}) {
+  date ??= DateTime.now();
+
+  return DateTime(date.year, date.month + addMonths);
 }
