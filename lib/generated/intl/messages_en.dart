@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDepFromText":
             MessageLookupByLibrary.simpleMessage("Add department from text"),
         "archive": MessageLookupByLibrary.simpleMessage("Archive"),
+        "archiveAt": MessageLookupByLibrary.simpleMessage("Archive at: "),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
             "Are you sure that you want to delete department: "),
         "authorizePlease": MessageLookupByLibrary.simpleMessage(

@@ -80,10 +80,10 @@ class S {
     );
   }
 
-  /// `Удаление отделения`
+  /// `Удалить отделение`
   String get deleteDep {
     return Intl.message(
-      'Удаление отделения',
+      'Удалить отделение',
       name: 'deleteDep',
       desc: '',
       args: [],
@@ -145,6 +145,16 @@ class S {
     return Intl.message(
       'Архив ввода услуг',
       name: 'archive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Архив на: `
+  String get archiveAt {
+    return Intl.message(
+      'Архив на: ',
+      name: 'archiveAt',
       desc: '',
       args: [],
     );

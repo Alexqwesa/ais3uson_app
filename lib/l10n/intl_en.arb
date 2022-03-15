@@ -10,6 +10,7 @@
   "light": "Light",
   "dark": "Dark",
   "archive": "Archive",
+  "archiveAt": "Archive at: ",
   "depList": "List of departments",
   "searchQR": "searching QR...",
   "data": "Data: ",

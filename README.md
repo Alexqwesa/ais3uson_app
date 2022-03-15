@@ -95,6 +95,7 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 
 ## TODO:
 
+- [ ] услуги списком с разделителем по дням
 - [ ] услуги по типам
 - [ ] индикатор обновления?
 - [ ] Резервный способ сбора и хранения услуг (на случай недоступности mysql сервера), shadow
@@ -125,7 +126,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] tutorial
 - [ ] translations - mostly done (en/ru/de)
 - [ ] split AppData?
-- [ ] настраиваемый размер карточек услуг
 - [ ] use bloc/getx/get_it/...
 - [ ] get list of revoked services by date from server
 - [ ] get list of date/money/services count from server for month, if some day disagree with local data - 

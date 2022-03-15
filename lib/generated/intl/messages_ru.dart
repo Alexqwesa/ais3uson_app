@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Добавить отделение из строки текста"),
         "archive": MessageLookupByLibrary.simpleMessage("Архив ввода услуг"),
+        "archiveAt": MessageLookupByLibrary.simpleMessage("Архив на: "),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
             "Вы уверены что хотите удалить отделение: "),
         "authorizePlease": MessageLookupByLibrary.simpleMessage(
@@ -39,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear": MessageLookupByLibrary.simpleMessage("Очистить"),
         "dark": MessageLookupByLibrary.simpleMessage("Темная"),
         "data": MessageLookupByLibrary.simpleMessage("Данные: "),
-        "deleteDep": MessageLookupByLibrary.simpleMessage("Удаление отделения"),
+        "deleteDep": MessageLookupByLibrary.simpleMessage("Удалить отделение"),
         "depList": MessageLookupByLibrary.simpleMessage("Список отделений"),
         "detailed": MessageLookupByLibrary.simpleMessage("Подбробно"),
         "emptyDepList":

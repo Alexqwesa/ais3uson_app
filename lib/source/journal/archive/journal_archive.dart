@@ -50,6 +50,12 @@ class JournalArchive extends Journal {
 
   /// This method of base class is stubbed.
   @override
+  Future<void> delete({ServiceOfJournal? serv, String? uuid}) async {
+    return; // stub
+  }
+
+  /// This method of base class is stubbed.
+  @override
   Future<void> updateBasedOnNewPlanDate() async {
     return; // stub
   }
