@@ -133,7 +133,7 @@ Widget build(BuildContext context) {
                     icon: const Icon(Icons.cancel_outlined),
                   ),
                   Text(
-                    &#39;Архив на: ${standardFormat.format(AppData.instance.archiveDate)}&#39;,
+                    &#39;${locator&lt;S&gt;().archiveAt} ${standardFormat.format(AppData.instance.archiveDate)}&#39;,
                   ),
                 ],
               ),
@@ -144,20 +144,14 @@ Widget build(BuildContext context) {
                     return IconButton(
                       icon: const Icon(Icons.date_range),
                       onPressed: () async {
-                        final datesInArchive =
-                            AppData.instance.datesInArchive;
+                        final datesInArchive = AppData.instance.datesInArchive
+                            .toList(growable: true);
                         AppData.instance.archiveDate = await showDatePicker(
                           context: context,
                           selectableDayPredicate: datesInArchive.contains,
-                          initialDate: AppData.instance.archiveDate,
-                          lastDate: datesInArchive.reduce(
-                            (value, element) =&gt;
-                                value.isAfter(element) ? value : element,
-                          ),
-                          firstDate: datesInArchive.reduce(
-                            (value, element) =&gt;
-                                value.isBefore(element) ? value : element,
-                          ),
+                          initialDate: datesInArchive.last,
+                          lastDate: datesInArchive.last,
+                          firstDate: datesInArchive.first,
                         );
                       },
                     );
