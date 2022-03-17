@@ -22,11 +22,14 @@ import 'package:flutter/material.dart';
 /// {@category Data_Classes}
 // ignore: prefer_mixin
 class ClientService with ChangeNotifier {
-  late final ServiceEntry service;
-  late final ClientPlan planned;
+  final ServiceEntry service;
+  final ClientPlan planned;
 
   /// Reference to existed journal
-  late final Journal journal;
+  final Journal journal;
+
+  /// [ProofList] of this service at current date.
+  late final ProofList _proofList;
 
   String get apiKey => journal.apiKey;
 
@@ -94,35 +97,32 @@ class ClientService with ChangeNotifier {
   List<int> get listDoneProgressError => <int>[done, added, rejected];
 
   ProofList get proofList {
-    if (_proofList != null) {
-      return _proofList!;
+    if (_proofList.inited) {
+      return _proofList;
     } else {
-      _proofList = ProofList(
-        workerDepId,
-        contractId,
-        standardFormat.format(DateTime.now()),
-        servId,
-        client: client.name,
-        worker: journal.workerProfile.name,
-        service: service.shortText,
-      );
-      _proofList!.crawler();
+      _proofList.crawler();
 
-      return _proofList!;
+      return _proofList;
     }
   }
 
   ClientProfile get client => journal.workerProfile.clients
       .firstWhere((element) => element.contractId == contractId);
 
-  /// [ProofList] of this service at current date.
-  ProofList? _proofList;
-
   ClientService({
     required this.journal,
     required this.service,
     required this.planned,
   }) {
+    _proofList = ProofList(
+      workerDepId,
+      contractId,
+      standardFormat.format(DateTime.now()),
+      servId,
+      client: client.name,
+      worker: journal.workerProfile.name,
+      service: service.shortText,
+    );
     journal.addListener(notifyListeners);
   }
 
@@ -160,5 +160,17 @@ class ClientService with ChangeNotifier {
 
     await journal.delete(uuid: uuid);
     notifyListeners();
+  }
+
+  ClientService copyWith({
+    Journal? newJournal,
+    ServiceEntry? serv,
+    ClientPlan? plan, // ProofList proofList
+  }) {
+    return ClientService(
+      journal: newJournal ?? journal,
+      planned: plan ?? planned,
+      service: serv ?? service,
+    );
   }
 }

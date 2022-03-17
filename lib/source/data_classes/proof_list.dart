@@ -30,6 +30,8 @@ class ProofList with ChangeNotifier {
 
   List<ProofGroup> proofGroups = [];
 
+  bool inited = false;
+
   ProofList(
     this.workerId,
     this.contractId,
@@ -45,6 +47,7 @@ class ProofList with ChangeNotifier {
   /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_classes/proof_list.png)
   // ignore: long-method
   Future<void> crawler() async {
+    inited = true;
     Directory appDocDir;
     try {
       appDocDir = Directory(
