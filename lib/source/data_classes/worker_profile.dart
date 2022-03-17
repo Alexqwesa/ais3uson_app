@@ -34,6 +34,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final WorkerKey key;
   late final Journal journal;
+  late final JournalArchive fullArchive;
   late final String name;
 
   @override
@@ -80,7 +81,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     name = key.name;
     journal =
         archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
-
+    fullArchive = JournalArchive(this, null);
     try {
       if (key.certBase64.isNotEmpty) {
         final context = SecurityContext()
@@ -100,7 +101,9 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       dev.log('!!!!Bad certificate');
-      showErrorNotification('Ошибка! Не удалось добавить сертификат отделения!');
+      showErrorNotification(
+        'Ошибка! Не удалось добавить сертификат отделения!',
+      );
     }
   }
 
@@ -256,6 +259,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     await journal.postInit();
     await Hive.openBox<dynamic>(hiveName);
     final plannedUpdate = DateTime.now().add(const Duration(hours: -2));
+    // todo: rework it
     if ((await servicesSyncDate()).isBefore(plannedUpdate)) {
       if (_services.isEmpty) {
         await syncHiveServices();

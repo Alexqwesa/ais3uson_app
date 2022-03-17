@@ -89,24 +89,12 @@ class Journal with ChangeNotifier {
 
   Future<void> postInit() async {
     hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
-    hive.values.forEach((element) {
-      switch (element.state) {
-        case ServiceState.added:
-          added.add(element);
-          break;
-        case ServiceState.finished:
-          finished.add(element);
-          break;
-        case ServiceState.rejected:
-          rejected.add(element);
-          break;
-        case ServiceState.outDated:
-          outDated.add(element);
-          break;
-        default:
-          throw StateError('wrong ServiceState');
-      }
-    });
+    final groups =
+        groupBy<ServiceOfJournal, ServiceState>(hive.values, (e) => e.state);
+    added = groups[ServiceState.added] ?? [];
+    finished = groups[ServiceState.finished] ?? [];
+    rejected = groups[ServiceState.rejected] ?? [];
+    outDated = groups[ServiceState.outDated] ?? [];
     await archiveOldServices();
     notifyListeners();
   }
@@ -152,7 +140,6 @@ class Journal with ChangeNotifier {
         )
           ..setAttribute('download', fileName)
           ..click();
-
       }
     } else {
       File(filePath).writeAsStringSync(content);
