@@ -44,6 +44,8 @@
   "exportLastWeek": "Export last week",
   "exportThisMonth": "Export this month",
   "exportLastMonth": "Export last month",
-  "fileSavedTo": "File is saved to: "
+  "fileSavedTo": "File is saved to: ",
+  "errorService": "Error: Can not find this service ",
+  "listOfServicesByDays": "List of services by days"
 
 }

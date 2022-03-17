@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
+        "errorService": MessageLookupByLibrary.simpleMessage(
+            "Ошибка: не удается найти указанный сервис "),
         "exportLastMonth":
             MessageLookupByLibrary.simpleMessage("Экспорт предыдущего месяца"),
         "exportLastWeek":
@@ -65,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ошибка: нет соединения с интернетом!"),
         "light": MessageLookupByLibrary.simpleMessage("Светлая"),
         "list": MessageLookupByLibrary.simpleMessage("Список"),
+        "listOfServicesByDays":
+            MessageLookupByLibrary.simpleMessage("Список услуг по дням"),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Либо добавьте тестовое отделение из списка ниже:"),

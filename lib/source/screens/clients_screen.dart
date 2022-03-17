@@ -153,6 +153,35 @@ class ClientCardWidgetOfList extends StatelessWidget {
             ),
           ),
         ),
+        onLongPress: () async {
+          AppData.instance.lastClient = client;
+          await client.workerProfile.postInit();
+
+          await AppData.instance.setLastClient(client);
+          await client.workerProfile.fullArchive.postInit();
+          await client.workerProfile.postInit();
+          // Todo: rework it
+          await AppData.instance.setLastClient(client);
+          if (workerProfile.services.isEmpty) {
+            await workerProfile.syncHiveServices();
+          }
+          if (workerProfile.clientPlan.isEmpty) {
+            await workerProfile.syncHivePlanned();
+          }
+          final clientProfile = client;
+          if (clientProfile.services.isEmpty) {
+            await clientProfile.updateServices();
+          }
+          // ignore: use_build_context_synchronously
+          unawaited(Navigator.pushNamed(
+            context,
+            '/client_journal',
+            arguments: ScreenArguments(
+              profile: client.workerProfile.index,
+              contract: client.contractId,
+            ),
+          ));
+        },
         onTap: () async {
           AppData.instance.lastClient = client;
           unawaited(Navigator.pushNamed(
@@ -163,6 +192,7 @@ class ClientCardWidgetOfList extends StatelessWidget {
               contract: client.contractId,
             ),
           ));
+          // Todo: rework it
           await AppData.instance.setLastClient(client);
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();

@@ -40,10 +40,12 @@
   "list": "Liste",
   "small": "Klein",
   "exportThisWeek": "Machen der Export aus diese Woche",
-  "exportLastWeek": "Machen der export aus letzte Woche",
+  "exportLastWeek": "Machen der Export aus letzte Woche", 
   "exportThisMonth": "Machen der Export aus diese Monat",
-  "exportLastMonth": "Machen der export aus letzte Monat",
-  "fileSavedTo": "Datei gespeichert in: "
+  "exportLastMonth": "Machen der Export aus letzte Monat",
+  "fileSavedTo": "Datei gespeichert in: ",
+  "errorService": "Fehler: der angegebene Dienst kann nicht gefunden werden ",
+  "listOfServicesByDays": "Liste der Dienste nach Tagen"
 
 
 }

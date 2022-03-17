@@ -11,6 +11,7 @@ import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/qr_scan_sreen.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/confirmation_for_list_of_services.dart';
 import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/foundation.dart';
@@ -182,6 +183,7 @@ class MainMaterialApp extends StatelessWidget {
             //
             initialRoute: '/',
             routes: {
+              '/client_journal': (context) => ConfirmationForListOfServices(),
               '/add_department': (context) => AddDepartmentScreen(),
               '/client_services': (context) => ClientServicesListScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),

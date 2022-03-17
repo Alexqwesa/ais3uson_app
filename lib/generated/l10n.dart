@@ -489,6 +489,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Ошибка: не удается найти указанный сервис `
+  String get errorService {
+    return Intl.message(
+      'Ошибка: не удается найти указанный сервис ',
+      name: 'errorService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Список услуг по дням`
+  String get listOfServicesByDays {
+    return Intl.message(
+      'Список услуг по дням',
+      name: 'listOfServicesByDays',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

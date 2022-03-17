@@ -43,5 +43,7 @@
   "exportLastWeek": "Экспорт предыдущей недели",
   "exportThisMonth": "Экспорт этого месяца",
   "exportLastMonth": "Экспорт предыдущего месяца",
-  "fileSavedTo": "Файл сохранен в: "
+  "fileSavedTo": "Файл сохранен в: ",
+  "errorService": "Ошибка: не удается найти указанный сервис ",
+  "listOfServicesByDays": "Список услуг по дням"
 }

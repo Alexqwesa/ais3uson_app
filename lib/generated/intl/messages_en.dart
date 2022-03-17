@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "List of clients is empty, \n\n please ask your manager to add people into your list \n\n then click on refresh button."),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorService": MessageLookupByLibrary.simpleMessage(
+            "Error: Can not find this service "),
         "exportLastMonth":
             MessageLookupByLibrary.simpleMessage("Export last month"),
         "exportLastWeek":
@@ -65,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error: no Internet connection!"),
         "light": MessageLookupByLibrary.simpleMessage("Light"),
         "list": MessageLookupByLibrary.simpleMessage("List"),
+        "listOfServicesByDays":
+            MessageLookupByLibrary.simpleMessage("List of services by days"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Or add example department from list:"),

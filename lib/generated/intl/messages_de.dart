@@ -49,10 +49,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche \'Aktualisieren\'. "),
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
+        "errorService": MessageLookupByLibrary.simpleMessage(
+            "Fehler: der angegebene Dienst kann nicht gefunden werden "),
         "exportLastMonth": MessageLookupByLibrary.simpleMessage(
-            "Machen der export aus letzte Monat"),
+            "Machen der Export aus letzte Monat"),
         "exportLastWeek": MessageLookupByLibrary.simpleMessage(
-            "Machen der export aus letzte Woche"),
+            "Machen der Export aus letzte Woche"),
         "exportThisMonth": MessageLookupByLibrary.simpleMessage(
             "Machen der Export aus diese Monat"),
         "exportThisWeek": MessageLookupByLibrary.simpleMessage(
@@ -66,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fehler: keine Internetverbindung!"),
         "light": MessageLookupByLibrary.simpleMessage("hell"),
         "list": MessageLookupByLibrary.simpleMessage("Liste"),
+        "listOfServicesByDays": MessageLookupByLibrary.simpleMessage(
+            "Liste der Dienste nach Tagen"),
         "loading": MessageLookupByLibrary.simpleMessage("Laden..."),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Oder Beispielabteilung aus Liste hinzufügen: "),
