@@ -66,14 +66,14 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">ThemeMode current() {
   if (themeIndex == -1) {
-    if (AppData.instance.prefs != null) {
-      themeIndex = AppData.instance.prefs!.getInt(&#39;themeIndex&#39;) ?? 0;
+    if (locator&lt;AppData&gt;().prefs != null) {
+      themeIndex = locator&lt;AppData&gt;().prefs!.getInt(&#39;themeIndex&#39;) ?? 0;
     } else {
       () async {
-        AppData.instance.prefs = await SharedPreferences.getInstance();
+        locator&lt;AppData&gt;().prefs = await SharedPreferences.getInstance();
       }()
           .then((value) {
-        changeIndex(AppData.instance.prefs!.getInt(&#39;themeIndex&#39;) ?? 0);
+        changeIndex(locator&lt;AppData&gt;().prefs!.getInt(&#39;themeIndex&#39;) ?? 0);
       });
     }
   }
@@ -149,7 +149,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

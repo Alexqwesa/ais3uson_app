@@ -108,7 +108,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return ChangeNotifierProvider.value(
-    value: AppData.instance.standardTheme,
+    value: locator&lt;AppData&gt;().standardTheme,
     child: Consumer&lt;StandardTheme&gt;(
       builder: (context, data, child) {
         return MaterialApp(
@@ -128,12 +128,13 @@ Widget build(BuildContext context) {
           &#47;&#47;
           theme: StandardTheme.light(),
           darkTheme: StandardTheme.dark(),
-          themeMode: AppData.instance.standardTheme.current(),
+          themeMode: locator&lt;AppData&gt;().standardTheme.current(),
           &#47;&#47;
           &#47;&#47; &gt; routes
           &#47;&#47;
           initialRoute: &#39;&#47;&#39;,
           routes: {
+            &#39;&#47;client_journal&#39;: (context) =&gt; ConfirmationForListOfServices(),
             &#39;&#47;add_department&#39;: (context) =&gt; AddDepartmentScreen(),
             &#39;&#47;client_services&#39;: (context) =&gt; ClientServicesListScreen(),
             &#39;&#47;settings&#39;: &#47;*    *&#47; (context) =&gt; const SettingsScreen(),
@@ -215,7 +216,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

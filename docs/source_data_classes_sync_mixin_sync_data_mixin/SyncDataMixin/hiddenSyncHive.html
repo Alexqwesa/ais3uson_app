@@ -93,7 +93,7 @@ and call <a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataM
   &#47;&#47;
   final url = Uri.parse(urlAddress);
   try {
-    var client = AppData().httpClient;
+    var client = locator&lt;AppData&gt;().httpClient;
     http.Response response;
     if (sslClient != null) {
       client = IOClient(sslClient);
@@ -188,7 +188,7 @@ and call <a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataM
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

@@ -70,7 +70,7 @@
 }) : super(key: key) {
   client = clientProfile != null
       ? Future(() async =&gt; clientProfile)
-      : AppData.instance.getLastClient();
+      : locator&lt;AppData&gt;().getLastClient();
 }</code></pre>
 </section>
 
@@ -137,7 +137,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

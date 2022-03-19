@@ -94,7 +94,7 @@ Only <a href="../../source_app_data/AppData/hiveArchiveLimit.html">AppData.hiveA
     final archList = hiveArchive.values.toList()
       ..sort((a, b) =&gt; a.provDate.compareTo(b.provDate))
       ..reversed;
-    final hiveArchiveLimit = AppData().hiveArchiveLimit;
+    final hiveArchiveLimit = locator&lt;AppData&gt;().hiveArchiveLimit;
     if (hiveArchive.length &gt; hiveArchiveLimit) {
       await hiveArchive.deleteAll(
         archList.slice(hiveArchiveLimit).map&lt;dynamic&gt;((e) =&gt; e.key),
@@ -109,11 +109,11 @@ Only <a href="../../source_app_data/AppData/hiveArchiveLimit.html">AppData.hiveA
         )
         .map((element) =&gt; element.provDate)
         .toList();
-    await AppData.instance.hiveData.put(
+    await locator&lt;AppData&gt;().hiveData.put(
       &#39;archiveDates_$apiKey&#39;,
       dateList,
     );
-    AppData.instance.datesInArchive.addAll(
+    locator&lt;AppData&gt;().datesInArchive.addAll(
       dateList.map((e) =&gt; DateTime(e.year, e.month, e.day)),
     );
     await hiveArchive.compact();
@@ -213,7 +213,7 @@ Only <a href="../../source_app_data/AppData/hiveArchiveLimit.html">AppData.hiveA
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

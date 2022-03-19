@@ -108,7 +108,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return SizedBox.fromSize(
-    size: AppData.instance.serviceCardSize(parentSize),
+    size: locator&lt;AppData&gt;().serviceCardSize(parentSize),
     child: Stack(
       children: [
         ChangeNotifierProvider.value(
@@ -131,17 +131,17 @@ Widget build(BuildContext context) {
                           &#47;&#47;
                           &#47;&#47; &gt; select view
                           &#47;&#47;
-                          if (AppData().serviceView == &#39;&#39;)
+                          if (locator&lt;AppData&gt;().serviceView == &#39;&#39;)
                             ServiceCardView(
                               service: service,
                               parentWidth: parentSize,
                             )
-                          else if (AppData().serviceView == &#39;tile&#39;)
+                          else if (locator&lt;AppData&gt;().serviceView == &#39;tile&#39;)
                             ServiceCardTileView(
                               service: service,
                               parentWidth: parentSize,
                             )
-                          else if (AppData().serviceView == &#39;square&#39;)
+                          else if (locator&lt;AppData&gt;().serviceView == &#39;square&#39;)
                             ServiceCardSquareView(
                               service: service,
                               parentWidth: parentSize,
@@ -247,7 +247,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

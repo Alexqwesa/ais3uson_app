@@ -68,10 +68,10 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; asyncDispose() async {
-  if (AppData().hiveData.isOpen) {
-    await AppData().hiveData.close();
+  if (locator&lt;AppData&gt;().hiveData.isOpen) {
+    await locator&lt;AppData&gt;().hiveData.close();
   }
-  await Future.wait(AppData().profiles.map((el) async {
+  await Future.wait(locator&lt;AppData&gt;().profiles.map((el) async {
     if (el.journal.hive.isOpen) {
       await el.journal.hive.close();
     }
@@ -174,7 +174,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   
