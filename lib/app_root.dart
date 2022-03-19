@@ -33,19 +33,19 @@ class _AppRootState extends State<AppRoot> {
   @override
   void initState() {
     super.initState();
-    AppData.instance.addListener(_standardListener);
+    locator<AppData>().addListener(_standardListener);
   }
 
   @override
   void dispose() {
-    AppData.instance.removeListener(_standardListener);
+    locator<AppData>().removeListener(_standardListener);
 
     return super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppData.instance.isArchive
+    return locator<AppData>().isArchive
         ? const ArchiveMaterialApp()
         : const MainMaterialApp();
   }
@@ -81,19 +81,19 @@ class ArchiveMaterialApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppData.instance.isArchive
+        appBar: locator<AppData>().isArchive
             ? AppBar(
                 title: Row(
                   children: [
                     IconButton(
                       onPressed: () {
-                        AppData.instance.isArchive =
-                            !AppData.instance.isArchive;
+                        locator<AppData>().isArchive =
+                            !locator<AppData>().isArchive;
                       },
                       icon: const Icon(Icons.cancel_outlined),
                     ),
                     Text(
-                      '${locator<S>().archiveAt} ${standardFormat.format(AppData.instance.archiveDate)}',
+                      '${locator<S>().archiveAt} ${standardFormat.format(locator<AppData>().archiveDate)}',
                     ),
                   ],
                 ),
@@ -104,9 +104,9 @@ class ArchiveMaterialApp extends StatelessWidget {
                       return IconButton(
                         icon: const Icon(Icons.date_range),
                         onPressed: () async {
-                          final datesInArchive = AppData.instance.datesInArchive
+                          final datesInArchive = locator<AppData>().datesInArchive
                               .toList(growable: true);
-                          AppData.instance.archiveDate = await showDatePicker(
+                          locator<AppData>().archiveDate = await showDatePicker(
                             context: context,
                             selectableDayPredicate: datesInArchive.contains,
                             initialDate: datesInArchive.last,
@@ -128,8 +128,8 @@ class ArchiveMaterialApp extends StatelessWidget {
               maxHeight: !kIsWeb && !Platform.isAndroid
                   ? null
                   : MediaQuery.of(context).size.height -
-                      (AppData.instance.isArchive
-                          ? kToolbarHeight // AppData.instance.windowTopPadding * 2
+                      (locator<AppData>().isArchive
+                          ? kToolbarHeight // locator<AppData>().windowTopPadding * 2
                           : 0),
               //
               // > main MaterialApp
@@ -157,7 +157,7 @@ class MainMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: AppData.instance.standardTheme,
+      value: locator<AppData>().standardTheme,
       child: Consumer<StandardTheme>(
         builder: (context, data, child) {
           return MaterialApp(
@@ -177,7 +177,7 @@ class MainMaterialApp extends StatelessWidget {
             //
             theme: StandardTheme.light(),
             darkTheme: StandardTheme.dark(),
-            themeMode: AppData.instance.standardTheme.current(),
+            themeMode: locator<AppData>().standardTheme.current(),
             //
             // > routes
             //

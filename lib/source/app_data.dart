@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:developer' as dev;
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
@@ -20,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:singleton/singleton.dart';
 
 /// Global singleton class.
 ///
@@ -135,19 +135,7 @@ class AppData with ChangeNotifier {
   /// Profiles list
   List<WorkerProfile> _profiles = [];
 
-  /// Factory to construct singleton.
-  factory AppData() {
-    try {
-      return Singleton.get<AppData>();
-      // ignore: avoid_catching_errors
-    } on UnimplementedError {
-      Singleton.register(AppData._internal());
-    }
-
-    return Singleton.get<AppData>();
-  }
-
-  AppData._internal();
+  AppData();
 
   @override
   void dispose() {
@@ -157,10 +145,10 @@ class AppData with ChangeNotifier {
 
   /// Wait till all Hive boxes are closed
   Future<void> asyncDispose() async {
-    if (AppData().hiveData.isOpen) {
-      await AppData().hiveData.close();
+    if (locator<AppData>().hiveData.isOpen) {
+      await locator<AppData>().hiveData.close();
     }
-    await Future.wait(AppData().profiles.map((el) async {
+    await Future.wait(locator<AppData>().profiles.map((el) async {
       if (el.journal.hive.isOpen) {
         await el.journal.hive.close();
       }
@@ -315,13 +303,13 @@ class AppData with ChangeNotifier {
   void profileDelete(int index) {
     hiveData
         .delete('archiveDates_${_profiles[index].apiKey}')
-        .then((value) => unawaited(AppData().save()));
+        .then((value) => unawaited(locator<AppData>().save()));
     unawaited(
       Hive.deleteBoxFromDisk('journal_archive_${_profiles[index].apiKey}'),
     );
     _profiles.removeAt(index);
     notifyListeners();
-    unawaited(AppData().save());
+    unawaited(locator<AppData>().save());
   }
 
   Future<ClientProfile?> getLastClient() async {

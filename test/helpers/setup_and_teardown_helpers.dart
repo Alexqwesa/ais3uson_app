@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +18,7 @@ Future<void> mySetUpAll() async {
   //
   // > httpClient setup
   //
-  AppData().httpClient = getMockHttpClient();
+  locator<AppData>().httpClient = getMockHttpClient();
 }
 
 // ignore: avoid-returning-widgets

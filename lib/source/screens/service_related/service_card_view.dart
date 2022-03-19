@@ -1,3 +1,4 @@
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
@@ -19,7 +20,7 @@ class ServiceCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceCardSize(parentWidth),
+      size: locator<AppData>().serviceCardSize(parentWidth),
       child: FittedBox(
         child: SizedBox(
           width: 205,
@@ -117,7 +118,7 @@ class ServiceCardSquareView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceCardSize(parentWidth),
+      size: locator<AppData>().serviceCardSize(parentWidth),
       child: FittedBox(
         child: SizedBox(
           width: 150,
@@ -196,7 +197,7 @@ class ServiceCardTileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceCardSize(parentWidth),
+      size: locator<AppData>().serviceCardSize(parentWidth),
       child: FittedBox(
         fit: BoxFit.fill,
         child: SizedBox(

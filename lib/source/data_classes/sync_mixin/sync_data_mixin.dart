@@ -71,7 +71,7 @@ mixin SyncDataMixin {
     //
     final url = Uri.parse(urlAddress);
     try {
-      var client = AppData().httpClient;
+      var client = locator<AppData>().httpClient;
       http.Response response;
       if (sslClient != null) {
         client = IOClient(sslClient);

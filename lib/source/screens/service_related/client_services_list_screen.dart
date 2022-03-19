@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
@@ -22,7 +23,7 @@ class ClientServicesListScreen extends StatefulWidget {
   }) : super(key: key) {
     client = clientProfile != null
         ? Future(() async => clientProfile)
-        : AppData.instance.getLastClient();
+        : locator<AppData>().getLastClient();
   }
 
   @override
@@ -91,7 +92,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                         onTap: () {
                           Navigator.pop(context, '');
                           setState(() {
-                            AppData.instance.serviceView = '';
+                            locator<AppData>().serviceView = '';
                           });
                         },
                       ),
@@ -103,7 +104,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                         onTap: () {
                           Navigator.pop(context, 'tile');
                           setState(() {
-                            AppData.instance.serviceView = 'tile';
+                            locator<AppData>().serviceView = 'tile';
                           });
                         },
                       ),
@@ -115,7 +116,7 @@ class _ClientServicesListScreenState extends State<ClientServicesListScreen> {
                         onTap: () {
                           Navigator.pop(context, 'square');
                           setState(() {
-                            AppData.instance.serviceView = 'square';
+                            locator<AppData>().serviceView = 'square';
                           });
                         },
                       ),

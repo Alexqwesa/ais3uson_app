@@ -16,7 +16,7 @@ class ConfirmationForListOfServices extends StatelessWidget {
   ConfirmationForListOfServices({
     Key? key,
   }) : super(key: key) {
-    _client = AppData.instance.lastClient;
+    _client = locator<AppData>().lastClient;
   }
 
   @override

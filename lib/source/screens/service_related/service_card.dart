@@ -1,3 +1,4 @@
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
@@ -24,7 +25,7 @@ class ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: AppData.instance.serviceCardSize(parentSize),
+      size: locator<AppData>().serviceCardSize(parentSize),
       child: Stack(
         children: [
           ChangeNotifierProvider.value(
@@ -47,17 +48,17 @@ class ServiceCard extends StatelessWidget {
                             //
                             // > select view
                             //
-                            if (AppData().serviceView == '')
+                            if (locator<AppData>().serviceView == '')
                               ServiceCardView(
                                 service: service,
                                 parentWidth: parentSize,
                               )
-                            else if (AppData().serviceView == 'tile')
+                            else if (locator<AppData>().serviceView == 'tile')
                               ServiceCardTileView(
                                 service: service,
                                 parentWidth: parentSize,
                               )
-                            else if (AppData().serviceView == 'square')
+                            else if (locator<AppData>().serviceView == 'square')
                               ServiceCardSquareView(
                                 service: service,
                                 parentWidth: parentSize,

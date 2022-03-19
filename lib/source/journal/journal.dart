@@ -257,7 +257,7 @@ class Journal with ChangeNotifier {
   /// {@category Network}
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
-    var http = AppData().httpClient;
+    var http = locator<AppData>().httpClient;
     var ret = ServiceState.added;
     try {
       Response response;
@@ -417,7 +417,7 @@ class Journal with ChangeNotifier {
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
-      final hiveArchiveLimit = AppData().hiveArchiveLimit;
+      final hiveArchiveLimit = locator<AppData>().hiveArchiveLimit;
       if (hiveArchive.length > hiveArchiveLimit) {
         await hiveArchive.deleteAll(
           archList.slice(hiveArchiveLimit).map<dynamic>((e) => e.key),
@@ -432,11 +432,11 @@ class Journal with ChangeNotifier {
           )
           .map((element) => element.provDate)
           .toList();
-      await AppData.instance.hiveData.put(
+      await locator<AppData>().hiveData.put(
         'archiveDates_$apiKey',
         dateList,
       );
-      AppData.instance.datesInArchive.addAll(
+      locator<AppData>().datesInArchive.addAll(
         dateList.map((e) => DateTime(e.year, e.month, e.day)),
       );
       await hiveArchive.compact();

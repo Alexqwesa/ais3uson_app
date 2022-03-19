@@ -52,7 +52,6 @@ dependencies:
   quiver: any
   share_plus: any
   shared_preferences: any
-  singleton: ^0.0.3-nullsafety
   surf_lint_rules: any
   synchronized: any
   toggle_switch: any

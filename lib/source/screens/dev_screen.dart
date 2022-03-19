@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -133,14 +134,14 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
       // > http
       //
       var url = Uri.parse(
-        'http://${AppData().profiles.first.key.activeHost}:${AppData().profiles.first.key.activePort}/stat',
+        'http://${locator<AppData>().profiles.first.key.activeHost}:${locator<AppData>().profiles.first.key.activePort}/stat',
       );
       _httpFuture = http.get(url);
       //
       // > https
       //
       url = Uri.parse(
-        'https://${AppData().profiles.first.key.activeHost}:${AppData().profiles.first.key.activePort}/stat',
+        'https://${locator<AppData>().profiles.first.key.activeHost}:${locator<AppData>().profiles.first.key.activePort}/stat',
       );
       _httpsFuture = http.get(url);
       setState(() {

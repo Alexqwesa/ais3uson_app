@@ -47,7 +47,7 @@ class ScreenArguments {
     profileNum = profile;
     contractId = contract ?? 0;
     servId = service ?? 0;
-    AppData().lastScreen = this;
+    locator<AppData>().lastScreen = this;
   }
 }
 

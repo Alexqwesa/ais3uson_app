@@ -1,6 +1,7 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
@@ -23,14 +24,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    AppData.instance.standardTheme.addListener(_standardListener);
-    AppData.instance.addListener(_standardListener);
+    locator<AppData>().standardTheme.addListener(_standardListener);
+    locator<AppData>().addListener(_standardListener);
   }
 
   @override
   void dispose() {
-    AppData.instance.removeListener(_standardListener);
-    AppData.instance.standardTheme.removeListener(_standardListener);
+    locator<AppData>().removeListener(_standardListener);
+    locator<AppData>().standardTheme.removeListener(_standardListener);
 
     return super.dispose();
   }
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       //
       // > drawer
       //
-      drawer: AppData.instance.isArchive
+      drawer: locator<AppData>().isArchive
           ? null
           : Drawer(
               child: ListView(
@@ -122,7 +123,8 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.archive),
                     title: Text(S.of(context).archive),
                     onTap: () {
-                      AppData.instance.isArchive = !AppData.instance.isArchive;
+                      locator<AppData>().isArchive =
+                          !locator<AppData>().isArchive;
                       Navigator.pop(context, 'archive');
                     },
                   ),
@@ -172,12 +174,12 @@ class _HomePageState extends State<HomePage> {
                         inactiveBgColor: const Color(0xffECEFF1),
                         inactiveFgColor: Colors.black,
                         initialLabelIndex:
-                            AppData.instance.standardTheme.themeIndex,
+                            locator<AppData>().standardTheme.themeIndex,
                         totalSwitches: 2,
                         labels: [S.of(context).light, S.of(context).dark],
                         radiusStyle: true,
                         onToggle: (index) {
-                          AppData.instance.standardTheme.changeIndex(index!);
+                          locator<AppData>().standardTheme.changeIndex(index!);
                         },
                       ),
                     ],
@@ -208,7 +210,7 @@ class _HomePageState extends State<HomePage> {
       //
       // > scan qr button
       //
-      floatingActionButton: AppData.instance.isArchive
+      floatingActionButton: locator<AppData>().isArchive
           ? null
           : FloatingActionButton(
               onPressed: () {

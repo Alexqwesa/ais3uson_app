@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:singleton/singleton.dart';
 
 import 'helpers/mock_server.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
@@ -22,28 +22,23 @@ final locator = GetIt.instance;
 
 void main() {
   tearDownAll(() async {
-    Singleton.resetAllForTest();
     await tearDownTestHive();
   });
   setUpAll(() async {
-    locator.registerLazySingleton<S>(() => S());
+    await init();
   });
   setUp(() async {
-    // Cleanup
-    Singleton.resetAllForTest();
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues({});
     // Hive setup
     await setUpTestHive();
     // init AppData
-    await AppData().postInit();
+    await locator<AppData>().postInit();
     // httpClient setup
-    AppData().httpClient = getMockHttpClient();
+    locator<AppData>().httpClient = getMockHttpClient();
   });
   tearDown(() async {
-    await AppData().asyncDispose();
-    AppData().dispose();
-    Singleton.resetAllForTest();
+    await locator.resetLazySingleton<AppData>();
     await tearDownTestHive();
   });
   testWidgets('listOfProfiles shows empty message', (tester) async {

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class DeleteDepartmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workerKeys = AppData().workerKeys.toList();
+    final workerKeys = locator<AppData>().workerKeys.toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -53,10 +54,10 @@ class DeleteDepartmentScreen extends StatelessWidget {
                   onTap: () async {
                     final result = await _showDialog(
                       context,
-                      AppData.instance.profiles[index].key.dep,
+                      locator<AppData>().profiles[index].key.dep,
                     );
                     if (result == 'delete') {
-                      AppData().profileDelete(index);
+                      locator<AppData>().profileDelete(index);
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context, 'delete');
                     }

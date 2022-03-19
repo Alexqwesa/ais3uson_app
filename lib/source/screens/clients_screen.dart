@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
@@ -22,7 +23,7 @@ class _ClientScreenState extends State<ClientScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: AppData.instance.getLastWorker(),
+      future: locator<AppData>().getLastWorker(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
@@ -154,14 +155,14 @@ class ClientCardWidgetOfList extends StatelessWidget {
           ),
         ),
         onLongPress: () async {
-          AppData.instance.lastClient = client;
+          locator<AppData>().lastClient = client;
           await client.workerProfile.postInit();
 
-          await AppData.instance.setLastClient(client);
+          await locator<AppData>().setLastClient(client);
           await client.workerProfile.fullArchive.postInit();
           await client.workerProfile.postInit();
           // Todo: rework it
-          await AppData.instance.setLastClient(client);
+          await locator<AppData>().setLastClient(client);
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();
           }
@@ -183,7 +184,7 @@ class ClientCardWidgetOfList extends StatelessWidget {
           ));
         },
         onTap: () async {
-          AppData.instance.lastClient = client;
+          locator<AppData>().lastClient = client;
           unawaited(Navigator.pushNamed(
             context,
             '/client_services',
@@ -193,7 +194,7 @@ class ClientCardWidgetOfList extends StatelessWidget {
             ),
           ));
           // Todo: rework it
-          await AppData.instance.setLastClient(client);
+          await locator<AppData>().setLastClient(client);
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();
           }

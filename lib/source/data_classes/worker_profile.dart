@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
@@ -46,7 +47,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
   List<ServiceEntry> get services => _services;
 
-  int get index => AppData.instance.profiles.indexOf(this);
+  int get index => locator<AppData>().profiles.indexOf(this);
 
   /// Store date and time of last sync for [_services].
   DateTime _servicesSyncDate = startDate;

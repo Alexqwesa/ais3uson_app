@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
@@ -200,7 +201,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         if (newKey.startsWith('http://')) {
                           newKey = newKey.substring(7, newKey.length);
                         }
-                        final res = await AppData().addProfileFromKey(
+                        final res = await locator<AppData>().addProfileFromKey(
                           WorkerKey.fromJson(json.decode(
                             newKey,
                           ) as Map<String, dynamic>),

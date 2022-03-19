@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
@@ -12,7 +13,6 @@ import 'package:hive_test/hive_test.dart';
 import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:singleton/singleton.dart';
 
 import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
 import 'helpers/mock_server.mocks.dart' as mock;
@@ -30,25 +30,23 @@ void main() {
   // > Setup
   //
   tearDownAll(() async {
-    Singleton.resetAllForTest();
     await tearDownTestHive();
   });
+  setUpAll(() async {
+    await init();
+  });
   setUp(() async {
-    // Cleanup
-    Singleton.resetAllForTest();
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues({});
     // Hive setup
     await setUpTestHive();
     // init AppData
-    await AppData().postInit();
+    await locator<AppData>().postInit();
     // httpClient setup
-    AppData().httpClient = getMockHttpClient();
+    locator<AppData>().httpClient = getMockHttpClient();
   });
   tearDown(() async {
-    await AppData().asyncDispose();
-    AppData().dispose();
-    Singleton.resetAllForTest();
+    await locator.resetLazySingleton<AppData>();
     await tearDownTestHive();
   });
   //
@@ -59,7 +57,7 @@ void main() {
       //
       // > prepare
       //
-      final httpClient = AppData().httpClient as mock.MockClient;
+      final httpClient = locator<AppData>().httpClient as mock.MockClient;
       final wp = WorkerProfile(wKeysData2());
       //
       // > configure addition successful
@@ -145,8 +143,8 @@ void main() {
       //
       // > init WorkerProfile and mock http
       //
-      final httpClient =
-          AppData().httpClient as mock.MockClient; // as MockHttpClientLibrary;
+      final httpClient = locator<AppData>().httpClient
+          as mock.MockClient; // as MockHttpClientLibrary;
       final wp = WorkerProfile(wKey);
       // delayed init, should look like values were loaded from hive
       when(ExtMock(httpClient).testReqPostAdd)
@@ -200,18 +198,18 @@ void main() {
       //
       // > init AppData
       //
-      await AppData.instance.addProfileFromKey(wKey);
+      await locator<AppData>().addProfileFromKey(wKey);
       //
       // > test what yesterday services are in archive
       //
       expect(
-        AppData.instance.profiles.first.journal.added.first.uid,
+        locator<AppData>().profiles.first.journal.added.first.uid,
         todayService.uid,
       );
       final hiveArchive = await Hive.openBox<ServiceOfJournal>(
-        'journal_archive_${AppData.instance.profiles.first.apiKey}',
+        'journal_archive_${locator<AppData>().profiles.first.apiKey}',
       );
-      expect(AppData.instance.profiles.first.journal.hive.values.length, 1);
+      expect(locator<AppData>().profiles.first.journal.hive.values.length, 1);
       expect(hiveArchive.length, 1);
     });
     test(
@@ -242,17 +240,20 @@ void main() {
         //
         // > AppData init
         //
-        await AppData.instance.postInit();
-        AppData().hiveArchiveLimit = 10;
-        await AppData.instance.addProfileFromKey(wKey);
+        await locator<AppData>().postInit();
+        locator<AppData>().hiveArchiveLimit = 10;
+        await locator<AppData>().addProfileFromKey(wKey);
         // await AppData.instance
         //
         // > test that yesterday services are in archive
         //
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
-          'journal_archive_${AppData.instance.profiles.first.apiKey}',
+          'journal_archive_${locator<AppData>().profiles.first.apiKey}',
         );
-        expect(AppData.instance.profiles.first.journal.hive.values.length, 20);
+        expect(
+          locator<AppData>().profiles.first.journal.hive.values.length,
+          20,
+        );
         expect(hiveArchive.length, 10);
       },
     );
@@ -260,9 +261,9 @@ void main() {
       // crete worker profile
       final wKey = wKeysData2();
       expect(wKey, isA<WorkerKey>());
-      await AppData.instance.addProfileFromKey(wKey);
+      await locator<AppData>().addProfileFromKey(wKey);
       // add services
-      final client = AppData.instance.profiles.first.clients.first;
+      final client = locator<AppData>().profiles.first.clients.first;
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
       await service3.add();
@@ -272,8 +273,8 @@ void main() {
       expect(service3.listDoneProgressError, [0, 3, 0]);
       await client.workerProfile.journal.commitAll();
       expect(service3.listDoneProgressError, [0, 3, 0]);
-      final httpClient =
-          AppData().httpClient as mock.MockClient; // as MockHttpClientLibrary;
+      final httpClient = locator<AppData>().httpClient
+          as mock.MockClient; // as MockHttpClientLibrary;
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await client.workerProfile.journal.commitAll();
@@ -283,10 +284,10 @@ void main() {
       // crete worker profile
       final wKey = wKeysData2();
       expect(wKey, isA<WorkerKey>());
-      await AppData.instance.addProfileFromKey(wKey);
+      await locator<AppData>().addProfileFromKey(wKey);
       // add services
-      final client = AppData.instance.profiles.first.clients.first;
-      final client2 = AppData.instance.profiles.first.clients[2];
+      final client = locator<AppData>().profiles.first.clients.first;
+      final client2 = locator<AppData>().profiles.first.clients[2];
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
       await service3.add();
@@ -299,14 +300,14 @@ void main() {
     test(
       'it add services and delete them in order: rejected->added->finished->outDated',
       () async {
-        final httpClient = AppData().httpClient as mock.MockClient;
+        final httpClient = locator<AppData>().httpClient as mock.MockClient;
         expect(verifyNever(ExtMock(httpClient).testReqPostAdd).callCount, 0);
         // crete worker profile
         final wKey = wKeysData2();
         expect(wKey, isA<WorkerKey>());
-        await AppData.instance.addProfileFromKey(wKey);
+        await locator<AppData>().addProfileFromKey(wKey);
         // add services
-        final client = AppData.instance.profiles.first.clients.first;
+        final client = locator<AppData>().profiles.first.clients.first;
         final service3 = client.services[3];
         const servNum = 10;
         for (var i = 0; i < servNum; i++) {

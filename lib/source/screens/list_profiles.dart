@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +25,13 @@ class _ListOfProfiles extends State<ListOfProfiles> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: AppData(),
+      value: locator<AppData>(),
       child: Consumer<AppData>(
         builder: (context, data, child) {
-          final workerKeys = context.select<AppData, List<WorkerKey>>(
-            (data) => data.workerKeys.toList(),
+          final _ = context.select<AppData, int>(
+            (data) => data.profiles.length,
           );
+          final workerKeys = locator<AppData>().workerKeys.toList();
 
           return workerKeys.isNotEmpty
               ? ContextMenuOverlay(
@@ -47,7 +48,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                           buttonConfigs: [
                             ContextMenuButtonConfig(
                               S.of(context).exportThisWeek,
-                              onPressed: () => AppData()
+                              onPressed: () => locator<AppData>()
                                   .profiles[index]
                                   .journal
                                   .exportToFile(
@@ -57,7 +58,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             ),
                             ContextMenuButtonConfig(
                               S.of(context).exportLastWeek,
-                              onPressed: () => AppData()
+                              onPressed: () => locator<AppData>()
                                   .profiles[index]
                                   .journal
                                   .exportToFile(
@@ -67,7 +68,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             ),
                             ContextMenuButtonConfig(
                               S.of(context).exportThisMonth,
-                              onPressed: () => AppData()
+                              onPressed: () => locator<AppData>()
                                   .profiles[index]
                                   .journal
                                   .exportToFile(
@@ -77,7 +78,7 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             ),
                             ContextMenuButtonConfig(
                               S.of(context).exportLastMonth,
-                              onPressed: () => AppData()
+                              onPressed: () => locator<AppData>()
                                   .profiles[index]
                                   .journal
                                   .exportToFile(
@@ -108,16 +109,20 @@ class _ListOfProfiles extends State<ListOfProfiles> {
                             // > onTap call
                             //
                             onTap: () {
-                              AppData.instance.setLastWorker(
-                                AppData().profiles[index],
+                              locator<AppData>().setLastWorker(
+                                locator<AppData>().profiles[index],
                               );
                               Navigator.pushNamed(
                                 context,
                                 '/department',
                                 arguments: ScreenArguments(profile: index),
                               );
-                              if (AppData().profiles[index].clients.isEmpty) {
-                                AppData.instance.profiles[index]
+                              if (locator<AppData>()
+                                  .profiles[index]
+                                  .clients
+                                  .isEmpty) {
+                                locator<AppData>()
+                                    .profiles[index]
                                     .syncHiveClients();
                               }
                             },

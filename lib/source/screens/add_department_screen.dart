@@ -93,7 +93,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                     try {
                                       Navigator.pop(context, 'added');
                                       final res =
-                                          await AppData().addProfileFromKey(
+                                          await locator<AppData>().addProfileFromKey(
                                         WorkerKey.fromJson(
                                           jsonDecode(
                                             controller.value.text
@@ -102,7 +102,7 @@ class AddDepartmentScreen extends StatelessWidget {
                                         ),
                                       );
                                       if (res) {
-                                        await AppData().save();
+                                        await locator<AppData>().save();
                                       } else {
                                         showErrorNotification(
                                           locator<S>().cantAddDepDuplicate,
@@ -176,10 +176,10 @@ class AddDepartmentScreen extends StatelessWidget {
                             //
                             onTap: () async {
                               Navigator.pop(context, 'added');
-                              final res = await AppData()
+                              final res = await locator<AppData>()
                                   .addProfileFromKey(workerKeys[index]);
                               if (res) {
-                                await AppData().save();
+                                await locator<AppData>().save();
                               } else {
                                 showErrorNotification(
                                   locator<S>().cantAddDepDuplicate,

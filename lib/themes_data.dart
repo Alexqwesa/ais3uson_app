@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -154,14 +155,14 @@ class StandardTheme with ChangeNotifier {
 
   ThemeMode current() {
     if (themeIndex == -1) {
-      if (AppData.instance.prefs != null) {
-        themeIndex = AppData.instance.prefs!.getInt('themeIndex') ?? 0;
+      if (locator<AppData>().prefs != null) {
+        themeIndex = locator<AppData>().prefs!.getInt('themeIndex') ?? 0;
       } else {
         () async {
-          AppData.instance.prefs = await SharedPreferences.getInstance();
+          locator<AppData>().prefs = await SharedPreferences.getInstance();
         }()
             .then((value) {
-          changeIndex(AppData.instance.prefs!.getInt('themeIndex') ?? 0);
+          changeIndex(locator<AppData>().prefs!.getInt('themeIndex') ?? 0);
         });
       }
     }
@@ -172,6 +173,6 @@ class StandardTheme with ChangeNotifier {
   void changeIndex(int index) {
     themeIndex = index;
     notifyListeners();
-    unawaited(AppData.instance.prefs!.setInt('themeIndex', themeIndex));
+    unawaited(locator<AppData>().prefs!.setInt('themeIndex', themeIndex));
   }
 }
