@@ -131,7 +131,7 @@ class DisplayPictureScreen extends StatelessWidget {
           tag: ValueKey(image.toString()),
           child: FittedBox(
             fit: BoxFit.cover,
-            child: image,
+            child: InteractiveViewer(child: image),
           ),
         ),
       ),
