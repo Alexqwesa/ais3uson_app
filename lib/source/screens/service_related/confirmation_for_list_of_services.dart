@@ -39,22 +39,21 @@ class ConfirmationForListOfServices extends StatelessWidget {
 
               return Wrap(
                 children: [
+                  TitleWidgetOfServicesGroup(
+                    service: all[0],
+                    client: _client!,
+                  ),
                   for (int index = 1; index < all.length; index++)
-                    index == 0
+                    standardFormat.format(all[index].provDate) !=
+                            standardFormat.format(all[index - 1].provDate)
                         ? TitleWidgetOfServicesGroup(
                             service: all[index],
                             client: _client!,
                           )
-                        : standardFormat.format(all[index].provDate) !=
-                                standardFormat.format(all[index - 1].provDate)
-                            ? TitleWidgetOfServicesGroup(
-                                service: all[index],
-                                client: _client!,
-                              )
-                            : TotalServiceTile(
-                                serviceOfJournal: all[index],
-                                client: _client!,
-                              ),
+                        : TotalServiceTile(
+                            serviceOfJournal: all[index],
+                            client: _client!,
+                          ),
                 ],
               );
             },
