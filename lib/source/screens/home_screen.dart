@@ -1,48 +1,29 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:ais3uson_app/generated/l10n.dart';
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/providers.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
+import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 /// Show screen with main menu and with list of [WorkerProfile].
 ///
 /// {@category WorkerProfiles}
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerWidget {
   final String title;
 
   const HomePage({required this.title, Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    locator<AppData>().standardTheme.addListener(_standardListener);
-    locator<AppData>().addListener(_standardListener);
-  }
-
-  @override
-  void dispose() {
-    locator<AppData>().removeListener(_standardListener);
-    locator<AppData>().standardTheme.removeListener(_standardListener);
-
-    return super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       //
       // > drawer
       //
-      drawer: locator<AppData>().isArchive
+      drawer: ref.watch(isArchive)
           ? null
           : Drawer(
               child: ListView(
@@ -123,8 +104,7 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.archive),
                     title: Text(S.of(context).archive),
                     onTap: () {
-                      locator<AppData>().isArchive =
-                          !locator<AppData>().isArchive;
+                      ref.read(isArchive.notifier).update((state) => !state);
                       Navigator.pop(context, 'archive');
                     },
                   ),
@@ -173,13 +153,16 @@ class _HomePageState extends State<HomePage> {
                         activeFgColor: Colors.white,
                         inactiveBgColor: const Color(0xffECEFF1),
                         inactiveFgColor: Colors.black,
-                        initialLabelIndex:
-                            locator<AppData>().standardTheme.themeIndex,
+                        initialLabelIndex: [ThemeMode.light, ThemeMode.dark]
+                            .indexOf(ref.watch(standardTheme)),
                         totalSwitches: 2,
                         labels: [S.of(context).light, S.of(context).dark],
                         radiusStyle: true,
                         onToggle: (index) {
-                          locator<AppData>().standardTheme.changeIndex(index!);
+                          ref.read(standardTheme.notifier).state = [
+                            ThemeMode.light,
+                            ThemeMode.dark,
+                          ].elementAt(index ?? 0);
                         },
                       ),
                     ],
@@ -191,7 +174,7 @@ class _HomePageState extends State<HomePage> {
       // appBar
       //
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       //
       // > body
@@ -210,7 +193,7 @@ class _HomePageState extends State<HomePage> {
       //
       // > scan qr button
       //
-      floatingActionButton: locator<AppData>().isArchive
+      floatingActionButton: ref.watch(isArchive)
           ? null
           : FloatingActionButton(
               onPressed: () {
@@ -223,11 +206,5 @@ class _HomePageState extends State<HomePage> {
               child: const Icon(Icons.add),
             ),
     );
-  }
-
-  void _standardListener() {
-    setState(() {
-      return;
-    });
   }
 }

@@ -66,7 +66,7 @@ A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexqwesa.github.io/web3uson/)
 ).
 
-<img  src="qr_web3uson.png">
+<img src="qr_web3uson.png">
 
 ## Реализованные возможности:
 

@@ -9,12 +9,13 @@ import 'dart:io';
 
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers.dart';
+import 'package:ais3uson_app/source/providers/dates_in_archive.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -257,7 +258,7 @@ class Journal with ChangeNotifier {
   /// {@category Network}
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
-    var http = locator<AppData>().httpClient;
+    var http = workerProfile.httpClient;
     var ret = ServiceState.added;
     try {
       Response response;
@@ -395,7 +396,7 @@ class Journal with ChangeNotifier {
   /// services which didn't committed yet(stale/rejected).
   ///
   /// Archive is only for committed services.
-  /// Only [AppData.hiveArchiveLimit] number of services could be stored in archive, most old will be deleted first.
+  /// Only hiveArchiveLimit number of services could be stored in archive, most old will be deleted first.
   Future<void> archiveOldServices() async {
     //
     // > open hive archive and add old services
@@ -411,34 +412,32 @@ class Journal with ChangeNotifier {
       //
       toDelete(forDelete);
       //
-      // > only [hiveArchiveLimit] number of services stored, delete most old and close
+      // > only [archiveLimit] number of services stored, delete most old and close
       //
       // todo: check if hiveArch always place new services last, in that case we can just use deleteAt()
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
-      final hiveArchiveLimit = locator<AppData>().hiveArchiveLimit;
-      if (hiveArchive.length > hiveArchiveLimit) {
+      final archiveLimit = workerProfile.ref.read(hiveArchiveLimit);
+      if (hiveArchive.length > archiveLimit) {
         await hiveArchive.deleteAll(
-          archList.slice(hiveArchiveLimit).map<dynamic>((e) => e.key),
+          archList.slice(archiveLimit).map<dynamic>((e) => e.key),
         );
       }
       final dateList = archList
           .slice(
             0,
-            hiveArchiveLimit < archList.length
-                ? hiveArchiveLimit
-                : archList.length,
+            archiveLimit < archList.length ? archiveLimit : archList.length,
           )
           .map((element) => element.provDate)
           .toList();
-      await locator<AppData>().hiveData.put(
-        'archiveDates_$apiKey',
-        dateList,
-      );
-      locator<AppData>().datesInArchive.addAll(
-        dateList.map((e) => DateTime(e.year, e.month, e.day)),
-      );
+       // workerProfile.ref.read(hiveDate).put(
+       //      'archiveDates_$apiKey',
+       //      dateList,
+       //    );
+      workerProfile.ref.read(innerDatesInArchive.notifier).addAll(
+            dateList.map((e) => DateTime(e.year, e.month, e.day)),
+          );
       await hiveArchive.compact();
       await hiveArchive.close();
     }

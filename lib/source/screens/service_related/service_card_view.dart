@@ -1,26 +1,26 @@
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/providers.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Displays text, icon, etc of [ClientService] - default view.
 ///
 /// {@category UIServices}
-class ServiceCardView extends StatelessWidget {
+class ServiceCardView extends ConsumerWidget {
   final ClientService service;
-  final Size parentWidth;
+  final Size parentSize;
 
   const ServiceCardView({
     required this.service,
-    required this.parentWidth,
+    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: locator<AppData>().serviceCardSize(parentWidth),
+      size: ref.watch(serviceCardSize(parentSize)),
       child: FittedBox(
         child: SizedBox(
           width: 205,
@@ -72,11 +72,13 @@ class ServiceCardView extends StatelessWidget {
                                     service.shortText,
                                     textScaleFactor: 1.1,
                                     textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.bodyText1,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                   child: Text(
                                     service.servTextAdd,
                                     softWrap: true,
@@ -105,20 +107,20 @@ class ServiceCardView extends StatelessWidget {
 /// Note: this view is broken, bug report: https://github.com/flutter/flutter/issues/98809
 ///
 /// {@category UIServices}
-class ServiceCardSquareView extends StatelessWidget {
+class ServiceCardSquareView extends ConsumerWidget {
   final ClientService service;
-  final Size parentWidth;
+  final Size parentSize;
 
   const ServiceCardSquareView({
     required this.service,
-    required this.parentWidth,
+    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: locator<AppData>().serviceCardSize(parentWidth),
+      size: ref.watch(serviceCardSize(parentSize)),
       child: FittedBox(
         child: SizedBox(
           width: 150,
@@ -184,20 +186,20 @@ class ServiceCardSquareView extends StatelessWidget {
 /// Displays text, icon, etc of [ClientService] - tile view.
 ///
 /// {@category UIServices}
-class ServiceCardTileView extends StatelessWidget {
+class ServiceCardTileView extends ConsumerWidget {
   final ClientService service;
-  final Size parentWidth;
+  final Size parentSize;
 
   const ServiceCardTileView({
     required this.service,
-    required this.parentWidth,
+    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: locator<AppData>().serviceCardSize(parentWidth),
+      size: ref.watch(serviceCardSize(parentSize)),
       child: FittedBox(
         fit: BoxFit.fill,
         child: SizedBox(

@@ -28,6 +28,7 @@ dependencies:
   dartdoc: ^5.0.1
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.0
   flutter_html: any
   flutter_intl: any
   flutter_localizations:
@@ -37,6 +38,7 @@ dependencies:
   google_fonts: any
   hive_flutter: any
   hive_generator: any
+  hooks_riverpod: ^2.0.0-dev.4
   http: any
   intl: any
   #  itertools: any

@@ -1,16 +1,22 @@
-import 'dart:async';
-
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Theme with support switching dark/light.
+/// Theme Provider with support switching dark/light.
 ///
+/// Read/save from/to SharedPreferences, had default preinitialized value.
+/// Depend on [locator]<SharedPreferences>.
 /// {@category Root}
-// ignore: prefer_mixin
-class StandardTheme with ChangeNotifier {
+final standardTheme =
+    StateNotifierProvider<StandardThemeState, ThemeMode>((ref) {
+  return StandardThemeState();
+});
+
+class StandardThemeState extends StateNotifier<ThemeMode> {
+  static const name = 'themeIndex';
+
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
       fontSize: 16.0,
@@ -97,8 +103,15 @@ class StandardTheme with ChangeNotifier {
     ),
   );
 
-  /// store theme state: light/dark
-  int themeIndex = -1;
+  @override
+  set state(ThemeMode value) {
+    super.state = value;
+    locator<SharedPreferences>().setInt(name, value == ThemeMode.light ? 0 : 1);
+  }
+
+  StandardThemeState()
+      : super([ThemeMode.light, ThemeMode.dark]
+            .elementAt(locator<SharedPreferences>().getInt(name) ?? 0));
 
   static ThemeData light() {
     return ThemeData(
@@ -151,28 +164,5 @@ class StandardTheme with ChangeNotifier {
       textTheme: darkTextTheme,
       colorScheme: const ColorScheme.dark().copyWith(secondary: Colors.blue),
     );
-  }
-
-  ThemeMode current() {
-    if (themeIndex == -1) {
-      if (locator<AppData>().prefs != null) {
-        themeIndex = locator<AppData>().prefs!.getInt('themeIndex') ?? 0;
-      } else {
-        () async {
-          locator<AppData>().prefs = await SharedPreferences.getInstance();
-        }()
-            .then((value) {
-          changeIndex(locator<AppData>().prefs!.getInt('themeIndex') ?? 0);
-        });
-      }
-    }
-
-    return themeIndex == 0 ? ThemeMode.light : ThemeMode.dark;
-  }
-
-  void changeIndex(int index) {
-    themeIndex = index;
-    notifyListeners();
-    unawaited(locator<AppData>().prefs!.setInt('themeIndex', themeIndex));
   }
 }

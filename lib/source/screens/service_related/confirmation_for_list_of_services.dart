@@ -1,39 +1,34 @@
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/providers/app_state.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart' show ConsumerWidget, WidgetRef;
 import 'package:provider/provider.dart';
 
-class ConfirmationForListOfServices extends StatelessWidget {
-  late final ClientProfile? _client;
-
-  ConfirmationForListOfServices({
+class ConfirmationForListOfServices extends ConsumerWidget {
+  const ConfirmationForListOfServices({
     Key? key,
-  }) : super(key: key) {
-    _client = locator<AppData>().lastClient;
-  }
+  }) : super(key: key) ;
 
   @override
-  Widget build(BuildContext context) {
-    if (_client == null) {
-      return Container(); // Todo:
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _client = ref.watch(lastClient);
 
     return ChangeNotifierProvider.value(
-      value: _client!.workerProfile.fullArchive,
+      value: _client.workerProfile.fullArchive,
       child: Scaffold(
         appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
         body: Center(
           child: Consumer<JournalArchive>(
             builder: (context, value, child) {
-              final all = _client!.workerProfile.fullArchive.all;
-              if (_client!.services.isEmpty) {
+              final all = _client.workerProfile.fullArchive.all;
+              if (_client.services.isEmpty) {
                 return Container(); // Todo:
               }
 
@@ -41,18 +36,18 @@ class ConfirmationForListOfServices extends StatelessWidget {
                 children: [
                   TitleWidgetOfServicesGroup(
                     service: all[0],
-                    client: _client!,
+                    client: _client,
                   ),
                   for (int index = 1; index < all.length; index++)
                     standardFormat.format(all[index].provDate) !=
                             standardFormat.format(all[index - 1].provDate)
                         ? TitleWidgetOfServicesGroup(
                             service: all[index],
-                            client: _client!,
+                            client: _client,
                           )
                         : TotalServiceTile(
                             serviceOfJournal: all[index],
-                            client: _client!,
+                            client: _client,
                           ),
                 ],
               );

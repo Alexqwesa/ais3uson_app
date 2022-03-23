@@ -1,27 +1,25 @@
-import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/generated/l10n.dart';
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
+import 'package:ais3uson_app/source/screens/add_department_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 /// Show screen where user scan QR code to add [WorkerProfile] from QR code.
 ///
 /// {@category WorkerProfiles}
-class QRScanScreen extends StatefulWidget {
+class QRScanScreen extends ConsumerStatefulWidget {
   const QRScanScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRScanScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _QRScanScreenState();
 }
 
-class _QRScanScreenState extends State<QRScanScreen> {
+class _QRScanScreenState extends ConsumerState<QRScanScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final foundWidgetKey = GlobalKey();
   Barcode? result;
@@ -182,7 +180,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 8, right: 8),
                     child: ElevatedButton(
-                      child:  Text(
+                      child: Text(
                         S.of(context).add,
                       ),
                       style: ButtonStyle(
@@ -191,7 +189,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         ),
                       ),
                       //
-                      // > add new key
+                      // > add new worker profile
                       //
                       onPressed: () async {
                         if (result == null) {
@@ -201,30 +199,20 @@ class _QRScanScreenState extends State<QRScanScreen> {
                         if (newKey.startsWith('http://')) {
                           newKey = newKey.substring(7, newKey.length);
                         }
-                        final res = await locator<AppData>().addProfileFromKey(
-                          WorkerKey.fromJson(json.decode(
-                            newKey,
-                          ) as Map<String, dynamic>),
-                        );
-                        if (!mounted) return;
-                        if (res) {
+                        //
+                        // > add profile or resume camera
+                        //
+                        if (addNewWProfile(context, ref, newKey)) {
                           // Navigator.of(context).pop();
                           await Navigator.of(context).pushNamed('/');
                         } else {
-                          const snackBar = SnackBar(
-                            content: Text(
-                              'Ошибка добавления отделения, возможно отделение уже было добавлено',
-                            ),
+                          setState(
+                            () {
+                              result = null;
+                              controller!.resumeCamera();
+                            },
                           );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
-
-                        setState(
-                          () {
-                            result = null;
-                            controller!.resumeCamera();
-                          },
-                        );
                       },
                     ),
                   ),

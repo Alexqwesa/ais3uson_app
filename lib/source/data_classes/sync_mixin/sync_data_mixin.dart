@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -35,6 +34,8 @@ mixin SyncDataMixin {
   String hiveName = 'profiles';
 
   HttpClient? sslClient;
+
+  late http.Client httpClient;
 
   /// Should be reimplemented in children.
   ///
@@ -71,7 +72,7 @@ mixin SyncDataMixin {
     //
     final url = Uri.parse(urlAddress);
     try {
-      var client = locator<AppData>().httpClient;
+      var client = httpClient;
       http.Response response;
       if (sslClient != null) {
         client = IOClient(sslClient);

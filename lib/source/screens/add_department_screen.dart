@@ -3,11 +3,12 @@ import 'dart:math';
 
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Show screen where user can add [WorkerProfile] from text string.
 ///
@@ -15,21 +16,21 @@ import 'package:flutter/material.dart';
 /// Also used to add test department.
 ///
 /// {@category WorkerProfiles}
-class AddDepartmentScreen extends StatelessWidget {
+class AddDepartmentScreen extends ConsumerWidget {
   final controller = TextEditingController();
 
   AddDepartmentScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var columnWidth = MediaQuery.of(context).size.width;
     columnWidth = MediaQuery.of(context).size.width <
             1 * MediaQuery.of(context).size.height
         ? columnWidth
         : columnWidth / 2;
-    final workerKeys = qrCodes
+    final newWorkerKeys = qrCodes
         .map((e) => WorkerKey.fromJson(jsonDecode(e) as Map<String, dynamic>))
-        .toList();
+        .toList(growable: false);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -89,38 +90,17 @@ class AddDepartmentScreen extends StatelessWidget {
                                 const Spacer(),
                                 ElevatedButton(
                                   child: Text(S.of(context).addDep),
-                                  onPressed: () async {
-                                    try {
-                                      Navigator.pop(context, 'added');
-                                      final res =
-                                          await locator<AppData>().addProfileFromKey(
-                                        WorkerKey.fromJson(
-                                          jsonDecode(
-                                            controller.value.text
-                                                .replaceAll('\n', ''),
-                                          ) as Map<String, dynamic>,
-                                        ),
-                                      );
-                                      if (res) {
-                                        await locator<AppData>().save();
-                                      } else {
-                                        showErrorNotification(
-                                          locator<S>().cantAddDepDuplicate,
-                                        );
-                                        // ignore: use_build_context_synchronously
-                                        FocusScope.of(context).requestFocus(
-                                          FocusNode(),
-                                        );
-                                      }
-                                    } on FormatException {
-                                      showErrorNotification(
-                                        locator<S>().cantAddDepBadFormat,
-                                      );
-                                      // ignore: use_build_context_synchronously
-                                      FocusScope.of(context).requestFocus(
-                                        FocusNode(),
-                                      );
-                                    }
+                                  //
+                                  // > add Dep
+                                  //
+                                  onPressed: () {
+                                    Navigator.pop(context, 'added');
+                                    addNewWProfile(
+                                      context,
+                                      ref,
+                                      controller.value.text
+                                          .replaceAll('\n', ''),
+                                    );
                                   },
                                 ),
                               ],
@@ -151,7 +131,7 @@ class AddDepartmentScreen extends StatelessWidget {
                     ),
                   ),
                   ListView.builder(
-                    itemCount: workerKeys.length,
+                    itemCount: newWorkerKeys.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Padding(
@@ -165,26 +145,22 @@ class AddDepartmentScreen extends StatelessWidget {
                                 // color: Colors.green,
                               ),
                             ),
-                            title: Text(workerKeys[index].dep),
+                            title: Text(newWorkerKeys[index].dep),
                             trailing: const Icon(
                               Icons.add,
                               color: Colors.green,
                             ),
-                            subtitle: Text(workerKeys[index].name),
+                            subtitle: Text(newWorkerKeys[index].name),
                             //
-                            // > call dialog
+                            // > add Dep
                             //
-                            onTap: () async {
+                            onTap: () {
                               Navigator.pop(context, 'added');
-                              final res = await locator<AppData>()
-                                  .addProfileFromKey(workerKeys[index]);
-                              if (res) {
-                                await locator<AppData>().save();
-                              } else {
-                                showErrorNotification(
-                                  locator<S>().cantAddDepDuplicate,
-                                );
-                              }
+                              addNewWProfile(
+                                context,
+                                ref,
+                                qrCodes[index],
+                              );
                             },
                           ),
                         ),
@@ -199,6 +175,35 @@ class AddDepartmentScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
+  try {
+    final res = ref.read(workerKeys.notifier).addKey(
+          WorkerKey.fromJson(
+            jsonDecode(text) as Map<String, dynamic>,
+          ),
+        );
+    if (!res) {
+      showErrorNotification(
+        locator<S>().cantAddDepDuplicate,
+      );
+      FocusScope.of(context).requestFocus(
+        FocusNode(),
+      );
+
+      return true;
+    }
+  } on FormatException {
+    showErrorNotification(
+      locator<S>().cantAddDepBadFormat,
+    );
+    FocusScope.of(context).requestFocus(
+      FocusNode(),
+    );
+  }
+
+  return false;
 }
 
 class SimpleTextField extends StatelessWidget {

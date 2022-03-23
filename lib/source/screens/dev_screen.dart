@@ -1,10 +1,10 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/generated/l10n.dart';
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
+import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 /// About page + tests
@@ -82,16 +82,16 @@ class DevScreen extends StatelessWidget {
 /// Test web worker
 ///
 /// get status data from Web worker
-class CheckWorkerServer extends StatefulWidget {
+class CheckWorkerServer extends ConsumerStatefulWidget {
   const CheckWorkerServer({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<ConsumerStatefulWidget> createState() {
     return _CheckWorkerServer();
   }
 }
 
-class _CheckWorkerServer extends State<CheckWorkerServer> {
+class _CheckWorkerServer extends ConsumerState<CheckWorkerServer> {
   Future<http.Response>? _httpFuture;
   Future<http.Response>? _httpsFuture;
 
@@ -100,48 +100,50 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
     return Column(
       children: <Widget>[
         ElevatedButton(
-          onPressed: checkHTTP,
+          onPressed: () => checkHTTP(ref),
           child: Text(S.of(context).testConnection),
         ),
         if (_httpFuture != null)
-        Column(
-          children: [
-            const Text('Http Response:'),
-            FutureBuilder(
-              future: _httpFuture,
-              builder: buildHttpFuture,
-            ),
-          ],
-        ),
+          Column(
+            children: [
+              const Text('Http Response:'),
+              FutureBuilder(
+                future: _httpFuture,
+                builder: buildHttpFuture,
+              ),
+            ],
+          ),
         if (_httpsFuture != null)
-        Column(
-          children: [
-            const Text('Https Response:'),
-            FutureBuilder(
-              future: _httpsFuture,
-              builder: buildHttpFuture,
-            ),
-          ],
-        ),
+          Column(
+            children: [
+              const Text('Https Response:'),
+              FutureBuilder(
+                future: _httpsFuture,
+                builder: buildHttpFuture,
+              ),
+            ],
+          ),
       ],
     );
   }
 
   /// Get statistic from server, check both http and https.
-  Future<void> checkHTTP() async {
+  Future<void> checkHTTP(WidgetRef ref) async {
     try {
       //
       // > http
       //
+      final host = ref.read(workerKeys).first.activeHost;
+      final port = ref.read(workerKeys).first.activePort;
       var url = Uri.parse(
-        'http://${locator<AppData>().profiles.first.key.activeHost}:${locator<AppData>().profiles.first.key.activePort}/stat',
+        'http://$host:$port/stat',
       );
       _httpFuture = http.get(url);
       //
       // > https
       //
       url = Uri.parse(
-        'https://${locator<AppData>().profiles.first.key.activeHost}:${locator<AppData>().profiles.first.key.activePort}/stat',
+        'https://$host:$port/stat',
       );
       _httpsFuture = http.get(url);
       setState(() {
@@ -151,8 +153,7 @@ class _CheckWorkerServer extends State<CheckWorkerServer> {
       await _httpFuture;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      dev.log(e
-          .toString()); // this is handled exception but android studio thinks it unhandled! bug?
+      dev.log(e.toString());
     }
   }
 

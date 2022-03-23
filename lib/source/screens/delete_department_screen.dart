@@ -1,20 +1,20 @@
 import 'dart:math';
 
 import 'package:ais3uson_app/generated/l10n.dart';
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Show screen where user can delete [WorkerProfile].
 ///
 /// {@category WorkerProfiles}
-class DeleteDepartmentScreen extends StatelessWidget {
+class DeleteDepartmentScreen extends ConsumerWidget {
   const DeleteDepartmentScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final workerKeys = locator<AppData>().workerKeys.toList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final wpKeys = ref.watch(workerKeys);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,9 +29,9 @@ class DeleteDepartmentScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: workerKeys.isNotEmpty
+      body: wpKeys.isNotEmpty
           ? ListView.builder(
-              itemCount: workerKeys.length,
+              itemCount: wpKeys.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -42,22 +42,24 @@ class DeleteDepartmentScreen extends StatelessWidget {
                       // color: Colors.red,
                     ),
                   ),
-                  title: Text(workerKeys[index].dep),
+                  title: Text(wpKeys[index].dep),
                   trailing: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
-                  subtitle: Text(workerKeys[index].name),
+                  subtitle: Text(wpKeys[index].name),
                   //
                   // > call dialog
                   //
                   onTap: () async {
                     final result = await _showDialog(
                       context,
-                      locator<AppData>().profiles[index].key.dep,
+                      wpKeys[index].dep,
                     );
                     if (result == 'delete') {
-                      locator<AppData>().profileDelete(index);
+                      ref
+                          .read(innerWorkerProfiles.notifier)
+                          .profileDelete(wpKeys[index]);
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context, 'delete');
                     }

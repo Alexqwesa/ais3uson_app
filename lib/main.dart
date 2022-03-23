@@ -3,14 +3,15 @@ import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/app_root.dart';
 import 'package:ais3uson_app/generated/l10n.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final locator = GetIt.instance;
 final log = Logger('MyClassName');
@@ -45,17 +46,18 @@ Future<void> init({String hiveFolder = 'Ais3uson'}) async {
   //
   // > locator
   //
+  final sharedPreferences = await SharedPreferences.getInstance();
   try {
     locator
       ..registerLazySingleton<S>(() => S())
-      ..registerLazySingleton<AppData>(() => AppData());
+      ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     dev.log(e.toString());
   }
 }
 
-/// Init application,init [Hive], create [AppData] and postInit it.
+/// Init application, init [Hive].
 ///
 /// Create [OverlaySupport] and call [AppRoot].
 ///
@@ -64,6 +66,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await init();
-  unawaited(locator<AppData>().postInit());
-  runApp(const OverlaySupport.global(child: AppRoot()));
+  // unawaited(locator<AppData>().postInit());
+  runApp(const OverlaySupport.global(child: ProviderScope(child: AppRoot())));
 }

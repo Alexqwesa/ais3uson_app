@@ -1,9 +1,10 @@
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/providers.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_view.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show ConsumerWidget, WidgetRef;
 import 'package:provider/provider.dart';
 
 /// Displays one [ClientService].
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 /// And decide which View to use(like: [ServiceCardView], [ServiceCardTileView], [ServiceCardSquareView]...)
 ///
 /// {@category UIServices}
-class ServiceCard extends StatelessWidget {
+class ServiceCard extends ConsumerWidget {
   final ClientService service;
   final Size parentSize;
 
@@ -23,9 +24,11 @@ class ServiceCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final serviceView = ref.watch(serviceViewProvider);
+
     return SizedBox.fromSize(
-      size: locator<AppData>().serviceCardSize(parentSize),
+      size: ref.watch(serviceCardSize(parentSize)),
       child: Stack(
         children: [
           ChangeNotifierProvider.value(
@@ -39,34 +42,27 @@ class ServiceCard extends StatelessWidget {
                         : Colors.grey,
                     BlendMode.multiply,
                   ),
-                  child: ChangeNotifierProvider.value(
-                    value: AppData.instance,
-                    child: Consumer<AppData>(
-                      builder: (context, data, _) {
-                        return Row(
-                          children: [
-                            //
-                            // > select view
-                            //
-                            if (locator<AppData>().serviceView == '')
-                              ServiceCardView(
-                                service: service,
-                                parentWidth: parentSize,
-                              )
-                            else if (locator<AppData>().serviceView == 'tile')
-                              ServiceCardTileView(
-                                service: service,
-                                parentWidth: parentSize,
-                              )
-                            else if (locator<AppData>().serviceView == 'square')
-                              ServiceCardSquareView(
-                                service: service,
-                                parentWidth: parentSize,
-                              ),
-                          ],
-                        );
-                      },
-                    ),
+                  child: Row(
+                    children: [
+                      //
+                      // > select view
+                      //
+                      if (serviceView == '')
+                        ServiceCardView(
+                          service: service,
+                          parentSize: parentSize,
+                        )
+                      else if (serviceView == 'tile')
+                        ServiceCardTileView(
+                          service: service,
+                          parentSize: parentSize,
+                        )
+                      else if (serviceView == 'square')
+                        ServiceCardSquareView(
+                          service: service,
+                          parentSize: parentSize,
+                        ),
+                    ],
                   ),
                 );
               },

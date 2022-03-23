@@ -1,124 +1,98 @@
 import 'dart:async';
 
 import 'package:ais3uson_app/generated/l10n.dart';
-import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/app_state.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show ConsumerWidget, WidgetRef;
 import 'package:provider/provider.dart';
 
 /// Show screen with client of [WorkerProfile].
 ///
 /// {@category WorkerProfiles}
-class ClientScreen extends StatefulWidget {
+class ClientScreen extends ConsumerWidget {
   const ClientScreen({Key? key}) : super(key: key);
 
   @override
-  _ClientScreenState createState() => _ClientScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final workerProfile = ref.watch(lastWorkerProfile);
 
-class _ClientScreenState extends State<ClientScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: locator<AppData>().getLastWorker(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            appBar: AppBar(title: Text(S.of(context).loading)),
-            body: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
-          final workerProfile = snapshot.data as WorkerProfile;
-
-          return ChangeNotifierProvider<WorkerProfile>.value(
-            value: workerProfile,
-            child: Scaffold(
-              appBar: AppBar(
-                title: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        workerProfile.key.dep,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.refresh),
-                      onPressed: () async {
-                        await workerProfile.syncHiveClients();
-                      },
-                    ),
-                  ],
+    return ChangeNotifierProvider<WorkerProfile>.value(
+      value: workerProfile,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  workerProfile.key.dep,
                 ),
               ),
-              body: Consumer<WorkerProfile>(
-                //
-                // > get data
-                //
-                builder: (context, data, child) {
-                  final clientList =
-                      context.select<WorkerProfile, List<ClientProfile>>(
-                    (data) => data.clients.toList(),
-                  );
-
-                  //
-                  // > build list
-                  //
-                  return clientList.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: clientList.length,
-                          itemBuilder: (context, index) {
-                            return Center(
-                              child: SizedBox(
-                                width: 550.0,
-                                child: ClientCardWidgetOfList(
-                                  index: index,
-                                  client: clientList[index],
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      : Center(
-                          child: Text(
-                            S.of(context).emptyListOfPeople,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                        );
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  await workerProfile.syncHiveClients();
                 },
               ),
-            ),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(S.of(context).error),
-            ),
-          );
-        }
-      },
+            ],
+          ),
+        ),
+        body: Consumer<WorkerProfile>(
+          //
+          // > get data
+          //
+          builder: (context, data, child) {
+            final clientList =
+                context.select<WorkerProfile, List<ClientProfile>>(
+              (data) => data.clients.toList(),
+            );
+
+            //
+            // > build list
+            //
+            return clientList.isNotEmpty
+                ? ListView.builder(
+                    itemCount: clientList.length,
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: SizedBox(
+                          width: 550.0,
+                          child: ClientCard(
+                            index: index,
+                            client: clientList[index],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      S.of(context).emptyListOfPeople,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  );
+          },
+        ),
+      ),
     );
   }
 }
 
-class ClientCardWidgetOfList extends StatelessWidget {
+class ClientCard extends ConsumerWidget {
   final ClientProfile client;
   final int index;
 
-  const ClientCardWidgetOfList({
+  const ClientCard({
     required this.index,
     required this.client,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final workerProfile = client.workerProfile;
 
     return Card(
@@ -155,14 +129,10 @@ class ClientCardWidgetOfList extends StatelessWidget {
           ),
         ),
         onLongPress: () async {
-          locator<AppData>().lastClient = client;
+          ref.read(lastClientId.notifier).state = client.contractId;
           await client.workerProfile.postInit();
-
-          await locator<AppData>().setLastClient(client);
           await client.workerProfile.fullArchive.postInit();
-          await client.workerProfile.postInit();
           // Todo: rework it
-          await locator<AppData>().setLastClient(client);
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();
           }
@@ -177,24 +147,15 @@ class ClientCardWidgetOfList extends StatelessWidget {
           unawaited(Navigator.pushNamed(
             context,
             '/client_journal',
-            arguments: ScreenArguments(
-              profile: client.workerProfile.index,
-              contract: client.contractId,
-            ),
           ));
         },
         onTap: () async {
-          locator<AppData>().lastClient = client;
+          ref.read(lastClientId.notifier).state = client.contractId;
           unawaited(Navigator.pushNamed(
             context,
             '/client_services',
-            arguments: ScreenArguments(
-              profile: client.workerProfile.index,
-              contract: client.contractId,
-            ),
           ));
           // Todo: rework it
-          await locator<AppData>().setLastClient(client);
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();
           }
