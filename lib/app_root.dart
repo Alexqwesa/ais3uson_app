@@ -157,9 +157,9 @@ class MainMaterialApp extends ConsumerWidget {
       //
       initialRoute: '/',
       routes: {
-        '/client_journal': (context) => ConfirmationForListOfServices(),
+        '/client_journal': (context) => const ConfirmationForListOfServices(),
         '/add_department': (context) => AddDepartmentScreen(),
-        '/client_services': (context) => ClientServicesListScreen(),
+        '/client_services': (context) => const ClientServicesListScreen(),
         '/settings': /*    */ (context) => const SettingsScreen(),
         '/department': /*  */ (context) => const ClientScreen(),
         '/scan_qr': /*     */ (context) => const QRScanScreen(),
