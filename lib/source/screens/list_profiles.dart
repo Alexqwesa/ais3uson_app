@@ -107,6 +107,7 @@ class ListOfProfiles extends ConsumerWidget {
                       onTap: () {
                         ref.read(lastApiKey.notifier).state =
                             wpKeys[index].apiKey;
+                        ref.read(lastWorkerProfile).postInit();
                         Navigator.pushNamed(
                           context,
                           '/department',

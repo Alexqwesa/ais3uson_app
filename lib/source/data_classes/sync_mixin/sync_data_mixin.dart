@@ -55,6 +55,7 @@ mixin SyncDataMixin {
   Future<void> hiddenSyncHive({
     required String urlAddress,
     required String apiKey,
+    bool localOnly = false,
     Map<String, String>? headers,
   }) async {
     headers ??= {
@@ -66,7 +67,9 @@ mixin SyncDataMixin {
     // > if values are empty get them from hive before waiting from network
     //
     final hive = await Hive.openBox<dynamic>(hiveName);
-    updateValueFromHive(apiKey + urlAddress, hive, onlyIfEmpty: true);
+    if (!localOnly) {
+      updateValueFromHive(apiKey + urlAddress, hive, onlyIfEmpty: true);
+    }
     //
     // > main - call server
     //

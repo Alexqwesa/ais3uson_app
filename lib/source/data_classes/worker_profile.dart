@@ -265,7 +265,22 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     await journal.postInit();
     await Hive.openBox<dynamic>(hiveName);
     final plannedUpdate = DateTime.now().add(const Duration(hours: -2));
-    // todo: rework it
+    //
+    // > read hive values
+    //
+    if (_services.isEmpty) {
+      await syncHiveServices(localOnly: true);
+    }
+    if (clients.isEmpty) {
+      await syncHiveClients(localOnly: true);
+    }
+    if (clientPlan.isEmpty) {
+      await syncHivePlanned(localOnly: true);
+    }
+    if (clientPlan.isNotEmpty) notifyListeners();
+    //
+    // > sync if time right
+    //
     if ((await servicesSyncDate()).isBefore(plannedUpdate)) {
       if (_services.isEmpty) {
         await syncHiveServices();
@@ -295,20 +310,22 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// Sync hive data
   ///
   /// sync [WorkerProfile]  data
-  Future<void> syncHiveClients() async {
+  Future<void> syncHiveClients({bool localOnly = false}) async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: '${key.activeServer}/clients',
+      localOnly: localOnly,
     );
   }
 
-  Future<void> syncHivePlanned() async {
+  Future<void> syncHivePlanned({bool localOnly = false}) async {
     if (_services.isEmpty) {
       await syncHiveServices();
     }
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: '${key.activeServer}/planned',
+      localOnly: localOnly,
     );
   }
 
@@ -319,10 +336,11 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   ///
   /// This function also called from [checkAllServicesExist] if there is [_clientPlan]
   /// with wrong [ClientPlan.servId].
-  Future<void> syncHiveServices() async {
+  Future<void> syncHiveServices({bool localOnly = false}) async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
       urlAddress: '${key.activeServer}/services',
+      localOnly: localOnly,
     );
   }
 
