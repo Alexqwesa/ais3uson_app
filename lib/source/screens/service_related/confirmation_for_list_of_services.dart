@@ -25,33 +25,35 @@ class ConfirmationForListOfServices extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
         body: Center(
-          child: Consumer<JournalArchive>(
-            builder: (context, value, child) {
-              final all = _client.workerProfile.fullArchive.all;
-              if (_client.services.isEmpty) {
-                return Container(); // Todo:
-              }
+          child: SingleChildScrollView(
+            child: Consumer<JournalArchive>(
+              builder: (context, value, child) {
+                final all = _client.workerProfile.fullArchive.all;
+                if (_client.services.isEmpty) {
+                  return Container(); // Todo:
+                }
 
-              return Wrap(
-                children: [
-                  TitleWidgetOfServicesGroup(
-                    service: all[0],
-                    client: _client,
-                  ),
-                  for (int index = 1; index < all.length; index++)
-                    standardFormat.format(all[index].provDate) !=
-                            standardFormat.format(all[index - 1].provDate)
-                        ? TitleWidgetOfServicesGroup(
-                            service: all[index],
-                            client: _client,
-                          )
-                        : TotalServiceTile(
-                            serviceOfJournal: all[index],
-                            client: _client,
-                          ),
-                ],
-              );
-            },
+                return Wrap(
+                  children: [
+                    TitleWidgetOfServicesGroup(
+                      service: all[0],
+                      client: _client,
+                    ),
+                    for (int index = 1; index < all.length; index++)
+                      standardFormat.format(all[index].provDate) !=
+                              standardFormat.format(all[index - 1].provDate)
+                          ? TitleWidgetOfServicesGroup(
+                              service: all[index],
+                              client: _client,
+                            )
+                          : TotalServiceTile(
+                              serviceOfJournal: all[index],
+                              client: _client,
+                            ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
