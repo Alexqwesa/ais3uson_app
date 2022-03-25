@@ -28,7 +28,7 @@ class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
     // > save
     //
     locator<SharedPreferences>()
-        .setString(name, jsonEncode(value.map((e) => e.toJson())))
+        .setString(name, jsonEncode(value.map((e) => e.toJson()).toList()))
         .then((res) {
       if (!res) {
         showErrorNotification(
@@ -63,17 +63,10 @@ class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
   }
 }
 
-/// Connect WorkerProfilesState to workerKeys.
-final workerProfiles = Provider<List<WorkerProfile>>((ref) {
-  ref.read(innerWorkerProfiles.notifier).sync(ref.watch(workerKeys));
-
-  return ref.watch(innerWorkerProfiles);
-});
-
-/// Provider of inner List<[WorkerProfile]>.
+/// Provider of List<[WorkerProfile]>.
 ///
 /// Show profiles based on [workerKeys].
-final innerWorkerProfiles =
+final workerProfiles =
     StateNotifierProvider<WorkerProfilesState, List<WorkerProfile>>((ref) {
   return WorkerProfilesState(ref); //, ref.watch(workerKeys));
 });
@@ -82,8 +75,12 @@ class WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
   final StateNotifierProviderRef ref;
 
   WorkerProfilesState(this.ref) // , List<WorkerKey> wKeys
-      //wKeys.map((e) => WorkerProfile(e, ref)).toList(growable: false));
-      : super(<WorkerProfile>[]);
+      : super(<WorkerProfile>[]) {
+    sync(ref.read(workerKeys));
+    ref.listen(workerKeys, (previous, next) {
+      sync(next as List<WorkerKey>);
+    });
+  }
 
   void sync(List<WorkerKey> wKeys) {
     final newState = <WorkerProfile>[];

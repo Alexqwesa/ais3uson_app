@@ -58,7 +58,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                     );
                     if (result == 'delete') {
                       ref
-                          .read(innerWorkerProfiles.notifier)
+                          .read(workerProfiles.notifier)
                           .profileDelete(wpKeys[index]);
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context, 'delete');
