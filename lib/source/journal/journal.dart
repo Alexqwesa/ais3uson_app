@@ -424,17 +424,17 @@ class Journal with ChangeNotifier {
           archList.slice(archiveLimit).map<dynamic>((e) => e.key),
         );
       }
-      final dateList = archList
+      final dateList = archList // maybe just hiveArchive.values ?
           .slice(
             0,
             archiveLimit < archList.length ? archiveLimit : archList.length,
           )
           .map((element) => element.provDate)
           .toList();
-       // workerProfile.ref.read(hiveDate).put(
-       //      'archiveDates_$apiKey',
-       //      dateList,
-       //    );
+      //
+      // > update datesInArchive
+      //
+      await workerProfile.ref.read(datesInArchive.future);
       workerProfile.ref.read(innerDatesInArchive.notifier).addAll(
             dateList.map((e) => DateTime(e.year, e.month, e.day)),
           );

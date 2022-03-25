@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// Provider of setting - datesInArchive.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
-/// Depend on [locator]<SharedPreferences>.
+/// Depend on [hiveDateTimeBox]('allArchiveDates').
 final datesInArchive = FutureProvider((ref) async {
   await ref.watch(hiveDateTimeBox('allArchiveDates').future);
 
@@ -24,8 +24,8 @@ final innerDatesInArchive =
 });
 
 class DatesInArchiveState extends StateNotifier<List<DateTime>> {
-  // final  asyncOpenBox;
   late final Box<DateTime>? box;
+  final AsyncValue<Box<DateTime>> asyncOpenBox;
 
   @override
   set state(List<DateTime> value) {
@@ -42,10 +42,12 @@ class DatesInArchiveState extends StateNotifier<List<DateTime>> {
     }
   }
 
-  DatesInArchiveState(AsyncValue<Box<DateTime>> asyncOpenBox) : super([]) {
+  DatesInArchiveState(this.asyncOpenBox) : super([]) {
     asyncOpenBox.whenData((data) {
       box = data;
-      state.addAll(box!.values);
+      // state probably empty here...
+      log.info('Not empty state of DatesInArchiveState');
+      super.state = <DateTime>{...state, ...box!.values}.toList();
     });
   }
 
