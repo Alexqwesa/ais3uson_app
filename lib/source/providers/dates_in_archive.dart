@@ -46,7 +46,7 @@ class DatesInArchiveState extends StateNotifier<List<DateTime>> {
     asyncOpenBox.whenData((data) {
       box = data;
       // state probably empty here...
-      log.info('Not empty state of DatesInArchiveState');
+      log.info('Not empty: state of DatesInArchiveState');
       super.state = <DateTime>{...state, ...box!.values}.toList();
     });
   }

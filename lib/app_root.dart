@@ -80,17 +80,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
                       return IconButton(
                         icon: const Icon(Icons.date_range),
                         onPressed: () async {
-                          final archiveDates =
-                              await ref.watch(datesInArchive.future);
-
-                          ref.read(archiveDate.notifier).state =
-                              await showDatePicker(
-                            context: context,
-                            selectableDayPredicate: archiveDates!.contains,
-                            initialDate: archiveDates.last,
-                            lastDate: archiveDates.last,
-                            firstDate: archiveDates.first,
-                          );
+                          await archiveOnWithDatePicker(context, ref);
                         },
                       );
                     },
@@ -119,6 +109,28 @@ class ArchiveMaterialApp extends ConsumerWidget {
       ),
     );
   }
+}
+
+/// Activate archive mode([isArchive]) only if [datesInArchive] not empty.
+///
+/// It also show date picker if [archiveDate] is null.
+Future<void> archiveOnWithDatePicker(BuildContext context, WidgetRef ref) async {
+  final archiveDates = await ref.read(datesInArchive.future);
+
+  // ignore: use_if_null_to_convert_nulls_to_bools
+  if (archiveDates?.isEmpty != false) {
+    ref.read(isArchive.notifier).state = false;
+    
+    return;
+  }
+  ref.read(archiveDate.notifier).state = await showDatePicker(
+    context: context,
+    selectableDayPredicate: archiveDates!.contains,
+    initialDate: archiveDates.last,
+    lastDate: archiveDates.last,
+    firstDate: archiveDates.first,
+  );
+  ref.read(isArchive.notifier).state =true;
 }
 
 /// This is main MaterialApp widget.

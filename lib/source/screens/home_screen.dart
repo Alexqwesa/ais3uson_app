@@ -1,5 +1,6 @@
 // ignore_for_file: always_use_package_imports
 
+import 'package:ais3uson_app/app_root.dart';
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/providers.dart';
@@ -103,9 +104,13 @@ class HomePage extends ConsumerWidget {
                   ListTile(
                     leading: const Icon(Icons.archive),
                     title: Text(S.of(context).archive),
-                    onTap: () {
-                      ref.read(isArchive.notifier).update((state) => !state);
+                    onTap: () async {
                       Navigator.pop(context, 'archive');
+                      if (ref.read(archiveDate) == null) {
+                        await archiveOnWithDatePicker(context, ref);
+                      } else{
+                        ref.read(isArchive.notifier).update((state) => !state);
+                      }
                     },
                   ),
                   ListTile(
