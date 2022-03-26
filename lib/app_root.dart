@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers.dart';
 import 'package:ais3uson_app/source/providers/dates_in_archive.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/screens/add_department_screen.dart';
 import 'package:ais3uson_app/source/screens/clients_screen.dart';
 import 'package:ais3uson_app/source/screens/delete_department_screen.dart';
@@ -114,13 +114,16 @@ class ArchiveMaterialApp extends ConsumerWidget {
 /// Activate archive mode([isArchive]) only if [datesInArchive] not empty.
 ///
 /// It also show date picker if [archiveDate] is null.
-Future<void> archiveOnWithDatePicker(BuildContext context, WidgetRef ref) async {
+Future<void> archiveOnWithDatePicker(
+  BuildContext context,
+  WidgetRef ref,
+) async {
   final archiveDates = await ref.read(datesInArchive.future);
 
   // ignore: use_if_null_to_convert_nulls_to_bools
   if (archiveDates?.isEmpty != false) {
     ref.read(isArchive.notifier).state = false;
-    
+
     return;
   }
   ref.read(archiveDate.notifier).state = await showDatePicker(
@@ -130,7 +133,7 @@ Future<void> archiveOnWithDatePicker(BuildContext context, WidgetRef ref) async 
     lastDate: archiveDates.last,
     firstDate: archiveDates.first,
   );
-  ref.read(isArchive.notifier).state =true;
+  ref.read(isArchive.notifier).state = true;
 }
 
 /// This is main MaterialApp widget.

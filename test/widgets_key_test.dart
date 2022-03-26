@@ -7,8 +7,8 @@
 
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/providers.dart';
 import 'package:ais3uson_app/source/providers/app_state.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:ais3uson_app/source/screens/clients_screen.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';

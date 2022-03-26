@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// If can't find last client - return first client from first profile.
 /// This is readonly provider, use [lastApiKey] and [lastClientId] to set its value.
+///
+/// {@category Providers}
 final lastClient = Provider((ref) {
   final id = ref.watch(lastClientId);
   final apiKey = ref.watch(lastApiKey);
@@ -36,6 +38,8 @@ final lastWorkerProfile = Provider((ref) {
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 /// Depend on [locator]<SharedPreferences>.
+///
+/// {@category Providers}
 final lastApiKey = StateNotifierProvider<LastApiKeyState, String>((ref) {
   return LastApiKeyState();
 });
@@ -56,6 +60,8 @@ class LastApiKeyState extends StateNotifier<String> {
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 /// Depend on [locator]<SharedPreferences>.
+///
+/// {@category Providers}
 final lastClientId = StateNotifierProvider<LastClientIdState, int>((ref) {
   return LastClientIdState();
 });

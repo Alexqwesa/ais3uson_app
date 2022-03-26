@@ -1,5 +1,5 @@
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/providers.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,7 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// Provider of setting - datesInArchive.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
-/// Depend on [hiveDateTimeBox]('allArchiveDates').
+/// Depend on [hiveDateTimeBox] ('allArchiveDates').
+///
+/// {@category Providers}
 final datesInArchive = FutureProvider((ref) async {
   await ref.watch(hiveDateTimeBox('allArchiveDates').future);
 

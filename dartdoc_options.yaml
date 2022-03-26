@@ -18,17 +18,10 @@ dartdoc:
     'WorkerProfiles':
       name: Classes to manage worker profiles
       markdown: lib/source/screens/README.md
+    'Providers':
+      name: Providers of App
+      markdown: lib/source/providers/README.md
 
-  subCategoryOrder: [ 'WorkerProfiles', 'Journal' , 'Data_Classes', 'Import_from_json' ]
-  subCategories:
-#    Root: [ 'main', 'app_root' ]
-    #    Journal: [ 'journal' ]
-    #    Data_Classes: [ 'client_entry', 'client_profile', ]
-    Import_from_json: [ 'client_entry', 'client_planned', 'service_entry', 'worker_key' ]
-  #  examplePathPrefix: 'subdir/with/examples'
-  #  nodoc: ['*.g.dart']
-  #  linkTo:
-  #    root: ['..']
   showUndocumentedCategories: true
   ignore:
     - ambiguous-doc-reference

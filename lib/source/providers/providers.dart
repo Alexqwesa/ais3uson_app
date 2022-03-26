@@ -7,10 +7,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 /// Provider of setting - serviceView.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 /// Depend on [locator]<SharedPreferences>.
+///
+/// {@category Providers}
 final serviceViewProvider =
     StateNotifierProvider<ServiceViewState, String>((ref) {
   return ServiceViewState();
@@ -32,7 +35,9 @@ class ServiceViewState extends StateNotifier<String> {
 /// Provider of setting - hiveArchiveLimit.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
+///
 /// Depend on [locator]<SharedPreferences>.
+/// {@category Providers}
 final hiveArchiveLimit =
     StateNotifierProvider<HiveArchiveLimitState, int>((ref) {
   return HiveArchiveLimitState();
@@ -52,6 +57,8 @@ class HiveArchiveLimitState extends StateNotifier<int> {
 }
 
 /// Calculate size of [ServiceCard] based on parentSize and [serviceViewProvider].
+///
+/// {@category Providers}
 final serviceCardSize =
     Provider.autoDispose.family<Size, Size>((ref, parentSize) {
   final parentWidth = parentSize.width;
@@ -93,7 +100,9 @@ final serviceCardSize =
   }
 });
 
-/// Provider of httpClient
+/// Provider of httpClient.
+///
+/// {@category Providers}
 final httpClientProvider = Provider<http.Client>((ref) {
   return http.Client();
 });
@@ -106,6 +115,8 @@ final archiveDate = StateProvider<DateTime?>((ref) {
 /// Archive view or usual view of App.
 ///
 /// Provider of setting - isArchive. Inited with false, doesn't save its value.
+///
+/// {@category Providers}
 final isArchive = StateProvider<bool>((ref) {
   return false;
 });

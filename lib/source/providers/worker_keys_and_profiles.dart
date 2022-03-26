@@ -4,7 +4,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// Read/save from/to SharedPreferences, had default value [].
 /// Depend on [locator]<SharedPreferences>.
+///
+/// {@category Providers}
 final workerKeys =
     StateNotifierProvider<WorkerKeysState, List<WorkerKey>>((ref) {
   return WorkerKeysState();
@@ -66,6 +68,8 @@ class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
 /// Provider of List<[WorkerProfile]>.
 ///
 /// Show profiles based on [workerKeys].
+///
+/// {@category Providers}
 final workerProfiles =
     StateNotifierProvider<WorkerProfilesState, List<WorkerProfile>>((ref) {
   return WorkerProfilesState(ref); //, ref.watch(workerKeys));
@@ -117,6 +121,9 @@ class WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
   }
 }
 
+/// Simple provider for archive view, based on [workerProfiles].
+///
+/// {@category Providers}
 final archiveWorkerProfiles = StateProvider<List<WorkerProfile>>((ref) {
   return ref
       .watch(workerProfiles)

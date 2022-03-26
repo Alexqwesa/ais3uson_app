@@ -5,7 +5,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_test/flutter_test.dart';
