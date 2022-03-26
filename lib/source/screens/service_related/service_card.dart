@@ -42,27 +42,29 @@ class ServiceCard extends ConsumerWidget {
                         : Colors.grey,
                     BlendMode.multiply,
                   ),
-                  child: Row(
-                    children: [
-                      //
-                      // > select view
-                      //
-                      if (serviceView == '')
-                        ServiceCardView(
-                          service: service,
-                          parentSize: parentSize,
-                        )
-                      else if (serviceView == 'tile')
-                        ServiceCardTileView(
-                          service: service,
-                          parentSize: parentSize,
-                        )
-                      else if (serviceView == 'square')
-                        ServiceCardSquareView(
-                          service: service,
-                          parentSize: parentSize,
-                        ),
-                    ],
+                  child: ClipRect(
+                    child: Row(
+                      children: [
+                        //
+                        // > select view
+                        //
+                        if (serviceView == '')
+                          ServiceCardView(
+                            service: service,
+                            parentSize: parentSize,
+                          )
+                        else if (serviceView == 'tile')
+                          ServiceCardTileView(
+                            service: service,
+                            parentSize: parentSize,
+                          )
+                        else if (serviceView == 'square')
+                          ServiceCardSquareView(
+                            service: service,
+                            parentSize: parentSize,
+                          ),
+                      ],
+                    ),
                   ),
                 );
               },

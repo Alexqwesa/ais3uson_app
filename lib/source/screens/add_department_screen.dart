@@ -130,9 +130,14 @@ class AddDepartmentScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
+                  //
+                  // > list of test department
+                  //
                   ListView.builder(
                     itemCount: newWorkerKeys.length,
                     shrinkWrap: true,
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(2.0),
