@@ -118,7 +118,7 @@ Widget build(BuildContext context) {
         tag: ValueKey(image.toString()),
         child: FittedBox(
           fit: BoxFit.cover,
-          child: image,
+          child: InteractiveViewer(child: image),
         ),
       ),
     ),
@@ -189,7 +189,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

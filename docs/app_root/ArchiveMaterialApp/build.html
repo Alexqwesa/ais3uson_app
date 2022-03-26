@@ -121,19 +121,19 @@ Widget build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppData.instance.isArchive
+      appBar: locator&lt;AppData&gt;().isArchive
           ? AppBar(
               title: Row(
                 children: [
                   IconButton(
                     onPressed: () {
-                      AppData.instance.isArchive =
-                          !AppData.instance.isArchive;
+                      locator&lt;AppData&gt;().isArchive =
+                          !locator&lt;AppData&gt;().isArchive;
                     },
                     icon: const Icon(Icons.cancel_outlined),
                   ),
                   Text(
-                    &#39;${locator&lt;S&gt;().archiveAt} ${standardFormat.format(AppData.instance.archiveDate)}&#39;,
+                    &#39;${locator&lt;S&gt;().archiveAt} ${standardFormat.format(locator&lt;AppData&gt;().archiveDate)}&#39;,
                   ),
                 ],
               ),
@@ -144,9 +144,9 @@ Widget build(BuildContext context) {
                     return IconButton(
                       icon: const Icon(Icons.date_range),
                       onPressed: () async {
-                        final datesInArchive = AppData.instance.datesInArchive
+                        final datesInArchive = locator&lt;AppData&gt;().datesInArchive
                             .toList(growable: true);
-                        AppData.instance.archiveDate = await showDatePicker(
+                        locator&lt;AppData&gt;().archiveDate = await showDatePicker(
                           context: context,
                           selectableDayPredicate: datesInArchive.contains,
                           initialDate: datesInArchive.last,
@@ -168,8 +168,8 @@ Widget build(BuildContext context) {
             maxHeight: !kIsWeb &amp;&amp; !Platform.isAndroid
                 ? null
                 : MediaQuery.of(context).size.height -
-                    (AppData.instance.isArchive
-                        ? kToolbarHeight &#47;&#47; AppData.instance.windowTopPadding * 2
+                    (locator&lt;AppData&gt;().isArchive
+                        ? kToolbarHeight &#47;&#47; locator&lt;AppData&gt;().windowTopPadding * 2
                         : 0),
             &#47;&#47;
             &#47;&#47; &gt; main MaterialApp
@@ -245,7 +245,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

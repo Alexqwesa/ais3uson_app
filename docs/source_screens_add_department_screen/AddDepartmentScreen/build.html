@@ -178,7 +178,7 @@ Widget build(BuildContext context) {
                                   try {
                                     Navigator.pop(context, &#39;added&#39;);
                                     final res =
-                                        await AppData().addProfileFromKey(
+                                        await locator&lt;AppData&gt;().addProfileFromKey(
                                       WorkerKey.fromJson(
                                         jsonDecode(
                                           controller.value.text
@@ -187,7 +187,7 @@ Widget build(BuildContext context) {
                                       ),
                                     );
                                     if (res) {
-                                      await AppData().save();
+                                      await locator&lt;AppData&gt;().save();
                                     } else {
                                       showErrorNotification(
                                         locator&lt;S&gt;().cantAddDepDuplicate,
@@ -261,10 +261,10 @@ Widget build(BuildContext context) {
                           &#47;&#47;
                           onTap: () async {
                             Navigator.pop(context, &#39;added&#39;);
-                            final res = await AppData()
+                            final res = await locator&lt;AppData&gt;()
                                 .addProfileFromKey(workerKeys[index]);
                             if (res) {
-                              await AppData().save();
+                              await locator&lt;AppData&gt;().save();
                             } else {
                               showErrorNotification(
                                 locator&lt;S&gt;().cantAddDepDuplicate,
@@ -349,7 +349,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

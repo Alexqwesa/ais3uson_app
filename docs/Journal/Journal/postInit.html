@@ -66,24 +66,12 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; postInit() async {
   hive = await Hive.openBox&lt;ServiceOfJournal&gt;(journalHiveName);
-  hive.values.forEach((element) {
-    switch (element.state) {
-      case ServiceState.added:
-        added.add(element);
-        break;
-      case ServiceState.finished:
-        finished.add(element);
-        break;
-      case ServiceState.rejected:
-        rejected.add(element);
-        break;
-      case ServiceState.outDated:
-        outDated.add(element);
-        break;
-      default:
-        throw StateError(&#39;wrong ServiceState&#39;);
-    }
-  });
+  final groups =
+      groupBy&lt;ServiceOfJournal, ServiceState&gt;(hive.values, (e) =&gt; e.state);
+  added = groups[ServiceState.added] ?? [];
+  finished = groups[ServiceState.finished] ?? [];
+  rejected = groups[ServiceState.rejected] ?? [];
+  outDated = groups[ServiceState.outDated] ?? [];
   await archiveOldServices();
   notifyListeners();
 }</code></pre>
@@ -180,7 +168,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

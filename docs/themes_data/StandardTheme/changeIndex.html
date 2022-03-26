@@ -68,7 +68,7 @@
   <pre class="language-dart"><code class="language-dart">void changeIndex(int index) {
   themeIndex = index;
   notifyListeners();
-  unawaited(AppData.instance.prefs!.setInt(&#39;themeIndex&#39;, themeIndex));
+  unawaited(locator&lt;AppData&gt;().prefs!.setInt(&#39;themeIndex&#39;, themeIndex));
 }</code></pre>
 </section>
 
@@ -139,7 +139,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

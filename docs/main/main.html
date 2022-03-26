@@ -69,18 +69,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  &#47;&#47; if (kDebugMode){
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
-    dev.log(
-      &#39;${record.level.name.substring(0, 3)}:  ${record.message}&#39;, &#47;&#47;${record.time}:
-    );
-  });
-  await Hive.initFlutter(&#39;Ais3uson&#39;);
-  Singleton.register(AppData);
-  locator.registerLazySingleton&lt;S&gt;(() =&gt; S());
 
-  unawaited(AppData().postInit());
+  await init();
+  unawaited(locator&lt;AppData&gt;().postInit());
   runApp(const OverlaySupport.global(child: AppRoot()));
 }</code></pre>
 </section>
@@ -113,6 +104,7 @@
   <li><a href="../main/log.html">log</a></li>
 
   <li class="section-title"><a href="../main/main-library.html#functions">Functions</a></li>
+  <li><a href="../main/init.html">init</a></li>
   <li><a href="../main/main.html">main</a></li>
 
 
@@ -129,7 +121,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

@@ -71,13 +71,13 @@
   <pre class="language-dart"><code class="language-dart">void profileDelete(int index) {
   hiveData
       .delete(&#39;archiveDates_${_profiles[index].apiKey}&#39;)
-      .then((value) =&gt; unawaited(AppData().save()));
+      .then((value) =&gt; unawaited(locator&lt;AppData&gt;().save()));
   unawaited(
     Hive.deleteBoxFromDisk(&#39;journal_archive_${_profiles[index].apiKey}&#39;),
   );
   _profiles.removeAt(index);
   notifyListeners();
-  unawaited(AppData().save());
+  unawaited(locator&lt;AppData&gt;().save());
 }</code></pre>
 </section>
 
@@ -168,7 +168,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

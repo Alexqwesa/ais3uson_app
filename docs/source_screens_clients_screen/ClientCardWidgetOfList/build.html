@@ -142,8 +142,37 @@ Widget build(BuildContext context) {
           ),
         ),
       ),
+      onLongPress: () async {
+        locator&lt;AppData&gt;().lastClient = client;
+        await client.workerProfile.postInit();
+
+        await locator&lt;AppData&gt;().setLastClient(client);
+        await client.workerProfile.fullArchive.postInit();
+        await client.workerProfile.postInit();
+        &#47;&#47; Todo: rework it
+        await locator&lt;AppData&gt;().setLastClient(client);
+        if (workerProfile.services.isEmpty) {
+          await workerProfile.syncHiveServices();
+        }
+        if (workerProfile.clientPlan.isEmpty) {
+          await workerProfile.syncHivePlanned();
+        }
+        final clientProfile = client;
+        if (clientProfile.services.isEmpty) {
+          await clientProfile.updateServices();
+        }
+        &#47;&#47; ignore: use_build_context_synchronously
+        unawaited(Navigator.pushNamed(
+          context,
+          &#39;&#47;client_journal&#39;,
+          arguments: ScreenArguments(
+            profile: client.workerProfile.index,
+            contract: client.contractId,
+          ),
+        ));
+      },
       onTap: () async {
-        AppData.instance.lastClient = client;
+        locator&lt;AppData&gt;().lastClient = client;
         unawaited(Navigator.pushNamed(
           context,
           &#39;&#47;client_services&#39;,
@@ -152,7 +181,8 @@ Widget build(BuildContext context) {
             contract: client.contractId,
           ),
         ));
-        await AppData.instance.setLastClient(client);
+        &#47;&#47; Todo: rework it
+        await locator&lt;AppData&gt;().setLastClient(client);
         if (workerProfile.services.isEmpty) {
           await workerProfile.syncHiveServices();
         }
@@ -233,7 +263,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

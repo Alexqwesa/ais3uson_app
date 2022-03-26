@@ -108,7 +108,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return SizedBox.fromSize(
-    size: AppData.instance.serviceCardSize(parentWidth),
+    size: locator&lt;AppData&gt;().serviceCardSize(parentWidth),
     child: FittedBox(
       child: SizedBox(
         width: 205,
@@ -252,7 +252,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   

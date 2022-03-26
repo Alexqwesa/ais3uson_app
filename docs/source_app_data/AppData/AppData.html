@@ -32,7 +32,7 @@
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../source_app_data/source_app_data-library.html">app_data</a></li>
     <li><a href="../../source_app_data/AppData-class.html">AppData</a></li>
-    <li class="self-crumb">AppData factory constructor</li>
+    <li class="self-crumb">AppData constructor</li>
   </ol>
   <div class="self-name">AppData</div>
   <form class="search navbar-right" role="search">
@@ -54,24 +54,12 @@
     </section>
 
     
-<section class="desc markdown">
-  <p>Factory to construct singleton.</p>
-</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">factory AppData() {
-  try {
-    return Singleton.get&lt;AppData&gt;();
-    &#47;&#47; ignore: avoid_catching_errors
-  } on UnimplementedError {
-    Singleton.register(AppData._internal());
-  }
-
-  return Singleton.get&lt;AppData&gt;();
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">AppData();</code></pre>
 </section>
 
 
@@ -88,7 +76,7 @@
   <li><a href="../../index.html">ais3uson_app</a></li>
   <li><a href="../../source_app_data/source_app_data-library.html">app_data</a></li>
   <li><a href="../../source_app_data/AppData-class.html">AppData</a></li>
-  <li class="self-crumb">AppData factory constructor</li>
+  <li class="self-crumb">AppData constructor</li>
 </ol>
 
 
@@ -161,7 +149,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+7
+      1.0.1+8
   </span>
 
   
