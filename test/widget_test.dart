@@ -7,15 +7,14 @@
 
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_test/hive_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/mock_server.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 
 final locator = GetIt.instance;
@@ -32,13 +31,8 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     // Hive setup
     await setUpTestHive();
-    // init AppData
-    await locator<AppData>().postInit();
-    // httpClient setup
-    locator<AppData>().httpClient = getMockHttpClient();
   });
   tearDown(() async {
-    await locator.resetLazySingleton<AppData>();
     await tearDownTestHive();
   });
   testWidgets('listOfProfiles shows empty message', (tester) async {
@@ -47,14 +41,19 @@ void main() {
       key: ValueKey(111),
     );
     await tester.pumpWidget(
-      localizedMaterialApp(
-        listOfProfiles,
+      ProviderScope(
+        child: localizedMaterialApp(
+          listOfProfiles,
+        ),
       ),
     );
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey(111)), findsOneWidget);
     // Check empty
-    expect(find.textContaining(locator<S>().authorizePlease.substring(0,10)), findsOneWidget);
+    expect(
+      find.textContaining(locator<S>().authorizePlease.substring(0, 10)),
+      findsOneWidget,
+    );
     expect(find.text('Тестовое отделение 48080'), findsNothing);
     expect(find.text('Тестовое отделение'), findsNothing);
     // Add department

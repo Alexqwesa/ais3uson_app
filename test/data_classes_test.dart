@@ -2,13 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers.dart';
+import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,13 +41,8 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     // Hive setup
     await setUpTestHive();
-    // init AppData
-    await locator<AppData>().postInit();
-    // httpClient setup
-    locator<AppData>().httpClient = getMockHttpClient();
   });
   tearDown(() async {
-    await locator.resetLazySingleton<AppData>();
     await tearDownTestHive();
   });
   //
@@ -53,22 +50,27 @@ void main() {
   //
   group('Data Classes', () {
     test('it create WorkerProfile from short key', () async {
+      final ref = ProviderContainer();
       expect(
         WorkerProfile(
           WorkerKey.fromJson(
             jsonDecode(qrDataShortKey) as Map<String, dynamic>,
           ),
+          ref,
         ),
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
     });
+
     test('it create WorkerProfiles', () async {
+      final ref = ProviderContainer();
       expect(
         WorkerProfile(
           WorkerKey.fromJson(
             jsonDecode(qrDataShortKey) as Map<String, dynamic>,
           ),
+          ref,
         ),
         isA<WorkerProfile>(),
       );
@@ -76,108 +78,177 @@ void main() {
     });
 
     test('it check date of last sync before sync on load', () async {
-      final wKey = wKeysData2();
-
-      final httpClient = locator<AppData>().httpClient as mock.MockClient;
-      await locator<AppData>().addProfileFromKey(wKey);
-      await locator<AppData>().profiles.first.postInit();
-      await locator<AppData>().profiles.first.postInit();
+      //
+      // > prepare ProviderContainer + httpClient
+      //
+      final ref = ProviderContainer(
+        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      );
+      //
+      // > init workerProfile
+      //
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref
+          .read(workerProfiles)
+          .first;
+      await wp.postInit();
+      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
     });
-    test('it always sync old data on load', () async {
-      final wKey = wKeysData2();
-      expect(wKey, isA<WorkerKey>());
 
-      final httpClient = locator<AppData>().httpClient as mock.MockClient;
-      await locator<AppData>().addProfileFromKey(wKey);
-      await locator<AppData>()
-          .profiles
-          .first
-          .setClientSyncDate(newDate: DateTime(1900));
-      await locator<AppData>()
-          .profiles
-          .first
-          .setClientPlanSyncDate(newDate: DateTime(1900));
-      await locator<AppData>()
-          .profiles
-          .first
-          .setServicesSyncDate(newDate: DateTime(1900));
-      await locator<AppData>().profiles.first.postInit();
+    test('it always sync old data on load', () async {
+      //
+      // > prepare ProviderContainer + httpClient
+      //
+      final ref = ProviderContainer(
+        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      );
+      //
+      // > init workerProfile
+      //
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref
+          .read(workerProfiles)
+          .first;
+      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      await wp.postInit();
+      //
+      // > reset sync dates
+      //
+      await wp.setClientSyncDate(newDate: DateTime(1900));
+      await wp.setClientPlanSyncDate(newDate: DateTime(1900));
+      await wp.setServicesSyncDate(newDate: DateTime(1900));
+      await wp.postInit();
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
     });
+
     test('it create list of clients with list of services', () async {
-      // crete worker profile
-      final wKey = wKeysData2();
-      expect(wKey, isA<WorkerKey>());
-      await locator<AppData>().addProfileFromKey(wKey);
+      //
+      // > prepare ProviderContainer + httpClient
+      //
+      final ref = ProviderContainer(
+        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      );
+      //
+      // > init workerProfile
+      //
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref
+          .read(workerProfiles)
+          .first;
+      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      await wp.postInit();
       // test http
-      final httpClient = locator<AppData>().httpClient as mock.MockClient;
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
       // test profile
-      expect(locator<AppData>().profiles.first.clients.length, 10);
-      expect(locator<AppData>().profiles.first.clients.first.contractId, 1);
-      final client = locator<AppData>().profiles.first.clients.first;
+      expect(wp.clients.length, 10);
+      expect(wp.clients.first.contractId, 1);
+      final client = wp.clients.first;
       // test service
       final service3 = client.services[3];
       expect(service3.plan, 104);
       expect(service3.shortText, 'Покупка продуктов питания');
       expect(service3.image, 'grocery-cart.png');
     });
+
     test('it create proof file', () async {
-      // crete worker profile
-      final wKey = wKeysData2();
-      expect(wKey, isA<WorkerKey>());
-      await locator<AppData>().postInit();
-      await locator<AppData>().addProfileFromKey(wKey);
-      // add proof
+      //
+      // > prepare ProviderContainer + httpClient
+      //
+      final ref = ProviderContainer(
+        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      );
+      //
+      // > init workerProfile
+      //
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref
+          .read(workerProfiles)
+          .first;
+      await wp.postInit();
+      //
+      // > add proof
+      //
       File('${Directory.current.path}/test/helpers/auth_qr_test.png').copySync(
         '${Directory.systemTemp.path}/auth_qr_test.png',
       );
       final file = XFile('${Directory.systemTemp.path}/auth_qr_test.png');
-      expect((await file.length()) > 0, true);
-      final serv =
-          locator<AppData>().profiles.first.clients.first.services.first;
+      final srcFileLenght = await file.length();
+      expect(srcFileLenght > 0, true);
+      final serv = wp.clients.first.services.first;
       serv.proofList.addNewGroup(); // serv.addProof();
       await serv.proofList.addImage(0, file, 'before_');
-      // Image is created
+      //
+      // > check: image created
+      //
       expect(
         serv.proofList.proofGroups.first.beforeImg?.toStringShort(),
         'Image',
       );
+      //
+      // > check: file created
+      //
+      final appDocDir = Directory(
+        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
+      );
+      final dstFile = File(
+        // ignore: prefer_interpolation_to_compose_strings
+        '${appDocDir
+            .path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
+            standardFormat.format(DateTime.now()) +
+            '_/828_Итого/group_0_/before_img_auth_qr_test.png',
+      );
+      // '/home/alex/Documents/Ais3uson/Ais3uson/1_Работник Тестового Отделения 2/1_Тес. . чек/26.03.2022_/828_Итого/group_0_/before_img_auth_qr_test.png'
+      expect(
+        await dstFile.length(),
+          srcFileLenght,
+      );
     });
+
     test('it can found proof files', () async {
-      // crete worker profile
-      final wKey = wKeysData2();
-      expect(wKey, isA<WorkerKey>());
-      await locator<AppData>().postInit();
-      await locator<AppData>().addProfileFromKey(wKey);
+      //
+      // > prepare ProviderContainer + httpClient
+      //
+      final ref = ProviderContainer(
+        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      );
+      //
+      // > init workerProfile
+      //
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref
+          .read(workerProfiles)
+          .first;
+      await wp.postInit();
+      //
+      // > create dir for proof
+      //
       final appDocDir = Directory(
         '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
       );
       final dst = Directory(
-        '${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес  чек/01.03.2022_/828_Итого/group_0_/',
+        '${appDocDir
+            .path}/1_Работник Тестового Отделения 2/1_Тес  чек/01.03.2022_/828_Итого/group_0_/',
       );
       if (!dst.existsSync()) {
         dst.createSync(recursive: true);
       }
       // add proof
       final file =
-          File('${Directory.current.path}/test/helpers/auth_qr_test.png')
-              .copySync(
+      File('${Directory.current.path}/test/helpers/auth_qr_test.png')
+          .copySync(
         '${dst.path}/before_img_auth_qr_test.png',
       );
-      final serv2 =
-          locator<AppData>().profiles.first.clients.first.services.first;
+      final serv2 = wp.clients.first.services.first;
       expect(serv2.proofList.proofGroups.length, 0);
       await serv2.proofList.crawler();
       // Image is founded
-
       expect(serv2.proofList.proofGroups.isNotEmpty, true);
       expect(
         serv2.proofList.proofGroups.first.beforeImg?.toStringShort(),

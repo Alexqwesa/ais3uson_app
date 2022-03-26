@@ -2,11 +2,13 @@
 
 import 'dart:convert';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/from_json/client_entry.dart';
 import 'package:ais3uson_app/source/from_json/client_plan.dart';
 import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/default_data.dart';
 
@@ -17,6 +19,23 @@ String qrDataWithSSL =
 
 void main() {
   group('Simple tests', () {
+    test('it reRegister get_it', () async {
+      SharedPreferences.setMockInitialValues({
+        'WorkerKeys2':
+            '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
+      });
+      // await locator.resetLazySingleton<SharedPreferences>();
+      final sharedPreferences = await SharedPreferences.getInstance();
+      locator.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+      expect(
+        // ignore: avoid_dynamic_calls
+        (jsonDecode(
+          locator<SharedPreferences>().getString('WorkerKeys2') ?? '[]',
+        ) as List<dynamic>)
+            .first['app'],
+        'AIS3USON web',
+      );
+    });
     test('it convert json to WorkerKey with getters', () async {
       final wKey =
           WorkerKey.fromJson(jsonDecode(qrDataWithSSL) as Map<String, dynamic>);

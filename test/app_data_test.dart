@@ -2,44 +2,33 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/app_data.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers/dates_in_archive.dart';
+import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/mock_server.dart' show getMockHttpClient;
+import 'data_classes_test.dart';
 
-/// [WorkerKey] modified for tests (ssl='no')
-WorkerKey wKeysData2() {
-  final json = jsonDecode(qrData2WithAutossl) as Map<String, dynamic>;
-  // json['ssl'] = 'no';
 
-  return WorkerKey.fromJson(json);
-}
 
 void main() {
   //
   // > Setup
   //
   tearDownAll(() async {
-    await locator.resetLazySingleton<AppData>();
     await tearDownTestHive();
-  });
-  setUpAll(() async {
-    await init();
   });
   setUp(() async {
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues({});
+    locator.pushNewScope();
     // Hive setup
     await setUpTestHive();
-    // httpClient setup
-    locator<AppData>().httpClient = getMockHttpClient();
     // always register hive adapters
     try {
       // never fail on double adapter registration
@@ -52,22 +41,47 @@ void main() {
     }
   });
   tearDown(() async {
-    await locator.resetLazySingleton<AppData>();
     await tearDownTestHive();
   });
   //
   // > Tests start
   //
-  group('AppData Class', () {
+  group('Tests for Providers', () {
     test('it create WorkerProfiles from SharedPreferences', () async {
       SharedPreferences.setMockInitialValues({
         'WorkerKeys2':
             '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
       });
-      await locator<AppData>().postInit();
-      expect(locator<AppData>().profiles.length, 1);
+      await init();
+      final ref = ProviderContainer();
+      addTearDown(ref.dispose);
+      //
+      // > precheck locator
+      //
       expect(
-        locator<AppData>().profiles.first.apiKey,
+        // ignore: avoid_dynamic_calls
+        (jsonDecode(
+          locator<SharedPreferences>().getString('WorkerKeys2') ?? '[]',
+        ) as List<dynamic>)
+            .first['app'],
+        'AIS3USON web',
+      );
+      //
+      // > crete ref
+      //
+      ref.listen(
+        workerProfiles,
+        (previous, next) {
+          return;
+        },
+        fireImmediately: true,
+      );
+      //
+      // > check provider
+      //
+      expect(ref.read(workerProfiles).length, 1);
+      expect(
+        ref.read(workerProfiles).first.apiKey,
         '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
       );
     });
@@ -102,35 +116,58 @@ void main() {
           ));
         }
         //
-        // > AppData init
+        // > ProviderContainer and init
         //
-        await locator<AppData>().postInit();
-        await locator<AppData>().addProfileFromKey(wKey);
-        // await AppData.instance
+        final ref = ProviderContainer();
+        addTearDown(ref.dispose);
+        await init();
+        //
+        // > crete ref
+        //
+        ref.listen(
+          workerProfiles,
+          (previous, next) {
+            return;
+          },
+          fireImmediately: true,
+        );
+        //
+        // > check provider
+        //
+        expect(ref.read(workerProfiles).length, 0);
+        ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+        expect(
+          ref.read(workerProfiles).first.apiKey,
+          '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
+        );
+        await ref.read(workerProfiles).first.journal.postInit(); // init journal
         //
         // > test that services are in archive
         //
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
-          'journal_archive_${locator<AppData>().profiles.first.apiKey}',
+          'journal_archive_${ref.read(workerProfiles).first.apiKey}',
         );
-        expect(locator<AppData>().profiles.first.journal.hive.values.length, 0);
         expect(hiveArchive.length, 40);
+        expect(ref.read(workerProfiles).first.journal.hive.values.length, 0);
         //
         // > test archive dates
         //
         final roundYesterday =
             DateTime(yesterday.year, yesterday.month, yesterday.day);
-        final roundBeforYesterday = DateTime(
+        final roundBeforeYesterday = DateTime(
           beforeYesterday.year,
           beforeYesterday.month,
           beforeYesterday.day,
         );
-        expect(locator<AppData>().archiveDate, roundYesterday);
-        expect(locator<AppData>().datesInArchive.length, 2);
+        // expect(ref.read(archiveDate), roundYesterday);
         expect(
-          locator<AppData>()
-              .datesInArchive
-              .containsAll([roundYesterday, roundBeforYesterday]),
+          (await ref.read(datesInArchive.future))?.length,
+          2,
+        );
+        expect(
+          (await ref.read(datesInArchive.future))
+              ?.toSet()
+              .containsAll([roundYesterday, roundBeforeYesterday]),
           true,
         );
       },
