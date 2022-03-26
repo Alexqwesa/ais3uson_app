@@ -111,32 +111,30 @@ Widget build(BuildContext context, WidgetRef ref) {
   final client = ref.watch(lastClient);
   final workerProfile = client.workerProfile;
   final size = MediaQuery.of(context).size;
+  final servList = client.services;
 
   return Scaffold(
     &#47;&#47;
     &#47;&#47; &gt; appBar
     &#47;&#47;
     appBar: AppBar(
-      title: ChangeNotifierProvider&lt;ClientProfile&gt;.value(
-        value: client,
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                client.name,
-                overflow: TextOverflow.ellipsis,
-              ),
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              client.name,
+              overflow: TextOverflow.ellipsis,
             ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () async {
-                await workerProfile.journal.archiveOldServices();
-                await workerProfile.journal.commitAll();
-                await workerProfile.syncHivePlanned();
-              },
-            ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () async {
+              await workerProfile.journal.archiveOldServices();
+              await workerProfile.journal.commitAll();
+              await workerProfile.syncHivePlanned();
+            },
+          ),
+        ],
       ),
       actions: [
         PopupMenuButton&lt;dynamic&gt;(
@@ -177,43 +175,31 @@ Widget build(BuildContext context, WidgetRef ref) {
       ],
     ),
     body: Center(
-      child: ChangeNotifierProvider&lt;ClientProfile&gt;.value(
-        value: client,
-        child: SingleChildScrollView(
-          child: Consumer&lt;ClientProfile&gt;(
-            builder: (context, data, child) {
-              final servList = client.services;
-
-              &#47;&#47;
-              &#47;&#47; &gt; build list
-              &#47;&#47;
-              return Container(
-                child: servList.isNotEmpty
-                    ? Center(
-                        child: Wrap(
-                          children: servList.map(
-                            (element) {
-                              return ServiceCard(
-                                service: element,
-                                parentSize: size,
-                              );
-                            },
-                            &#47;&#47; growable: false,
-                          ).toList(),
-                        ),
-                      )
-                    : Text(
-                        &#39;Список положенных услуг пуст, \n\n&#39;
-                        &#39;возможно заведующий отделением уже закрыл договор\n\n&#39;
-                        &#39;обновите список&#39;,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-              );
-            },
-          ),
-        ),
-      ),
+      child: servList.isNotEmpty
+          ? Center(
+              child: SingleChildScrollView(
+                key: const ValueKey(&#39;MainScroll&#39;),
+                child: Wrap(
+                  &#47;&#47; children: [],
+                  children: servList.map(
+                    (element) {
+                      return ServiceCard(
+                        service: element,
+                        parentSize: size,
+                      );
+                    },
+                    &#47;&#47; growable: false,
+                  ).toList(),
+                ),
+              ),
+            )
+          : Text(
+              &#39;Список положенных услуг пуст, \n\n&#39;
+              &#39;возможно заведующий отделением уже закрыл договор\n\n&#39;
+              &#39;обновите список&#39;,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5,
+            ),
     ),
   );
 }</code></pre>

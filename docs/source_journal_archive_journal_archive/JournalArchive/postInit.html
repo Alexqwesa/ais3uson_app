@@ -91,10 +91,10 @@ Future&lt;void&gt; postInit() async {
   &#47;&#47;
   final groups = groupBy&lt;ServiceOfJournal, ServiceState&gt;(
     hiveValues.where((element) =&gt;
-    aDate == null ||
+        aDate == null ||
         (element.provDate.isAfter(aDate!) &amp;&amp;
             element.provDate.isBefore(aDate!.add(const Duration(days: 1))))),
-        (e) =&gt; e.state,
+    (e) =&gt; e.state,
   );
   &#47;&#47; skip rejected services,
   &#47;&#47; since today service also can be here create notApproved for added services

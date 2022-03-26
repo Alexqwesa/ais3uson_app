@@ -109,7 +109,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   return SizedBox.fromSize(
-    size: ref.watch(serviceCardSize(parentSize)),
+    size: serviceCardSize(parentSize, tileType),
     child: FittedBox(
       fit: BoxFit.fill,
       child: SizedBox(
@@ -244,6 +244,8 @@ Widget build(BuildContext context, WidgetRef ref) {
 
 
 
+    <li class="section-title"><a href="../../source_screens_service_related_service_card_view/ServiceCardTileView-class.html#constants">Constants</a></li>
+    <li><a href="../../source_screens_service_related_service_card_view/ServiceCardTileView/tileType-constant.html">tileType</a></li>
 </ol>
 
   </div><!--/.sidebar-offcanvas-->

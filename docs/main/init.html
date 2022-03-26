@@ -53,8 +53,7 @@
         
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">init</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="init-param-hiveFolder">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveFolder</span> = <span class="default-value">&#39;Ais3uson&#39;</span>}</span></li>
-</ol>)
+<span class="name ">init</span>(<wbr>)
 
     </section>
     
@@ -63,7 +62,7 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; init({String hiveFolder = &#39;Ais3uson&#39;}) async {
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; init() async {
   &#47;&#47; if (kDebugMode){
   &#47;&#47;
   &#47;&#47; &gt; logger
@@ -86,10 +85,6 @@
   } on HiveError catch (e) {
     dev.log(e.toString());
   }
-  &#47;&#47;
-  &#47;&#47; &gt; hive init
-  &#47;&#47;
-  await Hive.initFlutter(hiveFolder);
   &#47;&#47;
   &#47;&#47; &gt; locator
   &#47;&#47;

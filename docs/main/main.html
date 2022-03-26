@@ -71,6 +71,10 @@
   WidgetsFlutterBinding.ensureInitialized();
 
   await init();
+  &#47;&#47;
+  &#47;&#47; &gt; hive init
+  &#47;&#47;
+  await Hive.initFlutter(&#39;Ais3uson&#39;);
   &#47;&#47; unawaited(locator&lt;AppData&gt;().postInit());
   runApp(const OverlaySupport.global(child: ProviderScope(child: AppRoot())));
 }</code></pre>
