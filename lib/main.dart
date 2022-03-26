@@ -16,7 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final locator = GetIt.instance;
 final log = Logger('MyClassName');
 
-Future<void> init({String hiveFolder = 'Ais3uson'}) async {
+Future<void> init() async {
   // if (kDebugMode){
   //
   // > logger
@@ -40,10 +40,6 @@ Future<void> init({String hiveFolder = 'Ais3uson'}) async {
     dev.log(e.toString());
   }
   //
-  // > hive init
-  //
-  await Hive.initFlutter(hiveFolder);
-  //
   // > locator
   //
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -66,6 +62,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await init();
+  //
+  // > hive init
+  //
+  await Hive.initFlutter('Ais3uson');
   // unawaited(locator<AppData>().postInit());
   runApp(const OverlaySupport.global(child: ProviderScope(child: AppRoot())));
 }

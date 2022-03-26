@@ -88,10 +88,10 @@ class ClientServicesListScreen extends ConsumerWidget {
         ],
       ),
       body: Center(
-        child: SingleChildScrollView(
-          key: const ValueKey('MainScroll'),
-          child: servList.isNotEmpty
-              ? Center(
+        child: servList.isNotEmpty
+            ? Center(
+                child: SingleChildScrollView(
+                  key: const ValueKey('MainScroll'),
                   child: Wrap(
                     // children: [],
                     children: servList.map(
@@ -104,15 +104,15 @@ class ClientServicesListScreen extends ConsumerWidget {
                       // growable: false,
                     ).toList(),
                   ),
-                )
-              : Text(
-                  'Список положенных услуг пуст, \n\n'
-                  'возможно заведующий отделением уже закрыл договор\n\n'
-                  'обновите список',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline5,
                 ),
-        ),
+              )
+            : Text(
+                'Список положенных услуг пуст, \n\n'
+                'возможно заведующий отделением уже закрыл договор\n\n'
+                'обновите список',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
       ),
     );
   }
