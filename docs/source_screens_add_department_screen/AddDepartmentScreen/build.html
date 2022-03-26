@@ -58,7 +58,8 @@
 </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -106,15 +107,15 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context) {
+Widget build(BuildContext context, WidgetRef ref) {
   var columnWidth = MediaQuery.of(context).size.width;
   columnWidth = MediaQuery.of(context).size.width &lt;
           1 * MediaQuery.of(context).size.height
       ? columnWidth
       : columnWidth &#47; 2;
-  final workerKeys = qrCodes
+  final newWorkerKeys = qrCodes
       .map((e) =&gt; WorkerKey.fromJson(jsonDecode(e) as Map&lt;String, dynamic&gt;))
-      .toList();
+      .toList(growable: false);
 
   return Scaffold(
     resizeToAvoidBottomInset: false,
@@ -174,38 +175,17 @@ Widget build(BuildContext context) {
                               const Spacer(),
                               ElevatedButton(
                                 child: Text(S.of(context).addDep),
-                                onPressed: () async {
-                                  try {
-                                    Navigator.pop(context, &#39;added&#39;);
-                                    final res =
-                                        await locator&lt;AppData&gt;().addProfileFromKey(
-                                      WorkerKey.fromJson(
-                                        jsonDecode(
-                                          controller.value.text
-                                              .replaceAll(&#39;\n&#39;, &#39;&#39;),
-                                        ) as Map&lt;String, dynamic&gt;,
-                                      ),
-                                    );
-                                    if (res) {
-                                      await locator&lt;AppData&gt;().save();
-                                    } else {
-                                      showErrorNotification(
-                                        locator&lt;S&gt;().cantAddDepDuplicate,
-                                      );
-                                      &#47;&#47; ignore: use_build_context_synchronously
-                                      FocusScope.of(context).requestFocus(
-                                        FocusNode(),
-                                      );
-                                    }
-                                  } on FormatException {
-                                    showErrorNotification(
-                                      locator&lt;S&gt;().cantAddDepBadFormat,
-                                    );
-                                    &#47;&#47; ignore: use_build_context_synchronously
-                                    FocusScope.of(context).requestFocus(
-                                      FocusNode(),
-                                    );
-                                  }
+                                &#47;&#47;
+                                &#47;&#47; &gt; add Dep
+                                &#47;&#47;
+                                onPressed: () {
+                                  Navigator.pop(context, &#39;added&#39;);
+                                  addNewWProfile(
+                                    context,
+                                    ref,
+                                    controller.value.text
+                                        .replaceAll(&#39;\n&#39;, &#39;&#39;),
+                                  );
                                 },
                               ),
                             ],
@@ -236,7 +216,7 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 ListView.builder(
-                  itemCount: workerKeys.length,
+                  itemCount: newWorkerKeys.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -250,26 +230,22 @@ Widget build(BuildContext context) {
                               &#47;&#47; color: Colors.green,
                             ),
                           ),
-                          title: Text(workerKeys[index].dep),
+                          title: Text(newWorkerKeys[index].dep),
                           trailing: const Icon(
                             Icons.add,
                             color: Colors.green,
                           ),
-                          subtitle: Text(workerKeys[index].name),
+                          subtitle: Text(newWorkerKeys[index].name),
                           &#47;&#47;
-                          &#47;&#47; &gt; call dialog
+                          &#47;&#47; &gt; add Dep
                           &#47;&#47;
-                          onTap: () async {
+                          onTap: () {
                             Navigator.pop(context, &#39;added&#39;);
-                            final res = await locator&lt;AppData&gt;()
-                                .addProfileFromKey(workerKeys[index]);
-                            if (res) {
-                              await locator&lt;AppData&gt;().save();
-                            } else {
-                              showErrorNotification(
-                                locator&lt;S&gt;().cantAddDepDuplicate,
-                              );
-                            }
+                            addNewWProfile(
+                              context,
+                              ref,
+                              qrCodes[index],
+                            );
                           },
                         ),
                       ),
@@ -321,7 +297,8 @@ Widget build(BuildContext context) {
 
     <li class="section-title"><a href="../../source_screens_add_department_screen/AddDepartmentScreen-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_add_department_screen/AddDepartmentScreen/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

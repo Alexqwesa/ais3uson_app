@@ -58,7 +58,8 @@
 </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -106,44 +107,43 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context) {
-  if (_client == null) {
-    return Container(); &#47;&#47; Todo:
-  }
+Widget build(BuildContext context, WidgetRef ref) {
+  final _client = ref.watch(lastClient);
 
   return ChangeNotifierProvider.value(
-    value: _client!.workerProfile.fullArchive,
+    value: _client.workerProfile.fullArchive,
     child: Scaffold(
       appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
       body: Center(
-        child: Consumer&lt;JournalArchive&gt;(
-          builder: (context, value, child) {
-            final all = _client!.workerProfile.fullArchive.all;
-            if (_client!.services.isEmpty) {
-              return Container(); &#47;&#47; Todo:
-            }
+        child: SingleChildScrollView(
+          child: Consumer&lt;JournalArchive&gt;(
+            builder: (context, value, child) {
+              final all = _client.workerProfile.fullArchive.all;
+              if (_client.services.isEmpty) {
+                return Container(); &#47;&#47; Todo:
+              }
 
-            return Wrap(
-              children: [
-                for (int index = 1; index &lt; all.length; index++)
-                  index == 0
-                      ? TitleWidgetOfServicesGroup(
-                          service: all[index],
-                          client: _client!,
-                        )
-                      : standardFormat.format(all[index].provDate) !=
-                              standardFormat.format(all[index - 1].provDate)
-                          ? TitleWidgetOfServicesGroup(
-                              service: all[index],
-                              client: _client!,
-                            )
-                          : TotalServiceTile(
-                              serviceOfJournal: all[index],
-                              client: _client!,
-                            ),
-              ],
-            );
-          },
+              return Wrap(
+                children: [
+                  TitleWidgetOfServicesGroup(
+                    service: all[0],
+                    client: _client,
+                  ),
+                  for (int index = 1; index &lt; all.length; index++)
+                    standardFormat.format(all[index].provDate) !=
+                            standardFormat.format(all[index - 1].provDate)
+                        ? TitleWidgetOfServicesGroup(
+                            service: all[index],
+                            client: _client,
+                          )
+                        : TotalServiceTile(
+                            serviceOfJournal: all[index],
+                            client: _client,
+                          ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     ),
@@ -185,7 +185,8 @@ Widget build(BuildContext context) {
 
     <li class="section-title"><a href="../../source_screens_service_related_confirmation_for_list_of_services/ConfirmationForListOfServices-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_service_related_confirmation_for_list_of_services/ConfirmationForListOfServices/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

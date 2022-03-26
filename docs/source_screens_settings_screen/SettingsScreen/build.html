@@ -107,16 +107,13 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  return ChangeNotifierProvider.value(
-    value: AppData.instance,
-    child: Scaffold(
-      appBar: AppBar(
-        title: Text(&#39;${S.of(context).settings}:&#39;),
-      ),
-      &#47;&#47; body: ListView(),
-      body: const Center(
-        child: Text(&#39;Здесь будут настройки приложения:&#39;),
-      ),
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(&#39;${S.of(context).settings}:&#39;),
+    ),
+    &#47;&#47; body: ListView(),
+    body: const Center(
+      child: Text(&#39;Здесь будут настройки приложения:&#39;),
     ),
   );
 }</code></pre>

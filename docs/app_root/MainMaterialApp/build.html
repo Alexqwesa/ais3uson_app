@@ -58,7 +58,8 @@
 </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -106,50 +107,43 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context) {
-  return ChangeNotifierProvider.value(
-    value: locator&lt;AppData&gt;().standardTheme,
-    child: Consumer&lt;StandardTheme&gt;(
-      builder: (context, data, child) {
-        return MaterialApp(
-          &#47;&#47;
-          &#47;&#47; &gt; l10n
-          &#47;&#47;
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          title: &#39;AIS 3USON App&#39;,
-          &#47;&#47;
-          &#47;&#47; &gt; theme
-          &#47;&#47;
-          theme: StandardTheme.light(),
-          darkTheme: StandardTheme.dark(),
-          themeMode: locator&lt;AppData&gt;().standardTheme.current(),
-          &#47;&#47;
-          &#47;&#47; &gt; routes
-          &#47;&#47;
-          initialRoute: &#39;&#47;&#39;,
-          routes: {
-            &#39;&#47;client_journal&#39;: (context) =&gt; ConfirmationForListOfServices(),
-            &#39;&#47;add_department&#39;: (context) =&gt; AddDepartmentScreen(),
-            &#39;&#47;client_services&#39;: (context) =&gt; ClientServicesListScreen(),
-            &#39;&#47;settings&#39;: &#47;*    *&#47; (context) =&gt; const SettingsScreen(),
-            &#39;&#47;department&#39;: &#47;*  *&#47; (context) =&gt; const ClientScreen(),
-            &#39;&#47;scan_qr&#39;: &#47;*     *&#47; (context) =&gt; const QRScanScreen(),
-            &#39;&#47;dev&#39;: &#47;*         *&#47; (context) =&gt; const DevScreen(),
-            &#39;&#47;delete_department&#39;: (context) =&gt; const DeleteDepartmentScreen(),
-            &#39;&#47;&#39;: &#47;*            *&#47; (context) =&gt; HomePage(
-                  title: S.of(context).depList,
-                ),
-          },
-          debugShowCheckedModeBanner: false,
-        );
-      },
-    ),
+Widget build(BuildContext context, WidgetRef ref) {
+  return MaterialApp(
+    &#47;&#47;
+    &#47;&#47; &gt; l10n
+    &#47;&#47;
+    localizationsDelegates: const [
+      S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: S.delegate.supportedLocales,
+    title: &#39;AIS 3USON App&#39;,
+    &#47;&#47;
+    &#47;&#47; &gt; theme
+    &#47;&#47;
+    theme: StandardThemeState.light(),
+    darkTheme: StandardThemeState.dark(),
+    themeMode: ref.watch(standardTheme),
+    &#47;&#47;
+    &#47;&#47; &gt; routes
+    &#47;&#47;
+    initialRoute: &#39;&#47;&#39;,
+    routes: {
+      &#39;&#47;client_journal&#39;: (context) =&gt; const ConfirmationForListOfServices(),
+      &#39;&#47;add_department&#39;: (context) =&gt; AddDepartmentScreen(),
+      &#39;&#47;client_services&#39;: (context) =&gt; const ClientServicesListScreen(),
+      &#39;&#47;settings&#39;: &#47;*    *&#47; (context) =&gt; const SettingsScreen(),
+      &#39;&#47;department&#39;: &#47;*  *&#47; (context) =&gt; const ClientScreen(),
+      &#39;&#47;scan_qr&#39;: &#47;*     *&#47; (context) =&gt; const QRScanScreen(),
+      &#39;&#47;dev&#39;: &#47;*         *&#47; (context) =&gt; const DevScreen(),
+      &#39;&#47;delete_department&#39;: (context) =&gt; const DeleteDepartmentScreen(),
+      &#39;&#47;&#39;: &#47;*            *&#47; (context) =&gt; HomePage(
+            title: S.of(context).depList,
+          ),
+    },
+    debugShowCheckedModeBanner: false,
   );
 }</code></pre>
 </section>
@@ -188,7 +182,8 @@ Widget build(BuildContext context) {
 
     <li class="section-title"><a href="../../app_root/MainMaterialApp-class.html#instance-methods">Methods</a></li>
     <li><a href="../../app_root/MainMaterialApp/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

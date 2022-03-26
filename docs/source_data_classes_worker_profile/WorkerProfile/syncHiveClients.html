@@ -53,7 +53,8 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">syncHiveClients</span>(<wbr>)
+<span class="name ">syncHiveClients</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="syncHiveClients-param-localOnly">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">localOnly</span> = <span class="default-value">false</span>}</span></li>
+</ol>)
 
       
 
@@ -68,10 +69,11 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncHiveClients() async {
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncHiveClients({bool localOnly = false}) async {
   await hiddenSyncHive(
     apiKey: key.apiKey,
     urlAddress: &#39;${key.activeServer}&#47;clients&#39;,
+    localOnly: localOnly,
   );
 }</code></pre>
 </section>
@@ -111,10 +113,11 @@
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li class="inherited"><a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiveName.html">hiveName</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/index.html">index</a></li>
+    <li class="inherited"><a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/httpClient.html">httpClient</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/key.html">key</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/name.html">name</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/ref.html">ref</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a></li>
     <li class="inherited"><a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/sslClient.html">sslClient</a></li>
@@ -124,6 +127,7 @@
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlanSyncDate.html">clientPlanSyncDate</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clientSyncDate.html">clientSyncDate</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/copyWith.html">copyWith</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/ensureClientInitialized.html">ensureClientInitialized</a></li>
     <li class="inherited"><a href="../../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a></li>

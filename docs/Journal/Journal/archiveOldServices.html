@@ -66,7 +66,7 @@ first - we want active hiveBox small and fast on all devices,
 second - we want worker to only see today's services, and
 services which didn't committed yet(stale/rejected).</p>
 <p>Archive is only for committed services.
-Only <a href="../../source_app_data/AppData/hiveArchiveLimit.html">AppData.hiveArchiveLimit</a> number of services could be stored in archive, most old will be deleted first.</p>
+Only hiveArchiveLimit number of services could be stored in archive, most old will be deleted first.</p>
 </section>
 
 
@@ -88,34 +88,32 @@ Only <a href="../../source_app_data/AppData/hiveArchiveLimit.html">AppData.hiveA
     &#47;&#47;
     toDelete(forDelete);
     &#47;&#47;
-    &#47;&#47; &gt; only [hiveArchiveLimit] number of services stored, delete most old and close
+    &#47;&#47; &gt; only [archiveLimit] number of services stored, delete most old and close
     &#47;&#47;
     &#47;&#47; todo: check if hiveArch always place new services last, in that case we can just use deleteAt()
     final archList = hiveArchive.values.toList()
       ..sort((a, b) =&gt; a.provDate.compareTo(b.provDate))
       ..reversed;
-    final hiveArchiveLimit = locator&lt;AppData&gt;().hiveArchiveLimit;
-    if (hiveArchive.length &gt; hiveArchiveLimit) {
+    final archiveLimit = workerProfile.ref.read(hiveArchiveLimit);
+    if (hiveArchive.length &gt; archiveLimit) {
       await hiveArchive.deleteAll(
-        archList.slice(hiveArchiveLimit).map&lt;dynamic&gt;((e) =&gt; e.key),
+        archList.slice(archiveLimit).map&lt;dynamic&gt;((e) =&gt; e.key),
       );
     }
-    final dateList = archList
+    final dateList = archList &#47;&#47; maybe just hiveArchive.values ?
         .slice(
           0,
-          hiveArchiveLimit &lt; archList.length
-              ? hiveArchiveLimit
-              : archList.length,
+          archiveLimit &lt; archList.length ? archiveLimit : archList.length,
         )
         .map((element) =&gt; element.provDate)
         .toList();
-    await locator&lt;AppData&gt;().hiveData.put(
-      &#39;archiveDates_$apiKey&#39;,
-      dateList,
-    );
-    locator&lt;AppData&gt;().datesInArchive.addAll(
-      dateList.map((e) =&gt; DateTime(e.year, e.month, e.day)),
-    );
+    &#47;&#47;
+    &#47;&#47; &gt; update datesInArchive
+    &#47;&#47;
+    await workerProfile.ref.read(datesInArchive.future);
+    workerProfile.ref.read(innerDatesInArchive.notifier).addAll(
+          dateList.map((e) =&gt; DateTime(e.year, e.month, e.day)),
+        );
     await hiveArchive.compact();
     await hiveArchive.close();
   }

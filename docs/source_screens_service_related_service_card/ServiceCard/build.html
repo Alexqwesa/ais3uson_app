@@ -58,7 +58,8 @@
 </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -106,9 +107,11 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context) {
+Widget build(BuildContext context, WidgetRef ref) {
+  final serviceView = ref.watch(serviceViewProvider);
+
   return SizedBox.fromSize(
-    size: locator&lt;AppData&gt;().serviceCardSize(parentSize),
+    size: ref.watch(serviceCardSize(parentSize)),
     child: Stack(
       children: [
         ChangeNotifierProvider.value(
@@ -122,34 +125,27 @@ Widget build(BuildContext context) {
                       : Colors.grey,
                   BlendMode.multiply,
                 ),
-                child: ChangeNotifierProvider.value(
-                  value: AppData.instance,
-                  child: Consumer&lt;AppData&gt;(
-                    builder: (context, data, _) {
-                      return Row(
-                        children: [
-                          &#47;&#47;
-                          &#47;&#47; &gt; select view
-                          &#47;&#47;
-                          if (locator&lt;AppData&gt;().serviceView == &#39;&#39;)
-                            ServiceCardView(
-                              service: service,
-                              parentWidth: parentSize,
-                            )
-                          else if (locator&lt;AppData&gt;().serviceView == &#39;tile&#39;)
-                            ServiceCardTileView(
-                              service: service,
-                              parentWidth: parentSize,
-                            )
-                          else if (locator&lt;AppData&gt;().serviceView == &#39;square&#39;)
-                            ServiceCardSquareView(
-                              service: service,
-                              parentWidth: parentSize,
-                            ),
-                        ],
-                      );
-                    },
-                  ),
+                child: Row(
+                  children: [
+                    &#47;&#47;
+                    &#47;&#47; &gt; select view
+                    &#47;&#47;
+                    if (serviceView == &#39;&#39;)
+                      ServiceCardView(
+                        service: service,
+                        parentSize: parentSize,
+                      )
+                    else if (serviceView == &#39;tile&#39;)
+                      ServiceCardTileView(
+                        service: service,
+                        parentSize: parentSize,
+                      )
+                    else if (serviceView == &#39;square&#39;)
+                      ServiceCardSquareView(
+                        service: service,
+                        parentSize: parentSize,
+                      ),
+                  ],
                 ),
               );
             },
@@ -219,7 +215,8 @@ Widget build(BuildContext context) {
 
     <li class="section-title"><a href="../../source_screens_service_related_service_card/ServiceCard-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_service_related_service_card/ServiceCard/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
