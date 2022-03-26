@@ -5,7 +5,6 @@ import 'package:ais3uson_app/source/screens/service_related/service_card_view.da
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
-import 'package:provider/provider.dart';
 
 /// Displays one [ClientService].
 ///
@@ -28,46 +27,37 @@ class ServiceCard extends ConsumerWidget {
     final serviceView = ref.watch(serviceViewProvider);
 
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(parentSize)),
+      size: serviceCardSize(parentSize, serviceView),
       child: Stack(
         children: [
-          ChangeNotifierProvider.value(
-            value: service,
-            child: Consumer<ClientService>(
-              builder: (context, state, _) {
-                return ColorFiltered(
-                  colorFilter: ColorFilter.mode(
-                    service.addAllowed
-                        ? Colors.white.withOpacity(0)
-                        : Colors.grey,
-                    BlendMode.multiply,
-                  ),
-                  child: ClipRect(
-                    child: Row(
-                      children: [
-                        //
-                        // > select view
-                        //
-                        if (serviceView == '')
-                          ServiceCardView(
-                            service: service,
-                            parentSize: parentSize,
-                          )
-                        else if (serviceView == 'tile')
-                          ServiceCardTileView(
-                            service: service,
-                            parentSize: parentSize,
-                          )
-                        else if (serviceView == 'square')
-                          ServiceCardSquareView(
-                            service: service,
-                            parentSize: parentSize,
-                          ),
-                      ],
+          ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              service.addAllowed ? Colors.white.withOpacity(0) : Colors.grey,
+              BlendMode.multiply,
+            ),
+            child: ClipRect(
+              child: Row(
+                children: [
+                  //
+                  // > select view
+                  //
+                  if (serviceView == '')
+                    ServiceCardView(
+                      service: service,
+                      parentSize: parentSize,
+                    )
+                  else if (serviceView == 'tile')
+                    ServiceCardTileView(
+                      service: service,
+                      parentSize: parentSize,
+                    )
+                  else if (serviceView == 'square')
+                    ServiceCardSquareView(
+                      service: service,
+                      parentSize: parentSize,
                     ),
-                  ),
-                );
-              },
+                ],
+              ),
             ),
           ),
           //

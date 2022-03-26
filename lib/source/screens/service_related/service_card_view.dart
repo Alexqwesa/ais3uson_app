@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category UIServices}
 class ServiceCardView extends ConsumerWidget {
+  static const tileType = '';
   final ClientService service;
   final Size parentSize;
 
@@ -20,7 +21,7 @@ class ServiceCardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(parentSize)),
+      size: serviceCardSize(parentSize, tileType),
       child: FittedBox(
         child: SizedBox(
           width: 205,
@@ -108,6 +109,7 @@ class ServiceCardView extends ConsumerWidget {
 ///
 /// {@category UIServices}
 class ServiceCardSquareView extends ConsumerWidget {
+  static const tileType = 'square';
   final ClientService service;
   final Size parentSize;
 
@@ -120,7 +122,7 @@ class ServiceCardSquareView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(parentSize)),
+      size: serviceCardSize(parentSize, tileType),
       child: FittedBox(
         child: SizedBox(
           width: 150,
@@ -187,6 +189,7 @@ class ServiceCardSquareView extends ConsumerWidget {
 ///
 /// {@category UIServices}
 class ServiceCardTileView extends ConsumerWidget {
+  static const tileType = 'tile';
   final ClientService service;
   final Size parentSize;
 
@@ -199,7 +202,7 @@ class ServiceCardTileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(parentSize)),
+      size: serviceCardSize(parentSize, tileType),
       child: FittedBox(
         fit: BoxFit.fill,
         child: SizedBox(

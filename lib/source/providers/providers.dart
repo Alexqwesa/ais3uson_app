@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 /// Provider of setting - serviceView.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
@@ -56,13 +55,12 @@ class HiveArchiveLimitState extends StateNotifier<int> {
       : super(locator<SharedPreferences>().getInt(name) ?? 3000);
 }
 
-/// Calculate size of [ServiceCard] based on parentSize and [serviceViewProvider].
+/// Calculate size of [ServiceCard] based on parentSize and serviceView.
 ///
 /// {@category Providers}
-final serviceCardSize =
-    Provider.autoDispose.family<Size, Size>((ref, parentSize) {
+Size serviceCardSize(Size parentSize, String serviceView) {
   final parentWidth = parentSize.width;
-  if (ref.watch(serviceViewProvider) == 'tile') {
+  if (serviceView == 'tile') {
     final divider = (parentWidth - 20) ~/ 400.0;
     var cardWidth = (parentWidth / divider) - 10;
     if (divider == 0) {
@@ -73,7 +71,7 @@ final serviceCardSize =
       cardWidth * 1.0,
       cardWidth / 4,
     );
-  } else if (ref.watch(serviceViewProvider) == 'square') {
+  } else if (serviceView == 'square') {
     var divider = (parentWidth - 20) ~/ 150.0;
     if (parentWidth < 130) {
       divider = 1;
@@ -98,7 +96,7 @@ final serviceCardSize =
       cardWidth * 1.2,
     );
   }
-});
+}
 
 /// Provider of httpClient.
 ///
