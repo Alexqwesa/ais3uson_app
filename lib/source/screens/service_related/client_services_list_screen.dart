@@ -23,7 +23,6 @@ class ClientServicesListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastClient);
-
     final workerProfile = client.workerProfile;
     final size = MediaQuery.of(context).size;
 

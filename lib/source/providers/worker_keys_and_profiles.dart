@@ -92,7 +92,7 @@ class WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
       }
     }
     wKeys.where((element) => !keySet.contains(element)).forEach((key) {
-      newState.add(WorkerProfile(key, ref));
+      newState.add(WorkerProfile(key, ref.container));
     });
     state = newState;
   }

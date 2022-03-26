@@ -38,7 +38,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   late final JournalArchive fullArchive;
   late final String name;
 
-  final StateNotifierProviderRef ref;
+  final ProviderContainer ref;
 
   @override
   String get apiKey => key.apiKey;

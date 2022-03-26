@@ -94,7 +94,7 @@ final serviceCardSize =
 });
 
 /// Provider of httpClient
-final httpClientProvider = StateProvider<http.Client>((ref) {
+final httpClientProvider = Provider<http.Client>((ref) {
   return http.Client();
 });
 
