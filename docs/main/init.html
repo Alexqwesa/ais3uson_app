@@ -93,10 +93,11 @@
   &#47;&#47;
   &#47;&#47; &gt; locator
   &#47;&#47;
+  final sharedPreferences = await SharedPreferences.getInstance();
   try {
     locator
       ..registerLazySingleton&lt;S&gt;(() =&gt; S())
-      ..registerLazySingleton&lt;AppData&gt;(() =&gt; AppData());
+      ..registerLazySingleton&lt;SharedPreferences&gt;(() =&gt; sharedPreferences);
     &#47;&#47; ignore: avoid_catches_without_on_clauses
   } catch (e) {
     dev.log(e.toString());

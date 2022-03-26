@@ -79,7 +79,7 @@ or find host without https support.</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;ServiceState?&gt; commitUrl(String urlAddress, {String? body}) async {
   final url = Uri.parse(urlAddress);
-  var http = locator&lt;AppData&gt;().httpClient;
+  var http = workerProfile.httpClient;
   var ret = ServiceState.added;
   try {
     Response response;

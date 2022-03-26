@@ -59,7 +59,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Init application,init <a href="https://pub.dev/documentation/hive/2.0.6/hive/Hive.html">Hive</a>, create <a href="../source_app_data/AppData-class.html">AppData</a> and postInit it.</p>
+  <p>Init application, init <a href="https://pub.dev/documentation/hive/2.0.6/hive/Hive.html">Hive</a>.</p>
 <p>Create <a href="https://pub.dev/documentation/overlay_support/1.2.1/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../app_root/AppRoot-class.html">AppRoot</a>.</p>
 </section>
 
@@ -71,8 +71,8 @@
   WidgetsFlutterBinding.ensureInitialized();
 
   await init();
-  unawaited(locator&lt;AppData&gt;().postInit());
-  runApp(const OverlaySupport.global(child: AppRoot()));
+  &#47;&#47; unawaited(locator&lt;AppData&gt;().postInit());
+  runApp(const OverlaySupport.global(child: ProviderScope(child: AppRoot())));
 }</code></pre>
 </section>
 

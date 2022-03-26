@@ -58,7 +58,8 @@
 </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -106,7 +107,7 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context) {
+Widget build(BuildContext context, WidgetRef ref) {
   return MaterialApp(
     &#47;&#47;
     &#47;&#47; &gt; l10n
@@ -121,19 +122,18 @@ Widget build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: locator&lt;AppData&gt;().isArchive
+      appBar: ref.watch(isArchive)
           ? AppBar(
               title: Row(
                 children: [
                   IconButton(
                     onPressed: () {
-                      locator&lt;AppData&gt;().isArchive =
-                          !locator&lt;AppData&gt;().isArchive;
+                      ref.read(isArchive.notifier).update((state) =&gt; !state);
                     },
                     icon: const Icon(Icons.cancel_outlined),
                   ),
                   Text(
-                    &#39;${locator&lt;S&gt;().archiveAt} ${standardFormat.format(locator&lt;AppData&gt;().archiveDate)}&#39;,
+                    &#39;${locator&lt;S&gt;().archiveAt} ${ref.watch(archiveDate) == null ? &quot;&quot; : standardFormat.format(ref.watch(archiveDate)!)}&#39;,
                   ),
                 ],
               ),
@@ -144,14 +144,16 @@ Widget build(BuildContext context) {
                     return IconButton(
                       icon: const Icon(Icons.date_range),
                       onPressed: () async {
-                        final datesInArchive = locator&lt;AppData&gt;().datesInArchive
-                            .toList(growable: true);
-                        locator&lt;AppData&gt;().archiveDate = await showDatePicker(
+                        final archiveDates =
+                            await ref.watch(datesInArchive.future);
+
+                        ref.read(archiveDate.notifier).state =
+                            await showDatePicker(
                           context: context,
-                          selectableDayPredicate: datesInArchive.contains,
-                          initialDate: datesInArchive.last,
-                          lastDate: datesInArchive.last,
-                          firstDate: datesInArchive.first,
+                          selectableDayPredicate: archiveDates!.contains,
+                          initialDate: archiveDates.last,
+                          lastDate: archiveDates.last,
+                          firstDate: archiveDates.first,
                         );
                       },
                     );
@@ -168,7 +170,7 @@ Widget build(BuildContext context) {
             maxHeight: !kIsWeb &amp;&amp; !Platform.isAndroid
                 ? null
                 : MediaQuery.of(context).size.height -
-                    (locator&lt;AppData&gt;().isArchive
+                    (ref.watch(isArchive)
                         ? kToolbarHeight &#47;&#47; locator&lt;AppData&gt;().windowTopPadding * 2
                         : 0),
             &#47;&#47;
@@ -217,7 +219,8 @@ Widget build(BuildContext context) {
 
     <li class="section-title"><a href="../../app_root/ArchiveMaterialApp-class.html#instance-methods">Methods</a></li>
     <li><a href="../../app_root/ArchiveMaterialApp/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
