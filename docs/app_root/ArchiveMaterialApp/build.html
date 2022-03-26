@@ -144,17 +144,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                     return IconButton(
                       icon: const Icon(Icons.date_range),
                       onPressed: () async {
-                        final archiveDates =
-                            await ref.watch(datesInArchive.future);
-
-                        ref.read(archiveDate.notifier).state =
-                            await showDatePicker(
-                          context: context,
-                          selectableDayPredicate: archiveDates!.contains,
-                          initialDate: archiveDates.last,
-                          lastDate: archiveDates.last,
-                          firstDate: archiveDates.first,
-                        );
+                        await archiveOnWithDatePicker(context, ref);
                       },
                     );
                   },

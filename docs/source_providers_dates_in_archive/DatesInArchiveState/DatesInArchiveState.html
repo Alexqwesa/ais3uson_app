@@ -64,7 +64,7 @@
   asyncOpenBox.whenData((data) {
     box = data;
     &#47;&#47; state probably empty here...
-    log.info(&#39;Not empty state of DatesInArchiveState&#39;);
+    log.info(&#39;Not empty: state of DatesInArchiveState&#39;);
     super.state = &lt;DateTime&gt;{...state, ...box!.values}.toList();
   });
 }</code></pre>

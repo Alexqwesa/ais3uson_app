@@ -215,9 +215,14 @@ Widget build(BuildContext context, WidgetRef ref) {
                     ),
                   ),
                 ),
+                &#47;&#47;
+                &#47;&#47; &gt; list of test department
+                &#47;&#47;
                 ListView.builder(
                   itemCount: newWorkerKeys.length,
                   shrinkWrap: true,
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(2.0),

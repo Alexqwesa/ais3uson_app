@@ -192,9 +192,13 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ListTile(
                   leading: const Icon(Icons.archive),
                   title: Text(S.of(context).archive),
-                  onTap: () {
-                    ref.read(isArchive.notifier).update((state) =&gt; !state);
+                  onTap: () async {
                     Navigator.pop(context, &#39;archive&#39;);
+                    if (ref.read(archiveDate) == null) {
+                      await archiveOnWithDatePicker(context, ref);
+                    } else{
+                      ref.read(isArchive.notifier).update((state) =&gt; !state);
+                    }
                   },
                 ),
                 ListTile(
