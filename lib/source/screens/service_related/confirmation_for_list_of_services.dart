@@ -7,14 +7,16 @@ import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/app_state.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart' show ConsumerWidget, WidgetRef;
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show ConsumerWidget, WidgetRef;
 import 'package:provider/provider.dart';
 
 class ConfirmationForListOfServices extends ConsumerWidget {
   const ConfirmationForListOfServices({
     Key? key,
-  }) : super(key: key) ;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,24 +34,34 @@ class ConfirmationForListOfServices extends ConsumerWidget {
                 if (_client.services.isEmpty) {
                   return Container(); // Todo:
                 }
+                final allByGroups = groupBy<ServiceOfJournal, int>(
+                  all,
+                  (e) => e.provDate.daysSinceEpoch,
+                );
 
                 return Wrap(
                   children: [
-                    TitleWidgetOfServicesGroup(
-                      service: all[0],
-                      client: _client,
-                    ),
-                    for (int index = 1; index < all.length; index++)
-                      standardFormat.format(all[index].provDate) !=
-                              standardFormat.format(all[index - 1].provDate)
-                          ? TitleWidgetOfServicesGroup(
-                              service: all[index],
-                              client: _client,
-                            )
-                          : TotalServiceTile(
-                              serviceOfJournal: all[index],
+                    for (final servicesAt
+                        in allByGroups.entries.map((e) => e.value))
+                      SizedBox(
+                        width: 632,
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            TitleWidgetOfServicesGroup(
+                              service: servicesAt[0],
                               client: _client,
                             ),
+                            for (int index = 1;
+                                index < servicesAt.length;
+                                index++)
+                              TotalServiceTile(
+                                serviceOfJournal: all[index],
+                                client: _client,
+                              ),
+                          ],
+                        ),
+                      ),
                   ],
                 );
               },

@@ -40,10 +40,10 @@ class JournalArchive extends Journal {
     //
     final groups = groupBy<ServiceOfJournal, ServiceState>(
       hiveValues.where((element) =>
-      aDate == null ||
+          aDate == null ||
           (element.provDate.isAfter(aDate!) &&
               element.provDate.isBefore(aDate!.add(const Duration(days: 1))))),
-          (e) => e.state,
+      (e) => e.state,
     );
     // skip rejected services,
     // since today service also can be here create notApproved for added services
@@ -111,6 +111,9 @@ class JournalArchive extends Journal {
   }
 }
 
+/// Get millisecondsSinceEpoch and round down to days.
+///
+/// {@category Universal_helpers}
 extension DaysSinceEpoch on DateTime {
   int get daysSinceEpoch {
     return (millisecondsSinceEpoch + timeZoneOffset.inMilliseconds) ~/
