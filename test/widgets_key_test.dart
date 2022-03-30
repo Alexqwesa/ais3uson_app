@@ -92,7 +92,7 @@ void main() {
     expect(find.textContaining(locator<S>().emptyListOfPeople), findsNothing);
   });
 
-  testWidgets('it show list of ', (tester) async {
+  testWidgets('it show list of services ', (tester) async {
     final ref = ProviderContainer(
       overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
     );

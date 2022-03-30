@@ -50,13 +50,13 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   List<ServiceEntry> get services => _services;
 
   /// Store date and time of last sync for [_services].
-  DateTime _servicesSyncDate = startDate;
+  DateTime _servicesSyncDate = nullDate;
 
   /// Store date and time of last sync for [_clientPlan].
-  DateTime _clientPlanSyncDate = startDate;
+  DateTime _clientPlanSyncDate = nullDate;
 
   /// Store date and time of last sync for [_clients].
-  DateTime _clientSyncDate = startDate;
+  DateTime _clientSyncDate = nullDate;
 
   /// Service list should only update on empty, or unknown planned service.
   ///
@@ -185,13 +185,13 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   }
 
   Future<DateTime> servicesSyncDate() async {
-    if (_servicesSyncDate == startDate) {
+    if (_servicesSyncDate == nullDate) {
       int since;
       final hive = await Hive.openBox<dynamic>(hiveName);
       since = await hive.get(
         '${apiKey}_servicesSyncDate',
         defaultValue:
-            startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+            nullDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
       ) as int;
       _servicesSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
     }
@@ -200,13 +200,13 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   }
 
   Future<DateTime> clientPlanSyncDate() async {
-    if (_clientPlanSyncDate == startDate) {
+    if (_clientPlanSyncDate == nullDate) {
       int since;
       final hive = await Hive.openBox<dynamic>(hiveName);
       since = await hive.get(
         '${apiKey}_clientPlanSyncDate',
         defaultValue:
-            startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+            nullDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
       ) as int;
       _clientPlanSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
     }
@@ -215,13 +215,13 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   }
 
   Future<DateTime> clientSyncDate() async {
-    if (_clientSyncDate == startDate) {
+    if (_clientSyncDate == nullDate) {
       int since;
       final hive = await Hive.openBox<dynamic>(hiveName);
       since = await hive.get(
         '${apiKey}_clientSyncDate',
         defaultValue:
-            startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+            nullDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
       ) as int;
       _clientSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
     }

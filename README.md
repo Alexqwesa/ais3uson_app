@@ -125,8 +125,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] use badges
 - [ ] tutorial
 - [ ] translations - mostly done (en/ru/de)
-- [ ] split AppData?
-- [ ] use bloc/getx/get_it/...
 - [ ] get list of revoked services by date from server
 - [ ] get list of date/money/services count from server for month, if some day disagree with local data - 
 get list of services by date from server?

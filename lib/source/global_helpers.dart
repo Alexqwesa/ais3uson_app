@@ -18,7 +18,7 @@ const formatSQL = 'yyyy-MM-dd';
 const formatStandard = 'dd.MM.yyyy';
 final sqlFormat = DateFormat(formatSQL);
 final standardFormat = DateFormat(formatStandard);
-final startDate = DateTime(1900);
+final nullDate = DateTime(1900);
 
 /// qrData
 ///
