@@ -137,7 +137,7 @@ class Journal with ChangeNotifier {
         );
 
         html.AnchorElement(
-          href: html.Url.createObjectUrlFromBlob(blob).toString(),
+          href: html.Url.createObjectUrlFromBlob(blob),
         )
           ..setAttribute('download', fileName)
           ..click();
@@ -323,30 +323,32 @@ class Journal with ChangeNotifier {
     // > main loop, synchronized
     //
     await _lock.synchronized(() async {
-      await Future.wait(servicesForSync.map((serv) async {
-        try {
-          switch (await commitAdd(serv)) {
-            case ServiceState.added:
-              log.info('stale service $serv');
-              break; // no changes - do nothing
-            case ServiceState.finished:
-              log.finest('finished service $serv');
-              toFinished(serv);
-              break;
-            case ServiceState.rejected:
-              log.warning('rejected service $serv');
-              toRejected(serv);
-              break;
-            case ServiceState.outDated:
-              throw StateError('commit can not make service outDated');
-            default:
-              throw StateError('impossible');
+      await Future.wait(
+        servicesForSync.map((serv) async {
+          try {
+            switch (await commitAdd(serv)) {
+              case ServiceState.added:
+                log.info('stale service $serv');
+                break; // no changes - do nothing
+              case ServiceState.finished:
+                log.finest('finished service $serv');
+                toFinished(serv);
+                break;
+              case ServiceState.rejected:
+                log.warning('rejected service $serv');
+                toRejected(serv);
+                break;
+              case ServiceState.outDated:
+                throw StateError('commit can not make service outDated');
+              case null:
+                log.fine('commit stub');
+            }
+            // ignore: avoid_catches_without_on_clauses
+          } catch (e) {
+            log.severe('Sync services: $e');
           }
-          // ignore: avoid_catches_without_on_clauses
-        } catch (e) {
-          log.severe('Sync services: $e');
-        }
-      }));
+        }),
+      );
 
       notifyListeners();
     });
@@ -512,8 +514,6 @@ class Journal with ChangeNotifier {
         case ServiceState.outDated:
           outDated.remove(e);
           break;
-        default:
-          throw StateError('Impossible state');
       }
 
       e.delete();
@@ -556,8 +556,6 @@ class Journal with ChangeNotifier {
       case ServiceState.outDated:
         outDated.remove(service);
         break;
-      default:
-        throw StateError('Impossible state');
     }
     //
     // > add
@@ -576,8 +574,6 @@ class Journal with ChangeNotifier {
       case ServiceState.outDated:
         outDated.add(newService);
         break;
-      default:
-        throw StateError('Impossible state');
     }
     hive.add(newService);
     newService.save();

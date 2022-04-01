@@ -24,7 +24,7 @@ class DevScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Text(
                       S.of(context).shortAboutApp,
                       textAlign: TextAlign.center,

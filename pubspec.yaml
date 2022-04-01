@@ -76,6 +76,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable:
   mockito: any
+  very_good_analysis: any
 
 
 #  hive_generator: any

@@ -247,7 +247,7 @@ void main() {
             workerId: 1,
             provDate: yesterday,
             state: ServiceState.finished,
-          ));
+          ),);
           await hive.add(
             autoServiceOfJournal(servId: 830, contractId: 1, workerId: 1),
           );

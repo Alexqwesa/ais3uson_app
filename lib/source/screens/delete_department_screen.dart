@@ -90,7 +90,7 @@ Future<String?> _showDialog(BuildContext context, String depName) async {
             children: <Widget>[
               Text(S.of(context).areYouSureToDelete),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   depName,
                   style: Theme.of(context).textTheme.bodyText2,

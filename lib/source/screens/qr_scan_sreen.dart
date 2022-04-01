@@ -180,9 +180,6 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 8, right: 8),
                     child: ElevatedButton(
-                      child: Text(
-                        S.of(context).add,
-                      ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.green,
@@ -214,6 +211,9 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                           );
                         }
                       },
+                      child: Text(
+                        S.of(context).add,
+                      ),
                     ),
                   ),
                 ),

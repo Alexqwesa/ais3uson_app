@@ -47,7 +47,7 @@ class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
           // ignore: avoid_annotating_with_dynamic
           (dynamic e) => WorkerKey.fromJson(e as Map<String, dynamic>),
         ) as Iterable<WorkerKey>)
-            .toList());
+            .toList(),);
 
   /// Add [WorkerKey].
   ///
@@ -82,7 +82,7 @@ class WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
       : super(<WorkerProfile>[]) {
     sync(ref.read(workerKeys));
     ref.listen(workerKeys, (previous, next) {
-      sync(next as List<WorkerKey>);
+      sync((next ?? <WorkerKey>[]) as List<WorkerKey>);
     });
   }
 

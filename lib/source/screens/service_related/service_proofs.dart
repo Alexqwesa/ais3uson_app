@@ -47,7 +47,7 @@ class _ServiceProofState extends State<ServiceProof> {
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8),
                 child: Divider(),
               ),
               Text(
@@ -61,7 +61,7 @@ class _ServiceProofState extends State<ServiceProof> {
                 style: Theme.of(context).textTheme.headline5,
               ),
               const Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8),
                 child: Text(
                   'Сделайте снимки или аудиозаписи подтверждающие оказание услуги:',
                   textAlign: TextAlign.center,
@@ -147,7 +147,7 @@ class BuildProofList extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8),
                                   child: SizedBox.square(
                                     child: Expanded(
                                       child: ImageOrButtonAdd(
@@ -164,7 +164,7 @@ class BuildProofList extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8),
                                   child: SizedBox.square(
                                     // dimension: MediaQuery.of(context).size.width / 2.4,
                                     child: Expanded(
@@ -251,7 +251,7 @@ class AddProofButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: FloatingActionButton(
         heroTag: ValueKey(strType + i.toString()),
         child: const Icon(Icons.camera_alt),

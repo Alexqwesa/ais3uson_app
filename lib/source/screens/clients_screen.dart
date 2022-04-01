@@ -58,7 +58,7 @@ class ClientScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return Center(
                         child: SizedBox(
-                          width: 550.0,
+                          width: 550,
                           child: ClientCard(
                             index: index,
                             client: clientList[index],
@@ -119,7 +119,7 @@ class ClientCard extends ConsumerWidget {
           style: Theme.of(context).textTheme.headline5,
         ),
         subtitle: Padding(
-          padding: const EdgeInsets.fromLTRB(25.0, 8, 0, 4),
+          padding: const EdgeInsets.fromLTRB(25, 8, 0, 4),
           child: Align(
             alignment: Alignment.bottomLeft,
             child: Text(
@@ -147,14 +147,14 @@ class ClientCard extends ConsumerWidget {
           unawaited(Navigator.pushNamed(
             context,
             '/client_journal',
-          ));
+          ),);
         },
         onTap: () async {
           ref.read(lastClientId.notifier).state = client.contractId;
           unawaited(Navigator.pushNamed(
             context,
             '/client_services',
-          ));
+          ),);
           // Todo: rework it
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();

@@ -29,7 +29,7 @@ class ServiceCardView extends ConsumerWidget {
           child: Card(
             elevation: service.addAllowed ? 6 : 0,
             child: Padding(
-              padding: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(2),
               child: Stack(
                 children: [
                   SizedBox(
@@ -68,7 +68,7 @@ class ServiceCardView extends ConsumerWidget {
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(6.0),
+                                  padding: const EdgeInsets.all(6),
                                   child: Text(
                                     service.shortText,
                                     textScaleFactor: 1.1,
@@ -209,7 +209,7 @@ class ServiceCardTileView extends ConsumerWidget {
           height: 100,
           width: 400,
           child: Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(2),
             child: Card(
               elevation: service.addAllowed ? 6 : 0,
               child: Stack(
@@ -237,7 +237,7 @@ class ServiceCardTileView extends ConsumerWidget {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Text(
                                   service.shortText,
                                   textScaleFactor: 1.1,

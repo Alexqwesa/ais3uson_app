@@ -35,7 +35,7 @@ class HomePage extends ConsumerWidget {
                   //
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
                           maxWidth: MediaQuery.of(context).size.width / 4,
@@ -141,16 +141,16 @@ class HomePage extends ConsumerWidget {
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: Text(
                           S.of(context).theme,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       ToggleSwitch(
-                        minWidth: 145.0,
+                        minWidth: 145,
                         minHeight: 34,
-                        cornerRadius: 83.0,
+                        cornerRadius: 83,
                         activeBgColors: [
                           [Theme.of(context).primaryColor],
                           [Theme.of(context).primaryColor],

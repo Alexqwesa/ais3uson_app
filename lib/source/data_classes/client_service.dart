@@ -59,33 +59,46 @@ class ClientService with ChangeNotifier {
   //
   // > journal getters
   //
-  Iterable<ServiceOfJournal> get servicesInJournal =>
-      journal.all.where((element) =>
-          element.contractId == contractId && element.servId == service.id);
+  Iterable<ServiceOfJournal> get servicesInJournal => journal.all.where(
+        (element) =>
+            element.contractId == contractId && element.servId == service.id,
+      );
 
   int get added => journal.added
-      .where((element) =>
-          element.contractId == contractId && element.servId == service.id)
+      .where(
+        (element) =>
+            element.contractId == contractId && element.servId == service.id,
+      )
       .length;
 
   int get done =>
       journal.finished
-          .where((element) =>
-              element.contractId == contractId && element.servId == service.id)
+          .where(
+            (element) =>
+                element.contractId == contractId &&
+                element.servId == service.id,
+          )
           .length +
       journal.outDated
-          .where((element) =>
-              element.contractId == contractId && element.servId == service.id)
+          .where(
+            (element) =>
+                element.contractId == contractId &&
+                element.servId == service.id,
+          )
           .length;
 
   int get rejected => journal.rejected
-      .where((element) =>
-          element.contractId == contractId && element.servId == service.id)
+      .where(
+        (element) =>
+            element.contractId == contractId && element.servId == service.id,
+      )
       .length;
 
   int get inJournal => journal.all
-      .where((element) =>
-          element.contractId == contractId && element.servId == service.id)
+      .where(
+        (element) =>
+            element.contractId == contractId && element.servId == service.id,
+      )
       .length;
 
   int get left => plan - filled - done - added;

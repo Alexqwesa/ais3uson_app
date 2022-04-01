@@ -39,10 +39,12 @@ class JournalArchive extends Journal {
     // > sort
     //
     final groups = groupBy<ServiceOfJournal, ServiceState>(
-      hiveValues.where((element) =>
-          aDate == null ||
-          (element.provDate.isAfter(aDate!) &&
-              element.provDate.isBefore(aDate!.add(const Duration(days: 1))))),
+      hiveValues.where(
+        (element) =>
+            aDate == null ||
+            (element.provDate.isAfter(aDate!) &&
+                element.provDate.isBefore(aDate!.add(const Duration(days: 1)))),
+      ),
       (e) => e.state,
     );
     // skip rejected services,

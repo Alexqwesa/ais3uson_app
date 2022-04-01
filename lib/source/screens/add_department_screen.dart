@@ -65,7 +65,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Text(
                               S.of(context).putDepTextField,
                               textAlign: TextAlign.center,
@@ -84,8 +84,8 @@ class AddDepartmentScreen extends ConsumerWidget {
                             child: Row(
                               children: [
                                 TextButton(
-                                  child: Text(S.of(context).clear),
                                   onPressed: controller.clear,
+                                  child: Text(S.of(context).clear),
                                 ),
                                 const Spacer(),
                                 ElevatedButton(
@@ -122,7 +122,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20),
                       child: Text(
                         S.of(context).orTestDepList,
                         textAlign: TextAlign.center,
@@ -140,7 +140,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                         ScrollViewKeyboardDismissBehavior.onDrag,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(2),
                         child: Card(
                           child: ListTile(
                             leading: Transform.rotate(
@@ -221,7 +221,7 @@ class SimpleTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: TextField(
         controller: controller,
         // focusNode: focusNode,

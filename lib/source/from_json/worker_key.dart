@@ -54,12 +54,11 @@ class WorkerKey with _$WorkerKey {
   }
 
   String get activeHost {
-    var address = activeServer.split(':')[1].substring('//'.length);
-    address = address.contains('/')
+    final address = activeServer.split(':')[1].substring('//'.length);
+
+    return address.contains('/')
         ? address.substring(0, address.indexOf('/'))
         : address;
-
-    return address;
   }
 
   String get activePath {

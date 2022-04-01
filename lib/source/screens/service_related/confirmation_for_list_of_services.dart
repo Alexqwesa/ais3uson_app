@@ -102,11 +102,11 @@ class TitleWidgetOfServicesGroup extends StatelessWidget {
           ),
           Positioned.fill(
             child: Align(
+              alignment: Alignment.bottomCenter,
               child: TotalServiceTile(
                 serviceOfJournal: service,
                 client: client,
               ),
-              alignment: Alignment.bottomCenter,
             ),
           ),
         ],

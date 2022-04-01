@@ -14,8 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_classes_test.dart';
 
-
-
 void main() {
   //
   // > Setup
@@ -100,20 +98,24 @@ void main() {
         final hive =
             await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
         for (var i = 0; i < 20; i++) {
-          await hive.add(autoServiceOfJournal(
-            servId: 830,
-            contractId: 1,
-            workerId: 1,
-            provDate: yesterday,
-            state: ServiceState.finished,
-          ));
-          await hive.add(autoServiceOfJournal(
-            servId: 830,
-            contractId: 1,
-            workerId: 1,
-            provDate: beforeYesterday,
-            state: ServiceState.outDated,
-          ));
+          await hive.add(
+            autoServiceOfJournal(
+              servId: 830,
+              contractId: 1,
+              workerId: 1,
+              provDate: yesterday,
+              state: ServiceState.finished,
+            ),
+          );
+          await hive.add(
+            autoServiceOfJournal(
+              servId: 830,
+              contractId: 1,
+              workerId: 1,
+              provDate: beforeYesterday,
+              state: ServiceState.outDated,
+            ),
+          );
         }
         //
         // > ProviderContainer and init

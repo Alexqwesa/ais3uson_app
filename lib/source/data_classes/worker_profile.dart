@@ -344,7 +344,7 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     );
   }
 
-  /// This function should only be called if there is inconsistency: [ClientPlan] had nonexist service Id.
+  /// This should only be called if there is inconsistency: [ClientPlan] had nonexist service Id.
   ///
   /// This can happen:
   /// - once per year, then list of [ServiceEntry] is updated - just sync via [syncHiveServices].

@@ -91,7 +91,7 @@ class ListOfProfiles extends ConsumerWidget {
                     margin: const EdgeInsets.all(12),
                     child: ListTile(
                       leading: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: Transform.scale(
                           scale: 2,
                           child: const Icon(Icons.group),
@@ -126,7 +126,7 @@ class ListOfProfiles extends ConsumerWidget {
                           children: [
                             Text(wpKeys[index].name),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8),
                               child: Text(wpKeys[index].comment),
                             ),
                           ],

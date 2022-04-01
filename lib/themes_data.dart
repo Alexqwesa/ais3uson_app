@@ -19,42 +19,42 @@ class StandardThemeState extends StateNotifier<ThemeMode> {
 
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
-      fontSize: 16.0,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     ),
     bodyText2: GoogleFonts.openSans(
-      fontSize: 16.0,
+      fontSize: 16,
       color: Colors.black,
       fontWeight: FontWeight.normal,
     ),
     headline1: GoogleFonts.openSans(
-      fontSize: 28.0,
+      fontSize: 28,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
     headline2: GoogleFonts.openSans(
-      fontSize: 26.0,
+      fontSize: 26,
       fontWeight: FontWeight.w700,
       color: Colors.black,
     ),
     headline3: GoogleFonts.openSans(
-      fontSize: 24.0,
+      fontSize: 24,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
     headline4: GoogleFonts.openSans(
-      fontSize: 22.0,
+      fontSize: 22,
       // fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
     headline5: GoogleFonts.openSans(
-      fontSize: 20.0,
+      fontSize: 20,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
     headline6: GoogleFonts.ubuntu(
-      fontSize: 18.0,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
@@ -62,42 +62,42 @@ class StandardThemeState extends StateNotifier<ThemeMode> {
 
   static TextTheme darkTextTheme = lightTextTheme.copyWith(
     bodyText1: GoogleFonts.openSans(
-      fontSize: 16.0,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       color: Colors.white,
     ),
     bodyText2: GoogleFonts.openSans(
-      fontSize: 16.0,
+      fontSize: 16,
       color: Colors.white,
       fontWeight: FontWeight.normal,
     ),
     headline1: GoogleFonts.openSans(
-      fontSize: 28.0,
+      fontSize: 28,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline2: GoogleFonts.openSans(
-      fontSize: 26.0,
+      fontSize: 26,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline3: GoogleFonts.openSans(
-      fontSize: 24.0,
+      fontSize: 24,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline4: GoogleFonts.openSans(
-      fontSize: 22.0,
+      fontSize: 22,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline5: GoogleFonts.openSans(
-      fontSize: 20.0,
+      fontSize: 20,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline6: GoogleFonts.ubuntu(
-      fontSize: 18.0,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
@@ -110,8 +110,10 @@ class StandardThemeState extends StateNotifier<ThemeMode> {
   }
 
   StandardThemeState()
-      : super([ThemeMode.light, ThemeMode.dark]
-            .elementAt(locator<SharedPreferences>().getInt(name) ?? 0));
+      : super(
+          [ThemeMode.light, ThemeMode.dark]
+              .elementAt(locator<SharedPreferences>().getInt(name) ?? 0),
+        );
 
   static ThemeData light() {
     return ThemeData(

@@ -33,7 +33,7 @@ http.Client getMockHttpClient() {
         '<p>Thread: Thread-542</p>'
         '<p>Thread Count: 5</p></body></html>',
         200,
-      ));
+      ),);
 
   return client;
 }
