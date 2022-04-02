@@ -65,13 +65,13 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;DateTime&gt; servicesSyncDate() async {
-  if (_servicesSyncDate == startDate) {
+  if (_servicesSyncDate == nullDate) {
     int since;
     final hive = await Hive.openBox&lt;dynamic&gt;(hiveName);
     since = await hive.get(
       &#39;${apiKey}_servicesSyncDate&#39;,
       defaultValue:
-          startDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
+          nullDate.add(const Duration(days: 1)).millisecondsSinceEpoch,
     ) as int;
     _servicesSyncDate = DateTime.fromMillisecondsSinceEpoch(since);
   }
@@ -166,7 +166,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+8
+      1.0.1+10
   </span>
 
   
