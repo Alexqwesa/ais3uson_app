@@ -112,15 +112,15 @@ Widget build(BuildContext context) {
       alignment: Alignment.topLeft,
       fit: BoxFit.fitHeight,
       child: SizedBox(
-        height: 64 - (rightOfText ? 10: 0),
+        height: 64 - (rightOfText ? 10 : 0),
         width: 10 + (rightOfText ? 14 : 0),
         child: ChangeNotifierProvider&lt;ClientService&gt;.value(
           value: clientService,
           child: Consumer&lt;ClientService&gt;(
             builder: (context, data, child) {
               final listDoneProgressError =
-              context.select&lt;ClientService, List&lt;int&gt;&gt;(
-                    (data) =&gt; data.listDoneProgressError,
+                  context.select&lt;ClientService, List&lt;int&gt;&gt;(
+                (data) =&gt; data.listDoneProgressError,
               );
 
               return ListView.builder(
@@ -135,35 +135,35 @@ Widget build(BuildContext context) {
                       visible: listDoneProgressError.elementAt(i) != 0,
                       child: rightOfText
                           ? Container(
-                        color: Colors.white,
-                        child: Row(
-                          children: [
-                            icons.elementAt(i),
-                            Text(
-                              listDoneProgressError
-                                  .elementAt(i)
-                                  .toString(),
-                              style:
-                              Theme.of(context).textTheme.headline5,
-                            ),
-                          ],
-                        ),
-                      )
+                              color: Colors.white,
+                              child: Row(
+                                children: [
+                                  icons.elementAt(i),
+                                  Text(
+                                    listDoneProgressError
+                                        .elementAt(i)
+                                        .toString(),
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                ],
+                              ),
+                            )
                           : Container(
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            icons.elementAt(i),
-                            Text(
-                              listDoneProgressError
-                                  .elementAt(i)
-                                  .toString(),
-                              style:
-                              Theme.of(context).textTheme.headline5,
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  icons.elementAt(i),
+                                  Text(
+                                    listDoneProgressError
+                                        .elementAt(i)
+                                        .toString(),
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   );
                 },

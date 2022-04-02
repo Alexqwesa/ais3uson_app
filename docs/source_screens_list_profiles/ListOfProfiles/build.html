@@ -59,7 +59,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
 <span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -184,7 +184,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   margin: const EdgeInsets.all(12),
                   child: ListTile(
                     leading: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: Transform.scale(
                         scale: 2,
                         child: const Icon(Icons.group),
@@ -205,12 +205,6 @@ Widget build(BuildContext context, WidgetRef ref) {
                         context,
                         &#39;&#47;department&#39;,
                       );
-                      &#47;&#47; if (locator&lt;AppData&gt;()
-                      &#47;&#47;     .profiles[index]
-                      &#47;&#47;     .clients
-                      &#47;&#47;     .isEmpty) {
-                      &#47;&#47;   locator&lt;AppData&gt;().profiles[index].syncHiveClients();
-                      &#47;&#47; }
                     },
                     subtitle: Align(
                       alignment: Alignment.topLeft,
@@ -219,7 +213,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                         children: [
                           Text(wpKeys[index].name),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Text(wpKeys[index].comment),
                           ),
                         ],
@@ -275,8 +269,8 @@ Widget build(BuildContext context, WidgetRef ref) {
 
     <li class="section-title"><a href="../../source_screens_list_profiles/ListOfProfiles-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_list_profiles/ListOfProfiles/build.html">build</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

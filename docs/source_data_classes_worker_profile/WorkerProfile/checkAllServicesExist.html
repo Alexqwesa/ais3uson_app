@@ -60,10 +60,10 @@
     </section>
     
 <section class="desc markdown">
-  <p>This function should only be called if there is inconsistency: <a href="../../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a> had nonexist service Id.</p>
-<p>This can happen:</p>
+  <p>This should only be called if there is inconsistency:</p>
+<p><a href="../../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a> had nonexist service Id. This can happen:</p>
 <ul>
-<li>once per year, then list of <a href="../../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a> is updated - just sync via <a href="../../source_data_classes_worker_profile/WorkerProfile/syncHiveServices.html">syncHiveServices</a>.</li>
+<li>then list of <a href="../../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a> is reduced on server,</li>
 <li>database has inconsistency. TODO: check it here - low priority.</li>
 </ul>
 </section>

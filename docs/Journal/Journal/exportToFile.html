@@ -71,7 +71,8 @@
   &#47;&#47; final _base64 = base64Encode(content.codeUnits);
   final fileName =
       &#39;${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_&#39;
-      &#39;${standardFormat.format(start)}_${standardFormat.format(end)}.ais_json&#39;;
+      &#39;${standardFormat.format(start)}_&#39;
+      &#39;${standardFormat.format(end)}.ais_json&#39;;
   final filePath = await getSafePath([fileName]);
   if (filePath == null) {
     if (kIsWeb) {
@@ -82,7 +83,7 @@
       );
 
       html.AnchorElement(
-        href: html.Url.createObjectUrlFromBlob(blob).toString(),
+        href: html.Url.createObjectUrlFromBlob(blob),
       )
         ..setAttribute(&#39;download&#39;, fileName)
         ..click();

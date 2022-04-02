@@ -107,11 +107,13 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  &#47;&#47; For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+  &#47;&#47; For this example we check how width or tall the device is
+  &#47;&#47; and change the scanArea and overlay accordingly.
   final scanArea = MediaQuery.of(context).size.width * 0.9;
 
   &#47;&#47; To ensure the Scanner view is properly sizes after rotation
-  &#47;&#47; we need to listen for Flutter SizeChanged notification and update controller
+  &#47;&#47; we need to listen for Flutter SizeChanged notification
+  &#47;&#47; and update controller
   return QRView(
     key: qrKey,
     onQRViewCreated: onQRViewCreated,

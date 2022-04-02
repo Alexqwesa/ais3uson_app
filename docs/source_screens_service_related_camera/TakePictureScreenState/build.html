@@ -163,8 +163,8 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(title: const Text(&#39;Take a picture&#39;)),
     &#47;&#47; You must wait until the controller is initialized before displaying the
-    &#47;&#47; camera preview. Use a FutureBuilder to display a loading spinner until the
-    &#47;&#47; controller has finished initializing.
+    &#47;&#47; camera preview. Use a FutureBuilder to display a loading spinner until
+    &#47;&#47; the controller has finished initializing.
     body: FutureBuilder&lt;void&gt;(
       future: _initializeControllerFuture,
       builder: (context, snapshot) {

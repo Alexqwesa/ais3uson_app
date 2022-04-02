@@ -66,7 +66,7 @@
     
 <section class="desc markdown">
   <p>Read services from hive at date <a href="../../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a> or all dates.</p>
-<p>If <a href="../../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a> is null - read all service from hive journal and journal_archive.
+<p>If <a href="../../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a> is null - read all service from journal and journal_archive.
 The member <a href="../../source_journal_archive_journal_archive/JournalArchive/all.html">all</a> - sorted by date(from recent to old).</p>
 </section>
 
@@ -90,14 +90,17 @@ Future&lt;void&gt; postInit() async {
   &#47;&#47; &gt; sort
   &#47;&#47;
   final groups = groupBy&lt;ServiceOfJournal, ServiceState&gt;(
-    hiveValues.where((element) =&gt;
-        aDate == null ||
-        (element.provDate.isAfter(aDate!) &amp;&amp;
-            element.provDate.isBefore(aDate!.add(const Duration(days: 1))))),
+    hiveValues.where(
+      (element) =&gt;
+          aDate == null ||
+          (element.provDate.isAfter(aDate!) &amp;&amp;
+              element.provDate.isBefore(aDate!.add(const Duration(days: 1)))),
+    ),
     (e) =&gt; e.state,
   );
   &#47;&#47; skip rejected services,
-  &#47;&#47; since today service also can be here create notApproved for added services
+  &#47;&#47; and since today service also can be here:
+  &#47;&#47;   create notApproved for added services
   notApproved = groups[ServiceState.added] ?? [];
   finished = groups[ServiceState.finished] ?? [];
   outDated = groups[ServiceState.outDated] ?? [];

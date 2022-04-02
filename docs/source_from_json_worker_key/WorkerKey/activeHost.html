@@ -66,12 +66,11 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">String get activeHost {
-  var address = activeServer.split(&#39;:&#39;)[1].substring(&#39;&#47;&#47;&#39;.length);
-  address = address.contains(&#39;&#47;&#39;)
+  final address = activeServer.split(&#39;:&#39;)[1].substring(&#39;&#47;&#47;&#39;.length);
+
+  return address.contains(&#39;&#47;&#39;)
       ? address.substring(0, address.indexOf(&#39;&#47;&#39;))
       : address;
-
-  return address;
 }</code></pre>
 </section>
 

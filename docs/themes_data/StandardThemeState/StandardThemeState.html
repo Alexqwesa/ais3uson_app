@@ -60,8 +60,10 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">StandardThemeState()
-    : super([ThemeMode.light, ThemeMode.dark]
-          .elementAt(locator&lt;SharedPreferences&gt;().getInt(name) ?? 0));</code></pre>
+    : super(
+        [ThemeMode.light, ThemeMode.dark]
+            .elementAt(locator&lt;SharedPreferences&gt;().getInt(name) ?? 0),
+      );</code></pre>
 </section>
 
 

@@ -50,7 +50,7 @@
 </h1></div>
 
     <section class="multi-line-signature">
-      <span class="name ">WorkerProfilesState</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.0.0-dev.4/riverpod/StateNotifierProviderRef-class.html">StateNotifierProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/state_notifier/0.7.2+1/state_notifier/StateNotifier-class.html">StateNotifier</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">ref</span></span></li>
+      <span class="name ">WorkerProfilesState</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/StateNotifierProviderRef-class.html">StateNotifierProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/state_notifier/0.7.2+1/state_notifier/StateNotifier-class.html">StateNotifier</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
     </section>
 
@@ -64,7 +64,7 @@
     : super(&lt;WorkerProfile&gt;[]) {
   sync(ref.read(workerKeys));
   ref.listen(workerKeys, (previous, next) {
-    sync(next as List&lt;WorkerKey&gt;);
+    sync((next ?? &lt;WorkerKey&gt;[]) as List&lt;WorkerKey&gt;);
   });
 }</code></pre>
 </section>

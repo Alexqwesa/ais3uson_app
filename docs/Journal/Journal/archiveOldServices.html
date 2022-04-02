@@ -66,7 +66,8 @@ first - we want active hiveBox small and fast on all devices,
 second - we want worker to only see today's services, and
 services which didn't committed yet(stale/rejected).</p>
 <p>Archive is only for committed services.
-Only hiveArchiveLimit number of services could be stored in archive, most old will be deleted first.</p>
+Only hiveArchiveLimit number of services could be stored in archive,
+most old will be deleted first.</p>
 </section>
 
 
@@ -88,9 +89,10 @@ Only hiveArchiveLimit number of services could be stored in archive, most old wi
     &#47;&#47;
     toDelete(forDelete);
     &#47;&#47;
-    &#47;&#47; &gt; only [archiveLimit] number of services stored, delete most old and close
+    &#47;&#47; &gt; keep only [archiveLimit] number of services, delete oldest and close
     &#47;&#47;
-    &#47;&#47; todo: check if hiveArch always place new services last, in that case we can just use deleteAt()
+    &#47;&#47; todo: check if hiveArch always place new services last,
+    &#47;&#47;  in that case we can just use deleteAt()
     final archList = hiveArchive.values.toList()
       ..sort((a, b) =&gt; a.provDate.compareTo(b.provDate))
       ..reversed;

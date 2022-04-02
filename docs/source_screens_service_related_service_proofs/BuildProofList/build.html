@@ -158,15 +158,15 @@ Widget build(BuildContext context) {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8),
                                 child: SizedBox.square(
                                   child: Expanded(
                                     child: ImageOrButtonAdd(
                                       image: proofGroups[i].beforeImg,
                                       addProfButton: AddProofButton(
-                                        i: i,
-                                        addCall: proofList.addImage,
-                                        strType: &#39;before_&#39;,
+                                        indexInProofList: i,
+                                        callBack: proofList.addImage,
+                                        strBeforAfter: &#39;before_&#39;,
                                       ),
                                     ),
                                   ),
@@ -175,16 +175,16 @@ Widget build(BuildContext context) {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8),
                                 child: SizedBox.square(
                                   &#47;&#47; dimension: MediaQuery.of(context).size.width &#47; 2.4,
                                   child: Expanded(
                                     child: ImageOrButtonAdd(
                                       image: proofGroups[i].afterImg,
                                       addProfButton: AddProofButton(
-                                        i: i,
-                                        addCall: proofList.addImage,
-                                        strType: &#39;after_&#39;,
+                                        indexInProofList: i,
+                                        callBack: proofList.addImage,
+                                        strBeforAfter: &#39;after_&#39;,
                                       ),
                                     ),
                                   ),
