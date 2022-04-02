@@ -5,9 +5,9 @@ import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-/// This class is for showing archived services, it show read only data for date [aDate].
+/// This class is for showing archived services at date [aDate].
 ///
-/// It is stubbed version of [Journal] class.
+/// It is stubbed and read only version of [Journal] class.
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
@@ -21,7 +21,7 @@ class JournalArchive extends Journal {
 
   /// Read services from hive at date [aDate] or all dates.
   ///
-  /// If [aDate] is null - read all service from hive journal and journal_archive.
+  /// If [aDate] is null - read all service from journal and journal_archive.
   /// The member [all] - sorted by date(from recent to old).
   @override
   Future<void> postInit() async {
@@ -48,7 +48,8 @@ class JournalArchive extends Journal {
       (e) => e.state,
     );
     // skip rejected services,
-    // since today service also can be here create notApproved for added services
+    // and since today service also can be here:
+    //   create notApproved for added services
     notApproved = groups[ServiceState.added] ?? [];
     finished = groups[ServiceState.finished] ?? [];
     outDated = groups[ServiceState.outDated] ?? [];

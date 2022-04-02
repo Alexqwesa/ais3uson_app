@@ -24,7 +24,8 @@ Future<void> init() async {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     dev.log(
-      '${record.level.name.substring(0, 3)}:  ${record.message}', //${record.time}:
+      '${record.level.name.substring(0, 3)}:  ${record.message}',
+      //${record.time}:
     );
   });
   //

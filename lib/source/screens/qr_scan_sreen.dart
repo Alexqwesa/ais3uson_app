@@ -25,8 +25,9 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
   Barcode? result;
   QRViewController? controller;
 
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
+  // In order to get hot reload to work we need to
+  // pause the camera if the platform is android,
+  // or resume the camera if the platform is iOS.
   @override
   void reassemble() {
     super.reassemble();
@@ -261,11 +262,13 @@ class ShowQrView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+    // For this example we check how width or tall the device is
+    // and change the scanArea and overlay accordingly.
     final scanArea = MediaQuery.of(context).size.width * 0.9;
 
     // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
+    // we need to listen for Flutter SizeChanged notification
+    // and update controller
     return QRView(
       key: qrKey,
       onQRViewCreated: onQRViewCreated,

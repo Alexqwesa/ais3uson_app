@@ -8,19 +8,21 @@ part 'service_of_journal.freezed.dart';
 
 part 'service_of_journal.g.dart';
 
-/// ServiceOfJournal is a class to store one entry of [Journal] (one input service).
+/// This class is used to store one entry of [Journal] (one input service).
 ///
-/// It is created in state [ServiceState.added], with current, date and unique uuid.
+/// It should be inited with state [ServiceState.added], and
+///  with current date and unique uuid.
 ///
-/// [Journal] send services in state [ServiceState.added]
-/// to DB, and marked(recreate) them [ServiceState.finished] or [ServiceState.rejected].
+/// [Journal] send services in state [ServiceState.added] to DB, then move them
+/// (copyWith state [ServiceState.finished] or [ServiceState.rejected] ).
 ///
-/// Services in state [ServiceState.finished] or  [ServiceState.outDated] send to
+/// Services in state [ServiceState.finished] or [ServiceState.outDated] send to
 /// [Journal.hiveArchive] on next day.
 ///
 /// {@category Journal}
 @freezed
 class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
+  /// Raw constructor, use convenient [autoServiceOfJournal] constructor.
   @HiveType(typeId: 0) // , adapterName: 'ServiceOfJournalAdapter')
   factory ServiceOfJournal({
     @HiveField(0) required int servId,
@@ -38,7 +40,9 @@ class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
       _$$_ServiceOfJournalFromJson(json);
 }
 
-/// Helper for ServiceOfJournal - call const constructor with dynamic default values.
+/// Helper for ServiceOfJournal constructor
+///
+/// it call const constructor with dynamic default values:
 /// - uid: uuid.v4(),
 /// - provDate: provDate ?? DateTime.now().
 // ignore: long-parameter-list

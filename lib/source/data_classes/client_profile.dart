@@ -1,4 +1,3 @@
-// ignore_for_file: always_use_package_imports, prefer_final_fields, flutter_style_todos
 import 'dart:async';
 import 'dart:developer' as dev;
 
@@ -54,8 +53,8 @@ class ClientProfile with ChangeNotifier {
       final wp = workerProfile;
       _services = wp.clientPlan.where((element) {
         return element.contractId == contractId &&
-            // this line is important because it prevent errors if client has services
-            // that no used anymore,
+            // this line is important, because
+            // it prevent errors if client has services that no used anymore
             // TODO: make this check and show error message somewhere before
             wp.services.map((e) => e.id).contains(element.servId);
       }).map((e) {

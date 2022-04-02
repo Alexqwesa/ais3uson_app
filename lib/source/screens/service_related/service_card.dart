@@ -9,7 +9,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 /// Displays one [ClientService].
 ///
 /// This widget check is service enabled.
-/// And decide which View to use(like: [ServiceCardView], [ServiceCardTileView], [ServiceCardSquareView]...)
+/// And decide which View to use:
+/// [ServiceCardView], [ServiceCardTileView], [ServiceCardSquareView]
 ///
 /// {@category UIServices}
 class ServiceCard extends ConsumerWidget {

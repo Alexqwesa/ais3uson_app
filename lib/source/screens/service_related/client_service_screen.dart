@@ -18,10 +18,10 @@ class ClientServiceScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ClientServiceScreenState createState() => _ClientServiceScreenState();
+  ClientServiceScreenState createState() => ClientServiceScreenState();
 }
 
-class _ClientServiceScreenState extends State<ClientServiceScreen> {
+class ClientServiceScreenState extends State<ClientServiceScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

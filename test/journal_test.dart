@@ -241,13 +241,15 @@ void main() {
         final hive =
             await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
         for (var i = 0; i < 20; i++) {
-          await hive.add(autoServiceOfJournal(
-            servId: 830,
-            contractId: 1,
-            workerId: 1,
-            provDate: yesterday,
-            state: ServiceState.finished,
-          ),);
+          await hive.add(
+            autoServiceOfJournal(
+              servId: 830,
+              contractId: 1,
+              workerId: 1,
+              provDate: yesterday,
+              state: ServiceState.finished,
+            ),
+          );
           await hive.add(
             autoServiceOfJournal(servId: 830, contractId: 1, workerId: 1),
           );
@@ -337,7 +339,7 @@ void main() {
       expect(client2.services[3].listDoneProgressError, [0, 0, 0]);
     });
     test(
-      'it add services and delete them in order: rejected->added->finished->outDated',
+      'it add and delete services in order:rejected->added->finished->outDated',
       () async {
         //
         // > prepare ProviderContainer + httpClient

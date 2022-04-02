@@ -69,7 +69,9 @@ class ArchiveMaterialApp extends ConsumerWidget {
                       icon: const Icon(Icons.cancel_outlined),
                     ),
                     Text(
-                      '${locator<S>().archiveAt} ${ref.watch(archiveDate) == null ? "" : standardFormat.format(ref.watch(archiveDate)!)}',
+                      '${locator<S>().archiveAt} '
+                      // ignore: lines_longer_than_80_chars
+                      '${ref.watch(archiveDate) == null ? '' : standardFormat.format(ref.watch(archiveDate)!)}',
                     ),
                   ],
                 ),
@@ -96,9 +98,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
               maxHeight: !kIsWeb && !Platform.isAndroid
                   ? null
                   : MediaQuery.of(context).size.height -
-                      (ref.watch(isArchive)
-                          ? kToolbarHeight // locator<AppData>().windowTopPadding * 2
-                          : 0),
+                      (ref.watch(isArchive) ? kToolbarHeight : 0),
               //
               // > main MaterialApp
               //

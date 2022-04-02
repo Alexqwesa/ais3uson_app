@@ -112,12 +112,6 @@ class ListOfProfiles extends ConsumerWidget {
                           context,
                           '/department',
                         );
-                        // if (locator<AppData>()
-                        //     .profiles[index]
-                        //     .clients
-                        //     .isEmpty) {
-                        //   locator<AppData>().profiles[index].syncHiveClients();
-                        // }
                       },
                       subtitle: Align(
                         alignment: Alignment.topLeft,

@@ -25,10 +25,10 @@ class ServiceProof extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ServiceProofState createState() => _ServiceProofState();
+  ServiceProofState createState() => ServiceProofState();
 }
 
-class _ServiceProofState extends State<ServiceProof> {
+class ServiceProofState extends State<ServiceProof> {
   List<String> audioPaths = [];
   List<String> imagePaths = [];
 
@@ -63,7 +63,8 @@ class _ServiceProofState extends State<ServiceProof> {
               const Padding(
                 padding: EdgeInsets.all(8),
                 child: Text(
-                  'Сделайте снимки или аудиозаписи подтверждающие оказание услуги:',
+                  'Сделайте снимки или аудиозаписи '
+                  'подтверждающие оказание услуги:',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -153,9 +154,9 @@ class BuildProofList extends StatelessWidget {
                                       child: ImageOrButtonAdd(
                                         image: proofGroups[i].beforeImg,
                                         addProfButton: AddProofButton(
-                                          i: i,
-                                          addCall: proofList.addImage,
-                                          strType: 'before_',
+                                          indexInProofList: i,
+                                          callBack: proofList.addImage,
+                                          strBeforAfter: 'before_',
                                         ),
                                       ),
                                     ),
@@ -171,9 +172,9 @@ class BuildProofList extends StatelessWidget {
                                       child: ImageOrButtonAdd(
                                         image: proofGroups[i].afterImg,
                                         addProfButton: AddProofButton(
-                                          i: i,
-                                          addCall: proofList.addImage,
-                                          strType: 'after_',
+                                          indexInProofList: i,
+                                          callBack: proofList.addImage,
+                                          strBeforAfter: 'after_',
                                         ),
                                       ),
                                     ),
@@ -195,14 +196,14 @@ class BuildProofList extends StatelessWidget {
 }
 
 class ImageOrButtonAdd extends StatelessWidget {
-  final Widget addProfButton;
-  final Image? image;
-
   const ImageOrButtonAdd({
     required this.addProfButton,
     required this.image,
     Key? key,
   }) : super(key: key);
+
+  final Widget addProfButton;
+  final Image? image;
 
   @override
   Widget build(BuildContext context) {
@@ -237,23 +238,23 @@ class ImageOrButtonAdd extends StatelessWidget {
 
 /// Display add button for add proof.
 class AddProofButton extends StatelessWidget {
-  final int i;
-  final Function(int, XFile?, String) addCall;
-  final String strType;
-
   const AddProofButton({
-    required this.i,
-    required this.addCall,
-    required this.strType,
+    required this.indexInProofList,
+    required this.callBack,
+    required this.strBeforAfter,
     Key? key,
   }) : super(key: key);
+
+  final int indexInProofList;
+  final Function(int, XFile?, String) callBack;
+  final String strBeforAfter;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: FloatingActionButton(
-        heroTag: ValueKey(strType + i.toString()),
+        heroTag: ValueKey(strBeforAfter + indexInProofList.toString()),
         child: const Icon(Icons.camera_alt),
         onPressed: () async {
           late final List<CameraDescription> cameras;
@@ -276,7 +277,7 @@ class AddProofButton extends StatelessWidget {
               ),
             ),
           );
-          await addCall(i, defaultImgPath, strType);
+          await callBack(indexInProofList, defaultImgPath, strBeforAfter);
         },
       ),
     );

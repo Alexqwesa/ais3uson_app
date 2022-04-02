@@ -24,9 +24,11 @@ import 'package:overlay_support/overlay_support.dart';
 /// - save/restore from hive.
 ///
 /// Classes with this mixin:
-/// - can use several functions that call [hiddenSyncHive] with various parameters,
-/// - should implement [updateValueFromHive] - it will be called by [hiddenSyncHive],
-/// - overridden function [updateValueFromHive] usually call [hiddenUpdateValueFromHive] to get [Map] from hive.
+/// - can use several functions that call [hiddenSyncHive],
+/// - should implement [updateValueFromHive] - callback for [hiddenSyncHive].
+///
+/// Note: the overridden function [updateValueFromHive] usually call
+/// [hiddenUpdateValueFromHive] to get [Map] from hive.
 mixin SyncDataMixin {
   /// Standard name of HiveBox.
   ///
@@ -49,7 +51,8 @@ mixin SyncDataMixin {
 
   /// Get data from network (with error checks) and save it to hive.
   ///
-  /// First it call [updateValueFromHive] with parameter 'onlyIfEmpty=true' to get values from hive.
+  /// First it call [updateValueFromHive] with parameter 'onlyIfEmpty=true'
+  ///  to get values from hive.
   /// Then it wait network data, put response to hive
   /// and call [updateValueFromHive] to display new data.
   Future<void> hiddenSyncHive({

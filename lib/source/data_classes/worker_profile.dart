@@ -259,8 +259,9 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
   /// Async init actions such as:
   ///
   /// - postInit [journal] (instance of [Journal] class),
-  /// - get last sync dates for [clients], [clientPlan] and [services] from hive,
-  /// - check dates of last sync and call updates.
+  /// - read [clients], [clientPlan] and [services] from hive if empty,
+  /// - check last sync dates and sync [clients], [clientPlan] and [services],
+  /// - and call notifyListeners.
   Future<void> postInit() async {
     await journal.postInit();
     await Hive.openBox<dynamic>(hiveName);
@@ -331,11 +332,11 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
   /// Synchronize services for [WorkerProfile._services].
   ///
-  /// Services usually updated once per year, and before calling this function we
-  /// should check: is it really necessary, i.e. is [_services] empty.
+  /// Services usually updated once per year, and before calling this function
+  /// we should check: is it really necessary, i.e. is [_services] empty.
   ///
-  /// This function also called from [checkAllServicesExist] if there is [_clientPlan]
-  /// with wrong [ClientPlan.servId].
+  /// This function also called from [checkAllServicesExist], if there is a
+  /// [_clientPlan] with wrong [ClientPlan.servId].
   Future<void> syncHiveServices({bool localOnly = false}) async {
     await hiddenSyncHive(
       apiKey: key.apiKey,
@@ -344,10 +345,10 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
     );
   }
 
-  /// This should only be called if there is inconsistency: [ClientPlan] had nonexist service Id.
+  /// This should only be called if there is inconsistency:
   ///
-  /// This can happen:
-  /// - once per year, then list of [ServiceEntry] is updated - just sync via [syncHiveServices].
+  /// [ClientPlan] had nonexist service Id. This can happen:
+  /// - then list of [ServiceEntry] is reduced on server,
   /// - database has inconsistency. TODO: check it here - low priority.
   Future<void> checkAllServicesExist() async {
     if (_services.isEmpty) {

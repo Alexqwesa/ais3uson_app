@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Should always return last client [ClientProfile].
 ///
 /// If can't find last client - return first client from first profile.
-/// This is readonly provider, use [lastApiKey] and [lastClientId] to set its value.
+/// This is readonly provider, but you can change it values via [lastApiKey] and
+/// [lastClientId] providers.
 ///
 /// {@category Providers}
 final lastClient = Provider((ref) {

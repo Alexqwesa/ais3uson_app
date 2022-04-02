@@ -88,9 +88,7 @@ void main() {
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref
-          .read(workerProfiles)
-          .first;
+      final wp = ref.read(workerProfiles).first;
       await wp.postInit();
       final httpClient = ref.read(httpClientProvider) as mock.MockClient;
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
@@ -109,9 +107,7 @@ void main() {
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref
-          .read(workerProfiles)
-          .first;
+      final wp = ref.read(workerProfiles).first;
       final httpClient = ref.read(httpClientProvider) as mock.MockClient;
       await wp.postInit();
       //
@@ -137,9 +133,7 @@ void main() {
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref
-          .read(workerProfiles)
-          .first;
+      final wp = ref.read(workerProfiles).first;
       final httpClient = ref.read(httpClientProvider) as mock.MockClient;
       await wp.postInit();
       // test http
@@ -168,9 +162,7 @@ void main() {
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref
-          .read(workerProfiles)
-          .first;
+      final wp = ref.read(workerProfiles).first;
       await wp.postInit();
       //
       // > add proof
@@ -199,15 +191,14 @@ void main() {
       );
       final dstFile = File(
         // ignore: prefer_interpolation_to_compose_strings
-        '${appDocDir
-            .path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
+        '${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
             standardFormat.format(DateTime.now()) +
             '_/828_Итого/group_0_/before_img_auth_qr_test.png',
       );
       // '/home/alex/Documents/Ais3uson/Ais3uson/1_Работник Тестового Отделения 2/1_Тес. . чек/26.03.2022_/828_Итого/group_0_/before_img_auth_qr_test.png'
       expect(
         await dstFile.length(),
-          srcFileLenght,
+        srcFileLenght,
       );
     });
 
@@ -222,9 +213,7 @@ void main() {
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref
-          .read(workerProfiles)
-          .first;
+      final wp = ref.read(workerProfiles).first;
       await wp.postInit();
       //
       // > create dir for proof
@@ -233,16 +222,18 @@ void main() {
         '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
       );
       final dst = Directory(
-        '${appDocDir
-            .path}/1_Работник Тестового Отделения 2/1_Тес  чек/01.03.2022_/828_Итого/group_0_/',
+        '${appDocDir.path}/'
+        // ignore: missing_whitespace_between_adjacent_strings
+        '1_Работник Тестового Отделения 2/1_Тес  чек/01.03.2022_/'
+        '828_Итого/group_0_/',
       );
       if (!dst.existsSync()) {
         dst.createSync(recursive: true);
       }
       // add proof
       final file =
-      File('${Directory.current.path}/test/helpers/auth_qr_test.png')
-          .copySync(
+          File('${Directory.current.path}/test/helpers/auth_qr_test.png')
+              .copySync(
         '${dst.path}/before_img_auth_qr_test.png',
       );
       final serv2 = wp.clients.first.services.first;

@@ -100,10 +100,11 @@ class Journal with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Return json String with all [ServiceOfJournal] between dates [start] and [end].
+  /// Return json String with [ServiceOfJournal] between dates [start] and [end]
   ///
   /// It gets values from both hive and hiveArchive.
-  /// The [end] date is not included, the dates [DateTime] should be rounded to zero time.
+  /// The [end] date is not included,
+  ///  the dates [DateTime] should be rounded to zero time.
   Future<String> export(DateTime start, DateTime end) async {
     await save();
     hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
@@ -126,7 +127,8 @@ class Journal with ChangeNotifier {
     // final _base64 = base64Encode(content.codeUnits);
     final fileName =
         '${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_'
-        '${standardFormat.format(start)}_${standardFormat.format(end)}.ais_json';
+        '${standardFormat.format(start)}_'
+        '${standardFormat.format(end)}.ais_json';
     final filePath = await getSafePath([fileName]);
     if (filePath == null) {
       if (kIsWeb) {
@@ -177,7 +179,8 @@ class Journal with ChangeNotifier {
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(
-        'Ошибка: не удалось сохранить запись журнала, проверьте сводобное место на устройстве',
+        'Ошибка: не удалось сохранить запись журнала, '
+        'проверьте сводобное место на устройстве',
       );
       await commitAll(); // still call?
 
@@ -275,7 +278,8 @@ class Journal with ChangeNotifier {
         response = await http.get(url, headers: _httpHeaders);
       }
       log.info(
-        '$url response.statusCode = ${response.statusCode}\n\n ${response.body}',
+        '$url response.statusCode = ${response.statusCode}\n\n '
+        '${response.body}',
       );
       //
       // > check response
@@ -398,7 +402,8 @@ class Journal with ChangeNotifier {
   /// services which didn't committed yet(stale/rejected).
   ///
   /// Archive is only for committed services.
-  /// Only hiveArchiveLimit number of services could be stored in archive, most old will be deleted first.
+  /// Only hiveArchiveLimit number of services could be stored in archive,
+  /// most old will be deleted first.
   Future<void> archiveOldServices() async {
     //
     // > open hive archive and add old services
@@ -414,9 +419,10 @@ class Journal with ChangeNotifier {
       //
       toDelete(forDelete);
       //
-      // > only [archiveLimit] number of services stored, delete most old and close
+      // > keep only [archiveLimit] number of services, delete oldest and close
       //
-      // todo: check if hiveArch always place new services last, in that case we can just use deleteAt()
+      // todo: check if hiveArch always place new services last,
+      //  in that case we can just use deleteAt()
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
@@ -445,9 +451,13 @@ class Journal with ChangeNotifier {
     }
   }
 
-  /// Helper, only used in [ClientService], for deleting last [ServiceOfJournal].
+  /// Helper, only used in [ClientService], it delete last [ServiceOfJournal].
   ///
-  /// It return rejected services first, then stalled, then finished, then outdated.
+  /// Note: it delete services in this order:
+  /// - rejected,
+  /// - stalled,
+  /// - finished,
+  /// - outdated.
   String? getUuidOfLastService({
     required int servId,
     required int contractId,
