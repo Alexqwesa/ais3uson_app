@@ -18,10 +18,6 @@ part 'client_plan.g.dart';
 /// {@category Import_from_json}
 @freezed
 class ClientPlan with _$ClientPlan {
-  int get contractId => contract_id;
-
-  int get servId => serv_id;
-
   const factory ClientPlan({
     required int contract_id,
     required int serv_id,
@@ -33,4 +29,8 @@ class ClientPlan with _$ClientPlan {
 
   factory ClientPlan.fromJson(Map<String, dynamic> json) =>
       _$$_ClientPlanFromJson(json);
+
+  int get contractId => contract_id;
+
+  int get servId => serv_id;
 }

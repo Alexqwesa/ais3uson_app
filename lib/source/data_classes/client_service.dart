@@ -22,6 +22,23 @@ import 'package:flutter/material.dart';
 /// {@category Data_Classes}
 // ignore: prefer_mixin
 class ClientService with ChangeNotifier {
+  ClientService({
+    required this.journal,
+    required this.service,
+    required this.planned,
+  }) {
+    _proofList = ProofList(
+      workerDepId,
+      contractId,
+      standardFormat.format(DateTime.now()),
+      servId,
+      client: client.name,
+      worker: journal.workerProfile.name,
+      service: service.shortText,
+    );
+    journal.addListener(notifyListeners);
+  }
+
   final ServiceEntry service;
   final ClientPlan planned;
 
@@ -121,23 +138,6 @@ class ClientService with ChangeNotifier {
 
   ClientProfile get client => journal.workerProfile.clients
       .firstWhere((element) => element.contractId == contractId);
-
-  ClientService({
-    required this.journal,
-    required this.service,
-    required this.planned,
-  }) {
-    _proofList = ProofList(
-      workerDepId,
-      contractId,
-      standardFormat.format(DateTime.now()),
-      servId,
-      client: client.name,
-      worker: journal.workerProfile.name,
-      service: service.shortText,
-    );
-    journal.addListener(notifyListeners);
-  }
 
   @override
   void dispose() {

@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first
+
 import 'dart:convert';
 
 import 'package:ais3uson_app/main.dart';

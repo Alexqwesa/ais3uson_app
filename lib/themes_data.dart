@@ -15,6 +15,12 @@ final standardTheme =
 });
 
 class StandardThemeState extends StateNotifier<ThemeMode> {
+  StandardThemeState()
+      : super(
+          [ThemeMode.light, ThemeMode.dark]
+              .elementAt(locator<SharedPreferences>().getInt(name) ?? 0),
+        );
+
   static const name = 'themeIndex';
 
   static TextTheme lightTextTheme = TextTheme(
@@ -108,12 +114,6 @@ class StandardThemeState extends StateNotifier<ThemeMode> {
     super.state = value;
     locator<SharedPreferences>().setInt(name, value == ThemeMode.light ? 0 : 1);
   }
-
-  StandardThemeState()
-      : super(
-          [ThemeMode.light, ThemeMode.dark]
-              .elementAt(locator<SharedPreferences>().getInt(name) ?? 0),
-        );
 
   static ThemeData light() {
     return ThemeData(

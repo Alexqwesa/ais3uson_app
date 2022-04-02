@@ -21,18 +21,6 @@ part 'client_entry.g.dart';
 /// {@category Import_from_json}
 @freezed
 class ClientEntry with _$ClientEntry {
-  int get contractId => contract_id;
-
-  int get depId => dep_id;
-
-  int get clientId => client_id;
-
-  int get dhwId => dhw_id;
-
-  String get contractDuration => contract_duration;
-
-  double get maxPay => max_pay;
-
   const factory ClientEntry({
     required int contract_id,
     required int dep_id,
@@ -50,4 +38,16 @@ class ClientEntry with _$ClientEntry {
 
   factory ClientEntry.fromJson(Map<String, dynamic> json) =>
       _$$_ClientEntryFromJson(json);
+
+  int get contractId => contract_id;
+
+  int get depId => dep_id;
+
+  int get clientId => client_id;
+
+  int get dhwId => dhw_id;
+
+  String get contractDuration => contract_duration;
+
+  double get maxPay => max_pay;
 }

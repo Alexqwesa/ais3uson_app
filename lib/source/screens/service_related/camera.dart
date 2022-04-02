@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 ///
 /// {@category UIServices}
 class TakePictureScreen extends StatefulWidget {
-  final CameraDescription camera;
-
   const TakePictureScreen({
     required this.camera,
     Key? key,
   }) : super(key: key);
+
+  final CameraDescription camera;
 
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
@@ -111,12 +111,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
 // A widget that displays the picture taken by the user.
 class DisplayPictureScreen extends StatelessWidget {
-  final Image image;
-
   const DisplayPictureScreen({
     required this.image,
     Key? key,
   }) : super(key: key);
+
+  final Image image;
 
   @override
   Widget build(BuildContext context) {

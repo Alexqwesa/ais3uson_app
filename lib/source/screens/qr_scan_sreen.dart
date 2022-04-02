@@ -250,15 +250,14 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
 }
 
 class ShowQrView extends StatelessWidget {
-  final GlobalKey qrKey;
-
-  final void Function(QRViewController) onQRViewCreated;
-
   const ShowQrView({
     required this.qrKey,
     required this.onQRViewCreated,
     Key? key,
   }) : super(key: key);
+
+  final GlobalKey qrKey;
+  final void Function(QRViewController) onQRViewCreated;
 
   @override
   Widget build(BuildContext context) {

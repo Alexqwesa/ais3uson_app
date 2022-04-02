@@ -82,14 +82,14 @@ class ClientScreen extends ConsumerWidget {
 }
 
 class ClientCard extends ConsumerWidget {
-  final ClientProfile client;
-  final int index;
-
   const ClientCard({
     required this.index,
     required this.client,
     Key? key,
   }) : super(key: key);
+
+  final ClientProfile client;
+  final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

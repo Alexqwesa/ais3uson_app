@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first
+
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';

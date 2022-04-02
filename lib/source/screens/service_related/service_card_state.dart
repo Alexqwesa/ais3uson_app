@@ -1,4 +1,3 @@
-
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +12,12 @@ import 'package:provider/provider.dart';
 ///
 /// {@category UIServices}
 class ServiceCardState extends StatelessWidget {
+  const ServiceCardState({
+    required this.clientService,
+    Key? key,
+    this.rightOfText = false,
+  }) : super(key: key);
+
   //
   // icon data
   //
@@ -35,12 +40,6 @@ class ServiceCardState extends StatelessWidget {
 
   final bool rightOfText;
 
-  const ServiceCardState({
-    required this.clientService,
-    Key? key,
-    this.rightOfText = false,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
@@ -48,15 +47,15 @@ class ServiceCardState extends StatelessWidget {
         alignment: Alignment.topLeft,
         fit: BoxFit.fitHeight,
         child: SizedBox(
-          height: 64 - (rightOfText ? 10: 0),
+          height: 64 - (rightOfText ? 10 : 0),
           width: 10 + (rightOfText ? 14 : 0),
           child: ChangeNotifierProvider<ClientService>.value(
             value: clientService,
             child: Consumer<ClientService>(
               builder: (context, data, child) {
                 final listDoneProgressError =
-                context.select<ClientService, List<int>>(
-                      (data) => data.listDoneProgressError,
+                    context.select<ClientService, List<int>>(
+                  (data) => data.listDoneProgressError,
                 );
 
                 return ListView.builder(
@@ -71,35 +70,35 @@ class ServiceCardState extends StatelessWidget {
                         visible: listDoneProgressError.elementAt(i) != 0,
                         child: rightOfText
                             ? Container(
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              icons.elementAt(i),
-                              Text(
-                                listDoneProgressError
-                                    .elementAt(i)
-                                    .toString(),
-                                style:
-                                Theme.of(context).textTheme.headline5,
-                              ),
-                            ],
-                          ),
-                        )
+                                color: Colors.white,
+                                child: Row(
+                                  children: [
+                                    icons.elementAt(i),
+                                    Text(
+                                      listDoneProgressError
+                                          .elementAt(i)
+                                          .toString(),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ],
+                                ),
+                              )
                             : Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              icons.elementAt(i),
-                              Text(
-                                listDoneProgressError
-                                    .elementAt(i)
-                                    .toString(),
-                                style:
-                                Theme.of(context).textTheme.headline5,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    icons.elementAt(i),
+                                    Text(
+                                      listDoneProgressError
+                                          .elementAt(i)
+                                          .toString(),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
                       ),
                     );
                   },

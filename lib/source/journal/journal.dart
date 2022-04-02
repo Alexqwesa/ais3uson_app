@@ -36,6 +36,12 @@ import 'package:universal_html/html.dart' as html;
 /// {@category Journal}
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
+  Journal(this.workerProfile) {
+    _httpHeaders = {}
+      ..addAll(httpHeaders)
+      ..addAll({'api_key': apiKey});
+  }
+
   late final WorkerProfile workerProfile;
   late final Map<String, String> _httpHeaders;
   final _lock = Lock();
@@ -69,12 +75,6 @@ class Journal with ChangeNotifier {
 
   Iterable<ServiceOfJournal> get _forDelete =>
       (finished + outDated).where((el) => el.provDate.isBefore(today));
-
-  Journal(this.workerProfile) {
-    _httpHeaders = {}
-      ..addAll(httpHeaders)
-      ..addAll({'api_key': apiKey});
-  }
 
   @override
   void dispose() {

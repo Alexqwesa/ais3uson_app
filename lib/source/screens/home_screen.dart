@@ -14,9 +14,9 @@ import 'package:toggle_switch/toggle_switch.dart';
 ///
 /// {@category WorkerProfiles}
 class HomePage extends ConsumerWidget {
-  final String title;
-
   const HomePage({required this.title, Key? key}) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,7 +108,7 @@ class HomePage extends ConsumerWidget {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
                         await archiveOnWithDatePicker(context, ref);
-                      } else{
+                      } else {
                         ref.read(isArchive.notifier).update((state) => !state);
                       }
                     },

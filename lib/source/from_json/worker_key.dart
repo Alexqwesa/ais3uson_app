@@ -31,6 +31,24 @@ part 'worker_key.g.dart';
 /// {@category Import_from_json}
 @freezed
 class WorkerKey with _$WorkerKey {
+  const factory WorkerKey({
+    required String app,
+    required String name,
+    required String api_key,
+    required int worker_dep_id,
+    required String dep,
+    required String db,
+    required String servers,
+    @Default(0) int activeServerIndex,
+    @Default('') String comment,
+    @Default('') String certBase64,
+  }) = _WorkerKey;
+
+  const WorkerKey._();
+
+  factory WorkerKey.fromJson(Map<String, dynamic> json) =>
+      _$$_WorkerKeyFromJson(json);
+
   String get activeServer {
     final server = servers.split('|')[activeServerIndex];
 
@@ -75,21 +93,4 @@ class WorkerKey with _$WorkerKey {
 
   Uint8List get certificate => const Base64Decoder().convert(certBase64);
 
-  const factory WorkerKey({
-    required String app,
-    required String name,
-    required String api_key,
-    required int worker_dep_id,
-    required String dep,
-    required String db,
-    required String servers,
-    @Default(0) int activeServerIndex,
-    @Default('') String comment,
-    @Default('') String certBase64,
-  }) = _WorkerKey;
-
-  const WorkerKey._();
-
-  factory WorkerKey.fromJson(Map<String, dynamic> json) =>
-      _$$_WorkerKeyFromJson(json);
 }

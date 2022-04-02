@@ -14,14 +14,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 ///
 /// {@category UIServices}
 class ServiceCard extends ConsumerWidget {
-  final ClientService service;
-  final Size parentSize;
-
   const ServiceCard({
     required this.service,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
+
+  final ClientService service;
+  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

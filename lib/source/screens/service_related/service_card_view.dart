@@ -8,15 +8,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category UIServices}
 class ServiceCardView extends ConsumerWidget {
-  static const tileType = '';
-  final ClientService service;
-  final Size parentSize;
-
   const ServiceCardView({
     required this.service,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
+
+  static const tileType = '';
+  final ClientService service;
+  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,15 +109,15 @@ class ServiceCardView extends ConsumerWidget {
 ///
 /// {@category UIServices}
 class ServiceCardSquareView extends ConsumerWidget {
-  static const tileType = 'square';
-  final ClientService service;
-  final Size parentSize;
-
   const ServiceCardSquareView({
     required this.service,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
+
+  static const tileType = 'square';
+  final ClientService service;
+  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -189,15 +189,15 @@ class ServiceCardSquareView extends ConsumerWidget {
 ///
 /// {@category UIServices}
 class ServiceCardTileView extends ConsumerWidget {
-  static const tileType = 'tile';
-  final ClientService service;
-  final Size parentSize;
-
   const ServiceCardTileView({
     required this.service,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
+
+  static const tileType = 'tile';
+  final ClientService service;
+  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

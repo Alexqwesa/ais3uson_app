@@ -74,14 +74,14 @@ class ConfirmationForListOfServices extends ConsumerWidget {
 }
 
 class TitleWidgetOfServicesGroup extends StatelessWidget {
-  final ServiceOfJournal service;
-  final ClientProfile client;
-
   const TitleWidgetOfServicesGroup({
     required this.service,
     required this.client,
     Key? key,
   }) : super(key: key);
+
+  final ServiceOfJournal service;
+  final ClientProfile client;
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +120,7 @@ class TotalServiceTile extends StatelessWidget {
   final ClientProfile client;
   late final ClientService service;
 
+  // ignore: sort_constructors_first
   TotalServiceTile({
     required this.serviceOfJournal,
     required this.client,

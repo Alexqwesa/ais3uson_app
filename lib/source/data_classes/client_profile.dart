@@ -16,6 +16,15 @@ import 'package:flutter/material.dart';
 /// {@category Data_Classes}
 // ignore: prefer_mixin
 class ClientProfile with ChangeNotifier {
+  /// Init and subscribe to events from [WorkerProfile],
+  /// because it is the class that get actual data.
+  ClientProfile({
+    required this.workerProfile,
+    required this.entry,
+  }) {
+    workerProfile.addListener(updateServices);
+  }
+
   late WorkerProfile workerProfile;
   late ClientEntry entry;
 
@@ -32,15 +41,6 @@ class ClientProfile with ChangeNotifier {
   List<ClientService> get services => _services;
 
   List<ClientService> _services = [];
-
-  /// Init and subscribe to events from [WorkerProfile],
-  /// because it is the class that get actual data.
-  ClientProfile({
-    required this.workerProfile,
-    required this.entry,
-  }) {
-    workerProfile.addListener(updateServices);
-  }
 
   /// Get data from [WorkerProfile] and filter only needed.
   ///

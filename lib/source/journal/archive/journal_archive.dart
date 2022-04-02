@@ -11,13 +11,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
+  JournalArchive(WorkerProfile wp, this.aDate) : super(wp);
   DateTime? aDate;
 
   @override
   List<ServiceOfJournal> all = [];
   List<ServiceOfJournal> notApproved = [];
-
-  JournalArchive(WorkerProfile wp, this.aDate) : super(wp);
 
   /// Read services from hive at date [aDate] or all dates.
   ///

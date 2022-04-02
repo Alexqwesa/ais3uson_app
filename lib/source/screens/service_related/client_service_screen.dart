@@ -10,12 +10,12 @@ import 'package:provider/provider.dart';
 ///
 /// {@category UIServices}
 class ClientServiceScreen extends StatefulWidget {
-  final ClientService service;
-
   const ClientServiceScreen({
     required this.service,
     Key? key,
   }) : super(key: key);
+
+  final ClientService service;
 
   @override
   ClientServiceScreenState createState() => ClientServiceScreenState();
@@ -153,12 +153,12 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
 ///
 /// {@category UIServices}
 class AddButton extends StatelessWidget {
-  final ClientServiceScreen widget;
-
   const AddButton({
     required this.widget,
     Key? key,
   }) : super(key: key);
+
+  final ClientServiceScreen widget;
 
   @override
   Widget build(BuildContext context) {
@@ -189,12 +189,12 @@ class AddButton extends StatelessWidget {
 ///
 /// {@category UIServices}
 class DeleteButton extends StatelessWidget {
-  final ClientServiceScreen widget;
-
   const DeleteButton({
     required this.widget,
     Key? key,
   }) : super(key: key);
+
+  final ClientServiceScreen widget;
 
   @override
   Widget build(BuildContext context) {

@@ -20,6 +20,16 @@ import 'package:path_provider/path_provider.dart';
 /// {@category Data_Classes}
 // ignore: prefer_mixin
 class ProofList with ChangeNotifier {
+  ProofList(
+      this.workerId,
+      this.contractId,
+      this.date,
+      this.serviceId, {
+        this.worker = '',
+        this.client = '',
+        this.service = '',
+      });
+
   final int workerId;
   final int contractId;
   final int serviceId;
@@ -31,16 +41,6 @@ class ProofList with ChangeNotifier {
   List<ProofGroup> proofGroups = [];
 
   bool inited = false;
-
-  ProofList(
-    this.workerId,
-    this.contractId,
-    this.date,
-    this.serviceId, {
-    this.worker = '',
-    this.client = '',
-    this.service = '',
-  });
 
   /// Crawl through file system to generate [ProofGroup]s.
   ///
@@ -176,16 +176,6 @@ class ProofList with ChangeNotifier {
 ///
 /// {@category Data_Classes}
 class ProofGroup {
-  Image? beforeImg;
-
-  String? beforeAudio;
-
-  Image? afterImg;
-
-  String? afterAudio;
-
-  String? name;
-
   ProofGroup({
     this.name,
     this.beforeImg,
@@ -195,6 +185,16 @@ class ProofGroup {
   });
 
   ProofGroup.empty(this.name);
+
+  Image? beforeImg;
+
+  String? beforeAudio;
+
+  Image? afterImg;
+
+  String? afterAudio;
+
+  String? name;
 }
 
 extension _BaseNameForFileSystemEntity on FileSystemEntity {

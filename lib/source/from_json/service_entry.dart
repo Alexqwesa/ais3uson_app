@@ -17,6 +17,24 @@ part 'service_entry.g.dart';
 
 @freezed
 class ServiceEntry with _$ServiceEntry {
+  const factory ServiceEntry({
+    required int id,
+    required String serv_text,
+    @Default('not-found.png') String image,
+    @Default('___') String tnum,
+    @Default(0) int total,
+    @Default('') String short_text,
+    @Default('') String serv_id_list,
+    @Default(1) int sub_serv, // subServiceOf
+    @Default('') String comment,
+    @Default(0.0) double price,
+  }) = _ServiceEntry;
+
+  const ServiceEntry._();
+
+  factory ServiceEntry.fromJson(Map<String, dynamic> json) =>
+      _$$_ServiceEntryFromJson(json);
+
   String get imagePath {
     if (total != 0) {
       return image != 'not-found.png' ? image : 'total.png';
@@ -52,22 +70,4 @@ class ServiceEntry with _$ServiceEntry {
   String get servIdList => serv_id_list;
 
   int get subServ => sub_serv;
-
-  const factory ServiceEntry({
-    required int id,
-    required String serv_text,
-    @Default('not-found.png') String image,
-    @Default('___') String tnum,
-    @Default(0) int total,
-    @Default('') String short_text,
-    @Default('') String serv_id_list,
-    @Default(1) int sub_serv, // subServiceOf
-    @Default('') String comment,
-    @Default(0.0) double price,
-  }) = _ServiceEntry;
-
-  const ServiceEntry._();
-
-  factory ServiceEntry.fromJson(Map<String, dynamic> json) =>
-      _$$_ServiceEntryFromJson(json);
 }

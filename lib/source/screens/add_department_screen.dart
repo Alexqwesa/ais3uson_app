@@ -17,9 +17,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category WorkerProfiles}
 class AddDepartmentScreen extends ConsumerWidget {
-  final controller = TextEditingController();
-
   AddDepartmentScreen({Key? key}) : super(key: key);
+
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -212,10 +212,9 @@ bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
 }
 
 class SimpleTextField extends StatelessWidget {
-  final TextEditingController controller;
-
   const SimpleTextField({required this.controller, Key? key}) : super(key: key);
 
+  final TextEditingController controller;
   // final FocusNode focusNode;
 
   @override

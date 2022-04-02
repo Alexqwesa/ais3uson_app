@@ -46,6 +46,8 @@ final lastApiKey = StateNotifierProvider<LastApiKeyState, String>((ref) {
 });
 
 class LastApiKeyState extends StateNotifier<String> {
+  LastApiKeyState() : super(locator<SharedPreferences>().getString(name) ?? '');
+
   static const name = 'last_api_key';
 
   @override
@@ -53,8 +55,6 @@ class LastApiKeyState extends StateNotifier<String> {
     super.state = value;
     locator<SharedPreferences>().setString(name, value);
   }
-
-  LastApiKeyState() : super(locator<SharedPreferences>().getString(name) ?? '');
 }
 
 /// Provider of setting - lastClientId.
@@ -68,6 +68,8 @@ final lastClientId = StateNotifierProvider<LastClientIdState, int>((ref) {
 });
 
 class LastClientIdState extends StateNotifier<int> {
+  LastClientIdState() : super(locator<SharedPreferences>().getInt(name) ?? 0);
+
   static const name = 'last_client_id';
 
   @override
@@ -75,6 +77,4 @@ class LastClientIdState extends StateNotifier<int> {
     super.state = value;
     locator<SharedPreferences>().setInt(name, value);
   }
-
-  LastClientIdState() : super(locator<SharedPreferences>().getInt(name) ?? 0);
 }

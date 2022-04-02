@@ -17,12 +17,12 @@ import 'package:provider/provider.dart';
 ///
 /// {@category UIServices}
 class ServiceProof extends StatefulWidget {
-  final ClientService clientService;
-
   const ServiceProof({
     required this.clientService,
     Key? key,
   }) : super(key: key);
+
+  final ClientService clientService;
 
   @override
   ServiceProofState createState() => ServiceProofState();
@@ -91,9 +91,9 @@ class ServiceProofState extends State<ServiceProof> {
 ///
 /// If there is missing image - display add button [AddProofButton].
 class BuildProofList extends StatelessWidget {
-  final ProofList proofList;
-
   const BuildProofList({required this.proofList, Key? key}) : super(key: key);
+
+  final ProofList proofList;
 
   @override
   Widget build(BuildContext context) {

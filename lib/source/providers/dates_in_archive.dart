@@ -26,6 +26,15 @@ final innerDatesInArchive =
 });
 
 class DatesInArchiveState extends StateNotifier<List<DateTime>> {
+  DatesInArchiveState(this.asyncOpenBox) : super([]) {
+    asyncOpenBox.whenData((data) {
+      box = data;
+      // state probably empty here...
+      log.info('Not empty: state of DatesInArchiveState');
+      super.state = <DateTime>{...state, ...box!.values}.toList();
+    });
+  }
+
   late final Box<DateTime>? box;
   final AsyncValue<Box<DateTime>> asyncOpenBox;
 
@@ -42,15 +51,6 @@ class DatesInArchiveState extends StateNotifier<List<DateTime>> {
         await box!.addAll(value);
       }();
     }
-  }
-
-  DatesInArchiveState(this.asyncOpenBox) : super([]) {
-    asyncOpenBox.whenData((data) {
-      box = data;
-      // state probably empty here...
-      log.info('Not empty: state of DatesInArchiveState');
-      super.state = <DateTime>{...state, ...box!.values}.toList();
-    });
   }
 
   void addAll(Iterable<DateTime> map) {

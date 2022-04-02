@@ -33,6 +33,41 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category Data_Classes}
 // ignore: prefer_mixin
 class WorkerProfile with SyncDataMixin, ChangeNotifier {
+  /// Constructor [WorkerProfile] with [Journal] by default
+  /// or with [JournalArchive].
+  ///
+  /// TODO: finish detect SSL code
+  WorkerProfile(this.key, this.ref, {DateTime? archiveDate}) {
+    name = key.name;
+    journal =
+        archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
+    fullArchive = JournalArchive(this, null);
+    httpClient = ref.read(httpClientProvider);
+    try {
+      if (key.certBase64.isNotEmpty) {
+        final context = SecurityContext()
+          ..setTrustedCertificatesBytes(key.certificate);
+        sslClient = HttpClient(context: context)
+          ..badCertificateCallback = (cert, host, port) {
+            // if (host == '80.87.196.11') {
+            //   // for debug
+            //   return true;
+            // }
+            dev.log('!!!!Bad certificate');
+            showErrorNotification('Ошибка! неправильный сертификат сервера!');
+
+            return false;
+          };
+      }
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      dev.log('!!!!Bad certificate');
+      showErrorNotification(
+        'Ошибка! Не удалось добавить сертификат отделения!',
+      );
+    }
+  }
+
   final WorkerKey key;
   late final Journal journal;
   late final JournalArchive fullArchive;
@@ -73,41 +108,6 @@ class WorkerProfile with SyncDataMixin, ChangeNotifier {
 
   /// list of clients List<ClientProfile>
   List<ClientProfile> _clients = [];
-
-  /// Constructor [WorkerProfile] with [Journal] by default
-  /// or with [JournalArchive].
-  ///
-  /// TODO: finish detect SSL code
-  WorkerProfile(this.key, this.ref, {DateTime? archiveDate}) {
-    name = key.name;
-    journal =
-        archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
-    fullArchive = JournalArchive(this, null);
-    httpClient = ref.read(httpClientProvider);
-    try {
-      if (key.certBase64.isNotEmpty) {
-        final context = SecurityContext()
-          ..setTrustedCertificatesBytes(key.certificate);
-        sslClient = HttpClient(context: context)
-          ..badCertificateCallback = (cert, host, port) {
-            // if (host == '80.87.196.11') {
-            //   // for debug
-            //   return true;
-            // }
-            dev.log('!!!!Bad certificate');
-            showErrorNotification('Ошибка! неправильный сертификат сервера!');
-
-            return false;
-          };
-      }
-      // ignore: avoid_catches_without_on_clauses
-    } catch (e) {
-      dev.log('!!!!Bad certificate');
-      showErrorNotification(
-        'Ошибка! Не удалось добавить сертификат отделения!',
-      );
-    }
-  }
 
   @override
   void dispose() {
