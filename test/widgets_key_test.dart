@@ -40,8 +40,12 @@ void main() {
   });
 
   testWidgets('it show list of worker profiles', (tester) async {
+    final wKey = wKeysData2();
     final ref = ProviderContainer(
-      overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      overrides: [
+        httpClientProvider(wKey.certificate)
+            .overrideWithValue(getMockHttpClient()),
+      ],
     );
     const widgetForTesting = ListOfProfiles();
     await tester.pumpWidget(
@@ -52,7 +56,7 @@ void main() {
         ),
       ),
     );
-    ref.read(workerKeys.notifier).addKey(wKeysData2());
+    ref.read(workerKeys.notifier).addKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();
@@ -64,9 +68,13 @@ void main() {
     expect(find.text(wKeysData2().name), findsOneWidget);
   });
 
-  testWidgets('it show list of clients profiles', (tester) async {
+  testWidgets("it show list of worker's clients", (tester) async {
+    final wKey = wKeysData2();
     final ref = ProviderContainer(
-      overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      overrides: [
+        httpClientProvider(wKey.certificate)
+            .overrideWithValue(getMockHttpClient()),
+      ],
     );
     const widgetForTesting = ClientScreen();
     await tester.pumpWidget(
@@ -77,7 +85,7 @@ void main() {
         ),
       ),
     );
-    ref.read(workerKeys.notifier).addKey(wKeysData2());
+    ref.read(workerKeys.notifier).addKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();
@@ -93,8 +101,12 @@ void main() {
   });
 
   testWidgets('it show list of services ', (tester) async {
+    final wKey = wKeysData2();
     final ref = ProviderContainer(
-      overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      overrides: [
+        httpClientProvider(wKey.certificate)
+            .overrideWithValue(getMockHttpClient()),
+      ],
     );
     const widgetForTesting = ClientServicesListScreen();
     await tester.pumpWidget(
@@ -105,7 +117,7 @@ void main() {
         ),
       ),
     );
-    ref.read(workerKeys.notifier).addKey(wKeysData2());
+    ref.read(workerKeys.notifier).addKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();
@@ -127,10 +139,14 @@ void main() {
   });
 
   testWidgets('it show empty list of services', (tester) async {
+    final wKey = wKeysData2();
     final ref = ProviderContainer(
-      overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+      overrides: [
+        httpClientProvider(wKey.certificate)
+            .overrideWithValue(getMockHttpClient()),
+      ],
     );
-    ref.read(workerKeys.notifier).addKey(wKeysData2());
+    ref.read(workerKeys.notifier).addKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();

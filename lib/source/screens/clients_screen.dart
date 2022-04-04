@@ -4,10 +4,10 @@ import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/app_state.dart';
+import 'package:ais3uson_app/source/providers/worker_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
-import 'package:provider/provider.dart';
 
 /// Show screen with client of [WorkerProfile].
 ///
@@ -18,65 +18,48 @@ class ClientScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final workerProfile = ref.watch(lastWorkerProfile);
+    final clientList = ref.watch(clientsOfWorker(workerProfile));
 
-    return ChangeNotifierProvider<WorkerProfile>.value(
-      value: workerProfile,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  workerProfile.key.dep,
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                workerProfile.key.dep,
               ),
-              IconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: () async {
-                  await workerProfile.syncHiveClients();
-                },
-              ),
-            ],
-          ),
-        ),
-        body: Consumer<WorkerProfile>(
-          //
-          // > get data
-          //
-          builder: (context, data, child) {
-            final clientList =
-                context.select<WorkerProfile, List<ClientProfile>>(
-              (data) => data.clients.toList(),
-            );
-
-            //
-            // > build list
-            //
-            return clientList.isNotEmpty
-                ? ListView.builder(
-                    itemCount: clientList.length,
-                    itemBuilder: (context, index) {
-                      return Center(
-                        child: SizedBox(
-                          width: 550,
-                          child: ClientCard(
-                            index: index,
-                            client: clientList[index],
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                : Center(
-                    child: Text(
-                      S.of(context).emptyListOfPeople,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  );
-          },
+            ),
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () async {
+                await workerProfile.syncHiveClients();
+              },
+            ),
+          ],
         ),
       ),
+      body: clientList.isNotEmpty
+          ? ListView.builder(
+              itemCount: clientList.length,
+              itemBuilder: (context, index) {
+                return Center(
+                  child: SizedBox(
+                    width: 550,
+                    child: ClientCard(
+                      index: index,
+                      client: clientList[index],
+                    ),
+                  ),
+                );
+              },
+            )
+          : Center(
+              child: Text(
+                S.of(context).emptyListOfPeople,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
     );
   }
 }
@@ -144,17 +127,21 @@ class ClientCard extends ConsumerWidget {
             await clientProfile.updateServices();
           }
           // ignore: use_build_context_synchronously
-          unawaited(Navigator.pushNamed(
-            context,
-            '/client_journal',
-          ),);
+          unawaited(
+            Navigator.pushNamed(
+              context,
+              '/client_journal',
+            ),
+          );
         },
         onTap: () async {
           ref.read(lastClientId.notifier).state = client.contractId;
-          unawaited(Navigator.pushNamed(
-            context,
-            '/client_services',
-          ),);
+          unawaited(
+            Navigator.pushNamed(
+              context,
+              '/client_services',
+            ),
+          );
           // Todo: rework it
           if (workerProfile.services.isEmpty) {
             await workerProfile.syncHiveServices();

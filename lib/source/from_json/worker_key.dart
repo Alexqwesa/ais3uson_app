@@ -91,6 +91,9 @@ class WorkerKey with _$WorkerKey {
 
   String get apiKey => api_key;
 
-  Uint8List get certificate => const Base64Decoder().convert(certBase64);
+  Uint8List? get certificate {
+    if (certBase64.isNotEmpty) const Base64Decoder().convert(certBase64);
 
+    return null;
+  }
 }

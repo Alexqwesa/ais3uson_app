@@ -16,12 +16,12 @@ import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers.dart';
+import 'package:ais3uson_app/source/providers/worker_repository.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:universal_html/html.dart' as html;
@@ -261,14 +261,11 @@ class Journal with ChangeNotifier {
   /// {@category Network}
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
-    var http = workerProfile.httpClient;
+    final http = workerProfile.ref
+        .read(httpClientProvider(workerProfile.key.certificate));
     var ret = ServiceState.added;
     try {
       Response response;
-      final sslClient = workerProfile.sslClient;
-      if (sslClient != null) {
-        http = IOClient(sslClient);
-      }
 
       if (urlAddress.endsWith('/add')) {
         response = await http.post(url, headers: _httpHeaders, body: body);
@@ -498,9 +495,9 @@ class Journal with ChangeNotifier {
     await _lock.synchronized(() async {
       finished.forEach(
         (element) async {
-          // TODO: rework it?
-          if (element.provDate
-              .isBefore(await workerProfile.clientPlanSyncDate())) {
+          if (element.provDate.isBefore(
+            workerProfile.ref.read(planOfWorkerSyncDate(workerProfile)),
+          )) {
             toOutDated(element);
           }
         },

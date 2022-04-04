@@ -1,6 +1,5 @@
 // ignore_for_file: always_use_package_imports
 
-import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
@@ -67,11 +66,13 @@ mixin SyncDataMixin {
       'api_key': apiKey,
     };
     //
-    // > if values are empty get them from hive before waiting from network
+    // > if localOnly - get only local values
     //
     final hive = await Hive.openBox<dynamic>(hiveName);
-    if (!localOnly) {
+    if (localOnly) {
       updateValueFromHive(apiKey + urlAddress, hive, onlyIfEmpty: true);
+
+      return;
     }
     //
     // > main - call server
@@ -128,18 +129,12 @@ mixin SyncDataMixin {
   /// This function should be called from [updateValueFromHive].
   ///
   /// Read hive string and return [Map].
-  List<Map<String, dynamic>> hiddenUpdateValueFromHive({
+  Future<List<Map<String, dynamic>>> hiddenUpdateValueFromHive({
     required String hiveKey,
     required Box hive,
-  }) {
+  }) async {
     try {
-      final lst = List<Map<String, dynamic>>.from(
-        (json.decode(hive.get(hiveKey, defaultValue: '[]') as String)
-                as Iterable<dynamic>)
-            .whereType<Map<String, dynamic>>(),
-      );
-
-      return lst;
+      return await loadFromHiveJsonDecode([hive.name, hiveKey]);
     } on FormatException {
       dev.log(' Wrong json format - FormatException');
       dev.log(hive.get(hiveKey, defaultValue: '[]') as String);

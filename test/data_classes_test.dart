@@ -7,6 +7,7 @@ import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
+import 'package:ais3uson_app/source/providers/worker_repository.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -81,16 +82,21 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
-      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      final httpClient =
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
@@ -100,23 +106,34 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
       final wp = ref.read(workerProfiles).first;
-      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      final httpClient =
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
       await wp.postInit();
+      // expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
+      // expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
+      // expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
       //
       // > reset sync dates
       //
-      await wp.setClientSyncDate(newDate: DateTime(1900));
-      await wp.setClientPlanSyncDate(newDate: DateTime(1900));
-      await wp.setServicesSyncDate(newDate: DateTime(1900));
-      await wp.postInit();
+      final apiKey = wp.apiKey;
+      var url = '${wp.key.activeServer}/planned';
+      await wp.ref.read(httpDataProvider([apiKey, url]).notifier).update();
+      url = '${wp.key.activeServer}/services';
+      await wp.ref.read(httpDataProvider([apiKey, url]).notifier).update();
+      url = '${wp.key.activeServer}/clients';
+      await wp.ref.read(httpDataProvider([apiKey, url]).notifier).update();
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
@@ -126,15 +143,20 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
       final wp = ref.read(workerProfiles).first;
-      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      final httpClient =
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
       await wp.postInit();
       // test http
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
@@ -155,8 +177,12 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > init workerProfile
@@ -171,8 +197,8 @@ void main() {
         '${Directory.systemTemp.path}/auth_qr_test.png',
       );
       final file = XFile('${Directory.systemTemp.path}/auth_qr_test.png');
-      final srcFileLenght = await file.length();
-      expect(srcFileLenght > 0, true);
+      final srcFileLength = await file.length();
+      expect(srcFileLength > 0, true);
       final serv = wp.clients.first.services.first;
       serv.proofList.addNewGroup(); // serv.addProof();
       await serv.proofList.addImage(0, file, 'before_');
@@ -198,7 +224,7 @@ void main() {
       // '/home/alex/Documents/Ais3uson/Ais3uson/1_Работник Тестового Отделения 2/1_Тес. . чек/26.03.2022_/828_Итого/group_0_/before_img_auth_qr_test.png'
       expect(
         await dstFile.length(),
-        srcFileLenght,
+        srcFileLength,
       );
     });
 
@@ -206,8 +232,12 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > init workerProfile

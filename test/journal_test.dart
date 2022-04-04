@@ -45,10 +45,15 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
-      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      final httpClient =
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
       //
       // > configure http request as successful
       //
@@ -57,7 +62,7 @@ void main() {
       //
       // > start test
       //
-      final wp = WorkerProfile(wKeysData2(), ref);
+      final wp = WorkerProfile(wKey, ref);
       await wp.postInit();
       expect(wp.clients[0].services[0].deleteAllowed, false);
       await wp.clients[0].services[0].add();
@@ -121,10 +126,15 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
-      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      final httpClient =
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
       //
       // > prefill hive with services
       //
@@ -133,7 +143,6 @@ void main() {
       final errorService = addedService.copyWith(
         state: ServiceState.rejected,
       );
-      final wKey = wKeysData2();
       final hive =
           await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(addedService);
@@ -171,8 +180,12 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > prepare
@@ -185,7 +198,6 @@ void main() {
         provDate: yesterday,
         state: ServiceState.finished,
       );
-      final wKey = wKeysData2();
       var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(yesterdayService);
       await hive.add(todayService);
@@ -225,9 +237,11 @@ void main() {
         //
         // > prepare ProviderContainer + httpClient
         //
+        final wKey = wKeysData2();
         final ref = ProviderContainer(
           overrides: [
-            httpClientProvider.overrideWithValue(getMockHttpClient()),
+            httpClientProvider(wKey.certificate)
+                .overrideWithValue(getMockHttpClient()),
           ],
         );
         //
@@ -237,7 +251,6 @@ void main() {
         //
         // > put to hive
         //
-        final wKey = wKeysData2();
         final hive =
             await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
         for (var i = 0; i < 20; i++) {
@@ -279,14 +292,18 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
-      final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+      final httpClient =
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
       //
       // > init workerProfile
       //
-      final wKey = wKeysData2();
       ref.read(hiveArchiveLimit.notifier).state = 10;
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
@@ -313,13 +330,16 @@ void main() {
       //
       // > prepare ProviderContainer + httpClient
       //
+      final wKey = wKeysData2();
       final ref = ProviderContainer(
-        overrides: [httpClientProvider.overrideWithValue(getMockHttpClient())],
+        overrides: [
+          httpClientProvider(wKey.certificate)
+              .overrideWithValue(getMockHttpClient()),
+        ],
       );
       //
       // > init workerProfile
       //
-      final wKey = wKeysData2();
       ref.read(hiveArchiveLimit.notifier).state = 10;
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
@@ -344,16 +364,18 @@ void main() {
         //
         // > prepare ProviderContainer + httpClient
         //
+        final wKey = wKeysData2();
         final ref = ProviderContainer(
           overrides: [
-            httpClientProvider.overrideWithValue(getMockHttpClient()),
+            httpClientProvider(wKey.certificate)
+                .overrideWithValue(getMockHttpClient()),
           ],
         );
-        final httpClient = ref.read(httpClientProvider) as mock.MockClient;
+        final httpClient =
+            ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
         //
         // > init workerProfile
         //
-        final wKey = wKeysData2();
         ref.read(hiveArchiveLimit.notifier).state = 10;
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         final wp = ref.read(workerProfiles).first;

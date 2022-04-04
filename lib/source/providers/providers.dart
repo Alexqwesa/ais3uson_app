@@ -1,6 +1,10 @@
 // ignore_for_file: sort_constructors_first
 
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:flutter/material.dart';
@@ -100,11 +104,40 @@ Size serviceCardSize(Size parentSize, String serviceView) {
   }
 }
 
-/// Provider of httpClient.
+/// Provider of httpClient (with certificate if not null).
 ///
 /// {@category Providers}
-final httpClientProvider = Provider<http.Client>((ref) {
-  return http.Client();
+final httpClientProvider =
+    Provider.family<http.Client, Uint8List?>((ref, certificate) {
+  var client = http.Client();
+
+  if (certificate != null) {
+    try {
+      if (certificate.isNotEmpty) {
+        final context = SecurityContext()
+          ..setTrustedCertificatesBytes(certificate);
+        client = (HttpClient(context: context)
+          ..badCertificateCallback = (cert, host, port) {
+            // if (host == '80.87.196.11') {
+            //   // for debug
+            //   return true;
+            // }
+            log.severe('!!!!Bad certificate');
+            // showErrorNotification('Ошибка!неправильный сертификат сервера!');
+
+            return false;
+          }) as http.Client;
+      }
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      log.severe('!!!!Bad certificate');
+      showErrorNotification(
+        'Ошибка! Не удалось добавить сертификат отделения!',
+      );
+    }
+  }
+
+  return client;
 });
 
 /// Provider of setting - archiveDate. Inited with null, doesn't save its value.

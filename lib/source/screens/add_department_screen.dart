@@ -28,8 +28,8 @@ class AddDepartmentScreen extends ConsumerWidget {
             1 * MediaQuery.of(context).size.height
         ? columnWidth
         : columnWidth / 2;
-    final newWorkerKeys = qrCodes
-        .map((e) => WorkerKey.fromJson(jsonDecode(e) as Map<String, dynamic>))
+    final newWorkerKeys = mapJsonDecode(qrCodes)
+        .map((e) => WorkerKey.fromJson(e))
         .toList(growable: false);
 
     return Scaffold(
@@ -215,6 +215,7 @@ class SimpleTextField extends StatelessWidget {
   const SimpleTextField({required this.controller, Key? key}) : super(key: key);
 
   final TextEditingController controller;
+
   // final FocusNode focusNode;
 
   @override
