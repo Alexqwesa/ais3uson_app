@@ -15,6 +15,7 @@ import 'package:uuid/uuid.dart';
 //
 // > global constants
 //
+const hiveProfiles = 'profiles';
 const uuid = Uuid();
 const formatSQL = 'yyyy-MM-dd';
 const formatStandard = 'dd.MM.yyyy';

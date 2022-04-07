@@ -1,5 +1,6 @@
 // ignore_for_file: sort_constructors_first
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -170,4 +171,23 @@ final hiveJournalBox =
 
 final hiveDateTimeBox = FutureProvider.family<Box<DateTime>, String>(
   (ref, boxName) async => Hive.openBox<DateTime>(boxName),
+);
+
+/// Helper, convert String to List of Map<String, dynamic>
+final loadMapFromHiveKeyProvider =
+    Provider.family<List<Map<String, dynamic>>, String>(
+  (ref, hiveKey) {
+    // const hiveName = hiveProfiles;
+    // final hiveKey = list[1];
+    return ref.watch(hiveStringBox(hiveProfiles)).when(
+          data: (hive) {
+            // ignore: avoid_dynamic_calls
+            return jsonDecode(hive.get(hiveKey) ?? '[]')
+                .whereType<Map<String, dynamic>>()
+                .toList() as List<Map<String, dynamic>>;
+          },
+          error: (err, stack) => <Map<String, dynamic>>[],
+          loading: () => <Map<String, dynamic>>[],
+        );
+  },
 );

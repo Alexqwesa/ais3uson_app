@@ -42,13 +42,14 @@ class HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
     required this.urlAddress,
     required this.read,
   }) : super([]) {
+    log.severe('HttpDataState recreated $urlAddress');
     _workerKey = read(workerKeys).firstWhereOrNull((e) => e.apiKey == apiKey);
     _asyncInit();
   }
 
   final String urlAddress;
   final String apiKey;
-  static const hiveName = 'profiles';
+  // static const hiveName = 'profiles';
   final Reader read;
   late final WorkerKey? _workerKey;
   DateTime lastUpdate = nullDate;
@@ -112,7 +113,7 @@ class HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
   }
 
   Future<void> _writeHive(String data) async {
-    final hive = await Hive.openBox<dynamic>(hiveName);
+    final hive = await Hive.openBox<dynamic>(hiveProfiles);
     // for getting new test data
     // print("=== " + apiKey + url);
     // print("=== " + response.body);
@@ -122,9 +123,9 @@ class HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
   }
 
   Future<void> _asyncInit() async {
-    state = await loadFromHiveJsonDecode([hiveName, apiKey + urlAddress]);
+    state = await loadFromHiveJsonDecode([hiveProfiles, apiKey + urlAddress]);
     if (lastUpdate == nullDate) {
-      final hive = await Hive.openBox<dynamic>(hiveName);
+      final hive = await Hive.openBox<dynamic>(hiveProfiles);
       lastUpdate = hive.get(
         'sync_date_$apiKey$urlAddress',
         defaultValue: nullDate,
@@ -148,14 +149,15 @@ final clientsOfWorker =
   final apiKey = workerProfile.apiKey;
   final url = '${workerProfile.key.activeServer}/clients';
 
-  ref.watch(httpDataProvider([apiKey, url]).notifier).updateIfNeeded();
+    ref.watch(httpDataProvider([apiKey, url]).notifier).updateIfNeeded();
 
-  return ref
-      .watch(httpDataProvider([apiKey, url]))
-      .map<ClientEntry>((json) => ClientEntry.fromJson(json))
-      .map((el) => ClientProfile(workerProfile: workerProfile, entry: el))
-      .toList(growable: false);
-});
+    return ref
+        .watch(httpDataProvider([apiKey, url]))
+        .map<ClientEntry>((json) => ClientEntry.fromJson(json))
+        .map((el) => ClientProfile(workerProfile: workerProfile, entry: el))
+        .toList(growable: false);
+  },
+);
 
 /// Providers services of [WorkerProfile].
 ///
