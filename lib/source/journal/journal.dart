@@ -490,10 +490,11 @@ class Journal with ChangeNotifier {
   }
 
   /// Mark all finished service as [ServiceState.outDated]
-  /// after [WorkerProfile._clientPlan] synchronized.
+  /// after [WorkerProfile.clientPlan] synchronized.
   Future<void> updateBasedOnNewPlanDate() async {
     await _lock.synchronized(() async {
-      finished.forEach(
+      // work with copy
+      finished.toList().forEach(
         (element) async {
           if (element.provDate.isBefore(
             workerProfile.ref.read(planOfWorkerSyncDate(workerProfile)),

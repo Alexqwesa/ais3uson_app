@@ -76,8 +76,6 @@ class ClientCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final workerProfile = client.workerProfile;
-
     return Card(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 0),
       child: ListTile(
@@ -113,26 +111,14 @@ class ClientCard extends ConsumerWidget {
         ),
         onLongPress: () async {
           ref.read(lastClientId.notifier).state = client.contractId;
-          await client.workerProfile.postInit();
-          await client.workerProfile.fullArchive.postInit();
-          // Todo: rework it
-          if (workerProfile.services.isEmpty) {
-            await workerProfile.syncHiveServices();
-          }
-          if (workerProfile.clientPlan.isEmpty) {
-            await workerProfile.syncHivePlanned();
-          }
-          final clientProfile = client;
-          if (clientProfile.services.isEmpty) {
-            await clientProfile.updateServices();
-          }
-          // ignore: use_build_context_synchronously
           unawaited(
             Navigator.pushNamed(
               context,
               '/client_journal',
             ),
           );
+          await client.workerProfile.postInit();
+          await client.workerProfile.fullArchive.postInit();
         },
         onTap: () async {
           ref.read(lastClientId.notifier).state = client.contractId;
@@ -142,17 +128,6 @@ class ClientCard extends ConsumerWidget {
               '/client_services',
             ),
           );
-          // Todo: rework it
-          if (workerProfile.services.isEmpty) {
-            await workerProfile.syncHiveServices();
-          }
-          if (workerProfile.clientPlan.isEmpty) {
-            await workerProfile.syncHivePlanned();
-          }
-          final clientProfile = client;
-          if (clientProfile.services.isEmpty) {
-            await clientProfile.updateServices();
-          }
         },
       ),
     );

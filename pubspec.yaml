@@ -57,6 +57,7 @@ dependencies:
   surf_lint_rules: any
   synchronized: any
   toggle_switch: any
+  tuple: any
   universal_html: any
   uuid: any
   # The following adds the Cupertino Icons font to your application.

@@ -7,9 +7,11 @@
 
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/app_state.dart';
 import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
+import 'package:ais3uson_app/source/providers/worker_repository.dart';
 import 'package:ais3uson_app/source/screens/clients_screen.dart';
 import 'package:ais3uson_app/source/screens/list_profiles.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
@@ -18,6 +20,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tuple/tuple.dart';
 
 import 'data_classes_test.dart';
 import 'helpers/mock_server.dart';
@@ -32,8 +35,6 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     // Hive setup
     await setUpTestHive();
-    // add profile
-    // await locator<AppData>().addProfileFromKey(wKeysData2());
   });
   tearDown(() async {
     await tearDownTestHive();
@@ -85,10 +86,18 @@ void main() {
         ),
       ),
     );
-    ref.read(workerKeys.notifier).addKey(wKey);
+    ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+    // ref.read(workerKeys.notifier).addKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();
+      await ref.read(hiveBox(hiveProfiles).future);
+      await ref
+          .read(
+            httpDataProvider(Tuple2(wp.apiKey, wp.urlClients))
+                .notifier,
+          )
+          .getHttpData();
     });
     ref.read(lastApiKey.notifier).state = wp.apiKey;
     await tester.pumpAndSettle();
@@ -125,8 +134,8 @@ void main() {
     ref.read(lastApiKey.notifier).state = wp.apiKey;
     ref.read(lastClientId.notifier).state = wp.clients.first.contractId;
     await tester.pumpAndSettle();
-    // Scroll until the item to be found appears.
     final itemFinder = find.text('Покупка продуктов питания');
+    // Scroll until the item to be found appears.
     // final listFinder = find.byKey(const ValueKey('MainScroll'));
     // await tester.scrollUntilVisible(
     //   itemFinder,

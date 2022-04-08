@@ -1,6 +1,8 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
+import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
+import 'package:ais3uson_app/source/providers/worker_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,21 +13,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// [lastClientId] providers.
 ///
 /// {@category Providers}
-final lastClient = Provider((ref) {
+final lastClient = Provider<ClientProfile>((ref) {
   final id = ref.watch(lastClientId);
-  final apiKey = ref.watch(lastApiKey);
 
   try {
     return ref
-        .watch(workerProfiles)
-        .firstWhere((element) => element.apiKey == apiKey)
-        .clients
+        .watch(clientsOfWorker(ref.watch(lastWorkerProfile)))
         .firstWhere((e) => e.contractId == id);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClient requested but provider failed');
 
-    return ref.watch(workerProfiles).first.clients.first;
+    return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first;
   }
 });
 
@@ -78,3 +77,27 @@ class LastClientIdState extends StateNotifier<int> {
     locator<SharedPreferences>().setInt(name, value);
   }
 }
+
+/// Create a list of Services of client List<[ClientService]>.
+///
+/// {@category Providers}
+final servicesOfClient =
+    Provider.family<List<ClientService>, ClientProfile>((ref, client) {
+  final listService = ref
+      .watch(planOfWorker(client.workerProfile))
+      .where((e) => e.contractId == client.contractId);
+  final listServiceIds = listService.map((e) => e.servId);
+
+  return ref
+      .watch(servicesOfWorker(client.workerProfile))
+      .where((e) => listServiceIds.contains(e.id))
+      .map(
+        (e) => ClientService(
+          journal: client.workerProfile.journal,
+          service: e,
+          planned: listService.firstWhere((element) => element.servId == e.id),
+          client: client,
+        ),
+      )
+      .toList();
+});

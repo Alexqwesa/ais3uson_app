@@ -159,6 +159,10 @@ final preference = FutureProvider<SharedPreferences>((ref) async {
   return SharedPreferences.getInstance();
 });
 
+final hiveBox = FutureProvider.family<Box<dynamic>, String>((ref, boxName) {
+  return Hive.openBox<dynamic>(boxName);
+});
+
 final hiveStringBox =
     FutureProvider.family<Box<String>, String>((ref, boxName) {
   return Hive.openBox<String>(boxName);
@@ -175,19 +179,9 @@ final hiveDateTimeBox = FutureProvider.family<Box<DateTime>, String>(
 
 /// Helper, convert String to List of Map<String, dynamic>
 final loadMapFromHiveKeyProvider =
-    Provider.family<List<Map<String, dynamic>>, String>(
-  (ref, hiveKey) {
-    // const hiveName = hiveProfiles;
-    // final hiveKey = list[1];
-    return ref.watch(hiveStringBox(hiveProfiles)).when(
-          data: (hive) {
-            // ignore: avoid_dynamic_calls
-            return jsonDecode(hive.get(hiveKey) ?? '[]')
-                .whereType<Map<String, dynamic>>()
-                .toList() as List<Map<String, dynamic>>;
-          },
-          error: (err, stack) => <Map<String, dynamic>>[],
-          loading: () => <Map<String, dynamic>>[],
-        );
-  },
-);
+    Provider.family<List<Map<String, dynamic>>, String>((ref, hiveKey) {
+  // ignore: avoid_dynamic_calls
+  return jsonDecode(
+    ref.watch(hiveBox(hiveProfiles)).value?.get(hiveKey) as String? ?? '[]',
+  ).whereType<Map<String, dynamic>>().toList() as List<Map<String, dynamic>>;
+});

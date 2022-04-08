@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 class ClientService with ChangeNotifier {
   ClientService({
     required this.journal,
+    required this.client,
     required this.service,
     required this.planned,
   }) {
@@ -44,6 +45,7 @@ class ClientService with ChangeNotifier {
 
   /// Reference to existed journal
   final Journal journal;
+  final ClientProfile client;
 
   /// [ProofList] of this service at current date.
   late final ProofList _proofList;
@@ -136,9 +138,6 @@ class ClientService with ChangeNotifier {
     }
   }
 
-  ClientProfile get client => journal.workerProfile.clients
-      .firstWhere((element) => element.contractId == contractId);
-
   @override
   void dispose() {
     journal.removeListener(notifyListeners);
@@ -184,6 +183,7 @@ class ClientService with ChangeNotifier {
       journal: newJournal ?? journal,
       planned: plan ?? planned,
       service: serv ?? service,
+      client: client,
     );
   }
 }
