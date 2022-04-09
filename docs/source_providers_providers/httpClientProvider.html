@@ -51,22 +51,51 @@
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/http/0.13.4/http/Client-class.html">Client</a></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/http/0.13.4/http/Client-class.html">Client</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span>&gt;</span>
           <span class="name ">httpClientProvider</span>
           <div class="features">final</div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Provider of httpClient.</p>
+  <p>Provider of httpClient (with certificate if not null).</p>
 <p>{@category Providers}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final httpClientProvider = Provider&lt;http.Client&gt;((ref) {
-  return http.Client();
+  <pre class="language-dart"><code class="language-dart">final httpClientProvider =
+    Provider.family&lt;http.Client, Uint8List?&gt;((ref, certificate) {
+  var client = http.Client();
+
+  if (certificate != null) {
+    try {
+      if (certificate.isNotEmpty) {
+        final context = SecurityContext()
+          ..setTrustedCertificatesBytes(certificate);
+        client = (HttpClient(context: context)
+          ..badCertificateCallback = (cert, host, port) {
+            &#47;&#47; if (host == &#39;80.87.196.11&#39;) {
+            &#47;&#47;   &#47;&#47; for debug
+            &#47;&#47;   return true;
+            &#47;&#47; }
+            log.severe(&#39;!!!!Bad certificate&#39;);
+            &#47;&#47; showErrorNotification(&#39;Ошибка!неправильный сертификат сервера!&#39;);
+
+            return false;
+          }) as http.Client;
+      }
+      &#47;&#47; ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      log.severe(&#39;!!!!Bad certificate&#39;);
+      showErrorNotification(
+        &#39;Ошибка! Не удалось добавить сертификат отделения!&#39;,
+      );
+    }
+  }
+
+  return client;
 });</code></pre>
 </section>
 
@@ -100,11 +129,13 @@
   <li class="section-title"><a href="../source_providers_providers/source_providers_providers-library.html#properties">Properties</a></li>
   <li><a href="../source_providers_providers/archiveDate.html">archiveDate</a></li>
   <li><a href="../source_providers_providers/hiveArchiveLimit.html">hiveArchiveLimit</a></li>
+  <li><a href="../source_providers_providers/hiveBox.html">hiveBox</a></li>
   <li><a href="../source_providers_providers/hiveDateTimeBox.html">hiveDateTimeBox</a></li>
   <li><a href="../source_providers_providers/hiveJournalBox.html">hiveJournalBox</a></li>
   <li><a href="../source_providers_providers/hiveStringBox.html">hiveStringBox</a></li>
   <li><a href="../source_providers_providers/httpClientProvider.html">httpClientProvider</a></li>
   <li><a href="../source_providers_providers/isArchive.html">isArchive</a></li>
+  <li><a href="../source_providers_providers/loadMapFromHiveKeyProvider.html">loadMapFromHiveKeyProvider</a></li>
   <li><a href="../source_providers_providers/preference.html">preference</a></li>
   <li><a href="../source_providers_providers/serviceViewProvider.html">serviceViewProvider</a></li>
 

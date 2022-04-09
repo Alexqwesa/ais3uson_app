@@ -51,6 +51,7 @@
 
     <section class="multi-line-signature">
       <span class="name ">ClientService</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-journal">{<span>required</span> <span class="type-annotation"><a href="../../Journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span>, </span></li>
+<li><span class="parameter" id="-param-client"><span>required</span> <span class="type-annotation"><a href="../../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span> <span class="parameter-name">client</span>, </span></li>
 <li><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../../source_from_json_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span></li>
 <li><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../../source_from_json_client_plan/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>}</span></li>
 </ol>)
@@ -64,6 +65,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">ClientService({
   required this.journal,
+  required this.client,
   required this.service,
   required this.planned,
 }) {

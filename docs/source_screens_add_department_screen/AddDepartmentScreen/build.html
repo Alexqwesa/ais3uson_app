@@ -113,8 +113,8 @@ Widget build(BuildContext context, WidgetRef ref) {
           1 * MediaQuery.of(context).size.height
       ? columnWidth
       : columnWidth &#47; 2;
-  final newWorkerKeys = qrCodes
-      .map((e) =&gt; WorkerKey.fromJson(jsonDecode(e) as Map&lt;String, dynamic&gt;))
+  final newWorkerKeys = mapJsonDecode(qrCodes)
+      .map((e) =&gt; WorkerKey.fromJson(e))
       .toList(growable: false);
 
   return Scaffold(

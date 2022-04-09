@@ -68,21 +68,18 @@ This is readonly provider, but you can change it values via <a href="../source_p
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final lastClient = Provider((ref) {
+  <pre class="language-dart"><code class="language-dart">final lastClient = Provider&lt;ClientProfile&gt;((ref) {
   final id = ref.watch(lastClientId);
-  final apiKey = ref.watch(lastApiKey);
 
   try {
     return ref
-        .watch(workerProfiles)
-        .firstWhere((element) =&gt; element.apiKey == apiKey)
-        .clients
+        .watch(clientsOfWorker(ref.watch(lastWorkerProfile)))
         .firstWhere((e) =&gt; e.contractId == id);
     &#47;&#47; ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe(&#39;lastClient requested but provider failed&#39;);
 
-    return ref.watch(workerProfiles).first.clients.first;
+    return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first;
   }
 });</code></pre>
 </section>
@@ -119,6 +116,7 @@ This is readonly provider, but you can change it values via <a href="../source_p
   <li><a href="../source_providers_app_state/lastClient.html">lastClient</a></li>
   <li><a href="../source_providers_app_state/lastClientId.html">lastClientId</a></li>
   <li><a href="../source_providers_app_state/lastWorkerProfile.html">lastWorkerProfile</a></li>
+  <li><a href="../source_providers_app_state/servicesOfClient.html">servicesOfClient</a></li>
 
 
 

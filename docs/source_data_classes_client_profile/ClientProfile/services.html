@@ -62,15 +62,14 @@
 
 
 <section class="desc markdown">
-  <p>return List of <code>ClientService</code>s</p>
-<p>if list empty - try to fill it here,
-if error - just return empty</p>
+  <p>Return List of <code>ClientService</code>s.</p>
 </section>
 
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">List&lt;ClientService&gt; get services =&gt; _services;</code></pre>
+  <pre class="language-dart"><code class="language-dart">List&lt;ClientService&gt; get services =&gt;
+    workerProfile.ref.read(servicesOfClient(this));</code></pre>
 </section>
 
 </section>
@@ -107,20 +106,14 @@ if error - just return empty</p>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/contractId.html">contractId</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/entry.html">entry</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/name.html">name</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/services.html">services</a></li>
     <li><a href="../../source_data_classes_client_profile/ClientProfile/workerProfile.html">workerProfile</a></li>
 
-    <li class="section-title"><a href="../../source_data_classes_client_profile/ClientProfile-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></li>
+    <li class="section-title inherited"><a href="../../source_data_classes_client_profile/ClientProfile-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-    <li><a href="../../source_data_classes_client_profile/ClientProfile/updateServices.html">updateServices</a></li>
 
     <li class="section-title inherited"><a href="../../source_data_classes_client_profile/ClientProfile-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
