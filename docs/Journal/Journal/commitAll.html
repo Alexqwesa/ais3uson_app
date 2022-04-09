@@ -74,30 +74,32 @@ it change state of services and called <a href="https://api.flutter.dev/flutter/
   &#47;&#47; &gt; main loop, synchronized
   &#47;&#47;
   await _lock.synchronized(() async {
-    await Future.wait(servicesForSync.map((serv) async {
-      try {
-        switch (await commitAdd(serv)) {
-          case ServiceState.added:
-            log.info(&#39;stale service $serv&#39;);
-            break; &#47;&#47; no changes - do nothing
-          case ServiceState.finished:
-            log.finest(&#39;finished service $serv&#39;);
-            toFinished(serv);
-            break;
-          case ServiceState.rejected:
-            log.warning(&#39;rejected service $serv&#39;);
-            toRejected(serv);
-            break;
-          case ServiceState.outDated:
-            throw StateError(&#39;commit can not make service outDated&#39;);
-          default:
-            throw StateError(&#39;impossible&#39;);
+    await Future.wait(
+      servicesForSync.map((serv) async {
+        try {
+          switch (await commitAdd(serv)) {
+            case ServiceState.added:
+              log.info(&#39;stale service $serv&#39;);
+              break; &#47;&#47; no changes - do nothing
+            case ServiceState.finished:
+              log.finest(&#39;finished service $serv&#39;);
+              toFinished(serv);
+              break;
+            case ServiceState.rejected:
+              log.warning(&#39;rejected service $serv&#39;);
+              toRejected(serv);
+              break;
+            case ServiceState.outDated:
+              throw StateError(&#39;commit can not make service outDated&#39;);
+            case null:
+              log.fine(&#39;commit stub&#39;);
+          }
+          &#47;&#47; ignore: avoid_catches_without_on_clauses
+        } catch (e) {
+          log.severe(&#39;Sync services: $e&#39;);
         }
-        &#47;&#47; ignore: avoid_catches_without_on_clauses
-      } catch (e) {
-        log.severe(&#39;Sync services: $e&#39;);
-      }
-    }));
+      }),
+    );
 
     notifyListeners();
   });

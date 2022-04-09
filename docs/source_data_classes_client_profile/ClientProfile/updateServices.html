@@ -76,8 +76,8 @@
     final wp = workerProfile;
     _services = wp.clientPlan.where((element) {
       return element.contractId == contractId &amp;&amp;
-          &#47;&#47; this line is important because it prevent errors if client has services
-          &#47;&#47; that no used anymore,
+          &#47;&#47; this line is important, because
+          &#47;&#47; it prevent errors if client has services that no used anymore
           &#47;&#47; TODO: make this check and show error message somewhere before
           wp.services.map((e) =&gt; e.id).contains(element.servId);
     }).map((e) {

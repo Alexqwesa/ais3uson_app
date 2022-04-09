@@ -70,7 +70,8 @@
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     dev.log(
-      &#39;${record.level.name.substring(0, 3)}:  ${record.message}&#39;, &#47;&#47;${record.time}:
+      &#39;${record.level.name.substring(0, 3)}:  ${record.message}&#39;,
+      &#47;&#47;${record.time}:
     );
   });
   &#47;&#47;

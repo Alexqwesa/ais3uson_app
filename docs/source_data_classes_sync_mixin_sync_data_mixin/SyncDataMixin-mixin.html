@@ -62,10 +62,11 @@ It helps:</p>
 </ul>
 <p>Classes with this mixin:</p>
 <ul>
-<li>can use several functions that call <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a> with various parameters,</li>
-<li>should implement <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/updateValueFromHive.html">updateValueFromHive</a> - it will be called by <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a>,</li>
-<li>overridden function <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/updateValueFromHive.html">updateValueFromHive</a> usually call <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a> to get <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a> from hive.</li>
+<li>can use several functions that call <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a>,</li>
+<li>should implement <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/updateValueFromHive.html">updateValueFromHive</a> - callback for <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenSyncHive.html">hiddenSyncHive</a>.</li>
 </ul>
+<p>Note: the overridden function <a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/updateValueFromHive.html">updateValueFromHive</a> usually call
+<a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a> to get <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a> from hive.</p>
 </section>
 
 
@@ -174,7 +175,7 @@ It helps:</p>
 </dd>
 
         <dt id="updateValueFromHive" class="callable">
-  <span class="name"><a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/updateValueFromHive.html">updateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="updateValueFromHive-param-hiveKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="updateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.6/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span>, </span><span class="parameter" id="updateValueFromHive-param-onlyIfEmpty">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">onlyIfEmpty</span> = <span class="default-value">false</span>}</span>)
+  <span class="name"><a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/updateValueFromHive.html">updateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="updateValueFromHive-param-hiveKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="updateValueFromHive-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.1.0/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span>, </span><span class="parameter" id="updateValueFromHive-param-onlyIfEmpty">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">onlyIfEmpty</span> = <span class="default-value">false</span>}</span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -187,7 +188,7 @@ It helps:</p>
 </dd>
 
         <dt id="hiddenUpdateValueFromHive" class="callable">
-  <span class="name"><a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.0.6/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span>}</span>)
+  <span class="name"><a href="../source_data_classes_sync_mixin_sync_data_mixin/SyncDataMixin/hiddenUpdateValueFromHive.html">hiddenUpdateValueFromHive</a></span><span class="signature">(<wbr><span class="parameter" id="hiddenUpdateValueFromHive-param-hiveKey">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">hiveKey</span>, </span><span class="parameter" id="hiddenUpdateValueFromHive-param-hive"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.1.0/hive/Box-class.html">Box</a></span> <span class="parameter-name">hive</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
   </span>
   

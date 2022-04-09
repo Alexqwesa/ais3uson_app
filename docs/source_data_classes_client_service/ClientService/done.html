@@ -67,12 +67,18 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">int get done =&gt;
     journal.finished
-        .where((element) =&gt;
-            element.contractId == contractId &amp;&amp; element.servId == service.id)
+        .where(
+          (element) =&gt;
+              element.contractId == contractId &amp;&amp;
+              element.servId == service.id,
+        )
         .length +
     journal.outDated
-        .where((element) =&gt;
-            element.contractId == contractId &amp;&amp; element.servId == service.id)
+        .where(
+          (element) =&gt;
+              element.contractId == contractId &amp;&amp;
+              element.servId == service.id,
+        )
         .length;</code></pre>
 </section>
 

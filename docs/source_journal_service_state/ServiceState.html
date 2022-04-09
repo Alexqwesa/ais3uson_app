@@ -54,12 +54,9 @@
 <section class="desc markdown">
   <p>These states control <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.</p>
 <pre class="language-dart"><code>Usual life of [ServiceOfJournal] is:
-                added   -&gt; finished -&gt; outDated -&gt; deleted
-                stalled -&gt; finished -&gt; outDated -&gt; deleted
-                [both]  -&gt; rejected -&gt;          -&gt; deleted
+                added -&gt; finished -&gt; outDated -&gt; archived -&gt; deleted
+                added -&gt; rejected -&gt;                      -&gt; deleted
 </code></pre>
-<p>added and stalled | <a href="../Journal/Journal/commitAdd.html">Journal.commitAdd</a>ed to DB | finished | <a href="../Journal/Journal/archiveOldServices.html">Journal.archiveOldServices</a> on next day
-rejected | <a href="../Journal/Journal/delete.html">Journal.delete</a>d by user.</p>
 </section>
 
 
@@ -74,7 +71,7 @@ rejected | <a href="../Journal/Journal/delete.html">Journal.delete</a>d by user.
 
         <dt>Annotations</dt>
         <dd><ul class="annotation-list eNum-relationships">
-          <li>@<a href="https://pub.dev/documentation/hive/2.0.6/hive/HiveType-class.html">HiveType</a>(typeId: 10)</li>
+          <li>@<a href="https://pub.dev/documentation/hive/2.1.0/hive/HiveType-class.html">HiveType</a>(typeId: 10)</li>
         </ul></dd>
       </dl>
     </section>
@@ -91,7 +88,7 @@ rejected | <a href="../Journal/Journal/delete.html">Journal.delete</a>d by user.
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.6/hive/HiveField-class.html">HiveField</a>(0)</div>
+  <div class="features">@<a href="https://pub.dev/documentation/hive/2.1.0/hive/HiveField-class.html">HiveField</a>(0)</div>
 
   <div>
     <span class="signature"><code>const ServiceState(0)</code></span>
@@ -106,7 +103,7 @@ rejected | <a href="../Journal/Journal/delete.html">Journal.delete</a>d by user.
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.6/hive/HiveField-class.html">HiveField</a>(2)</div>
+  <div class="features">@<a href="https://pub.dev/documentation/hive/2.1.0/hive/HiveField-class.html">HiveField</a>(2)</div>
 
   <div>
     <span class="signature"><code>const ServiceState(1)</code></span>
@@ -121,7 +118,7 @@ rejected | <a href="../Journal/Journal/delete.html">Journal.delete</a>d by user.
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.6/hive/HiveField-class.html">HiveField</a>(4)</div>
+  <div class="features">@<a href="https://pub.dev/documentation/hive/2.1.0/hive/HiveField-class.html">HiveField</a>(4)</div>
 
   <div>
     <span class="signature"><code>const ServiceState(3)</code></span>
@@ -136,7 +133,7 @@ rejected | <a href="../Journal/Journal/delete.html">Journal.delete</a>d by user.
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.6/hive/HiveField-class.html">HiveField</a>(3)</div>
+  <div class="features">@<a href="https://pub.dev/documentation/hive/2.1.0/hive/HiveField-class.html">HiveField</a>(3)</div>
 
   <div>
     <span class="signature"><code>const ServiceState(2)</code></span>

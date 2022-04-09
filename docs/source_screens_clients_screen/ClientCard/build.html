@@ -59,7 +59,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
 <span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -134,7 +134,7 @@ Widget build(BuildContext context, WidgetRef ref) {
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Padding(
-        padding: const EdgeInsets.fromLTRB(25.0, 8, 0, 4),
+        padding: const EdgeInsets.fromLTRB(25, 8, 0, 4),
         child: Align(
           alignment: Alignment.bottomLeft,
           child: Text(
@@ -162,14 +162,14 @@ Widget build(BuildContext context, WidgetRef ref) {
         unawaited(Navigator.pushNamed(
           context,
           &#39;&#47;client_journal&#39;,
-        ));
+        ),);
       },
       onTap: () async {
         ref.read(lastClientId.notifier).state = client.contractId;
         unawaited(Navigator.pushNamed(
           context,
           &#39;&#47;client_services&#39;,
-        ));
+        ),);
         &#47;&#47; Todo: rework it
         if (workerProfile.services.isEmpty) {
           await workerProfile.syncHiveServices();
@@ -223,8 +223,8 @@ Widget build(BuildContext context, WidgetRef ref) {
 
     <li class="section-title"><a href="../../source_screens_clients_screen/ClientCard-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_clients_screen/ClientCard/build.html">build</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.4/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

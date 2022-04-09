@@ -63,8 +63,9 @@
   <p>Async init actions such as:</p>
 <ul>
 <li>postInit <a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a> (instance of <a href="../../Journal/Journal-class.html">Journal</a> class),</li>
-<li>get last sync dates for <a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a> from hive,</li>
-<li>check dates of last sync and call updates.</li>
+<li>read <a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a> from hive if empty,</li>
+<li>check last sync dates and sync <a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a>,</li>
+<li>and call notifyListeners.</li>
 </ul>
 </section>
 
