@@ -1,15 +1,14 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/app_state.dart';
+import 'package:ais3uson_app/source/providers/profiders_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers.dart';
-import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
-import 'package:ais3uson_app/source/providers/worker_repository.dart';
+import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
+import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tuple/tuple.dart';
 
 import 'data_classes_test.dart';
 import 'helpers/mock_server.dart';
@@ -57,18 +56,13 @@ void main() {
     //
     // > it sync clients list
     //
-    await ref
-        .read(httpDataProvider(Tuple2(wp.apiKey, wp.urlClients)).notifier)
-        .syncHiveHttp();
-    await wp.syncHiveClients();
-    await ref
-        .read(httpDataProvider(Tuple2(wp.apiKey, wp.urlClients)).notifier)
-        .syncHiveHttp(); // it didn't make initial sync twice
     final httpClient =
-    ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+        ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+    await wp.syncClients(); // second call of testReqGetClients
+    await wp.postInit(); // it didn't make initial sync twice
     expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
     expect(
-      ref.read(httpDataProvider(Tuple2(wp.apiKey, wp.urlClients))).length,
+      ref.read(httpDataProvider(wp.apiUrlClients)).length,
       10,
     );
     expect(wp.clients.length, 10);

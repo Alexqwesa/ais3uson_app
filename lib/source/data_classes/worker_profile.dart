@@ -8,7 +8,8 @@ import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
-import 'package:ais3uson_app/source/providers/worker_repository.dart';
+import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
+import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
@@ -43,6 +44,12 @@ class WorkerProfile {
   String get urlPlan => '${key.activeServer}/planned';
 
   String get urlServices => '${key.activeServer}/services';
+
+  Tuple2<String, String> get apiUrlClients => Tuple2(apiKey, urlClients);
+
+  Tuple2<String, String>  get apiUrlPlan => Tuple2(apiKey, urlPlan);
+
+  Tuple2<String, String>  get apiUrlServices => Tuple2(apiKey, urlServices);
 
   List<ClientProfile> get clients => ref.read(clientsOfWorker(this));
 
@@ -80,29 +87,30 @@ class WorkerProfile {
     //
     // > sync data on load
     //
+    // Todo: rework it
     await ref
-        .read(httpDataProvider(Tuple2(apiKey, urlServices)).notifier)
+        .read(httpDataProvider(apiUrlServices).notifier)
         .syncHiveHttp();
     await ref
-        .read(httpDataProvider(Tuple2(apiKey, urlClients)).notifier)
+        .read(httpDataProvider(apiUrlClients).notifier)
         .syncHiveHttp();
     await ref
-        .read(httpDataProvider(Tuple2(apiKey, urlPlan)).notifier)
+        .read(httpDataProvider(apiUrlPlan).notifier)
         .syncHiveHttp();
   }
 
-  Future<void> syncHiveClients() async {
+  Future<void> syncClients() async {
     // await ref.read(httpDataProvider([apiKey, urlClients]).notifier).state(
     //     (state){}()
     // );
     await ref
-        .read(httpDataProvider(Tuple2(apiKey, urlClients)).notifier)
+        .read(httpDataProvider(apiUrlClients).notifier)
         .getHttpData();
   }
 
-  Future<void> syncHivePlanned() async {
+  Future<void> syncPlanned() async {
     await ref
-        .read(httpDataProvider(Tuple2(apiKey, urlPlan)).notifier)
+        .read(httpDataProvider(apiUrlPlan).notifier)
         .getHttpData();
   }
 
@@ -114,9 +122,9 @@ class WorkerProfile {
   ///
   /// This function also called from [checkAllServicesExist], if there is a
   /// [clientPlan] with wrong [ClientPlan.servId].
-  Future<void> syncHiveServices() async {
+  Future<void> syncServices() async {
     await ref
-        .read(httpDataProvider(Tuple2(apiKey, urlServices)).notifier)
+        .read(httpDataProvider(apiUrlServices).notifier)
         .getHttpData();
   }
 

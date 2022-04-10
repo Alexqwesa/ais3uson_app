@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/providers/app_state.dart';
-import 'package:ais3uson_app/source/providers/worker_repository.dart';
+import 'package:ais3uson_app/source/providers/profiders_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
@@ -32,7 +32,7 @@ class ClientScreen extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () async {
-                await workerProfile.syncHiveClients();
+                await workerProfile.syncClients();
               },
             ),
           ],

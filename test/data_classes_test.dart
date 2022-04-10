@@ -5,9 +5,8 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/providers.dart';
-import 'package:ais3uson_app/source/providers/worker_keys_and_profiles.dart';
-import 'package:ais3uson_app/source/providers/worker_repository.dart';
+import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
+import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -15,7 +14,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tuple/tuple.dart';
 
 import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
 import 'helpers/mock_server.mocks.dart' as mock;
@@ -96,19 +94,7 @@ void main() {
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
-      // await ref
-      //     .read(httpDataProvider(Tuple2(wp.apiKey, wp.urlClients)).notifier)
-      //     .syncHiveHttp();
-      wp.clients.length;
       // await ref.pump();
-      // await ref.read(
-      //   futureHttpDataProvider(
-      //     ref.read(httpDataProvider(Tuple2(wp.apiKey, wp.urlClients))
-      //     .notifier),
-      //   ).future,
-      // );
-
-      await ref.pump();
       expect(wp.clients.length, 10);
       expect(wp.services.length, 272);
       expect(wp.clientPlan.length, 500);
@@ -142,17 +128,10 @@ void main() {
       //
       // > reset sync dates
       //
-      final apiKey = wp.apiKey;
-      await wp.ref
-          .read(httpDataProvider(Tuple2(apiKey, wp.urlPlan)).notifier)
-          .getHttpData();
+      await wp.syncPlanned();
       // skip services update
-      // await wp.ref
-      //     .read(httpDataProvider(Tuple2(apiKey, wp.urlServices)).notifier)
-      //     .getHttpData();
-      await wp.ref
-          .read(httpDataProvider(Tuple2(apiKey, wp.urlClients)).notifier)
-          .getHttpData();
+      // await wp.syncHiveServices();
+      await wp.syncClients();
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);

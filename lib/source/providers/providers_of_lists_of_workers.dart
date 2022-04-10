@@ -6,7 +6,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/providers.dart';
+import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,11 +18,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// {@category Providers}
 final workerKeys =
-    StateNotifierProvider<WorkerKeysState, List<WorkerKey>>((ref) {
-  return WorkerKeysState();
+    StateNotifierProvider<_WorkerKeysState, List<WorkerKey>>((ref) {
+  return _WorkerKeysState();
 });
 
-class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
+class _WorkerKeysState extends StateNotifier<List<WorkerKey>> {
   static const name = 'WorkerKeys2';
 
   @override
@@ -42,14 +42,16 @@ class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
     });
   }
 
-  WorkerKeysState()
-      // ignore: avoid_dynamic_calls
-      : super((jsonDecode(locator<SharedPreferences>().getString(name) ?? '[]')
-                .map<WorkerKey>(
-          // ignore: avoid_annotating_with_dynamic
-          (dynamic e) => WorkerKey.fromJson(e as Map<String, dynamic>),
-        ) as Iterable<WorkerKey>)
-            .toList(),);
+  _WorkerKeysState()
+      : super(
+          // ignore: avoid_dynamic_calls
+          (jsonDecode(locator<SharedPreferences>().getString(name) ?? '[]')
+                  .map<WorkerKey>(
+            // ignore: avoid_annotating_with_dynamic
+            (dynamic e) => WorkerKey.fromJson(e as Map<String, dynamic>),
+          ) as Iterable<WorkerKey>)
+              .toList(),
+        );
 
   /// Add [WorkerKey].
   ///
@@ -73,14 +75,14 @@ class WorkerKeysState extends StateNotifier<List<WorkerKey>> {
 ///
 /// {@category Providers}
 final workerProfiles =
-    StateNotifierProvider<WorkerProfilesState, List<WorkerProfile>>((ref) {
-  return WorkerProfilesState(ref); //, ref.watch(workerKeys));
+    StateNotifierProvider<_WorkerProfilesState, List<WorkerProfile>>((ref) {
+  return _WorkerProfilesState(ref); //, ref.watch(workerKeys));
 });
 
-class WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
+class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
   final StateNotifierProviderRef ref;
 
-  WorkerProfilesState(this.ref) // , List<WorkerKey> wKeys
+  _WorkerProfilesState(this.ref) // , List<WorkerKey> wKeys
       : super(<WorkerProfile>[]) {
     sync(ref.read(workerKeys));
     ref.listen(workerKeys, (previous, next) {

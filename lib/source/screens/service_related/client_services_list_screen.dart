@@ -1,7 +1,8 @@
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/providers/app_state.dart';
-import 'package:ais3uson_app/source/providers/providers.dart';
+import 'package:ais3uson_app/source/providers/profiders_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
+import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -43,7 +44,7 @@ class ClientServicesListScreen extends ConsumerWidget {
               onPressed: () async {
                 await workerProfile.journal.archiveOldServices();
                 await workerProfile.journal.commitAll();
-                await workerProfile.syncHivePlanned();
+                await workerProfile.syncPlanned();
               },
             ),
           ],

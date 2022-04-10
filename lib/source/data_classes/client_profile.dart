@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/from_json/client_entry.dart';
-import 'package:ais3uson_app/source/providers/app_state.dart';
+import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 
 /// Basic data about client:
 /// - [name],
