@@ -110,8 +110,7 @@ and</li>
 Widget build(BuildContext context, WidgetRef ref) {
   final client = ref.watch(lastClient);
   final workerProfile = client.workerProfile;
-  final size = MediaQuery.of(context).size;
-  final servList = client.services;
+  final servList = ref.watch(servicesOfClient(client));
 
   return Scaffold(
     &#47;&#47;
@@ -174,32 +173,35 @@ Widget build(BuildContext context, WidgetRef ref) {
         ),
       ],
     ),
-    body: Center(
-      child: servList.isNotEmpty
-          ? Center(
-              child: SingleChildScrollView(
-                key: const ValueKey(&#39;MainScroll&#39;),
-                child: Wrap(
-                  &#47;&#47; children: [],
-                  children: servList.map(
-                    (element) {
-                      return ServiceCard(
-                        service: element,
-                        parentSize: size,
-                      );
-                    },
-                    &#47;&#47; growable: false,
-                  ).toList(),
+    body: LayoutBuilder(
+      builder: (context, constraints) {
+        return Center(
+          child: servList.isNotEmpty
+              ? Center(
+                  child: SingleChildScrollView(
+                    key: const ValueKey(&#39;MainScroll&#39;),
+                    child: Wrap(
+                      &#47;&#47; children: [],
+                      children: servList
+                          .map(
+                            (element) =&gt; ServiceCard(
+                              service: element,
+                              parentSize: constraints.biggest,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                )
+              : Text(
+                  &#39;Список положенных услуг пуст, \n\n&#39;
+                  &#39;возможно заведующий отделением уже закрыл договор\n\n&#39;
+                  &#39;обновите список&#39;,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-              ),
-            )
-          : Text(
-              &#39;Список положенных услуг пуст, \n\n&#39;
-              &#39;возможно заведующий отделением уже закрыл договор\n\n&#39;
-              &#39;обновите список&#39;,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
-            ),
+        );
+      },
     ),
   );
 }</code></pre>

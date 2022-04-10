@@ -62,19 +62,6 @@
 </section>
 
 
-    <section>
-      <dl class="dl-horizontal">
-
-
-        <dt>Mixed in types</dt>
-        <dd><ul class="comma-separated clazz-relationships">
-          <li><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html">ChangeNotifier</a></li>
-        </ul></dd>
-
-
-
-      </dl>
-    </section>
 
     <section class="summary offset-anchor" id="constructors">
       <h2>Constructors</h2>
@@ -118,12 +105,12 @@ because it is the class that get actual data.
 
         <dt id="entry" class="property">
   <span class="name"><a href="../source_data_classes_client_profile/ClientProfile/entry.html">entry</a></span>
-  <span class="signature">&#8596; <a href="../source_from_json_client_entry/ClientEntry-class.html">ClientEntry</a></span> 
+  <span class="signature">&#8594; <a href="../source_from_json_client_entry/ClientEntry-class.html">ClientEntry</a></span> 
 
 </dt>
 <dd>
    
-  <div class="features">read / write</div>
+  <div class="features">final</div>
 
 </dd>
 
@@ -135,17 +122,6 @@ because it is the class that get actual data.
 <dd class="inherited">
   The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
   <div class="features">read-only, inherited</div>
-
-</dd>
-
-        <dt id="hasListeners" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
-
-</dt>
-<dd class="inherited">
-  Whether any listeners are currently registered. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, read-only, inherited</div>
 
 </dd>
 
@@ -177,57 +153,28 @@ because it is the class that get actual data.
 
 </dt>
 <dd>
-  return List of <code>ClientService</code>s <a href="../source_data_classes_client_profile/ClientProfile/services.html">[...]</a>
+  Return List of <code>ClientService</code>s. 
   <div class="features">read-only</div>
 
 </dd>
 
         <dt id="workerProfile" class="property">
   <span class="name"><a href="../source_data_classes_client_profile/ClientProfile/workerProfile.html">workerProfile</a></span>
-  <span class="signature">&#8596; <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> 
+  <span class="signature">&#8594; <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> 
 
 </dt>
 <dd>
    
-  <div class="features">read / write</div>
+  <div class="features">final</div>
 
 </dd>
 
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="instance-methods">
+    <section class="summary offset-anchor inherited" id="instance-methods">
       <h2>Methods</h2>
       <dl class="callables">
-        <dt id="addListener" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></span><span class="signature">(<wbr><span class="parameter" id="addListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Register a closure to be called when the object changes. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">[...]</a>
-  <div class="features">inherited</div>
-
-</dd>
-
-        <dt id="dispose" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Discards any resources used by the object. After this is called, the
-object is not in a usable state and should be discarded (calls to
-<a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a> and <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a> will throw after the object is
-disposed). <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/mustCallSuper-constant.html">mustCallSuper</a>, inherited</div>
-
-</dd>
-
         <dt id="noSuchMethod" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
@@ -237,33 +184,6 @@ disposed). <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/di
 </dt>
 <dd class="inherited">
   Invoked when a non-existent method or property is accessed. <a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">[...]</a>
-  <div class="features">inherited</div>
-
-</dd>
-
-        <dt id="notifyListeners" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Call all the registered listeners. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, @<a href="https://pub.dev/documentation/meta/1.7.0/meta/visibleForTesting-constant.html">visibleForTesting</a>, inherited</div>
-
-</dd>
-
-        <dt id="removeListener" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></span><span class="signature">(<wbr><span class="parameter" id="removeListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Remove a previously registered closure from the list of closures that are
-notified when the object changes. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">[...]</a>
   <div class="features">inherited</div>
 
 </dd>
@@ -278,19 +198,6 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
 <dd class="inherited">
   A string representation of this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">[...]</a>
   <div class="features">inherited</div>
-
-</dd>
-
-        <dt id="updateServices" class="callable">
-  <span class="name"><a href="../source_data_classes_client_profile/ClientProfile/updateServices.html">updateServices</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Get data from <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> and filter only needed. <a href="../source_data_classes_client_profile/ClientProfile/updateServices.html">[...]</a>
-  
 
 </dd>
 
@@ -365,20 +272,14 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li><a href="../source_data_classes_client_profile/ClientProfile/contractId.html">contractId</a></li>
     <li><a href="../source_data_classes_client_profile/ClientProfile/entry.html">entry</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../source_data_classes_client_profile/ClientProfile/name.html">name</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../source_data_classes_client_profile/ClientProfile/services.html">services</a></li>
     <li><a href="../source_data_classes_client_profile/ClientProfile/workerProfile.html">workerProfile</a></li>
 
-    <li class="section-title"><a href="../source_data_classes_client_profile/ClientProfile-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></li>
+    <li class="section-title inherited"><a href="../source_data_classes_client_profile/ClientProfile-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-    <li><a href="../source_data_classes_client_profile/ClientProfile/updateServices.html">updateServices</a></li>
 
     <li class="section-title inherited"><a href="../source_data_classes_client_profile/ClientProfile-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>

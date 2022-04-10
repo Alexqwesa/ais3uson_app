@@ -104,6 +104,17 @@
 
 </dd>
 
+        <dt id="hiveBox" class="property">
+  <span class="name"><a href="../source_providers_providers/hiveBox.html">hiveBox</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/FutureProviderFamily-class.html">FutureProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/hive/2.1.0/hive/Box-class.html">Box</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">final</div>
+
+</dd>
+
         <dt id="hiveDateTimeBox" class="property">
   <span class="name"><a href="../source_providers_providers/hiveDateTimeBox.html">hiveDateTimeBox</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/FutureProviderFamily-class.html">FutureProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/hive/2.1.0/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
@@ -139,12 +150,12 @@
 
         <dt id="httpClientProvider" class="property">
   <span class="name"><a href="../source_providers_providers/httpClientProvider.html">httpClientProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/http/0.13.4/http/Client-class.html">Client</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/http/0.13.4/http/Client-class.html">Client</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span>&gt;</span></span> 
     <span class="category providers cp-3 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 
 </dt>
 <dd>
-  Provider of httpClient. <a href="../source_providers_providers/httpClientProvider.html">[...]</a>
+  Provider of httpClient (with certificate if not null). <a href="../source_providers_providers/httpClientProvider.html">[...]</a>
   <div class="features">final</div>
 
 </dd>
@@ -157,6 +168,17 @@
 </dt>
 <dd>
   Archive view or usual view of App. <a href="../source_providers_providers/isArchive.html">[...]</a>
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="loadMapFromHiveKeyProvider" class="property">
+  <span class="name"><a href="../source_providers_providers/loadMapFromHiveKeyProvider.html">loadMapFromHiveKeyProvider</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Helper, convert String to List of Map&lt;String, dynamic&gt; 
   <div class="features">final</div>
 
 </dd>
@@ -280,6 +302,7 @@
       <li><a href="../source_from_json_worker_key/source_from_json_worker_key-library.html">worker_key</a></li>
       <li><a href="../source_providers_worker_keys_and_profiles/source_providers_worker_keys_and_profiles-library.html">worker_keys_and_profiles</a></li>
       <li><a href="../source_data_classes_worker_profile/source_data_classes_worker_profile-library.html">worker_profile</a></li>
+      <li><a href="../source_providers_worker_repository/source_providers_worker_repository-library.html">worker_repository</a></li>
 </ol>
 
   </div>
@@ -297,11 +320,13 @@
   <li class="section-title"><a href="../source_providers_providers/source_providers_providers-library.html#properties">Properties</a></li>
   <li><a href="../source_providers_providers/archiveDate.html">archiveDate</a></li>
   <li><a href="../source_providers_providers/hiveArchiveLimit.html">hiveArchiveLimit</a></li>
+  <li><a href="../source_providers_providers/hiveBox.html">hiveBox</a></li>
   <li><a href="../source_providers_providers/hiveDateTimeBox.html">hiveDateTimeBox</a></li>
   <li><a href="../source_providers_providers/hiveJournalBox.html">hiveJournalBox</a></li>
   <li><a href="../source_providers_providers/hiveStringBox.html">hiveStringBox</a></li>
   <li><a href="../source_providers_providers/httpClientProvider.html">httpClientProvider</a></li>
   <li><a href="../source_providers_providers/isArchive.html">isArchive</a></li>
+  <li><a href="../source_providers_providers/loadMapFromHiveKeyProvider.html">loadMapFromHiveKeyProvider</a></li>
   <li><a href="../source_providers_providers/preference.html">preference</a></li>
   <li><a href="../source_providers_providers/serviceViewProvider.html">serviceViewProvider</a></li>
 

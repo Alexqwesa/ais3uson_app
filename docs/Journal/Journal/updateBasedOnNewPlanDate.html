@@ -61,7 +61,7 @@
     
 <section class="desc markdown">
   <p>Mark all finished service as <a href="../../source_journal_service_state/ServiceState.html">ServiceState.outDated</a>
-after <code>WorkerProfile._clientPlan</code> synchronized.</p>
+after <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">WorkerProfile.clientPlan</a> synchronized.</p>
 </section>
 
 
@@ -70,11 +70,12 @@ after <code>WorkerProfile._clientPlan</code> synchronized.</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; updateBasedOnNewPlanDate() async {
   await _lock.synchronized(() async {
-    finished.forEach(
+    &#47;&#47; work with copy
+    finished.toList().forEach(
       (element) async {
-        &#47;&#47; TODO: rework it?
-        if (element.provDate
-            .isBefore(await workerProfile.clientPlanSyncDate())) {
+        if (element.provDate.isBefore(
+          workerProfile.ref.read(planOfWorkerSyncDate(workerProfile)),
+        )) {
           toOutDated(element);
         }
       },

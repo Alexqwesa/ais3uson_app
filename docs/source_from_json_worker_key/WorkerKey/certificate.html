@@ -54,7 +54,7 @@
 <section id="getter">
 
 <section class="multi-line-signature">
-  <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a></span>
+  <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span>
   <span class="name ">certificate</span>
   
 
@@ -65,7 +65,11 @@
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Uint8List get certificate =&gt; const Base64Decoder().convert(certBase64);</code></pre>
+  <pre class="language-dart"><code class="language-dart">Uint8List? get certificate {
+  if (certBase64.isNotEmpty) const Base64Decoder().convert(certBase64);
+
+  return null;
+}</code></pre>
 </section>
 
 </section>

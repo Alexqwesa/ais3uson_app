@@ -109,65 +109,48 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final workerProfile = ref.watch(lastWorkerProfile);
+  final clientList = ref.watch(clientsOfWorker(workerProfile));
 
-  return ChangeNotifierProvider&lt;WorkerProfile&gt;.value(
-    value: workerProfile,
-    child: Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Expanded(
-              child: Text(
-                workerProfile.key.dep,
-              ),
+  return Scaffold(
+    appBar: AppBar(
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              workerProfile.key.dep,
             ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () async {
-                await workerProfile.syncHiveClients();
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Consumer&lt;WorkerProfile&gt;(
-        &#47;&#47;
-        &#47;&#47; &gt; get data
-        &#47;&#47;
-        builder: (context, data, child) {
-          final clientList =
-              context.select&lt;WorkerProfile, List&lt;ClientProfile&gt;&gt;(
-            (data) =&gt; data.clients.toList(),
-          );
-
-          &#47;&#47;
-          &#47;&#47; &gt; build list
-          &#47;&#47;
-          return clientList.isNotEmpty
-              ? ListView.builder(
-                  itemCount: clientList.length,
-                  itemBuilder: (context, index) {
-                    return Center(
-                      child: SizedBox(
-                        width: 550,
-                        child: ClientCard(
-                          index: index,
-                          client: clientList[index],
-                        ),
-                      ),
-                    );
-                  },
-                )
-              : Center(
-                  child: Text(
-                    S.of(context).emptyListOfPeople,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                );
-        },
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () async {
+              await workerProfile.syncHiveClients();
+            },
+          ),
+        ],
       ),
     ),
+    body: clientList.isNotEmpty
+        ? ListView.builder(
+            itemCount: clientList.length,
+            itemBuilder: (context, index) {
+              return Center(
+                child: SizedBox(
+                  width: 550,
+                  child: ClientCard(
+                    index: index,
+                    client: clientList[index],
+                  ),
+                ),
+              );
+            },
+          )
+        : Center(
+            child: Text(
+              S.of(context).emptyListOfPeople,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ),
   );
 }</code></pre>
 </section>
