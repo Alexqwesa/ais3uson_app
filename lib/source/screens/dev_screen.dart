@@ -133,8 +133,8 @@ class _CheckWorkerServer extends ConsumerState<CheckWorkerServer> {
       //
       // > http
       //
-      final host = ref.read(workerKeys).first.activeHost;
-      final port = ref.read(workerKeys).first.activePort;
+      final host = ref.read(workerProfiles).first.key.activeHost;
+      final port = ref.read(workerProfiles).first.key.activePort;
       var url = Uri.parse(
         'http://$host:$port/stat',
       );

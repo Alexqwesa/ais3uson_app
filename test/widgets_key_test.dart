@@ -56,7 +56,7 @@ void main() {
         ),
       ),
     );
-    ref.read(workerKeys.notifier).addKey(wKey);
+    ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();
@@ -120,7 +120,7 @@ void main() {
         ),
       ),
     );
-    ref.read(workerKeys.notifier).addKey(wKey);
+    ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();
@@ -149,7 +149,7 @@ void main() {
             .overrideWithValue(getMockHttpClient()),
       ],
     );
-    ref.read(workerKeys.notifier).addKey(wKey);
+    ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
     final wp = ref.read(workerProfiles).first;
     await tester.runAsync<void>(() async {
       await wp.postInit();

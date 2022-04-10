@@ -15,13 +15,13 @@ class ListOfProfiles extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wpKeys = ref.watch(workerKeys);
+    final wps = ref.watch(workerProfiles);
 
-    return wpKeys.isNotEmpty
+    return wps.isNotEmpty
         ? ContextMenuOverlay(
             child: ListView.builder(
               controller: ScrollController(),
-              itemCount: wpKeys.length,
+              itemCount: wps.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return ContextMenuRegion(
@@ -32,52 +32,28 @@ class ListOfProfiles extends ConsumerWidget {
                     buttonConfigs: [
                       ContextMenuButtonConfig(
                         S.of(context).exportThisWeek,
-                        onPressed: () => ref
-                            .read(workerProfiles)
-                            .firstWhere(
-                              (element) => element.key == wpKeys[index],
-                            )
-                            .journal
-                            .exportToFile(
+                        onPressed: () => wps[index].journal.exportToFile(
                               mostRecentMonday(),
                               mostRecentMonday(addDays: 7),
                             ),
                       ),
                       ContextMenuButtonConfig(
                         S.of(context).exportLastWeek,
-                        onPressed: () => ref
-                            .read(workerProfiles)
-                            .firstWhere(
-                              (element) => element.key == wpKeys[index],
-                            )
-                            .journal
-                            .exportToFile(
+                        onPressed: () => wps[index].journal.exportToFile(
                               mostRecentMonday(addDays: -7),
                               mostRecentMonday(),
                             ),
                       ),
                       ContextMenuButtonConfig(
                         S.of(context).exportThisMonth,
-                        onPressed: () => ref
-                            .read(workerProfiles)
-                            .firstWhere(
-                              (element) => element.key == wpKeys[index],
-                            )
-                            .journal
-                            .exportToFile(
+                        onPressed: () => wps[index].journal.exportToFile(
                               mostRecentMonth(),
                               mostRecentMonth(addMonths: 1),
                             ),
                       ),
                       ContextMenuButtonConfig(
                         S.of(context).exportLastMonth,
-                        onPressed: () => ref
-                            .read(workerProfiles)
-                            .firstWhere(
-                              (element) => element.key == wpKeys[index],
-                            )
-                            .journal
-                            .exportToFile(
+                        onPressed: () => wps[index].journal.exportToFile(
                               mostRecentMonth(addMonths: -1),
                               mostRecentMonth(),
                             ),
@@ -98,15 +74,14 @@ class ListOfProfiles extends ConsumerWidget {
                         ),
                       ),
                       title: Text(
-                        wpKeys[index].dep,
+                        wps[index].key.dep,
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       //
                       // > onTap call
                       //
                       onTap: () {
-                        ref.read(lastApiKey.notifier).state =
-                            wpKeys[index].apiKey;
+                        ref.read(lastApiKey.notifier).state = wps[index].apiKey;
                         ref.read(lastWorkerProfile).postInit();
                         Navigator.pushNamed(
                           context,
@@ -118,10 +93,10 @@ class ListOfProfiles extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(wpKeys[index].name),
+                            Text(wps[index].name),
                             Padding(
                               padding: const EdgeInsets.all(8),
-                              child: Text(wpKeys[index].comment),
+                              child: Text(wps[index].key.comment),
                             ),
                           ],
                         ),

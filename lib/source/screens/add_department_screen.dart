@@ -184,7 +184,7 @@ class AddDepartmentScreen extends ConsumerWidget {
 
 bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
   try {
-    final res = ref.read(workerKeys.notifier).addKey(
+    final res = ref.read(workerProfiles.notifier).addProfileFromKey(
           WorkerKey.fromJson(
             jsonDecode(text) as Map<String, dynamic>,
           ),

@@ -78,10 +78,10 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
       //
       // > main - call server
       //
-      final _workerKey =
-          read(workerKeys).firstWhereOrNull((e) => e.apiKey == apiKey);
+      final _workerProfile =
+          read(workerProfiles).firstWhereOrNull((e) => e.apiKey == apiKey);
       final client =
-          read<http.Client>(httpClientProvider(_workerKey?.certificate));
+          read<http.Client>(httpClientProvider(_workerProfile?.key.certificate));
       final response = await client.get(url, headers: headers);
       //
       // > check response
@@ -146,7 +146,7 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
     // > check hive update needed
     //
     if (read(_lastUpdate('$apiKey$urlAddress')) == nullDate) {
-      state = read(loadMapFromHiveKeyProvider(apiKey + urlAddress));
+      state = read(_loadMapFromHiveKeyProvider(apiKey + urlAddress));
       read(_lastUpdate('$apiKey$urlAddress').notifier).state =
           hive.get('sync_date_$apiKey$urlAddress') as DateTime? ??
               nullDate.add(const Duration(days: 1));
@@ -223,7 +223,7 @@ final httpClientProvider =
 
 
 /// Helper, convert String to List of Map<String, dynamic>
-final loadMapFromHiveKeyProvider =
+final _loadMapFromHiveKeyProvider =
 Provider.family<List<Map<String, dynamic>>, String>((ref, hiveKey) {
   // ignore: avoid_dynamic_calls
   return jsonDecode(

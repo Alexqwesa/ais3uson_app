@@ -14,7 +14,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wpKeys = ref.watch(workerKeys);
+    final wpKeys = ref.watch(workerProfiles).map((e) => e.key).toList();
 
     return Scaffold(
       appBar: AppBar(
