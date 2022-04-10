@@ -130,7 +130,7 @@ Widget build(BuildContext context, WidgetRef ref) {
             onPressed: () async {
               await workerProfile.journal.archiveOldServices();
               await workerProfile.journal.commitAll();
-              await workerProfile.syncHivePlanned();
+              await workerProfile.syncPlanned();
             },
           ),
         ],

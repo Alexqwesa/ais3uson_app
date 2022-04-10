@@ -123,7 +123,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () async {
-              await workerProfile.syncHiveClients();
+              await workerProfile.syncClients();
             },
           ),
         ],
