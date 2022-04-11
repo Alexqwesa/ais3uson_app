@@ -80,8 +80,9 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
       //
       final _workerProfile =
           read(workerProfiles).firstWhereOrNull((e) => e.apiKey == apiKey);
-      final client =
-          read<http.Client>(httpClientProvider(_workerProfile?.key.certificate));
+      final client = read<http.Client>(
+        httpClientProvider(_workerProfile?.key.certificate),
+      );
       final response = await client.get(url, headers: headers);
       //
       // > check response
@@ -221,10 +222,9 @@ final httpClientProvider =
   return client;
 });
 
-
 /// Helper, convert String to List of Map<String, dynamic>
 final _loadMapFromHiveKeyProvider =
-Provider.family<List<Map<String, dynamic>>, String>((ref, hiveKey) {
+    Provider.family<List<Map<String, dynamic>>, String>((ref, hiveKey) {
   // ignore: avoid_dynamic_calls
   return jsonDecode(
     ref.watch(hiveBox(hiveProfiles)).value?.get(hiveKey) as String? ?? '[]',

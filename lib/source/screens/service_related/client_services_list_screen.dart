@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/providers/profiders_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';

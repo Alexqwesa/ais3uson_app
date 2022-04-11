@@ -78,7 +78,7 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Работа онлайн и оффлайн (1 раз в день обязательная синхронизация)
 - [x] Прикрепление к услуге изображений-подтверждений (хранятся локально)
 - [x] Журнал введенных услуг за день
-- [x] Архивирование услуг введенных в предыдущие дни
+- [x] Авто-архивирование услуг введенных в предыдущие дни
 - [x] Просмотр архива услуг
 - [x] Проверка переполнения положенных услуг
 - [x] Резервное копирование ключей авторизации в облако
@@ -90,9 +90,8 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Доступно для скачивания
   на [Google Play Market](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 - [x] Созданы тесты для проверки правильности работы программы
-- [x] Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся поделится
-  (без дупликатов)
-
+- [x] Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся
+  поделится (импорт без дупликатов(в программе для заведующих))
 
 ## TODO:
 
@@ -107,29 +106,28 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] Повышенный уровень защиты: SSL Pinning
 - [ ] Напоминание о необходимости синхронизации
 - [ ] Кнопка: Синхронизировать ВСЕ!
-- [ ] Экспорт журнала ввода в json / + импорт (в программе для заведующих)
 - [ ] Кнопка: Поделится ?
 - [ ] Разные интервалы обновлений для сервисов(раз в 3 дня), список клиентов(12 часов), положено
   услуг (раз в день),
 - [ ] Контрольная сумма для списка услуг? (желательно на стороне SQL сервера)
-- [ ] Возможность загрузки некоторых картинок с сервера 
+- [ ] Возможность загрузки некоторых картинок с сервера
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] maybe backup media data? only on full backup?
 - [ ] использовать темы для изменения размера шрифта
 - [ ] дополнительные ограничения доступных услуг?
 - [ ] сообщения от заведующих (по группам работников, одному, всем)
 - [ ] закончившиеся услуги - в конец списка?
-- [ ] вводить услуги жестом, а не onTap ??? 
-- [ ] Разрешить загрузку введенных услуг с сервера, если их нет в локальном журнале Hive? (Кнопка получения архива ввода)
+- [ ] вводить услуги жестом, а не onTap ???
+- [ ] Разрешить загрузку введенных услуг с сервера, если их нет в локальном журнале Hive? (Кнопка
+  получения архива ввода)
 - [ ] try autoreconnect few times(with timeout) if there is a problem with network
 - [ ] add server tests
 - [ ] use badges
 - [ ] tutorial
 - [ ] translations - mostly done (en/ru/de)
 - [ ] get list of revoked services by date from server
-- [ ] get list of date/money/services count from server for month, if some day disagree with local data - 
-get list of services by date from server?
-
+- [ ] get list of date/money/services count from server for month, if some day disagree with local
+  data - get list of services by date from server?
 
 ## Разработчики
 
@@ -139,6 +137,8 @@ get list of services by date from server?
 ### [Документация для разработчиков](https://alexqwesa.github.io/ais3uson_app/)
 
 - [Автоматически сгенерированная документация для разработчиков](https://alexqwesa.github.io/ais3uson_app/)
+- В качестве менеждера состояний используется [riverpod](https://riverpod.dev/), ранее
+  использовались Singleton и get_it.
 
 ## Лицензия
 
