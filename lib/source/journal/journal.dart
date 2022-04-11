@@ -148,6 +148,12 @@ class Journal with ChangeNotifier {
       File(filePath).writeAsStringSync(content);
       try {
         await Share.shareFiles([filePath]);
+        // ignore: avoid_catching_errors
+      } on UnimplementedError {
+        showNotification(
+          locator<S>().fileSavedTo + filePath,
+          duration: const Duration(seconds: 10),
+        );
       } on MissingPluginException {
         showNotification(
           locator<S>().fileSavedTo + filePath,

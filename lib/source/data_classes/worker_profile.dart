@@ -83,16 +83,18 @@ class WorkerProfile {
   /// - check last sync dates and sync [clients], [clientPlan] and [services],
   /// - and call notifyListeners.
   Future<void> postInit() async {
+    // Todo: rework it
     await journal.postInit();
     //
     // > sync data on load
     //
     // Todo: rework it
-    await ref
-        .read(httpDataProvider(apiUrlServices).notifier)
-        .syncHiveHttp();
+    // real widgets didn't need this code, but it is used by tests
     await ref
         .read(httpDataProvider(apiUrlClients).notifier)
+        .syncHiveHttp();
+    await ref
+        .read(httpDataProvider(apiUrlServices).notifier)
         .syncHiveHttp();
     await ref
         .read(httpDataProvider(apiUrlPlan).notifier)

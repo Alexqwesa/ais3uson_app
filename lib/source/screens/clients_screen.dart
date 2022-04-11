@@ -117,7 +117,6 @@ class ClientCard extends ConsumerWidget {
               '/client_journal',
             ),
           );
-          await client.workerProfile.postInit();
           await client.workerProfile.fullArchive.postInit();
         },
         onTap: () async {
