@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 // ignore: avoid-returning-widgets
-MaterialApp localizedMaterialApp(Widget widget) {
+MaterialApp localizedMaterialApp(
+  Widget widget, {
+  String? initialRoute,
+  Map<String, WidgetBuilder>? routes,
+}) {
   return MaterialApp(
     //
     // > l10n
@@ -15,6 +19,11 @@ MaterialApp localizedMaterialApp(Widget widget) {
       GlobalCupertinoLocalizations.delegate,
     ],
     supportedLocales: S.delegate.supportedLocales,
-    home: widget,
+    //
+    // > routes
+    //
+    home: initialRoute == null ? widget : null,
+    initialRoute: initialRoute,
+    routes: routes ?? const <String, WidgetBuilder>{},
   );
 }

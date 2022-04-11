@@ -31,7 +31,7 @@ void main() {
     await tearDownTestHive();
   });
 
-  test('it providers work', () async {
+  test('its providers work', () async {
     final wKey = wKeysData2();
     final ref = ProviderContainer(
       overrides: [

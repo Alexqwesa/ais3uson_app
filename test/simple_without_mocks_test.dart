@@ -63,6 +63,10 @@ void main() {
         (dynamic e) => ClientEntry.fromJson(e as Map<String, dynamic>),
       ) as Iterable<ClientEntry>;
       expect(clients.first, isA<ClientEntry>());
+      expect(
+        clients.map((e) => e.toJson()).toList().first['contract'],
+        '661/2021/t/2001',
+      );
     });
     test('it create clientPlan from json', () async {
       final clientPlan =
