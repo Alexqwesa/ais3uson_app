@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 /// Display state of the client service: amount of done/added/rejected...
 ///
 /// It get data from [ClientService.journal]
-/// via [ClientService.listDoneProgressError], these numbers mean:
+/// via [ClientService.doneStaleError], these numbers mean:
 /// - done - finished and outDated,
 /// - inProgress - added and stale,
 /// - error - rejected.
@@ -55,7 +55,7 @@ class ServiceCardState extends StatelessWidget {
               builder: (context, data, child) {
                 final listDoneProgressError =
                     context.select<ClientService, List<int>>(
-                  (data) => data.listDoneProgressError,
+                  (data) => data.doneStaleError,
                 );
 
                 return ListView.builder(

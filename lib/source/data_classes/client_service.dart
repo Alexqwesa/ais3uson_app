@@ -126,7 +126,7 @@ class ClientService with ChangeNotifier {
 
   bool get deleteAllowed => inJournal > 0;
 
-  List<int> get listDoneProgressError => <int>[done, added, rejected];
+  List<int> get doneStaleError => <int>[done, added, rejected];
 
   ProofList get proofList {
     if (_proofList.inited) {
