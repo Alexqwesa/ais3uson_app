@@ -50,8 +50,7 @@ void main() {
     //
     // > it open hiveBox
     //
-    await wp.postInit();
-    // await ref.read(hiveBox(hiveProfiles).future);
+    await wp.postInit(); // or await ref.read(hiveBox(hiveProfiles).future);
     expect(ref.read(hiveBox(hiveProfiles)).value?.isOpen, true);
     //
     // > it sync clients list
