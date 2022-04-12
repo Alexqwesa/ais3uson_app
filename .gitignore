@@ -33,7 +33,7 @@ docs/_config.yml
 /build/
 
 # Web related
-lib/source/screens/scan_qr/generated_plugin_registrant.dart
+lib/source/ui/scan_qr/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols

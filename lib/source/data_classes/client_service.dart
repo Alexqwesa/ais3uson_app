@@ -7,7 +7,7 @@ import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
 import 'package:flutter/material.dart';
 
 /// Model for [ServiceCard] and [ClientService].

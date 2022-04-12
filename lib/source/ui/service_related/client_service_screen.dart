@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_proofs.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_proofs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
