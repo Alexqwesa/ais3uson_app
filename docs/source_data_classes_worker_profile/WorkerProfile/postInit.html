@@ -74,16 +74,18 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; postInit() async {
+  &#47;&#47; Todo: rework it
   await journal.postInit();
   &#47;&#47;
   &#47;&#47; &gt; sync data on load
   &#47;&#47;
   &#47;&#47; Todo: rework it
-  await ref
-      .read(httpDataProvider(apiUrlServices).notifier)
-      .syncHiveHttp();
+  &#47;&#47; real widgets didn&#39;t need this code, but it is used by tests
   await ref
       .read(httpDataProvider(apiUrlClients).notifier)
+      .syncHiveHttp();
+  await ref
+      .read(httpDataProvider(apiUrlServices).notifier)
       .syncHiveHttp();
   await ref
       .read(httpDataProvider(apiUrlPlan).notifier)

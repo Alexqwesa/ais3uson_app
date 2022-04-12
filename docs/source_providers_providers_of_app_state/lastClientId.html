@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the isArchive property from the profiders_of_app_state library, for the Dart programming language.">
-  <title>isArchive property - profiders_of_app_state library - Dart API</title>
+  <meta name="description" content="API docs for the lastClientId property from the providers_of_app_state library, for the Dart programming language.">
+  <title>lastClientId property - providers_of_app_state library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
-    <li><a href="../source_providers_profiders_of_app_state/source_providers_profiders_of_app_state-library.html">profiders_of_app_state</a></li>
-    <li class="self-crumb">isArchive property</li>
+    <li><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html">providers_of_app_state</a></li>
+    <li class="self-crumb">lastClientId property</li>
   </ol>
-  <div class="self-name">isArchive</div>
+  <div class="self-name">lastClientId</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,30 +44,31 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-top-level-property">isArchive</span> top-level property 
+<h1><span class="kind-top-level-property">lastClientId</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
     <span class="category providers cp-3 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span>
-          <span class="name ">isArchive</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_providers_providers_of_app_state/LastClientIdState-class.html">LastClientIdState</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span>
+          <span class="name ">lastClientId</span>
           <div class="features">final</div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Archive view or usual view of App.</p>
-<p>Provider of setting - isArchive. Inited with false, doesn't save its value.</p>
+  <p>Provider of setting - lastClientId.</p>
+<p>Read/save from/to SharedPreferences, had default preinitialized value.
+Depend on <a href="../main/locator.html">locator</a><sharedpreferences>.</sharedpreferences></p>
 <p>{@category Providers}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final isArchive = StateProvider&lt;bool&gt;((ref) {
-  return false;
+  <pre class="language-dart"><code class="language-dart">final lastClientId = StateNotifierProvider&lt;LastClientIdState, int&gt;((ref) {
+  return LastClientIdState();
 });</code></pre>
 </section>
 
@@ -84,26 +85,26 @@
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/source_providers_profiders_of_app_state-library.html">profiders_of_app_state</a></li>
-  <li class="self-crumb">isArchive property</li>
+  <li><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html">providers_of_app_state</a></li>
+  <li class="self-crumb">lastClientId property</li>
 </ol>
 
 
-    <h5>profiders_of_app_state library</h5>
+    <h5>providers_of_app_state library</h5>
     <ol>
-  <li class="section-title"><a href="../source_providers_profiders_of_app_state/source_providers_profiders_of_app_state-library.html#classes">Classes</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/LastApiKeyState-class.html">LastApiKeyState</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/LastClientIdState-class.html">LastClientIdState</a></li>
+  <li class="section-title"><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html#classes">Classes</a></li>
+  <li><a href="../source_providers_providers_of_app_state/LastApiKeyState-class.html">LastApiKeyState</a></li>
+  <li><a href="../source_providers_providers_of_app_state/LastClientIdState-class.html">LastClientIdState</a></li>
 
 
 
 
-  <li class="section-title"><a href="../source_providers_profiders_of_app_state/source_providers_profiders_of_app_state-library.html#properties">Properties</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/isArchive.html">isArchive</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/lastApiKey.html">lastApiKey</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/lastClient.html">lastClient</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/lastClientId.html">lastClientId</a></li>
-  <li><a href="../source_providers_profiders_of_app_state/lastWorkerProfile.html">lastWorkerProfile</a></li>
+  <li class="section-title"><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html#properties">Properties</a></li>
+  <li><a href="../source_providers_providers_of_app_state/isArchive.html">isArchive</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastApiKey.html">lastApiKey</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastClient.html">lastClient</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastClientId.html">lastClientId</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastWorkerProfile.html">lastWorkerProfile</a></li>
 
 
 

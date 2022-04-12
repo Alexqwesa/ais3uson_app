@@ -116,7 +116,7 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 <li><code>x</code> Работа онлайн и оффлайн (1 раз в день обязательная синхронизация)</li>
 <li><code>x</code> Прикрепление к услуге изображений-подтверждений (хранятся локально)</li>
 <li><code>x</code> Журнал введенных услуг за день</li>
-<li><code>x</code> Архивирование услуг введенных в предыдущие дни</li>
+<li><code>x</code> Авто-архивирование услуг введенных в предыдущие дни</li>
 <li><code>x</code> Просмотр архива услуг</li>
 <li><code>x</code> Проверка переполнения положенных услуг</li>
 <li><code>x</code> Резервное копирование ключей авторизации в облако</li>
@@ -128,8 +128,8 @@ web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https
 <li><code>x</code> Доступно для скачивания
 на <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">Google Play Market</a></li>
 <li><code>x</code> Созданы тесты для проверки правильности работы программы</li>
-<li><code>x</code> Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся поделится
-(без дупликатов)</li>
+<li><code>x</code> Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся
+поделится (импорт без дупликатов(в программе для заведующих))</li>
 </ul>
 <h2 id="todo">TODO:</h2>
 <ul>
@@ -144,7 +144,6 @@ server?</li>
 <li><code> </code> Повышенный уровень защиты: SSL Pinning</li>
 <li><code> </code> Напоминание о необходимости синхронизации</li>
 <li><code> </code> Кнопка: Синхронизировать ВСЕ!</li>
-<li><code> </code> Экспорт журнала ввода в json / + импорт (в программе для заведующих)</li>
 <li><code> </code> Кнопка: Поделится ?</li>
 <li><code> </code> Разные интервалы обновлений для сервисов(раз в 3 дня), список клиентов(12 часов), положено
 услуг (раз в день),</li>
@@ -157,15 +156,16 @@ server?</li>
 <li><code> </code> сообщения от заведующих (по группам работников, одному, всем)</li>
 <li><code> </code> закончившиеся услуги - в конец списка?</li>
 <li><code> </code> вводить услуги жестом, а не onTap ???</li>
-<li><code> </code> Разрешить загрузку введенных услуг с сервера, если их нет в локальном журнале Hive? (Кнопка получения архива ввода)</li>
+<li><code> </code> Разрешить загрузку введенных услуг с сервера, если их нет в локальном журнале Hive? (Кнопка
+получения архива ввода)</li>
 <li><code> </code> try autoreconnect few times(with timeout) if there is a problem with network</li>
 <li><code> </code> add server tests</li>
 <li><code> </code> use badges</li>
 <li><code> </code> tutorial</li>
 <li><code> </code> translations - mostly done (en/ru/de)</li>
 <li><code> </code> get list of revoked services by date from server</li>
-<li><code> </code> get list of date/money/services count from server for month, if some day disagree with local data - 
-get list of services by date from server?</li>
+<li><code> </code> get list of date/money/services count from server for month, if some day disagree with local
+data - get list of services by date from server?</li>
 </ul>
 <h2 id="-4">Разработчики</h2>
 <p><a href="https://github.com/Alexqwesa">@Alexqwesa</a> aka Savin Aleksander Viktorovich (Савин Александр
@@ -173,6 +173,8 @@ get list of services by date from server?</li>
 <h3 id="--httpsalexqwesagithubioais3uson_app"><a href="https://alexqwesa.github.io/ais3uson_app/">Документация для разработчиков</a></h3>
 <ul>
 <li><a href="https://alexqwesa.github.io/ais3uson_app/">Автоматически сгенерированная документация для разработчиков</a></li>
+<li>В качестве менеждера состояний используется <a href="https://riverpod.dev/">riverpod</a>, ранее
+использовались Singleton и get_it.</li>
 </ul>
 <h2 id="-5">Лицензия</h2>
 <p><a href="LICENSE">LGPLv3</a> © Savin Aleksander Viktorovich (Савин Александр Викторович)</p>
@@ -379,13 +381,6 @@ is <a href="images/_license.pdf">license</a>).</p>
 <dd> 
 </dd>
 
-          <dt id="profiders_of_app_state">
-  <span class="name"><a href="source_providers_profiders_of_app_state/source_providers_profiders_of_app_state-library.html">profiders_of_app_state</a></span> 
-
-</dt>
-<dd> 
-</dd>
-
           <dt id="proof_list">
   <span class="name"><a href="source_data_classes_proof_list/source_data_classes_proof_list-library.html">proof_list</a></span> 
 
@@ -402,6 +397,13 @@ is <a href="images/_license.pdf">license</a>).</p>
 
           <dt id="providers_dates_in_archive">
   <span class="name"><a href="source_providers_providers_dates_in_archive/source_providers_providers_dates_in_archive-library.html">providers_dates_in_archive</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="providers_of_app_state">
+  <span class="name"><a href="source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html">providers_of_app_state</a></span> 
 
 </dt>
 <dd> 
@@ -586,10 +588,10 @@ is <a href="images/_license.pdf">license</a>).</p>
       <li><a href="generated_intl_messages_de/generated_intl_messages_de-library.html">messages_de</a></li>
       <li><a href="generated_intl_messages_en/generated_intl_messages_en-library.html">messages_en</a></li>
       <li><a href="generated_intl_messages_ru/generated_intl_messages_ru-library.html">messages_ru</a></li>
-      <li><a href="source_providers_profiders_of_app_state/source_providers_profiders_of_app_state-library.html">profiders_of_app_state</a></li>
       <li><a href="source_data_classes_proof_list/source_data_classes_proof_list-library.html">proof_list</a></li>
       <li><a href="source_providers_providers/source_providers_providers-library.html">providers</a></li>
       <li><a href="source_providers_providers_dates_in_archive/source_providers_providers_dates_in_archive-library.html">providers_dates_in_archive</a></li>
+      <li><a href="source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html">providers_of_app_state</a></li>
       <li><a href="source_providers_providers_of_http_data/source_providers_providers_of_http_data-library.html">providers_of_http_data</a></li>
       <li><a href="source_providers_providers_of_lists_of_workers/source_providers_providers_of_lists_of_workers-library.html">providers_of_lists_of_workers</a></li>
       <li><a href="source_providers_providers_of_settings/source_providers_providers_of_settings-library.html">providers_of_settings</a></li>

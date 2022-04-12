@@ -108,7 +108,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final wpKeys = ref.watch(workerKeys);
+  final wpKeys = ref.watch(workerProfiles).map((e) =&gt; e.key).toList();
 
   return Scaffold(
     appBar: AppBar(
