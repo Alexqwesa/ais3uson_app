@@ -55,7 +55,7 @@ class ClientService with ChangeNotifier {
   int get workerDepId => journal.workerProfile.key.workerDepId;
 
   //
-  // > from json classes
+  // > shortcuts for json classes
   //
   int get contractId => planned.contractId;
 

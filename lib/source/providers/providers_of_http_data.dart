@@ -44,7 +44,8 @@ final httpDataProvider = StateNotifierProvider.family<_HttpDataState,
 
 /// Repository for families of providers [httpDataProvider].
 ///
-/// Read hive on init, [state] is [http.Response], save state to [Hive].
+/// Read hive on init, [state] is a [http.Response] in json format,
+///  save state to [Hive].
 ///
 /// Public methods [getHttpData] and [syncHiveHttp].
 /// Public field [_lastUpdate].
