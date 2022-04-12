@@ -50,9 +50,9 @@ dependencies:
   path_provider: any
   peanut: any
   provider: any
-  qr_code_scanner: ^0.7.0
+  qr_code_scanner: any
   quiver: any
-  share_plus: any
+  share_plus: 3.0.5
   shared_preferences: any
   surf_lint_rules: any
   synchronized: any

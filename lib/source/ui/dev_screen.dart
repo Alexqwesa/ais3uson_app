@@ -7,6 +7,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
+/// Provider of responses to a test http and https connections.
+late StateProviderFamily<Future<http.Response>?, bool> _httpFuture;
+
 /// About page + tests
 class DevScreen extends StatelessWidget {
   const DevScreen({Key? key}) : super(key: key);
@@ -15,7 +18,9 @@ class DevScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).about),
+        title: Text(
+          S.of(context).about,
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -67,7 +72,7 @@ class DevScreen extends StatelessWidget {
                   //
                   // > Get stat
                   //
-                  const CheckWorkerServer(),
+                  CheckWorkerServer(),
                   // Expanded(child: ListOfAllServices()),
                 ],
               ),
@@ -82,43 +87,41 @@ class DevScreen extends StatelessWidget {
 /// Test web worker
 ///
 /// get status data from Web worker
-class CheckWorkerServer extends ConsumerStatefulWidget {
-  const CheckWorkerServer({Key? key}) : super(key: key);
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() {
-    return _CheckWorkerServer();
+class CheckWorkerServer extends ConsumerWidget {
+  CheckWorkerServer({Key? key}) : super(key: key) {
+    // ref.read(_httpFuture(false).notifier) = null;
+    // ref.read(_httpFuture(true).notifier) = null;
+    _httpFuture = StateProvider.family<Future<http.Response>?, bool>(
+      (ref, ssl) => null,
+    );
   }
-}
-
-class _CheckWorkerServer extends ConsumerState<CheckWorkerServer> {
-  Future<http.Response>? _httpFuture;
-  Future<http.Response>? _httpsFuture;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: <Widget>[
         ElevatedButton(
           onPressed: () => checkHTTP(ref),
-          child: Text(S.of(context).testConnection),
+          child: Text(
+            S.of(context).testConnection,
+          ),
         ),
-        if (_httpFuture != null)
+        if (ref.watch(_httpFuture(false)) != null)
           Column(
             children: [
               const Text('Http Response:'),
               FutureBuilder(
-                future: _httpFuture,
+                future: ref.watch(_httpFuture(false)),
                 builder: buildHttpFuture,
               ),
             ],
           ),
-        if (_httpsFuture != null)
+        if (ref.watch(_httpFuture(true)) != null)
           Column(
             children: [
               const Text('Https Response:'),
               FutureBuilder(
-                future: _httpsFuture,
+                future: ref.watch(_httpFuture(true)),
                 builder: buildHttpFuture,
               ),
             ],
@@ -138,19 +141,16 @@ class _CheckWorkerServer extends ConsumerState<CheckWorkerServer> {
       var url = Uri.parse(
         'http://$host:$port/stat',
       );
-      _httpFuture = http.get(url);
+      ref.watch(_httpFuture(false).notifier).state = http.get(url);
       //
       // > https
       //
       url = Uri.parse(
         'https://$host:$port/stat',
       );
-      _httpsFuture = http.get(url);
-      setState(() {
-        _httpFuture = _httpFuture; // stub
-      });
-      await _httpsFuture;
-      await _httpFuture;
+      ref.watch(_httpFuture(true).notifier).state = http.get(url);
+      await ref.watch(_httpFuture(true).notifier).state;
+      await ref.watch(_httpFuture(false).notifier).state;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       dev.log(e.toString());

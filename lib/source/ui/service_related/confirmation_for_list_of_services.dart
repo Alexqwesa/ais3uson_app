@@ -13,6 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
 import 'package:provider/provider.dart';
 
+const tileSize = 500.0;
+
 class ConfirmationForListOfServices extends ConsumerWidget {
   const ConfirmationForListOfServices({
     Key? key,
@@ -44,7 +46,7 @@ class ConfirmationForListOfServices extends ConsumerWidget {
                     for (final servicesAt
                         in allByGroups.entries.map((e) => e.value))
                       SizedBox(
-                        width: 632,
+                        width: tileSize + 32,
                         child: ListView(
                           shrinkWrap: true,
                           children: [
@@ -86,7 +88,7 @@ class TitleWidgetOfServicesGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 632,
+      width: tileSize + 32,
       child: Stack(
         children: [
           SizedBox(
@@ -157,7 +159,7 @@ class TotalServiceTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: SizedBox(
-        width: 600,
+        width: tileSize,
         child: FractionallySizedBox(
           widthFactor: 1,
           child: SizedBox(
@@ -185,7 +187,6 @@ class TotalServiceTile extends StatelessWidget {
                     },
                   ),
                 );
-                // ignore: await_only_futures
                 service.proofList;
               },
             ),
