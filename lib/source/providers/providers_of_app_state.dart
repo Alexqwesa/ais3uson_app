@@ -5,7 +5,7 @@ import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Should always return last client [ClientProfile].
+/// Should always return last used client [ClientProfile].
 ///
 /// If can't find last client - return first client from first profile.
 /// This is readonly provider, but you can change it values via [lastApiKey] and
@@ -27,10 +27,23 @@ final lastClient = Provider<ClientProfile>((ref) {
   }
 });
 
+/// Should always return last used worker [WorkerProfile].
+///
+/// If can't find last, return first profile.
+/// This is readonly provider, but you can change it values via [lastApiKey].
+///
+/// {@category Providers}
 final lastWorkerProfile = Provider((ref) {
-  return ref
-      .watch(workerProfiles)
-      .firstWhere((element) => element.apiKey == ref.watch(lastApiKey));
+  try {
+    return ref
+        .watch(workerProfiles)
+        .firstWhere((element) => element.apiKey == ref.watch(lastApiKey));
+    // ignore: avoid_catches_without_on_clauses
+  } catch (e) {
+    log.severe('lastWorkerProfile requested but provider failed');
+
+    return ref.watch(workerProfiles).first;
+  }
 });
 
 /// Provider of setting - lastApiKey.
