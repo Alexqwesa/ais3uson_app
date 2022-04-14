@@ -81,15 +81,9 @@
   &#47;&#47;
   &#47;&#47; Todo: rework it
   &#47;&#47; real widgets didn&#39;t need this code, but it is used by tests
-  await ref
-      .read(httpDataProvider(apiUrlClients).notifier)
-      .syncHiveHttp();
-  await ref
-      .read(httpDataProvider(apiUrlServices).notifier)
-      .syncHiveHttp();
-  await ref
-      .read(httpDataProvider(apiUrlPlan).notifier)
-      .syncHiveHttp();
+  await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
+  await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
+  await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();
 }</code></pre>
 </section>
 

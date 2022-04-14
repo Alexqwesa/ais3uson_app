@@ -121,15 +121,15 @@ Widget buildHttpFuture(
   } else if (snapshot.connectionState == ConnectionState.none) {
     children = [];
   } else {
-    children = const &lt;Widget&gt;[
-      SizedBox(
+    children = &lt;Widget&gt;[
+      const SizedBox(
         width: 20,
         height: 20,
         child: CircularProgressIndicator(),
       ),
       Padding(
-        padding: EdgeInsets.only(top: 16),
-        child: Text(&#39;Awaiting result...&#39;),
+        padding: const EdgeInsets.only(top: 16),
+        child: Text(locator&lt;S&gt;().awaitResults),
       ),
     ];
   }

@@ -65,7 +65,7 @@
 and before calling this function
 we should check: is it really necessary, i.e. is <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a> empty.</p>
 <p>This function also called from <a href="../../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a>, if there is a
-<a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> with wrong <a href="../../source_from_json_client_plan/ClientPlan/servId.html">ClientPlan.servId</a>.</p>
+<a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> with wrong <a href="../../source_client_server_api_client_plan/ClientPlan/servId.html">ClientPlan.servId</a>.</p>
 </section>
 
 
@@ -73,9 +73,7 @@ we should check: is it really necessary, i.e. is <a href="../../source_data_clas
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncServices() async {
-  await ref
-      .read(httpDataProvider(apiUrlServices).notifier)
-      .getHttpData();
+  await ref.read(httpDataProvider(apiUrlServices).notifier).getHttpData();
 }</code></pre>
 </section>
 

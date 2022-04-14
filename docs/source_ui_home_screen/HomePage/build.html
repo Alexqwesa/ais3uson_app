@@ -195,7 +195,10 @@ Widget build(BuildContext context, WidgetRef ref) {
                   onTap: () async {
                     Navigator.pop(context, &#39;archive&#39;);
                     if (ref.read(archiveDate) == null) {
-                      await archiveOnWithDatePicker(context, ref);
+                      await ArchiveMaterialApp.setArchiveOnWithDatePicker(
+                        context,
+                        ref,
+                      );
                     } else {
                       ref.read(isArchive.notifier).update((state) =&gt; !state);
                     }

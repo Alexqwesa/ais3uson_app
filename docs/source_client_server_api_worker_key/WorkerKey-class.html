@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the WorkerKey class from the worker_key library, for the Dart programming language.">
+  <title>WorkerKey class - worker_key library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../source_client_server_api_worker_key/source_client_server_api_worker_key-library.html">worker_key</a></li>
+    <li class="self-crumb">WorkerKey class</li>
+  </ol>
+  <div class="self-name">WorkerKey</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-class">WorkerKey</span> class 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+    <span class="category client-server-api cp-1 linked" title="This is part of the Client-Server API Topic."><a href="../topics/Client-Server API-topic.html">Client-Server&nbsp;API</a></span>
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Immutable class to create <a href="../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a> from/to JSON strings.</p>
+<p>Example key look like this:
+app : "AIS3USON web"
+api_key : "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c"
+name : "Test"
+worker_dep_id: 1
+dep_id : 1
+dep : "Test Department"
+servers: "https://alexqwesa.fvds.ru:48080|http://alexqwesa.fvds.ru:48081/|https://192.168.0.102:48082"
+host : "192.168.0.102" // obsolete
+port : "48080" // obsolete
+db : "kcson"
+comment : "any text"
+certBase64 : ""</p>
+<p>Note: https:// or http:// in servers strings is necessary!</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+
+
+
+
+
+        <dt>Annotations</dt>
+        <dd><ul class="annotation-list clazz-relationships">
+          <li>@<a href="https://pub.dev/documentation/freezed_annotation/1.1.0/freezed_annotation/freezed-constant.html">freezed</a></li>
+        </ul></dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="constructors">
+      <h2>Constructors</h2>
+
+      <dl class="constructor-summary-list">
+        <dt id="WorkerKey" class="callable">
+          <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/WorkerKey.html">WorkerKey</a></span><span class="signature">(<span class="parameter" id="-param-app">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">app</span>, </span><span class="parameter" id="-param-name"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="-param-api_key"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">api_key</span>, </span><span class="parameter" id="-param-worker_dep_id"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">worker_dep_id</span>, </span><span class="parameter" id="-param-dep"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">dep</span>, </span><span class="parameter" id="-param-db"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">db</span>, </span><span class="parameter" id="-param-servers"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">servers</span>, </span><span class="parameter" id="-param-activeServerIndex"><span>@<a href="https://pub.dev/documentation/freezed_annotation/1.1.0/freezed_annotation/Default-class.html">Default</a>(0)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">activeServerIndex</span>, </span><span class="parameter" id="-param-comment"><span>@<a href="https://pub.dev/documentation/freezed_annotation/1.1.0/freezed_annotation/Default-class.html">Default</a>(&#39;&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">comment</span>, </span><span class="parameter" id="-param-certBase64"><span>@<a href="https://pub.dev/documentation/freezed_annotation/1.1.0/freezed_annotation/Default-class.html">Default</a>(&#39;&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">certBase64</span>}</span>)</span>
+        </dt>
+        <dd>
+           
+          <div class="constructor-modifier features">const</div>
+          <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="WorkerKey.fromJson" class="callable">
+          <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/WorkerKey.fromJson.html">WorkerKey.fromJson</a></span><span class="signature">(<span class="parameter" id="fromJson-param-json"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">json</span></span>)</span>
+        </dt>
+        <dd>
+           
+          <div class="constructor-modifier features">factory</div>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="activeHost" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/activeHost.html">activeHost</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="activeHttp" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/activeHttp.html">activeHttp</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="activePath" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/activePath.html">activePath</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="activePort" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/activePort.html">activePort</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="activeServer" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/activeServer.html">activeServer</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="activeServerIndex" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/activeServerIndex.html">activeServerIndex</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="api_key" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/api_key.html">api_key</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="apiKey" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/apiKey.html">apiKey</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="app" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/app.html">app</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="certBase64" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/certBase64.html">certBase64</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="certificate" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/certificate.html">certificate</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="comment" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/comment.html">comment</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="copyWith" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/copyWith.html">copyWith</a></span>
+  <span class="signature">&#8594; $WorkerKeyCopyWith<span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a></span>&gt;</span></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">@<a href="https://pub.dev/documentation/json_annotation/4.4.0/json_annotation/JsonKey-class.html">JsonKey</a>(ignore: true), read-only, inherited</div>
+
+</dd>
+
+        <dt id="db" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/db.html">db</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="dep" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/dep.html">dep</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="name" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/name.html">name</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="servers" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/servers.html">servers</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="worker_dep_id" class="property inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/worker_dep_id.html">worker_dep_id</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="workerDepId" class="property">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/workerDepId.html">workerDepId</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="instance-methods">
+      <h2>Methods</h2>
+      <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed. <a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toJson" class="callable inherited">
+  <span class="name"><a href="../source_client_server_api_worker_key/WorkerKey/toJson.html">toJson</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="operators">
+      <h2>Operators</h2>
+      <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator. <a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">ais3uson_app</a></li>
+  <li><a href="../source_client_server_api_worker_key/source_client_server_api_worker_key-library.html">worker_key</a></li>
+  <li class="self-crumb">WorkerKey class</li>
+</ol>
+
+
+    <h5>worker_key library</h5>
+    <ol>
+  <li class="section-title"><a href="../source_client_server_api_worker_key/source_client_server_api_worker_key-library.html#classes">Classes</a></li>
+  <li><a href="../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+    <li class="section-title"><a href="../source_client_server_api_worker_key/WorkerKey-class.html#constructors">Constructors</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/WorkerKey.html">WorkerKey</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/WorkerKey.fromJson.html">fromJson</a></li>
+
+
+    <li class="section-title">
+      <a href="../source_client_server_api_worker_key/WorkerKey-class.html#instance-properties">Properties</a>
+    </li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/activeHost.html">activeHost</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/activeHttp.html">activeHttp</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/activePath.html">activePath</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/activePort.html">activePort</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/activeServer.html">activeServer</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/activeServerIndex.html">activeServerIndex</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/api_key.html">api_key</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/apiKey.html">apiKey</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/app.html">app</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/certBase64.html">certBase64</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/certificate.html">certificate</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/comment.html">comment</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/copyWith.html">copyWith</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/db.html">db</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/dep.html">dep</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/name.html">name</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/servers.html">servers</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/worker_dep_id.html">worker_dep_id</a></li>
+    <li><a href="../source_client_server_api_worker_key/WorkerKey/workerDepId.html">workerDepId</a></li>
+
+    <li class="section-title inherited"><a href="../source_client_server_api_worker_key/WorkerKey-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="../source_client_server_api_worker_key/WorkerKey/toJson.html">toJson</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../source_client_server_api_worker_key/WorkerKey-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.0.1+10
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

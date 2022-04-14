@@ -68,9 +68,7 @@
   &#47;&#47; await ref.read(httpDataProvider([apiKey, urlClients]).notifier).state(
   &#47;&#47;     (state){}()
   &#47;&#47; );
-  await ref
-      .read(httpDataProvider(apiUrlClients).notifier)
-      .getHttpData();
+  await ref.read(httpDataProvider(apiUrlClients).notifier).getHttpData();
 }</code></pre>
 </section>
 
