@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/app_root.dart';
-import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';

@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

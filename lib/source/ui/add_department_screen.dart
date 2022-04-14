@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

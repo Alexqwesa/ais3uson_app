@@ -45,6 +45,8 @@ analyzer:
     - test/helpers/*.mocks.dart
     - lib/generated/**
     - lib/generated/**/**
+    - lib/src/generated/**
+    - lib/src/generated/**/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
   errors:

@@ -1,11 +1,11 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:ais3uson_app/app_root.dart';
-import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/ui/list_profiles.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

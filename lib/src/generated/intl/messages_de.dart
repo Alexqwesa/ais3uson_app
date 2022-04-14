@@ -47,7 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Liste der Abteilungen"),
         "detailed": MessageLookupByLibrary.simpleMessage("Eingehend"),
         "developer": MessageLookupByLibrary.simpleMessage(
-            "Developer: Savin Alexander Victorovich aka Alexqwesa"),
+            "Entwickler: Savin Alexander Victorovich aka Alexqwesa"),
         "emptyDepList": MessageLookupByLibrary.simpleMessage(
             "Liste der Abteilungen ist leer!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(

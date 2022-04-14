@@ -5,7 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/providers.dart';
@@ -22,6 +21,7 @@ import 'package:ais3uson_app/source/ui/qr_scan_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/confirmation_for_list_of_services.dart';
 import 'package:ais3uson_app/source/ui/settings_screen.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -218,6 +218,7 @@ void main() {
           ),
         );
       }
+
       await tester.pumpWidget(screen(UniqueKey()));
       await tester.pump();
       //

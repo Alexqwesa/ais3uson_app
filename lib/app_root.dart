@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
@@ -15,6 +14,7 @@ import 'package:ais3uson_app/source/ui/qr_scan_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/confirmation_for_list_of_services.dart';
 import 'package:ais3uson_app/source/ui/settings_screen.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

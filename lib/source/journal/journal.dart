@@ -7,7 +7,6 @@ library Journal;
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ais3uson_app/generated/l10n.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
@@ -17,6 +16,7 @@ import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
