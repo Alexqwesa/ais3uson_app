@@ -11,7 +11,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 /// Show screen where user scan QR code to add [WorkerProfile] from QR code.
 ///
-/// {@category WorkerProfiles}
+/// {@category UI WorkerProfiles}
 class QRScanScreen extends ConsumerStatefulWidget {
   const QRScanScreen({Key? key}) : super(key: key);
 

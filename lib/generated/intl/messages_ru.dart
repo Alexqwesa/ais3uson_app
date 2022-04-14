@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ошибка: не удалось сохранить запись журнала, \n  проверьте сводобное место на устройстве, \n проверьте права доступа на запись"),
         "errorService": MessageLookupByLibrary.simpleMessage(
             "Ошибка: не удается найти указанный сервис "),
+        "errorWrongCertificate": MessageLookupByLibrary.simpleMessage(
+            "Ошибка! Не удалось добавить сертификат отделения!"),
         "exportLastMonth":
             MessageLookupByLibrary.simpleMessage("Экспорт предыдущего месяца"),
         "exportLastWeek":

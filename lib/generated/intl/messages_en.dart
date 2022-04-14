@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error: Failed to save log entry, \n check free space on device, \n check write permissions"),
         "errorService": MessageLookupByLibrary.simpleMessage(
             "Error: Can not find this service "),
+        "errorWrongCertificate": MessageLookupByLibrary.simpleMessage(
+            "Error: can\'t add certificate of department"),
         "exportLastMonth":
             MessageLookupByLibrary.simpleMessage("Export last month"),
         "exportLastWeek":

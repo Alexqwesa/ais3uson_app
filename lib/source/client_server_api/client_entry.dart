@@ -18,7 +18,7 @@ part 'client_entry.g.dart';
 /// client : "Тес. *. ч-ек"
 /// dhw_id : 1
 ///
-/// {@category Import_from_json}
+/// {@category Client-Server API}
 @freezed
 class ClientEntry with _$ClientEntry {
   const factory ClientEntry({

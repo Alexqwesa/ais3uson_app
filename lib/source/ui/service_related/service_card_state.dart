@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 /// - inProgress - added and stale,
 /// - error - rejected.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ServiceCardState extends StatelessWidget {
   const ServiceCardState({
     required this.clientService,

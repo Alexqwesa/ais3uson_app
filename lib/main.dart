@@ -13,9 +13,19 @@ import 'package:logging/logging.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// get_it locator
+/// {@category UI Root}
 final locator = GetIt.instance;
+
+/// App Logger
+/// {@category UI Root}
 final log = Logger('MyClassName');
 
+/// Main function for initializing whole App, also used in tests.
+///
+/// Init HiveAdapters, [locator] and [log].
+///
+/// {@category UI Root}
 Future<void> init() async {
   // if (kDebugMode){
   //
@@ -58,7 +68,8 @@ Future<void> init() async {
 ///
 /// Create [OverlaySupport] and call [AppRoot].
 ///
-/// {@category Root}
+/// {@category UI Root}
+/// {@category About}
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

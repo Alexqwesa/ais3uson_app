@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Displays text, icon, etc of [ClientService] - default view.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ServiceCardView extends ConsumerWidget {
   const ServiceCardView({
     required this.service,
@@ -107,7 +107,7 @@ class ServiceCardView extends ConsumerWidget {
 ///
 /// Note: this view is broken, bug report: https://github.com/flutter/flutter/issues/98809
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ServiceCardSquareView extends ConsumerWidget {
   const ServiceCardSquareView({
     required this.service,
@@ -187,7 +187,7 @@ class ServiceCardSquareView extends ConsumerWidget {
 
 /// Displays text, icon, etc of [ClientService] - tile view.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ServiceCardTileView extends ConsumerWidget {
   const ServiceCardTileView({
     required this.service,

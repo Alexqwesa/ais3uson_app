@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 ///
 /// Used to make proof images.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     required this.camera,

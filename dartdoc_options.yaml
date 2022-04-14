@@ -1,26 +1,29 @@
 dartdoc:
   categories:
-    'Root':
-      name: Root
+    'About':
+      name: About
       markdown: README.md
-    'Data_Classes':
+    'Data Classes':
       name: Data Classes
       markdown: lib/source/data_classes/README.md
     'Journal':
       name: Journal
       markdown: lib/source/journal/README.md
-    'Import_from_json':
-      name: Import from json
-      markdown: lib/source/from_json/README.md
-    'UIServices':
+    'Client-Server API':
+      name: Client-server API
+      markdown: lib/source/client_server_api/README.md
+    'UI Services':
       name: Classes to display service related data
       markdown: lib/source/ui/service_related/README.md
-    'WorkerProfiles':
+    'UI WorkerProfiles':
       name: Classes to manage worker profiles
       markdown: lib/source/ui/README.md
     'Providers':
       name: Providers of App
       markdown: lib/source/providers/README.md
+    'UI Root':
+      name: UI Root
+      markdown: README.md
 
   showUndocumentedCategories: true
   ignore:

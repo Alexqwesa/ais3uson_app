@@ -23,7 +23,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Root widget of whole app.
 ///
-/// {@category Root}
+/// Switch between [ArchiveMaterialApp] and [MainMaterialApp]
+///
+/// {@category UI Root}
 class AppRoot extends ConsumerWidget {
   const AppRoot({Key? key}) : super(key: key);
 
@@ -37,7 +39,7 @@ class AppRoot extends ConsumerWidget {
 
 /// Show Archive AppBar then app in archive mode.
 ///
-/// {@category Root}
+/// {@category UI Root}
 class ArchiveMaterialApp extends ConsumerWidget {
   const ArchiveMaterialApp({
     Key? key,
@@ -110,31 +112,30 @@ class ArchiveMaterialApp extends ConsumerWidget {
       ),
     );
   }
-}
 
-/// Activate archive mode([isArchive]) only if [datesInArchive] not empty.
-///
-/// It also show date picker if [archiveDate] is null.
-Future<void> setArchiveOnWithDatePicker(
-  BuildContext context,
-  WidgetRef ref,
-) async {
-  final archiveDates = await ref.read(datesInArchive.future);
+  /// Activate archive mode([isArchive]) only if [datesInArchive] not empty.
+  ///
+  /// It also show date picker if [archiveDate] is null.
+  static Future<void> setArchiveOnWithDatePicker(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final archiveDates = await ref.read(datesInArchive.future);
 
-  // ignore: use_if_null_to_convert_nulls_to_bools
-  if (archiveDates?.isEmpty != false) {
-    ref.read(isArchive.notifier).state = false;
+    if (archiveDates?.isEmpty != false) {
+      ref.read(isArchive.notifier).state = false;
 
-    return;
+      return;
+    }
+    ref.read(archiveDate.notifier).state = await showDatePicker(
+      context: context,
+      selectableDayPredicate: archiveDates!.contains,
+      initialDate: archiveDates.last,
+      lastDate: archiveDates.last,
+      firstDate: archiveDates.first,
+    );
+    ref.read(isArchive.notifier).state = true;
   }
-  ref.read(archiveDate.notifier).state = await showDatePicker(
-    context: context,
-    selectableDayPredicate: archiveDates!.contains,
-    initialDate: archiveDates.last,
-    lastDate: archiveDates.last,
-    firstDate: archiveDates.first,
-  );
-  ref.read(isArchive.notifier).state = true;
 }
 
 /// This is main MaterialApp widget.
@@ -142,7 +143,7 @@ Future<void> setArchiveOnWithDatePicker(
 /// Only theme [standardTheme] and navigation routes here.
 /// home: [HomePage].
 ///
-/// {@category Root}
+/// {@category UI Root}
 class MainMaterialApp extends ConsumerWidget {
   const MainMaterialApp({
     Key? key,

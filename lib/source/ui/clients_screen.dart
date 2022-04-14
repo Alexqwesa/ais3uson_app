@@ -11,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 
 /// Show screen with client of [WorkerProfile].
 ///
-/// {@category WorkerProfiles}
+/// {@category UI WorkerProfiles}
 class ClientScreen extends ConsumerWidget {
   const ClientScreen({Key? key}) : super(key: key);
 

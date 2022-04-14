@@ -17,7 +17,8 @@ import 'package:path_provider/path_provider.dart';
 /// - notify **one** [ClientService],
 /// - save new proofs.
 ///
-/// {@category Data_Classes}
+/// {@category Data Classes}
+/// {@category Client-Server API}
 // ignore: prefer_mixin
 class ProofList with ChangeNotifier {
   ProofList(
@@ -174,7 +175,7 @@ class ProofList with ChangeNotifier {
 
 /// A unit of proof, contains evidence of states before and after.
 ///
-/// {@category Data_Classes}
+/// {@category Data Classes}
 class ProofGroup {
   ProofGroup({
     this.name,

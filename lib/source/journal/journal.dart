@@ -34,6 +34,7 @@ import 'package:universal_html/html.dart' as html;
 /// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/journal/journal.png)
 ///
 /// {@category Journal}
+/// {@category Client-Server API}
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
   Journal(this.workerProfile) {
@@ -261,7 +262,7 @@ class Journal with ChangeNotifier {
   /// than configure browser to accept self-signed certificate on all clients,
   /// or find host without https support.
   ///
-  /// {@category Network}
+  /// {@category Client-Server API}
   Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
     final http = workerProfile.ref

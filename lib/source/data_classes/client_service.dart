@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
+import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/proof_list.dart';
-import 'package:ais3uson_app/source/from_json/client_plan.dart';
-import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 ///
 /// It only store [ProofList].
 ///
-/// {@category Data_Classes}
+/// {@category Data Classes}
 // ignore: prefer_mixin
 class ClientService with ChangeNotifier {
   ClientService({

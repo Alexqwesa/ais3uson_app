@@ -13,7 +13,7 @@ part 'service_entry.g.dart';
 /// image : "None"
 /// serv_id_list : "558807"
 ///
-/// {@category Import_from_json}
+/// {@category Client-Server API}
 
 @freezed
 class ServiceEntry with _$ServiceEntry {

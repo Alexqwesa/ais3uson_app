@@ -214,9 +214,7 @@ final httpClientProvider =
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       log.severe('!!!!Bad certificate');
-      showErrorNotification(
-        'Ошибка! Не удалось добавить сертификат отделения!',
-      );
+      showErrorNotification(locator<S>().errorWrongCertificate);
     }
   }
 

@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Show screen where user can delete [WorkerProfile].
 ///
-/// {@category WorkerProfiles}
+/// {@category UI WorkerProfiles}
 class DeleteDepartmentScreen extends ConsumerWidget {
   const DeleteDepartmentScreen({Key? key}) : super(key: key);
 

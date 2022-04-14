@@ -1,11 +1,9 @@
-// ignore_for_file: always_use_package_imports, flutter_style_todos
-
 import 'dart:async';
 
+import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
+import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
+import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
-import 'package:ais3uson_app/source/from_json/client_plan.dart';
-import 'package:ais3uson_app/source/from_json/service_entry.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
@@ -15,8 +13,7 @@ import 'package:tuple/tuple.dart';
 
 /// A profile of worker.
 ///
-/// {@category Data_Classes}
-// ignore: prefer_mixin
+/// {@category Data Classes}
 class WorkerProfile {
   /// Constructor [WorkerProfile] with [Journal] by default
   /// or with [JournalArchive].
@@ -47,9 +44,9 @@ class WorkerProfile {
 
   Tuple2<String, String> get apiUrlClients => Tuple2(apiKey, urlClients);
 
-  Tuple2<String, String>  get apiUrlPlan => Tuple2(apiKey, urlPlan);
+  Tuple2<String, String> get apiUrlPlan => Tuple2(apiKey, urlPlan);
 
-  Tuple2<String, String>  get apiUrlServices => Tuple2(apiKey, urlServices);
+  Tuple2<String, String> get apiUrlServices => Tuple2(apiKey, urlServices);
 
   List<ClientProfile> get clients => ref.read(clientsOfWorker(this));
 
@@ -90,30 +87,20 @@ class WorkerProfile {
     //
     // Todo: rework it
     // real widgets didn't need this code, but it is used by tests
-    await ref
-        .read(httpDataProvider(apiUrlClients).notifier)
-        .syncHiveHttp();
-    await ref
-        .read(httpDataProvider(apiUrlServices).notifier)
-        .syncHiveHttp();
-    await ref
-        .read(httpDataProvider(apiUrlPlan).notifier)
-        .syncHiveHttp();
+    await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
+    await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
+    await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();
   }
 
   Future<void> syncClients() async {
     // await ref.read(httpDataProvider([apiKey, urlClients]).notifier).state(
     //     (state){}()
     // );
-    await ref
-        .read(httpDataProvider(apiUrlClients).notifier)
-        .getHttpData();
+    await ref.read(httpDataProvider(apiUrlClients).notifier).getHttpData();
   }
 
   Future<void> syncPlanned() async {
-    await ref
-        .read(httpDataProvider(apiUrlPlan).notifier)
-        .getHttpData();
+    await ref.read(httpDataProvider(apiUrlPlan).notifier).getHttpData();
   }
 
   /// Synchronize services for [WorkerProfile.services].
@@ -125,9 +112,7 @@ class WorkerProfile {
   /// This function also called from [checkAllServicesExist], if there is a
   /// [clientPlan] with wrong [ClientPlan.servId].
   Future<void> syncServices() async {
-    await ref
-        .read(httpDataProvider(apiUrlServices).notifier)
-        .getHttpData();
+    await ref.read(httpDataProvider(apiUrlServices).notifier).getHttpData();
   }
 
   /// This should only be called if there is inconsistency:

@@ -8,7 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 /// Depend on [locator]<SharedPreferences>.
-/// {@category Root}
+///
+/// {@category UI Root}
 final standardTheme =
     StateNotifierProvider<StandardThemeState, ThemeMode>((ref) {
   return StandardThemeState();

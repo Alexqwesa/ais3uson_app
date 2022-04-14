@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Helper for HomeScreen, this widget: show list of [WorkerProfile].
 ///
-/// {@category WorkerProfiles}
+/// {@category UI WorkerProfiles}
 class ListOfProfiles extends ConsumerWidget {
   const ListOfProfiles({Key? key}) : super(key: key);
 

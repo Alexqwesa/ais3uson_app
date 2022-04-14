@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fehler: Protokolleintrag konnte nicht gespeichert werden, \n freien Speicherplatz auf dem Gerät prüfen, \n Schreibberechtigungen prüfen"),
         "errorService": MessageLookupByLibrary.simpleMessage(
             "Fehler: der angegebene Dienst kann nicht gefunden werden "),
+        "errorWrongCertificate": MessageLookupByLibrary.simpleMessage(
+            "Fehler: certificate of department konnte nicht adden werden"),
         "exportLastMonth": MessageLookupByLibrary.simpleMessage(
             "Machen der Export aus letzte Monat"),
         "exportLastWeek": MessageLookupByLibrary.simpleMessage(

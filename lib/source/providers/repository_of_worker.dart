@@ -1,10 +1,10 @@
 import 'dart:core';
 
+import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
+import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
+import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/from_json/client_entry.dart';
-import 'package:ais3uson_app/source/from_json/client_plan.dart';
-import 'package:ais3uson_app/source/from_json/service_entry.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

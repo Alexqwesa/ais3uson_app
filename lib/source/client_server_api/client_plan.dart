@@ -15,7 +15,7 @@ part 'client_plan.g.dart';
 /// planned : 10
 /// filled : 5
 ///
-/// {@category Import_from_json}
+/// {@category Client-Server API}
 @freezed
 class ClientPlan with _$ClientPlan {
   const factory ClientPlan({

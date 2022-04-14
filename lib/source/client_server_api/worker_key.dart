@@ -28,7 +28,7 @@ part 'worker_key.g.dart';
 /// certBase64 : ""
 ///
 /// Note: https:// or http:// in servers strings is necessary!
-/// {@category Import_from_json}
+/// {@category Client-Server API}
 @freezed
 class WorkerKey with _$WorkerKey {
   const factory WorkerKey({

@@ -12,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 /// And decide which View to use:
 /// [ServiceCardView], [ServiceCardTileView], [ServiceCardSquareView]
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ServiceCard extends ConsumerWidget {
   const ServiceCard({
     required this.service,

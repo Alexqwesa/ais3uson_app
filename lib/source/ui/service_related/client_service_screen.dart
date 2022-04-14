@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 /// Display one [ClientService] on fullscreen.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ClientServiceScreen extends StatefulWidget {
   const ClientServiceScreen({
     required this.service,
@@ -151,7 +151,7 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
 
 /// Button to add new [ServiceOfJournal], used in [ClientServiceScreen].
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class AddButton extends StatelessWidget {
   const AddButton({
     required this.widget,
@@ -187,7 +187,7 @@ class AddButton extends StatelessWidget {
 
 /// Button to delete [ServiceOfJournal], used in [ClientServiceScreen].
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class DeleteButton extends StatelessWidget {
   const DeleteButton({
     required this.widget,

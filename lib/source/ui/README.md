@@ -1,4 +1,4 @@
-# WorkerProfiles - Classes to display and manage worker profiles
+# UIWorkerProfiles - Classes to display and manage worker profiles
 
 These classes provide gui for actions:
 

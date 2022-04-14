@@ -559,6 +559,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Ошибка! Не удалось добавить сертификат отделения!`
+  String get errorWrongCertificate {
+    return Intl.message(
+      'Ошибка! Не удалось добавить сертификат отделения!',
+      name: 'errorWrongCertificate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

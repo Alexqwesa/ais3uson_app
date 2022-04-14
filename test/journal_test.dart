@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
-import 'package:ais3uson_app/source/from_json/worker_key.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';

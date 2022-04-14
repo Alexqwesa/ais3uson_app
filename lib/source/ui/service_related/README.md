@@ -1,4 +1,4 @@
-# UIServices - Classes to display service related data
+# UI Services - Classes to display service related data
 
 There are two screens to display services:
 - [ClientServicesListScreen] to display **list** of services,

@@ -13,7 +13,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 
 /// Show screen with main menu and with list of [WorkerProfile].
 ///
-/// {@category WorkerProfiles}
+/// {@category UI WorkerProfiles}
 class HomePage extends ConsumerWidget {
   const HomePage({required this.title, Key? key}) : super(key: key);
 
@@ -108,7 +108,10 @@ class HomePage extends ConsumerWidget {
                     onTap: () async {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
-                        await setArchiveOnWithDatePicker(context, ref);
+                        await ArchiveMaterialApp.setArchiveOnWithDatePicker(
+                          context,
+                          ref,
+                        );
                       } else {
                         ref.read(isArchive.notifier).update((state) => !state);
                       }

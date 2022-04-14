@@ -13,7 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 /// Create [ServiceCard] widget for each [ClientService].
 /// Support: resync button and change of view of the list.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ClientServicesListScreen extends ConsumerWidget {
   /// Show list of services assigned to client, allow input by click.
   const ClientServicesListScreen({

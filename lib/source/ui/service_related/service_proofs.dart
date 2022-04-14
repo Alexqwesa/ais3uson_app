@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 ///
 /// On first build it create list from filesystem data.
 ///
-/// {@category UIServices}
+/// {@category UI Services}
 class ServiceProof extends StatefulWidget {
   const ServiceProof({
     required this.clientService,

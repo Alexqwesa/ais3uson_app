@@ -19,6 +19,10 @@ part 'service_of_journal.g.dart';
 /// Services in state [ServiceState.finished] or [ServiceState.outDated] send to
 /// [Journal.hiveArchive] on next day.
 ///
+// ignore: comment_references
+/// [ServiceOfJournal.toJson] is used to export services into file .ais_json .
+///
+/// {@category Client-Server API}
 /// {@category Journal}
 @freezed
 class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
