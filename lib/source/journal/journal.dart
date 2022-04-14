@@ -62,7 +62,7 @@ class Journal with ChangeNotifier {
 
   int get workerDepId => workerProfile.key.workerDepId;
 
-  Iterable<ServiceOfJournal> get affect => added + finished;
+  // Iterable<ServiceOfJournal> get affect => added + finished;
 
   Iterable<ServiceOfJournal> get servicesForSync => added;
 
@@ -184,10 +184,7 @@ class Journal with ChangeNotifier {
       await hive.add(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
-      showErrorNotification(
-        'Ошибка: не удалось сохранить запись журнала, '
-        'проверьте сводобное место на устройстве',
-      );
+      showErrorNotification(locator<S>().errorSave);
       await commitAll(); // still call?
 
       return false;

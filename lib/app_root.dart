@@ -83,7 +83,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
                       return IconButton(
                         icon: const Icon(Icons.date_range),
                         onPressed: () async {
-                          await archiveOnWithDatePicker(context, ref);
+                          await setArchiveOnWithDatePicker(context, ref);
                         },
                       );
                     },
@@ -115,7 +115,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
 /// Activate archive mode([isArchive]) only if [datesInArchive] not empty.
 ///
 /// It also show date picker if [archiveDate] is null.
-Future<void> archiveOnWithDatePicker(
+Future<void> setArchiveOnWithDatePicker(
   BuildContext context,
   WidgetRef ref,
 ) async {

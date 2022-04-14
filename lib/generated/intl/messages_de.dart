@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sind Sie sicher, dass Sie die Abteilung löschen möchten: "),
         "authorizePlease": MessageLookupByLibrary.simpleMessage(
             "Bitte autorisieren Sie \n (QR-Code scannen). \n (Oder Beispielabteilung hinzufügen)"),
+        "awaitResults":
+            MessageLookupByLibrary.simpleMessage("Warten auf Ergebnis..."),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
             "Abteilung kann nicht hinzugefügt werden. Falsches Format der Zeichenfolge."),
         "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
@@ -44,11 +46,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "depList":
             MessageLookupByLibrary.simpleMessage("Liste der Abteilungen"),
         "detailed": MessageLookupByLibrary.simpleMessage("Eingehend"),
+        "developer": MessageLookupByLibrary.simpleMessage(
+            "Developer: Savin Alexander Victorovich aka Alexqwesa"),
         "emptyDepList": MessageLookupByLibrary.simpleMessage(
             "Liste der Abteilungen ist leer!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche \'Aktualisieren\'. "),
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
+        "errorDepSave": MessageLookupByLibrary.simpleMessage(
+            "Fehler: Abteilung konnte nicht gespeichert werden!"),
+        "errorFormat": MessageLookupByLibrary.simpleMessage(
+            "Fehler: Server-Antwortformat ist falsch!"),
+        "errorSave": MessageLookupByLibrary.simpleMessage(
+            "Fehler: Protokolleintrag konnte nicht gespeichert werden, \n freien Speicherplatz auf dem Gerät prüfen, \n Schreibberechtigungen prüfen"),
         "errorService": MessageLookupByLibrary.simpleMessage(
             "Fehler: der angegebene Dienst kann nicht gefunden werden "),
         "exportLastMonth": MessageLookupByLibrary.simpleMessage(

@@ -108,7 +108,7 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
     } on FormatException {
       log.severe(' Wrong json format - FormatException');
       showSimpleNotification(
-        const Text('Ошибка: был получен неправильный ответ от сервера!'),
+        Text(locator<S>().errorFormat),
         background: Colors.red[300],
         position: NotificationPosition.bottom,
       );

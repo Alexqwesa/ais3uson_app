@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Вы уверены что хотите удалить отделение: "),
         "authorizePlease": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, авторизируйтесь \n(отсканируйте QR код) \n (Или добавьте тестовое отделение)"),
+        "awaitResults":
+            MessageLookupByLibrary.simpleMessage("Ожидание данных..."),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
             "Не удалось добавить отделение. Возможно неправильный формат строки."),
         "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
@@ -43,11 +45,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteDep": MessageLookupByLibrary.simpleMessage("Удалить отделение"),
         "depList": MessageLookupByLibrary.simpleMessage("Список отделений"),
         "detailed": MessageLookupByLibrary.simpleMessage("Подбробно"),
+        "developer": MessageLookupByLibrary.simpleMessage(
+            "Разработчик: Савин Александр Викторович aka Alexqwesa"),
         "emptyDepList":
             MessageLookupByLibrary.simpleMessage("Список отделений пуст!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
+        "errorDepSave": MessageLookupByLibrary.simpleMessage(
+            "Ошибка: не удалось сохранить профиль отделения!"),
+        "errorFormat": MessageLookupByLibrary.simpleMessage(
+            "Ошибка: был получен неправильный ответ от сервера!"),
+        "errorSave": MessageLookupByLibrary.simpleMessage(
+            "Ошибка: не удалось сохранить запись журнала, \n  проверьте сводобное место на устройстве, \n проверьте права доступа на запись"),
         "errorService": MessageLookupByLibrary.simpleMessage(
             "Ошибка: не удается найти указанный сервис "),
         "exportLastMonth":

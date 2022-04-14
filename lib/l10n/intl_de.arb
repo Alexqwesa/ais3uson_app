@@ -45,7 +45,13 @@
   "exportLastMonth": "Machen der Export aus letzte Monat",
   "fileSavedTo": "Datei gespeichert in: ",
   "errorService": "Fehler: der angegebene Dienst kann nicht gefunden werden ",
-  "listOfServicesByDays": "Liste der Dienste nach Tagen"
+  "listOfServicesByDays": "Liste der Dienste nach Tagen",
+  "awaitResults": "Warten auf Ergebnis...",
+  "developer": "Developer: Savin Alexander Victorovich aka Alexqwesa",
+  "errorDepSave": "Fehler: Abteilung konnte nicht gespeichert werden!",
+  "errorFormat": "Fehler: Server-Antwortformat ist falsch!",
+  "errorSave": "Fehler: Protokolleintrag konnte nicht gespeichert werden, \n freien Speicherplatz auf dem Gerät prüfen, \n Schreibberechtigungen prüfen"
+
 
 
 }

@@ -45,6 +45,13 @@
   "exportLastMonth": "Export last month",
   "fileSavedTo": "File is saved to: ",
   "errorService": "Error: Can not find this service ",
-  "listOfServicesByDays": "List of services by days"
+  "listOfServicesByDays": "List of services by days",
+  "awaitResults": "Awaiting results...",
+  "developer": "Developer: Savin Alexander Victorovich aka Alexqwesa",
+  "errorDepSave": "Error: Failed to save department profile!",
+  "errorFormat": "Error: server response format is wrong!",
+  "errorSave": "Error: Failed to save log entry, \n check free space on device, \n check write permissions"
+
+
 
 }

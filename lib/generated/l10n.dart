@@ -509,6 +509,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Ожидание данных...`
+  String get awaitResults {
+    return Intl.message(
+      'Ожидание данных...',
+      name: 'awaitResults',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Разработчик: Савин Александр Викторович aka Alexqwesa`
+  String get developer {
+    return Intl.message(
+      'Разработчик: Савин Александр Викторович aka Alexqwesa',
+      name: 'developer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка: не удалось сохранить профиль отделения!`
+  String get errorDepSave {
+    return Intl.message(
+      'Ошибка: не удалось сохранить профиль отделения!',
+      name: 'errorDepSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка: был получен неправильный ответ от сервера!`
+  String get errorFormat {
+    return Intl.message(
+      'Ошибка: был получен неправильный ответ от сервера!',
+      name: 'errorFormat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ошибка: не удалось сохранить запись журнала, \n  проверьте сводобное место на устройстве, \n проверьте права доступа на запись`
+  String get errorSave {
+    return Intl.message(
+      'Ошибка: не удалось сохранить запись журнала, \n  проверьте сводобное место на устройстве, \n проверьте права доступа на запись',
+      name: 'errorSave',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

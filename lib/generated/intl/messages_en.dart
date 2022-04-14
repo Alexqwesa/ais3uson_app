@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure that you want to delete department: "),
         "authorizePlease": MessageLookupByLibrary.simpleMessage(
             "Please, authorize \n (scan QR-code). \n (Or add example department)"),
+        "awaitResults":
+            MessageLookupByLibrary.simpleMessage("Awaiting results..."),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
             "Can\'t add department. Wrong format of string."),
         "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
@@ -43,11 +45,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteDep": MessageLookupByLibrary.simpleMessage("Delete department"),
         "depList": MessageLookupByLibrary.simpleMessage("List of departments"),
         "detailed": MessageLookupByLibrary.simpleMessage("Detailed"),
+        "developer": MessageLookupByLibrary.simpleMessage(
+            "Developer: Savin Alexander Victorovich aka Alexqwesa"),
         "emptyDepList": MessageLookupByLibrary.simpleMessage(
             "List of departments is empty!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "List of clients is empty, \n\n please ask your manager to add people into your list \n\n then click on refresh button."),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorDepSave": MessageLookupByLibrary.simpleMessage(
+            "Error: Failed to save department profile!"),
+        "errorFormat": MessageLookupByLibrary.simpleMessage(
+            "Error: server response format is wrong!"),
+        "errorSave": MessageLookupByLibrary.simpleMessage(
+            "Error: Failed to save log entry, \n check free space on device, \n check write permissions"),
         "errorService": MessageLookupByLibrary.simpleMessage(
             "Error: Can not find this service "),
         "exportLastMonth":

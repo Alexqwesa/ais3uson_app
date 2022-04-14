@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/generated/l10n.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -37,7 +38,7 @@ class DevScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Разработчик: Савин Александр Викторович aka Alexqwesa',
+                    locator<S>().developer,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   const Divider(),
@@ -210,15 +211,15 @@ class CheckWorkerServer extends ConsumerWidget {
     } else if (snapshot.connectionState == ConnectionState.none) {
       children = [];
     } else {
-      children = const <Widget>[
-        SizedBox(
+      children = <Widget>[
+        const SizedBox(
           width: 20,
           height: 20,
           child: CircularProgressIndicator(),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 16),
-          child: Text('Awaiting result...'),
+          padding: const EdgeInsets.only(top: 16),
+          child: Text(locator<S>().awaitResults),
         ),
       ];
     }

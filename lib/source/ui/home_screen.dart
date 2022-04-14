@@ -108,7 +108,7 @@ class HomePage extends ConsumerWidget {
                     onTap: () async {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
-                        await archiveOnWithDatePicker(context, ref);
+                        await setArchiveOnWithDatePicker(context, ref);
                       } else {
                         ref.read(isArchive.notifier).update((state) => !state);
                       }
