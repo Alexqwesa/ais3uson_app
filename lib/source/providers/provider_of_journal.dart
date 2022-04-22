@@ -4,8 +4,7 @@ import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/providers/providers.dart';
-import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Provider of [Journal] for [WorkerProfile].
@@ -48,12 +47,10 @@ final archiveOfClient =
 });
 
 /// Helper,
-final _loadListServiceOfJournal =
-    Provider.family<List<ServiceOfJournal>, String>((ref, hiveName) {
-  // ignore: avoid_dynamic_calls
-
-  return ref.watch(hiveJournalBox(hiveName)).value?.values.toList() ?? [];
-});
+// final _loadListServiceOfJournal =
+//     Provider.family<List<ServiceOfJournal>, String>((ref, hiveName) {
+// return ref.watch(hiveJournalBox(hiveName)).value?.values.toList() ?? [];
+// });
 
 /// This Journal can write to Hive
 final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {

@@ -1,6 +1,5 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
@@ -63,29 +62,32 @@ void main() {
       //
       // > start test
       //
-      final wp = WorkerProfile(wKey, ref);
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+      final wp = ref
+          .read(workerProfiles)
+          .firstWhere((element) => element.apiKey == wKey.apiKey);
       await wp.postInit();
       expect(wp.clients[0].services[0].deleteAllowed, false);
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].doneStaleError, [1, 0, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [1, 0, 0]);
       //
       // > configure addition stale
       //
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('', 400));
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].doneStaleError, [1, 1, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [1, 1, 0]);
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       await wp.journal.commitAll();
-      expect(wp.clients[0].services[0].doneStaleError, [2, 0, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [2, 0, 0]);
       //
       // > configure addition rejected
       //
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 0}', 200));
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].doneStaleError, [2, 0, 1]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [2, 0, 1]);
       expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
@@ -154,7 +156,10 @@ void main() {
       //
       // > init WorkerProfile and mock http
       //
-      final wp = WorkerProfile(wKey, ref);
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+      final wp = ref
+          .read(workerProfiles)
+          .firstWhere((element) => element.apiKey == wKey.apiKey);
       // delayed init, should look like values were loaded from hive
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
@@ -163,17 +168,17 @@ void main() {
       // > start journal test
       //
       expect(wp.journal.hive.values.last.state, ServiceState.rejected);
-      expect(wp.clients[0].services[1].doneStaleError, [0, 1, 1]);
-      expect(wp.clients[0].services[0].doneStaleError, [0, 1, 1]);
+      expect(wp.clients[0].services[1].listDoneProgressError, [0, 1, 1]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [0, 1, 1]);
       expect(wp.clients[0].services[0].deleteAllowed, true);
       await wp.clients[0].services[0].delete();
-      expect(wp.clients[0].services[0].doneStaleError, [0, 1, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [0, 1, 0]);
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].doneStaleError, [2, 0, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [2, 0, 0]);
       await wp.clients[0].services[0].add();
-      expect(wp.clients[0].services[0].doneStaleError, [3, 0, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [3, 0, 0]);
       await wp.journal.commitAll();
-      expect(wp.clients[0].services[0].doneStaleError, [3, 0, 0]);
+      expect(wp.clients[0].services[0].listDoneProgressError, [3, 0, 0]);
       expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
@@ -319,13 +324,13 @@ void main() {
       await service3.add();
       await service3.add();
 
-      expect(service3.doneStaleError, [0, 3, 0]);
+      expect(service3.listDoneProgressError, [0, 3, 0]);
       await client.workerProfile.journal.commitAll();
-      expect(service3.doneStaleError, [0, 3, 0]);
+      expect(service3.listDoneProgressError, [0, 3, 0]);
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await client.workerProfile.journal.commitAll();
-      expect(service3.doneStaleError, [3, 0, 0]);
+      expect(service3.listDoneProgressError, [3, 0, 0]);
     });
     test('it add new services only to one client', () async {
       //
@@ -355,9 +360,9 @@ void main() {
       await service3.add();
       await service3.add();
       await service3.add();
-      expect(service3.doneStaleError, [0, 3, 0]);
+      expect(service3.listDoneProgressError, [0, 3, 0]);
       expect(client2.services[3].shortText, 'Покупка продуктов питания');
-      expect(client2.services[3].doneStaleError, [0, 0, 0]);
+      expect(client2.services[3].listDoneProgressError, [0, 0, 0]);
     });
     test(
       'it add and delete services in order:rejected->added->finished->outDated',
@@ -391,7 +396,7 @@ void main() {
         //
         // > add 10 service
         //
-        expect(service3.doneStaleError, [0, 10, 0]);
+        expect(service3.listDoneProgressError, [0, 10, 0]);
         expect(
           verify(ExtMock(httpClient).testReqPostAdd).callCount,
           (servNum + 1) * (servNum / 2),
@@ -399,7 +404,7 @@ void main() {
         when(ExtMock(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 1}', 200));
         await client.workerProfile.journal.commitAll();
-        expect(service3.doneStaleError, [10, 0, 0]);
+        expect(service3.listDoneProgressError, [10, 0, 0]);
         expect(client.workerProfile.journal.finished.length, 10);
         //
         // > mark outdated
@@ -412,14 +417,14 @@ void main() {
         expect(client.workerProfile.journal.finished.length, 10);
         await client.workerProfile.journal.updateBasedOnNewPlanDate();
         expect(client.workerProfile.journal.outDated.length, 10);
-        expect(service3.doneStaleError, [10, 0, 0]);
+        expect(service3.listDoneProgressError, [10, 0, 0]);
         //
         // > add 10 finished
         //
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
-        expect(service3.doneStaleError, [20, 0, 0]);
+        expect(service3.listDoneProgressError, [20, 0, 0]);
         expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 20);
         //
         // > add 10 rejected
@@ -429,7 +434,7 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
-        expect(service3.doneStaleError, [20, 0, 10]);
+        expect(service3.listDoneProgressError, [20, 0, 10]);
         expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 10);
         //
         // > add 10 stale
@@ -439,7 +444,7 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
-        expect(service3.doneStaleError, [20, 10, 10]);
+        expect(service3.listDoneProgressError, [20, 10, 10]);
         expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
         expect(
           verify(ExtMock(httpClient).testReqPostAdd).callCount,
@@ -453,20 +458,20 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(service3.doneStaleError, [20, 10, 0]);
+        expect(service3.listDoneProgressError, [20, 10, 0]);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(service3.doneStaleError, [20, 0, 0]);
+        expect(service3.listDoneProgressError, [20, 0, 0]);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(service3.doneStaleError, [10, 0, 0]);
+        expect(service3.listDoneProgressError, [10, 0, 0]);
         expect(client.workerProfile.journal.outDated.length, 10);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(service3.doneStaleError, [0, 0, 0]);
+        expect(service3.listDoneProgressError, [0, 0, 0]);
         expect(verify(ExtMock(httpClient).testReqDelete).callCount, 20);
       },
     );

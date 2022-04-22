@@ -4,7 +4,7 @@ import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_proofs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display one [ClientService] on fullscreen.
 ///
@@ -152,7 +152,7 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
 /// Button to add new [ServiceOfJournal], used in [ClientServiceScreen].
 ///
 /// {@category UI Services}
-class AddButton extends StatelessWidget {
+class AddButton extends ConsumerWidget {
   const AddButton({
     required this.widget,
     Key? key,
@@ -161,23 +161,16 @@ class AddButton extends StatelessWidget {
   final ClientServiceScreen widget;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
         onPressed: widget.service.add,
         icon: Transform.scale(
           scale: 2.5,
-          child: ChangeNotifierProvider<ClientService>.value(
-            value: widget.service,
-            child: Consumer<ClientService>(
-              builder: (context, data, child) {
-                return Icon(
-                  Icons.publish_rounded,
-                  color: widget.service.addAllowed ? Colors.green : Colors.grey,
-                );
-              },
-            ),
+          child: Icon(
+            Icons.publish_rounded,
+            color: widget.service.addAllowed ? Colors.green : Colors.grey,
           ),
         ),
       ),
@@ -206,17 +199,9 @@ class DeleteButton extends StatelessWidget {
           scale: 2.5,
           child: Transform.rotate(
             angle: 3.14,
-            child: ChangeNotifierProvider<ClientService>.value(
-              value: widget.service,
-              child: Consumer<ClientService>(
-                builder: (context, data, child) {
-                  return Icon(
-                    Icons.publish_rounded,
-                    color:
-                        widget.service.deleteAllowed ? Colors.red : Colors.grey,
-                  );
-                },
-              ),
+            child: Icon(
+              Icons.publish_rounded,
+              color: widget.service.deleteAllowed ? Colors.red : Colors.grey,
             ),
           ),
         ),

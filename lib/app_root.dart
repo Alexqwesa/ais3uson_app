@@ -4,7 +4,6 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/ui/add_department_screen.dart';
 import 'package:ais3uson_app/source/ui/clients_screen.dart';
 import 'package:ais3uson_app/source/ui/delete_department_screen.dart';

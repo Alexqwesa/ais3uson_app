@@ -16,6 +16,9 @@ part 'worker_key.g.dart';
 ///
 /// api_key - should be unique for each [WorkerProfile].
 ///
+/// And few parsing methods[].
+/// TODO: implement active server switch.
+///
 /// Example key look like this:
 /// app : "AIS3USON web"
 /// api_key : "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c"

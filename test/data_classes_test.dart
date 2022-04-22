@@ -49,29 +49,29 @@ void main() {
   // > Tests start
   //
   group('Data Classes', () {
-    test('it create WorkerProfile from short key', () async {
+    test('it create WorkerProfiles', () async {
       final ref = ProviderContainer();
+      ref.read(workerProfiles.notifier).addProfileFromKey(
+            WorkerKey.fromJson(
+              jsonDecode(qrDataWithSSL) as Map<String, dynamic>,
+            ),
+          );
       expect(
-        WorkerProfile(
-          WorkerKey.fromJson(
-            jsonDecode(qrDataShortKey) as Map<String, dynamic>,
-          ),
-          ref,
-        ),
+        ref.read(workerProfiles).first,
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
     });
 
-    test('it create WorkerProfiles', () async {
+    test('it create WorkerProfile from short key', () async {
       final ref = ProviderContainer();
+      ref.read(workerProfiles.notifier).addProfileFromKey(
+            WorkerKey.fromJson(
+              jsonDecode(qrDataShortKey) as Map<String, dynamic>,
+            ),
+          );
       expect(
-        WorkerProfile(
-          WorkerKey.fromJson(
-            jsonDecode(qrDataShortKey) as Map<String, dynamic>,
-          ),
-          ref,
-        ),
+        ref.read(workerProfiles).first,
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());

@@ -21,7 +21,7 @@ final servicesOfClient =
           journal: client.workerProfile.journal,
           service: e,
           planned: listService.firstWhere((element) => element.servId == e.id),
-          client: client,
+          // client: client,
         ),
       )
       .toList();

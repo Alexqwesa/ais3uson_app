@@ -1,17 +1,17 @@
 import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///
 /// It get data from [ClientService.journal]
-/// via [ClientService.doneStaleError], these numbers mean:
+/// via [ClientService.listDoneProgressError], these numbers mean:
 /// - done - finished and outDated,
-/// - inProgress - added and stale,
+/// - progress - added,
 /// - error - rejected.
 ///
 /// {@category UI Services}
-class ServiceCardState extends StatelessWidget {
+class ServiceCardState extends ConsumerWidget {
   const ServiceCardState({
     required this.clientService,
     Key? key,
@@ -41,7 +41,9 @@ class ServiceCardState extends StatelessWidget {
   final bool rightOfText;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listDoneProgressError = clientService.listDoneProgressError;
+
     return SizedBox.expand(
       child: FittedBox(
         alignment: Alignment.topLeft,
@@ -49,62 +51,44 @@ class ServiceCardState extends StatelessWidget {
         child: SizedBox(
           height: 64 - (rightOfText ? 10 : 0),
           width: 10 + (rightOfText ? 14 : 0),
-          child: ChangeNotifierProvider<ClientService>.value(
-            value: clientService,
-            child: Consumer<ClientService>(
-              builder: (context, data, child) {
-                final listDoneProgressError =
-                    context.select<ClientService, List<int>>(
-                  (data) => data.doneStaleError,
-                );
-
-                return ListView.builder(
-                  itemCount: 3,
-                  shrinkWrap: true,
-                  itemBuilder: (context, i) {
-                    return FittedBox(
-                      child: Visibility(
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        visible: listDoneProgressError.elementAt(i) != 0,
-                        child: rightOfText
-                            ? Container(
-                                color: Colors.white,
-                                child: Row(
-                                  children: [
-                                    icons.elementAt(i),
-                                    Text(
-                                      listDoneProgressError
-                                          .elementAt(i)
-                                          .toString(),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container(
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    icons.elementAt(i),
-                                    Text(
-                                      listDoneProgressError
-                                          .elementAt(i)
-                                          .toString(),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                  ],
-                                ),
+          child: ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            itemBuilder: (context, i) {
+              return FittedBox(
+                child: Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: listDoneProgressError.elementAt(i) != 0,
+                  child: rightOfText
+                      ? Container(
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              icons.elementAt(i),
+                              Text(
+                                listDoneProgressError.elementAt(i).toString(),
+                                style: Theme.of(context).textTheme.headline5,
                               ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                            ],
+                          ),
+                        )
+                      : Container(
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              icons.elementAt(i),
+                              Text(
+                                listDoneProgressError.elementAt(i).toString(),
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                            ],
+                          ),
+                        ),
+                ),
+              );
+            },
           ),
         ),
       ),

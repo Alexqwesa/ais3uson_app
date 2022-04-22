@@ -95,10 +95,3 @@ Size serviceCardSize(Size parentSize, String serviceView) {
     );
   }
 }
-
-/// Provider of setting - archiveDate. Inited with null, doesn't save its value.
-///
-/// {@category Providers}
-final archiveDate = StateProvider<DateTime?>((ref) {
-  return null;
-});

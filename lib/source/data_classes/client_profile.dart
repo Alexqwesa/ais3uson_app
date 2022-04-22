@@ -4,18 +4,20 @@ import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
+import 'package:flutter/cupertino.dart';
 
-/// Basic data about client:
+/// Model with data about client:
 /// - [name],
 /// - [contractId],
 /// - [services] - list of [ClientService],
 /// - reference to worker (of type [WorkerProfile]) assigned to this client.
 ///
 /// {@category Data Classes}
+@immutable
 class ClientProfile {
   /// Init and subscribe to events from [WorkerProfile],
   /// because it is the class that get actual data.
-  ClientProfile({
+  const ClientProfile({
     required this.workerProfile,
     required this.entry,
   });

@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
-import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
 import 'package:flutter/material.dart';
 
@@ -17,46 +17,31 @@ import 'package:flutter/material.dart';
 /// - [ServiceEntry],
 /// - [ClientPlan]...
 ///
-/// It only store [ProofList].
-///
 /// {@category Data Classes}
-// ignore: prefer_mixin
-class ClientService with ChangeNotifier {
-  ClientService({
+@immutable
+class ClientService {
+  const ClientService({
     required this.journal,
-    required this.client,
     required this.service,
     required this.planned,
-  }) {
-    _proofList = ProofList(
-      workerDepId,
-      contractId,
-      standardFormat.format(DateTime.now()),
-      servId,
-      client: client.name,
-      worker: journal.workerProfile.name,
-      service: service.shortText,
-    );
-    journal.addListener(notifyListeners);
-  }
+  });
 
-  final ServiceEntry service;
-  final ClientPlan planned;
-
-  /// Reference to existed journal
+  /// Reference to existing [Journal].
   final Journal journal;
-  final ClientProfile client;
 
-  /// [ProofList] of this service at current date.
-  late final ProofList _proofList;
+  /// Reference to existing [ServiceEntry].
+  final ServiceEntry service;
 
-  String get apiKey => journal.apiKey;
-
-  int get workerDepId => journal.workerProfile.key.workerDepId;
+  /// Reference to existing [ClientPlan].
+  final ClientPlan planned;
 
   //
   // > shortcuts for json classes
   //
+  String get apiKey => journal.apiKey;
+
+  int get workerDepId => journal.workerProfile.key.workerDepId;
+
   int get contractId => planned.contractId;
 
   int get servId => planned.servId;
@@ -126,24 +111,27 @@ class ClientService with ChangeNotifier {
 
   bool get deleteAllowed => inJournal > 0;
 
-  List<int> get doneStaleError => <int>[done, added, rejected];
+  List<int> get listDoneProgressError => <int>[done, added, rejected];
 
-  ProofList get proofList {
-    if (_proofList.inited) {
-      return _proofList;
-    } else {
-      _proofList.crawler();
+  ProofList get proofList =>
+      journal.workerProfile.ref.read(proofsOfServices(this));
 
-      return _proofList;
-    }
-  }
+  // {
+  //   if (_proofList.inited) {
+  //     return _proofList;
+  //   } else {
+  //     _proofList.crawler();
+  //
+  //     return _proofList;
+  //   }
+  // }
 
-  @override
-  void dispose() {
-    journal.removeListener(notifyListeners);
-
-    return super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   journal.removeListener(notifyListeners);
+  //
+  //   return super.dispose();
+  // }
 
   void addProof() {
     proofList.addNewGroup();
@@ -158,7 +146,7 @@ class ClientService with ChangeNotifier {
           workerId: workerDepId,
         ),
       );
-      notifyListeners();
+      // notifyListeners();
     } else {
       showErrorNotification('Данная услуга переполнена!');
     }
@@ -171,7 +159,7 @@ class ClientService with ChangeNotifier {
     );
 
     await journal.delete(uuid: uuid);
-    notifyListeners();
+    // notifyListeners();
   }
 
   ClientService copyWith({
@@ -183,7 +171,7 @@ class ClientService with ChangeNotifier {
       journal: newJournal ?? journal,
       planned: plan ?? planned,
       service: serv ?? service,
-      client: client,
+      // client: client,
     );
   }
 }

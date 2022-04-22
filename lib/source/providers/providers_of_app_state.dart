@@ -99,3 +99,10 @@ class LastClientIdState extends StateNotifier<int> {
 final isArchive = StateProvider<bool>((ref) {
   return false;
 });
+
+/// Provider of setting - archiveDate. Inited with null, doesn't save its value.
+///
+/// {@category Providers}
+final archiveDate = StateProvider<DateTime?>((ref) {
+  return null;
+});

@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// Provider of List<[WorkerProfile]>.
 ///
-/// Show profiles based on [_workerKeys].
+/// Show profiles based on [innerWorkerKeys].
 ///
 /// {@category Providers}
 final workerProfiles =
@@ -26,8 +26,8 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
 
   _WorkerProfilesState(this.ref) // , List<WorkerKey> wKeys
       : super(<WorkerProfile>[]) {
-    sync(ref.read(_workerKeys));
-    ref.listen(_workerKeys, (previous, next) {
+    sync(ref.read(innerWorkerKeys));
+    ref.listen(innerWorkerKeys, (previous, next) {
       sync((next ?? <WorkerKey>[]) as List<WorkerKey>);
     });
   }
@@ -42,14 +42,14 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
       }
     }
     wKeys.where((element) => !keySet.contains(element)).forEach((key) {
-      newState.add(WorkerProfile(key, ref.container));
+      newState.add(WorkerProfile(key.apiKey, ref.container));
     });
     state = newState;
   }
 
   bool addProfileFromKey(WorkerKey key) {
-    if (!ref.read(_workerKeys).contains(key)) {
-      return ref.read(_workerKeys.notifier).addKey(key);
+    if (!ref.read(innerWorkerKeys).contains(key)) {
+      return ref.read(innerWorkerKeys.notifier).addKey(key);
     }
 
     return false;
@@ -75,7 +75,7 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
-final _workerKeys =
+final innerWorkerKeys =
     StateNotifierProvider<_WorkerKeysState, List<WorkerKey>>((ref) {
   return _WorkerKeysState();
 });

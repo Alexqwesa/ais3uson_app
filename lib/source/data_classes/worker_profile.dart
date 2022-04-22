@@ -4,30 +4,28 @@ import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
-import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
+import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
-/// A profile of worker.
+/// A profile of worker, just model with shortcuts to various providers.
 ///
 /// {@category Data Classes}
+@immutable
 class WorkerProfile {
   /// Constructor [WorkerProfile] with [Journal] by default
-  /// or with [JournalArchive].
-  ///
-  /// TODO: finish detect SSL code
-  WorkerProfile(this.key, this.ref);
+  const WorkerProfile(this.apiKey, this.ref);
 
-  final WorkerKey key;
+  final String apiKey;
+
   final ProviderContainer ref;
 
   String get name => key.name;
-
-  String get apiKey => key.apiKey;
 
   String get hiveName => 'journal_$apiKey';
 
@@ -42,6 +40,9 @@ class WorkerProfile {
   Tuple2<String, String> get apiUrlPlan => Tuple2(apiKey, urlPlan);
 
   Tuple2<String, String> get apiUrlServices => Tuple2(apiKey, urlServices);
+
+  WorkerKey get key =>
+      ref.read(innerWorkerKeys).firstWhere((e) => e.apiKey == apiKey);
 
   Journal get journal => ref.read(journalOfWorker(this));
 
