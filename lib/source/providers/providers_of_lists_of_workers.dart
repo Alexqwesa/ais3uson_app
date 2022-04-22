@@ -6,7 +6,6 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -63,8 +62,8 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
     final wp = state[index];
     final apiKey = key.apiKey;
     state = [...(state..removeAt(index))];
-    wp.dispose();
     Hive
+      ..deleteBoxFromDisk(wp.hiveName)
       ..deleteBoxFromDisk('archiveDates_$apiKey')
       ..deleteBoxFromDisk('journal_archive_$apiKey');
   }
@@ -127,13 +126,3 @@ class _WorkerKeysState extends StateNotifier<List<WorkerKey>> {
     state = [...(state..removeAt(index))];
   }
 }
-
-/// Simple provider for archive view, based on [workerProfiles].
-///
-/// {@category Providers}
-final archiveWorkerProfiles = StateProvider<List<WorkerProfile>>((ref) {
-  return ref
-      .watch(workerProfiles)
-      .map((e) => e.copyWith(archiveDate: ref.watch(archiveDate)))
-      .toList();
-});

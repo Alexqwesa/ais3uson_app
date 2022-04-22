@@ -4,6 +4,7 @@ import 'package:ais3uson_app/source/data_classes/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
@@ -11,7 +12,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
-import 'package:provider/provider.dart';
 
 const tileSize = 500.0;
 
@@ -23,51 +23,42 @@ class ConfirmationForListOfServices extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _client = ref.watch(lastClient);
+    if (_client.services.isEmpty) {
+      return Container(); // Todo:
+    }
 
-    return ChangeNotifierProvider.value(
-      value: _client.workerProfile.fullArchive,
-      child: Scaffold(
-        appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Consumer<JournalArchive>(
-              builder: (context, value, child) {
-                final all = _client.workerProfile.fullArchive.all;
-                if (_client.services.isEmpty) {
-                  return Container(); // Todo:
-                }
-                final allByGroups = groupBy<ServiceOfJournal, int>(
-                  all,
-                  (e) => e.provDate.daysSinceEpoch,
-                );
+    final all = _client.fullArchive;
+    final allByGroups = groupBy<ServiceOfJournal, int>(
+      all,
+      (e) => e.provDate.daysSinceEpoch,
+    );
 
-                return Wrap(
-                  children: [
-                    for (final servicesAt
-                        in allByGroups.entries.map((e) => e.value))
-                      SizedBox(
-                        width: tileSize + 32,
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            TitleWidgetOfServicesGroup(
-                              service: servicesAt[0],
-                              client: _client,
-                            ),
-                            for (int index = 1;
-                                index < servicesAt.length;
-                                index++)
-                              TotalServiceTile(
-                                serviceOfJournal: all[index],
-                                client: _client,
-                              ),
-                          ],
-                        ),
+    return Scaffold(
+      appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Wrap(
+            children: [
+              for (final servicesAt in allByGroups.entries.map((e) => e.value))
+                SizedBox(
+                  width: tileSize + 32,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      TitleWidgetOfServicesGroup(
+                        service: servicesAt[0],
+                        client: _client,
                       ),
-                  ],
-                );
-              },
-            ),
+                      for (int index = 1; index < servicesAt.length; index++)
+                        TotalServiceTile(
+                          serviceOfJournal: all[index],
+                          client: _client,
+                          ref: ref,
+                        ),
+                    ],
+                  ),
+                ),
+            ],
           ),
         ),
       ),
@@ -75,7 +66,7 @@ class ConfirmationForListOfServices extends ConsumerWidget {
   }
 }
 
-class TitleWidgetOfServicesGroup extends StatelessWidget {
+class TitleWidgetOfServicesGroup extends ConsumerWidget {
   const TitleWidgetOfServicesGroup({
     required this.service,
     required this.client,
@@ -86,7 +77,7 @@ class TitleWidgetOfServicesGroup extends StatelessWidget {
   final ClientProfile client;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: tileSize + 32,
       child: Stack(
@@ -108,6 +99,7 @@ class TitleWidgetOfServicesGroup extends StatelessWidget {
               child: TotalServiceTile(
                 serviceOfJournal: service,
                 client: client,
+                ref: ref,
               ),
             ),
           ),
@@ -117,15 +109,17 @@ class TitleWidgetOfServicesGroup extends StatelessWidget {
   }
 }
 
-class TotalServiceTile extends StatelessWidget {
+class TotalServiceTile extends ConsumerWidget {
   final ServiceOfJournal serviceOfJournal;
   final ClientProfile client;
   late final ClientService service;
+  late final WidgetRef ref;
 
   // ignore: sort_constructors_first
   TotalServiceTile({
     required this.serviceOfJournal,
     required this.client,
+    required this.ref,
     Key? key,
   }) : super(key: key) {
     try {
@@ -135,7 +129,10 @@ class TotalServiceTile extends StatelessWidget {
                   .firstWhere(
                     (element) => element.servId == serviceOfJournal.servId,
                   )
-                  .copyWith(newJournal: client.workerProfile.fullArchive)
+                  .copyWith(
+                    newJournal:
+                        ref.watch(journalArchiveOfWorker(client.workerProfile)),
+                  )
               : client.services.firstWhere(
                   (element) => element.servId == serviceOfJournal.servId,
                 );
@@ -143,7 +140,7 @@ class TotalServiceTile extends StatelessWidget {
     } on StateError catch (e) {
       if (e.message == 'No element') {
         service = client.services.first.copyWith(
-          newJournal: client.workerProfile.fullArchive,
+          newJournal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
           serv: client.services.first.service.copyWith(
             image: 'not-found.png',
             short_text: locator<S>().errorService,
@@ -155,7 +152,7 @@ class TotalServiceTile extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: SizedBox(

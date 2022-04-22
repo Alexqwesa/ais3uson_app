@@ -4,6 +4,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,6 +13,8 @@ part 'worker_key.freezed.dart';
 part 'worker_key.g.dart';
 
 /// Immutable class to create [WorkerKey] from/to JSON strings.
+///
+/// api_key - should be unique for each [WorkerProfile].
 ///
 /// Example key look like this:
 /// app : "AIS3USON web"

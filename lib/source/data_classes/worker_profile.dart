@@ -6,6 +6,7 @@ import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,22 +20,16 @@ class WorkerProfile {
   /// or with [JournalArchive].
   ///
   /// TODO: finish detect SSL code
-  WorkerProfile(this.key, this.ref, {DateTime? archiveDate}) {
-    name = key.name;
-    journal =
-        archiveDate != null ? JournalArchive(this, archiveDate) : Journal(this);
-    fullArchive = JournalArchive(this, null);
-    // var httpClient = ref.read(httpClientProvider);
-  }
+  WorkerProfile(this.key, this.ref);
 
   final WorkerKey key;
-  late final Journal journal;
-  late final JournalArchive fullArchive;
-  late final String name;
-
   final ProviderContainer ref;
 
+  String get name => key.name;
+
   String get apiKey => key.apiKey;
+
+  String get hiveName => 'journal_$apiKey';
 
   String get urlClients => '${key.activeServer}/clients';
 
@@ -48,30 +43,23 @@ class WorkerProfile {
 
   Tuple2<String, String> get apiUrlServices => Tuple2(apiKey, urlServices);
 
+  Journal get journal => ref.read(journalOfWorker(this));
+
+  /// List of assigned clients
   List<ClientProfile> get clients => ref.read(clientsOfWorker(this));
 
-  /// Planned amount of services for client.
+  /// Planned amount of services for each client.
   ///
   /// Since we get data in bunch - store it in [WorkerProfile].
   List<ClientPlan> get clientPlan => ref.read(planOfWorker(this));
 
-  /// Service list should only update on empty, or unknown planned service.
+  /// List of services.
   ///
   /// Since workers could potentially work
   /// on two different organizations (half rate in each),
   /// with different service list, store services in worker profile.
   // TODO: update by server policy.
   List<ServiceEntry> get services => ref.read(servicesOfWorker(this));
-
-  void dispose() {
-    journal.dispose();
-
-    // return super.dispose();
-  }
-
-  WorkerProfile copyWith({DateTime? archiveDate}) {
-    return WorkerProfile(key, ref, archiveDate: archiveDate);
-  }
 
   /// Async init actions such as:
   ///
@@ -92,17 +80,6 @@ class WorkerProfile {
     await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();
   }
 
-  Future<void> syncClients() async {
-    // await ref.read(httpDataProvider([apiKey, urlClients]).notifier).state(
-    //     (state){}()
-    // );
-    await ref.read(httpDataProvider(apiUrlClients).notifier).getHttpData();
-  }
-
-  Future<void> syncPlanned() async {
-    await ref.read(httpDataProvider(apiUrlPlan).notifier).getHttpData();
-  }
-
   /// Synchronize services for [WorkerProfile.services].
   ///
   /// TODO: Services usually updated once per year,
@@ -113,6 +90,17 @@ class WorkerProfile {
   /// [clientPlan] with wrong [ClientPlan.servId].
   Future<void> syncServices() async {
     await ref.read(httpDataProvider(apiUrlServices).notifier).getHttpData();
+  }
+
+  Future<void> syncClients() async {
+    // await ref.read(httpDataProvider([apiKey, urlClients]).notifier).state(
+    //     (state){}()
+    // );
+    await ref.read(httpDataProvider(apiUrlClients).notifier).getHttpData();
+  }
+
+  Future<void> syncPlanned() async {
+    await ref.read(httpDataProvider(apiUrlPlan).notifier).getHttpData();
   }
 
   /// This should only be called if there is inconsistency:
