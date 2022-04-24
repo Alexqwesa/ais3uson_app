@@ -4,7 +4,8 @@
 
 [![Test](https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml/badge.svg)](https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD)](https://codecov.io/gh/Alexqwesa/ais3uson_app)
-[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+[![style: surf_lint](https://badgen.net/badge/style:/surf_lint/purple)](https://pub.dev/packages/surf_lint_rules)
+[![flutter: android|web|windows|linux|ios](https://badgen.net/badge/flutter:/android%7Cweb%7Cwindows%7Clinux%7Cios/blue/?icon=github)](https://badgen.net/badge/flutter:/android%7Cweb%7Cwindows%7Clinux%7Cios/blue/?icon=github)
 
 A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 

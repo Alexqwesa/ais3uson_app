@@ -219,7 +219,6 @@ void main() {
             standardFormat.format(DateTime.now()) +
             '_/828_Итого/group_0_/before_img_auth_qr_test.png',
       );
-      // '/home/alex/Documents/Ais3uson/Ais3uson/1_Работник Тестового Отделения 2/1_Тес. . чек/26.03.2022_/828_Итого/group_0_/before_img_auth_qr_test.png'
       expect(
         await dstFile.length(),
         srcFileLength,

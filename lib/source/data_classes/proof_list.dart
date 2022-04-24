@@ -160,7 +160,7 @@ class ProofList with ChangeNotifier {
         '${prefix}img_${path.basename(xFile.path)}',
       ),
     );
-    unawaited(tmpImgFile.delete());
+    tmpImgFile.deleteSync();
     //
     // > update list
     //
