@@ -3,9 +3,9 @@ dartdoc:
     'About':
       name: About
       markdown: README.md
-    'Data Classes':
-      name: Data Classes
-      markdown: lib/source/data_classes/README.md
+    'Data Models':
+      name: Data Models
+      markdown: lib/source/data_models/README.md
     'Journal':
       name: Journal
       markdown: lib/source/journal/README.md

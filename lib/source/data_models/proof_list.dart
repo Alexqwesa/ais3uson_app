@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import 'package:path_provider/path_provider.dart';
 /// - notify **one** [ClientService],
 /// - save new proofs.
 ///
-/// {@category Data Classes}
+/// {@category Data Models}
 /// {@category Client-Server API}
 // ignore: prefer_mixin
 class ProofList with ChangeNotifier {
@@ -45,7 +45,7 @@ class ProofList with ChangeNotifier {
 
   /// Crawl through file system to generate [ProofGroup]s.
   ///
-  /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_classes/proof_list.png)
+  /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
   // ignore: long-method
   Future<void> crawler() async {
     inited = true;
@@ -175,7 +175,7 @@ class ProofList with ChangeNotifier {
 
 /// A unit of proof, contains evidence of states before and after.
 ///
-/// {@category Data Classes}
+/// {@category Data Models}
 class ProofGroup {
   ProofGroup({
     this.name,

@@ -28,7 +28,7 @@ import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_classes_test.dart';
+import 'data_models_test.dart';
 import 'helpers/mock_server.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 

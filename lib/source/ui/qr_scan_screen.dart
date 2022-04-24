@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 import 'dart:io';
 
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/ui/add_department_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/foundation.dart';

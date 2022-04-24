@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:hive_flutter/hive_flutter.dart';

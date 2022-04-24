@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_classes_test.dart';
+import 'data_models_test.dart';
 import 'helpers/mock_server.dart';
 import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
 import 'helpers/mock_server.mocks.dart' as mock;

@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
-import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 /// - [services] - list of [ClientService],
 /// - reference to worker (of type [WorkerProfile]) assigned to this client.
 ///
-/// {@category Data Classes}
+/// {@category Data Models}
 @immutable
 class ClientProfile {
   /// Init and subscribe to events from [WorkerProfile],

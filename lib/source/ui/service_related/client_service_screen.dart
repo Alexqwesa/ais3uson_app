@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_proofs.dart';

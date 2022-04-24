@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
-import 'package:ais3uson_app/source/data_classes/proof_list.dart';
+import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 /// - [ServiceEntry],
 /// - [ClientPlan]...
 ///
-/// {@category Data Classes}
+/// {@category Data Models}
 @immutable
 class ClientService {
   const ClientService({

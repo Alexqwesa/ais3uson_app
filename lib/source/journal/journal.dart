@@ -8,8 +8,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_classes/client_service.dart';
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';

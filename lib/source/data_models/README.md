@@ -1,4 +1,4 @@
-# Data Classes
+# Data Models
 
 These classes provide data for UI classes: [UI Services], [UIWorkerProfile].
 

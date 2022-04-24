@@ -12,7 +12,7 @@ import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_classes_test.dart';
+import 'data_models_test.dart';
 
 void main() {
   //

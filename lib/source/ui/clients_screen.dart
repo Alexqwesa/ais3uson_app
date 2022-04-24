@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:ais3uson_app/source/data_classes/client_profile.dart';
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/data_models/client_profile.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';

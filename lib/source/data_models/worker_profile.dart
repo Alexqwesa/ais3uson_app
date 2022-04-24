@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
-import 'package:ais3uson_app/source/data_classes/client_profile.dart';
+import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
@@ -15,7 +15,7 @@ import 'package:tuple/tuple.dart';
 
 /// A profile of worker, just model with shortcuts to various providers.
 ///
-/// {@category Data Classes}
+/// {@category Data Models}
 @immutable
 class WorkerProfile {
   /// Constructor [WorkerProfile] with [Journal] by default

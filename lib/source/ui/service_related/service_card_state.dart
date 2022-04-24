@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/data_classes/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

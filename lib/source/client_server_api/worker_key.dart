@@ -4,7 +4,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
