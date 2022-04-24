@@ -62,20 +62,13 @@ class WorkerProfile {
   // TODO: update by server policy.
   List<ServiceEntry> get services => ref.read(servicesOfWorker(this));
 
-  /// Async init actions such as:
+  /// Only for tests! Don't use in real code.
   ///
+  /// Async init actions such as:
   /// - postInit [journal] (instance of [Journal] class),
-  /// - read [clients], [clientPlan] and [services] from hive if empty,
-  /// - check last sync dates and sync [clients], [clientPlan] and [services],
-  /// - and call notifyListeners.
+  /// - read [clients], [clientPlan] and [services] from hive if empty.
   Future<void> postInit() async {
-    // Todo: rework it
     await journal.postInit();
-    //
-    // > sync data on load
-    //
-    // Todo: rework it
-    // real widgets didn't need this code, but it is used by tests
     await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
     await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
     await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();

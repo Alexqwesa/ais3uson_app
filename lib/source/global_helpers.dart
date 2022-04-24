@@ -62,7 +62,9 @@ Future<List<Map<String, dynamic>>> loadFromHiveJsonDecode(
 /// This is default headers for http request.
 ///
 /// Before send, it should be concatenated with 'api_key'.
-final Map<String, String> httpHeaders = {
+///
+/// {@category Client-Server API}
+const Map<String, String> httpHeaders = {
   'Content-type': 'application/json',
   'Accept': 'application/json',
 };

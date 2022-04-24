@@ -20,6 +20,16 @@ The methods for output are:
 
 These methods use json format.
 
+### Http headers
+
+```json
+{
+  "Content-type": "application/json",
+  "Accept": "application/json",
+  "api_key": "your real key will be here"
+}
+```
+
 ## Storage API
 
 Most data is stored in [Hive] Boxes. Http responses are stored as strings.
@@ -28,4 +38,4 @@ The settings and [WorkerKey]s are stored in [SharedPreferences].
 
 The [ServiceOfJournal]s are stored in [Hive] as objects.
 
-The [ProofList] store files in filesystem.
+The [ProofList]s store files in filesystem.

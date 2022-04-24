@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
@@ -37,6 +38,7 @@ void main() {
   tearDown(() async {
     await tearDownTestHive();
   });
+
   //
   // > Tests start
   //
@@ -125,6 +127,7 @@ void main() {
       expect(hive.values.first.state, ServiceState.added);
       expect(hive.values.last.uid, errorService.uid);
     });
+
     test('it add new serviceOfJournal to journal', () async {
       //
       // > prepare ProviderContainer + httpClient
@@ -141,8 +144,11 @@ void main() {
       //
       // > prefill hive with services
       //
-      final addedService =
-          autoServiceOfJournal(servId: 829, contractId: 1, workerId: 1);
+      final addedService = autoServiceOfJournal(
+        servId: 829,
+        contractId: 1,
+        workerId: 1,
+      );
       final errorService = addedService.copyWith(
         state: ServiceState.rejected,
       );
@@ -150,8 +156,9 @@ void main() {
           await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(addedService);
       await hive.add(errorService);
-      await hive.add(addedService.copyWith(servId: 828, uid: '12345'));
+      await hive.add(addedService.copyWith(servId: 828, uid: '123'));
       await hive.add(errorService.copyWith(servId: 828, uid: '123456'));
+      expect(hive.values.length, 4);
       expect(errorService.state, ServiceState.rejected);
       //
       // > init WorkerProfile and mock http
@@ -182,6 +189,7 @@ void main() {
       expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
+
     test('it archive yesterday services', () async {
       //
       // > prepare ProviderContainer + httpClient
@@ -203,6 +211,7 @@ void main() {
         servId: 828,
         provDate: yesterday,
         state: ServiceState.finished,
+        uid: uuid.v4(),
       );
       var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       await hive.add(yesterdayService);
@@ -237,6 +246,7 @@ void main() {
       expect(wp.journal.hive.values.length, 1);
       expect(hiveArchive.length, 1);
     });
+
     test(
       'it store only hiveArchiveLimit number of services in archive',
       () async {
@@ -279,21 +289,22 @@ void main() {
         ref.read(hiveArchiveLimit.notifier).state = 10;
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         final wp = ref.read(workerProfiles).first;
-        await wp.postInit();
         // await AppData.instance
         //
         // > test that yesterday services are in archive
         //
-        final hiveArchive = await Hive.openBox<ServiceOfJournal>(
-          'journal_archive_${wp.apiKey}',
-        );
+        await wp.journal.postInit();
         expect(
           wp.journal.hive.values.length,
           20,
         );
+        final hiveArchive = await Hive.openBox<ServiceOfJournal>(
+          'journal_archive_${wp.apiKey}',
+        );
         expect(hiveArchive.length, 10);
       },
     );
+
     test('it add new services to a client', () async {
       //
       // > prepare ProviderContainer + httpClient
@@ -323,15 +334,17 @@ void main() {
       await service3.add();
       await service3.add();
       await service3.add();
+      await service3.add();
 
-      expect(service3.listDoneProgressError, [0, 3, 0]);
+      expect(service3.listDoneProgressError, [0, 4, 0]);
       await client.workerProfile.journal.commitAll();
-      expect(service3.listDoneProgressError, [0, 3, 0]);
+      expect(service3.listDoneProgressError, [0, 4, 0]);
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await client.workerProfile.journal.commitAll();
-      expect(service3.listDoneProgressError, [3, 0, 0]);
+      expect(service3.listDoneProgressError, [4, 0, 0]);
     });
+
     test('it add new services only to one client', () async {
       //
       // > prepare ProviderContainer + httpClient
@@ -357,6 +370,12 @@ void main() {
       final client2 = wp.clients[2];
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
+      when(ExtMock(ref.read(httpClientProvider(wKey.certificate))
+                  as mock.MockClient)
+              .testReqPostAdd)
+          .thenAnswer((_) async {
+        throw 'my error';
+      });
       await service3.add();
       await service3.add();
       await service3.add();
@@ -364,6 +383,7 @@ void main() {
       expect(client2.services[3].shortText, 'Покупка продуктов питания');
       expect(client2.services[3].listDoneProgressError, [0, 0, 0]);
     });
+
     test(
       'it add and delete services in order:rejected->added->finished->outDated',
       () async {

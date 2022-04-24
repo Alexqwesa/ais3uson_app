@@ -35,11 +35,6 @@ final httpDataProvider = StateNotifierProvider.family<_HttpDataState,
   );
 
   return notifier;
-  // return ref.watch(futureHttpDataProvider(notifier)).when(
-  //       data: (state) => notifier,
-  //       error: (err, stack) => notifier,
-  //       loading: () => notifier,
-  //     );
 });
 
 /// Repository for families of providers [httpDataProvider].

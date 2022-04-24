@@ -2,67 +2,26 @@ import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
-import 'package:collection/collection.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 /// This class is for showing archived services at date [aDate].
 ///
 /// It is stubbed and read only version of [Journal] class.
+/// If [aDate] is null - read all service from journal and journal_archive.
+/// TODO: The member [all] - sorted by date(from recent to old).
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
   JournalArchive(WorkerProfile wp, this.aDate) : super(wp);
-  DateTime? aDate;
+
+  /// At what date is journal, null - load all values.
+  final DateTime? aDate;
 
   @override
-  List<ServiceOfJournal> all = [];
-  List<ServiceOfJournal> notApproved = [];
+  String get journalHiveName => 'journal_archive_$apiKey';
 
-  /// Read services from hive at date [aDate] or all dates.
-  ///
-  /// If [aDate] is null - read all service from journal and journal_archive.
-  /// The member [all] - sorted by date(from recent to old).
-  @override
-  Future<void> postInit() async {
-    //
-    // > read hive at date or all
-    //
-    hive = await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
-    late final Iterable<ServiceOfJournal> hiveValues;
-    hiveValues = aDate == null
-        ? [...hive.values, ...workerProfile.journal.all]
-        : hive.values;
-    finished = <ServiceOfJournal>[];
-    outDated = <ServiceOfJournal>[];
-    //
-    // > sort
-    //
-    final groups = groupBy<ServiceOfJournal, ServiceState>(
-      hiveValues.where(
-        (element) =>
-            aDate == null ||
-            (element.provDate.isAfter(aDate!) &&
-                element.provDate.isBefore(aDate!.add(const Duration(days: 1)))),
-      ),
-      (e) => e.state,
-    );
-    // skip rejected services,
-    // and since today service also can be here:
-    //   create notApproved for added services
-    notApproved = groups[ServiceState.added] ?? [];
-    finished = groups[ServiceState.finished] ?? [];
-    outDated = groups[ServiceState.outDated] ?? [];
-    //
-    // > sort by date from recent to old
-    //
-    if (aDate == null) {
-      all = [...finished, ...outDated]
-        ..sort((a, b) => a.provDate.compareTo(b.provDate));
-      all = all.reversed.toList();
-    }
-    await hive.close();
-    notifyListeners();
-  }
+  // List<ServiceOfJournal> get added => aDate == null ? super.added:
+  // super.added.where;
+
 
   /// This method of base class is stubbed.
   @override

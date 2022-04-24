@@ -13,6 +13,8 @@ import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
@@ -21,6 +23,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:synchronized/synchronized.dart';
@@ -37,38 +40,46 @@ import 'package:universal_html/html.dart' as html;
 /// {@category Client-Server API}
 // ignore: prefer_mixin
 class Journal with ChangeNotifier {
-  Journal(this.workerProfile) {
-    _httpHeaders = {}
-      ..addAll(httpHeaders)
-      ..addAll({'api_key': apiKey});
-  }
+  Journal(this.workerProfile);
+
+  /// At what date is journal, null - load all values.
+  final DateTime? aData = null;
 
   late final WorkerProfile workerProfile;
-  late final Map<String, String> _httpHeaders;
   final _lock = Lock();
-  late Box<ServiceOfJournal> hive;
-  late Box<ServiceOfJournal> hiveArchive;
-
-  //
-  // > main list of services
-  //
-  List<ServiceOfJournal> added = [];
-  List<ServiceOfJournal> finished = [];
-  List<ServiceOfJournal> outDated = [];
-  List<ServiceOfJournal> rejected = [];
+  late Box<ServiceOfJournal> hive; // only for test
+  late Box<ServiceOfJournal> hiveArchive; // todo: use provider
 
   String get journalHiveName => 'journal_$apiKey';
+
+  ProviderContainer get ref => workerProfile.ref;
 
   String get apiKey => workerProfile.key.apiKey;
 
   int get workerDepId => workerProfile.key.workerDepId;
 
-  // Iterable<ServiceOfJournal> get affect => added + finished;
+  //
+  // > main list of services
+  //
+  ServicesListState get servicesProvider =>
+      ref.read(servicesOfJournal(this).notifier);
 
-  Iterable<ServiceOfJournal> get servicesForSync => added;
+  List<ServiceOfJournal> get all => ref.read(servicesOfJournal(this)) ?? [];
 
-  Iterable<ServiceOfJournal> get all =>
-      [...added, ...finished, ...rejected, ...outDated];
+  @immutable
+  List<ServiceOfJournal> get added =>
+      ref.read(groupsOfJournal(this))?[ServiceState.added] ?? [];
+
+  List<ServiceOfJournal> get finished =>
+      ref.read(groupsOfJournal(this))?[ServiceState.finished] ?? [];
+
+  List<ServiceOfJournal> get outDated =>
+      ref.read(groupsOfJournal(this))?[ServiceState.outDated] ?? [];
+
+  List<ServiceOfJournal> get rejected =>
+      ref.read(groupsOfJournal(this))?[ServiceState.rejected] ?? [];
+
+  List<ServiceOfJournal> get servicesForSync => added;
 
   DateTime get now => DateTime.now();
 
@@ -77,29 +88,26 @@ class Journal with ChangeNotifier {
   Iterable<ServiceOfJournal> get _forDelete =>
       (finished + outDated).where((el) => el.provDate.isBefore(today));
 
-  @override
-  void dispose() {
-    if (hive.isOpen) {
-      () async {
-        await hive.compact();
-        await hive.close();
-      }();
-    }
-
-    return super.dispose();
-  }
-
+  /// Only for tests! Don't use in real code.
   Future<void> postInit() async {
-    hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
-    final groups =
-        groupBy<ServiceOfJournal, ServiceState>(hive.values, (e) => e.state);
-    added = groups[ServiceState.added] ?? [];
-    finished = groups[ServiceState.finished] ?? [];
-    rejected = groups[ServiceState.rejected] ?? [];
-    outDated = groups[ServiceState.outDated] ?? [];
-    await archiveOldServices();
-    notifyListeners();
+    //
+    // > read hive at date or all
+    //
+    await servicesProvider.initAsync();
+    hive = ref.read(hiveJournalBox(journalHiveName)).value!;
   }
+
+  // @override
+  // void dispose() {
+  //   if (hive.isOpen) {
+  //     () async {
+  //       await hive.compact();
+  //       // await hive.close();
+  //     }();
+  //   }
+  //
+  //   return super.dispose();
+  // }
 
   /// Return json String with [ServiceOfJournal] between dates [start] and [end]
   ///
@@ -107,7 +115,7 @@ class Journal with ChangeNotifier {
   /// The [end] date is not included,
   ///  the dates [DateTime] should be rounded to zero time.
   Future<String> export(DateTime start, DateTime end) async {
-    await save();
+    // await save();
     hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
     hiveArchive =
         await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
@@ -164,25 +172,10 @@ class Journal with ChangeNotifier {
     }
   }
 
-  Future<void> save() async {
-    hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
-    for (final s in all) {
-      try {
-        await s.save();
-        // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
-      } catch (e) {
-        log.severe('can not save $s');
-      }
-    }
-    await hive.compact();
-  }
-
   /// Add new [ServiceOfJournal] to [Journal] and call [commitAll].
   Future<bool> post(ServiceOfJournal se) async {
-    added.add(se);
     try {
-      hive = await Hive.openBox<ServiceOfJournal>(journalHiveName);
-      await hive.add(se);
+      servicesProvider.post(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(locator<S>().errorSave);
@@ -268,6 +261,7 @@ class Journal with ChangeNotifier {
     final http = workerProfile.ref
         .read(httpClientProvider(workerProfile.key.certificate));
     var ret = ServiceState.added;
+    final _httpHeaders = {'api_key': apiKey}..addAll(httpHeaders);
     try {
       Response response;
 
@@ -387,8 +381,7 @@ class Journal with ChangeNotifier {
     // delete
     //
     try {
-      toDelete([serv]);
-      notifyListeners();
+      await servicesProvider.delete(serv);
       // ignore: avoid_catching_errors
     } on RangeError {
       log.info('RangeError double delete');
@@ -512,25 +505,10 @@ class Journal with ChangeNotifier {
 
   /// Remove [ServiceOfJournal] from lists of [Journal] and from Hive.
   void toDelete(List<ServiceOfJournal> forDelete) {
-    forDelete.forEach((e) {
-      switch (e.state) {
-        case ServiceState.added:
-          added.remove(e);
-          break;
-        case ServiceState.finished:
-          finished.remove(e);
-          break;
-        case ServiceState.rejected:
-          rejected.remove(e);
-          break;
-        case ServiceState.outDated:
-          outDated.remove(e);
-          break;
-      }
-
-      e.delete();
+    forDelete.forEach((s) {
+      servicesProvider.delete(s);
+      s.delete();
     });
-    notifyListeners();
   }
 
   /// Shortcut for [moveServiceTo].
@@ -555,42 +533,12 @@ class Journal with ChangeNotifier {
     //
     // > remove
     //
-    switch (service.state) {
-      case ServiceState.added:
-        added.remove(service);
-        break;
-      case ServiceState.finished:
-        finished.remove(service);
-        break;
-      case ServiceState.rejected:
-        rejected.remove(service);
-        break;
-      case ServiceState.outDated:
-        outDated.remove(service);
-        break;
-    }
+    servicesProvider.delete(service);
     //
     // > add
     //
     final newService = service.copyWith(state: newState);
-    switch (newService.state) {
-      case ServiceState.added:
-        added.add(newService);
-        break;
-      case ServiceState.finished:
-        finished.add(newService);
-        break;
-      case ServiceState.rejected:
-        rejected.add(newService);
-        break;
-      case ServiceState.outDated:
-        outDated.add(newService);
-        break;
-    }
-    hive.add(newService);
-    newService.save();
-    service.delete();
-    notifyListeners();
+    servicesProvider.post(newService);
 
     return newService;
   }

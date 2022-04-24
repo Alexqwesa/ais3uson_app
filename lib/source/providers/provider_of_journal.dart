@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/data_classes/client_profile.dart';
 import 'package:ais3uson_app/source/data_classes/worker_profile.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers/providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:synchronized/synchronized.dart';
 
 /// Provider of [Journal] for [WorkerProfile].
 ///
@@ -28,17 +34,19 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
 //   return JournalArchive(wp, null);
 // });
 
+/// Today + archived [ServiceOfJournal] of client.
 final fullArchiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   return [
-    ...ref.read(archiveOfClient(client)),
+    ...ref.read(_archiveOfClient(client)),
     ...ref
         .read(_journalOfWorker(client.workerProfile))
         .all
         .where((element) => element.contractId == client.contractId),
   ];
 });
-final archiveOfClient =
+
+final _archiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   return JournalArchive(client.workerProfile, null)
       .all
@@ -52,7 +60,7 @@ final archiveOfClient =
 // return ref.watch(hiveJournalBox(hiveName)).value?.values.toList() ?? [];
 // });
 
-/// This Journal can write to Hive
+/// This Journal, is the only one who can write to Hive.
 final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
   return Journal(wp);
 });
@@ -62,3 +70,90 @@ final journalArchiveOfWorker =
     Provider.family<Journal, WorkerProfile>((ref, wp) {
   return JournalArchive(wp, ref.watch(archiveDate));
 });
+
+final groupsOfJournal =
+    Provider.family<Map<ServiceState, List<ServiceOfJournal>>?, Journal>(
+  (ref, journal) {
+    return groupBy<ServiceOfJournal, ServiceState>(
+      ref.watch(servicesOfJournal(journal))!,
+      (e) => e.state,
+    );
+  },
+);
+
+final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
+    List<ServiceOfJournal>?, Journal>((ref, journal) {
+  final state = ServicesListState(journal);
+  () async {
+    await state.initAsync();
+  }();
+
+  return state;
+});
+
+final _lock = Lock(reentrant: false);
+
+/// This class store list of [ServiceOfJournal],
+///
+/// read them from hive(async), and [Journal.archiveOldServices].
+/// Based on [Journal.aData] it filter list by date, or accept all if null.
+class ServicesListState extends StateNotifier<List<ServiceOfJournal>?> {
+  ServicesListState(this.journal) : super(null);
+
+  final Journal journal;
+
+  ProviderContainer get ref => journal.workerProfile.ref;
+
+  Future<void> initAsync() async {
+    //
+    // > if first load
+    //
+    await _lock.synchronized(() async {
+      if (super.state == null) {
+        // open hiveBox
+        await ref.read(hiveJournalBox(journal.journalHiveName).future);
+        super.state = [
+          ...state,
+          //
+          // > read from hive and filter if needed
+          //
+          if (journal.aData == null)
+            ...ref.read(hiveJournalBox(journal.journalHiveName)).value!.values
+          else
+            ...ref
+                .read(hiveJournalBox(journal.journalHiveName))
+                .value!
+                .values
+                .where((element) => element.provDate == journal.aData),
+        ];
+        //
+        // > archive old services
+        //
+        await journal.archiveOldServices();
+      }
+    });
+  }
+
+  Future<int> post(ServiceOfJournal s) async {
+    state = [...state, s];
+    await ref.read(hiveJournalBox(journal.journalHiveName).future);
+    final hive = ref.read(hiveJournalBox(journal.journalHiveName)).value;
+
+    return await hive?.add(s) ?? -1;
+  }
+
+  @override
+  List<ServiceOfJournal> get state {
+    return super.state ?? <ServiceOfJournal>[];
+  }
+
+  Future<void> delete(ServiceOfJournal s) async {
+    state = state.whereNot((element) => element.uid == s.uid).toList(
+          growable: false,
+        );
+    await ref.read(hiveJournalBox(journal.journalHiveName).future);
+    final hive = ref.read(hiveJournalBox(journal.journalHiveName)).value;
+
+    await hive?.delete(s.key);
+  }
+}
