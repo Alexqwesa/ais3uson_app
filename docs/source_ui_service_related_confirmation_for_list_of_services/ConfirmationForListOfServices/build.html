@@ -109,51 +109,42 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final _client = ref.watch(lastClient);
+  if (_client.services.isEmpty) {
+    return Container(); &#47;&#47; Todo:
+  }
 
-  return ChangeNotifierProvider.value(
-    value: _client.workerProfile.fullArchive,
-    child: Scaffold(
-      appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Consumer&lt;JournalArchive&gt;(
-            builder: (context, value, child) {
-              final all = _client.workerProfile.fullArchive.all;
-              if (_client.services.isEmpty) {
-                return Container(); &#47;&#47; Todo:
-              }
-              final allByGroups = groupBy&lt;ServiceOfJournal, int&gt;(
-                all,
-                (e) =&gt; e.provDate.daysSinceEpoch,
-              );
+  final all = _client.fullArchive;
+  final allByGroups = groupBy&lt;ServiceOfJournal, int&gt;(
+    all,
+    (e) =&gt; e.provDate.daysSinceEpoch,
+  );
 
-              return Wrap(
-                children: [
-                  for (final servicesAt
-                      in allByGroups.entries.map((e) =&gt; e.value))
-                    SizedBox(
-                      width: tileSize + 32,
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          TitleWidgetOfServicesGroup(
-                            service: servicesAt[0],
-                            client: _client,
-                          ),
-                          for (int index = 1;
-                              index &lt; servicesAt.length;
-                              index++)
-                            TotalServiceTile(
-                              serviceOfJournal: all[index],
-                              client: _client,
-                            ),
-                        ],
-                      ),
+  return Scaffold(
+    appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
+    body: Center(
+      child: SingleChildScrollView(
+        child: Wrap(
+          children: [
+            for (final servicesAt in allByGroups.entries.map((e) =&gt; e.value))
+              SizedBox(
+                width: tileSize + 32,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    TitleWidgetOfServicesGroup(
+                      service: servicesAt[0],
+                      client: _client,
                     ),
-                ],
-              );
-            },
-          ),
+                    for (int index = 1; index &lt; servicesAt.length; index++)
+                      TotalServiceTile(
+                        serviceOfJournal: all[index],
+                        client: _client,
+                        ref: ref,
+                      ),
+                  ],
+                ),
+              ),
+          ],
         ),
       ),
     ),

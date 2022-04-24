@@ -52,21 +52,34 @@
 
     
 <section class="desc markdown">
-  <p>A profile of worker.</p>
+  <p>A profile of worker, just model with shortcuts to various providers.</p>
 </section>
 
 
+    <section>
+      <dl class="dl-horizontal">
+
+
+
+
+
+        <dt>Annotations</dt>
+        <dd><ul class="annotation-list clazz-relationships">
+          <li>@<a href="https://pub.dev/documentation/meta/1.7.0/meta/immutable-constant.html">immutable</a></li>
+        </ul></dd>
+      </dl>
+    </section>
 
     <section class="summary offset-anchor" id="constructors">
       <h2>Constructors</h2>
 
       <dl class="constructor-summary-list">
         <dt id="WorkerProfile" class="callable">
-          <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/WorkerProfile.html">WorkerProfile</a></span><span class="signature">(<span class="parameter" id="-param-key"><span class="type-annotation"><a href="../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="-param-archiveDate">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">archiveDate</span>}</span>)</span>
+          <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/WorkerProfile.html">WorkerProfile</a></span><span class="signature">(<span class="parameter" id="-param-apiKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span>, </span><span class="parameter" id="-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> <span class="parameter-name">ref</span></span>)</span>
         </dt>
         <dd>
-          Constructor <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> with <a href="../Journal/Journal-class.html">Journal</a> by default
-or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.html">JournalArchive</a>. <a href="../source_data_classes_worker_profile/WorkerProfile/WorkerProfile.html">[...]</a>
+          Constructor <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a> with <a href="../Journal/Journal-class.html">Journal</a> by default 
+          <div class="constructor-modifier features">const</div>
         </dd>
       </dl>
     </section>
@@ -82,7 +95,7 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 </dt>
 <dd>
    
-  <div class="features">read-only</div>
+  <div class="features">final</div>
 
 </dd>
 
@@ -125,7 +138,7 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
 </dt>
 <dd>
-  Planned amount of services for client. <a href="../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">[...]</a>
+  Planned amount of services for each client. <a href="../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">[...]</a>
   <div class="features">read-only</div>
 
 </dd>
@@ -136,19 +149,8 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
 </dt>
 <dd>
-   
+  List of assigned clients 
   <div class="features">read-only</div>
-
-</dd>
-
-        <dt id="fullArchive" class="property">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/fullArchive.html">fullArchive</a></span>
-  <span class="signature">&#8596; <a href="../source_journal_archive_journal_archive/JournalArchive-class.html">JournalArchive</a></span> 
-
-</dt>
-<dd>
-   
-  <div class="features">late, final</div>
 
 </dd>
 
@@ -163,14 +165,25 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
 </dd>
 
-        <dt id="journal" class="property">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></span>
-  <span class="signature">&#8596; <a href="../Journal/Journal-class.html">Journal</a></span> 
+        <dt id="hiveName" class="property">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/hiveName.html">hiveName</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
 
 </dt>
 <dd>
    
-  <div class="features">late, final</div>
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="journal" class="property">
+  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></span>
+  <span class="signature">&#8594; <a href="../Journal/Journal-class.html">Journal</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
 
 </dd>
 
@@ -181,18 +194,18 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 </dt>
 <dd>
    
-  <div class="features">final</div>
+  <div class="features">read-only</div>
 
 </dd>
 
         <dt id="name" class="property">
   <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/name.html">name</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
 
 </dt>
 <dd>
    
-  <div class="features">late, final</div>
+  <div class="features">read-only</div>
 
 </dd>
 
@@ -224,7 +237,7 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
 </dt>
 <dd>
-  Service list should only update on empty, or unknown planned service. <a href="../source_data_classes_worker_profile/WorkerProfile/services.html">[...]</a>
+  List of services. <a href="../source_data_classes_worker_profile/WorkerProfile/services.html">[...]</a>
   <div class="features">read-only</div>
 
 </dd>
@@ -281,32 +294,6 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
 </dd>
 
-        <dt id="copyWith" class="callable">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/copyWith.html">copyWith</a></span><span class="signature">(<wbr><span class="parameter" id="copyWith-param-archiveDate">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">archiveDate</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-   
-  
-
-</dd>
-
-        <dt id="dispose" class="callable">
-  <span class="name"><a href="../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-   
-  
-
-</dd>
-
         <dt id="noSuchMethod" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
@@ -328,7 +315,7 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
 </dt>
 <dd>
-  Async init actions such as: <a href="../source_data_classes_worker_profile/WorkerProfile/postInit.html">[...]</a>
+  Only for tests! Don't use in real code. <a href="../source_data_classes_worker_profile/WorkerProfile/postInit.html">[...]</a>
   
 
 </dd>
@@ -458,8 +445,8 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/apiUrlServices.html">apiUrlServices</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></li>
-    <li><a href="../source_data_classes_worker_profile/WorkerProfile/fullArchive.html">fullArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../source_data_classes_worker_profile/WorkerProfile/hiveName.html">hiveName</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/key.html">key</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/name.html">name</a></li>
@@ -472,8 +459,6 @@ or with <a href="../source_journal_archive_journal_archive/JournalArchive-class.
 
     <li class="section-title"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html#instance-methods">Methods</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
-    <li><a href="../source_data_classes_worker_profile/WorkerProfile/copyWith.html">copyWith</a></li>
-    <li><a href="../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></li>
     <li><a href="../source_data_classes_worker_profile/WorkerProfile/syncClients.html">syncClients</a></li>

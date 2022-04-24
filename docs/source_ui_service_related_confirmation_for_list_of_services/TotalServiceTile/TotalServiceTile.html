@@ -52,6 +52,7 @@
     <section class="multi-line-signature">
       <span class="name ">TotalServiceTile</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-serviceOfJournal">{<span>required</span> <span class="type-annotation"><a href="../../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">serviceOfJournal</span>, </span></li>
 <li><span class="parameter" id="-param-client"><span>required</span> <span class="type-annotation"><a href="../../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span> <span class="parameter-name">client</span>, </span></li>
+<li><span class="parameter" id="-param-ref"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span>, </span></li>
 <li><span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>}</span></li>
 </ol>)
     </section>
@@ -65,6 +66,7 @@
   <pre class="language-dart"><code class="language-dart">TotalServiceTile({
   required this.serviceOfJournal,
   required this.client,
+  required this.ref,
   Key? key,
 }) : super(key: key) {
   try {
@@ -74,7 +76,10 @@
                 .firstWhere(
                   (element) =&gt; element.servId == serviceOfJournal.servId,
                 )
-                .copyWith(newJournal: client.workerProfile.fullArchive)
+                .copyWith(
+                  newJournal:
+                      ref.watch(journalArchiveOfWorker(client.workerProfile)),
+                )
             : client.services.firstWhere(
                 (element) =&gt; element.servId == serviceOfJournal.servId,
               );
@@ -82,7 +87,7 @@
   } on StateError catch (e) {
     if (e.message == &#39;No element&#39;) {
       service = client.services.first.copyWith(
-        newJournal: client.workerProfile.fullArchive,
+        newJournal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
         serv: client.services.first.service.copyWith(
           image: &#39;not-found.png&#39;,
           short_text: locator&lt;S&gt;().errorService,
@@ -125,13 +130,15 @@
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/client.html">client</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/ref.html">ref</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/service.html">service</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/serviceOfJournal.html">serviceOfJournal</a></li>
 
     <li class="section-title"><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
