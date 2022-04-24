@@ -108,12 +108,12 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final _client = ref.watch(lastClient);
-  if (_client.services.isEmpty) {
+  final client = ref.watch(lastClient);
+  if (client.services.isEmpty) {
     return Container(); &#47;&#47; Todo:
   }
 
-  final all = _client.fullArchive;
+  final all = client.fullArchive;
   final allByGroups = groupBy&lt;ServiceOfJournal, int&gt;(
     all,
     (e) =&gt; e.provDate.daysSinceEpoch,
@@ -133,12 +133,12 @@ Widget build(BuildContext context, WidgetRef ref) {
                   children: [
                     TitleWidgetOfServicesGroup(
                       service: servicesAt[0],
-                      client: _client,
+                      client: client,
                     ),
                     for (int index = 1; index &lt; servicesAt.length; index++)
                       TotalServiceTile(
                         serviceOfJournal: all[index],
-                        client: _client,
+                        client: client,
                         ref: ref,
                       ),
                   ],

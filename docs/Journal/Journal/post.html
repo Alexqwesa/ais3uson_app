@@ -70,7 +70,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; post(ServiceOfJournal se) async {
   try {
-    servicesProvider.post(se);
+    await servicesProvider.post(se);
     &#47;&#47; ignore: avoid_catching_errors, avoid_catches_without_on_clauses
   } catch (e) {
     showErrorNotification(locator&lt;S&gt;().errorSave);
