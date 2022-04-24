@@ -115,17 +115,9 @@ Widget build(BuildContext context) {
         scale: 2.5,
         child: Transform.rotate(
           angle: 3.14,
-          child: ChangeNotifierProvider&lt;ClientService&gt;.value(
-            value: widget.service,
-            child: Consumer&lt;ClientService&gt;(
-              builder: (context, data, child) {
-                return Icon(
-                  Icons.publish_rounded,
-                  color:
-                      widget.service.deleteAllowed ? Colors.red : Colors.grey,
-                );
-              },
-            ),
+          child: Icon(
+            Icons.publish_rounded,
+            color: widget.service.deleteAllowed ? Colors.red : Colors.grey,
           ),
         ),
       ),

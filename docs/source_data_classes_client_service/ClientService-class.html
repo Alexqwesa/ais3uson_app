@@ -59,7 +59,6 @@
 <li><a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a>,</li>
 <li><a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a>...</li>
 </ul>
-<p>It only store <a href="../source_data_classes_proof_list/ProofList-class.html">ProofList</a>.</p>
 </section>
 
 
@@ -67,13 +66,13 @@
       <dl class="dl-horizontal">
 
 
-        <dt>Mixed in types</dt>
-        <dd><ul class="comma-separated clazz-relationships">
-          <li><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html">ChangeNotifier</a></li>
+
+
+
+        <dt>Annotations</dt>
+        <dd><ul class="annotation-list clazz-relationships">
+          <li>@<a href="https://pub.dev/documentation/meta/1.7.0/meta/immutable-constant.html">immutable</a></li>
         </ul></dd>
-
-
-
       </dl>
     </section>
 
@@ -82,10 +81,11 @@
 
       <dl class="constructor-summary-list">
         <dt id="ClientService" class="callable">
-          <span class="name"><a href="../source_data_classes_client_service/ClientService/ClientService.html">ClientService</a></span><span class="signature">(<span class="parameter" id="-param-journal">{<span>required</span> <span class="type-annotation"><a href="../Journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span>, </span><span class="parameter" id="-param-client"><span>required</span> <span class="type-annotation"><a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span> <span class="parameter-name">client</span>, </span><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>}</span>)</span>
+          <span class="name"><a href="../source_data_classes_client_service/ClientService/ClientService.html">ClientService</a></span><span class="signature">(<span class="parameter" id="-param-journal">{<span>required</span> <span class="type-annotation"><a href="../Journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span>, </span><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>}</span>)</span>
         </dt>
         <dd>
            
+          <div class="constructor-modifier features">const</div>
         </dd>
       </dl>
     </section>
@@ -127,17 +127,6 @@
 
 </dd>
 
-        <dt id="client" class="property">
-  <span class="name"><a href="../source_data_classes_client_service/ClientService/client.html">client</a></span>
-  <span class="signature">&#8594; <a href="../source_data_classes_client_profile/ClientProfile-class.html">ClientProfile</a></span> 
-
-</dt>
-<dd>
-   
-  <div class="features">final</div>
-
-</dd>
-
         <dt id="contractId" class="property">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/contractId.html">contractId</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
@@ -171,17 +160,6 @@
 
 </dd>
 
-        <dt id="doneStaleError" class="property">
-  <span class="name"><a href="../source_data_classes_client_service/ClientService/doneStaleError.html">doneStaleError</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read-only</div>
-
-</dd>
-
         <dt id="filled" class="property">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/filled.html">filled</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
@@ -201,17 +179,6 @@
 <dd class="inherited">
   The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
   <div class="features">read-only, inherited</div>
-
-</dd>
-
-        <dt id="hasListeners" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
-
-</dt>
-<dd class="inherited">
-  Whether any listeners are currently registered. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, read-only, inherited</div>
 
 </dd>
 
@@ -243,7 +210,7 @@
 
 </dt>
 <dd>
-  Reference to existed journal 
+  Reference to existing <a href="../Journal/Journal-class.html">Journal</a>. 
   <div class="features">final</div>
 
 </dd>
@@ -251,6 +218,17 @@
         <dt id="left" class="property">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/left.html">left</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="listDoneProgressError" class="property">
+  <span class="name"><a href="../source_data_classes_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -276,7 +254,7 @@
 
 </dt>
 <dd>
-   
+  Reference to existing <a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a>. 
   <div class="features">final</div>
 
 </dd>
@@ -320,7 +298,7 @@
 
 </dt>
 <dd>
-   
+  Reference to existing <a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a>. 
   <div class="features">final</div>
 
 </dd>
@@ -421,19 +399,6 @@
 
 </dd>
 
-        <dt id="addListener" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></span><span class="signature">(<wbr><span class="parameter" id="addListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Register a closure to be called when the object changes. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">[...]</a>
-  <div class="features">inherited</div>
-
-</dd>
-
         <dt id="addProof" class="callable">
   <span class="name"><a href="../source_data_classes_client_service/ClientService/addProof.html">addProof</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
@@ -473,22 +438,6 @@
 
 </dd>
 
-        <dt id="dispose" class="callable">
-  <span class="name"><a href="../source_data_classes_client_service/ClientService/dispose.html">dispose</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  Discards any resources used by the object. After this is called, the
-object is not in a usable state and should be discarded (calls to
-<a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a> and <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a> will throw after the object is
-disposed). <a href="../source_data_classes_client_service/ClientService/dispose.html">[...]</a>
-  <div class="features">override</div>
-
-</dd>
-
         <dt id="noSuchMethod" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
@@ -498,33 +447,6 @@ disposed). <a href="../source_data_classes_client_service/ClientService/dispose.
 </dt>
 <dd class="inherited">
   Invoked when a non-existent method or property is accessed. <a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">[...]</a>
-  <div class="features">inherited</div>
-
-</dd>
-
-        <dt id="notifyListeners" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Call all the registered listeners. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, @<a href="https://pub.dev/documentation/meta/1.7.0/meta/visibleForTesting-constant.html">visibleForTesting</a>, inherited</div>
-
-</dd>
-
-        <dt id="removeListener" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></span><span class="signature">(<wbr><span class="parameter" id="removeListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Remove a previously registered closure from the list of closures that are
-notified when the object changes. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">[...]</a>
   <div class="features">inherited</div>
 
 </dd>
@@ -612,18 +534,16 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li><a href="../source_data_classes_client_service/ClientService/addAllowed.html">addAllowed</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/added.html">added</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/apiKey.html">apiKey</a></li>
-    <li><a href="../source_data_classes_client_service/ClientService/client.html">client</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/contractId.html">contractId</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/deleteAllowed.html">deleteAllowed</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/done.html">done</a></li>
-    <li><a href="../source_data_classes_client_service/ClientService/doneStaleError.html">doneStaleError</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/filled.html">filled</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/image.html">image</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/inJournal.html">inJournal</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/journal.html">journal</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/left.html">left</a></li>
+    <li><a href="../source_data_classes_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/plan.html">plan</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/planned.html">planned</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/proofList.html">proofList</a></li>
@@ -640,14 +560,10 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
 
     <li class="section-title"><a href="../source_data_classes_client_service/ClientService-class.html#instance-methods">Methods</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/add.html">add</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/addProof.html">addProof</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/copyWith.html">copyWith</a></li>
     <li><a href="../source_data_classes_client_service/ClientService/delete.html">delete</a></li>
-    <li><a href="../source_data_classes_client_service/ClientService/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../source_data_classes_client_service/ClientService-class.html#operators">Operators</a></li>

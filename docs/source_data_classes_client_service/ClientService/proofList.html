@@ -65,15 +65,8 @@
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">ProofList get proofList {
-  if (_proofList.inited) {
-    return _proofList;
-  } else {
-    _proofList.crawler();
-
-    return _proofList;
-  }
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">ProofList get proofList =&gt;
+    journal.workerProfile.ref.read(proofsOfServices(this));</code></pre>
 </section>
 
 </section>
@@ -109,18 +102,16 @@
     <li><a href="../../source_data_classes_client_service/ClientService/addAllowed.html">addAllowed</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/added.html">added</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/apiKey.html">apiKey</a></li>
-    <li><a href="../../source_data_classes_client_service/ClientService/client.html">client</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/contractId.html">contractId</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/deleteAllowed.html">deleteAllowed</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/done.html">done</a></li>
-    <li><a href="../../source_data_classes_client_service/ClientService/doneStaleError.html">doneStaleError</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/filled.html">filled</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/image.html">image</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/inJournal.html">inJournal</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/journal.html">journal</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/left.html">left</a></li>
+    <li><a href="../../source_data_classes_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/plan.html">plan</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/planned.html">planned</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/proofList.html">proofList</a></li>
@@ -137,14 +128,10 @@
 
     <li class="section-title"><a href="../../source_data_classes_client_service/ClientService-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/add.html">add</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/addProof.html">addProof</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/copyWith.html">copyWith</a></li>
     <li><a href="../../source_data_classes_client_service/ClientService/delete.html">delete</a></li>
-    <li><a href="../../source_data_classes_client_service/ClientService/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../../source_data_classes_client_service/ClientService-class.html#operators">Operators</a></li>

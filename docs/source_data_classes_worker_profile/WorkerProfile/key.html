@@ -49,20 +49,26 @@
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
-        <section class="multi-line-signature">
-          <a href="../../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a>
-          <span class="name ">key</span>
-          <div class="features">final</div>
-
-        </section>
-        
 
         
+<section id="getter">
+
+<section class="multi-line-signature">
+  <span class="returntype"><a href="../../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a></span>
+  <span class="name ">key</span>
+  
+
+</section>
+
+
+
+
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final WorkerKey key;
+  <pre class="language-dart"><code class="language-dart">WorkerKey get key =&gt;
+    ref.read(innerWorkerKeys).firstWhere((e) =&gt; e.apiKey == apiKey);</code></pre>
+</section>
 
-</code></pre>
 </section>
 
 
@@ -99,8 +105,8 @@
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/apiUrlServices.html">apiUrlServices</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/fullArchive.html">fullArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/hiveName.html">hiveName</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/key.html">key</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/name.html">name</a></li>
@@ -113,8 +119,6 @@
 
     <li class="section-title"><a href="../../source_data_classes_worker_profile/WorkerProfile-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/copyWith.html">copyWith</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncClients.html">syncClients</a></li>

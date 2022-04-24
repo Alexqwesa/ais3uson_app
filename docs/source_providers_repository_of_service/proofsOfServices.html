@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the archiveDate property from the providers_of_settings library, for the Dart programming language.">
-  <title>archiveDate property - providers_of_settings library - Dart API</title>
+  <meta name="description" content="API docs for the proofsOfServices property from the repository_of_service library, for the Dart programming language.">
+  <title>proofsOfServices property - repository_of_service library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
-    <li><a href="../source_providers_providers_of_settings/source_providers_providers_of_settings-library.html">providers_of_settings</a></li>
-    <li class="self-crumb">archiveDate property</li>
+    <li><a href="../source_providers_repository_of_service/source_providers_repository_of_service-library.html">repository_of_service</a></li>
+    <li class="self-crumb">proofsOfServices property</li>
   </ol>
-  <div class="self-name">archiveDate</div>
+  <div class="self-name">proofsOfServices</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,29 +44,40 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-top-level-property">archiveDate</span> top-level property 
+<h1><span class="kind-top-level-property">proofsOfServices</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
     <span class="category providers cp-4 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>&gt;</span>
-          <span class="name ">archiveDate</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_classes_proof_list/ProofList-class.html">ProofList</a></span>, <span class="type-parameter"><a href="../source_data_classes_client_service/ClientService-class.html">ClientService</a></span>&gt;</span>
+          <span class="name ">proofsOfServices</span>
           <div class="features">final</div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Provider of setting - archiveDate. Inited with null, doesn't save its value.</p>
+  <p>Create ProofList for <code>ClientService</code>.</p>
 <p>{@category Providers}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final archiveDate = StateProvider&lt;DateTime?&gt;((ref) {
-  return null;
+  <pre class="language-dart"><code class="language-dart">final proofsOfServices =
+    Provider.family&lt;ProofList, ClientService&gt;((ref, service) {
+  return ProofList(
+    service.workerDepId,
+    service.contractId,
+    standardFormat.format(DateTime.now()),
+    service.servId,
+    client: service.journal.workerProfile.clients
+        .firstWhere((element) =&gt; element.contractId == service.contractId)
+        .name,
+    worker: service.journal.workerProfile.name,
+    service: service.shortText,
+  );
 });</code></pre>
 </section>
 
@@ -83,24 +94,20 @@
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../source_providers_providers_of_settings/source_providers_providers_of_settings-library.html">providers_of_settings</a></li>
-  <li class="self-crumb">archiveDate property</li>
+  <li><a href="../source_providers_repository_of_service/source_providers_repository_of_service-library.html">repository_of_service</a></li>
+  <li class="self-crumb">proofsOfServices property</li>
 </ol>
 
 
-    <h5>providers_of_settings library</h5>
+    <h5>repository_of_service library</h5>
     <ol>
 
 
 
 
-  <li class="section-title"><a href="../source_providers_providers_of_settings/source_providers_providers_of_settings-library.html#properties">Properties</a></li>
-  <li><a href="../source_providers_providers_of_settings/archiveDate.html">archiveDate</a></li>
-  <li><a href="../source_providers_providers_of_settings/hiveArchiveLimit.html">hiveArchiveLimit</a></li>
-  <li><a href="../source_providers_providers_of_settings/serviceViewProvider.html">serviceViewProvider</a></li>
+  <li class="section-title"><a href="../source_providers_repository_of_service/source_providers_repository_of_service-library.html#properties">Properties</a></li>
+  <li><a href="../source_providers_repository_of_service/proofsOfServices.html">proofsOfServices</a></li>
 
-  <li class="section-title"><a href="../source_providers_providers_of_settings/source_providers_providers_of_settings-library.html#functions">Functions</a></li>
-  <li><a href="../source_providers_providers_of_settings/serviceCardSize.html">serviceCardSize</a></li>
 
 
 

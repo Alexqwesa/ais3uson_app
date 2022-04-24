@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the archiveWorkerProfiles property from the providers_of_lists_of_workers library, for the Dart programming language.">
-  <title>archiveWorkerProfiles property - providers_of_lists_of_workers library - Dart API</title>
+  <meta name="description" content="API docs for the innerWorkerKeys property from the providers_of_lists_of_workers library, for the Dart programming language.">
+  <title>innerWorkerKeys property - providers_of_lists_of_workers library - Dart API</title>
 
 
   
@@ -31,9 +31,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../source_providers_providers_of_lists_of_workers/source_providers_providers_of_lists_of_workers-library.html">providers_of_lists_of_workers</a></li>
-    <li class="self-crumb">archiveWorkerProfiles property</li>
+    <li class="self-crumb">innerWorkerKeys property</li>
   </ol>
-  <div class="self-name">archiveWorkerProfiles</div>
+  <div class="self-name">innerWorkerKeys</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,32 +44,32 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-top-level-property">archiveWorkerProfiles</span> top-level property 
+<h1><span class="kind-top-level-property">innerWorkerKeys</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
     <span class="category providers cp-4 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_classes_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span>
-          <span class="name ">archiveWorkerProfiles</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_WorkerKeysState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_client_server_api_worker_key/WorkerKey-class.html">WorkerKey</a></span>&gt;</span></span>&gt;</span>
+          <span class="name ">innerWorkerKeys</span>
           <div class="features">final</div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Simple provider for archive view, based on <a href="../source_providers_providers_of_lists_of_workers/workerProfiles.html">workerProfiles</a>.</p>
+  <p>Provider of user authentication data,</p>
+<p>Read/save from/to SharedPreferences, had default value [].
+Depend on <a href="../main/locator.html">locator</a><sharedpreferences>.</sharedpreferences></p>
 <p>{@category Providers}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final archiveWorkerProfiles = StateProvider&lt;List&lt;WorkerProfile&gt;&gt;((ref) {
-  return ref
-      .watch(workerProfiles)
-      .map((e) =&gt; e.copyWith(archiveDate: ref.watch(archiveDate)))
-      .toList();
+  <pre class="language-dart"><code class="language-dart">final innerWorkerKeys =
+    StateNotifierProvider&lt;_WorkerKeysState, List&lt;WorkerKey&gt;&gt;((ref) {
+  return _WorkerKeysState();
 });</code></pre>
 </section>
 
@@ -87,7 +87,7 @@
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
   <li><a href="../source_providers_providers_of_lists_of_workers/source_providers_providers_of_lists_of_workers-library.html">providers_of_lists_of_workers</a></li>
-  <li class="self-crumb">archiveWorkerProfiles property</li>
+  <li class="self-crumb">innerWorkerKeys property</li>
 </ol>
 
 
@@ -98,7 +98,7 @@
 
 
   <li class="section-title"><a href="../source_providers_providers_of_lists_of_workers/source_providers_providers_of_lists_of_workers-library.html#properties">Properties</a></li>
-  <li><a href="../source_providers_providers_of_lists_of_workers/archiveWorkerProfiles.html">archiveWorkerProfiles</a></li>
+  <li><a href="../source_providers_providers_of_lists_of_workers/innerWorkerKeys.html">innerWorkerKeys</a></li>
   <li><a href="../source_providers_providers_of_lists_of_workers/workerProfiles.html">workerProfiles</a></li>
 
 

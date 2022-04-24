@@ -60,12 +60,11 @@
     </section>
     
 <section class="desc markdown">
-  <p>Async init actions such as:</p>
+  <p>Only for tests! Don't use in real code.</p>
+<p>Async init actions such as:</p>
 <ul>
 <li>postInit <a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a> (instance of <a href="../../Journal/Journal-class.html">Journal</a> class),</li>
-<li>read <a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a> from hive if empty,</li>
-<li>check last sync dates and sync <a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a>,</li>
-<li>and call notifyListeners.</li>
+<li>read <a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_classes_worker_profile/WorkerProfile/services.html">services</a> from hive if empty.</li>
 </ul>
 </section>
 
@@ -74,13 +73,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; postInit() async {
-  &#47;&#47; Todo: rework it
   await journal.postInit();
-  &#47;&#47;
-  &#47;&#47; &gt; sync data on load
-  &#47;&#47;
-  &#47;&#47; Todo: rework it
-  &#47;&#47; real widgets didn&#39;t need this code, but it is used by tests
   await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
   await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
   await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();
@@ -121,8 +114,8 @@
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/apiUrlServices.html">apiUrlServices</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/clients.html">clients</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/fullArchive.html">fullArchive</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/hiveName.html">hiveName</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/journal.html">journal</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/key.html">key</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/name.html">name</a></li>
@@ -135,8 +128,6 @@
 
     <li class="section-title"><a href="../../source_data_classes_worker_profile/WorkerProfile-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/copyWith.html">copyWith</a></li>
-    <li><a href="../../source_data_classes_worker_profile/WorkerProfile/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/postInit.html">postInit</a></li>
     <li><a href="../../source_data_classes_worker_profile/WorkerProfile/syncClients.html">syncClients</a></li>
