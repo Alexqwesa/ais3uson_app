@@ -95,7 +95,7 @@
       &#39;${prefix}img_${path.basename(xFile.path)}&#39;,
     ),
   );
-  unawaited(tmpImgFile.delete());
+  tmpImgFile.deleteSync();
   &#47;&#47;
   &#47;&#47; &gt; update list
   &#47;&#47;
