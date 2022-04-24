@@ -1,11 +1,13 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///
 /// It get data from [ClientService.journal]
-/// via [ClientService.listDoneProgressError], these numbers mean:
+/// via [ref.watch(listDoneProgressErrorOfService(clientService))],
+/// these numbers mean:
 /// - done - finished and outDated,
 /// - progress - added,
 /// - error - rejected.
@@ -42,7 +44,8 @@ class ServiceCardState extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listDoneProgressError = clientService.listDoneProgressError;
+    final listDoneProgressError =
+        ref.watch(listDoneProgressErrorOfService(clientService));
 
     return SizedBox.expand(
       child: FittedBox(

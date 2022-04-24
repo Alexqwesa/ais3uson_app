@@ -36,7 +36,7 @@ class ClientService {
   final ClientPlan planned;
 
   //
-  // > shortcuts for json classes
+  // > shortcuts for underline classes
   //
   String get apiKey => journal.apiKey;
 
@@ -63,10 +63,10 @@ class ClientService {
   //
   // > journal getters
   //
-  Iterable<ServiceOfJournal> get servicesInJournal => journal.all.where(
-        (element) =>
-            element.contractId == contractId && element.servId == service.id,
-      );
+  // Iterable<ServiceOfJournal> get servicesInJournal => journal.all.where(
+  //       (element) =>
+  //           element.contractId == contractId && element.servId == service.id,
+  //     );
 
   int get added => journal.added
       .where(
@@ -91,47 +91,32 @@ class ClientService {
           )
           .length;
 
-  int get rejected => journal.rejected
+  // int get rejected => journal.rejected
+  //     .where(
+  //       (element) =>
+  //           element.contractId == contractId && element.servId == service.id,
+  //     )
+  //     .length;
+  //
+  int get all => journal.all
       .where(
         (element) =>
             element.contractId == contractId && element.servId == service.id,
       )
       .length;
 
-  int get inJournal => journal.all
-      .where(
-        (element) =>
-            element.contractId == contractId && element.servId == service.id,
-      )
-      .length;
-
-  int get left => plan - filled - done - added;
+  int get left => plan - filled - done - added  ;
 
   bool get addAllowed => left > 0;
 
-  bool get deleteAllowed => inJournal > 0;
+  bool get deleteAllowed => all > 0;
 
-  List<int> get listDoneProgressError => <int>[done, added, rejected];
+  @Deprecated('Better use ref.watch of listDoneProgressErrorOfService')
+  List<int> get listDoneProgressError =>
+      journal.ref.read(listDoneProgressErrorOfService(this));
 
   ProofList get proofList =>
       journal.workerProfile.ref.read(proofsOfServices(this));
-
-  // {
-  //   if (_proofList.inited) {
-  //     return _proofList;
-  //   } else {
-  //     _proofList.crawler();
-  //
-  //     return _proofList;
-  //   }
-  // }
-
-  // @override
-  // void dispose() {
-  //   journal.removeListener(notifyListeners);
-  //
-  //   return super.dispose();
-  // }
 
   void addProof() {
     proofList.addNewGroup();
