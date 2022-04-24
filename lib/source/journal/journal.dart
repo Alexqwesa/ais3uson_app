@@ -66,7 +66,6 @@ class Journal with ChangeNotifier {
 
   List<ServiceOfJournal> get all => ref.read(servicesOfJournal(this)) ?? [];
 
-  @immutable
   List<ServiceOfJournal> get added =>
       ref.read(groupsOfJournal(this))?[ServiceState.added] ?? [];
 
@@ -175,7 +174,7 @@ class Journal with ChangeNotifier {
   /// Add new [ServiceOfJournal] to [Journal] and call [commitAll].
   Future<bool> post(ServiceOfJournal se) async {
     try {
-      servicesProvider.post(se);
+      await servicesProvider.post(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(locator<S>().errorSave);
@@ -261,16 +260,16 @@ class Journal with ChangeNotifier {
     final http = workerProfile.ref
         .read(httpClientProvider(workerProfile.key.certificate));
     var ret = ServiceState.added;
-    final _httpHeaders = {'api_key': apiKey}..addAll(httpHeaders);
+    final fullHeaders = {'api_key': apiKey}..addAll(httpHeaders);
     try {
       Response response;
 
       if (urlAddress.endsWith('/add')) {
-        response = await http.post(url, headers: _httpHeaders, body: body);
+        response = await http.post(url, headers: fullHeaders, body: body);
       } else if (urlAddress.endsWith('/delete')) {
-        response = await http.delete(url, headers: _httpHeaders, body: body);
+        response = await http.delete(url, headers: fullHeaders, body: body);
       } else {
-        response = await http.get(url, headers: _httpHeaders);
+        response = await http.get(url, headers: fullHeaders);
       }
       log.info(
         '$url response.statusCode = ${response.statusCode}\n\n '

@@ -22,8 +22,6 @@ final workerProfiles =
 });
 
 class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
-  final StateNotifierProviderRef ref;
-
   _WorkerProfilesState(this.ref) // , List<WorkerKey> wKeys
       : super(<WorkerProfile>[]) {
     sync(ref.read(innerWorkerKeys));
@@ -31,6 +29,8 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
       sync((next ?? <WorkerKey>[]) as List<WorkerKey>);
     });
   }
+
+  final StateNotifierProviderRef ref;
 
   void sync(List<WorkerKey> wKeys) {
     final newState = <WorkerProfile>[];
@@ -81,6 +81,17 @@ final innerWorkerKeys =
 });
 
 class _WorkerKeysState extends StateNotifier<List<WorkerKey>> {
+  _WorkerKeysState()
+      : super(
+          // ignore: avoid_dynamic_calls
+          (jsonDecode(locator<SharedPreferences>().getString(name) ?? '[]')
+                  .map<WorkerKey>(
+            // ignore: avoid_annotating_with_dynamic
+            (dynamic e) => WorkerKey.fromJson(e as Map<String, dynamic>),
+          ) as Iterable<WorkerKey>)
+              .toList(),
+        );
+
   static const name = 'WorkerKeys2';
 
   @override
@@ -99,17 +110,6 @@ class _WorkerKeysState extends StateNotifier<List<WorkerKey>> {
       }
     });
   }
-
-  _WorkerKeysState()
-      : super(
-          // ignore: avoid_dynamic_calls
-          (jsonDecode(locator<SharedPreferences>().getString(name) ?? '[]')
-                  .map<WorkerKey>(
-            // ignore: avoid_annotating_with_dynamic
-            (dynamic e) => WorkerKey.fromJson(e as Map<String, dynamic>),
-          ) as Iterable<WorkerKey>)
-              .toList(),
-        );
 
   /// Add [WorkerKey].
   ///

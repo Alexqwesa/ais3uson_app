@@ -370,11 +370,12 @@ void main() {
       final client2 = wp.clients[2];
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
-      when(ExtMock(ref.read(httpClientProvider(wKey.certificate))
-                  as mock.MockClient)
-              .testReqPostAdd)
-          .thenAnswer((_) async {
-        throw 'my error';
+      when(
+        ExtMock(
+          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient,
+        ).testReqPostAdd,
+      ).thenAnswer((_) async {
+        throw StateError('timeout as expected');
       });
       await service3.add();
       await service3.add();

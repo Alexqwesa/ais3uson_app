@@ -128,7 +128,7 @@ void main() {
       try {
         await tester.pumpWidget(
           Builder(
-            builder: (BuildContext context) {
+            builder: (context) {
               return ProviderScope(
                 parent: ref,
                 child: localizedMaterialApp(
@@ -138,6 +138,7 @@ void main() {
             },
           ),
         );
+        // ignore: avoid_catches_without_on_clauses
       } catch (e) {
         // developer.log(e);
       }

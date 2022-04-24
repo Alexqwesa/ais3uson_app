@@ -9,8 +9,8 @@
 # packages, and plugins designed to encourage good coding practices.
 #include: package:lint/analysis_options.yaml
 #include: package:flutter_lints/flutter.yaml
-#include: package:surf_lint_rules/analysis_options.yaml
-include: package:very_good_analysis/analysis_options.yaml
+include: package:surf_lint_rules/analysis_options.yaml
+#include: package:very_good_analysis/analysis_options.yaml
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -28,6 +28,7 @@ linter:
     flutter_style_todos: false
     avoid_function_literals_in_foreach_calls: false
     public_member_api_docs: false
+
   # avoid_print: false  # Uncomment to disable the `avoid_print` rule
   # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
@@ -54,7 +55,7 @@ analyzer:
 dart_code_metrics:
   anti-patterns:
     - long-method
-    - long-parameter-list
+    - long-parameter-lists
   metrics:
     cyclomatic-complexity: 20
     maximum-nesting-level: 5
@@ -69,6 +70,16 @@ dart_code_metrics:
     - prefer-trailing-comma
     - prefer-conditional-expressions
     - no-equal-then-else
+    - member-ordering-extended:
+        alphabetize: false
+        order:
+          - constructors
+          - factory-constructors
+          - public-static-fields
+          - public-fields
+          - getters
+          - setters
+          - private-field
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

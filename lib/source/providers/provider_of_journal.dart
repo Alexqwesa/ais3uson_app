@@ -29,11 +29,6 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
       : ref.watch(_journalOfWorker(wp));
 });
 
-// final fullArchiveOfWorker = Provider.family<Journal, WorkerProfile>(
-// (ref, wp) {
-//   return JournalArchive(wp, null);
-// });
-
 /// Today + archived [ServiceOfJournal] of client.
 final fullArchiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
@@ -53,12 +48,6 @@ final _archiveOfClient =
       .where((element) => element.contractId == client.contractId)
       .toList();
 });
-
-/// Helper,
-// final _loadListServiceOfJournal =
-//     Provider.family<List<ServiceOfJournal>, String>((ref, hiveName) {
-// return ref.watch(hiveJournalBox(hiveName)).value?.values.toList() ?? [];
-// });
 
 /// This Journal, is the only one who can write to Hive.
 final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
@@ -91,7 +80,7 @@ final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
   return state;
 });
 
-final _lock = Lock(reentrant: false);
+final _lock = Lock();
 
 /// This class store list of [ServiceOfJournal],
 ///

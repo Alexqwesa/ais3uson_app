@@ -74,10 +74,10 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
       //
       // > main - call server
       //
-      final _workerProfile =
+      final workerProfile =
           read(workerProfiles).firstWhereOrNull((e) => e.apiKey == apiKey);
       final client = read<http.Client>(
-        httpClientProvider(_workerProfile?.key.certificate),
+        httpClientProvider(workerProfile?.key.certificate),
       );
       final response = await client.get(url, headers: headers);
       //

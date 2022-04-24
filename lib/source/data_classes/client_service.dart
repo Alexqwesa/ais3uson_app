@@ -153,10 +153,12 @@ class ClientService {
   }
 
   Future<void> delete() async {
-    await journal.delete(uuid: journal.getUuidOfLastService(
-      servId: planned.servId,
-      contractId: planned.contractId,
-    ));
+    await journal.delete(
+      uuid: journal.getUuidOfLastService(
+        servId: planned.servId,
+        contractId: planned.contractId,
+      ),
+    );
   }
 
   ClientService copyWith({

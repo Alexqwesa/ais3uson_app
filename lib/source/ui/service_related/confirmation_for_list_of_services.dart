@@ -22,12 +22,12 @@ class ConfirmationForListOfServices extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _client = ref.watch(lastClient);
-    if (_client.services.isEmpty) {
+    final client = ref.watch(lastClient);
+    if (client.services.isEmpty) {
       return Container(); // Todo:
     }
 
-    final all = _client.fullArchive;
+    final all = client.fullArchive;
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,
       (e) => e.provDate.daysSinceEpoch,
@@ -47,12 +47,12 @@ class ConfirmationForListOfServices extends ConsumerWidget {
                     children: [
                       TitleWidgetOfServicesGroup(
                         service: servicesAt[0],
-                        client: _client,
+                        client: client,
                       ),
                       for (int index = 1; index < servicesAt.length; index++)
                         TotalServiceTile(
                           serviceOfJournal: all[index],
-                          client: _client,
+                          client: client,
                           ref: ref,
                         ),
                     ],
@@ -110,16 +110,10 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
 }
 
 class TotalServiceTile extends ConsumerWidget {
-  final ServiceOfJournal serviceOfJournal;
-  final ClientProfile client;
-  late final ClientService service;
-  late final WidgetRef ref;
-
-  // ignore: sort_constructors_first
   TotalServiceTile({
-    required this.serviceOfJournal,
-    required this.client,
-    required this.ref,
+    required ServiceOfJournal serviceOfJournal,
+    required ClientProfile client,
+    required WidgetRef ref,
     Key? key,
   }) : super(key: key) {
     try {
@@ -150,6 +144,9 @@ class TotalServiceTile extends ConsumerWidget {
       }
     }
   }
+
+  /// Core variable
+  late final ClientService service;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

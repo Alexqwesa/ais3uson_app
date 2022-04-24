@@ -121,7 +121,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
   ) async {
     final archiveDates = await ref.read(datesInArchive.future);
 
-    if (archiveDates?.isEmpty != false) {
+    if (archiveDates?.isEmpty ?? false) {
       ref.read(isArchive.notifier).state = false;
 
       return;

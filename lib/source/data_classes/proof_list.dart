@@ -151,16 +151,16 @@ class ProofList with ChangeNotifier {
     //
     // > move file to group path
     //
-    final _imgFile = File.fromRawPath(
+    final tmpImgFile = File.fromRawPath(
       Uint8List.fromList(utf8.encode(xFile.path)),
     );
-    final imgFile = _imgFile.copySync(
+    final imgFile = tmpImgFile.copySync(
       path.join(
         newPath.path,
         '${prefix}img_${path.basename(xFile.path)}',
       ),
     );
-    unawaited(_imgFile.delete());
+    unawaited(tmpImgFile.delete());
     //
     // > update list
     //
