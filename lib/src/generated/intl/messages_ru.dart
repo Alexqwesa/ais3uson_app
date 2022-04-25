@@ -84,8 +84,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "listOfServicesByDays":
             MessageLookupByLibrary.simpleMessage("Список услуг по дням"),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
+        "makeProofOfService": MessageLookupByLibrary.simpleMessage(
+            "Сделайте снимки или аудиозаписи подтверждающие оказание услуги:"),
+        "optional": MessageLookupByLibrary.simpleMessage("НЕОБЯЗАТЕЛЬНО!"),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Либо добавьте тестовое отделение из списка ниже:"),
+        "proofOfService": MessageLookupByLibrary.simpleMessage(
+            "Подтверждение оказания услуги"),
         "putDepText": MessageLookupByLibrary.simpleMessage(
             "Вставте код отделение в виде текста..."),
         "putDepTextField": MessageLookupByLibrary.simpleMessage(

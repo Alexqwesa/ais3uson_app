@@ -20,7 +20,6 @@
   "testConnection": "Test connection!",
   "emptyDepList": "List of departments is empty!",
   "selectDepForDelete": "Select department to delete...",
-  "deleteDep": "Delete department",
   "areYouSureToDelete": "Are you sure that you want to delete department: ",
   "error": "Error",
   "sslError": "Error: secure connection error!",
@@ -54,6 +53,9 @@
   "errorSave": "Error: Failed to save log entry, \n check free space on device, \n check write permissions",
   "errorWrongCertificate":  "Error: can't add certificate of department",
   "emptyListOfServices": "No services provided!",
-  "serviceIsFull": "This service is full!"
+  "serviceIsFull": "This service is full!",
+  "optional": "OPTIONAL!",
+  "proofOfService": "Proof of the service:",
+  "makeProofOfService": "Make photo or audio record as a proof:"
 
 }

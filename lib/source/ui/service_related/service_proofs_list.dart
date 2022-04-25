@@ -2,10 +2,12 @@
 
 import 'dart:async';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/ui/service_related/camera.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,8 +18,8 @@ import 'package:provider/provider.dart';
 /// On first build it create list from filesystem data.
 ///
 /// {@category UI Services}
-class ServiceProof extends StatefulWidget {
-  const ServiceProof({
+class ServiceProofList extends StatefulWidget {
+  const ServiceProofList({
     required this.clientService,
     Key? key,
   }) : super(key: key);
@@ -25,10 +27,10 @@ class ServiceProof extends StatefulWidget {
   final ClientService clientService;
 
   @override
-  ServiceProofState createState() => ServiceProofState();
+  ServiceProofListState createState() => ServiceProofListState();
 }
 
-class ServiceProofState extends State<ServiceProof> {
+class ServiceProofListState extends State<ServiceProofList> {
   List<String> audioPaths = [];
   List<String> imagePaths = [];
 
@@ -51,20 +53,19 @@ class ServiceProofState extends State<ServiceProof> {
                 child: Divider(),
               ),
               Text(
-                'НЕОБЯЗАТЕЛЬНО!',
+                locator<S>().optional,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4,
               ),
               Text(
-                'Подтверждение оказания услуги:',
+                locator<S>().proofOfService,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
-              const Padding(
-                padding: EdgeInsets.all(8),
+              Padding(
+                padding: const EdgeInsets.all(8),
                 child: Text(
-                  'Сделайте снимки или аудиозаписи '
-                  'подтверждающие оказание услуги:',
+                  locator<S>().makeProofOfService,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -150,14 +151,12 @@ class BuildProofList extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8),
                                   child: SizedBox.square(
-                                    child: Expanded(
-                                      child: ImageOrButtonAdd(
-                                        image: proofGroups[i].beforeImg,
-                                        addProfButton: AddProofButton(
-                                          indexInProofList: i,
-                                          callBack: proofList.addImage,
-                                          strBeforAfter: 'before_',
-                                        ),
+                                    child: ImageOrButtonAdd(
+                                      image: proofGroups[i].beforeImg,
+                                      addProofButton: AddProofButton(
+                                        indexInProofList: i,
+                                        callBack: proofList.addImage,
+                                        strBeforeAfter: 'before_',
                                       ),
                                     ),
                                   ),
@@ -168,14 +167,12 @@ class BuildProofList extends StatelessWidget {
                                   padding: const EdgeInsets.all(8),
                                   child: SizedBox.square(
                                     // dimension: MediaQuery.of(context).size.width / 2.4,
-                                    child: Expanded(
-                                      child: ImageOrButtonAdd(
-                                        image: proofGroups[i].afterImg,
-                                        addProfButton: AddProofButton(
-                                          indexInProofList: i,
-                                          callBack: proofList.addImage,
-                                          strBeforAfter: 'after_',
-                                        ),
+                                    child: ImageOrButtonAdd(
+                                      image: proofGroups[i].afterImg,
+                                      addProofButton: AddProofButton(
+                                        indexInProofList: i,
+                                        callBack: proofList.addImage,
+                                        strBeforeAfter: 'after_',
                                       ),
                                     ),
                                   ),
@@ -197,41 +194,39 @@ class BuildProofList extends StatelessWidget {
 
 class ImageOrButtonAdd extends StatelessWidget {
   const ImageOrButtonAdd({
-    required this.addProfButton,
+    required this.addProofButton,
     required this.image,
     Key? key,
   }) : super(key: key);
 
-  final Widget addProfButton;
+  final Widget addProofButton;
   final Image? image;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: (image != null)
-          ? FittedBox(
-              child: Hero(
-                tag: ValueKey(
-                  image.toString(),
-                ),
-                child: GestureDetector(
-                  child: image,
-                  onTap: () {
-                    unawaited(
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<XFile>(
-                          builder: (context) => DisplayPictureScreen(
-                            image: image!,
-                          ),
+          ? Hero(
+              tag: ValueKey(
+                image.toString(),
+              ),
+              child: GestureDetector(
+                child: image,
+                onTap: () {
+                  unawaited(
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<XFile>(
+                        builder: (context) => DisplayPictureScreen(
+                          image: image!,
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             )
-          : Center(child: addProfButton),
+          : Center(child: addProofButton),
     );
   }
 }
@@ -241,20 +236,20 @@ class AddProofButton extends StatelessWidget {
   const AddProofButton({
     required this.indexInProofList,
     required this.callBack,
-    required this.strBeforAfter,
+    required this.strBeforeAfter,
     Key? key,
   }) : super(key: key);
 
   final int indexInProofList;
   final Function(int, XFile?, String) callBack;
-  final String strBeforAfter;
+  final String strBeforeAfter;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: FloatingActionButton(
-        heroTag: ValueKey(strBeforAfter + indexInProofList.toString()),
+        heroTag: ValueKey(strBeforeAfter + indexInProofList.toString()),
         child: const Icon(Icons.camera_alt),
         onPressed: () async {
           late final List<CameraDescription> cameras;
@@ -277,7 +272,7 @@ class AddProofButton extends StatelessWidget {
               ),
             ),
           );
-          await callBack(indexInProofList, defaultImgPath, strBeforAfter);
+          await callBack(indexInProofList, defaultImgPath, strBeforeAfter);
         },
       ),
     );

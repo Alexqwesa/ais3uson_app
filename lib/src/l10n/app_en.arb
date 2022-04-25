@@ -53,7 +53,10 @@
   "errorSave": "Error: Failed to save log entry, \n check free space on device, \n check write permissions",
   "errorWrongCertificate": "Error: can't add certificate of department",
   "emptyListOfServices": "No services provided!",
-  "serviceIsFull": "This service is full!"
+  "serviceIsFull": "This service is full!",
+  "optional": "OPTIONAL!",
+  "proofOfService": "Proof of the service:",
+  "makeProofOfService": "Make photo or audio record as a proof:"
 
 
 

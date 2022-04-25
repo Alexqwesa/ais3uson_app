@@ -589,6 +589,36 @@ class S {
       args: [],
     );
   }
+
+  /// `НЕОБЯЗАТЕЛЬНО!`
+  String get optional {
+    return Intl.message(
+      'НЕОБЯЗАТЕЛЬНО!',
+      name: 'optional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Подтверждение оказания услуги`
+  String get proofOfService {
+    return Intl.message(
+      'Подтверждение оказания услуги',
+      name: 'proofOfService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сделайте снимки или аудиозаписи подтверждающие оказание услуги:`
+  String get makeProofOfService {
+    return Intl.message(
+      'Сделайте снимки или аудиозаписи подтверждающие оказание услуги:',
+      name: 'makeProofOfService',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

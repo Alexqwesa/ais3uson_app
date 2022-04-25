@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
-import 'package:ais3uson_app/source/ui/service_related/service_proofs.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_proofs_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -133,7 +133,7 @@ class ClientServiceScreen extends StatelessWidget {
                   //
                   // > prof of service
                   //
-                  if (!kIsWeb) ServiceProof(clientService: service),
+                  if (!kIsWeb) ServiceProofList(clientService: service),
                 ],
               ),
             ),
