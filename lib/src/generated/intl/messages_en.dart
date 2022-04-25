@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorDepSave": MessageLookupByLibrary.simpleMessage(
             "Error: Failed to save department profile!"),
+        "errorFS": MessageLookupByLibrary.simpleMessage(
+            "FileSystem error: can\'t access directory"),
         "errorFormat": MessageLookupByLibrary.simpleMessage(
             "Error: server response format is wrong!"),
         "errorSave": MessageLookupByLibrary.simpleMessage(

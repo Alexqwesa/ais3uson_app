@@ -3,10 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
 
 /// Store and manage list of [ProofGroup]s for [ClientService].
@@ -19,12 +23,13 @@ import 'package:path/path.dart' as path;
 /// {@category Data Models}
 /// {@category Client-Server API}
 // ignore: prefer_mixin
-class ProofList with ChangeNotifier {
-  ProofList(
-    this.workerId,
-    this.contractId,
-    this.date,
-    this.serviceId, {
+class ProofList {
+  ProofList({
+    required this.workerId,
+    required this.contractId,
+    required this.date,
+    required this.serviceId,
+    required this.ref,
     this.worker = '',
     this.client = '',
     this.service = '',
@@ -37,24 +42,31 @@ class ProofList with ChangeNotifier {
   final String client;
   final String worker;
   final String service;
+  final ProviderContainer ref;
 
-  List<ProofGroup> proofGroups = [];
+  /// Future to be awaited(for tests).
+  Future? crawled;
 
-  bool inited = false;
+  List<ProofGroup> get proofGroups => ref.read(groupsOfProof(this));
 
   /// Crawl through file system to generate [ProofGroup]s.
   ///
   /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
-  // ignore: long-method
   Future<void> crawler() async {
-    inited = true;
+    crawled = _crawler();
+
+    return crawled;
+  }
+
+  // ignore: long-method
+  Future<void> _crawler() async {
     final appDocDirPath = await getSafePath([]);
-    if (appDocDirPath != null) {
-      showErrorNotification('Ошибка доступа к файловой системе!');
+    if (appDocDirPath == null) {
+      showErrorNotification(locator<S>().errorFS);
 
       return;
     }
-    final appDocDir = Directory(appDocDirPath!)..createSync(recursive: true);
+    final appDocDir = Directory(appDocDirPath)..createSync(recursive: true);
     //
     // > start search
     //
@@ -105,10 +117,9 @@ class ProofList with ChangeNotifier {
   }
 
   void addNewGroup() {
-    proofGroups.add(
-      ProofGroup.empty((proofGroups.length).toString()),
-    );
-    notifyListeners();
+    ref
+        .read(groupsOfProof(this).notifier)
+        .add(ProofGroup.empty((proofGroups.length).toString()));
   }
 
   Future<void> addGroup(
@@ -117,15 +128,14 @@ class ProofList with ChangeNotifier {
     File? afterImg,
     File? afterAudio,
   ) async {
-    proofGroups.add(
-      ProofGroup(
-        beforeImg: beforeImg != null ? Image.file(beforeImg) : null,
-        beforeAudio: beforeAudio?.path,
-        afterImg: afterImg != null ? Image.file(afterImg) : null,
-        afterAudio: afterAudio?.path,
-      ),
-    );
-    notifyListeners();
+    ref.read(groupsOfProof(this).notifier).add(
+          ProofGroup(
+            beforeImg: beforeImg != null ? Image.file(beforeImg) : null,
+            beforeAudio: beforeAudio?.path,
+            afterImg: afterImg != null ? Image.file(afterImg) : null,
+            afterAudio: afterAudio?.path,
+          ),
+        );
   }
 
   Future<void> addImage(int i, XFile? xFile, String prefix) async {
@@ -165,13 +175,17 @@ class ProofList with ChangeNotifier {
     } else {
       proofGroups[i].beforeImg = Image.file(imgFile);
     }
-    notifyListeners();
+    // force update
+    ref.read(groupsOfProof(this).notifier).state = [
+      ...ref.read(groupsOfProof(this)),
+    ];
   }
 }
 
 /// A unit of proof, contains evidence of states before and after.
 ///
 /// {@category Data Models}
+// maybe use freezed?
 class ProofGroup {
   ProofGroup({
     this.name,

@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "errorDepSave": MessageLookupByLibrary.simpleMessage(
             "Ошибка: не удалось сохранить профиль отделения!"),
+        "errorFS": MessageLookupByLibrary.simpleMessage(
+            "Ошибка доступа к файловой системе"),
         "errorFormat": MessageLookupByLibrary.simpleMessage(
             "Ошибка: был получен неправильный ответ от сервера!"),
         "errorSave": MessageLookupByLibrary.simpleMessage(

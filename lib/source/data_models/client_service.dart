@@ -101,7 +101,7 @@ class ClientService {
   //
   // > proof managing
   //
-  ProofList get proofList => ref.read(proofsOfServices(this));
+  ProofList get proofList => ref.read(proofOfService(this));
 
   void addProof() {
     proofList.addNewGroup();

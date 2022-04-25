@@ -560,6 +560,16 @@ class S {
     );
   }
 
+  /// `Ошибка доступа к файловой системе`
+  String get errorFS {
+    return Intl.message(
+      'Ошибка доступа к файловой системе',
+      name: 'errorFS',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Ошибка! Не удалось добавить сертификат отделения!`
   String get errorWrongCertificate {
     return Intl.message(

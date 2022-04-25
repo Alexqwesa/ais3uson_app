@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
         "errorDepSave": MessageLookupByLibrary.simpleMessage(
             "Fehler: Abteilung konnte nicht gespeichert werden!"),
+        "errorFS": MessageLookupByLibrary.simpleMessage(
+            "Dateisystemfehler: Zugriff verweigert"),
         "errorFormat": MessageLookupByLibrary.simpleMessage(
             "Fehler: Server-Antwortformat ist falsch!"),
         "errorSave": MessageLookupByLibrary.simpleMessage(

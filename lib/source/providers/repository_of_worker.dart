@@ -16,11 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category Providers}
 final clientsOfWorker = Provider.family<List<ClientProfile>, WorkerProfile>(
   (ref, wp) {
-    () async {
-      await ref
-          .watch(httpDataProvider(wp.apiUrlClients).notifier)
-          .syncHiveHttp();
-    }();
+    ref.watch(httpDataProvider(wp.apiUrlClients).notifier).syncHiveHttp();
 
     return ref
         .watch(httpDataProvider(wp.apiUrlClients))
@@ -38,11 +34,7 @@ final clientsOfWorker = Provider.family<List<ClientProfile>, WorkerProfile>(
 /// {@category Providers}
 final servicesOfWorker =
     Provider.family<List<ServiceEntry>, WorkerProfile>((ref, wp) {
-  () async {
-    await ref
-        .watch(httpDataProvider(wp.apiUrlServices).notifier)
-        .syncHiveHttp();
-  }();
+  ref.watch(httpDataProvider(wp.apiUrlServices).notifier).syncHiveHttp();
 
   return ref
       .watch(httpDataProvider(wp.apiUrlServices))
@@ -58,9 +50,7 @@ final servicesOfWorker =
 /// {@category Providers}
 final planOfWorker =
     Provider.family<List<ClientPlan>, WorkerProfile>((ref, wp) {
-  () async {
-    await ref.watch(httpDataProvider(wp.apiUrlPlan).notifier).syncHiveHttp();
-  }();
+  ref.watch(httpDataProvider(wp.apiUrlPlan).notifier).syncHiveHttp();
 
   return ref
       .watch(httpDataProvider(wp.apiUrlPlan))

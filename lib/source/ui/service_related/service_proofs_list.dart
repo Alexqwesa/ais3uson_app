@@ -4,21 +4,21 @@ import 'dart:async';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
-import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/camera.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display list of proofs assigned to [ClientService].
 ///
 /// On first build it create list from filesystem data.
 ///
 /// {@category UI Services}
-class ServiceProofList extends StatefulWidget {
+class ServiceProofList extends ConsumerWidget {
   const ServiceProofList({
     required this.clientService,
     Key? key,
@@ -27,17 +27,8 @@ class ServiceProofList extends StatefulWidget {
   final ClientService clientService;
 
   @override
-  ServiceProofListState createState() => ServiceProofListState();
-}
-
-class ServiceProofListState extends State<ServiceProofList> {
-  List<String> audioPaths = [];
-  List<String> imagePaths = [];
-
-  @override
-  Widget build(BuildContext context) {
-    final clientService = widget.clientService;
-    final proofList = clientService.proofList;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final proofList = ref.watch(proofOfService(clientService));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -75,7 +66,9 @@ class ServiceProofListState extends State<ServiceProofList> {
         //
         // > Display list of proofs in two columns
         //
-        BuildProofList(proofList: proofList),
+        BuildProofList(
+          clientService: clientService,
+        ),
         //
         // > add new record(proof row) button
         //
@@ -91,103 +84,98 @@ class ServiceProofListState extends State<ServiceProofList> {
 /// Display list of proofs in two columns.
 ///
 /// If there is missing image - display add button [AddProofButton].
-class BuildProofList extends StatelessWidget {
-  const BuildProofList({required this.proofList, Key? key}) : super(key: key);
+class BuildProofList extends ConsumerWidget {
+  const BuildProofList({required this.clientService, Key? key})
+      : super(key: key);
 
-  final ProofList proofList;
+  final ClientService clientService;
 
   @override
-  Widget build(BuildContext context) {
-    final proofGroups = proofList.proofGroups;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final proofList = ref.watch(proofOfService(clientService));
+    final proofGroups = ref.watch(groupsOfProof(proofList));
 
-    return ChangeNotifierProvider.value(
-      value: proofList,
-      child: Consumer<ProofList>(
-        builder: (context, proofList, _) {
-          return Column(
-            children: [
+    return Column(
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            //
+            // > column's titles
+            //
+            if (proofList.proofGroups.isNotEmpty)
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'До:',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'После:',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            //
+            // > main columns
+            //
+
+            if (proofList.proofGroups.isNotEmpty)
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  //
-                  // > column's titles
-                  //
-                  if (proofList.proofGroups.isNotEmpty)
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'До:',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              'После:',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  //
-                  // > main columns
-                  //
-
-                  if (proofList.proofGroups.isNotEmpty)
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
+                  for (int i = 0; i < proofList.proofGroups.length; i++)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        for (int i = 0; i < proofList.proofGroups.length; i++)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: SizedBox.square(
-                                    child: ImageOrButtonAdd(
-                                      image: proofGroups[i].beforeImg,
-                                      addProofButton: AddProofButton(
-                                        indexInProofList: i,
-                                        callBack: proofList.addImage,
-                                        strBeforeAfter: 'before_',
-                                      ),
-                                    ),
-                                  ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: SizedBox.square(
+                              child: ImageOrButtonAdd(
+                                image: proofGroups[i].beforeImg,
+                                addProofButton: AddProofButton(
+                                  indexInProofList: i,
+                                  callBack: proofList.addImage,
+                                  strBeforeAfter: 'before_',
                                 ),
                               ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: SizedBox.square(
-                                    // dimension: MediaQuery.of(context).size.width / 2.4,
-                                    child: ImageOrButtonAdd(
-                                      image: proofGroups[i].afterImg,
-                                      addProofButton: AddProofButton(
-                                        indexInProofList: i,
-                                        callBack: proofList.addImage,
-                                        strBeforeAfter: 'after_',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: SizedBox.square(
+                              // dimension: MediaQuery.of(context).size.width / 2.4,
+                              child: ImageOrButtonAdd(
+                                image: proofGroups[i].afterImg,
+                                addProofButton: AddProofButton(
+                                  indexInProofList: i,
+                                  callBack: proofList.addImage,
+                                  strBeforeAfter: 'after_',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                 ],
               ),
-            ],
-          );
-        },
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

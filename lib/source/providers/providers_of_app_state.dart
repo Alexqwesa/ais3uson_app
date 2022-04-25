@@ -91,6 +91,29 @@ class LastClientIdState extends StateNotifier<int> {
   }
 }
 
+
+/// Provider of setting - lastClientService.
+///
+/// Read/save from/to SharedPreferences, had default preinitialized value.
+/// Depend on [locator]<SharedPreferences>.
+///
+/// {@category Providers}
+final lastClientService = StateNotifierProvider<LastClientServiceState, int>((ref) {
+  return LastClientServiceState();
+});
+
+class LastClientServiceState extends StateNotifier<int> {
+  LastClientServiceState() : super(locator<SharedPreferences>().getInt(name) ?? 0);
+
+  static const name = 'last_client_service';
+
+  @override
+  set state(int value) {
+    super.state = value;
+    locator<SharedPreferences>().setInt(name, value);
+  }
+}
+
 /// Archive view or usual view of App.
 ///
 /// Provider of setting - isArchive. Inited with false, doesn't save its value.
