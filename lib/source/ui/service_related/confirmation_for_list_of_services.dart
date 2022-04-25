@@ -117,29 +117,20 @@ class TotalServiceTile extends ConsumerWidget {
     Key? key,
   }) : super(key: key) {
     try {
-      service =
-          serviceOfJournal.provDate.isBefore(client.workerProfile.journal.today)
-              ? client.services
-                  .firstWhere(
-                    (element) => element.servId == serviceOfJournal.servId,
-                  )
-                  .copyWith(
-                    newJournal:
-                        ref.watch(journalArchiveOfWorker(client.workerProfile)),
-                  )
-              : client.services.firstWhere(
-                  (element) => element.servId == serviceOfJournal.servId,
-                );
+      service = client.services.firstWhere(
+        (element) => element.servId == serviceOfJournal.servId,
+      );
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       if (e.message == 'No element') {
-        service = client.services.first.copyWith(
-          newJournal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
-          serv: client.services.first.service.copyWith(
+        service = ClientService( // maybe use error constructor?
+          journal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
+          service: client.services.first.service.copyWith(
             image: 'not-found.png',
             short_text: locator<S>().errorService,
             serv_text: locator<S>().errorService,
           ),
+          planned: client.services.first.planned,
         );
       }
     }

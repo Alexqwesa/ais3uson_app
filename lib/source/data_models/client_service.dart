@@ -6,9 +6,11 @@ import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Model for [ServiceCard] and [ClientService].
 ///
@@ -60,68 +62,50 @@ class ClientService {
 
   String get image => service.imagePath;
 
-  //
-  // > journal getters
-  //
-  // Iterable<ServiceOfJournal> get servicesInJournal => journal.all.where(
-  //       (element) =>
-  //           element.contractId == contractId && element.servId == service.id,
-  //     );
+  ProviderContainer get ref => journal.ref;
 
-  int get added => journal.added
-      .where(
-        (element) =>
-            element.contractId == contractId && element.servId == service.id,
-      )
-      .length;
+  //
+  // > services getters
+  //
+  int get added =>
+      ref.read(groupsOfService(this))?[ServiceState.added]?.length ?? 0;
 
   int get done =>
-      journal.finished
-          .where(
-            (element) =>
-                element.contractId == contractId &&
-                element.servId == service.id,
-          )
-          .length +
-      journal.outDated
-          .where(
-            (element) =>
-                element.contractId == contractId &&
-                element.servId == service.id,
-          )
-          .length;
+      (ref.read(groupsOfService(this))?[ServiceState.finished]?.length ?? 0) +
+      (ref.read(groupsOfService(this))?[ServiceState.outDated]?.length ?? 0);
 
-  // int get rejected => journal.rejected
-  //     .where(
-  //       (element) =>
-  //           element.contractId == contractId && element.servId == service.id,
-  //     )
-  //     .length;
-  //
+  // int get rejected =>
+  //     ref.read(groupsOfService(this))?[ServiceState.rejected]?.length ?? 0;
+
   int get all => journal.all
       .where(
-        (element) =>
-            element.contractId == contractId && element.servId == service.id,
+        (e) => e.contractId == contractId && e.servId == service.id,
       )
       .length;
 
-  int get left => plan - filled - done - added  ;
+  @Deprecated('Better use ref.watch of listDoneProgressErrorOfService')
+  List<int> get listDoneProgressError =>
+      ref.read(listDoneProgressErrorOfService(this));
+
+  //
+  // > logical getters
+  //
+  int get left => plan - filled - done - added;
 
   bool get addAllowed => left > 0;
 
   bool get deleteAllowed => all > 0;
 
-  @Deprecated('Better use ref.watch of listDoneProgressErrorOfService')
-  List<int> get listDoneProgressError =>
-      journal.ref.read(listDoneProgressErrorOfService(this));
-
-  ProofList get proofList =>
-      journal.workerProfile.ref.read(proofsOfServices(this));
+  //
+  // > proof managing
+  //
+  ProofList get proofList => ref.read(proofsOfServices(this));
 
   void addProof() {
     proofList.addNewGroup();
   }
 
+  /// Add [ServiceOfJournal].
   Future<void> add() async {
     if (addAllowed) {
       await journal.post(
@@ -137,24 +121,13 @@ class ClientService {
     }
   }
 
+  /// Delete [ServiceOfJournal].
   Future<void> delete() async {
     await journal.delete(
       uuid: journal.getUuidOfLastService(
         servId: planned.servId,
         contractId: planned.contractId,
       ),
-    );
-  }
-
-  ClientService copyWith({
-    Journal? newJournal,
-    ServiceEntry? serv,
-    ClientPlan? plan, // ProofList proofList
-  }) {
-    return ClientService(
-      journal: newJournal ?? journal,
-      planned: plan ?? planned,
-      service: serv ?? service,
     );
   }
 }
