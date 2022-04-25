@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
@@ -9,6 +10,7 @@ import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -117,7 +119,7 @@ class ClientService {
       );
       // notifyListeners();
     } else {
-      showErrorNotification('Данная услуга переполнена!');
+      showErrorNotification(locator<S>().serviceIsFull);
     }
   }
 

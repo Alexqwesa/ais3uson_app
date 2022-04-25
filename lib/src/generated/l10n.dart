@@ -569,6 +569,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Нет оказанных услуг!`
+  String get emptyListOfServices {
+    return Intl.message(
+      'Нет оказанных услуг!',
+      name: 'emptyListOfServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Данная услуга переполнена!`
+  String get serviceIsFull {
+    return Intl.message(
+      'Данная услуга переполнена!',
+      name: 'serviceIsFull',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -51,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "List of departments is empty!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "List of clients is empty, \n\n please ask your manager to add people into your list \n\n then click on refresh button."),
+        "emptyListOfServices":
+            MessageLookupByLibrary.simpleMessage("No services provided!"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorDepSave": MessageLookupByLibrary.simpleMessage(
             "Error: Failed to save department profile!"),
@@ -97,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Select department to delete..."),
         "serverError":
             MessageLookupByLibrary.simpleMessage("Error: server error!"),
+        "serviceIsFull":
+            MessageLookupByLibrary.simpleMessage("This service is full!"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App for accounting services AIS 3USON"),

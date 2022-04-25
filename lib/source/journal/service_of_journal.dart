@@ -44,9 +44,9 @@ class ServiceOfJournal extends HiveObject with _$ServiceOfJournal {
       _$$_ServiceOfJournalFromJson(json);
 }
 
-/// Helper for ServiceOfJournal constructor
+/// Helper for ServiceOfJournal constructor.
 ///
-/// it call const constructor with dynamic default values:
+/// It call const constructor with dynamic default values:
 /// - uid: uuid.v4(),
 /// - provDate: provDate ?? DateTime.now().
 // ignore: long-parameter-list

@@ -46,12 +46,10 @@ class WorkerProfile {
 
   Journal get journal => ref.read(journalOfWorker(this));
 
-  /// List of assigned clients
+  /// List of assigned clients.
   List<ClientProfile> get clients => ref.read(clientsOfWorker(this));
 
-  /// Planned amount of services for each client.
-  ///
-  /// Since we get data in bunch - store it in [WorkerProfile].
+  /// All planned amount of each service for each client.
   List<ClientPlan> get clientPlan => ref.read(planOfWorker(this));
 
   /// List of services.
@@ -87,9 +85,6 @@ class WorkerProfile {
   }
 
   Future<void> syncClients() async {
-    // await ref.read(httpDataProvider([apiKey, urlClients]).notifier).state(
-    //     (state){}()
-    // );
     await ref.read(httpDataProvider(apiUrlClients).notifier).getHttpData();
   }
 

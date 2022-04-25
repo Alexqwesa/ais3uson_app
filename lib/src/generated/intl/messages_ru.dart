@@ -51,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Список отделений пуст!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Список получателей услуг пуст, \n\n попросите заведующего отделением добавить людей в ваш список обслуживаемых \n\n затем обновите список"),
+        "emptyListOfServices":
+            MessageLookupByLibrary.simpleMessage("Нет оказанных услуг!"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "errorDepSave": MessageLookupByLibrary.simpleMessage(
             "Ошибка: не удалось сохранить профиль отделения!"),
@@ -97,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
             "Выберите отделение для удаления..."),
         "serverError": MessageLookupByLibrary.simpleMessage("Ошибка сервера!"),
+        "serviceIsFull":
+            MessageLookupByLibrary.simpleMessage("Данная услуга переполнена!"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "Приложение для учета услуг АИС ТриУСОН"),

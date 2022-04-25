@@ -51,7 +51,9 @@
   "errorDepSave": "Error: Failed to save department profile!",
   "errorFormat": "Error: server response format is wrong!",
   "errorSave": "Error: Failed to save log entry, \n check free space on device, \n check write permissions",
-  "errorWrongCertificate": "Abteilungszertifikat kann nicht hinzugefügt werden"
+  "errorWrongCertificate": "Error: can't add certificate of department",
+  "emptyListOfServices": "No services provided!",
+  "serviceIsFull": "This service is full!"
 
 
 

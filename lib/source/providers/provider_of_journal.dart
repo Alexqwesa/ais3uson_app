@@ -60,6 +60,9 @@ final journalArchiveOfWorker =
   return JournalArchive(wp, ref.watch(archiveDate));
 });
 
+/// Groups of [ServiceOfJournal] sorted by [ServiceState].
+///
+/// Depend on [servicesOfJournal], if not inited - return null.
 final groupsOfJournal =
     Provider.family<Map<ServiceState, List<ServiceOfJournal>>?, Journal>(
   (ref, journal) {

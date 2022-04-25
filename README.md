@@ -95,6 +95,7 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [x] Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся
   поделится (в программе для заведующих: импорт без дупликатов)
 - [x] услуги списком, с разделением по дням
+- [x] Переводы (en/ru/de)
 
 ## В разработке:
 
@@ -102,7 +103,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
   server?
 - [ ] Резервный web-сервер(WorkerKey allow several servers (comma separated list))
 - [ ] Настраиваемый размер виджетов
-- [ ] Переводы (en/ru/de)
 
 ## TODO:
 

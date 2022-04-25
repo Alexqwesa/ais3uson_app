@@ -52,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Liste der Abteilungen ist leer!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
             "Liste der Kunden ist leer, \n\n Bitten Sie Ihren Manager, Personen zu Ihrer Liste hinzuzufügen \n\n und klicken Sie dann auf die Schaltfläche \'Aktualisieren\'. "),
+        "emptyListOfServices":
+            MessageLookupByLibrary.simpleMessage("Keine Leistungen erbracht!"),
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
         "errorDepSave": MessageLookupByLibrary.simpleMessage(
             "Fehler: Abteilung konnte nicht gespeichert werden!"),
@@ -98,6 +100,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wählen Sie die zu löschende Abteilung..."),
         "serverError":
             MessageLookupByLibrary.simpleMessage("Fehler: Serverfehler!"),
+        "serviceIsFull":
+            MessageLookupByLibrary.simpleMessage("Dieser Dienst is voll!"),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App für Dienstleistungen zählen AIS 3USON"),

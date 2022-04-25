@@ -23,10 +23,6 @@ class ConfirmationForListOfServices extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastClient);
-    if (client.services.isEmpty) {
-      return Container(); // Todo:
-    }
-
     final all = client.fullArchive;
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,
@@ -39,6 +35,8 @@ class ConfirmationForListOfServices extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Wrap(
             children: [
+              if (client.services.isEmpty || all.isEmpty)
+                Text(locator<S>().emptyListOfServices),
               for (final servicesAt in allByGroups.entries.map((e) => e.value))
                 SizedBox(
                   width: tileSize + 32,
@@ -123,7 +121,8 @@ class TotalServiceTile extends ConsumerWidget {
       // ignore: avoid_catching_errors
     } on StateError catch (e) {
       if (e.message == 'No element') {
-        service = ClientService( // maybe use error constructor?
+        service = ClientService(
+          // maybe use error constructor?
           journal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
           service: client.services.first.service.copyWith(
             image: 'not-found.png',

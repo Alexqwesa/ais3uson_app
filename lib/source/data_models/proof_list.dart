@@ -8,7 +8,6 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 
 /// Store and manage list of [ProofGroup]s for [ClientService].
 ///
@@ -22,14 +21,14 @@ import 'package:path_provider/path_provider.dart';
 // ignore: prefer_mixin
 class ProofList with ChangeNotifier {
   ProofList(
-      this.workerId,
-      this.contractId,
-      this.date,
-      this.serviceId, {
-        this.worker = '',
-        this.client = '',
-        this.service = '',
-      });
+    this.workerId,
+    this.contractId,
+    this.date,
+    this.serviceId, {
+    this.worker = '',
+    this.client = '',
+    this.service = '',
+  });
 
   final int workerId;
   final int contractId;
@@ -49,19 +48,16 @@ class ProofList with ChangeNotifier {
   // ignore: long-method
   Future<void> crawler() async {
     inited = true;
-    Directory appDocDir;
-    try {
-      appDocDir = Directory(
-        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
-      );
-      if (!appDocDir.existsSync()) {
-        return;
-      }
-    } on MissingPlatformDirectoryException {
+    final appDocDirPath = await getSafePath([]);
+    if (appDocDirPath != null) {
       showErrorNotification('Ошибка доступа к файловой системе!');
 
       return;
     }
+    final appDocDir = Directory(appDocDirPath!)..createSync(recursive: true);
+    //
+    // > start search
+    //
     await for (final depWorker in appDocDir.list()) {
       if (depWorker.baseName.startsWith('${workerId}_') &&
           (depWorker is Directory)) {
