@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// Display one [ClientService] on fullscreen.
 ///
 /// {@category UI Services}
-class ClientServiceScreen extends StatefulWidget {
+class ClientServiceScreen extends StatelessWidget {
   const ClientServiceScreen({
     required this.service,
     Key? key,
@@ -17,11 +17,6 @@ class ClientServiceScreen extends StatefulWidget {
 
   final ClientService service;
 
-  @override
-  ClientServiceScreenState createState() => ClientServiceScreenState();
-}
-
-class ClientServiceScreenState extends State<ClientServiceScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -32,7 +27,7 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.service.shortText,
+          service.shortText,
         ),
       ),
       body: SingleChildScrollView(
@@ -57,7 +52,7 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
                             height: width / 4,
                             width: width / 5,
                             child: ServiceCardState(
-                              clientService: widget.service,
+                              clientService: service,
                               rightOfText: true,
                             ),
                           ),
@@ -70,12 +65,12 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
                             flex: 6,
                             child: Center(
                               child: Hero(
-                                tag: widget.service.servId,
+                                tag: service.servId,
                                 child: SizedBox(
                                   height: width / 2,
                                   width: width / 2,
                                   child: Image.asset(
-                                    'images/${widget.service.image}',
+                                    'images/${service.image}',
                                   ),
                                 ),
                               ),
@@ -93,9 +88,9 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
                                 //
                                 // > buttons Add / Delete
                                 //
-                                AddButton(widget: widget),
+                                AddButton(service: service),
                                 const Spacer(),
-                                DeleteButton(widget: widget),
+                                DeleteButton(service: service),
                               ],
                             ),
                           ),
@@ -117,14 +112,14 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
                             Padding(
                               padding: const EdgeInsets.all(8),
                               child: Text(
-                                widget.service.shortText,
+                                service.shortText,
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
                               child: Text(
-                                widget.service.servTextAdd,
+                                service.servTextAdd,
                                 softWrap: true,
                                 textAlign: TextAlign.justify,
                                 // overflow: TextOverflow.ellipsis,
@@ -138,7 +133,7 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
                   //
                   // > prof of service
                   //
-                  if (!kIsWeb) ServiceProof(clientService: widget.service),
+                  if (!kIsWeb) ServiceProof(clientService: service),
                 ],
               ),
             ),
@@ -154,23 +149,23 @@ class ClientServiceScreenState extends State<ClientServiceScreen> {
 /// {@category UI Services}
 class AddButton extends ConsumerWidget {
   const AddButton({
-    required this.widget,
+    required this.service,
     Key? key,
   }) : super(key: key);
 
-  final ClientServiceScreen widget;
+  final ClientService service;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: widget.service.add,
+        onPressed: service.add,
         icon: Transform.scale(
           scale: 2.5,
           child: Icon(
             Icons.publish_rounded,
-            color: widget.service.addAllowed ? Colors.green : Colors.grey,
+            color: service.addAllowed ? Colors.green : Colors.grey,
           ),
         ),
       ),
@@ -183,25 +178,25 @@ class AddButton extends ConsumerWidget {
 /// {@category UI Services}
 class DeleteButton extends StatelessWidget {
   const DeleteButton({
-    required this.widget,
+    required this.service,
     Key? key,
   }) : super(key: key);
 
-  final ClientServiceScreen widget;
+  final ClientService service;
 
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: widget.service.delete,
+        onPressed: service.delete,
         icon: Transform.scale(
           scale: 2.5,
           child: Transform.rotate(
             angle: 3.14,
             child: Icon(
               Icons.publish_rounded,
-              color: widget.service.deleteAllowed ? Colors.red : Colors.grey,
+              color: service.deleteAllowed ? Colors.red : Colors.grey,
             ),
           ),
         ),
