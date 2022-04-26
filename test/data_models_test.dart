@@ -5,6 +5,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:camera/camera.dart';
@@ -215,15 +216,16 @@ void main() {
       );
       final dstFile = File(
         // ignore: prefer_interpolation_to_compose_strings
-        '${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
+        '${appDocDir.path}/1_Работник Тестового Отделения /1_Тес. . чек/' +
             standardFormat.format(DateTime.now()) +
             '_/828_Итого/group_0_/before_img_auth_qr_test.png',
       );
-      // Todo: fix it!!! it works locally, but fails on github
-      // expect(
-      //   await dstFile.length(),
-      //   srcFileLength,
-      // );
+      expect(
+        await dstFile.length(),
+        srcFileLength,
+      );
+      // cleanup
+      dstFile.deleteSync(); // todo: delete folder too (if empty)
     });
 
     test('it can found proof files', () async {
@@ -242,6 +244,7 @@ void main() {
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
       final wp = ref.read(workerProfiles).first;
+      ref.read(archiveDate.notifier).state = DateTime(2022, 3, 1);
       await wp.postInit();
       //
       // > create dir for proof
@@ -252,7 +255,7 @@ void main() {
       final dst = Directory(
         '${appDocDir.path}/'
         // ignore: missing_whitespace_between_adjacent_strings
-        '1_Работник Тестового Отделения 2/1_Тес  чек/01.03.2022_/'
+        '1_Работник Тестового Отделения 2/1_Тес. . чек/01.03.2022_/'
         '828_Итого/group_0_/',
       );
       if (!dst.existsSync()) {
@@ -265,10 +268,13 @@ void main() {
         '${dst.path}/before_img_auth_qr_test.png',
       );
       final serv2 = wp.clients.first.services.first;
-      expect(serv2.proofList.proofGroups.length, 0);
-      await serv2.proofList.crawler();
+      expect(serv2.proofList.proofGroups.length, 0); // can be raced?
+      // await serv2.proofList.crawler();
+      await serv2.proofList.crawled;
+      expect(serv2.proofList.proofGroups.length, 1);
       // Image is founded
       expect(serv2.proofList.proofGroups.isNotEmpty, true);
+      // await serv2.proofList.crawled;
       expect(
         serv2.proofList.proofGroups.first.beforeImg?.toStringShort(),
         'Image',

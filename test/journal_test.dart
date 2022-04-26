@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
@@ -445,6 +447,7 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
+        await ref.pump();
         expect(service3.listDoneProgressError, [20, 0, 0]);
         expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 20);
         //

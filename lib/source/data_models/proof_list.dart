@@ -53,7 +53,7 @@ class ProofList {
   ///
   /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
   Future<void> crawler() async {
-    crawled = _crawler();
+    crawled ??= _crawler();
 
     return crawled;
   }

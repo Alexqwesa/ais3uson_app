@@ -46,7 +46,7 @@ class DatesInArchiveState extends StateNotifier<List<DateTime>> {
     //
     if (box != null) {
       () async {
-        await box!.clear();
+        // await box!.clear();
         await box!.compact();
         await box!.addAll(value);
       }();

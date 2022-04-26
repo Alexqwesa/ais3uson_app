@@ -1,7 +1,7 @@
 #!/bin/bash
 projectDir=`pwd`
 
-if [ `basename $projectDir`  !=  'ais3uson_app' ] ; then
+if [ `basename $projectDir` !=  'ais3uson_app' ] ; then
   echo 'Current dir is not ais3uson_app'
   echo `basename $projectDir`
   exit 1
@@ -12,7 +12,7 @@ rm -rf doc/api/
 
 # Generate or exit
 flutter pub global activate dartdoc # fix for https://githubhot.com/repo/dart-lang/dartdoc/issues/2934
-flutter pub global run dartdoc . || exit 1
+flutter pub global run dartdoc . --use-categories || exit 1
 #dartdoc || exit 1
 
 

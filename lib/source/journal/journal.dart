@@ -92,6 +92,7 @@ class Journal with ChangeNotifier {
     //
     // > read hive at date or all
     //
+    // await ref.read(datesInArchive.future);
     await servicesProvider.initAsync();
     hive = ref.read(hiveJournalBox(journalHiveName)).value!;
   }
