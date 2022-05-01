@@ -39,7 +39,7 @@ import 'package:universal_html/html.dart' as html;
 /// {@category Journal}
 /// {@category Client-Server API}
 // ignore: prefer_mixin
-class Journal with ChangeNotifier {
+class Journal {
   Journal(this.workerProfile);
 
   /// At what date is journal, null - load all values.
@@ -316,7 +316,7 @@ class Journal with ChangeNotifier {
   /// Try to commit all [servicesForSync].
   ///
   /// It works via [commitAdd],
-  /// it change state of services and called [notifyListeners] afterward.
+  /// it change state of services.
   Future<void> commitAll() async {
     //
     // > main loop, synchronized
@@ -348,8 +348,6 @@ class Journal with ChangeNotifier {
           }
         }),
       );
-
-      notifyListeners();
     });
   }
 
@@ -402,8 +400,8 @@ class Journal with ChangeNotifier {
     //
     // > open hive archive and add old services
     //
-    hiveArchive =
-        await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
+    await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
+    hiveArchive = ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
     final forDelete = _forDelete.toList(); // don't lose this list after delete
     final forArchive = forDelete.map((e) => e.copyWith());
     if (forArchive.isNotEmpty) {
@@ -441,7 +439,6 @@ class Journal with ChangeNotifier {
             dateList.map((e) => DateTime(e.year, e.month, e.day)),
           );
       await hiveArchive.compact();
-      await hiveArchive.close();
     }
   }
 

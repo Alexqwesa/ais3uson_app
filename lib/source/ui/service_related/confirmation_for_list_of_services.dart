@@ -6,6 +6,7 @@ import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
@@ -23,7 +24,7 @@ class ConfirmationForListOfServices extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastClient);
-    final all = client.fullArchive;
+    final all = ref.watch(fullArchiveOfClient(client));
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,
       (e) => e.provDate.daysSinceEpoch,
@@ -42,6 +43,7 @@ class ConfirmationForListOfServices extends ConsumerWidget {
                   width: tileSize + 32,
                   child: ListView(
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       TitleWidgetOfServicesGroup(
                         service: servicesAt[0],
@@ -49,9 +51,8 @@ class ConfirmationForListOfServices extends ConsumerWidget {
                       ),
                       for (int index = 1; index < servicesAt.length; index++)
                         TotalServiceTile(
-                          serviceOfJournal: all[index],
+                          serviceOfJournal: servicesAt[index],
                           client: client,
-                          ref: ref,
                         ),
                     ],
                   ),
@@ -97,7 +98,6 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
               child: TotalServiceTile(
                 serviceOfJournal: service,
                 client: client,
-                ref: ref,
               ),
             ),
           ),
@@ -108,38 +108,40 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
 }
 
 class TotalServiceTile extends ConsumerWidget {
-  TotalServiceTile({
-    required ServiceOfJournal serviceOfJournal,
-    required ClientProfile client,
-    required WidgetRef ref,
+  const TotalServiceTile({
+    required this.serviceOfJournal,
+    required this.client,
     Key? key,
-  }) : super(key: key) {
-    try {
-      service = client.services.firstWhere(
-        (element) => element.servId == serviceOfJournal.servId,
-      );
-      // ignore: avoid_catching_errors
-    } on StateError catch (e) {
-      if (e.message == 'No element') {
-        service = ClientService(
-          // maybe use error constructor?
-          journal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
-          service: client.services.first.service.copyWith(
-            image: 'not-found.png',
-            short_text: locator<S>().errorService,
-            serv_text: locator<S>().errorService,
-          ),
-          planned: client.services.first.planned,
-        );
-      }
-    }
-  }
+  }) : super(key: key);
 
   /// Core variable
-  late final ClientService service;
+  final ServiceOfJournal serviceOfJournal;
+  final ClientProfile client;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ClientService service;
+
+    try {
+      service = ref.read(servicesOfClient(client)).firstWhere(
+            (element) => element.servId == serviceOfJournal.servId,
+          );
+      // ignore: avoid_catching_errors
+    } on StateError {
+      // if (e.message == 'No element') {
+      service = ClientService(
+        // maybe use error constructor?
+        workerProfile: client.workerProfile,
+        service: client.services.first.service.copyWith(
+          image: 'not-found.png',
+          short_text: locator<S>().errorService,
+          serv_text: locator<S>().errorService,
+        ),
+        planned: client.services.first.planned,
+      );
+      // }
+    }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: SizedBox(
@@ -156,7 +158,12 @@ class TotalServiceTile extends ConsumerWidget {
                     Image.asset(
                       'images/${service.image}',
                     ),
-                    Text(service.shortText),
+                    Expanded(
+                      child: Text(
+                        service.shortText,
+                        softWrap: true,
+                      ),
+                    ),
                   ],
                 ),
               ),

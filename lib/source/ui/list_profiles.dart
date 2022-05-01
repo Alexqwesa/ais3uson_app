@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
@@ -24,6 +25,8 @@ class ListOfProfiles extends ConsumerWidget {
               itemCount: wps.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                final workerProfile = wps[index];
+
                 return ContextMenuRegion(
                   //
                   // > context menu
@@ -32,28 +35,36 @@ class ListOfProfiles extends ConsumerWidget {
                     buttonConfigs: [
                       ContextMenuButtonConfig(
                         S.of(context).exportThisWeek,
-                        onPressed: () => wps[index].journal.exportToFile(
+                        onPressed: () => ref
+                            .read(journalOfWorker(workerProfile))
+                            .exportToFile(
                               mostRecentMonday(),
                               mostRecentMonday(addDays: 7),
                             ),
                       ),
                       ContextMenuButtonConfig(
                         S.of(context).exportLastWeek,
-                        onPressed: () => wps[index].journal.exportToFile(
+                        onPressed: () => ref
+                            .read(journalOfWorker(workerProfile))
+                            .exportToFile(
                               mostRecentMonday(addDays: -7),
                               mostRecentMonday(),
                             ),
                       ),
                       ContextMenuButtonConfig(
                         S.of(context).exportThisMonth,
-                        onPressed: () => wps[index].journal.exportToFile(
+                        onPressed: () => ref
+                            .read(journalOfWorker(workerProfile))
+                            .exportToFile(
                               mostRecentMonth(),
                               mostRecentMonth(addMonths: 1),
                             ),
                       ),
                       ContextMenuButtonConfig(
                         S.of(context).exportLastMonth,
-                        onPressed: () => wps[index].journal.exportToFile(
+                        onPressed: () => ref
+                            .read(journalOfWorker(workerProfile))
+                            .exportToFile(
                               mostRecentMonth(addMonths: -1),
                               mostRecentMonth(),
                             ),

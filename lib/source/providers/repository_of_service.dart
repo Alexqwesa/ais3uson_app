@@ -17,10 +17,10 @@ final proofOfService =
     contractId: service.contractId,
     date: standardFormat.format(ref.watch(archiveDate) ?? DateTime.now()),
     serviceId: service.servId,
-    client: service.journal.workerProfile.clients
+    client: service.workerProfile.clients
         .firstWhere((element) => element.contractId == service.contractId)
         .name,
-    worker: service.journal.workerProfile.name,
+    worker: service.workerProfile.name,
     service: service.shortText,
     ref: ref.container,
   );
@@ -49,13 +49,15 @@ class _GroupsOfProofState extends StateNotifier<List<ProofGroup>> {
   }
 }
 
-/// Create ProofList for [ClientService].
+/// Create groups of journal services for [ClientService].
 ///
 /// {@category Providers}
 final groupsOfService =
     Provider.family<Map<ServiceState, List<ServiceOfJournal>>?, ClientService>(
   (ref, clientService) {
-    final groups = ref.watch(groupsOfJournal(clientService.journal));
+    final groups = ref.watch(groupsOfJournal(ref.watch(
+      journalOfWorker(clientService.workerProfile),
+    )));
 
     return groups?.map(
       (key, value) => MapEntry(
@@ -70,7 +72,7 @@ final groupsOfService =
   },
 );
 
-/// Create ProofList for [ClientService].
+/// listDoneProgressErrorOfService for [ClientService].
 ///
 /// {@category Providers}
 final listDoneProgressErrorOfService =

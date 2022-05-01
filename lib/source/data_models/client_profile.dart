@@ -1,8 +1,6 @@
 import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
-import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -34,7 +32,4 @@ class ClientProfile {
   /// Return List of [ClientService]s.
   List<ClientService> get services =>
       workerProfile.ref.read(servicesOfClient(this));
-
-  List<ServiceOfJournal> get fullArchive =>
-      workerProfile.ref.read(fullArchiveOfClient(this));
 }

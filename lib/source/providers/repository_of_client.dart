@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +19,7 @@ final servicesOfClient =
       .where((e) => listServiceIds.contains(e.id))
       .map(
         (e) => ClientService(
-          journal: client.workerProfile.journal,
+          workerProfile: client.workerProfile,
           service: e,
           planned: listService.firstWhere((element) => element.servId == e.id),
           // client: client,

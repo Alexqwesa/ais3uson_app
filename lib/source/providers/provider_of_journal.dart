@@ -23,6 +23,7 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
   // () async {
   //   await ref.watch(hiveJournalBox(wp.hiveName).future);
   // }();
+  ref.watch(isArchive);
 
   return ref.watch(archiveDate) != null
       ? ref.watch(journalArchiveOfWorker(wp))
@@ -33,9 +34,9 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
 final fullArchiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   return [
-    ...ref.read(_archiveOfClient(client)),
+    ...ref.watch(_archiveOfClient(client)),
     ...ref
-        .read(_journalOfWorker(client.workerProfile))
+        .watch(_journalOfWorker(client.workerProfile))
         .all
         .where((element) => element.contractId == client.contractId),
   ];
@@ -43,8 +44,14 @@ final fullArchiveOfClient =
 
 final _archiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
-  return JournalArchive(client.workerProfile, null)
-      .all
+  ref.watch(hiveJournalBox(client.workerProfile.hiveName));
+
+  return (ref.watch(
+            servicesOfJournal(
+              ref.watch(journalArchiveAllOfWorker(client.workerProfile)),
+            ),
+          ) ??
+          [])
       .where((element) => element.contractId == client.contractId)
       .toList();
 });
@@ -57,7 +64,15 @@ final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
 /// Depend on archiveDate, maybe autoDispose?
 final journalArchiveOfWorker =
     Provider.family<Journal, WorkerProfile>((ref, wp) {
-  return JournalArchive(wp, ref.watch(archiveDate));
+  ref.watch(archiveDate);
+
+  return JournalArchive(wp);
+});
+
+/// Depend on archiveDate, maybe autoDispose?
+final journalArchiveAllOfWorker =
+    Provider.family<Journal, WorkerProfile>((ref, wp) {
+  return JournalArchiveAll(wp);
 });
 
 /// Groups of [ServiceOfJournal] sorted by [ServiceState].
@@ -75,6 +90,7 @@ final groupsOfJournal =
 
 final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
     List<ServiceOfJournal>?, Journal>((ref, journal) {
+  ref.watch(archiveDate);
   final state = ServicesListState(journal);
   () async {
     await state.initAsync();
@@ -116,7 +132,9 @@ class ServicesListState extends StateNotifier<List<ServiceOfJournal>?> {
                 .read(hiveJournalBox(journal.journalHiveName))
                 .value!
                 .values
-                .where((element) => element.provDate == journal.aData),
+                .where((element) =>
+                    element.provDate.daysSinceEpoch ==
+                    journal.aData!.daysSinceEpoch),
         ];
         //
         // > archive old services

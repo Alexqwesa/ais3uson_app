@@ -5,6 +5,7 @@ import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
@@ -436,7 +437,7 @@ void main() {
         //   element.provDate.add(const Duration(hours: -2));
         // });
         // client.workerProfile.services.clear();
-        await service3.journal.workerProfile.syncPlanned();
+        await service3.workerProfile.syncPlanned();
         expect(client.workerProfile.journal.finished.length, 10);
         await client.workerProfile.journal.updateBasedOnNewPlanDate();
         expect(client.workerProfile.journal.outDated.length, 10);
@@ -491,7 +492,10 @@ void main() {
           await service3.delete();
         }
         expect(service3.listDoneProgressError, [10, 0, 0]);
-        expect(client.workerProfile.journal.outDated.length, 10);
+        expect(
+          ref.read(journalOfWorker(client.workerProfile)).outDated.length,
+          10,
+        );
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }

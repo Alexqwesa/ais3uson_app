@@ -44,6 +44,7 @@ class WorkerProfile {
   WorkerKey get key =>
       ref.read(innerWorkerKeys).firstWhere((e) => e.apiKey == apiKey);
 
+  /// For tests only.
   Journal get journal => ref.read(journalOfWorker(this));
 
   /// List of assigned clients.
@@ -63,10 +64,10 @@ class WorkerProfile {
   /// Only for tests! Don't use in real code.
   ///
   /// Async init actions such as:
-  /// - postInit [journal] (instance of [Journal] class),
+  /// - postInit of [Journal] class,
   /// - read [clients], [clientPlan] and [services] from hive if empty.
   Future<void> postInit() async {
-    await journal.postInit();
+    await ref.read(journalOfWorker(this)).postInit();
     await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
     await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
     await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();

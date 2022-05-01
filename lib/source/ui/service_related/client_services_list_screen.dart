@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
@@ -42,8 +43,10 @@ class ClientServicesListScreen extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () async {
-                await workerProfile.journal.archiveOldServices();
-                await workerProfile.journal.commitAll();
+                await ref
+                    .read(journalOfWorker(workerProfile))
+                    .archiveOldServices();
+                await ref.read(journalOfWorker(workerProfile)).commitAll();
                 await workerProfile.syncPlanned();
               },
             ),

@@ -244,7 +244,7 @@ void main() {
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
       final wp = ref.read(workerProfiles).first;
-      ref.read(archiveDate.notifier).state = DateTime(2022, 3, 1);
+      ref.read(archiveDate.notifier).state = DateTime(2022, 3);
       await wp.postInit();
       //
       // > create dir for proof

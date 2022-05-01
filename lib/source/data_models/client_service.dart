@@ -4,10 +4,12 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
+import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
@@ -25,13 +27,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 @immutable
 class ClientService {
   const ClientService({
-    required this.journal,
+    required this.workerProfile,
     required this.service,
     required this.planned,
   });
 
-  /// Reference to existing [Journal].
-  final Journal journal;
+  /// Reference to existing [WorkerProfile].
+  final WorkerProfile workerProfile;
 
   /// Reference to existing [ServiceEntry].
   final ServiceEntry service;
@@ -42,9 +44,13 @@ class ClientService {
   //
   // > shortcuts for underline classes
   //
-  String get apiKey => journal.apiKey;
 
-  int get workerDepId => journal.workerProfile.key.workerDepId;
+  /// Reference to existing [WorkerProfile].
+  Journal get journal => ref.read(journalOfWorker(workerProfile));
+
+  String get apiKey => workerProfile.apiKey;
+
+  int get workerDepId => workerProfile.key.workerDepId;
 
   int get contractId => planned.contractId;
 
@@ -64,7 +70,7 @@ class ClientService {
 
   String get image => service.imagePath;
 
-  ProviderContainer get ref => journal.ref;
+  ProviderContainer get ref => workerProfile.ref;
 
   //
   // > services getters
