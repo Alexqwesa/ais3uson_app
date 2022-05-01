@@ -77,7 +77,7 @@
       .where((e) =&gt; listServiceIds.contains(e.id))
       .map(
         (e) =&gt; ClientService(
-          journal: client.workerProfile.journal,
+          workerProfile: client.workerProfile,
           service: e,
           planned: listService.firstWhere((element) =&gt; element.servId == e.id),
           &#47;&#47; client: client,

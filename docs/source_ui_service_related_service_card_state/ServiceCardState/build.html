@@ -108,7 +108,8 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final listDoneProgressError = clientService.listDoneProgressError;
+  final listDoneProgressError =
+      ref.watch(listDoneProgressErrorOfService(clientService));
 
   return SizedBox.expand(
     child: FittedBox(

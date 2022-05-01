@@ -32,7 +32,7 @@
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/source_ui_service_related_confirmation_for_list_of_services-library.html">confirmation_for_list_of_services</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html">TotalServiceTile</a></li>
-    <li class="self-crumb">TotalServiceTile constructor</li>
+    <li class="self-crumb">TotalServiceTile const constructor</li>
   </ol>
   <div class="self-name">TotalServiceTile</div>
   <form class="search navbar-right" role="search">
@@ -49,10 +49,9 @@
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
-    <section class="multi-line-signature">
+    <section class="multi-line-signature">const
       <span class="name ">TotalServiceTile</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-serviceOfJournal">{<span>required</span> <span class="type-annotation"><a href="../../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">serviceOfJournal</span>, </span></li>
 <li><span class="parameter" id="-param-client"><span>required</span> <span class="type-annotation"><a href="../../source_data_models_client_profile/ClientProfile-class.html">ClientProfile</a></span> <span class="parameter-name">client</span>, </span></li>
-<li><span class="parameter" id="-param-ref"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span>, </span></li>
 <li><span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>}</span></li>
 </ol>)
     </section>
@@ -63,40 +62,11 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">TotalServiceTile({
-  required ServiceOfJournal serviceOfJournal,
-  required ClientProfile client,
-  required WidgetRef ref,
+  <pre class="language-dart"><code class="language-dart">const TotalServiceTile({
+  required this.serviceOfJournal,
+  required this.client,
   Key? key,
-}) : super(key: key) {
-  try {
-    service =
-        serviceOfJournal.provDate.isBefore(client.workerProfile.journal.today)
-            ? client.services
-                .firstWhere(
-                  (element) =&gt; element.servId == serviceOfJournal.servId,
-                )
-                .copyWith(
-                  newJournal:
-                      ref.watch(journalArchiveOfWorker(client.workerProfile)),
-                )
-            : client.services.firstWhere(
-                (element) =&gt; element.servId == serviceOfJournal.servId,
-              );
-    &#47;&#47; ignore: avoid_catching_errors
-  } on StateError catch (e) {
-    if (e.message == &#39;No element&#39;) {
-      service = client.services.first.copyWith(
-        newJournal: ref.watch(journalArchiveOfWorker(client.workerProfile)),
-        serv: client.services.first.service.copyWith(
-          image: &#39;not-found.png&#39;,
-          short_text: locator&lt;S&gt;().errorService,
-          serv_text: locator&lt;S&gt;().errorService,
-        ),
-      );
-    }
-  }
-}</code></pre>
+}) : super(key: key);</code></pre>
 </section>
 
 
@@ -113,7 +83,7 @@
   <li><a href="../../index.html">ais3uson_app</a></li>
   <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/source_ui_service_related_confirmation_for_list_of_services-library.html">confirmation_for_list_of_services</a></li>
   <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html">TotalServiceTile</a></li>
-  <li class="self-crumb">TotalServiceTile constructor</li>
+  <li class="self-crumb">TotalServiceTile const constructor</li>
 </ol>
 
 
@@ -127,10 +97,11 @@
     <li class="section-title">
       <a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/client.html">client</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/service.html">service</a></li>
+    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/serviceOfJournal.html">serviceOfJournal</a></li>
 
     <li class="section-title"><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/build.html">build</a></li>

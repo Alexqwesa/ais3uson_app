@@ -66,9 +66,9 @@
   <pre class="language-dart"><code class="language-dart">final fullArchiveOfClient =
     Provider.family&lt;List&lt;ServiceOfJournal&gt;, ClientProfile&gt;((ref, client) {
   return [
-    ...ref.read(_archiveOfClient(client)),
+    ...ref.watch(_archiveOfClient(client)),
     ...ref
-        .read(_journalOfWorker(client.workerProfile))
+        .watch(_journalOfWorker(client.workerProfile))
         .all
         .where((element) =&gt; element.contractId == client.contractId),
   ];
@@ -104,6 +104,7 @@
   <li class="section-title"><a href="../source_providers_provider_of_journal/source_providers_provider_of_journal-library.html#properties">Properties</a></li>
   <li><a href="../source_providers_provider_of_journal/fullArchiveOfClient.html">fullArchiveOfClient</a></li>
   <li><a href="../source_providers_provider_of_journal/groupsOfJournal.html">groupsOfJournal</a></li>
+  <li><a href="../source_providers_provider_of_journal/journalArchiveAllOfWorker.html">journalArchiveAllOfWorker</a></li>
   <li><a href="../source_providers_provider_of_journal/journalArchiveOfWorker.html">journalArchiveOfWorker</a></li>
   <li><a href="../source_providers_provider_of_journal/journalOfWorker.html">journalOfWorker</a></li>
   <li><a href="../source_providers_provider_of_journal/servicesOfJournal.html">servicesOfJournal</a></li>

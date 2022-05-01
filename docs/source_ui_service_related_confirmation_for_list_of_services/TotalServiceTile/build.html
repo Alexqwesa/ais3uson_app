@@ -108,6 +108,28 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  ClientService service;
+
+  try {
+    service = ref.read(servicesOfClient(client)).firstWhere(
+          (element) =&gt; element.servId == serviceOfJournal.servId,
+        );
+    &#47;&#47; ignore: avoid_catching_errors
+  } on StateError {
+    &#47;&#47; if (e.message == &#39;No element&#39;) {
+    service = ClientService(
+      &#47;&#47; maybe use error constructor?
+      workerProfile: client.workerProfile,
+      service: client.services.first.service.copyWith(
+        image: &#39;not-found.png&#39;,
+        short_text: locator&lt;S&gt;().errorService,
+        serv_text: locator&lt;S&gt;().errorService,
+      ),
+      planned: client.services.first.planned,
+    );
+    &#47;&#47; }
+  }
+
   return Padding(
     padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
     child: SizedBox(
@@ -124,7 +146,12 @@ Widget build(BuildContext context, WidgetRef ref) {
                   Image.asset(
                     &#39;images&#47;${service.image}&#39;,
                   ),
-                  Text(service.shortText),
+                  Expanded(
+                    child: Text(
+                      service.shortText,
+                      softWrap: true,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -177,10 +204,11 @@ Widget build(BuildContext context, WidgetRef ref) {
     <li class="section-title">
       <a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/client.html">client</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/service.html">service</a></li>
+    <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/serviceOfJournal.html">serviceOfJournal</a></li>
 
     <li class="section-title"><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TotalServiceTile/build.html">build</a></li>

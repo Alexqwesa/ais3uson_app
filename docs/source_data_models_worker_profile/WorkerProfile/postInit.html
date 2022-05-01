@@ -63,7 +63,7 @@
   <p>Only for tests! Don't use in real code.</p>
 <p>Async init actions such as:</p>
 <ul>
-<li>postInit <a href="../../source_data_models_worker_profile/WorkerProfile/journal.html">journal</a> (instance of <a href="../../Journal/Journal-class.html">Journal</a> class),</li>
+<li>postInit of <a href="../../Journal/Journal-class.html">Journal</a> class,</li>
 <li>read <a href="../../source_data_models_worker_profile/WorkerProfile/clients.html">clients</a>, <a href="../../source_data_models_worker_profile/WorkerProfile/clientPlan.html">clientPlan</a> and <a href="../../source_data_models_worker_profile/WorkerProfile/services.html">services</a> from hive if empty.</li>
 </ul>
 </section>
@@ -73,7 +73,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; postInit() async {
-  await journal.postInit();
+  await ref.read(journalOfWorker(this)).postInit();
   await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
   await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
   await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();

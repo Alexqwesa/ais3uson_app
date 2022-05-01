@@ -128,8 +128,10 @@ Widget build(BuildContext context, WidgetRef ref) {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () async {
-              await workerProfile.journal.archiveOldServices();
-              await workerProfile.journal.commitAll();
+              await ref
+                  .read(journalOfWorker(workerProfile))
+                  .archiveOldServices();
+              await ref.read(journalOfWorker(workerProfile)).commitAll();
               await workerProfile.syncPlanned();
             },
           ),

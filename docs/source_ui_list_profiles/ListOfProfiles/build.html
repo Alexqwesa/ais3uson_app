@@ -117,6 +117,8 @@ Widget build(BuildContext context, WidgetRef ref) {
             itemCount: wps.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
+              final workerProfile = wps[index];
+
               return ContextMenuRegion(
                 &#47;&#47;
                 &#47;&#47; &gt; context menu
@@ -125,28 +127,36 @@ Widget build(BuildContext context, WidgetRef ref) {
                   buttonConfigs: [
                     ContextMenuButtonConfig(
                       S.of(context).exportThisWeek,
-                      onPressed: () =&gt; wps[index].journal.exportToFile(
+                      onPressed: () =&gt; ref
+                          .read(journalOfWorker(workerProfile))
+                          .exportToFile(
                             mostRecentMonday(),
                             mostRecentMonday(addDays: 7),
                           ),
                     ),
                     ContextMenuButtonConfig(
                       S.of(context).exportLastWeek,
-                      onPressed: () =&gt; wps[index].journal.exportToFile(
+                      onPressed: () =&gt; ref
+                          .read(journalOfWorker(workerProfile))
+                          .exportToFile(
                             mostRecentMonday(addDays: -7),
                             mostRecentMonday(),
                           ),
                     ),
                     ContextMenuButtonConfig(
                       S.of(context).exportThisMonth,
-                      onPressed: () =&gt; wps[index].journal.exportToFile(
+                      onPressed: () =&gt; ref
+                          .read(journalOfWorker(workerProfile))
+                          .exportToFile(
                             mostRecentMonth(),
                             mostRecentMonth(addMonths: 1),
                           ),
                     ),
                     ContextMenuButtonConfig(
                       S.of(context).exportLastMonth,
-                      onPressed: () =&gt; wps[index].journal.exportToFile(
+                      onPressed: () =&gt; ref
+                          .read(journalOfWorker(workerProfile))
+                          .exportToFile(
                             mostRecentMonth(addMonths: -1),
                             mostRecentMonth(),
                           ),

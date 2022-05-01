@@ -84,7 +84,9 @@
               .read(hiveJournalBox(journal.journalHiveName))
               .value!
               .values
-              .where((element) =&gt; element.provDate == journal.aData),
+              .where((element) =&gt;
+                  element.provDate.daysSinceEpoch ==
+                  journal.aData!.daysSinceEpoch),
       ];
       &#47;&#47;
       &#47;&#47; &gt; archive old services
