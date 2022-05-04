@@ -69,11 +69,7 @@ Return List&lt;<a href="../source_client_server_api_service_entry/ServiceEntry-c
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final servicesOfWorker =
     Provider.family&lt;List&lt;ServiceEntry&gt;, WorkerProfile&gt;((ref, wp) {
-  () async {
-    await ref
-        .watch(httpDataProvider(wp.apiUrlServices).notifier)
-        .syncHiveHttp();
-  }();
+  ref.watch(httpDataProvider(wp.apiUrlServices).notifier).syncHiveHttp();
 
   return ref
       .watch(httpDataProvider(wp.apiUrlServices))

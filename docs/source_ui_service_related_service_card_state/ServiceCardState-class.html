@@ -53,8 +53,9 @@
     
 <section class="desc markdown">
   <p>Display state of the client service: amount of done/added/rejected...</p>
-<p>It get data from <a href="../source_data_models_client_service/ClientService/journal.html">ClientService.journal</a>
-via <a href="../source_data_models_client_service/ClientService/listDoneProgressError.html">ClientService.listDoneProgressError</a>, these numbers mean:</p>
+<p>It get data from <a href="../source_data_models_client_service/ClientService/workerProfile.html">ClientService.workerProfile</a>
+via <code>ref.watch(listDoneProgressErrorOfService(clientService))</code>,
+these numbers mean:</p>
 <ul>
 <li>done - finished and outDated,</li>
 <li>progress - added,</li>

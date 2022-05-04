@@ -81,7 +81,7 @@
 
       <dl class="constructor-summary-list">
         <dt id="ClientService" class="callable">
-          <span class="name"><a href="../source_data_models_client_service/ClientService/ClientService.html">ClientService</a></span><span class="signature">(<span class="parameter" id="-param-journal">{<span>required</span> <span class="type-annotation"><a href="../Journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span>, </span><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>}</span>)</span>
+          <span class="name"><a href="../source_data_models_client_service/ClientService/ClientService.html">ClientService</a></span><span class="signature">(<span class="parameter" id="-param-workerProfile">{<span>required</span> <span class="type-annotation"><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">workerProfile</span>, </span><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>}</span>)</span>
         </dt>
         <dd>
            
@@ -107,6 +107,17 @@
 
         <dt id="added" class="property">
   <span class="name"><a href="../source_data_models_client_service/ClientService/added.html">added</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="all" class="property">
+  <span class="name"><a href="../source_data_models_client_service/ClientService/all.html">all</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
@@ -193,25 +204,14 @@
 
 </dd>
 
-        <dt id="inJournal" class="property">
-  <span class="name"><a href="../source_data_models_client_service/ClientService/inJournal.html">inJournal</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read-only</div>
-
-</dd>
-
         <dt id="journal" class="property">
   <span class="name"><a href="../source_data_models_client_service/ClientService/journal.html">journal</a></span>
   <span class="signature">&#8594; <a href="../Journal/Journal-class.html">Journal</a></span> 
 
 </dt>
 <dd>
-  Reference to existing <a href="../Journal/Journal-class.html">Journal</a>. 
-  <div class="features">final</div>
+  Reference to existing <a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a>. 
+  <div class="features">read-only</div>
 
 </dd>
 
@@ -227,13 +227,13 @@
 </dd>
 
         <dt id="listDoneProgressError" class="property">
-  <span class="name"><a href="../source_data_models_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></span>
+  <span class="name"><a class="deprecated" href="../source_data_models_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
    
-  <div class="features">read-only</div>
+  <div class="features">@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Better use ref.watch of listDoneProgressErrorOfService&#39;), read-only</div>
 
 </dd>
 
@@ -270,9 +270,9 @@
 
 </dd>
 
-        <dt id="rejected" class="property">
-  <span class="name"><a href="../source_data_models_client_service/ClientService/rejected.html">rejected</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+        <dt id="ref" class="property">
+  <span class="name"><a href="../source_data_models_client_service/ClientService/ref.html">ref</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> 
 
 </dt>
 <dd>
@@ -300,17 +300,6 @@
 <dd>
   Reference to existing <a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a>. 
   <div class="features">final</div>
-
-</dd>
-
-        <dt id="servicesInJournal" class="property">
-  <span class="name"><a href="../source_data_models_client_service/ClientService/servicesInJournal.html">servicesInJournal</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read-only</div>
 
 </dd>
 
@@ -380,6 +369,17 @@
 
 </dd>
 
+        <dt id="workerProfile" class="property">
+  <span class="name"><a href="../source_data_models_client_service/ClientService/workerProfile.html">workerProfile</a></span>
+  <span class="signature">&#8594; <a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> 
+
+</dt>
+<dd>
+  Reference to existing <a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a>. 
+  <div class="features">final</div>
+
+</dd>
+
       </dl>
     </section>
 
@@ -394,7 +394,7 @@
 
 </dt>
 <dd>
-   
+  Add <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a>. 
   
 
 </dd>
@@ -402,19 +402,6 @@
         <dt id="addProof" class="callable">
   <span class="name"><a href="../source_data_models_client_service/ClientService/addProof.html">addProof</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-   
-  
-
-</dd>
-
-        <dt id="copyWith" class="callable">
-  <span class="name"><a href="../source_data_models_client_service/ClientService/copyWith.html">copyWith</a></span><span class="signature">(<wbr><span class="parameter" id="copyWith-param-newJournal">{<span class="type-annotation"><a href="../Journal/Journal-class.html">Journal</a>?</span> <span class="parameter-name">newJournal</span>, </span><span class="parameter" id="copyWith-param-serv"><span class="type-annotation"><a href="../source_client_server_api_service_entry/ServiceEntry-class.html">ServiceEntry</a>?</span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="copyWith-param-plan"><span class="type-annotation"><a href="../source_client_server_api_client_plan/ClientPlan-class.html">ClientPlan</a>?</span> <span class="parameter-name">plan</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="../source_data_models_client_service/ClientService-class.html">ClientService</a></span>
   </span>
   
 
@@ -433,7 +420,7 @@
 
 </dt>
 <dd>
-   
+  Delete <a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a>. 
   
 
 </dd>
@@ -533,6 +520,7 @@
     </li>
     <li><a href="../source_data_models_client_service/ClientService/addAllowed.html">addAllowed</a></li>
     <li><a href="../source_data_models_client_service/ClientService/added.html">added</a></li>
+    <li><a href="../source_data_models_client_service/ClientService/all.html">all</a></li>
     <li><a href="../source_data_models_client_service/ClientService/apiKey.html">apiKey</a></li>
     <li><a href="../source_data_models_client_service/ClientService/contractId.html">contractId</a></li>
     <li><a href="../source_data_models_client_service/ClientService/deleteAllowed.html">deleteAllowed</a></li>
@@ -540,28 +528,26 @@
     <li><a href="../source_data_models_client_service/ClientService/filled.html">filled</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li><a href="../source_data_models_client_service/ClientService/image.html">image</a></li>
-    <li><a href="../source_data_models_client_service/ClientService/inJournal.html">inJournal</a></li>
     <li><a href="../source_data_models_client_service/ClientService/journal.html">journal</a></li>
     <li><a href="../source_data_models_client_service/ClientService/left.html">left</a></li>
-    <li><a href="../source_data_models_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></li>
+    <li><a class="deprecated" href="../source_data_models_client_service/ClientService/listDoneProgressError.html">listDoneProgressError</a></li>
     <li><a href="../source_data_models_client_service/ClientService/plan.html">plan</a></li>
     <li><a href="../source_data_models_client_service/ClientService/planned.html">planned</a></li>
     <li><a href="../source_data_models_client_service/ClientService/proofList.html">proofList</a></li>
-    <li><a href="../source_data_models_client_service/ClientService/rejected.html">rejected</a></li>
+    <li><a href="../source_data_models_client_service/ClientService/ref.html">ref</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../source_data_models_client_service/ClientService/service.html">service</a></li>
-    <li><a href="../source_data_models_client_service/ClientService/servicesInJournal.html">servicesInJournal</a></li>
     <li><a href="../source_data_models_client_service/ClientService/servId.html">servId</a></li>
     <li><a href="../source_data_models_client_service/ClientService/servText.html">servText</a></li>
     <li><a href="../source_data_models_client_service/ClientService/servTextAdd.html">servTextAdd</a></li>
     <li><a href="../source_data_models_client_service/ClientService/shortText.html">shortText</a></li>
     <li><a href="../source_data_models_client_service/ClientService/subServ.html">subServ</a></li>
     <li><a href="../source_data_models_client_service/ClientService/workerDepId.html">workerDepId</a></li>
+    <li><a href="../source_data_models_client_service/ClientService/workerProfile.html">workerProfile</a></li>
 
     <li class="section-title"><a href="../source_data_models_client_service/ClientService-class.html#instance-methods">Methods</a></li>
     <li><a href="../source_data_models_client_service/ClientService/add.html">add</a></li>
     <li><a href="../source_data_models_client_service/ClientService/addProof.html">addProof</a></li>
-    <li><a href="../source_data_models_client_service/ClientService/copyWith.html">copyWith</a></li>
     <li><a href="../source_data_models_client_service/ClientService/delete.html">delete</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>

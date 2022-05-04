@@ -104,7 +104,7 @@ set state(List&lt;DateTime&gt; value) {
   &#47;&#47;
   if (box != null) {
     () async {
-      await box!.clear();
+      &#47;&#47; await box!.clear();
       await box!.compact();
       await box!.addAll(value);
     }();

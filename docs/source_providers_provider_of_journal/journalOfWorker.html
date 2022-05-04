@@ -71,6 +71,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
   &#47;&#47; () async {
   &#47;&#47;   await ref.watch(hiveJournalBox(wp.hiveName).future);
   &#47;&#47; }();
+  ref.watch(isArchive);
 
   return ref.watch(archiveDate) != null
       ? ref.watch(journalArchiveOfWorker(wp))
@@ -107,6 +108,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
   <li class="section-title"><a href="../source_providers_provider_of_journal/source_providers_provider_of_journal-library.html#properties">Properties</a></li>
   <li><a href="../source_providers_provider_of_journal/fullArchiveOfClient.html">fullArchiveOfClient</a></li>
   <li><a href="../source_providers_provider_of_journal/groupsOfJournal.html">groupsOfJournal</a></li>
+  <li><a href="../source_providers_provider_of_journal/journalArchiveAllOfWorker.html">journalArchiveAllOfWorker</a></li>
   <li><a href="../source_providers_provider_of_journal/journalArchiveOfWorker.html">journalArchiveOfWorker</a></li>
   <li><a href="../source_providers_provider_of_journal/journalOfWorker.html">journalOfWorker</a></li>
   <li><a href="../source_providers_provider_of_journal/servicesOfJournal.html">servicesOfJournal</a></li>

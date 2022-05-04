@@ -109,11 +109,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final client = ref.watch(lastClient);
-  if (client.services.isEmpty) {
-    return Container(); &#47;&#47; Todo:
-  }
-
-  final all = client.fullArchive;
+  final all = ref.watch(fullArchiveOfClient(client));
   final allByGroups = groupBy&lt;ServiceOfJournal, int&gt;(
     all,
     (e) =&gt; e.provDate.daysSinceEpoch,
@@ -125,11 +121,14 @@ Widget build(BuildContext context, WidgetRef ref) {
       child: SingleChildScrollView(
         child: Wrap(
           children: [
+            if (client.services.isEmpty || all.isEmpty)
+              Text(locator&lt;S&gt;().emptyListOfServices),
             for (final servicesAt in allByGroups.entries.map((e) =&gt; e.value))
               SizedBox(
                 width: tileSize + 32,
                 child: ListView(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     TitleWidgetOfServicesGroup(
                       service: servicesAt[0],
@@ -137,9 +136,8 @@ Widget build(BuildContext context, WidgetRef ref) {
                     ),
                     for (int index = 1; index &lt; servicesAt.length; index++)
                       TotalServiceTile(
-                        serviceOfJournal: all[index],
+                        serviceOfJournal: servicesAt[index],
                         client: client,
-                        ref: ref,
                       ),
                   ],
                 ),

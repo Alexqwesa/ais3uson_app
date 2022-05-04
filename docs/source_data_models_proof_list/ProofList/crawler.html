@@ -68,66 +68,10 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">&#47;&#47; ignore: long-method
-Future&lt;void&gt; crawler() async {
-  inited = true;
-  Directory appDocDir;
-  try {
-    appDocDir = Directory(
-      &#39;${(await getApplicationDocumentsDirectory()).path}&#47;Ais3uson&#39;,
-    );
-    if (!appDocDir.existsSync()) {
-      return;
-    }
-  } on MissingPlatformDirectoryException {
-    showErrorNotification(&#39;Ошибка доступа к файловой системе!&#39;);
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; crawler() async {
+  crawled ??= _crawler();
 
-    return;
-  }
-  await for (final depWorker in appDocDir.list()) {
-    if (depWorker.baseName.startsWith(&#39;${workerId}_&#39;) &amp;&amp;
-        (depWorker is Directory)) {
-      await for (final contract in depWorker.list()) {
-        if (contract.baseName.startsWith(&#39;${contractId}_&#39;) &amp;&amp;
-            (contract is Directory)) {
-          await for (final dat in contract.list()) {
-            if (dat.baseName.startsWith(&#39;${date}_&#39;) &amp;&amp; (dat is Directory)) {
-              await for (final serv in dat.list()) {
-                if (serv.baseName.startsWith(&#39;${serviceId}_&#39;) &amp;&amp;
-                    (serv is Directory)) {
-                  await for (final group in serv.list()) {
-                    if (group.baseName.startsWith(&#39;group_&#39;) &amp;&amp;
-                        (group is Directory)) {
-                      File? beforeImg;
-                      File? beforeAudio;
-                      File? afterImg;
-                      File? afterAudio;
-                      await for (final file in group.list()) {
-                        if (file.baseName.startsWith(&#39;before_img_&#39;) &amp;&amp;
-                            (file is File)) beforeImg = file;
-                        if (file.baseName.startsWith(&#39;before_audio_&#39;) &amp;&amp;
-                            (file is File)) beforeAudio = file;
-                        if (file.baseName.startsWith(&#39;after_img_&#39;) &amp;&amp;
-                            (file is File)) afterImg = file;
-                        if (file.baseName.startsWith(&#39;after_audio_&#39;) &amp;&amp;
-                            (file is File)) afterAudio = file;
-                      }
-                      await addGroup(
-                        beforeImg,
-                        beforeAudio,
-                        afterImg,
-                        afterAudio,
-                      );
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  return crawled;
 }</code></pre>
 </section>
 
@@ -161,11 +105,11 @@ Future&lt;void&gt; crawler() async {
     </li>
     <li><a href="../../source_data_models_proof_list/ProofList/client.html">client</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/contractId.html">contractId</a></li>
+    <li><a href="../../source_data_models_proof_list/ProofList/crawled.html">crawled</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/date.html">date</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
-    <li><a href="../../source_data_models_proof_list/ProofList/inited.html">inited</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/proofGroups.html">proofGroups</a></li>
+    <li><a href="../../source_data_models_proof_list/ProofList/ref.html">ref</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/service.html">service</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/serviceId.html">serviceId</a></li>
@@ -175,13 +119,9 @@ Future&lt;void&gt; crawler() async {
     <li class="section-title"><a href="../../source_data_models_proof_list/ProofList-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/addGroup.html">addGroup</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/addImage.html">addImage</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/addNewGroup.html">addNewGroup</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/crawler.html">crawler</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../../source_data_models_proof_list/ProofList-class.html#operators">Operators</a></li>

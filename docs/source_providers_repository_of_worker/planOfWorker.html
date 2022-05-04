@@ -69,9 +69,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final planOfWorker =
     Provider.family&lt;List&lt;ClientPlan&gt;, WorkerProfile&gt;((ref, wp) {
-  () async {
-    await ref.watch(httpDataProvider(wp.apiUrlPlan).notifier).syncHiveHttp();
-  }();
+  ref.watch(httpDataProvider(wp.apiUrlPlan).notifier).syncHiveHttp();
 
   return ref
       .watch(httpDataProvider(wp.apiUrlPlan))

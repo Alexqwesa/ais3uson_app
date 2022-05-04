@@ -69,11 +69,7 @@ Return List&lt;<a href="../source_data_models_client_profile/ClientProfile-class
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final clientsOfWorker = Provider.family&lt;List&lt;ClientProfile&gt;, WorkerProfile&gt;(
   (ref, wp) {
-    () async {
-      await ref
-          .watch(httpDataProvider(wp.apiUrlClients).notifier)
-          .syncHiveHttp();
-    }();
+    ref.watch(httpDataProvider(wp.apiUrlClients).notifier).syncHiveHttp();
 
     return ref
         .watch(httpDataProvider(wp.apiUrlClients))

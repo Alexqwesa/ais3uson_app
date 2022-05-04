@@ -52,9 +52,9 @@
 
     
 <section class="desc markdown">
-  <p>This class is for showing archived services at date <a href="../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a>.</p>
+  <p>This class is for showing archived services at date <a href="../source_providers_providers_of_app_state/archiveDate.html">archiveDate</a>.</p>
 <p>It is stubbed and read only version of <a href="../Journal/Journal-class.html">Journal</a> class.
-If <a href="../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a> is null - read all service from journal and journal_archive.
+If <a href="../source_providers_providers_of_app_state/archiveDate.html">archiveDate</a> is null - read all service from journal and journal_archive.
 TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(from recent to old).</p>
 </section>
 
@@ -70,6 +70,10 @@ TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(
 
 
 
+        <dt>Implementers</dt>
+        <dd><ul class="comma-separated clazz-relationships">
+          <li><a href="../source_journal_archive_journal_archive/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
+        </ul></dd>
 
 
       </dl>
@@ -80,7 +84,7 @@ TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(
 
       <dl class="constructor-summary-list">
         <dt id="JournalArchive" class="callable">
-          <span class="name"><a href="../source_journal_archive_journal_archive/JournalArchive/JournalArchive.html">JournalArchive</a></span><span class="signature">(<span class="parameter" id="-param-wp"><span class="type-annotation"><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">wp</span>, </span><span class="parameter" id="-param-aDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">aDate</span></span>)</span>
+          <span class="name"><a href="../source_journal_archive_journal_archive/JournalArchive/JournalArchive.html">JournalArchive</a></span><span class="signature">(<span class="parameter" id="-param-wp"><span class="type-annotation"><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">wp</span></span>)</span>
         </dt>
         <dd>
            
@@ -92,25 +96,14 @@ TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(
       <h2>Properties</h2>
 
       <dl class="properties">
-        <dt id="aData" class="property inherited">
-  <span class="name"><a href="../Journal/Journal/aData.html">aData</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> 
-
-</dt>
-<dd class="inherited">
-  At what date is journal, null - load all values. 
-  <div class="features">final, inherited</div>
-
-</dd>
-
-        <dt id="aDate" class="property">
-  <span class="name"><a href="../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a></span>
+        <dt id="aData" class="property">
+  <span class="name"><a href="../source_journal_archive_journal_archive/JournalArchive/aData.html">aData</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> 
 
 </dt>
 <dd>
   At what date is journal, null - load all values. 
-  <div class="features">final</div>
+  <div class="features">read-only, override</div>
 
 </dd>
 
@@ -166,17 +159,6 @@ TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(
 <dd class="inherited">
   The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
   <div class="features">read-only, inherited</div>
-
-</dd>
-
-        <dt id="hasListeners" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
-
-</dt>
-<dd class="inherited">
-  Whether any listeners are currently registered. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, read-only, inherited</div>
 
 </dd>
 
@@ -329,19 +311,6 @@ TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(
     <section class="summary offset-anchor" id="instance-methods">
       <h2>Methods</h2>
       <dl class="callables">
-        <dt id="addListener" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></span><span class="signature">(<wbr><span class="parameter" id="addListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Register a closure to be called when the object changes. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">[...]</a>
-  <div class="features">inherited</div>
-
-</dd>
-
         <dt id="archiveOldServices" class="callable">
   <span class="name"><a href="../source_journal_archive_journal_archive/JournalArchive/archiveOldServices.html">archiveOldServices</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
@@ -420,22 +389,6 @@ TODO: The member <a href="../Journal/Journal/all.html">all</a> - sorted by date(
 
 </dd>
 
-        <dt id="dispose" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Discards any resources used by the object. After this is called, the
-object is not in a usable state and should be discarded (calls to
-<a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a> and <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a> will throw after the object is
-disposed). <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/mustCallSuper-constant.html">mustCallSuper</a>, inherited</div>
-
-</dd>
-
         <dt id="export" class="callable inherited">
   <span class="name"><a href="../Journal/Journal/export.html">export</a></span><span class="signature">(<wbr><span class="parameter" id="export-param-start"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="export-param-end"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">end</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
@@ -501,19 +454,6 @@ disposed). <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/di
 
 </dd>
 
-        <dt id="notifyListeners" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Call all the registered listeners. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">[...]</a>
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/protected-constant.html">protected</a>, @<a href="https://pub.dev/documentation/meta/1.7.0/meta/visibleForTesting-constant.html">visibleForTesting</a>, inherited</div>
-
-</dd>
-
         <dt id="post" class="callable">
   <span class="name"><a href="../source_journal_archive_journal_archive/JournalArchive/post.html">post</a></span><span class="signature">(<wbr><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../source_journal_service_of_journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
@@ -536,20 +476,6 @@ disposed). <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/di
 </dt>
 <dd class="inherited">
   Only for tests! Don't use in real code. 
-  <div class="features">inherited</div>
-
-</dd>
-
-        <dt id="removeListener" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></span><span class="signature">(<wbr><span class="parameter" id="removeListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Remove a previously registered closure from the list of closures that are
-notified when the object changes. <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">[...]</a>
   <div class="features">inherited</div>
 
 </dd>
@@ -677,6 +603,7 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <ol>
   <li class="section-title"><a href="../source_journal_archive_journal_archive/source_journal_archive_journal_archive-library.html#classes">Classes</a></li>
   <li><a href="../source_journal_archive_journal_archive/JournalArchive-class.html">JournalArchive</a></li>
+  <li><a href="../source_journal_archive_journal_archive/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
 
   <li class="section-title"><a href="../source_journal_archive_journal_archive/source_journal_archive_journal_archive-library.html#extensions">Extensions</a></li>
   <li><a href="../source_journal_archive_journal_archive/DaysSinceEpoch.html">DaysSinceEpoch</a></li>
@@ -701,14 +628,12 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li class="section-title">
       <a href="../source_journal_archive_journal_archive/JournalArchive-class.html#instance-properties">Properties</a>
     </li>
-    <li class="inherited"><a href="../Journal/Journal/aData.html">aData</a></li>
-    <li><a href="../source_journal_archive_journal_archive/JournalArchive/aDate.html">aDate</a></li>
+    <li><a href="../source_journal_archive_journal_archive/JournalArchive/aData.html">aData</a></li>
     <li class="inherited"><a href="../Journal/Journal/added.html">added</a></li>
     <li class="inherited"><a href="../Journal/Journal/all.html">all</a></li>
     <li class="inherited"><a href="../Journal/Journal/apiKey.html">apiKey</a></li>
     <li class="inherited"><a href="../Journal/Journal/finished.html">finished</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li class="inherited"><a href="../Journal/Journal/hive.html">hive</a></li>
     <li class="inherited"><a href="../Journal/Journal/hiveArchive.html">hiveArchive</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/journalHiveName.html">journalHiveName</a></li>
@@ -724,23 +649,19 @@ notified when the object changes. <a href="https://api.flutter.dev/flutter/found
     <li class="inherited"><a href="../Journal/Journal/workerProfile.html">workerProfile</a></li>
 
     <li class="section-title"><a href="../source_journal_archive_journal_archive/JournalArchive-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/archiveOldServices.html">archiveOldServices</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/commitAdd.html">commitAdd</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/commitAll.html">commitAll</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/commitDel.html">commitDel</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/commitUrl.html">commitUrl</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/delete.html">delete</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></li>
     <li class="inherited"><a href="../Journal/Journal/export.html">export</a></li>
     <li class="inherited"><a href="../Journal/Journal/exportToFile.html">exportToFile</a></li>
     <li class="inherited"><a href="../Journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
     <li class="inherited"><a href="../Journal/Journal/moveServiceTo.html">moveServiceTo</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
     <li><a href="../source_journal_archive_journal_archive/JournalArchive/post.html">post</a></li>
     <li class="inherited"><a href="../Journal/Journal/postInit.html">postInit</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
     <li class="inherited"><a href="../Journal/Journal/toDelete.html">toDelete</a></li>
     <li class="inherited"><a href="../Journal/Journal/toFinished.html">toFinished</a></li>
     <li class="inherited"><a href="../Journal/Journal/toOutDated.html">toOutDated</a></li>
