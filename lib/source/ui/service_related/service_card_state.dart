@@ -65,7 +65,7 @@ class ServiceCardState extends ConsumerWidget {
                   maintainState: true,
                   visible: listDoneProgressError.elementAt(i) != 0,
                   child: rightOfText
-                      ? Container(
+                      ? ColoredBox(
                           color: Colors.white,
                           child: Row(
                             children: [
@@ -77,7 +77,7 @@ class ServiceCardState extends ConsumerWidget {
                             ],
                           ),
                         )
-                      : Container(
+                      : ColoredBox(
                           color: Colors.white,
                           child: Column(
                             children: [

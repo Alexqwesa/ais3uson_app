@@ -25,6 +25,18 @@ final lastClient = Provider<ClientProfile>((ref) {
     log.severe('lastClient requested but provider failed');
 
     return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first;
+    //
+    // return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).isNotEmpty
+    //     ? ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first
+    //     : ClientProfile(
+    //         workerProfile: ref.watch(lastWorkerProfile),
+    //         entry: const ClientEntry(
+    //           dhw_id: 0,
+    //           client_id: 0,
+    //           client: 'Error',
+    //           contract_id: 0,
+    //           dep_id: 0,
+    //         ));
   }
 });
 
@@ -91,19 +103,20 @@ class LastClientIdState extends StateNotifier<int> {
   }
 }
 
-
 /// Provider of setting - lastClientService.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
-final lastClientService = StateNotifierProvider<LastClientServiceState, int>((ref) {
+final lastClientService =
+    StateNotifierProvider<LastClientServiceState, int>((ref) {
   return LastClientServiceState();
 });
 
 class LastClientServiceState extends StateNotifier<int> {
-  LastClientServiceState() : super(locator<SharedPreferences>().getInt(name) ?? 0);
+  LastClientServiceState()
+      : super(locator<SharedPreferences>().getInt(name) ?? 0);
 
   static const name = 'last_client_service';
 
