@@ -12,48 +12,11 @@ part of 'client_entry.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ClientEntry _$ClientEntryFromJson(Map<String, dynamic> json) {
   return _ClientEntry.fromJson(json);
 }
-
-/// @nodoc
-class _$ClientEntryTearOff {
-  const _$ClientEntryTearOff();
-
-  _ClientEntry call(
-      {required int contract_id,
-      required int dep_id,
-      required int client_id,
-      required int dhw_id,
-      String contract = 'ERROR',
-      String client = 'ERROR',
-      String contract_duration = '',
-      String comment = '',
-      double percent = 0.0,
-      double max_pay = double.infinity}) {
-    return _ClientEntry(
-      contract_id: contract_id,
-      dep_id: dep_id,
-      client_id: client_id,
-      dhw_id: dhw_id,
-      contract: contract,
-      client: client,
-      contract_duration: contract_duration,
-      comment: comment,
-      percent: percent,
-      max_pay: max_pay,
-    );
-  }
-
-  ClientEntry fromJson(Map<String, Object?> json) {
-    return ClientEntry.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ClientEntry = _$ClientEntryTearOff();
 
 /// @nodoc
 mixin _$ClientEntry {
@@ -159,11 +122,11 @@ class _$ClientEntryCopyWithImpl<$Res> implements $ClientEntryCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ClientEntryCopyWith<$Res>
+abstract class _$$_ClientEntryCopyWith<$Res>
     implements $ClientEntryCopyWith<$Res> {
-  factory _$ClientEntryCopyWith(
-          _ClientEntry value, $Res Function(_ClientEntry) then) =
-      __$ClientEntryCopyWithImpl<$Res>;
+  factory _$$_ClientEntryCopyWith(
+          _$_ClientEntry value, $Res Function(_$_ClientEntry) then) =
+      __$$_ClientEntryCopyWithImpl<$Res>;
   @override
   $Res call(
       {int contract_id,
@@ -179,14 +142,14 @@ abstract class _$ClientEntryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
-    implements _$ClientEntryCopyWith<$Res> {
-  __$ClientEntryCopyWithImpl(
-      _ClientEntry _value, $Res Function(_ClientEntry) _then)
-      : super(_value, (v) => _then(v as _ClientEntry));
+class __$$_ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
+    implements _$$_ClientEntryCopyWith<$Res> {
+  __$$_ClientEntryCopyWithImpl(
+      _$_ClientEntry _value, $Res Function(_$_ClientEntry) _then)
+      : super(_value, (v) => _then(v as _$_ClientEntry));
 
   @override
-  _ClientEntry get _value => super._value as _ClientEntry;
+  _$_ClientEntry get _value => super._value as _$_ClientEntry;
 
   @override
   $Res call({
@@ -201,7 +164,7 @@ class __$ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
     Object? percent = freezed,
     Object? max_pay = freezed,
   }) {
-    return _then(_ClientEntry(
+    return _then(_$_ClientEntry(
       contract_id: contract_id == freezed
           ? _value.contract_id
           : contract_id // ignore: cast_nullable_to_non_nullable
@@ -273,23 +236,23 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
   final int client_id;
   @override
   final int dhw_id;
-  @JsonKey()
   @override
+  @JsonKey()
   final String contract;
-  @JsonKey()
   @override
+  @JsonKey()
   final String client;
-  @JsonKey()
   @override
+  @JsonKey()
   final String contract_duration;
-  @JsonKey()
   @override
+  @JsonKey()
   final String comment;
-  @JsonKey()
   @override
+  @JsonKey()
   final double percent;
-  @JsonKey()
   @override
+  @JsonKey()
   final double max_pay;
 
   @override
@@ -318,7 +281,7 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ClientEntry &&
+            other is _$_ClientEntry &&
             const DeepCollectionEquality()
                 .equals(other.contract_id, contract_id) &&
             const DeepCollectionEquality().equals(other.dep_id, dep_id) &&
@@ -333,6 +296,7 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.max_pay, max_pay));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -349,8 +313,8 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$ClientEntryCopyWith<_ClientEntry> get copyWith =>
-      __$ClientEntryCopyWithImpl<_ClientEntry>(this, _$identity);
+  _$$_ClientEntryCopyWith<_$_ClientEntry> get copyWith =>
+      __$$_ClientEntryCopyWithImpl<_$_ClientEntry>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -360,43 +324,43 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
 
 abstract class _ClientEntry extends ClientEntry {
   const factory _ClientEntry(
-      {required int contract_id,
-      required int dep_id,
-      required int client_id,
-      required int dhw_id,
-      String contract,
-      String client,
-      String contract_duration,
-      String comment,
-      double percent,
-      double max_pay}) = _$_ClientEntry;
+      {required final int contract_id,
+      required final int dep_id,
+      required final int client_id,
+      required final int dhw_id,
+      final String contract,
+      final String client,
+      final String contract_duration,
+      final String comment,
+      final double percent,
+      final double max_pay}) = _$_ClientEntry;
   const _ClientEntry._() : super._();
 
   factory _ClientEntry.fromJson(Map<String, dynamic> json) =
       _$_ClientEntry.fromJson;
 
   @override
-  int get contract_id;
+  int get contract_id => throw _privateConstructorUsedError;
   @override
-  int get dep_id;
+  int get dep_id => throw _privateConstructorUsedError;
   @override
-  int get client_id;
+  int get client_id => throw _privateConstructorUsedError;
   @override
-  int get dhw_id;
+  int get dhw_id => throw _privateConstructorUsedError;
   @override
-  String get contract;
+  String get contract => throw _privateConstructorUsedError;
   @override
-  String get client;
+  String get client => throw _privateConstructorUsedError;
   @override
-  String get contract_duration;
+  String get contract_duration => throw _privateConstructorUsedError;
   @override
-  String get comment;
+  String get comment => throw _privateConstructorUsedError;
   @override
-  double get percent;
+  double get percent => throw _privateConstructorUsedError;
   @override
-  double get max_pay;
+  double get max_pay => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ClientEntryCopyWith<_ClientEntry> get copyWith =>
+  _$$_ClientEntryCopyWith<_$_ClientEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }

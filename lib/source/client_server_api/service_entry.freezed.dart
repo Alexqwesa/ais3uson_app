@@ -12,48 +12,11 @@ part of 'service_entry.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ServiceEntry _$ServiceEntryFromJson(Map<String, dynamic> json) {
   return _ServiceEntry.fromJson(json);
 }
-
-/// @nodoc
-class _$ServiceEntryTearOff {
-  const _$ServiceEntryTearOff();
-
-  _ServiceEntry call(
-      {required int id,
-      required String serv_text,
-      String image = 'not-found.png',
-      String tnum = '___',
-      int total = 0,
-      String short_text = '',
-      String serv_id_list = '',
-      int sub_serv = 1,
-      String comment = '',
-      double price = 0.0}) {
-    return _ServiceEntry(
-      id: id,
-      serv_text: serv_text,
-      image: image,
-      tnum: tnum,
-      total: total,
-      short_text: short_text,
-      serv_id_list: serv_id_list,
-      sub_serv: sub_serv,
-      comment: comment,
-      price: price,
-    );
-  }
-
-  ServiceEntry fromJson(Map<String, Object?> json) {
-    return ServiceEntry.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ServiceEntry = _$ServiceEntryTearOff();
 
 /// @nodoc
 mixin _$ServiceEntry {
@@ -159,11 +122,11 @@ class _$ServiceEntryCopyWithImpl<$Res> implements $ServiceEntryCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ServiceEntryCopyWith<$Res>
+abstract class _$$_ServiceEntryCopyWith<$Res>
     implements $ServiceEntryCopyWith<$Res> {
-  factory _$ServiceEntryCopyWith(
-          _ServiceEntry value, $Res Function(_ServiceEntry) then) =
-      __$ServiceEntryCopyWithImpl<$Res>;
+  factory _$$_ServiceEntryCopyWith(
+          _$_ServiceEntry value, $Res Function(_$_ServiceEntry) then) =
+      __$$_ServiceEntryCopyWithImpl<$Res>;
   @override
   $Res call(
       {int id,
@@ -179,14 +142,15 @@ abstract class _$ServiceEntryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ServiceEntryCopyWithImpl<$Res> extends _$ServiceEntryCopyWithImpl<$Res>
-    implements _$ServiceEntryCopyWith<$Res> {
-  __$ServiceEntryCopyWithImpl(
-      _ServiceEntry _value, $Res Function(_ServiceEntry) _then)
-      : super(_value, (v) => _then(v as _ServiceEntry));
+class __$$_ServiceEntryCopyWithImpl<$Res>
+    extends _$ServiceEntryCopyWithImpl<$Res>
+    implements _$$_ServiceEntryCopyWith<$Res> {
+  __$$_ServiceEntryCopyWithImpl(
+      _$_ServiceEntry _value, $Res Function(_$_ServiceEntry) _then)
+      : super(_value, (v) => _then(v as _$_ServiceEntry));
 
   @override
-  _ServiceEntry get _value => super._value as _ServiceEntry;
+  _$_ServiceEntry get _value => super._value as _$_ServiceEntry;
 
   @override
   $Res call({
@@ -201,7 +165,7 @@ class __$ServiceEntryCopyWithImpl<$Res> extends _$ServiceEntryCopyWithImpl<$Res>
     Object? comment = freezed,
     Object? price = freezed,
   }) {
-    return _then(_ServiceEntry(
+    return _then(_$_ServiceEntry(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -269,29 +233,30 @@ class _$_ServiceEntry extends _ServiceEntry {
   final int id;
   @override
   final String serv_text;
-  @JsonKey()
   @override
+  @JsonKey()
   final String image;
-  @JsonKey()
   @override
+  @JsonKey()
   final String tnum;
-  @JsonKey()
   @override
+  @JsonKey()
   final int total;
-  @JsonKey()
   @override
+  @JsonKey()
   final String short_text;
-  @JsonKey()
   @override
+  @JsonKey()
   final String serv_id_list;
-  @JsonKey()
   @override
+  @JsonKey()
   final int sub_serv;
-  @JsonKey()
-  @override // subServiceOf
-  final String comment;
-  @JsonKey()
+// subServiceOf
   @override
+  @JsonKey()
+  final String comment;
+  @override
+  @JsonKey()
   final double price;
 
   @override
@@ -303,7 +268,7 @@ class _$_ServiceEntry extends _ServiceEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ServiceEntry &&
+            other is _$_ServiceEntry &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.serv_text, serv_text) &&
             const DeepCollectionEquality().equals(other.image, image) &&
@@ -318,6 +283,7 @@ class _$_ServiceEntry extends _ServiceEntry {
             const DeepCollectionEquality().equals(other.price, price));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -334,8 +300,8 @@ class _$_ServiceEntry extends _ServiceEntry {
 
   @JsonKey(ignore: true)
   @override
-  _$ServiceEntryCopyWith<_ServiceEntry> get copyWith =>
-      __$ServiceEntryCopyWithImpl<_ServiceEntry>(this, _$identity);
+  _$$_ServiceEntryCopyWith<_$_ServiceEntry> get copyWith =>
+      __$$_ServiceEntryCopyWithImpl<_$_ServiceEntry>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -345,43 +311,43 @@ class _$_ServiceEntry extends _ServiceEntry {
 
 abstract class _ServiceEntry extends ServiceEntry {
   const factory _ServiceEntry(
-      {required int id,
-      required String serv_text,
-      String image,
-      String tnum,
-      int total,
-      String short_text,
-      String serv_id_list,
-      int sub_serv,
-      String comment,
-      double price}) = _$_ServiceEntry;
+      {required final int id,
+      required final String serv_text,
+      final String image,
+      final String tnum,
+      final int total,
+      final String short_text,
+      final String serv_id_list,
+      final int sub_serv,
+      final String comment,
+      final double price}) = _$_ServiceEntry;
   const _ServiceEntry._() : super._();
 
   factory _ServiceEntry.fromJson(Map<String, dynamic> json) =
       _$_ServiceEntry.fromJson;
 
   @override
-  int get id;
+  int get id => throw _privateConstructorUsedError;
   @override
-  String get serv_text;
+  String get serv_text => throw _privateConstructorUsedError;
   @override
-  String get image;
+  String get image => throw _privateConstructorUsedError;
   @override
-  String get tnum;
+  String get tnum => throw _privateConstructorUsedError;
   @override
-  int get total;
+  int get total => throw _privateConstructorUsedError;
   @override
-  String get short_text;
+  String get short_text => throw _privateConstructorUsedError;
   @override
-  String get serv_id_list;
+  String get serv_id_list => throw _privateConstructorUsedError;
   @override
-  int get sub_serv;
+  int get sub_serv => throw _privateConstructorUsedError;
   @override // subServiceOf
-  String get comment;
+  String get comment => throw _privateConstructorUsedError;
   @override
-  double get price;
+  double get price => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ServiceEntryCopyWith<_ServiceEntry> get copyWith =>
+  _$$_ServiceEntryCopyWith<_$_ServiceEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,42 +12,11 @@ part of 'service_of_journal.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ServiceOfJournal _$ServiceOfJournalFromJson(Map<String, dynamic> json) {
   return _ServiceOfJournal.fromJson(json);
 }
-
-/// @nodoc
-class _$ServiceOfJournalTearOff {
-  const _$ServiceOfJournalTearOff();
-
-  _ServiceOfJournal call(
-      {@HiveField(0) required int servId,
-      @HiveField(1) required int contractId,
-      @HiveField(2) required int workerId,
-      @HiveField(3) required DateTime provDate,
-      @HiveField(4) required String uid,
-      @HiveField(5) ServiceState state = ServiceState.added,
-      @HiveField(6) String error = ''}) {
-    return _ServiceOfJournal(
-      servId: servId,
-      contractId: contractId,
-      workerId: workerId,
-      provDate: provDate,
-      uid: uid,
-      state: state,
-      error: error,
-    );
-  }
-
-  ServiceOfJournal fromJson(Map<String, Object?> json) {
-    return ServiceOfJournal.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ServiceOfJournal = _$ServiceOfJournalTearOff();
 
 /// @nodoc
 mixin _$ServiceOfJournal {
@@ -140,11 +109,11 @@ class _$ServiceOfJournalCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ServiceOfJournalCopyWith<$Res>
+abstract class _$$_ServiceOfJournalCopyWith<$Res>
     implements $ServiceOfJournalCopyWith<$Res> {
-  factory _$ServiceOfJournalCopyWith(
-          _ServiceOfJournal value, $Res Function(_ServiceOfJournal) then) =
-      __$ServiceOfJournalCopyWithImpl<$Res>;
+  factory _$$_ServiceOfJournalCopyWith(
+          _$_ServiceOfJournal value, $Res Function(_$_ServiceOfJournal) then) =
+      __$$_ServiceOfJournalCopyWithImpl<$Res>;
   @override
   $Res call(
       {@HiveField(0) int servId,
@@ -157,15 +126,15 @@ abstract class _$ServiceOfJournalCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ServiceOfJournalCopyWithImpl<$Res>
+class __$$_ServiceOfJournalCopyWithImpl<$Res>
     extends _$ServiceOfJournalCopyWithImpl<$Res>
-    implements _$ServiceOfJournalCopyWith<$Res> {
-  __$ServiceOfJournalCopyWithImpl(
-      _ServiceOfJournal _value, $Res Function(_ServiceOfJournal) _then)
-      : super(_value, (v) => _then(v as _ServiceOfJournal));
+    implements _$$_ServiceOfJournalCopyWith<$Res> {
+  __$$_ServiceOfJournalCopyWithImpl(
+      _$_ServiceOfJournal _value, $Res Function(_$_ServiceOfJournal) _then)
+      : super(_value, (v) => _then(v as _$_ServiceOfJournal));
 
   @override
-  _ServiceOfJournal get _value => super._value as _ServiceOfJournal;
+  _$_ServiceOfJournal get _value => super._value as _$_ServiceOfJournal;
 
   @override
   $Res call({
@@ -177,7 +146,7 @@ class __$ServiceOfJournalCopyWithImpl<$Res>
     Object? state = freezed,
     Object? error = freezed,
   }) {
-    return _then(_ServiceOfJournal(
+    return _then(_$_ServiceOfJournal(
       servId: servId == freezed
           ? _value.servId
           : servId // ignore: cast_nullable_to_non_nullable
@@ -242,12 +211,12 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
   @override
   @HiveField(4)
   final String uid;
-  @JsonKey()
   @override
+  @JsonKey()
   @HiveField(5)
   final ServiceState state;
-  @JsonKey()
   @override
+  @JsonKey()
   @HiveField(6)
   final String error;
 
@@ -260,7 +229,7 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ServiceOfJournal &&
+            other is _$_ServiceOfJournal &&
             const DeepCollectionEquality().equals(other.servId, servId) &&
             const DeepCollectionEquality()
                 .equals(other.contractId, contractId) &&
@@ -271,6 +240,7 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
             const DeepCollectionEquality().equals(other.error, error));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -284,8 +254,8 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
 
   @JsonKey(ignore: true)
   @override
-  _$ServiceOfJournalCopyWith<_ServiceOfJournal> get copyWith =>
-      __$ServiceOfJournalCopyWithImpl<_ServiceOfJournal>(this, _$identity);
+  _$$_ServiceOfJournalCopyWith<_$_ServiceOfJournal> get copyWith =>
+      __$$_ServiceOfJournalCopyWithImpl<_$_ServiceOfJournal>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -295,13 +265,13 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
 
 abstract class _ServiceOfJournal extends ServiceOfJournal {
   factory _ServiceOfJournal(
-      {@HiveField(0) required int servId,
-      @HiveField(1) required int contractId,
-      @HiveField(2) required int workerId,
-      @HiveField(3) required DateTime provDate,
-      @HiveField(4) required String uid,
-      @HiveField(5) ServiceState state,
-      @HiveField(6) String error}) = _$_ServiceOfJournal;
+      {@HiveField(0) required final int servId,
+      @HiveField(1) required final int contractId,
+      @HiveField(2) required final int workerId,
+      @HiveField(3) required final DateTime provDate,
+      @HiveField(4) required final String uid,
+      @HiveField(5) final ServiceState state,
+      @HiveField(6) final String error}) = _$_ServiceOfJournal;
   _ServiceOfJournal._() : super._();
 
   factory _ServiceOfJournal.fromJson(Map<String, dynamic> json) =
@@ -309,27 +279,27 @@ abstract class _ServiceOfJournal extends ServiceOfJournal {
 
   @override
   @HiveField(0)
-  int get servId;
+  int get servId => throw _privateConstructorUsedError;
   @override
   @HiveField(1)
-  int get contractId;
+  int get contractId => throw _privateConstructorUsedError;
   @override
   @HiveField(2)
-  int get workerId;
+  int get workerId => throw _privateConstructorUsedError;
   @override
   @HiveField(3)
-  DateTime get provDate;
+  DateTime get provDate => throw _privateConstructorUsedError;
   @override
   @HiveField(4)
-  String get uid;
+  String get uid => throw _privateConstructorUsedError;
   @override
   @HiveField(5)
-  ServiceState get state;
+  ServiceState get state => throw _privateConstructorUsedError;
   @override
   @HiveField(6)
-  String get error;
+  String get error => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ServiceOfJournalCopyWith<_ServiceOfJournal> get copyWith =>
+  _$$_ServiceOfJournalCopyWith<_$_ServiceOfJournal> get copyWith =>
       throw _privateConstructorUsedError;
 }

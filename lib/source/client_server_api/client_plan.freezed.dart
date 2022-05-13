@@ -12,36 +12,11 @@ part of 'client_plan.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ClientPlan _$ClientPlanFromJson(Map<String, dynamic> json) {
   return _ClientPlan.fromJson(json);
 }
-
-/// @nodoc
-class _$ClientPlanTearOff {
-  const _$ClientPlanTearOff();
-
-  _ClientPlan call(
-      {required int contract_id,
-      required int serv_id,
-      required int planned,
-      required int filled}) {
-    return _ClientPlan(
-      contract_id: contract_id,
-      serv_id: serv_id,
-      planned: planned,
-      filled: filled,
-    );
-  }
-
-  ClientPlan fromJson(Map<String, Object?> json) {
-    return ClientPlan.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ClientPlan = _$ClientPlanTearOff();
 
 /// @nodoc
 mixin _$ClientPlan {
@@ -101,23 +76,24 @@ class _$ClientPlanCopyWithImpl<$Res> implements $ClientPlanCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ClientPlanCopyWith<$Res> implements $ClientPlanCopyWith<$Res> {
-  factory _$ClientPlanCopyWith(
-          _ClientPlan value, $Res Function(_ClientPlan) then) =
-      __$ClientPlanCopyWithImpl<$Res>;
+abstract class _$$_ClientPlanCopyWith<$Res>
+    implements $ClientPlanCopyWith<$Res> {
+  factory _$$_ClientPlanCopyWith(
+          _$_ClientPlan value, $Res Function(_$_ClientPlan) then) =
+      __$$_ClientPlanCopyWithImpl<$Res>;
   @override
   $Res call({int contract_id, int serv_id, int planned, int filled});
 }
 
 /// @nodoc
-class __$ClientPlanCopyWithImpl<$Res> extends _$ClientPlanCopyWithImpl<$Res>
-    implements _$ClientPlanCopyWith<$Res> {
-  __$ClientPlanCopyWithImpl(
-      _ClientPlan _value, $Res Function(_ClientPlan) _then)
-      : super(_value, (v) => _then(v as _ClientPlan));
+class __$$_ClientPlanCopyWithImpl<$Res> extends _$ClientPlanCopyWithImpl<$Res>
+    implements _$$_ClientPlanCopyWith<$Res> {
+  __$$_ClientPlanCopyWithImpl(
+      _$_ClientPlan _value, $Res Function(_$_ClientPlan) _then)
+      : super(_value, (v) => _then(v as _$_ClientPlan));
 
   @override
-  _ClientPlan get _value => super._value as _ClientPlan;
+  _$_ClientPlan get _value => super._value as _$_ClientPlan;
 
   @override
   $Res call({
@@ -126,7 +102,7 @@ class __$ClientPlanCopyWithImpl<$Res> extends _$ClientPlanCopyWithImpl<$Res>
     Object? planned = freezed,
     Object? filled = freezed,
   }) {
-    return _then(_ClientPlan(
+    return _then(_$_ClientPlan(
       contract_id: contract_id == freezed
           ? _value.contract_id
           : contract_id // ignore: cast_nullable_to_non_nullable
@@ -189,7 +165,7 @@ class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ClientPlan &&
+            other is _$_ClientPlan &&
             const DeepCollectionEquality()
                 .equals(other.contract_id, contract_id) &&
             const DeepCollectionEquality().equals(other.serv_id, serv_id) &&
@@ -197,6 +173,7 @@ class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.filled, filled));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -207,8 +184,8 @@ class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$ClientPlanCopyWith<_ClientPlan> get copyWith =>
-      __$ClientPlanCopyWithImpl<_ClientPlan>(this, _$identity);
+  _$$_ClientPlanCopyWith<_$_ClientPlan> get copyWith =>
+      __$$_ClientPlanCopyWithImpl<_$_ClientPlan>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -218,25 +195,25 @@ class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
 
 abstract class _ClientPlan extends ClientPlan {
   const factory _ClientPlan(
-      {required int contract_id,
-      required int serv_id,
-      required int planned,
-      required int filled}) = _$_ClientPlan;
+      {required final int contract_id,
+      required final int serv_id,
+      required final int planned,
+      required final int filled}) = _$_ClientPlan;
   const _ClientPlan._() : super._();
 
   factory _ClientPlan.fromJson(Map<String, dynamic> json) =
       _$_ClientPlan.fromJson;
 
   @override
-  int get contract_id;
+  int get contract_id => throw _privateConstructorUsedError;
   @override
-  int get serv_id;
+  int get serv_id => throw _privateConstructorUsedError;
   @override
-  int get planned;
+  int get planned => throw _privateConstructorUsedError;
   @override
-  int get filled;
+  int get filled => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ClientPlanCopyWith<_ClientPlan> get copyWith =>
+  _$$_ClientPlanCopyWith<_$_ClientPlan> get copyWith =>
       throw _privateConstructorUsedError;
 }

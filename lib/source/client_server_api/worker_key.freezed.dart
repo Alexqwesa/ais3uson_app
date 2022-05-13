@@ -12,48 +12,11 @@ part of 'worker_key.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 WorkerKey _$WorkerKeyFromJson(Map<String, dynamic> json) {
   return _WorkerKey.fromJson(json);
 }
-
-/// @nodoc
-class _$WorkerKeyTearOff {
-  const _$WorkerKeyTearOff();
-
-  _WorkerKey call(
-      {required String app,
-      required String name,
-      required String api_key,
-      required int worker_dep_id,
-      required String dep,
-      required String db,
-      required String servers,
-      int activeServerIndex = 0,
-      String comment = '',
-      String certBase64 = ''}) {
-    return _WorkerKey(
-      app: app,
-      name: name,
-      api_key: api_key,
-      worker_dep_id: worker_dep_id,
-      dep: dep,
-      db: db,
-      servers: servers,
-      activeServerIndex: activeServerIndex,
-      comment: comment,
-      certBase64: certBase64,
-    );
-  }
-
-  WorkerKey fromJson(Map<String, Object?> json) {
-    return WorkerKey.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $WorkerKey = _$WorkerKeyTearOff();
 
 /// @nodoc
 mixin _$WorkerKey {
@@ -158,10 +121,10 @@ class _$WorkerKeyCopyWithImpl<$Res> implements $WorkerKeyCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$WorkerKeyCopyWith<$Res> implements $WorkerKeyCopyWith<$Res> {
-  factory _$WorkerKeyCopyWith(
-          _WorkerKey value, $Res Function(_WorkerKey) then) =
-      __$WorkerKeyCopyWithImpl<$Res>;
+abstract class _$$_WorkerKeyCopyWith<$Res> implements $WorkerKeyCopyWith<$Res> {
+  factory _$$_WorkerKeyCopyWith(
+          _$_WorkerKey value, $Res Function(_$_WorkerKey) then) =
+      __$$_WorkerKeyCopyWithImpl<$Res>;
   @override
   $Res call(
       {String app,
@@ -177,13 +140,14 @@ abstract class _$WorkerKeyCopyWith<$Res> implements $WorkerKeyCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$WorkerKeyCopyWithImpl<$Res> extends _$WorkerKeyCopyWithImpl<$Res>
-    implements _$WorkerKeyCopyWith<$Res> {
-  __$WorkerKeyCopyWithImpl(_WorkerKey _value, $Res Function(_WorkerKey) _then)
-      : super(_value, (v) => _then(v as _WorkerKey));
+class __$$_WorkerKeyCopyWithImpl<$Res> extends _$WorkerKeyCopyWithImpl<$Res>
+    implements _$$_WorkerKeyCopyWith<$Res> {
+  __$$_WorkerKeyCopyWithImpl(
+      _$_WorkerKey _value, $Res Function(_$_WorkerKey) _then)
+      : super(_value, (v) => _then(v as _$_WorkerKey));
 
   @override
-  _WorkerKey get _value => super._value as _WorkerKey;
+  _$_WorkerKey get _value => super._value as _$_WorkerKey;
 
   @override
   $Res call({
@@ -198,7 +162,7 @@ class __$WorkerKeyCopyWithImpl<$Res> extends _$WorkerKeyCopyWithImpl<$Res>
     Object? comment = freezed,
     Object? certBase64 = freezed,
   }) {
-    return _then(_WorkerKey(
+    return _then(_$_WorkerKey(
       app: app == freezed
           ? _value.app
           : app // ignore: cast_nullable_to_non_nullable
@@ -276,14 +240,14 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
   final String db;
   @override
   final String servers;
-  @JsonKey()
   @override
+  @JsonKey()
   final int activeServerIndex;
-  @JsonKey()
   @override
+  @JsonKey()
   final String comment;
-  @JsonKey()
   @override
+  @JsonKey()
   final String certBase64;
 
   @override
@@ -312,7 +276,7 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _WorkerKey &&
+            other is _$_WorkerKey &&
             const DeepCollectionEquality().equals(other.app, app) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.api_key, api_key) &&
@@ -328,6 +292,7 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
                 .equals(other.certBase64, certBase64));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -344,8 +309,8 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$WorkerKeyCopyWith<_WorkerKey> get copyWith =>
-      __$WorkerKeyCopyWithImpl<_WorkerKey>(this, _$identity);
+  _$$_WorkerKeyCopyWith<_$_WorkerKey> get copyWith =>
+      __$$_WorkerKeyCopyWithImpl<_$_WorkerKey>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -355,43 +320,43 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
 
 abstract class _WorkerKey extends WorkerKey {
   const factory _WorkerKey(
-      {required String app,
-      required String name,
-      required String api_key,
-      required int worker_dep_id,
-      required String dep,
-      required String db,
-      required String servers,
-      int activeServerIndex,
-      String comment,
-      String certBase64}) = _$_WorkerKey;
+      {required final String app,
+      required final String name,
+      required final String api_key,
+      required final int worker_dep_id,
+      required final String dep,
+      required final String db,
+      required final String servers,
+      final int activeServerIndex,
+      final String comment,
+      final String certBase64}) = _$_WorkerKey;
   const _WorkerKey._() : super._();
 
   factory _WorkerKey.fromJson(Map<String, dynamic> json) =
       _$_WorkerKey.fromJson;
 
   @override
-  String get app;
+  String get app => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String get api_key;
+  String get api_key => throw _privateConstructorUsedError;
   @override
-  int get worker_dep_id;
+  int get worker_dep_id => throw _privateConstructorUsedError;
   @override
-  String get dep;
+  String get dep => throw _privateConstructorUsedError;
   @override
-  String get db;
+  String get db => throw _privateConstructorUsedError;
   @override
-  String get servers;
+  String get servers => throw _privateConstructorUsedError;
   @override
-  int get activeServerIndex;
+  int get activeServerIndex => throw _privateConstructorUsedError;
   @override
-  String get comment;
+  String get comment => throw _privateConstructorUsedError;
   @override
-  String get certBase64;
+  String get certBase64 => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$WorkerKeyCopyWith<_WorkerKey> get copyWith =>
+  _$$_WorkerKeyCopyWith<_$_WorkerKey> get copyWith =>
       throw _privateConstructorUsedError;
 }
