@@ -10,11 +10,15 @@ import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tuple/tuple.dart';
+
+part 'client_service.freezed.dart';
 
 /// Model for [ServiceCard] and [ClientService].
 ///
@@ -24,29 +28,27 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// - [ClientPlan]...
 ///
 /// {@category Data Models}
-@immutable
-class ClientService {
-  const ClientService({
-    required this.workerProfile,
-    required this.service,
-    required this.planned,
-  });
+@freezed
+class ClientService with _$ClientService {
+  const factory ClientService({
+    /// Reference to existing [WorkerProfile].
+    required WorkerProfile workerProfile,
 
-  /// Reference to existing [WorkerProfile].
-  final WorkerProfile workerProfile;
+    /// Reference to existing [ServiceEntry].
+    required ServiceEntry service,
 
-  /// Reference to existing [ServiceEntry].
-  final ServiceEntry service;
+    /// Reference to existing [ClientPlan].
+    required ClientPlan planned,
 
-  /// Reference to existing [ClientPlan].
-  final ClientPlan planned;
+    /// Null - for dynamic date (from provider [archiveDate])
+    DateTime? date,
+  }) = _ClientService;
+
+  const ClientService._();
 
   //
   // > shortcuts for underline classes
   //
-
-  /// Reference to existing [WorkerProfile].
-  Journal get journal => ref.read(journalOfWorker(workerProfile));
 
   String get apiKey => workerProfile.apiKey;
 
@@ -71,6 +73,8 @@ class ClientService {
   String get image => service.imagePath;
 
   ProviderContainer get ref => workerProfile.ref;
+
+  Journal get journal => ref.read(journalOfWorker(workerProfile));
 
   //
   // > services getters
@@ -123,7 +127,6 @@ class ClientService {
           workerId: workerDepId,
         ),
       );
-      // notifyListeners();
     } else {
       showErrorNotification(locator<S>().serviceIsFull);
     }

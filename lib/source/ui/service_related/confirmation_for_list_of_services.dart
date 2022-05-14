@@ -123,7 +123,7 @@ class TotalServiceTile extends ConsumerWidget {
     ClientService service;
 
     try {
-      service = ref.read(servicesOfClient(client)).firstWhere(
+      service = ref.watch(servicesOfClient(client)).firstWhere(
             (element) => element.servId == serviceOfJournal.servId,
           );
       // ignore: avoid_catching_errors
