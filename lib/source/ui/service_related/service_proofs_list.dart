@@ -12,6 +12,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
 /// Display list of proofs assigned to [ClientService].
 ///
@@ -21,14 +22,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class ServiceProofList extends ConsumerWidget {
   const ServiceProofList({
     required this.clientService,
+    this.date,
     Key? key,
   }) : super(key: key);
 
   final ClientService clientService;
+  final DateTime? date;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofOfService(clientService));
+    final proofList = ref.watch(proofsAtDate(Tuple2(date, clientService)));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -64,9 +67,9 @@ class ServiceProofList extends ConsumerWidget {
           ),
         ),
         //
-        // > Display list of proofs in two columns
+        // > Display list of proofs in columns
         //
-        BuildProofList(
+        ProofListBuilder(
           clientService: clientService,
         ),
         //
@@ -84,15 +87,19 @@ class ServiceProofList extends ConsumerWidget {
 /// Display list of proofs in two columns.
 ///
 /// If there is missing image - display add button [AddProofButton].
-class BuildProofList extends ConsumerWidget {
-  const BuildProofList({required this.clientService, Key? key})
-      : super(key: key);
+class ProofListBuilder extends ConsumerWidget {
+  const ProofListBuilder({
+    required this.clientService,
+    this.date,
+    Key? key,
+  }) : super(key: key);
 
   final ClientService clientService;
+  final DateTime? date;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofOfService(clientService));
+    final proofList = ref.watch(proofsAtDate(Tuple2(date, clientService)));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 
     return Column(
@@ -146,8 +153,8 @@ class BuildProofList extends ConsumerWidget {
                                 image: proofGroups[i].beforeImg,
                                 addProofButton: AddProofButton(
                                   indexInProofList: i,
-                                  callBack: proofList.addImage,
-                                  strBeforeAfter: 'before_',
+                                  callAddProof: proofList.addImage,
+                                  strBeforeOrAfter: 'before_',
                                 ),
                               ),
                             ),
@@ -162,8 +169,8 @@ class BuildProofList extends ConsumerWidget {
                                 image: proofGroups[i].afterImg,
                                 addProofButton: AddProofButton(
                                   indexInProofList: i,
-                                  callBack: proofList.addImage,
-                                  strBeforeAfter: 'after_',
+                                  callAddProof: proofList.addImage,
+                                  strBeforeOrAfter: 'after_',
                                 ),
                               ),
                             ),
@@ -223,21 +230,23 @@ class ImageOrButtonAdd extends StatelessWidget {
 class AddProofButton extends StatelessWidget {
   const AddProofButton({
     required this.indexInProofList,
-    required this.callBack,
-    required this.strBeforeAfter,
+    required this.callAddProof,
+    required this.strBeforeOrAfter,
     Key? key,
   }) : super(key: key);
 
   final int indexInProofList;
-  final Function(int, XFile?, String) callBack;
-  final String strBeforeAfter;
+  final Function(int, XFile?, String) callAddProof;
+
+  /// Either before_ or after_
+  final String strBeforeOrAfter;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: FloatingActionButton(
-        heroTag: ValueKey(strBeforeAfter + indexInProofList.toString()),
+        heroTag: ValueKey(strBeforeOrAfter + indexInProofList.toString()),
         child: const Icon(Icons.camera_alt),
         onPressed: () async {
           late final List<CameraDescription> cameras;
@@ -260,7 +269,8 @@ class AddProofButton extends StatelessWidget {
               ),
             ),
           );
-          await callBack(indexInProofList, defaultImgPath, strBeforeAfter);
+          await callAddProof(
+              indexInProofList, defaultImgPath, strBeforeOrAfter);
         },
       ),
     );

@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///
-/// It get data from [ClientService.workerProfile]
+/// It collect data from Journal
 /// via [ref.watch(listDoneProgressErrorOfService(clientService))],
 /// these numbers mean:
 /// - done - finished and outDated,

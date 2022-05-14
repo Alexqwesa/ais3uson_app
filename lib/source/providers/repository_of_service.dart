@@ -6,16 +6,29 @@ import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
-/// Create ProofList for [ClientService] and call async [ProofList.crawler].
+/// Create ProofList for [ClientService] at date,
+/// if date is null: ref.watch(archiveDate) ?? DateTime.now().
 ///
 /// {@category Providers}
-final proofOfService =
-    Provider.family<ProofList, ClientService>((ref, service) {
+final proofsAtDate =
+    Provider.family<ProofList, Tuple2<DateTime?, ClientService>>((ref, tuple) {
+  return ref.watch(_proofsAtDate(Tuple2(
+    tuple.item1 ?? ref.watch(archiveDate) ?? DateTime.now(),
+    tuple.item2,
+  )));
+});
+
+final _proofsAtDate =
+    Provider.family<ProofList, Tuple2<DateTime, ClientService>>((ref, tuple) {
+  final date = tuple.item1;
+  final service = tuple.item2;
+
   return ProofList(
     workerId: service.workerDepId,
     contractId: service.contractId,
-    date: standardFormat.format(ref.watch(archiveDate) ?? DateTime.now()),
+    date: standardFormat.format(date),
     serviceId: service.servId,
     client: service.workerProfile.clients
         .firstWhere((element) => element.contractId == service.contractId)

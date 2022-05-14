@@ -107,7 +107,7 @@ class ClientService {
   //
   // > proof managing
   //
-  ProofList get proofList => ref.read(proofOfService(this));
+  ProofList get proofList => ref.read(proofsAtDate(Tuple2(date, this)));
 
   void addProof() {
     proofList.addNewGroup();
