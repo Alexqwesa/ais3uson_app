@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Test
+name: Test+Coverage+Deploy(web3uson)
 
 on:
   push:
@@ -31,7 +31,9 @@ jobs:
           cache: true
           cache-key: flutter # optional, change this to force refresh cache
           cache-path: ${{ runner.tool_cache }}/flutter
-     
+          
+      - name: Version
+        run: flutter doctor -v
       - name: Install dependencies
         run: flutter pub get
 
