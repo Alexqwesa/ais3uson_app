@@ -8,9 +8,9 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
+import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
-import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/ui/add_department_screen.dart';
 import 'package:ais3uson_app/source/ui/clients_screen.dart';
 import 'package:ais3uson_app/source/ui/delete_department_screen.dart';

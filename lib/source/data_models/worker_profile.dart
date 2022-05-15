@@ -5,9 +5,9 @@ import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
+import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
-import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,8 +41,7 @@ class WorkerProfile {
 
   Tuple2<String, String> get apiUrlServices => Tuple2(apiKey, urlServices);
 
-  WorkerKey get key =>
-      ref.read(innerWorkerKeys).firstWhere((e) => e.apiKey == apiKey);
+  WorkerKey get key => ref.read(workerProfiles.notifier).key(apiKey);
 
   /// For tests only.
   Journal get journal => ref.read(journalOfWorker(this));

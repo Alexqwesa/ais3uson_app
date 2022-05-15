@@ -1,8 +1,24 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
+import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+/// Groups of [ServiceOfJournal] sorted by [ServiceState].
+///
+/// Depend on [servicesOfJournal], if not inited - return null.
+final groupsOfJournal =
+    Provider.family<Map<ServiceState, List<ServiceOfJournal>>?, Journal>(
+  (ref, journal) {
+    return groupBy<ServiceOfJournal, ServiceState>(
+      ref.watch(servicesOfJournal(journal))!,
+      (e) => e.state,
+    );
+  },
+);
 
 /// Create groups of journal services for [ClientService].
 ///
