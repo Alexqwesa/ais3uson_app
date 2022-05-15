@@ -4,10 +4,10 @@ import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/providers/providers_of_http_data.dart';
-import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
-import 'package:ais3uson_app/source/providers/repository_of_service.dart';
+import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
+import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/confirmation_for_list_of_services.dart';
 import 'package:camera/camera.dart';

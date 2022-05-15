@@ -11,11 +11,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Provider of List<[WorkerProfile]>.
+/// Provider and controller of List<[WorkerProfile]>.
 ///
 /// Show profiles based on [innerWorkerKeys].
 ///
 /// {@category Providers}
+/// {@category Controllers}
 final workerProfiles =
     StateNotifierProvider<_WorkerProfilesState, List<WorkerProfile>>((ref) {
   return _WorkerProfilesState(ref); //, ref.watch(workerKeys));

@@ -1,5 +1,5 @@
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/providers/providers.dart';
+import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

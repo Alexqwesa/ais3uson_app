@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/providers/providers_of_lists_of_workers.dart';
+import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';

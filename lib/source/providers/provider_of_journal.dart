@@ -8,7 +8,7 @@ import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
-import 'package:ais3uson_app/source/providers/providers.dart';
+import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,6 +32,8 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
 });
 
 /// Today + archived [ServiceOfJournal] of client.
+///
+/// {@category Providers}
 final fullArchiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   return [
