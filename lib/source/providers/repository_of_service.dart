@@ -41,10 +41,7 @@ final _proofsAtDate =
 
 final groupsOfProof = StateNotifierProvider.family<_GroupsOfProofState,
     List<ProofGroup>, ProofList>((ref, proofList) {
-  if (ref.watch(archiveDate) != null) {
-    // update on date change
-    proofList.crawler();
-  }
+  proofList.crawler();
 
   return _GroupsOfProofState();
 });
