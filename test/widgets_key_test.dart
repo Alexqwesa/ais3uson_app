@@ -63,6 +63,7 @@ void main() {
           ),
         ),
       );
+      // Add Profile
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await tester.runAsync<void>(() async {
@@ -98,7 +99,7 @@ void main() {
             initialRoute: '/add_department',
             routes: {
               '/client_journal': (context) =>
-                  const ConfirmationForListOfServices(),
+                  const ConfirmationForServicesScreen(),
               '/add_department': (context) => AddDepartmentScreen(),
               '/client_services': (context) => const ClientServicesListScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),
@@ -202,7 +203,7 @@ void main() {
             initialRoute: '/add_department',
             routes: {
               '/client_journal': (context) =>
-                  const ConfirmationForListOfServices(),
+                  const ConfirmationForServicesScreen(),
               '/add_department': (context) => AddDepartmentScreen(),
               '/client_services': (context) => const ClientServicesListScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),

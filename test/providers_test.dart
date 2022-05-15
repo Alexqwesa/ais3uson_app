@@ -31,7 +31,7 @@ void main() {
     await tearDownTestHive();
   });
 
-  test('its providers work', () async {
+  test('it state providers work', () async {
     final wKey = wKeysData2();
     final ref = ProviderContainer(
       overrides: [
@@ -78,5 +78,22 @@ void main() {
     ref.read(lastApiKey.notifier).state = wp.apiKey;
     ref.read(lastClientId.notifier).state = wp.clients[3].contractId;
     expect(ref.read(lastClient).contract, '701/2021/t/2017');
+    //
+    // > it read last service
+    //
+    final service = ref.read(lastClient).services[3];
+    ref.read(lastApiKey.notifier).state = wp.apiKey;
+    ref.read(lastClientId.notifier).state = wp.clients[3].contractId;
+    ref.read(lastClientServiceId.notifier).state = service.servId;
+    expect(ref.read(lastClientService).servId, service.servId);
+    //
+    // > archive state
+    //
+    // ref.read(archiveDate.notifier).state = DateTime(2022, 3);
+    // ref.read(isArchive.notifier).state = true;
+    // expect(ref.read(archiveDate), DateTime(2022, 3));
+    // ref.read(isArchive.notifier).state = false;
+    // await ref.pump();
+    // expect(ref.read(archiveDate), null);
   });
 }

@@ -95,13 +95,13 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               subtitle: Column(
-                children: const [
-                  // if (!kIsWeb)
-                  //   ServiceProofList(
-                  //     clientService: stubService,
-                  //     // date: service.provDate,
-                  //   ),
-                ],
+                // children: const [
+                //   // if (!kIsWeb)
+                //   //   ServiceProofList(
+                //   //     clientService: stubService,
+                //   //     // date: service.provDate,
+                //   //   ),
+                // ],
               ),
             ),
           ),
