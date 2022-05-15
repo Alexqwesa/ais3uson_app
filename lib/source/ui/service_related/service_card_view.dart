@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +10,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category UI Services}
 class ServiceCardView extends ConsumerWidget {
   const ServiceCardView({
-    required this.service,
+    required this.serviceAt,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   static const tileType = '';
-  final ClientService service;
+  final ClientServiceAt serviceAt;
   final Size parentSize;
 
   @override
@@ -27,7 +28,7 @@ class ServiceCardView extends ConsumerWidget {
           width: 205,
           height: 230,
           child: Card(
-            elevation: service.addAllowed ? 6 : 0,
+            elevation: serviceAt.addAllowed ? 6 : 0,
             child: Padding(
               padding: const EdgeInsets.all(2),
               child: Stack(
@@ -35,7 +36,7 @@ class ServiceCardView extends ConsumerWidget {
                   SizedBox(
                     height: 100,
                     child: ServiceCardState(
-                      clientService: service,
+                      clientServiceAt: serviceAt,
                       rightOfText: true,
                     ),
                   ),
@@ -47,12 +48,12 @@ class ServiceCardView extends ConsumerWidget {
                         // > service image
                         //
                         child: Hero(
-                          tag: service.servId,
+                          tag: serviceAt.servId,
                           child: SizedBox(
                             height: 90,
                             width: 90,
                             child: Image.asset(
-                              'images/${service.image}',
+                              'images/${serviceAt.image}',
                             ),
                           ),
                         ),
@@ -70,7 +71,7 @@ class ServiceCardView extends ConsumerWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(6),
                                   child: Text(
-                                    service.shortText,
+                                    serviceAt.shortText,
                                     textScaleFactor: 1.1,
                                     textAlign: TextAlign.center,
                                     style:
@@ -81,7 +82,7 @@ class ServiceCardView extends ConsumerWidget {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                   child: Text(
-                                    service.servTextAdd,
+                                    serviceAt.servTextAdd,
                                     softWrap: true,
                                     // overflow: TextOverflow.ellipsis,
                                   ),
@@ -110,13 +111,13 @@ class ServiceCardView extends ConsumerWidget {
 /// {@category UI Services}
 class ServiceCardSquareView extends ConsumerWidget {
   const ServiceCardSquareView({
-    required this.service,
+    required this.serviceAt,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   static const tileType = 'square';
-  final ClientService service;
+  final ClientServiceAt serviceAt;
   final Size parentSize;
 
   @override
@@ -132,16 +133,16 @@ class ServiceCardSquareView extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
                 child: Card(
-                  elevation: service.addAllowed ? 6 : 0,
+                  elevation: serviceAt.addAllowed ? 6 : 0,
                   child: Column(
                     children: <Widget>[
                       Hero(
-                        tag: service.servId,
+                        tag: serviceAt.servId,
                         child: SizedBox(
                           height: 90,
                           width: 90,
                           child: Image.asset(
-                            'images/${service.image}',
+                            'images/${serviceAt.image}',
                           ),
                         ),
                       ),
@@ -153,7 +154,7 @@ class ServiceCardSquareView extends ConsumerWidget {
                       //
                       Center(
                         child: Text(
-                          service.shortText,
+                          serviceAt.shortText,
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -172,7 +173,7 @@ class ServiceCardSquareView extends ConsumerWidget {
               SizedBox(
                 height: 50,
                 child: ServiceCardState(
-                  clientService: service,
+                  clientServiceAt: serviceAt,
                   rightOfText: true,
                 ),
                 // ),
@@ -190,13 +191,13 @@ class ServiceCardSquareView extends ConsumerWidget {
 /// {@category UI Services}
 class ServiceCardTileView extends ConsumerWidget {
   const ServiceCardTileView({
-    required this.service,
+    required this.serviceAt,
     required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   static const tileType = 'tile';
-  final ClientService service;
+  final ClientServiceAt serviceAt;
   final Size parentSize;
 
   @override
@@ -211,7 +212,7 @@ class ServiceCardTileView extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Card(
-              elevation: service.addAllowed ? 6 : 0,
+              elevation: serviceAt.addAllowed ? 6 : 0,
               child: Stack(
                 children: [
                   Row(
@@ -220,9 +221,9 @@ class ServiceCardTileView extends ConsumerWidget {
                         height: 90,
                         width: 90,
                         child: Hero(
-                          tag: service.servId,
+                          tag: serviceAt.servId,
                           child: Image.asset(
-                            'images/${service.image}',
+                            'images/${serviceAt.image}',
                           ),
                         ),
                       ),
@@ -239,7 +240,7 @@ class ServiceCardTileView extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(6),
                                 child: Text(
-                                  service.shortText,
+                                  serviceAt.shortText,
                                   textScaleFactor: 1.1,
                                   textAlign: TextAlign.left,
                                   style: Theme.of(context).textTheme.bodyText1,
@@ -248,7 +249,7 @@ class ServiceCardTileView extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                 child: Text(
-                                  service.servTextAdd,
+                                  serviceAt.servTextAdd,
                                   textAlign: TextAlign.left,
                                   softWrap: true,
                                   // overflow: TextOverflow.ellipsis,
@@ -269,7 +270,7 @@ class ServiceCardTileView extends ConsumerWidget {
                       width: 50,
                       height: 88,
                       child: ServiceCardState(
-                        clientService: service,
+                        clientServiceAt: serviceAt,
                         rightOfText: true,
                       ),
                     ),

@@ -10,6 +10,7 @@ import 'package:ais3uson_app/source/ui/delete_department_screen.dart';
 import 'package:ais3uson_app/source/ui/dev_screen.dart';
 import 'package:ais3uson_app/source/ui/home_screen.dart';
 import 'package:ais3uson_app/source/ui/qr_scan_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/confirmation_for_list_of_services.dart';
 import 'package:ais3uson_app/source/ui/settings_screen.dart';
@@ -173,9 +174,10 @@ class MainMaterialApp extends ConsumerWidget {
       //
       initialRoute: '/',
       routes: {
-        '/client_journal': (context) => const ConfirmationForListOfServices(),
+        '/client_journal': (context) => const ConfirmationForServicesScreen(),
         '/add_department': (context) => AddDepartmentScreen(),
         '/client_services': (context) => const ClientServicesListScreen(),
+        '/service': /*     */ (context) => const ClientServiceScreen(),
         '/settings': /*    */ (context) => const SettingsScreen(),
         '/department': /*  */ (context) => const ClientScreen(),
         '/scan_qr': /*     */ (context) => const QRScanScreen(),

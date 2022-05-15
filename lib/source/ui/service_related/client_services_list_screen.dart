@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
@@ -25,7 +26,11 @@ class ClientServicesListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastClient);
     final workerProfile = client.workerProfile;
-    final servList = ref.watch(servicesOfClient(client));
+    final servList =
+        ref.watch(servicesOfClient(client)).map((e) => ClientServiceAt(
+              clientService: e,
+              date: ref.watch(archiveDate) ?? DateTime.now(),
+            )); // Todo: rework with riverpod
 
     return Scaffold(
       //

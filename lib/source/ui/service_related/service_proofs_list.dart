@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/camera.dart';
@@ -19,19 +20,20 @@ import 'package:tuple/tuple.dart';
 /// On first build it create list from filesystem data.
 ///
 /// {@category UI Services}
+/// {@category UI Proofs}
 class ServiceProofList extends ConsumerWidget {
   const ServiceProofList({
-    required this.clientService,
-    this.date,
+    required this.clientServiceAt,
+    // this.date,
     Key? key,
   }) : super(key: key);
 
-  final ClientService clientService;
-  final DateTime? date;
+  final ClientServiceAt clientServiceAt;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofsAtDate(Tuple2(date, clientService)));
+    final proofList = ref.watch(proofsAtDate(
+        Tuple2(clientServiceAt.date, clientServiceAt.clientService)));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -70,7 +72,7 @@ class ServiceProofList extends ConsumerWidget {
         // > Display list of proofs in columns
         //
         ProofListBuilder(
-          clientService: clientService,
+          clientServiceAt: clientServiceAt,
         ),
         //
         // > add new record(proof row) button
@@ -87,19 +89,19 @@ class ServiceProofList extends ConsumerWidget {
 /// Display list of proofs in two columns.
 ///
 /// If there is missing image - display add button [AddProofButton].
+/// {@category UI Proofs}
 class ProofListBuilder extends ConsumerWidget {
   const ProofListBuilder({
-    required this.clientService,
-    this.date,
+    required this.clientServiceAt,
     Key? key,
   }) : super(key: key);
 
-  final ClientService clientService;
-  final DateTime? date;
+  final ClientServiceAt clientServiceAt;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofsAtDate(Tuple2(date, clientService)));
+    final proofList = ref.watch(proofsAtDate(
+        Tuple2(clientServiceAt.date, clientServiceAt.clientService)));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 
     return Column(
@@ -187,6 +189,9 @@ class ProofListBuilder extends ConsumerWidget {
   }
 }
 
+/// Show add button or Image.
+///
+/// {@category UI Proofs}
 class ImageOrButtonAdd extends StatelessWidget {
   const ImageOrButtonAdd({
     required this.addProofButton,
@@ -227,6 +232,8 @@ class ImageOrButtonAdd extends StatelessWidget {
 }
 
 /// Display add button for add proof.
+///
+/// {@category UI Proofs}
 class AddProofButton extends StatelessWidget {
   const AddProofButton({
     required this.indexInProofList,
@@ -263,7 +270,7 @@ class AddProofButton extends StatelessWidget {
           final defaultImgPath = await Navigator.push(
             context,
             MaterialPageRoute<XFile>(
-              builder: (context) => TakePictureScreen(
+              builder: (context) => TakeProofPictureScreen(
                 // Pass the appropriate camera to the TakePictureScreen widget.
                 camera: cameras.first,
               ),

@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,7 +15,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category UI Services}
 class ServiceCardState extends ConsumerWidget {
   const ServiceCardState({
-    required this.clientService,
+    required this.clientServiceAt,
     Key? key,
     this.rightOfText = false,
   }) : super(key: key);
@@ -38,14 +38,14 @@ class ServiceCardState extends ConsumerWidget {
     ),
   ];
 
-  final ClientService clientService;
+  final ClientServiceAt clientServiceAt;
 
   final bool rightOfText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listDoneProgressError =
-        ref.watch(listDoneProgressErrorOfService(clientService));
+    final listDoneProgressError = ref
+        .watch(listDoneProgressErrorOfService(clientServiceAt.clientService));
 
     return SizedBox.expand(
       child: FittedBox(

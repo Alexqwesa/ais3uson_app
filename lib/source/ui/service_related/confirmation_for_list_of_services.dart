@@ -16,8 +16,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 
 const tileSize = 500.0;
 
-class ConfirmationForListOfServices extends ConsumerWidget {
-  const ConfirmationForListOfServices({
+class ConfirmationForServicesScreen extends ConsumerWidget {
+  const ConfirmationForServicesScreen({
     Key? key,
   }) : super(key: key);
 
@@ -50,7 +50,7 @@ class ConfirmationForListOfServices extends ConsumerWidget {
                         client: client,
                       ),
                       for (int index = 1; index < servicesAt.length; index++)
-                        TotalServiceTile(
+                        ServiceOfJournalTile(
                           serviceOfJournal: servicesAt[index],
                           client: client,
                         ),
@@ -77,6 +77,12 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final stubService = ref.watch(servicesOfClient(client)).first.copyWith(
+    //         service: const ServiceEntry(
+    //       serv_text: 'Stub',
+    //       id: 0,
+    //     ));
+
     return SizedBox(
       width: tileSize + 32,
       child: Stack(
@@ -89,13 +95,21 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
                 ' ${standardFormat.format(service.provDate)}',
                 style: Theme.of(context).textTheme.headline5,
               ),
-              subtitle: Container(),
+              subtitle: Column(
+                children: const [
+                  // if (!kIsWeb)
+                  //   ServiceProofList(
+                  //     clientService: stubService,
+                  //     // date: service.provDate,
+                  //   ),
+                ],
+              ),
             ),
           ),
           Positioned.fill(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: TotalServiceTile(
+              child: ServiceOfJournalTile(
                 serviceOfJournal: service,
                 client: client,
               ),
@@ -107,8 +121,9 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
   }
 }
 
-class TotalServiceTile extends ConsumerWidget {
-  const TotalServiceTile({
+/// Show [ServiceOfJournal] as Tile widget
+class ServiceOfJournalTile extends ConsumerWidget {
+  const ServiceOfJournalTile({
     required this.serviceOfJournal,
     required this.client,
     Key? key,
@@ -138,6 +153,7 @@ class TotalServiceTile extends ConsumerWidget {
           serv_text: locator<S>().errorService,
         ),
         planned: client.services.first.planned,
+        //date: serviceOfJournal.provDate
       );
       // }
     }
@@ -167,23 +183,27 @@ class TotalServiceTile extends ConsumerWidget {
                   ],
                 ),
               ),
-              onLongPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<ClientServiceScreen>(
-                    builder: (context) {
-                      return ClientServiceScreen(
-                        service: service,
-                      );
-                    },
-                  ),
-                );
-                service.proofList;
-              },
+              onTap: () => tapHandler(context, service),
+              onLongPress: () => tapHandler(context, service),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void tapHandler(BuildContext context, ClientService service) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<ClientServiceScreen>(
+        builder: (context) {
+          return ClientServiceScreen(
+            clientService: service,
+            serviceDate: serviceOfJournal.provDate,
+          );
+        },
+      ),
+    );
+    service.proofList;
   }
 }

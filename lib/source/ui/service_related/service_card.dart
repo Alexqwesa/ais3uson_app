@@ -1,6 +1,7 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
-import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -20,7 +21,7 @@ class ServiceCard extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final ClientService service;
+  final ClientServiceAt service;
   final Size parentSize;
 
   @override
@@ -44,17 +45,17 @@ class ServiceCard extends ConsumerWidget {
                   //
                   if (serviceView == '')
                     ServiceCardView(
-                      service: service,
+                      serviceAt: service,
                       parentSize: parentSize,
                     )
                   else if (serviceView == 'tile')
                     ServiceCardTileView(
-                      service: service,
+                      serviceAt: service,
                       parentSize: parentSize,
                     )
                   else if (serviceView == 'square')
                     ServiceCardSquareView(
-                      service: service,
+                      serviceAt: service,
                       parentSize: parentSize,
                     ),
                 ],
@@ -69,16 +70,10 @@ class ServiceCard extends ConsumerWidget {
             child: InkWell(
               onTap: service.add,
               onLongPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<ClientServiceScreen>(
-                    builder: (context) {
-                      return ClientServiceScreen(
-                        service: service,
-                      );
-                    },
-                  ),
-                );
+                // set last service
+                ref.read(lastClientServiceId.notifier).state = service.servId;
+                // open ClientServiceScreen
+                Navigator.pushNamed(context, '/service');
               },
               child: Container(),
             ),

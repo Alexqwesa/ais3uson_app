@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 /// Used to make proof images.
 ///
 /// {@category UI Services}
-class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({
+class TakeProofPictureScreen extends StatefulWidget {
+  const TakeProofPictureScreen({
     required this.camera,
     Key? key,
   }) : super(key: key);
@@ -17,10 +17,10 @@ class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
 
   @override
-  TakePictureScreenState createState() => TakePictureScreenState();
+  TakeProofPictureScreenState createState() => TakeProofPictureScreenState();
 }
 
-class TakePictureScreenState extends State<TakePictureScreen> {
+class TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 

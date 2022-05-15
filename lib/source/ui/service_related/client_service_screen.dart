@@ -1,5 +1,7 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_proofs_list.dart';
 import 'package:flutter/foundation.dart';
@@ -9,16 +11,21 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// Display one [ClientService] on fullscreen.
 ///
 /// {@category UI Services}
-class ClientServiceScreen extends StatelessWidget {
+class ClientServiceScreen extends ConsumerWidget {
   const ClientServiceScreen({
-    required this.service,
+    this.clientService,
+    this.serviceDate,
     Key? key,
   }) : super(key: key);
 
-  final ClientService service;
+  final ClientService? clientService;
+  final DateTime? serviceDate;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final service = ClientServiceAt(
+        clientService: clientService ?? ref.watch(lastClientService),
+        date: serviceDate ?? ref.watch(archiveDate) ?? DateTime.now());
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width < height
         ? MediaQuery.of(context).size.width
@@ -52,7 +59,7 @@ class ClientServiceScreen extends StatelessWidget {
                             height: width / 4,
                             width: width / 5,
                             child: ServiceCardState(
-                              clientService: service,
+                              clientServiceAt: service,
                               rightOfText: true,
                             ),
                           ),
@@ -133,7 +140,7 @@ class ClientServiceScreen extends StatelessWidget {
                   //
                   // > prof of service
                   //
-                  if (!kIsWeb) ServiceProofList(clientService: service),
+                  if (!kIsWeb) ServiceProofList(clientServiceAt: service),
                 ],
               ),
             ),
@@ -153,7 +160,7 @@ class AddButton extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final ClientService service;
+  final ClientServiceAt service;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -182,7 +189,7 @@ class DeleteButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final ClientService service;
+  final ClientServiceAt service;
 
   @override
   Widget build(BuildContext context) {
