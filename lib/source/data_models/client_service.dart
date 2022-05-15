@@ -7,7 +7,6 @@ import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';

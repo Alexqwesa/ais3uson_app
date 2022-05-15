@@ -15,7 +15,7 @@ import 'package:tuple/tuple.dart';
 final proofsAtDate =
     Provider.family<ProofList, Tuple2<DateTime?, ClientService>>((ref, tuple) {
   return ref.watch(_proofsAtDate(Tuple2(
-    tuple.item1 ?? ref.watch(archiveDate) ?? DateTime.now(),
+      (tuple.item1 ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
     tuple.item2,
   )));
 });

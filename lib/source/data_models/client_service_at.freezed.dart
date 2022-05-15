@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ClientServiceAt {
   /// Reference to existing [WorkerProfile].
-  @override
   ClientService get clientService => throw _privateConstructorUsedError;
 
   /// Null - for dynamic date (from provider [archiveDate])
@@ -34,7 +33,7 @@ abstract class $ClientServiceAtCopyWith<$Res> {
   factory $ClientServiceAtCopyWith(
           ClientServiceAt value, $Res Function(ClientServiceAt) then) =
       _$ClientServiceAtCopyWithImpl<$Res>;
-  $Res call({@override ClientService clientService, @override DateTime? date});
+  $Res call({ClientService clientService, @override DateTime? date});
 
   $ClientServiceCopyWith<$Res> get clientService;
 }
@@ -80,7 +79,7 @@ abstract class _$$_ClientServiceAtCopyWith<$Res>
           _$_ClientServiceAt value, $Res Function(_$_ClientServiceAt) then) =
       __$$_ClientServiceAtCopyWithImpl<$Res>;
   @override
-  $Res call({@override ClientService clientService, @override DateTime? date});
+  $Res call({ClientService clientService, @override DateTime? date});
 
   @override
   $ClientServiceCopyWith<$Res> get clientService;
@@ -119,11 +118,10 @@ class __$$_ClientServiceAtCopyWithImpl<$Res>
 
 class _$_ClientServiceAt extends _ClientServiceAt {
   const _$_ClientServiceAt(
-      {@override required this.clientService, @override this.date})
+      {required this.clientService, @override required this.date})
       : super._();
 
   /// Reference to existing [WorkerProfile].
-  @override
   @override
   final ClientService clientService;
 
@@ -161,14 +159,13 @@ class _$_ClientServiceAt extends _ClientServiceAt {
 
 abstract class _ClientServiceAt extends ClientServiceAt {
   const factory _ClientServiceAt(
-      {@override required final ClientService clientService,
-      @override final DateTime? date}) = _$_ClientServiceAt;
+      {required final ClientService clientService,
+      @override required final DateTime? date}) = _$_ClientServiceAt;
   const _ClientServiceAt._() : super._();
 
   @override
 
   /// Reference to existing [WorkerProfile].
-  @override
   ClientService get clientService => throw _privateConstructorUsedError;
   @override
 

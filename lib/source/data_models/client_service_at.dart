@@ -2,6 +2,7 @@ import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
@@ -24,10 +25,12 @@ class ClientServiceAt with _$ClientServiceAt, ClientServiceMixin {
     required ClientService clientService,
 
     /// Null - for dynamic date (from provider [archiveDate])
-    @override DateTime? date,
+    @override required DateTime? date,
   }) = _ClientServiceAt;
 
   const ClientServiceAt._();
+
+  DateTime get dateOnly => (date as DateTime).dateOnly();
 
   @override
   ClientService? get thisClientService => clientService;

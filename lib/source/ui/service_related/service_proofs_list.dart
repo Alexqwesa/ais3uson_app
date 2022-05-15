@@ -32,8 +32,8 @@ class ServiceProofList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofsAtDate(
-        Tuple2(clientServiceAt.date, clientServiceAt.clientService)));
+    final proofList = ref.watch(proofsAtDate(Tuple2(
+        clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -100,8 +100,8 @@ class ProofListBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofsAtDate(
-        Tuple2(clientServiceAt.date, clientServiceAt.clientService)));
+    final proofList = ref.watch(proofsAtDate(Tuple2(
+        clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 
     return Column(
@@ -207,9 +207,8 @@ class ImageOrButtonAdd extends StatelessWidget {
     return Center(
       child: (image != null)
           ? Hero(
-              tag: ValueKey(
-                image.toString(),
-              ),
+              key: ValueKey(image.toString()),
+              tag: ValueKey(image.toString()),
               child: GestureDetector(
                 child: image,
                 onTap: () {
