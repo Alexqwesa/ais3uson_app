@@ -88,7 +88,7 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
         // ignore: avoid_dynamic_calls
         state = jsonDecode(response.body)
             .whereType<Map<String, dynamic>>()
-            .toList() as List<Map<String, dynamic>>;
+            .toList(growable: false) as List<Map<String, dynamic>>;
         await _writeHive(response.body);
       } else {
         //

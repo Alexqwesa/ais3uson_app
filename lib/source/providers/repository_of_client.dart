@@ -24,5 +24,6 @@ final servicesOfClient =
           // client: client,
         ),
       )
-      .toList();
+      .toList(growable: false)
+    ..sort((a, b) => a.servId.compareTo(b.servId)); // preserve id order
 });

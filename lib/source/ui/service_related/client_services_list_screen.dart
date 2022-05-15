@@ -26,11 +26,13 @@ class ClientServicesListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastClient);
     final workerProfile = client.workerProfile;
-    final servList =
-        ref.watch(servicesOfClient(client)).map((e) => ClientServiceAt(
+    final servList = ref
+        .watch(servicesOfClient(client))
+        .map((e) => ClientServiceAt(
               clientService: e,
               date: ref.watch(archiveDate) ?? DateTime.now(),
-            )); // Todo: rework with riverpod
+            ))
+        .toList(growable: false);
 
     return Scaffold(
       //
