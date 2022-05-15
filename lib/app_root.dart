@@ -181,9 +181,7 @@ class MainMaterialApp extends ConsumerWidget {
         '/scan_qr': /*     */ (context) => const QRScanScreen(),
         '/dev': /*         */ (context) => const DevScreen(),
         '/delete_department': (context) => const DeleteDepartmentScreen(),
-        '/': /*            */ (context) => HomePage(
-              title: S.of(context).depList,
-            ),
+        '/': /*            */ (context) => const HomePage(),
       },
       debugShowCheckedModeBanner: false,
     );

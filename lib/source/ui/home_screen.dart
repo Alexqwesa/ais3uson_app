@@ -14,12 +14,12 @@ import 'package:toggle_switch/toggle_switch.dart';
 ///
 /// {@category UI WorkerProfiles}
 class HomePage extends ConsumerWidget {
-  const HomePage({required this.title, Key? key}) : super(key: key);
-
-  final String title;
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final title =  S.of(context).depList;
+
     return Scaffold(
       //
       // > drawer
