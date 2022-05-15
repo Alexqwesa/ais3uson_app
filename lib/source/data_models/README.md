@@ -1,6 +1,6 @@
 # Data Models
 
-These classes provide data for UI classes: [UI Services], [UIWorkerProfile].
+These classes provide data for UI classes.
 
 Hierarchy of classes:
 
@@ -8,7 +8,13 @@ Hierarchy of classes:
     - [WorkerProfile]s with different:
         - [ClientProfile]s with different:
             - [ClientService]s with different:
-                - [ProofList]s.
+                - [ClientServiceAt]s with different:
+                    - [ServiceOfJournal]s,
+                    - [ProofList]s.
+    
+Note: [ProofList] is intentionally not depend on [ServiceOfJournal] to allow: 
+- make one proof for several [ServiceOfJournal],
+- to leave proof even in case of deleting of [ServiceOfJournal].
 
 [WorkerProfile], [ClientProfile], [ClientService] classes provide data that they got from classes in
 category [Client-Server API].

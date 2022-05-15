@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
+import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
@@ -20,7 +22,7 @@ import 'package:tuple/tuple.dart';
 
 part 'client_service.freezed.dart';
 
-/// Model for [ServiceCard] and [ClientService].
+/// Model for [ClientServiceAt] and [ServiceCard].
 ///
 /// This is mostly a view model for data from:
 /// - [Journal],
@@ -29,7 +31,7 @@ part 'client_service.freezed.dart';
 ///
 /// {@category Data Models}
 @freezed
-class ClientService with _$ClientService {
+class ClientService with _$ClientService, ClientServiceMixin {
   const factory ClientService({
     /// Reference to existing [WorkerProfile].
     required WorkerProfile workerProfile,
@@ -45,11 +47,28 @@ class ClientService with _$ClientService {
   }) = _ClientService;
 
   const ClientService._();
+}
+
+/// This is a helper mixin for [ClientService] and [ClientServiceAt] classes.
+mixin ClientServiceMixin {
+  /// Reference to existing [WorkerProfile].
+  WorkerProfile get workerProfile =>
+      throw UnsupportedError('The stub is called!');
+
+  /// Reference to existing [ServiceEntry].
+  ServiceEntry get service => throw UnsupportedError('The stub is called!');
+
+  /// Reference to existing [ClientPlan].
+  ClientPlan get planned => throw UnsupportedError('The stub is called!');
+
+  /// Null - for dynamic date (from provider [archiveDate])
+  DateTime? get date => throw UnsupportedError('The stub is called!');
+
+  ClientService? get thisClientService => null;
 
   //
   // > shortcuts for underline classes
   //
-
   String get apiKey => workerProfile.apiKey;
 
   int get workerDepId => workerProfile.key.workerDepId;
@@ -76,15 +95,18 @@ class ClientService with _$ClientService {
 
   Journal get journal => ref.read(journalOfWorker(workerProfile));
 
+  ClientService get theThis => thisClientService ?? this as ClientService;
+
   //
   // > services getters
   //
   int get added =>
-      ref.read(groupsOfService(this))?[ServiceState.added]?.length ?? 0;
+      ref.read(groupsOfService(theThis))?[ServiceState.added]?.length ?? 0;
 
   int get done =>
-      (ref.read(groupsOfService(this))?[ServiceState.finished]?.length ?? 0) +
-      (ref.read(groupsOfService(this))?[ServiceState.outDated]?.length ?? 0);
+      (ref.read(groupsOfService(theThis))?[ServiceState.finished]?.length ??
+          0) +
+      (ref.read(groupsOfService(theThis))?[ServiceState.outDated]?.length ?? 0);
 
   // int get rejected =>
   //     ref.read(groupsOfService(this))?[ServiceState.rejected]?.length ?? 0;
@@ -97,21 +119,29 @@ class ClientService with _$ClientService {
 
   @Deprecated('Better use ref.watch of listDoneProgressErrorOfService')
   List<int> get listDoneProgressError =>
-      ref.read(listDoneProgressErrorOfService(this));
+      ref.read(listDoneProgressErrorOfService(theThis));
 
   //
   // > logical getters
   //
   int get left => plan - filled - done - added;
 
-  bool get addAllowed => left > 0;
+  bool get isToday {
+    if (date == null) {
+      return true;
+    } else {
+      return date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
+    }
+  }
 
-  bool get deleteAllowed => all > 0;
+  bool get addAllowed => left > 0 && isToday;
+
+  bool get deleteAllowed => all > 0 && isToday;
 
   //
   // > proof managing
   //
-  ProofList get proofList => ref.read(proofsAtDate(Tuple2(date, this)));
+  ProofList get proofList => ref.read(proofsAtDate(Tuple2(date, theThis)));
 
   void addProof() {
     proofList.addNewGroup();

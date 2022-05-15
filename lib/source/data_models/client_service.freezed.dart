@@ -25,7 +25,7 @@ mixin _$ClientService {
   /// Reference to existing [ClientPlan].
   ClientPlan get planned => throw _privateConstructorUsedError;
 
-  /// Null - for dynamic date from provider [archiveDate]
+  /// Null - for dynamic date (from provider [archiveDate])
   DateTime? get date => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -179,7 +179,7 @@ class _$_ClientService extends _ClientService {
   @override
   final ClientPlan planned;
 
-  /// Null - for dynamic date from provider [archiveDate]
+  /// Null - for dynamic date (from provider [archiveDate])
   @override
   final DateTime? date;
 
@@ -236,7 +236,7 @@ abstract class _ClientService extends ClientService {
   ClientPlan get planned => throw _privateConstructorUsedError;
   @override
 
-  /// Null - for dynamic date from provider [archiveDate]
+  /// Null - for dynamic date (from provider [archiveDate])
   DateTime? get date => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
