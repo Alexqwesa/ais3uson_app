@@ -1,12 +1,63 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+/// Controller of App states, last used:
+/// - worker,
+/// - client,
+/// - service,
+/// - service at date.
+///
+/// {@category Providers}
+final lastUsed = Provider<_LastUsed>((ref) {
+  return _LastUsed(ref);
+});
+
+class _LastUsed {
+  final ProviderRef ref;
+
+  _LastUsed(this.ref);
+
+  ClientServiceAt get serviceAt => ClientServiceAt(
+        clientService: ref.read(lastClientService),
+        date: ref.read(lastServiceAt),
+      );
+
+  set serviceAt(ClientServiceAt value) {
+    ref.read(lastServiceAt.notifier).state = value.dateOnly;
+    ref.read(lastClientServiceId.notifier).state = value.servId;
+    ref.read(lastClientId.notifier).state = value.contractId;
+    ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
+  }
+
+  ClientService get service => ref.read(lastClientService);
+
+  set service(ClientService value) {
+    ref.read(lastClientServiceId.notifier).state = value.servId;
+    ref.read(lastClientId.notifier).state = value.contractId;
+    ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
+  }
+
+  ClientProfile get client => ref.read(lastClient);
+
+  set client(ClientProfile value) {
+    ref.read(lastClientId.notifier).state = value.contractId;
+    ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
+  }
+
+  WorkerProfile get worker => ref.read(lastWorkerProfile);
+
+  set worker(WorkerProfile value) =>
+      ref.read(lastApiKey.notifier).state = value.apiKey;
+}
 
 /// Should always return last used service [ClientService].
 ///
@@ -165,4 +216,11 @@ final isArchive = StateProvider<bool>((ref) {
 /// {@category Providers}
 final archiveDate = StateProvider<DateTime?>((ref) {
   return null;
+});
+
+/// Provider of setting - date of LastService
+///
+/// {@category Providers}
+final lastServiceAt = StateProvider<DateTime?>((ref) {
+  return DateTime.now().dateOnly();
 });

@@ -26,8 +26,8 @@ class ClientServiceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ClientServiceAt(
         clientService: clientService ?? ref.watch(lastClientService),
-        date:
-        (serviceDate ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly());
+        date: (serviceDate ?? ref.watch(archiveDate) ?? DateTime.now())
+            .dateOnly());
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width < height
         ? MediaQuery.of(context).size.width

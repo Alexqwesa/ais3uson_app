@@ -23,7 +23,7 @@ class ConfirmationForServicesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastClient);
-    final all = ref.watch(fullArchiveOfClient(client));
+    final all = ref.watch(journalOfClient(client));
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,
       (e) => e.provDate.daysSinceEpoch,
@@ -95,14 +95,14 @@ class TitleWidgetOfServicesGroup extends ConsumerWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               subtitle: Column(
-                // children: const [
-                //   // if (!kIsWeb)
-                //   //   ServiceProofList(
-                //   //     clientService: stubService,
-                //   //     // date: service.provDate,
-                //   //   ),
-                // ],
-              ),
+                  // children: const [
+                  //   // if (!kIsWeb)
+                  //   //   ServiceProofList(
+                  //   //     clientService: stubService,
+                  //   //     // date: service.provDate,
+                  //   //   ),
+                  // ],
+                  ),
             ),
           ),
           Positioned.fill(

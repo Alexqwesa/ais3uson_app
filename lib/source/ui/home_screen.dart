@@ -18,7 +18,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title =  S.of(context).depList;
+    final title = S.of(context).depList;
 
     return Scaffold(
       //

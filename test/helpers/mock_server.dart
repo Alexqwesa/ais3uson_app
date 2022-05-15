@@ -26,14 +26,16 @@ http.Client getMockHttpClient() {
       .thenAnswer((_) async => http.Response(SERVER_DATA_SERVICES, 200));
   when(client.testReqGetPlanned)
       .thenAnswer((_) async => http.Response(SERVER_DATA_PLANNED, 200));
-  when(client.testReqGetStat).thenAnswer((_) async => http.Response(
-        '<html><head><title>Статистика WEB-сервера АИС ТриУСОН</title>'
-        '</head><body><p>Статистика WEB-сервера АИС ТриУСОН</p>'
-        '<p>Request: /stat</p>'
-        '<p>Thread: Thread-542</p>'
-        '<p>Thread Count: 5</p></body></html>',
-        200,
-      ),);
+  when(client.testReqGetStat).thenAnswer(
+    (_) async => http.Response(
+      '<html><head><title>Статистика WEB-сервера АИС ТриУСОН</title>'
+      '</head><body><p>Статистика WEB-сервера АИС ТриУСОН</p>'
+      '<p>Request: /stat</p>'
+      '<p>Thread: Thread-542</p>'
+      '<p>Thread Count: 5</p></body></html>',
+      200,
+    ),
+  );
 
   return client;
 }

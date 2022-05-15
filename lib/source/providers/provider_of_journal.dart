@@ -22,14 +22,14 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
   ref.watch(isArchive);
 
   return ref.watch(archiveDate) != null
-      ? ref.watch(journalArchiveOfWorker(wp))
+      ? ref.watch(_journalArchiveOfWorker(wp))
       : ref.watch(_journalOfWorker(wp));
 });
 
 /// Today + archived [ServiceOfJournal] of client.
 ///
 /// {@category Providers}
-final fullArchiveOfClient =
+final journalOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   return [
     ...ref.watch(_archiveOfClient(client)),
@@ -46,7 +46,7 @@ final _archiveOfClient =
 
   return (ref.watch(
             servicesOfJournal(
-              ref.watch(journalArchiveAllOfWorker(client.workerProfile)),
+              ref.watch(_journalArchiveAllOfWorker(client.workerProfile)),
             ),
           ) ??
           [])
@@ -60,7 +60,7 @@ final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
 });
 
 /// Depend on archiveDate, maybe autoDispose?
-final journalArchiveOfWorker =
+final _journalArchiveOfWorker =
     Provider.family<Journal, WorkerProfile>((ref, wp) {
   ref.watch(archiveDate);
 
@@ -68,7 +68,7 @@ final journalArchiveOfWorker =
 });
 
 /// Depend on archiveDate, maybe autoDispose?
-final journalArchiveAllOfWorker =
+final _journalArchiveAllOfWorker =
     Provider.family<Journal, WorkerProfile>((ref, wp) {
   return JournalArchiveAll(wp);
 });
