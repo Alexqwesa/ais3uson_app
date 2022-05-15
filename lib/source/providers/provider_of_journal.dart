@@ -100,7 +100,7 @@ final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
   return state;
 });
 
-final _lock = Lock();
+final _lockProvider = Provider((ref) => Lock());
 
 /// This class store list of [ServiceOfJournal],
 ///
@@ -117,7 +117,7 @@ class ServicesListState extends StateNotifier<List<ServiceOfJournal>?> {
     //
     // > if first load
     //
-    await _lock.synchronized(() async {
+    await ref.read(_lockProvider).synchronized(() async {
       if (super.state == null) {
         // open hiveBox
         await ref.read(hiveJournalBox(journal.journalHiveName).future);
