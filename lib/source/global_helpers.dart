@@ -152,3 +152,21 @@ DateTime mostRecentMonth({DateTime? date, int addMonths = 0}) {
 
   return DateTime(date.year, date.month + addMonths);
 }
+
+/// Get millisecondsSinceEpoch and round down to days.
+///
+/// {@category Universal_helpers}
+extension DateTimeExtensions on DateTime {
+  DateTime dateOnly() {
+    return DateTime(year, month, day);
+  }
+
+  int get daysSinceEpoch {
+    return (millisecondsSinceEpoch + timeZoneOffset.inMilliseconds) ~/
+        (Duration.secondsPerDay * 1000);
+  }
+
+  static DateTime today() {
+    return DateTime.now().dateOnly();
+  }
+}

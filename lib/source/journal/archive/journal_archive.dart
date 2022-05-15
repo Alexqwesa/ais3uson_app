@@ -69,16 +69,6 @@ class JournalArchive extends Journal {
   }
 }
 
-/// Get millisecondsSinceEpoch and round down to days.
-///
-/// {@category Universal_helpers}
-extension DaysSinceEpoch on DateTime {
-  int get daysSinceEpoch {
-    return (millisecondsSinceEpoch + timeZoneOffset.inMilliseconds) ~/
-        (Duration.secondsPerDay * 1000);
-  }
-}
-
 /// Journal with all archived dates.
 ///
 /// {@category Journal}
