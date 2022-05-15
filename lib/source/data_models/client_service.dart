@@ -12,6 +12,7 @@ import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
