@@ -7,6 +7,7 @@ import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Provider of [Journal] for [WorkerProfile].
@@ -31,6 +32,8 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
 /// {@category Providers}
 final journalOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
+  ref.watch(groupsOfJournal(ref.watch(_journalOfWorker(client.workerProfile))));
+
   return [
     ...ref.watch(_archiveOfClient(client)),
     ...ref
