@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
+import 'package:ais3uson_app/source/providers/controller_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/ui/add_department_screen.dart';
 import 'package:ais3uson_app/source/ui/clients_screen.dart';
@@ -113,23 +113,24 @@ class ArchiveMaterialApp extends ConsumerWidget {
     );
   }
 
-  /// Activate archive mode([isArchive]) only if [datesInArchive] not empty.
+  /// Activate archive mode([isArchive]) only if [datesInArchiveController].dates
+  /// not empty.
   ///
-  /// It also show date picker if [archiveDate] is null.
+  /// It also show date picker to set [archiveDate].
   static Future<void> setArchiveOnWithDatePicker(
     BuildContext context,
     WidgetRef ref,
   ) async {
-    final archiveDates = await ref.read(datesInArchive.future);
+    final archiveDates = await ref.read(datesInArchiveController).datesInited();
 
-    if (archiveDates?.isEmpty ?? false) {
+    if (archiveDates.isEmpty) {
       ref.read(isArchive.notifier).state = false;
 
       return;
     }
     ref.read(archiveDate.notifier).state = await showDatePicker(
       context: context,
-      selectableDayPredicate: archiveDates!.contains,
+      selectableDayPredicate: archiveDates.contains,
       initialDate: archiveDates.last,
       lastDate: archiveDates.last,
       firstDate: archiveDates.first,

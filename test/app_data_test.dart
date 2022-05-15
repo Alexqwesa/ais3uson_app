@@ -4,8 +4,8 @@ import 'dart:developer' as dev;
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
+import 'package:ais3uson_app/source/providers/controller_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
-import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';
@@ -163,16 +163,19 @@ void main() {
           beforeYesterday.day,
         );
         // expect(ref.read(archiveDate), roundYesterday);
+        // await ref.pump();
         expect(
-          (await ref.read(datesInArchive.future))?.length,
+          ref.read(datesInArchive).length,
           2,
         );
         expect(
-          (await ref.read(datesInArchive.future))
-              ?.toSet()
+          ref
+              .read(datesInArchive)
+              .toSet()
               .containsAll([roundYesterday, roundBeforeYesterday]),
           true,
         );
+        await ref.read(datesInArchiveController).save();
       },
     );
   });

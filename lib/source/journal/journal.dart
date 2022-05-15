@@ -14,7 +14,7 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
-import 'package:ais3uson_app/source/providers/providers_dates_in_archive.dart';
+import 'package:ais3uson_app/source/providers/controller_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
@@ -419,28 +419,32 @@ class Journal {
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
-      final archiveLimit = workerProfile.ref.read(hiveArchiveLimit);
+      final archiveLimit = ref.read(hiveArchiveLimit);
       if (hiveArchive.length > archiveLimit) {
         await hiveArchive.deleteAll(
           archList.slice(archiveLimit).map<dynamic>((e) => e.key),
         );
       }
-      final dateList = archList // maybe just hiveArchive.values ?
-          .slice(
-            0,
-            archiveLimit < archList.length ? archiveLimit : archList.length,
-          )
-          .map((element) => element.provDate)
-          .toList();
+      await hiveArchive.compact();
       //
       // > update datesInArchive
       //
-      await workerProfile.ref.read(datesInArchive.future);
-      workerProfile.ref.read(innerDatesInArchive.notifier).addAll(
-            dateList.map((e) => DateTime(e.year, e.month, e.day)),
-          );
-      await hiveArchive.compact();
+      await updateDatesInArchiveOfProfile();
+    } else if (ref.read(datesInArchiveOfProfile(apiKey)).isEmpty) {
+      await updateDatesInArchiveOfProfile();
     }
+  }
+
+  Future<void> updateDatesInArchiveOfProfile() async {
+    await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
+    final hiveArchive =
+        ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
+    ref.read(datesInArchiveOfProfile(apiKey).notifier).state = hiveArchive
+        .values
+        .map((element) => element.provDate)
+        .map((e) => DateTime(e.year, e.month, e.day))
+        .toList();
+    await ref.read(datesInArchiveOfProfile(apiKey).notifier).save();
   }
 
   /// Helper, only used in [ClientService], it delete last [ServiceOfJournal].
