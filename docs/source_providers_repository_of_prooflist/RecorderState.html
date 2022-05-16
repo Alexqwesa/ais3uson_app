@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the ProofGroup class from the proof_list library, for the Dart programming language.">
-  <title>ProofGroup class - proof_list library - Dart API</title>
+  <meta name="description" content="API docs for the RecorderState enum from the repository_of_prooflist library, for the Dart programming language.">
+  <title>RecorderState enum - repository_of_prooflist library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
-    <li><a href="../source_data_models_proof_list/source_data_models_proof_list-library.html">proof_list</a></li>
-    <li class="self-crumb">ProofGroup class</li>
+    <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
+    <li class="self-crumb">RecorderState enum</li>
   </ol>
-  <div class="self-name">ProofGroup</div>
+  <div class="self-name">RecorderState</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,86 +44,131 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-class">ProofGroup</span> class 
+<h1><span class="kind-enum">RecorderState</span> enum 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+    <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
     
 <section class="desc markdown">
-  <p>A unit of proof, contains evidence of states before and after.</p>
+  <p>States used by ProofRecorder.</p>
 </section>
 
 
+    <section>
+      <dl class="dl-horizontal">
+        <dt>Inheritance</dt>
+        <dd><ul class="gt-separated dark eNum-relationships">
+          <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+          <li><a href="https://api.flutter.dev/flutter/dart-core/Enum-class.html">Enum</a></li>
+          <li>RecorderState</li>
+        </ul></dd>
 
-    <section class="summary offset-anchor" id="constructors">
-      <h2>Constructors</h2>
-
-      <dl class="constructor-summary-list">
-        <dt id="ProofGroup" class="callable">
-          <span class="name"><a href="../source_data_models_proof_list/ProofGroup/ProofGroup.html">ProofGroup</a></span><span class="signature">(<span class="parameter" id="-param-name">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">name</span>, </span><span class="parameter" id="-param-beforeImg"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Image-class.html">Image</a>?</span> <span class="parameter-name">beforeImg</span>, </span><span class="parameter" id="-param-beforeAudio"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">beforeAudio</span>, </span><span class="parameter" id="-param-afterImg"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Image-class.html">Image</a>?</span> <span class="parameter-name">afterImg</span>, </span><span class="parameter" id="-param-afterAudio"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">afterAudio</span>}</span>)</span>
-        </dt>
-        <dd>
-           
-        </dd>
-        <dt id="ProofGroup.empty" class="callable">
-          <span class="name"><a href="../source_data_models_proof_list/ProofGroup/ProofGroup.empty.html">ProofGroup.empty</a></span><span class="signature">(<span class="parameter" id="empty-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">name</span></span>)</span>
-        </dt>
-        <dd>
-           
-        </dd>
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="instance-properties">
+    <section class="summary offset-anchor" id="constants">
+      <h2>Constants</h2>
+
+      <dl class="properties">
+        <dt id="busy" class="constant">
+  <span class="name ">busy</span>
+  <span class="signature">&#8594; const <a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></span>
+  
+
+</dt>
+<dd>
+   
+  
+
+  <div>
+    <span class="signature"><code>const RecorderState(2)</code></span>
+  </div>
+</dd>
+
+        <dt id="failed" class="constant">
+  <span class="name ">failed</span>
+  <span class="signature">&#8594; const <a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></span>
+  
+
+</dt>
+<dd>
+   
+  
+
+  <div>
+    <span class="signature"><code>const RecorderState(3)</code></span>
+  </div>
+</dd>
+
+        <dt id="finished" class="constant">
+  <span class="name ">finished</span>
+  <span class="signature">&#8594; const <a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></span>
+  
+
+</dt>
+<dd>
+   
+  
+
+  <div>
+    <span class="signature"><code>const RecorderState(4)</code></span>
+  </div>
+</dd>
+
+        <dt id="ready" class="constant">
+  <span class="name ">ready</span>
+  <span class="signature">&#8594; const <a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></span>
+  
+
+</dt>
+<dd>
+   
+  
+
+  <div>
+    <span class="signature"><code>const RecorderState(0)</code></span>
+  </div>
+</dd>
+
+        <dt id="recording" class="constant">
+  <span class="name ">recording</span>
+  <span class="signature">&#8594; const <a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></span>
+  
+
+</dt>
+<dd>
+   
+  
+
+  <div>
+    <span class="signature"><code>const RecorderState(1)</code></span>
+  </div>
+</dd>
+
+        <dt id="values" class="constant">
+  <span class="name ">values</span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  <p>A constant List of the values in this enum, in order of their declaration.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const List&lt;<wbr><span class="type-parameter">RecorderState</span>&gt;</code></span>
+  </div>
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="instance-properties">
       <h2>Properties</h2>
 
       <dl class="properties">
-        <dt id="afterAudio" class="property">
-  <span class="name"><a href="../source_data_models_proof_list/ProofGroup/afterAudio.html">afterAudio</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read / write</div>
-
-</dd>
-
-        <dt id="afterImg" class="property">
-  <span class="name"><a href="../source_data_models_proof_list/ProofGroup/afterImg.html">afterImg</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/widgets/Image-class.html">Image</a>?</span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read / write</div>
-
-</dd>
-
-        <dt id="beforeAudio" class="property">
-  <span class="name"><a href="../source_data_models_proof_list/ProofGroup/beforeAudio.html">beforeAudio</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read / write</div>
-
-</dd>
-
-        <dt id="beforeImg" class="property">
-  <span class="name"><a href="../source_data_models_proof_list/ProofGroup/beforeImg.html">beforeImg</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/widgets/Image-class.html">Image</a>?</span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read / write</div>
-
-</dd>
-
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
@@ -135,14 +180,14 @@
 
 </dd>
 
-        <dt id="name" class="property">
-  <span class="name"><a href="../source_data_models_proof_list/ProofGroup/name.html">name</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
+        <dt id="index" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
-<dd>
-   
-  <div class="features">read / write</div>
+<dd class="inherited">
+  A numeric identifier for the enumerated value. <a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">[...]</a>
+  <div class="features">read-only, inherited</div>
 
 </dd>
 
@@ -212,8 +257,6 @@
     </section>
 
 
-
-
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
@@ -225,22 +268,27 @@
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../source_data_models_proof_list/source_data_models_proof_list-library.html">proof_list</a></li>
-  <li class="self-crumb">ProofGroup class</li>
+  <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
+  <li class="self-crumb">RecorderState enum</li>
 </ol>
 
 
-    <h5>proof_list library</h5>
+    <h5>repository_of_prooflist library</h5>
     <ol>
-  <li class="section-title"><a href="../source_data_models_proof_list/source_data_models_proof_list-library.html#classes">Classes</a></li>
-  <li><a href="../source_data_models_proof_list/ProofGroup-class.html">ProofGroup</a></li>
-  <li><a href="../source_data_models_proof_list/ProofList-class.html">ProofList</a></li>
 
 
 
 
+  <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#properties">Properties</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/groupsOfProof.html">groupsOfProof</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofAtDate.html">proofAtDate</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofRecorder.html">proofRecorder</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofRecorderState.html">proofRecorderState</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/servProofAtDate.html">servProofAtDate</a></li>
 
 
+  <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#enums">Enums</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></li>
 
 
 </ol>
@@ -250,30 +298,28 @@
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <ol>
 
-    <li class="section-title"><a href="../source_data_models_proof_list/ProofGroup-class.html#constructors">Constructors</a></li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/ProofGroup.html">ProofGroup</a></li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/ProofGroup.empty.html">empty</a></li>
 
+    <li class="section-title"><a href="../source_providers_repository_of_prooflist/RecorderState.html#constants">Constants</a></li>
+    <li>busy</li>
+    <li>failed</li>
+    <li>finished</li>
+    <li>ready</li>
+    <li>recording</li>
+    <li>values</li>
 
-    <li class="section-title">
-      <a href="../source_data_models_proof_list/ProofGroup-class.html#instance-properties">Properties</a>
+    <li class="section-title inherited">
+      <a href="../source_providers_repository_of_prooflist/RecorderState.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/afterAudio.html">afterAudio</a></li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/afterImg.html">afterImg</a></li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/beforeAudio.html">beforeAudio</a></li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/beforeImg.html">beforeImg</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li><a href="../source_data_models_proof_list/ProofGroup/name.html">name</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title inherited"><a href="../source_data_models_proof_list/ProofGroup-class.html#instance-methods">Methods</a></li>
+    <li class="section-title inherited"><a href="../source_providers_repository_of_prooflist/RecorderState.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../source_data_models_proof_list/ProofGroup-class.html#operators">Operators</a></li>
+    <li class="section-title inherited"><a href="../source_providers_repository_of_prooflist/RecorderState.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
 
 
 </ol>
