@@ -29,7 +29,7 @@ class ClientProfile {
 
   String get contract => entry.contract;
 
-  /// Return List of [ClientService]s.
+  /// Return List of [ClientService]s (only for tests).
   List<ClientService> get services =>
       workerProfile.ref.read(servicesOfClient(this));
 }

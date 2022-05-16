@@ -1,4 +1,6 @@
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
+import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
@@ -35,8 +37,7 @@ class ConfirmationForServicesScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Wrap(
             children: [
-              if (client.services.isEmpty || all.isEmpty)
-                Text(locator<S>().emptyListOfServices),
+              if (all.isEmpty) Text(locator<S>().emptyListOfServices),
               for (final servicesAt in allByGroups.entries.map((e) => e.value))
                 SizedBox(
                   width: tileSize + 32,
@@ -146,13 +147,14 @@ class ServiceOfJournalTile extends ConsumerWidget {
       service = ClientService(
         // maybe use error constructor?
         workerProfile: client.workerProfile,
-        service: client.services.first.service.copyWith(
-          image: 'not-found.png',
-          short_text: locator<S>().errorService,
+        service: ServiceEntry(
+          id: 0,
           serv_text: locator<S>().errorService,
+          short_text: locator<S>().errorService,
+          image: 'not-found.png',
         ),
-        planned: client.services.first.planned,
-        //date: serviceOfJournal.provDate
+        planned:
+            const ClientPlan(contract_id: 0, serv_id: 0, planned: 0, filled: 0),
       );
       // }
     }
