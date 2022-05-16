@@ -96,27 +96,19 @@ most old will be deleted first.</p>
     final archList = hiveArchive.values.toList()
       ..sort((a, b) =&gt; a.provDate.compareTo(b.provDate))
       ..reversed;
-    final archiveLimit = workerProfile.ref.read(hiveArchiveLimit);
+    final archiveLimit = ref.read(hiveArchiveLimit);
     if (hiveArchive.length &gt; archiveLimit) {
       await hiveArchive.deleteAll(
         archList.slice(archiveLimit).map&lt;dynamic&gt;((e) =&gt; e.key),
       );
     }
-    final dateList = archList &#47;&#47; maybe just hiveArchive.values ?
-        .slice(
-          0,
-          archiveLimit &lt; archList.length ? archiveLimit : archList.length,
-        )
-        .map((element) =&gt; element.provDate)
-        .toList();
+    await hiveArchive.compact();
     &#47;&#47;
     &#47;&#47; &gt; update datesInArchive
     &#47;&#47;
-    await workerProfile.ref.read(datesInArchive.future);
-    workerProfile.ref.read(innerDatesInArchive.notifier).addAll(
-          dateList.map((e) =&gt; DateTime(e.year, e.month, e.day)),
-        );
-    await hiveArchive.compact();
+    await updateDatesInArchiveOfProfile();
+  } else if (ref.read(datesInArchiveOfProfile(apiKey)).isEmpty) {
+    await updateDatesInArchiveOfProfile();
   }
 }</code></pre>
 </section>
@@ -189,6 +181,7 @@ most old will be deleted first.</p>
     <li><a href="../../Journal/Journal/toRejected.html">toRejected</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
     <li><a href="../../Journal/Journal/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
+    <li><a href="../../Journal/Journal/updateDatesInArchiveOfProfile.html">updateDatesInArchiveOfProfile</a></li>
 
     <li class="section-title inherited"><a href="../../Journal/Journal-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
@@ -208,7 +201,7 @@ most old will be deleted first.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   

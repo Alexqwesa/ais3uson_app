@@ -59,7 +59,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
 <span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -108,6 +108,12 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  &#47;&#47; final stubService = ref.watch(servicesOfClient(client)).first.copyWith(
+  &#47;&#47;         service: const ServiceEntry(
+  &#47;&#47;       serv_text: &#39;Stub&#39;,
+  &#47;&#47;       id: 0,
+  &#47;&#47;     ));
+
   return SizedBox(
     width: tileSize + 32,
     child: Stack(
@@ -120,13 +126,21 @@ Widget build(BuildContext context, WidgetRef ref) {
               &#39; ${standardFormat.format(service.provDate)}&#39;,
               style: Theme.of(context).textTheme.headline5,
             ),
-            subtitle: Container(),
+            subtitle: Column(
+                &#47;&#47; children: const [
+                &#47;&#47;   &#47;&#47; if (!kIsWeb)
+                &#47;&#47;   &#47;&#47;   ServiceProofList(
+                &#47;&#47;   &#47;&#47;     clientService: stubService,
+                &#47;&#47;   &#47;&#47;     &#47;&#47; date: service.provDate,
+                &#47;&#47;   &#47;&#47;   ),
+                &#47;&#47; ],
+                ),
           ),
         ),
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: TotalServiceTile(
+            child: ServiceOfJournalTile(
               serviceOfJournal: service,
               client: client,
             ),
@@ -174,8 +188,8 @@ Widget build(BuildContext context, WidgetRef ref) {
 
     <li class="section-title"><a href="../../source_ui_service_related_confirmation_for_list_of_services/TitleWidgetOfServicesGroup-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_ui_service_related_confirmation_for_list_of_services/TitleWidgetOfServicesGroup/build.html">build</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.7/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.7/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
@@ -203,7 +217,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   

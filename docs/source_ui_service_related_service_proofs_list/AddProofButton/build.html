@@ -110,7 +110,7 @@ Widget build(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(8),
     child: FloatingActionButton(
-      heroTag: ValueKey(strBeforeAfter + indexInProofList.toString()),
+      heroTag: ValueKey(strBeforeOrAfter + indexInProofList.toString()),
       child: const Icon(Icons.camera_alt),
       onPressed: () async {
         late final List&lt;CameraDescription&gt; cameras;
@@ -127,13 +127,14 @@ Widget build(BuildContext context) {
         final defaultImgPath = await Navigator.push(
           context,
           MaterialPageRoute&lt;XFile&gt;(
-            builder: (context) =&gt; TakePictureScreen(
+            builder: (context) =&gt; TakeProofPictureScreen(
               &#47;&#47; Pass the appropriate camera to the TakePictureScreen widget.
               camera: cameras.first,
             ),
           ),
         );
-        await callBack(indexInProofList, defaultImgPath, strBeforeAfter);
+        await callAddProof(
+            indexInProofList, defaultImgPath, strBeforeOrAfter);
       },
     ),
   );
@@ -168,12 +169,12 @@ Widget build(BuildContext context) {
     <li class="section-title">
       <a href="../../source_ui_service_related_service_proofs_list/AddProofButton-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../source_ui_service_related_service_proofs_list/AddProofButton/callBack.html">callBack</a></li>
+    <li><a href="../../source_ui_service_related_service_proofs_list/AddProofButton/callAddProof.html">callAddProof</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li><a href="../../source_ui_service_related_service_proofs_list/AddProofButton/indexInProofList.html">indexInProofList</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../source_ui_service_related_service_proofs_list/AddProofButton/strBeforeAfter.html">strBeforeAfter</a></li>
+    <li><a href="../../source_ui_service_related_service_proofs_list/AddProofButton/strBeforeOrAfter.html">strBeforeOrAfter</a></li>
 
     <li class="section-title"><a href="../../source_ui_service_related_service_proofs_list/AddProofButton-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_ui_service_related_service_proofs_list/AddProofButton/build.html">build</a></li>
@@ -205,7 +206,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   

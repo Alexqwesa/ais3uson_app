@@ -54,7 +54,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">setArchiveOnWithDatePicker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setArchiveOnWithDatePicker-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       
@@ -62,8 +62,9 @@
     </section>
     
 <section class="desc markdown">
-  <p>Activate archive mode(<a href="../../source_providers_providers_of_app_state/isArchive.html">isArchive</a>) only if <a href="../../source_providers_providers_dates_in_archive/datesInArchive.html">datesInArchive</a> not empty.</p>
-<p>It also show date picker if <a href="../../source_providers_providers_of_app_state/archiveDate.html">archiveDate</a> is null.</p>
+  <p>Activate archive mode(<a href="../../source_providers_providers_of_app_state/isArchive.html">isArchive</a>) only if <a href="../../source_providers_controller_dates_in_archive/datesInArchiveController.html">datesInArchiveController</a>.dates
+not empty.</p>
+<p>It also show date picker to set <a href="../../source_providers_providers_of_app_state/archiveDate.html">archiveDate</a>.</p>
 </section>
 
 
@@ -74,16 +75,16 @@
   BuildContext context,
   WidgetRef ref,
 ) async {
-  final archiveDates = await ref.read(datesInArchive.future);
+  final archiveDates = await ref.read(datesInArchiveController).datesInited();
 
-  if (archiveDates?.isEmpty ?? false) {
+  if (archiveDates.isEmpty) {
     ref.read(isArchive.notifier).state = false;
 
     return;
   }
   ref.read(archiveDate.notifier).state = await showDatePicker(
     context: context,
-    selectableDayPredicate: archiveDates!.contains,
+    selectableDayPredicate: archiveDates.contains,
     initialDate: archiveDates.last,
     lastDate: archiveDates.last,
     firstDate: archiveDates.first,
@@ -126,8 +127,8 @@
 
     <li class="section-title"><a href="../../app_root/ArchiveMaterialApp-class.html#instance-methods">Methods</a></li>
     <li><a href="../../app_root/ArchiveMaterialApp/build.html">build</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.5/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.7/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.7/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
@@ -157,7 +158,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   
