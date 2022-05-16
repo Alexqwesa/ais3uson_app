@@ -122,23 +122,30 @@ Widget build(BuildContext context, WidgetRef ref) {
         child: Wrap(
           children: [
             if (all.isEmpty) Text(locator&lt;S&gt;().emptyListOfServices),
-            for (final servicesAt in allByGroups.entries.map((e) =&gt; e.value))
+            for (final serviceDayGroup
+                in allByGroups.entries.map((e) =&gt; e.value))
               SizedBox(
                 width: tileSize + 32,
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    _TitleWidgetOfServicesGroup(
-                      service: servicesAt[0],
-                      client: client,
-                    ),
-                    for (int index = 1; index &lt; servicesAt.length; index++)
-                      _ServiceOfJournalTile(
-                        serviceOfJournal: servicesAt[index],
+                child: Card(
+                  margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _TitleWidgetOfServicesGroup(
+                        service: serviceDayGroup[0],
                         client: client,
                       ),
-                  ],
+                      for (int index = 1;
+                          index &lt; serviceDayGroup.length;
+                          index++)
+                        _ServiceOfJournalTile(
+                          serviceOfJournal: serviceDayGroup[index],
+                          client: client,
+                        ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
                 ),
               ),
           ],
