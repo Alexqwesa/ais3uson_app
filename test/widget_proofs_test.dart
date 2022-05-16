@@ -52,7 +52,7 @@ void main() {
   // > Tests start
   //
   group('Proofs at date', () {
-    testWidgets('it show one service in ConfirmationForServicesScreen',
+    testWidgets('it show one service in AllServicesOfClientScreen',
         (tester) async {
       // init ref
       final wKey = wKeysData2();

@@ -296,7 +296,6 @@ void main() {
       ref.read(lastApiKey.notifier).state = wp.apiKey;
       ref.read(lastClientId.notifier).state = wp.clients.first.contractId;
       await tester.pumpAndSettle();
-      final itemFinder = find.text('Покупка продуктов питания');
       // Scroll until the item to be found appears.
       // final listFinder = find.byKey(const ValueKey('MainScroll'));
       // await tester.scrollUntilVisible(
@@ -305,7 +304,7 @@ void main() {
       //   scrollable: listFinder ,
       // );
       // Check
-      expect(itemFinder, findsOneWidget);
+      expect(find.text('Покупка продуктов питания'), findsOneWidget);
       expect(
         find.textContaining('Список положенных услуг пуст,'),
         findsNothing,
