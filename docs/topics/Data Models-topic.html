@@ -46,7 +46,7 @@
   
 <section class="desc markdown">
   <h1 id="data-models">Data Models</h1>
-<p>These classes provide data for UI classes: <code>UI Services</code>, <code>UIWorkerProfile</code>.</p>
+<p>These classes provide data for UI classes.</p>
 <p>Hierarchy of classes:</p>
 <ul>
 <li>provider <code>workerProfiles</code> store list of:
@@ -57,6 +57,9 @@
 <ul>
 <li><code>ClientService</code>s with different:
 <ul>
+<li><code>ClientServiceAt</code>s with different:
+<ul>
+<li><code>ServiceOfJournal</code>s,</li>
 <li><code>ProofList</code>s.</li>
 </ul>
 </li>
@@ -66,6 +69,13 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<p>Note: <code>ProofList</code> is intentionally not depend on <code>ServiceOfJournal</code> to allow:</p>
+<ul>
+<li>make one proof for several <code>ServiceOfJournal</code>,</li>
+<li>to leave proof even in case of deleting of <code>ServiceOfJournal</code>.</li>
 </ul>
 <p><code>WorkerProfile</code>, <code>ClientProfile</code>, <code>ClientService</code> classes provide data that they got from classes in
 category <code>Client-Server API</code>.</p>
@@ -81,7 +91,7 @@ for creating new <code>ProofGroup</code>s.</p>
     <dl>
       <dt id="ClientProfile">
   <span class="name "><a href="../source_data_models_client_profile/ClientProfile-class.html">ClientProfile</a></span> 
-    <span class="category data-models cp-2 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
 
 </dt>
 <dd>
@@ -90,16 +100,25 @@ for creating new <code>ProofGroup</code>s.</p>
 
       <dt id="ClientService">
   <span class="name "><a href="../source_data_models_client_service/ClientService-class.html">ClientService</a></span> 
-    <span class="category data-models cp-2 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
 
 </dt>
 <dd>
-  Model for <a href="../source_ui_service_related_service_card/ServiceCard-class.html">ServiceCard</a> and <a href="../source_data_models_client_service/ClientService-class.html">ClientService</a>. <a href="../source_data_models_client_service/ClientService-class.html">[...]</a>
+  Model for <a href="../source_data_models_client_service_at/ClientServiceAt-class.html">ClientServiceAt</a> and <a href="../source_ui_service_related_service_card/ServiceCard-class.html">ServiceCard</a>. <a href="../source_data_models_client_service/ClientService-class.html">[...]</a>
+</dd>
+
+      <dt id="ClientServiceAt">
+  <span class="name "><a href="../source_data_models_client_service_at/ClientServiceAt-class.html">ClientServiceAt</a></span> 
+    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+
+</dt>
+<dd>
+  Model for <a href="../source_ui_service_related_service_card/ServiceCard-class.html">ServiceCard</a> . <a href="../source_data_models_client_service_at/ClientServiceAt-class.html">[...]</a>
 </dd>
 
       <dt id="ProofGroup">
   <span class="name "><a href="../source_data_models_proof_list/ProofGroup-class.html">ProofGroup</a></span> 
-    <span class="category data-models cp-2 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
 
 </dt>
 <dd>
@@ -109,7 +128,7 @@ for creating new <code>ProofGroup</code>s.</p>
       <dt id="ProofList">
   <span class="name "><a href="../source_data_models_proof_list/ProofList-class.html">ProofList</a></span> 
     <span class="category client-server-api cp-1 linked" title="This is part of the Client-Server API Topic."><a href="../topics/Client-Server API-topic.html">Client-Server&nbsp;API</a></span>
-    <span class="category data-models cp-2 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
 
 </dt>
 <dd>
@@ -118,7 +137,7 @@ for creating new <code>ProofGroup</code>s.</p>
 
       <dt id="WorkerProfile">
   <span class="name "><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span> 
-    <span class="category data-models cp-2 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
+    <span class="category data-models cp-3 linked" title="This is part of the Data Models Topic."><a href="../topics/Data Models-topic.html">Data&nbsp;Models</a></span>
 
 </dt>
 <dd>
@@ -164,15 +183,19 @@ for creating new <code>ProofGroup</code>s.</p>
       <li class="section-title">Libraries</li>
       <li><a href="../source_ui_add_department_screen/source_ui_add_department_screen-library.html">add_department_screen</a></li>
       <li><a href="../app_root/app_root-library.html">app_root</a></li>
+      <li><a href="../source_providers_basic_providers/source_providers_basic_providers-library.html">basic_providers</a></li>
       <li><a href="../source_ui_service_related_camera/source_ui_service_related_camera-library.html">camera</a></li>
       <li><a href="../source_client_server_api_client_entry/source_client_server_api_client_entry-library.html">client_entry</a></li>
       <li><a href="../source_client_server_api_client_plan/source_client_server_api_client_plan-library.html">client_plan</a></li>
       <li><a href="../source_data_models_client_profile/source_data_models_client_profile-library.html">client_profile</a></li>
       <li><a href="../source_data_models_client_service/source_data_models_client_service-library.html">client_service</a></li>
+      <li><a href="../source_data_models_client_service_at/source_data_models_client_service_at-library.html">client_service_at</a></li>
       <li><a href="../source_ui_service_related_client_service_screen/source_ui_service_related_client_service_screen-library.html">client_service_screen</a></li>
       <li><a href="../source_ui_service_related_client_services_list_screen/source_ui_service_related_client_services_list_screen-library.html">client_services_list_screen</a></li>
       <li><a href="../source_ui_clients_screen/source_ui_clients_screen-library.html">clients_screen</a></li>
       <li><a href="../source_ui_service_related_confirmation_for_list_of_services/source_ui_service_related_confirmation_for_list_of_services-library.html">confirmation_for_list_of_services</a></li>
+      <li><a href="../source_providers_controller_dates_in_archive/source_providers_controller_dates_in_archive-library.html">controller_dates_in_archive</a></li>
+      <li><a href="../source_providers_controller_of_worker_profiles_list/source_providers_controller_of_worker_profiles_list-library.html">controller_of_worker_profiles_list</a></li>
       <li><a href="../source_ui_delete_department_screen/source_ui_delete_department_screen-library.html">delete_department_screen</a></li>
       <li><a href="../source_ui_dev_screen/source_ui_dev_screen-library.html">dev_screen</a></li>
       <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
@@ -184,14 +207,13 @@ for creating new <code>ProofGroup</code>s.</p>
       <li><a href="../main/main-library.html">main</a></li>
       <li><a href="../source_data_models_proof_list/source_data_models_proof_list-library.html">proof_list</a></li>
       <li><a href="../source_providers_provider_of_journal/source_providers_provider_of_journal-library.html">provider_of_journal</a></li>
-      <li><a href="../source_providers_providers/source_providers_providers-library.html">providers</a></li>
-      <li><a href="../source_providers_providers_dates_in_archive/source_providers_providers_dates_in_archive-library.html">providers_dates_in_archive</a></li>
       <li><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html">providers_of_app_state</a></li>
-      <li><a href="../source_providers_providers_of_http_data/source_providers_providers_of_http_data-library.html">providers_of_http_data</a></li>
-      <li><a href="../source_providers_providers_of_lists_of_workers/source_providers_providers_of_lists_of_workers-library.html">providers_of_lists_of_workers</a></li>
       <li><a href="../source_providers_providers_of_settings/source_providers_providers_of_settings-library.html">providers_of_settings</a></li>
       <li><a href="../source_ui_qr_scan_screen/source_ui_qr_scan_screen-library.html">qr_scan_screen</a></li>
       <li><a href="../source_providers_repository_of_client/source_providers_repository_of_client-library.html">repository_of_client</a></li>
+      <li><a href="../source_providers_repository_of_http_data/source_providers_repository_of_http_data-library.html">repository_of_http_data</a></li>
+      <li><a href="../source_providers_repository_of_journal/source_providers_repository_of_journal-library.html">repository_of_journal</a></li>
+      <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
       <li><a href="../source_providers_repository_of_service/source_providers_repository_of_service-library.html">repository_of_service</a></li>
       <li><a href="../source_providers_repository_of_worker/source_providers_repository_of_worker-library.html">repository_of_worker</a></li>
       <li><a href="../source_ui_service_related_service_card/source_ui_service_related_service_card-library.html">service_card</a></li>
@@ -217,6 +239,7 @@ for creating new <code>ProofGroup</code>s.</p>
   <li class="section-title"><a href="../topics/Data Models-topic.html#classes">Classes</a></li>
   <li><a href="../source_data_models_client_profile/ClientProfile-class.html">ClientProfile</a></li>
   <li><a href="../source_data_models_client_service/ClientService-class.html">ClientService</a></li>
+  <li><a href="../source_data_models_client_service_at/ClientServiceAt-class.html">ClientServiceAt</a></li>
   <li><a href="../source_data_models_proof_list/ProofGroup-class.html">ProofGroup</a></li>
   <li><a href="../source_data_models_proof_list/ProofList-class.html">ProofList</a></li>
   <li><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></li>
@@ -235,7 +258,7 @@ for creating new <code>ProofGroup</code>s.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   

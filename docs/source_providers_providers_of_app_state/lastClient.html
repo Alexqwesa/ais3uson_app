@@ -47,11 +47,11 @@
 <h1><span class="kind-top-level-property">lastClient</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category providers cp-4 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
+    <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_models_client_profile/ClientProfile-class.html">ClientProfile</a></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_models_client_profile/ClientProfile-class.html">ClientProfile</a></span>&gt;</span>
           <span class="name ">lastClient</span>
           <div class="features">final</div>
 
@@ -80,6 +80,18 @@ This is readonly provider, but you can change it values via <a href="../source_p
     log.severe(&#39;lastClient requested but provider failed&#39;);
 
     return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first;
+    &#47;&#47;
+    &#47;&#47; return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).isNotEmpty
+    &#47;&#47;     ? ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first
+    &#47;&#47;     : ClientProfile(
+    &#47;&#47;         workerProfile: ref.watch(lastWorkerProfile),
+    &#47;&#47;         entry: const ClientEntry(
+    &#47;&#47;           dhw_id: 0,
+    &#47;&#47;           client_id: 0,
+    &#47;&#47;           client: &#39;Error&#39;,
+    &#47;&#47;           contract_id: 0,
+    &#47;&#47;           dep_id: 0,
+    &#47;&#47;         ));
   }
 });</code></pre>
 </section>
@@ -107,7 +119,6 @@ This is readonly provider, but you can change it values via <a href="../source_p
   <li class="section-title"><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html#classes">Classes</a></li>
   <li><a href="../source_providers_providers_of_app_state/LastApiKeyState-class.html">LastApiKeyState</a></li>
   <li><a href="../source_providers_providers_of_app_state/LastClientIdState-class.html">LastClientIdState</a></li>
-  <li><a href="../source_providers_providers_of_app_state/LastClientServiceState-class.html">LastClientServiceState</a></li>
 
 
 
@@ -119,6 +130,9 @@ This is readonly provider, but you can change it values via <a href="../source_p
   <li><a href="../source_providers_providers_of_app_state/lastClient.html">lastClient</a></li>
   <li><a href="../source_providers_providers_of_app_state/lastClientId.html">lastClientId</a></li>
   <li><a href="../source_providers_providers_of_app_state/lastClientService.html">lastClientService</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastClientServiceId.html">lastClientServiceId</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastServiceAt.html">lastServiceAt</a></li>
+  <li><a href="../source_providers_providers_of_app_state/lastUsed.html">lastUsed</a></li>
   <li><a href="../source_providers_providers_of_app_state/lastWorkerProfile.html">lastWorkerProfile</a></li>
 
 
@@ -136,7 +150,7 @@ This is readonly provider, but you can change it values via <a href="../source_p
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   

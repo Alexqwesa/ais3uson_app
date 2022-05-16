@@ -47,11 +47,11 @@
 <h1><span class="kind-top-level-property">journalOfWorker</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category providers cp-4 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
+    <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.5/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../Journal/Journal-class.html">Journal</a></span>, <span class="type-parameter"><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../Journal/Journal-class.html">Journal</a></span>, <span class="type-parameter"><a href="../source_data_models_worker_profile/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span>
           <span class="name ">journalOfWorker</span>
           <div class="features">final</div>
 
@@ -74,7 +74,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
   ref.watch(isArchive);
 
   return ref.watch(archiveDate) != null
-      ? ref.watch(journalArchiveOfWorker(wp))
+      ? ref.watch(_journalArchiveOfWorker(wp))
       : ref.watch(_journalOfWorker(wp));
 });</code></pre>
 </section>
@@ -99,19 +99,13 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
 
     <h5>provider_of_journal library</h5>
     <ol>
-  <li class="section-title"><a href="../source_providers_provider_of_journal/source_providers_provider_of_journal-library.html#classes">Classes</a></li>
-  <li><a href="../source_providers_provider_of_journal/ServicesListState-class.html">ServicesListState</a></li>
 
 
 
 
   <li class="section-title"><a href="../source_providers_provider_of_journal/source_providers_provider_of_journal-library.html#properties">Properties</a></li>
-  <li><a href="../source_providers_provider_of_journal/fullArchiveOfClient.html">fullArchiveOfClient</a></li>
-  <li><a href="../source_providers_provider_of_journal/groupsOfJournal.html">groupsOfJournal</a></li>
-  <li><a href="../source_providers_provider_of_journal/journalArchiveAllOfWorker.html">journalArchiveAllOfWorker</a></li>
-  <li><a href="../source_providers_provider_of_journal/journalArchiveOfWorker.html">journalArchiveOfWorker</a></li>
+  <li><a href="../source_providers_provider_of_journal/journalOfClient.html">journalOfClient</a></li>
   <li><a href="../source_providers_provider_of_journal/journalOfWorker.html">journalOfWorker</a></li>
-  <li><a href="../source_providers_provider_of_journal/servicesOfJournal.html">servicesOfJournal</a></li>
 
 
 
@@ -128,7 +122,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   

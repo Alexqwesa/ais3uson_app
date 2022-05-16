@@ -65,8 +65,7 @@
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">WorkerKey get key =&gt;
-    ref.read(innerWorkerKeys).firstWhere((e) =&gt; e.apiKey == apiKey);</code></pre>
+  <pre class="language-dart"><code class="language-dart">WorkerKey get key =&gt; ref.read(workerProfiles.notifier).key(apiKey);</code></pre>
 </section>
 
 </section>
@@ -144,7 +143,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+10
+      1.0.1+11
   </span>
 
   
