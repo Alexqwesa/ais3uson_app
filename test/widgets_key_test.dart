@@ -10,6 +10,7 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/ui/add_department_screen.dart';
 import 'package:ais3uson_app/source/ui/clients_screen.dart';
@@ -328,17 +329,19 @@ void main() {
       });
       ref.read(lastApiKey.notifier).state = wp.apiKey;
       ref.read(lastClientId.notifier).state = wp.clients[1].contractId;
-      wp.clients[1].services.clear();
-      expect(wp.clients[1].services.isEmpty, true);
+      // wp.clients[1].services.clear();
+      expect(wp.clients[1].services.isEmpty, false);
       const widgetForTesting = ClientServicesListScreen();
       await tester.pumpWidget(
         ProviderScope(
+          overrides: [servicesOfClient(wp.clients[1]).overrideWithValue([])],
           parent: ref,
           child: localizedMaterialApp(
             widgetForTesting,
           ),
         ),
       );
+      expect(wp.clients[1].services.isEmpty, false);
       await tester.pumpAndSettle(const Duration(seconds: 5));
       final listFinder = find.byKey(const ValueKey('MainScroll'));
       expect(listFinder, findsNothing);
