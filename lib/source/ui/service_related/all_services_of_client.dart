@@ -48,23 +48,30 @@ class AllServicesOfClientScreen extends ConsumerWidget {
           child: Wrap(
             children: [
               if (all.isEmpty) Text(locator<S>().emptyListOfServices),
-              for (final servicesAt in allByGroups.entries.map((e) => e.value))
+              for (final serviceDayGroup
+                  in allByGroups.entries.map((e) => e.value))
                 SizedBox(
                   width: tileSize + 32,
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _TitleWidgetOfServicesGroup(
-                        service: servicesAt[0],
-                        client: client,
-                      ),
-                      for (int index = 1; index < servicesAt.length; index++)
-                        _ServiceOfJournalTile(
-                          serviceOfJournal: servicesAt[index],
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        _TitleWidgetOfServicesGroup(
+                          service: serviceDayGroup[0],
                           client: client,
                         ),
-                    ],
+                        for (int index = 1;
+                            index < serviceDayGroup.length;
+                            index++)
+                          _ServiceOfJournalTile(
+                            serviceOfJournal: serviceDayGroup[index],
+                            client: client,
+                          ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
                   ),
                 ),
             ],
@@ -105,125 +112,125 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
       width: tileSize + 32,
       // height: 160,
       child: Padding(
-        padding: const EdgeInsets.only(top: 35),
+        padding: const EdgeInsets.only(top: 16),
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  ' ${standardFormat.format(service.provDate)}',
-                  style: Theme.of(context).textTheme.headline5,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      ' ${standardFormat.format(service.provDate)}',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ),
                 ),
-                Column(
-                  children: [
-                    // if (proofList.isEmpty)
-                    //   FloatingActionButton(
-                    //     child: const Icon(Icons.add),
-                    //     onPressed: proof.addNewGroup,
-                    //   ),
-                    // if (proofList.isNotEmpty)
-                    Row(
-                      children: [
-                        //
-                        // > record button
-                        //
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FloatingActionButton(
-                            child: const Icon(Icons.record_voice_over_sharp),
-                            backgroundColor: recorder.color(
-                                proofList.isNotEmpty ? proofList.first : null),
-                            onPressed: () async {
-                              if (ref.read(proofRecorderState) !=
-                                  RecorderState.ready) {
-                                await recorder.stop();
-                              } else {
-                                if (proofList.isEmpty) {
-                                  proof.addNewGroup();
-                                }
-
-                                await recorder.start(proof.proofGroups.first);
-                              }
-                            },
-                          ),
-                        ),
-                        //
-                        // > play button
-                        //
-                        if (proofList.isNotEmpty &&
-                            proofList[0].afterAudio != null)
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          //
+                          // > record button
+                          //
                           Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: FloatingActionButton(
-                              backgroundColor:
-                                  recorderState == RecorderState.ready
-                                      ? null
-                                      : Colors.grey,
-                              child: const Icon(Icons.play_arrow),
+                              heroTag: null,
+                              // tooltip: ,
+                              child: const Icon(Icons.record_voice_over_sharp),
+                              backgroundColor: recorder.color(
+                                  proofList.isNotEmpty ? proofList.first : null),
                               onPressed: () async {
-                                await recorder.stop();
-                                if (proofList[0].afterAudio != null) {
-                                  await player.play(DeviceFileSource(
-                                      proofList[0].afterAudio!));
-                                }
-                              },
-                            ),
-                          ),
-                        //
-                        // > share button
-                        //
-                        if (proofList.isNotEmpty &&
-                            proofList[0].afterAudio != null)
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: FloatingActionButton(
-                              backgroundColor:
-                                  recorderState == RecorderState.ready
-                                      ? null
-                                      : Colors.grey,
-                              child: const Icon(Icons.share),
-                              onPressed: () async {
-                                await recorder.stop();
-                                if (proofList[0].afterAudio != null) {
-                                  final filePath = proofList[0].afterAudio!;
-                                  try {
-                                    await Share.shareFiles([filePath]);
-                                    // ignore: avoid_catching_errors
-                                  } on UnimplementedError {
-                                    showNotification(
-                                      locator<S>().fileSavedTo + filePath,
-                                      duration: const Duration(seconds: 10),
-                                    );
-                                  } on MissingPluginException {
-                                    showNotification(
-                                      locator<S>().fileSavedTo + filePath,
-                                      duration: const Duration(seconds: 10),
-                                    );
+                                if (ref.read(proofRecorderState) !=
+                                    RecorderState.ready) {
+                                  await recorder.stop();
+                                } else {
+                                  if (proofList.isEmpty) {
+                                    proof.addNewGroup();
                                   }
+
+                                  await recorder.start(proof.proofGroups.first);
                                 }
                               },
                             ),
                           ),
-                      ],
-                    )
-
-                    // if (!kIsWeb)
-                    // ServiceProofList(
-                    //   clientService: stubService,
-                    //   // date: service.provDate,
-                    // ),
-                  ],
+                          //
+                          // > play button
+                          //
+                          if (proofList.isNotEmpty &&
+                              proofList[0].afterAudio != null)
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: FloatingActionButton(
+                                heroTag: null,
+                                // tooltip: ,
+                                backgroundColor:
+                                    recorderState == RecorderState.ready
+                                        ? null
+                                        : Colors.grey,
+                                child: const Icon(Icons.play_arrow),
+                                onPressed: () async {
+                                  await recorder.stop();
+                                  if (proofList[0].afterAudio != null) {
+                                    await player.play(DeviceFileSource(
+                                        proofList[0].afterAudio!));
+                                  }
+                                },
+                              ),
+                            ),
+                          //
+                          // > share button
+                          //
+                          if (proofList.isNotEmpty &&
+                              proofList[0].afterAudio != null)
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: FloatingActionButton(
+                                heroTag: null,
+                                // tooltip: ,
+                                backgroundColor:
+                                    recorderState == RecorderState.ready
+                                        ? null
+                                        : Colors.grey,
+                                child: const Icon(Icons.share),
+                                onPressed: () async {
+                                  await recorder.stop();
+                                  if (proofList[0].afterAudio != null) {
+                                    final filePath = proofList[0].afterAudio!;
+                                    try {
+                                      await Share.shareFiles([filePath]);
+                                      // ignore: avoid_catching_errors
+                                    } on UnimplementedError {
+                                      showNotification(
+                                        locator<S>().fileSavedTo + filePath,
+                                        duration: const Duration(seconds: 10),
+                                      );
+                                    } on MissingPluginException {
+                                      showNotification(
+                                        locator<S>().fileSavedTo + filePath,
+                                        duration: const Duration(seconds: 10),
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
+                            ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: _ServiceOfJournalTile(
-                  serviceOfJournal: service,
-                  client: client,
-                ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: _ServiceOfJournalTile(
+                serviceOfJournal: service,
+                client: client,
               ),
             ),
           ],
