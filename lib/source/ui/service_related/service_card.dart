@@ -6,6 +6,7 @@ import 'package:ais3uson_app/source/ui/service_related/service_card_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
+import 'package:tuple/tuple.dart';
 
 /// Displays one [ClientService].
 ///
@@ -26,10 +27,10 @@ class ServiceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serviceView = ref.watch(serviceViewProvider);
+    final tileType = ref.watch(tileTypeProvider);
 
     return SizedBox.fromSize(
-      size: serviceCardSize(parentSize, serviceView),
+      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: Stack(
         children: [
           ColorFiltered(
@@ -43,17 +44,17 @@ class ServiceCard extends ConsumerWidget {
                   //
                   // > select view
                   //
-                  if (serviceView == '')
+                  if (tileType == '')
                     ServiceCardView(
                       serviceAt: service,
                       parentSize: parentSize,
                     )
-                  else if (serviceView == 'tile')
+                  else if (tileType == 'tile')
                     ServiceCardTileView(
                       serviceAt: service,
                       parentSize: parentSize,
                     )
-                  else if (serviceView == 'square')
+                  else if (tileType == 'square')
                     ServiceCardSquareView(
                       serviceAt: service,
                       parentSize: parentSize,

@@ -69,7 +69,7 @@ class ClientServicesListScreen extends ConsumerWidget {
                   title: Text(S.of(context).detailed),
                   onTap: () {
                     Navigator.pop(context, '');
-                    ref.read(serviceViewProvider.notifier).state = '';
+                    ref.read(tileTypeProvider.notifier).state = '';
                   },
                 ),
               ),
@@ -79,7 +79,7 @@ class ClientServicesListScreen extends ConsumerWidget {
                   title: Text(S.of(context).list),
                   onTap: () {
                     Navigator.pop(context, 'tile');
-                    ref.read(serviceViewProvider.notifier).state = 'tile';
+                    ref.read(tileTypeProvider.notifier).state = 'tile';
                   },
                 ),
               ),
@@ -89,7 +89,7 @@ class ClientServicesListScreen extends ConsumerWidget {
                   title: Text(S.of(context).small),
                   onTap: () {
                     Navigator.pop(context, 'square');
-                    ref.read(serviceViewProvider.notifier).state = 'square';
+                    ref.read(tileTypeProvider.notifier).state = 'square';
                   },
                 ),
               ),

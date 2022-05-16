@@ -3,14 +3,15 @@ import 'dart:ui';
 import 'package:ais3uson_app/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tuple/tuple.dart';
 
-/// Provider of setting - serviceView.
+/// Provider of setting - tileType.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
-final serviceViewProvider =
+final tileTypeProvider =
     StateNotifierProvider<_ServiceViewState, String>((ref) {
   return _ServiceViewState();
 });
@@ -19,7 +20,7 @@ class _ServiceViewState extends StateNotifier<String> {
   _ServiceViewState()
       : super(locator<SharedPreferences>().getString(name) ?? '');
 
-  static const name = 'serviceView';
+  static const name = 'tileType';
 
   @override
   set state(String value) {
@@ -53,12 +54,16 @@ class _HiveArchiveLimitState extends StateNotifier<int> {
   }
 }
 
-/// Calculate size of ServiceCard based on parentSize and serviceView.
+/// Calculate size of ServiceCard based on parentSize and tileType.
 ///
 /// {@category Providers}
-Size serviceCardSize(Size parentSize, String serviceView) {
+final serviceCardSize =
+    Provider.autoDispose.family<Size, Tuple2<Size, String>>((ref, tuple) {
+  final parentSize = tuple.item1;
+  final tileType = tuple.item2;
+
   final parentWidth = parentSize.width;
-  if (serviceView == 'tile') {
+  if (tileType == 'tile') {
     final divider = (parentWidth - 20) ~/ 400.0;
     var cardWidth = (parentWidth / divider) - 10;
     if (divider == 0) {
@@ -69,7 +74,7 @@ Size serviceCardSize(Size parentSize, String serviceView) {
       cardWidth * 1.0,
       cardWidth / 4,
     );
-  } else if (serviceView == 'square') {
+  } else if (tileType == 'square') {
     var divider = (parentWidth - 20) ~/ 150.0;
     if (parentWidth < 130) {
       divider = 1;
@@ -94,4 +99,4 @@ Size serviceCardSize(Size parentSize, String serviceView) {
       cardWidth * 1.2,
     );
   }
-}
+});

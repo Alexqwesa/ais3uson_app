@@ -4,6 +4,7 @@ import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
 /// Displays text, icon, etc of [ClientService] - default view.
 ///
@@ -22,7 +23,7 @@ class ServiceCardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: serviceCardSize(parentSize, tileType),
+      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
         child: SizedBox(
           width: 205,
@@ -123,7 +124,7 @@ class ServiceCardSquareView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: serviceCardSize(parentSize, tileType),
+      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
         child: SizedBox(
           width: 150,
@@ -203,7 +204,7 @@ class ServiceCardTileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.fromSize(
-      size: serviceCardSize(parentSize, tileType),
+      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
         fit: BoxFit.fill,
         child: SizedBox(
