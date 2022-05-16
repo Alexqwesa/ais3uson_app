@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the proofsAtDate property from the repository_of_prooflist library, for the Dart programming language.">
-  <title>proofsAtDate property - repository_of_prooflist library - Dart API</title>
+  <meta name="description" content="API docs for the servProofAtDate property from the repository_of_prooflist library, for the Dart programming language.">
+  <title>servProofAtDate property - repository_of_prooflist library - Dart API</title>
 
 
   
@@ -31,9 +31,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
-    <li class="self-crumb">proofsAtDate property</li>
+    <li class="self-crumb">servProofAtDate property</li>
   </ol>
-  <div class="self-name">proofsAtDate</div>
+  <div class="self-name">servProofAtDate</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,7 +44,7 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-top-level-property">proofsAtDate</span> top-level property 
+<h1><span class="kind-top-level-property">servProofAtDate</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
     <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
@@ -52,7 +52,7 @@
 
         <section class="multi-line-signature">
           <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_models_proof_list/ProofList-class.html">ProofList</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.0/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, <span class="type-parameter"><a href="../source_data_models_client_service/ClientService-class.html">ClientService</a></span>&gt;</span></span>&gt;</span>
-          <span class="name ">proofsAtDate</span>
+          <span class="name ">servProofAtDate</span>
           <div class="features">final</div>
 
         </section>
@@ -66,9 +66,9 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final proofsAtDate =
+  <pre class="language-dart"><code class="language-dart">final servProofAtDate =
     Provider.family&lt;ProofList, Tuple2&lt;DateTime?, ClientService&gt;&gt;((ref, tuple) {
-  return ref.watch(_proofsAtDate(Tuple2(
+  return ref.watch(_servProofAtDate(Tuple2(
     (tuple.item1 ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
     tuple.item2,
   )));
@@ -89,7 +89,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
   <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
-  <li class="self-crumb">proofsAtDate property</li>
+  <li class="self-crumb">servProofAtDate property</li>
 </ol>
 
 
@@ -101,9 +101,14 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
 
   <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#properties">Properties</a></li>
   <li><a href="../source_providers_repository_of_prooflist/groupsOfProof.html">groupsOfProof</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/proofsAtDate.html">proofsAtDate</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofAtDate.html">proofAtDate</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofRecorder.html">proofRecorder</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofRecorderState.html">proofRecorderState</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/servProofAtDate.html">servProofAtDate</a></li>
 
 
+  <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#enums">Enums</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></li>
 
 
 </ol>

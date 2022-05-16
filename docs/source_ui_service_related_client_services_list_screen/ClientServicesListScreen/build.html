@@ -153,7 +153,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 title: Text(S.of(context).detailed),
                 onTap: () {
                   Navigator.pop(context, &#39;&#39;);
-                  ref.read(serviceViewProvider.notifier).state = &#39;&#39;;
+                  ref.read(tileTypeProvider.notifier).state = &#39;&#39;;
                 },
               ),
             ),
@@ -163,7 +163,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 title: Text(S.of(context).list),
                 onTap: () {
                   Navigator.pop(context, &#39;tile&#39;);
-                  ref.read(serviceViewProvider.notifier).state = &#39;tile&#39;;
+                  ref.read(tileTypeProvider.notifier).state = &#39;tile&#39;;
                 },
               ),
             ),
@@ -173,7 +173,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 title: Text(S.of(context).small),
                 onTap: () {
                   Navigator.pop(context, &#39;square&#39;);
-                  ref.read(serviceViewProvider.notifier).state = &#39;square&#39;;
+                  ref.read(tileTypeProvider.notifier).state = &#39;square&#39;;
                 },
               ),
             ),

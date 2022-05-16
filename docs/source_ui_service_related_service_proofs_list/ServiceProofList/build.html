@@ -108,7 +108,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final proofList = ref.watch(proofsAtDate(Tuple2(
+  final proofList = ref.watch(servProofAtDate(Tuple2(
       clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
 
   return Column(

@@ -62,6 +62,9 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Move the image into proof Directory and register it as a proof.</p>
+</section>
 
 
     
@@ -72,17 +75,8 @@
   &#47;&#47;
   &#47;&#47; &gt; create new path
   &#47;&#47;
-  final safePath = await getSafePath(
-    [
-      &#39;${workerId}_$worker&#39;,
-      &#39;${contractId}_$client&#39;,
-      &#39;${date}_&#39;,
-      &#39;${serviceId}_$service&#39;,
-      &#39;group_${i}_&#39;,
-    ],
-  );
-  if (safePath == null) return;
-  final newPath = Directory(safePath)..createSync(recursive: true);
+  final newPath = await proofPath(i.toString());
+  if (newPath == null) return;
   &#47;&#47;
   &#47;&#47; &gt; move file to group path
   &#47;&#47;
@@ -104,10 +98,7 @@
   } else {
     proofGroups[i].beforeImg = Image.file(imgFile);
   }
-  &#47;&#47; force update
-  ref.read(groupsOfProof(this).notifier).state = [
-    ...ref.read(groupsOfProof(this)),
-  ];
+  ref.read(groupsOfProof(this).notifier).forceUpdate();
 }</code></pre>
 </section>
 
@@ -158,6 +149,7 @@
     <li><a href="../../source_data_models_proof_list/ProofList/addNewGroup.html">addNewGroup</a></li>
     <li><a href="../../source_data_models_proof_list/ProofList/crawler.html">crawler</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../source_data_models_proof_list/ProofList/proofPath.html">proofPath</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../../source_data_models_proof_list/ProofList-class.html#operators">Operators</a></li>

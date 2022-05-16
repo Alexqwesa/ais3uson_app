@@ -108,10 +108,10 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final serviceView = ref.watch(serviceViewProvider);
+  final tileType = ref.watch(tileTypeProvider);
 
   return SizedBox.fromSize(
-    size: serviceCardSize(parentSize, serviceView),
+    size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
     child: Stack(
       children: [
         ColorFiltered(
@@ -125,17 +125,17 @@ Widget build(BuildContext context, WidgetRef ref) {
                 &#47;&#47;
                 &#47;&#47; &gt; select view
                 &#47;&#47;
-                if (serviceView == &#39;&#39;)
+                if (tileType == &#39;&#39;)
                   ServiceCardView(
                     serviceAt: service,
                     parentSize: parentSize,
                   )
-                else if (serviceView == &#39;tile&#39;)
+                else if (tileType == &#39;tile&#39;)
                   ServiceCardTileView(
                     serviceAt: service,
                     parentSize: parentSize,
                   )
-                else if (serviceView == &#39;square&#39;)
+                else if (tileType == &#39;square&#39;)
                   ServiceCardSquareView(
                     serviceAt: service,
                     parentSize: parentSize,
