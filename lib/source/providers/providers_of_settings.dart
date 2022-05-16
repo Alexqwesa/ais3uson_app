@@ -58,7 +58,7 @@ class _HiveArchiveLimitState extends StateNotifier<int> {
 ///
 /// {@category Providers}
 final serviceCardSize =
-    Provider.autoDispose.family<Size, Tuple2<Size, String>>((ref, tuple) {
+    Provider.family<Size, Tuple2<Size, String>>((ref, tuple) {
   final parentSize = tuple.item1;
   final tileType = tuple.item2;
 
