@@ -22,6 +22,7 @@ environment:
 
 
 dependencies:
+  audioplayers: ^1.0.0-rc.4
   camera: any
   collection: any
   context_menus: any
@@ -55,6 +56,7 @@ dependencies:
       url: "https://github.com/juliuscanute/qr_code_scanner.git"
       ref: "0fe54cbb19d2cba155f5a0f05d1e7f10ebb0590c"
   quiver: any
+  record: any
   share_plus: any
   shared_preferences: any
   surf_lint_rules: any

@@ -32,7 +32,7 @@ class ServiceProofList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofsAtDate(Tuple2(
+    final proofList = ref.watch(servProofAtDate(Tuple2(
         clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
 
     return Column(
@@ -100,7 +100,7 @@ class ProofListBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proofList = ref.watch(proofsAtDate(Tuple2(
+    final proofList = ref.watch(servProofAtDate(Tuple2(
         clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 

@@ -13,16 +13,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
 
-/// Store and manage list of [ProofGroup]s for [ClientService].
+/// Store and manage list of [ProofEntry]s for [ClientService].
 ///
 /// Most important functions:
 /// - load proofs from filesystem with [crawler] function,
 /// - notify **one** [ClientService],
 /// - save new proofs.
 ///
+/// If serviceId == null, it create/collect proof for whole day.
+///
 /// {@category Data Models}
 /// {@category Client-Server API}
-// ignore: prefer_mixin
 class ProofList {
   ProofList({
     required this.workerId,
@@ -37,7 +38,7 @@ class ProofList {
 
   final int workerId;
   final int contractId;
-  final int serviceId;
+  final int? serviceId;
   final String date;
   final String client;
   final String worker;
@@ -47,9 +48,9 @@ class ProofList {
   /// Future to be awaited(for tests).
   Future? crawled;
 
-  List<ProofGroup> get proofGroups => ref.read(groupsOfProof(this));
+  List<ProofEntry> get proofGroups => ref.read(groupsOfProof(this));
 
-  /// Crawl through file system to generate [ProofGroup]s.
+  /// Crawl through file system to generate [ProofEntry]s.
   ///
   /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
   Future<void> crawler() async {
@@ -58,7 +59,6 @@ class ProofList {
     return crawled;
   }
 
-  // ignore: long-method
   Future<void> _crawler() async {
     final appDocDirPath = await getSafePath([]);
     if (appDocDirPath == null) {
@@ -78,33 +78,17 @@ class ProofList {
               (contract is Directory)) {
             await for (final dat in contract.list()) {
               if (dat.baseName.startsWith('${date}_') && (dat is Directory)) {
-                await for (final serv in dat.list()) {
-                  if (serv.baseName.startsWith('${serviceId}_') &&
-                      (serv is Directory)) {
-                    await for (final group in serv.list()) {
-                      if (group.baseName.startsWith('group_') &&
-                          (group is Directory)) {
-                        File? beforeImg;
-                        File? beforeAudio;
-                        File? afterImg;
-                        File? afterAudio;
-                        await for (final file in group.list()) {
-                          if (file.baseName.startsWith('before_img_') &&
-                              (file is File)) beforeImg = file;
-                          if (file.baseName.startsWith('before_audio_') &&
-                              (file is File)) beforeAudio = file;
-                          if (file.baseName.startsWith('after_img_') &&
-                              (file is File)) afterImg = file;
-                          if (file.baseName.startsWith('after_audio_') &&
-                              (file is File)) afterAudio = file;
-                        }
-                        await addGroup(
-                          beforeImg,
-                          beforeAudio,
-                          afterImg,
-                          afterAudio,
-                        );
-                      }
+                if (serviceId != null) {
+                  await for (final serv in dat.list()) {
+                    if (serv.baseName.startsWith('${serviceId}_') &&
+                        (serv is Directory)) {
+                      await _addGroups(serv);
+                    }
+                  }
+                } else {
+                  await for (final group in dat.list()) {
+                    if (group.baseName == 'GroupProofs' && group is Directory) {
+                      await _addGroups(group);
                     }
                   }
                 }
@@ -116,10 +100,42 @@ class ProofList {
     }
   }
 
+  /// helper for _crawler.
+  Future<void> _addGroups(Directory serv) async {
+    await for (final group in serv.list()) {
+      if (group.baseName.startsWith('group_') && (group is Directory)) {
+        File? beforeImg;
+        File? beforeAudio;
+        File? afterImg;
+        File? afterAudio;
+        await for (final file in group.list()) {
+          if (file.baseName.startsWith('before_img_') && (file is File)) {
+            beforeImg = file;
+          }
+          if (file.baseName.startsWith('before_audio_') && (file is File)) {
+            beforeAudio = file;
+          }
+          if (file.baseName.startsWith('after_img_') && (file is File)) {
+            afterImg = file;
+          }
+          if (file.baseName.startsWith('after_audio_') && (file is File)) {
+            afterAudio = file;
+          }
+        }
+        await addGroup(
+          beforeImg,
+          beforeAudio,
+          afterImg,
+          afterAudio,
+        );
+      }
+    }
+  }
+
   void addNewGroup() {
     ref
         .read(groupsOfProof(this).notifier)
-        .add(ProofGroup.empty((proofGroups.length).toString()));
+        .add(ProofEntry.empty(this, (proofGroups.length).toString()));
   }
 
   Future<void> addGroup(
@@ -129,31 +145,40 @@ class ProofList {
     File? afterAudio,
   ) async {
     ref.read(groupsOfProof(this).notifier).add(
-          ProofGroup(
-            beforeImg: beforeImg != null ? Image.file(beforeImg) : null,
+          ProofEntry(
+            proof: this,
+            beforeImg: beforeImg == null ? null : Image.file(beforeImg),
             beforeAudio: beforeAudio?.path,
-            afterImg: afterImg != null ? Image.file(afterImg) : null,
+            afterImg: afterImg == null ? null : Image.file(afterImg),
             afterAudio: afterAudio?.path,
           ),
         );
   }
 
-  Future<void> addImage(int i, XFile? xFile, String prefix) async {
-    if (xFile == null) return;
-    //
-    // > create new path
-    //
+  /// Create directory with proofs.
+  Future<Directory?> proofPath(String group) async {
     final safePath = await getSafePath(
       [
         '${workerId}_$worker',
         '${contractId}_$client',
         '${date}_',
-        '${serviceId}_$service',
-        'group_${i}_',
+        if (serviceId == null) 'GroupProofs' else '${serviceId}_$service',
+        'group_${group}_',
       ],
     );
-    if (safePath == null) return;
-    final newPath = Directory(safePath)..createSync(recursive: true);
+    if (safePath == null) return null;
+
+    return Directory(safePath)..createSync(recursive: true);
+  }
+
+  /// Move the image into proof Directory and register it as a proof.
+  Future<void> addImage(int i, XFile? xFile, String prefix) async {
+    if (xFile == null) return;
+    //
+    // > create new path
+    //
+    final newPath = await proofPath(i.toString());
+    if (newPath == null) return;
     //
     // > move file to group path
     //
@@ -175,19 +200,17 @@ class ProofList {
     } else {
       proofGroups[i].beforeImg = Image.file(imgFile);
     }
-    // force update
-    ref.read(groupsOfProof(this).notifier).state = [
-      ...ref.read(groupsOfProof(this)),
-    ];
+    ref.read(groupsOfProof(this).notifier).forceUpdate();
   }
 }
 
-/// A unit of proof, contains evidence of states before and after.
+/// A single entry of proof, contains evidence of states before and after.
 ///
 /// {@category Data Models}
 // maybe use freezed?
-class ProofGroup {
-  ProofGroup({
+class ProofEntry {
+  ProofEntry({
+    required this.proof,
     this.name,
     this.beforeImg,
     this.beforeAudio,
@@ -195,7 +218,9 @@ class ProofGroup {
     this.afterAudio,
   });
 
-  ProofGroup.empty(this.name);
+  ProofEntry.empty(this.proof, this.name);
+
+  ProofList proof;
 
   Image? beforeImg;
 

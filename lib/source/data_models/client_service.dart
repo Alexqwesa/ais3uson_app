@@ -141,7 +141,7 @@ mixin ClientServiceMixin {
   //
   // > proof managing
   //
-  ProofList get proofList => ref.read(proofsAtDate(Tuple2(date, theThis)));
+  ProofList get proofList => ref.read(servProofAtDate(Tuple2(date, theThis)));
 
   void addProof() {
     proofList.addNewGroup();

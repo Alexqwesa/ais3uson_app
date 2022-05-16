@@ -8,8 +8,8 @@ import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
+import 'package:ais3uson_app/source/ui/service_related/all_services_of_client.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
-import 'package:ais3uson_app/source/ui/service_related/confirmation_for_list_of_services.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -80,7 +80,7 @@ void main() {
         await service.add();
       });
       // check widget
-      const widgetForTesting = ConfirmationForServicesScreen();
+      const widgetForTesting = AllServicesOfClientScreen();
       await tester.pumpWidget(
         ProviderScope(
           parent: ref,
@@ -188,7 +188,7 @@ void main() {
 
       expect(service.proofList.proofGroups.length, 1);
       final proofList =
-          ref.read(proofsAtDate(Tuple2(DateTime.now().dateOnly(), service)));
+          ref.read(servProofAtDate(Tuple2(DateTime.now().dateOnly(), service)));
       expect(proofList.proofGroups.length, 1);
       //
       // > check ClientServiceScreen

@@ -17,9 +17,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category UI WorkerProfiles}
 class AddDepartmentScreen extends ConsumerWidget {
-  AddDepartmentScreen({Key? key}) : super(key: key);
+  const AddDepartmentScreen({Key? key}) : super(key: key);
 
-  final controller = TextEditingController();
+  static final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
