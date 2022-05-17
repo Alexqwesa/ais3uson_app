@@ -82,7 +82,7 @@ class AllServicesOfClientScreen extends ConsumerWidget {
   }
 }
 
-class _TitleWidgetOfServicesGroup extends ConsumerWidget {
+class _TitleWidgetOfServicesGroup extends StatelessWidget {
   const _TitleWidgetOfServicesGroup({
     required this.service,
     required this.client,
@@ -93,21 +93,7 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
   final ClientProfile client;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final stubService = ref.watch(servicesOfClient(client)).first.copyWith(
-    //         service: const ServiceEntry(
-    //       serv_text: 'Stub',
-    //       id: 0,
-    //     ));
-    final proof =
-        ref.watch(proofAtDate(Tuple2(service.provDate.dateOnly(), client)));
-    final proofList = ref.watch(groupsOfProof(proof));
-    final player = AudioPlayer();
-    final recorder = ref.watch(proofRecorder);
-    // only needed to trigger rebuild
-    // ignore: unused_local_variable
-    final recorderState = ref.watch(proofRecorderState);
-
+  Widget build(BuildContext context) {
     return SizedBox(
       width: tileSize + 32,
       // height: 160,
@@ -118,6 +104,9 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //
+                // > Date
+                //
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -127,105 +116,19 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          //
-                          // > record button
-                          //
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: FloatingActionButton(
-                              heroTag: null,
-                              // tooltip: ,
-                              child: const Icon(Icons.record_voice_over_sharp),
-                              backgroundColor: recorder.color(
-                                  proofList.isNotEmpty ? proofList.first : null),
-                              onPressed: () async {
-                                if (ref.read(proofRecorderState) !=
-                                    RecorderState.ready) {
-                                  await recorder.stop();
-                                } else {
-                                  if (proofList.isEmpty) {
-                                    proof.addNewGroup();
-                                  }
-
-                                  await recorder.start(proof.proofGroups.first);
-                                }
-                              },
-                            ),
-                          ),
-                          //
-                          // > play button
-                          //
-                          if (proofList.isNotEmpty &&
-                              proofList[0].afterAudio != null)
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: FloatingActionButton(
-                                heroTag: null,
-                                // tooltip: ,
-                                backgroundColor:
-                                    recorderState == RecorderState.ready
-                                        ? null
-                                        : Colors.grey,
-                                child: const Icon(Icons.play_arrow),
-                                onPressed: () async {
-                                  await recorder.stop();
-                                  if (proofList[0].afterAudio != null) {
-                                    await player.play(DeviceFileSource(
-                                        proofList[0].afterAudio!));
-                                  }
-                                },
-                              ),
-                            ),
-                          //
-                          // > share button
-                          //
-                          if (proofList.isNotEmpty &&
-                              proofList[0].afterAudio != null)
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: FloatingActionButton(
-                                heroTag: null,
-                                // tooltip: ,
-                                backgroundColor:
-                                    recorderState == RecorderState.ready
-                                        ? null
-                                        : Colors.grey,
-                                child: const Icon(Icons.share),
-                                onPressed: () async {
-                                  await recorder.stop();
-                                  if (proofList[0].afterAudio != null) {
-                                    final filePath = proofList[0].afterAudio!;
-                                    try {
-                                      await Share.shareFiles([filePath]);
-                                      // ignore: avoid_catching_errors
-                                    } on UnimplementedError {
-                                      showNotification(
-                                        locator<S>().fileSavedTo + filePath,
-                                        duration: const Duration(seconds: 10),
-                                      );
-                                    } on MissingPluginException {
-                                      showNotification(
-                                        locator<S>().fileSavedTo + filePath,
-                                        duration: const Duration(seconds: 10),
-                                      );
-                                    }
-                                  }
-                                },
-                              ),
-                            ),
-                        ],
-                      )
-                    ],
-                  ),
+                //
+                // > Proof Buttons
+                //
+                AudioProofButtons(
+                  client: client,
+                  date: service.provDate,
+                  beforeOrAfter: 'after_audio_',
                 ),
               ],
             ),
+            //
+            // > Service
+            //
             Align(
               alignment: Alignment.bottomCenter,
               child: _ServiceOfJournalTile(
@@ -235,6 +138,122 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Buttons to make/play/share audio proofs of service.
+///
+/// {@category UI Services}
+/// {@category UI Proofs}
+class AudioProofButtons extends ConsumerWidget {
+  const AudioProofButtons({
+    required this.date,
+    required this.client,
+    required this.beforeOrAfter,
+    Key? key,
+  }) : super(key: key);
+
+  final DateTime date;
+  final ClientProfile client;
+  final String beforeOrAfter;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final proof = ref.watch(proofAtDate(Tuple2(date.dateOnly(), client)));
+    final proofList = ref.watch(groupsOfProof(proof));
+    final player = AudioPlayer();
+    final recorder = ref.watch(proofRecorder);
+    // only needed to trigger rebuild
+    // ignore: unused_local_variable
+    final recorderState = ref.watch(proofRecorderState);
+    final proofEntry = proofList[0]; // allow only one audio proof
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: Row(
+        children: [
+          //
+          // > record button
+          //
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: FloatingActionButton(
+              heroTag: null,
+              // tooltip: ,
+              child: const Icon(Icons.record_voice_over_sharp),
+              backgroundColor:
+                  recorder.color(proofList.isNotEmpty ? proofList.first : null),
+              onPressed: () async {
+                if (ref.read(proofRecorderState) != RecorderState.ready) {
+                  await recorder.stop();
+                } else {
+                  if (proofList.isEmpty) {
+                    proof.addNewGroup();
+                  }
+
+                  await recorder.start(proof.proofGroups.first);
+                }
+              },
+            ),
+          ),
+          //
+          // > play button
+          //
+          if (proofList.isNotEmpty && proofEntry[beforeOrAfter] != null)
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: FloatingActionButton(
+                heroTag: null,
+                // tooltip: ,
+                backgroundColor:
+                    recorderState == RecorderState.ready ? null : Colors.grey,
+                child: const Icon(Icons.play_arrow),
+                onPressed: () async {
+                  await recorder.stop();
+                  if (proofEntry[beforeOrAfter] != null) {
+                    await player.play(
+                        DeviceFileSource(proofEntry[beforeOrAfter] as String));
+                  }
+                },
+              ),
+            ),
+          //
+          // > share button
+          //
+          if (proofList.isNotEmpty && proofEntry[beforeOrAfter] != null)
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: FloatingActionButton(
+                heroTag: null,
+                // tooltip: ,
+                backgroundColor:
+                    recorderState == RecorderState.ready ? null : Colors.grey,
+                child: const Icon(Icons.share),
+                onPressed: () async {
+                  await recorder.stop();
+                  if (proofEntry[beforeOrAfter] != null) {
+                    final filePath = proofEntry[beforeOrAfter] as String;
+                    try {
+                      await Share.shareFiles([filePath]);
+                      // ignore: avoid_catching_errors
+                    } on UnimplementedError {
+                      showNotification(
+                        locator<S>().fileSavedTo + filePath,
+                        duration: const Duration(seconds: 10),
+                      );
+                    } on MissingPluginException {
+                      showNotification(
+                        locator<S>().fileSavedTo + filePath,
+                        duration: const Duration(seconds: 10),
+                      );
+                    }
+                  }
+                },
+              ),
+            ),
+        ],
       ),
     );
   }

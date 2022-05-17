@@ -218,6 +218,21 @@ class ProofEntry {
     this.afterAudio,
   });
 
+  dynamic operator [](Object? key) {
+    switch (key) {
+      case 'after_img_':
+        return afterImg;
+      case 'before_img_':
+        return beforeImg;
+      case 'after_audio_':
+        return afterAudio;
+      case 'before_audio_':
+        return beforeAudio;
+      default:
+        throw StateError('Wrong key of ProofEntry');
+    }
+  }
+
   ProofEntry.empty(this.proof, this.name);
 
   ProofList proof;
