@@ -99,6 +99,9 @@ class CheckWorkerServer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final host = ref.read(workerProfiles).first.key.activeHost;
+    final port = ref.read(workerProfiles).first.key.activePort;
+
     return Column(
       children: <Widget>[
         ElevatedButton(
@@ -110,7 +113,7 @@ class CheckWorkerServer extends ConsumerWidget {
         if (ref.watch(_httpFuture(false)) != null)
           Column(
             children: [
-              const Text('Http Response:'),
+              Text('Http Response to http://$host:$port/stat:'),
               FutureBuilder(
                 future: ref.watch(_httpFuture(false)),
                 builder: buildHttpFuture,
@@ -120,7 +123,7 @@ class CheckWorkerServer extends ConsumerWidget {
         if (ref.watch(_httpFuture(true)) != null)
           Column(
             children: [
-              const Text('Https Response:'),
+              Text('Https Response to https://$host:$port/stat:'),
               FutureBuilder(
                 future: ref.watch(_httpFuture(true)),
                 builder: buildHttpFuture,
