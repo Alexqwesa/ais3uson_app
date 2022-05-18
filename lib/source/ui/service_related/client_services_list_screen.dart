@@ -30,7 +30,9 @@ class ClientServicesListScreen extends ConsumerWidget {
         .watch(servicesOfClient(client))
         .map((e) => ClientServiceAt(
               clientService: e,
-              date: ref.watch(archiveDate) ?? DateTime.now(),
+              date: ref.watch(isArchive)
+                  ? ref.watch(archiveDate)
+                  : DateTime.now(),
             ))
         .toList(growable: false);
 
