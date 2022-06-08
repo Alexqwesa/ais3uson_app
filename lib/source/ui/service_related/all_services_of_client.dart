@@ -96,7 +96,6 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: tileSize + 32,
-      // height: 160,
       child: Padding(
         padding: const EdgeInsets.only(top: 16),
         child: Column(
