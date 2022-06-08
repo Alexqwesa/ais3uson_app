@@ -44,168 +44,23 @@
   <h1><span class="kind-category">UI Root</span> Topic</h1>
   
 <section class="desc markdown">
-  <h1 id="ais-3uson-backend------img-altget-it-on-google-play-height55-srchttpsrawgithubusercontentcomstevericheygoogle-play-badge-svgmasterimgen_getsvg-httpsplaygooglecomstoreappsdetailsidcomais3usonappais3uson_app">AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")<a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app"><img alt="get it on Google Play" height="55" src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg"></a></h1><img align="right" src="assets/ais-3uson-logo-128.png">
-<p><a href="https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml"><img src="https://github.com/Alexqwesa/ais3uson_app/actions/workflows/test.yml/badge.svg" alt="Test"></a>
-<a href="https://codecov.io/gh/Alexqwesa/ais3uson_app"><img src="https://codecov.io/gh/Alexqwesa/ais3uson_app/branch/master/graph/badge.svg?token=32VLHP06HD" alt="codecov"></a>
-<a href="https://pub.dev/packages/surf_lint_rules"><img src="https://badgen.net/badge/style/surf_lint/purple" alt="style surf_lint"></a>
-<a href="https://badgen.net/badge/flutter:/android%7Cweb%7Cwindows%7Clinux%7Cios/blue/?icon=github"><img src="https://badgen.net/badge/flutter/android%20%7C%20web%20%7C%20windows%20%7C%20linux%20%7C%20ios/blue/?icon=github" alt="flutter android|web|windows|linux|ios"></a></p>
-<p>A Flutter mobile backend for <a href="https://github.com/Alexqwesa/AIS-3USON">AIS-3USON</a></p>
-<p>Это мобильное приложение для ввода услуг в информационной
-системе "<a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a>" ("Автоматизированная Информационная
-Система Учета Услуг Учреждений Социального Обслуживания Населения"). В данном приложении
-используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее -
-получатели СУ).</p>
-<h2 id="">Содержание</h2>
+  <h1 id="ui-root---top-level-gui-classes">UI ROOT - Top level GUI classes</h1>
+<p>These classes provide GUI for:</p>
 <ul>
-<li><a href="#установка">Установка</a></li>
-<li><a href="#использование">Использование</a></li>
-<li><a href="#реализованные-возможности">Реализованные возможности</a></li>
-<li><a href="#в-разработке">В разработке</a></li>
-<li><a href="#todo">TODO</a></li>
-<li><a href="#разработчики">Разработчики</a></li>
-<li><a href="#лицензия">Лицензия</a></li>
-</ul>
-<h2 id="-2">Установка</h2>
+<li>Root Widget of app <code>AppRoot</code>, which provides:
 <ul>
-<li>Установите пароль для пользователя web_user в вашей SQL базе данных (в установочных скриптах
-AIS-3USON этому пользователю назначены минимально необходимые привилегии).</li>
-<li>Установите скрипт WEB-сервера AIS-3USON и пароль в соответствии с
-инструкцией (<a href="https://github.com/Alexqwesa/AIS-3USON/blob/main/src/worker/web_worker/ais3uson_www.py">ссылка на скрипт и инструкцию</a>)
-.</li>
-<li>Рекомендуется использовать разные серверы для SQL-сервера и WEB-сервера, установите безопасное
-соединение между SQL-сервером и WEB-сервером, рекомендуется использовать перенаправление портов с
-помощью openSSH (man ssh или <a href="https://habr.com/ru/post/331348/">подробное руководство на русском</a>)
-.
-<img align="right" src="qrcode_ais3uson_app_on_google_play.png" width="180"></li>
-<li>Работники:
+<li>Switch between archive and normal views.</li>
+<li><code>ArchiveMaterialApp</code> or <code>MaterialApp</code> which provides:
 <ul>
-<li>устанавливают
-приложение, <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">&gt;&gt;&gt; установить из каталога Google &lt;&lt;&lt;</a>
-,</li>
-<li>// Заведующие предоставляют работникам сгенерированный в
-приложении <a href="https://github.com/Alexqwesa/AIS-3USON">АИС ТриУСОН</a> Qr код,</li>
-<li>работник запускают приложение и нажимают кнопку <strong>+</strong> (сканировать Qr-код).</li>
+<li>Routes, themes, translations.</li>
+<li><code>HomePage</code> screen for displaying main menu and <code>ListOfProfiles</code>. It is initial route of app.</li>
+<li><code>SettingsScreen</code>,</li>
+<li><code>DevScreen</code> - about developers + tests.</li>
 </ul>
 </li>
 </ul>
-<h2 id="-3">Использование</h2>
-<p>Данное приложение является дополнением для информационной системы "АИС ТриУСОН", и его использование
-неразрывно связано с основным приложением.</p>
-<p><strong>Заведующие</strong> отделениями работают с полноценным клиентом "АИС ТриУСОН", и в их обязанности входит:</p>
-<ul>
-<li>предоставляют работникам QR коды для авторизации в данном приложении,</li>
-<li>назначить работнику обслуживаемых получателей СУ,</li>
+</li>
 </ul>
-<p><strong>Работники:</strong></p>
-<ul>
-<li>устанавливают приложение на своем мобильном
-устройстве( <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">ссылка для установки</a> )
-,</li>
-<li>сканируют Qr-код(предоставленный заведующим отделением/менеджером),</li>
-<li>вводят услуги по мере их оказания,</li>
-<li>периодически (или постоянно) подключаются к интернету для синхронизации данных приложения(не реже
-раза в сутки).</li>
-</ul>
-<p>Для не поддерживаемых ОС, также в целях проверки - доступно
-web-приложение ( <a href="https://alexqwesa.github.io/web3uson/">https://alexqwesa.github.io/web3uson/</a>
-).</p><img src="qr_web3uson.png">
-<h2 id="-">Реализованные возможности:</h2>
-<ul>
-<li><code>x</code> Добавление отделения (авторизация) по Qr-коду (и по строке текста)</li>
-<li><code>x</code> Добавление тестового отделения</li>
-<li><code>x</code> Работа с обезличенными данными клиентов (реализовано на стороне SQL сервера)</li>
-<li><code>x</code> Отравка услуг в СУБД с подтверждением (уникальный uuid каждой записи)</li>
-<li><code>x</code> Работа онлайн и оффлайн (1 раз в день обязательная синхронизация)</li>
-<li><code>x</code> Прикрепление к услуге изображений-подтверждений (хранятся локально)</li>
-<li><code>x</code> Прикрепление к группе услуг аудио-подтверждений (хранятся локально, есть кнопка поделиться)</li>
-<li><code>x</code> Журнал введенных услуг за день</li>
-<li><code>x</code> Авто-архивирование услуг введенных в предыдущие дни</li>
-<li><code>x</code> Просмотр архива услуг</li>
-<li><code>x</code> Проверка переполнения положенных услуг</li>
-<li><code>x</code> Резервное копирование ключей авторизации в облако</li>
-<li><code>x</code> Удаление услуг (только сегодняшних)</li>
-<li><code>x</code> Настраиваемый вид списка услуг</li>
-<li><code>x</code> Защищенные соединения (https), нужно только добавить ssl сертификат и ключ на web-сервер (
-можно использовать и самоподписанный сертификат, если добавить его в QR-код, однако данный способ
-не работает в браузерах)</li>
-<li><code>x</code> Доступно для скачивания
-на <a href="https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app">Google Play Market</a></li>
-<li><code>x</code> Созданы тесты для проверки правильности работы программы</li>
-<li><code>x</code> Экспорт журнала ввода в json (за неделю/месяц этот/предыдущий) - на андроид сразу предлагатся
-поделится (в программе для заведующих: импорт без дупликатов)</li>
-<li><code>x</code> услуги списком, с разделением по дням</li>
-<li><code>x</code> Переводы (en/ru/de)</li>
-</ul>
-<h2 id="--2">В разработке:</h2>
-<ul>
-<li><code> </code> Резервный способ сбора и хранения услуг (на случай недоступности mysql сервера), shadow
-server?</li>
-<li><code> </code> Резервный web-сервер(WorkerKey allow several servers (comma separated list))</li>
-<li><code> </code> Настраиваемый размер виджетов</li>
-</ul>
-<h2 id="todo">TODO:</h2>
-<ul>
-<li><code> </code> услуги по типам</li>
-<li><code> </code> индикатор обновления?</li>
-<li><code> </code> вводить услуги жестом, а не onTap ???</li>
-<li><code> </code> Повышенный уровень защиты: SSL Pinning</li>
-<li><code> </code> Показ общего колличества услуг по дням</li>
-<li><code> </code> Напоминание о необходимости синхронизации</li>
-<li><code> </code> Кнопка: Синхронизировать ВСЕ!</li>
-<li><code> </code> Кнопка: Поделится ?</li>
-<li><code> </code> Разные интервалы обновлений для сервисов(раз в 3 дня), список клиентов(12 часов), положено
-услуг (раз в день),</li>
-<li><code> </code> Контрольная сумма для списка услуг? (желательно на стороне SQL сервера)</li>
-<li><code> </code> Возможность загрузки некоторых картинок с сервера</li>
-<li><code> </code> dynamic setting from BD: allow collect proofs, etc...</li>
-<li><code> </code> maybe backup media data? only on full backup?</li>
-<li><code> </code> использовать темы для изменения размера шрифта</li>
-<li><code> </code> дополнительные ограничения доступных услуг?</li>
-<li><code> </code> сообщения от заведующих (по группам работников, одному, всем)</li>
-<li><code> </code> закончившиеся услуги - в конец списка?</li>
-<li><code> </code> Разрешить загрузку введенных услуг с сервера, если их нет в локальном журнале Hive? (Кнопка
-получения архива ввода)</li>
-<li><code> </code> try autoreconnect few times(with timeout) if there is a problem with network</li>
-<li><code> </code> add server tests</li>
-<li><code> </code> use badges</li>
-<li><code> </code> tutorial</li>
-<li><code> </code> get list of revoked services by date from server</li>
-<li><code> </code> get list of date/money/services count from server for month, if some day disagree with local
-data - get list of services by date from server?</li>
-</ul>
-<h2 id="-4">Разработчики</h2>
-<p><a href="https://github.com/Alexqwesa">@Alexqwesa</a> aka Savin Aleksander Viktorovich (Савин Александр
-Викторович)</p>
-<h3 id="--httpsalexqwesagithubioais3uson_app"><a href="https://alexqwesa.github.io/ais3uson_app/">Документация для разработчиков</a></h3>
-<ul>
-<li><a href="https://alexqwesa.github.io/ais3uson_app/">Автоматически сгенерированная документация для разработчиков</a></li>
-<li>В качестве менеждера состояний используется <a href="https://riverpod.dev/">riverpod</a>, ранее
-использовались Singleton и get_it.</li>
-</ul>
-<h2 id="-5">Лицензия</h2>
-<p><a href="LICENSE">LGPLv3</a> © Savin Aleksander Viktorovich (Савин Александр Викторович)</p>
-<h3 id="---">Используемые в программе ресурсы</h3>
-<p>Изображения в папке images получены с сервиса <a href="http://www.flaticon.com">www.flaticon.com</a>, в
-соответствии требованиями сервиса, размещены ссылки:</p>
-<ul>
-<li>Some Icons in folder <em>images</em> made by authors: <a href="http://www.freepik.com">Freepik</a>
-, <a href="http://www.flaticon.com/authors/smashicons">Smashicons</a>
-, <a href="https://www.flaticon.com/authors/dinosoftlabs">DinosoftLabs</a>
-, <a href="https://www.flaticon.com/authors/zafdesign">zafdesign</a>
-, <a href="https://www.flaticon.com/authors/GOWI">GOWI</a>
-, <a href="https://www.flaticon.com/authors/Konkapp">Konkapp</a>
-, <a href="https://www.flaticon.com/authors/photo3idea_studio">photo3idea_studio</a>
-, <a href="https://www.flaticon.com/authors/monkik">monkik</a>
-, <a href="https://www.flaticon.com/authors/Payungkead">Payungkead</a>
-, <a href="https://www.flaticon.com/authors/Eucalyp">Eucalyp</a>
-, <a href="https://www.flaticon.com/authors/kosonicon">kosonicon</a>
-, <a href="https://www.flaticon.com/authors/wanicon">wanicon</a>
-from <a href="http://www.flaticon.com">www.flaticon.com</a></li>
-</ul>
-<p>These images belongs to its owners, I
-am <a href="https://web.archive.org/web/20211109140855/https://support.flaticon.com/hc/en-us/articles/207248209">allowed to use them</a>
-in this project by permission of service <a href="http://www.flaticon.com">www.flaticon.com</a> (here
-is <a href="images/_license.pdf">license</a>).</p>
 </section>
 
 
@@ -358,49 +213,50 @@ is <a href="images/_license.pdf">license</a>).</p>
         <li><a href="../topics/UI Services-topic.html">UI&nbsp;Services</a></li>
         <li><a href="../topics/UI WorkerProfiles-topic.html">UI&nbsp;WorkerProfiles</a></li>
       <li class="section-title">Libraries</li>
-      <li><a href="../source_ui_add_department_screen/source_ui_add_department_screen-library.html">add_department_screen</a></li>
-      <li><a href="../source_ui_service_related_all_services_of_client/source_ui_service_related_all_services_of_client-library.html">all_services_of_client</a></li>
+      <li><a href="../source_screens_department_related_add_department_screen/source_screens_department_related_add_department_screen-library.html">add_department_screen</a></li>
+      <li><a href="../source_screens_service_related_all_services_of_client/source_screens_service_related_all_services_of_client-library.html">all_services_of_client</a></li>
       <li><a href="../app_root/app_root-library.html">app_root</a></li>
+      <li><a href="../source_screens_service_related_audio_proof_controller/source_screens_service_related_audio_proof_controller-library.html">audio_proof_controller</a></li>
       <li><a href="../source_providers_basic_providers/source_providers_basic_providers-library.html">basic_providers</a></li>
-      <li><a href="../source_ui_service_related_camera/source_ui_service_related_camera-library.html">camera</a></li>
+      <li><a href="../source_screens_service_related_camera/source_screens_service_related_camera-library.html">camera</a></li>
       <li><a href="../source_client_server_api_client_entry/source_client_server_api_client_entry-library.html">client_entry</a></li>
       <li><a href="../source_client_server_api_client_plan/source_client_server_api_client_plan-library.html">client_plan</a></li>
       <li><a href="../source_data_models_client_profile/source_data_models_client_profile-library.html">client_profile</a></li>
       <li><a href="../source_data_models_client_service/source_data_models_client_service-library.html">client_service</a></li>
       <li><a href="../source_data_models_client_service_at/source_data_models_client_service_at-library.html">client_service_at</a></li>
-      <li><a href="../source_ui_service_related_client_service_screen/source_ui_service_related_client_service_screen-library.html">client_service_screen</a></li>
-      <li><a href="../source_ui_service_related_client_services_list_screen/source_ui_service_related_client_services_list_screen-library.html">client_services_list_screen</a></li>
-      <li><a href="../source_ui_clients_screen/source_ui_clients_screen-library.html">clients_screen</a></li>
+      <li><a href="../source_screens_service_related_client_service_screen/source_screens_service_related_client_service_screen-library.html">client_service_screen</a></li>
+      <li><a href="../source_screens_service_related_client_services_list_screen/source_screens_service_related_client_services_list_screen-library.html">client_services_list_screen</a></li>
       <li><a href="../source_providers_controller_dates_in_archive/source_providers_controller_dates_in_archive-library.html">controller_dates_in_archive</a></li>
       <li><a href="../source_providers_controller_of_worker_profiles_list/source_providers_controller_of_worker_profiles_list-library.html">controller_of_worker_profiles_list</a></li>
-      <li><a href="../source_ui_delete_department_screen/source_ui_delete_department_screen-library.html">delete_department_screen</a></li>
-      <li><a href="../source_ui_dev_screen/source_ui_dev_screen-library.html">dev_screen</a></li>
+      <li><a href="../source_screens_department_related_delete_department_screen/source_screens_department_related_delete_department_screen-library.html">delete_department_screen</a></li>
+      <li><a href="../source_screens_dev_screen/source_screens_dev_screen-library.html">dev_screen</a></li>
       <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
       <li><a href="../source_global_helpers/source_global_helpers-library.html">global_helpers</a></li>
-      <li><a href="../source_ui_home_screen/source_ui_home_screen-library.html">home_screen</a></li>
+      <li><a href="../source_screens_department_related_home_screen/source_screens_department_related_home_screen-library.html">home_screen</a></li>
       <li><a href="../Journal/Journal-library.html">Journal</a></li>
       <li><a href="../source_journal_archive_journal_archive/source_journal_archive_journal_archive-library.html">journal_archive</a></li>
-      <li><a href="../source_ui_list_profiles/source_ui_list_profiles-library.html">list_profiles</a></li>
+      <li><a href="../source_screens_department_related_list_clients_screen/source_screens_department_related_list_clients_screen-library.html">list_clients_screen</a></li>
+      <li><a href="../source_screens_department_related_list_profiles/source_screens_department_related_list_profiles-library.html">list_profiles</a></li>
       <li><a href="../main/main-library.html">main</a></li>
       <li><a href="../source_data_models_proof_list/source_data_models_proof_list-library.html">proof_list</a></li>
       <li><a href="../source_providers_provider_of_journal/source_providers_provider_of_journal-library.html">provider_of_journal</a></li>
       <li><a href="../source_providers_providers_of_app_state/source_providers_providers_of_app_state-library.html">providers_of_app_state</a></li>
       <li><a href="../source_providers_providers_of_settings/source_providers_providers_of_settings-library.html">providers_of_settings</a></li>
-      <li><a href="../source_ui_qr_scan_screen/source_ui_qr_scan_screen-library.html">qr_scan_screen</a></li>
+      <li><a href="../source_screens_department_related_qr_scan_screen/source_screens_department_related_qr_scan_screen-library.html">qr_scan_screen</a></li>
       <li><a href="../source_providers_repository_of_client/source_providers_repository_of_client-library.html">repository_of_client</a></li>
       <li><a href="../source_providers_repository_of_http_data/source_providers_repository_of_http_data-library.html">repository_of_http_data</a></li>
       <li><a href="../source_providers_repository_of_journal/source_providers_repository_of_journal-library.html">repository_of_journal</a></li>
       <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
       <li><a href="../source_providers_repository_of_service/source_providers_repository_of_service-library.html">repository_of_service</a></li>
       <li><a href="../source_providers_repository_of_worker/source_providers_repository_of_worker-library.html">repository_of_worker</a></li>
-      <li><a href="../source_ui_service_related_service_card/source_ui_service_related_service_card-library.html">service_card</a></li>
-      <li><a href="../source_ui_service_related_service_card_state/source_ui_service_related_service_card_state-library.html">service_card_state</a></li>
-      <li><a href="../source_ui_service_related_service_card_view/source_ui_service_related_service_card_view-library.html">service_card_view</a></li>
+      <li><a href="../source_screens_service_related_service_card/source_screens_service_related_service_card-library.html">service_card</a></li>
+      <li><a href="../source_screens_service_related_service_card_state/source_screens_service_related_service_card_state-library.html">service_card_state</a></li>
+      <li><a href="../source_screens_service_related_service_card_view/source_screens_service_related_service_card_view-library.html">service_card_view</a></li>
       <li><a href="../source_client_server_api_service_entry/source_client_server_api_service_entry-library.html">service_entry</a></li>
       <li><a href="../source_journal_service_of_journal/source_journal_service_of_journal-library.html">service_of_journal</a></li>
-      <li><a href="../source_ui_service_related_service_proofs_list/source_ui_service_related_service_proofs_list-library.html">service_proofs_list</a></li>
+      <li><a href="../source_screens_service_related_service_proofs_list/source_screens_service_related_service_proofs_list-library.html">service_proofs_list</a></li>
       <li><a href="../source_journal_service_state/source_journal_service_state-library.html">service_state</a></li>
-      <li><a href="../source_ui_settings_screen/source_ui_settings_screen-library.html">settings_screen</a></li>
+      <li><a href="../source_screens_settings_screen/source_screens_settings_screen-library.html">settings_screen</a></li>
       <li><a href="../themes_data/themes_data-library.html">themes_data</a></li>
       <li><a href="../source_client_server_api_worker_key/source_client_server_api_worker_key-library.html">worker_key</a></li>
       <li><a href="../source_data_models_worker_profile/source_data_models_worker_profile-library.html">worker_profile</a></li>
