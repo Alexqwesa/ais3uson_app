@@ -38,14 +38,18 @@ class _ProofRecorder {
     if (state == RecorderState.ready) {
       // if (!(await _record.isRecording()) || !(await _record.isPaused())) {
       _proof = value;
+
       return true;
       // }
     }
+
     return false;
   }
 
-  Future<RecorderState> start(ProofEntry newProof,
-      {String prefix = 'after_audio_'}) async {
+  Future<RecorderState> start(
+    ProofEntry newProof, {
+    String prefix = 'after_audio_',
+  }) async {
     if (state == RecorderState.ready) {
       state = RecorderState.busy;
       _proof = newProof;
@@ -79,6 +83,7 @@ class _ProofRecorder {
       await _record.stop();
       _proof!.afterAudio = _audioPath;
       state = RecorderState.ready;
+
       return RecorderState.finished;
     }
 

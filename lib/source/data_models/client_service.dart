@@ -127,11 +127,8 @@ mixin ClientServiceMixin {
   int get left => plan - filled - done - added;
 
   bool get isToday {
-    if (date == null) {
-      return true;
-    } else {
-      return date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
-    }
+    return date == null ||
+        date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
   }
 
   bool get addAllowed => left > 0 && isToday;

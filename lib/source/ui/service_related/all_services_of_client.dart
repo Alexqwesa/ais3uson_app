@@ -143,7 +143,8 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
                               // tooltip: ,
                               child: const Icon(Icons.record_voice_over_sharp),
                               backgroundColor: recorder.color(
-                                  proofList.isNotEmpty ? proofList.first : null),
+                                proofList.isNotEmpty ? proofList.first : null,
+                              ),
                               onPressed: () async {
                                 if (ref.read(proofRecorderState) !=
                                     RecorderState.ready) {
@@ -177,7 +178,8 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
                                   await recorder.stop();
                                   if (proofList[0].afterAudio != null) {
                                     await player.play(DeviceFileSource(
-                                        proofList[0].afterAudio!));
+                                      proofList[0].afterAudio!,
+                                    ));
                                   }
                                 },
                               ),
@@ -220,7 +222,7 @@ class _TitleWidgetOfServicesGroup extends ConsumerWidget {
                               ),
                             ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

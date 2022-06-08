@@ -22,9 +22,9 @@ final lastUsed = Provider<_LastUsed>((ref) {
 });
 
 class _LastUsed {
-  final ProviderRef ref;
-
   _LastUsed(this.ref);
+
+  final ProviderRef ref;
 
   ClientServiceAt get serviceAt => ClientServiceAt(
         clientService: ref.read(lastClientService),

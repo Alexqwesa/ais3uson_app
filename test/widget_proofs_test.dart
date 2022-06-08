@@ -52,46 +52,47 @@ void main() {
   // > Tests start
   //
   group('Proofs at date', () {
-    testWidgets('it show one service in AllServicesOfClientScreen',
-        (tester) async {
-      // init ref
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certificate)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      // add Profile
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
-      await tester.runAsync<void>(() async {
-        await wp.postInit();
-      });
-      // add service
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
-      when(ExtMock(httpClient).testReqPostAdd)
-          .thenAnswer((_) async => http.Response('{"id": 2}', 200));
-      final service =
-          ref.read(workerProfiles).first.clients.first.services.first;
-      await tester.runAsync<void>(() async {
-        await service.add();
-        await service.add();
-      });
-      // check widget
-      const widgetForTesting = AllServicesOfClientScreen();
-      await tester.pumpWidget(
-        ProviderScope(
-          parent: ref,
-          child: localizedMaterialApp(
-            widgetForTesting,
+    testWidgets(
+      'it show one service in AllServicesOfClientScreen',
+      (tester) async {
+        // init ref
+        final wKey = wKeysData2();
+        final ref = ProviderContainer(
+          overrides: [
+            httpClientProvider(wKey.certificate)
+                .overrideWithValue(getMockHttpClient()),
+          ],
+        );
+        // add Profile
+        ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+        final wp = ref.read(workerProfiles).first;
+        await tester.runAsync<void>(() async {
+          await wp.postInit();
+        });
+        // add service
+        final httpClient =
+            ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+        when(ExtMock(httpClient).testReqPostAdd)
+            .thenAnswer((_) async => http.Response('{"id": 2}', 200));
+        final service =
+            ref.read(workerProfiles).first.clients.first.services.first;
+        await tester.runAsync<void>(() async {
+          await service.add();
+          await service.add();
+        });
+        // check widget
+        const widgetForTesting = AllServicesOfClientScreen();
+        await tester.pumpWidget(
+          ProviderScope(
+            parent: ref,
+            child: localizedMaterialApp(
+              widgetForTesting,
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.textContaining(service.shortText), findsWidgets);
-      expect(
+        );
+        await tester.pumpAndSettle();
+        expect(find.textContaining(service.shortText), findsWidgets);
+        expect(
           find.textContaining(ref
               .read(workerProfiles)
               .first
@@ -100,8 +101,10 @@ void main() {
               .services
               .last
               .shortText),
-          findsNothing);
-    });
+          findsNothing,
+        );
+      },
+    );
 
     testWidgets('it show proof at date', (tester) async {
       // init ref
@@ -213,9 +216,11 @@ void main() {
       expect(find.text(service.servTextAdd), findsOneWidget);
       // expect(find.byType(Hero), findsNWidgets(2));
       expect(
-          find.byKey(ValueKey(
-              service.proofList.proofGroups.first.beforeImg.toString())),
-          findsOneWidget);
+        find.byKey(ValueKey(
+          service.proofList.proofGroups.first.beforeImg.toString(),
+        )),
+        findsOneWidget,
+      );
 
       // cleanup
       await tester.runAsync<void>(() async {

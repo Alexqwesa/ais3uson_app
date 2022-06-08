@@ -33,7 +33,9 @@ class ServiceProofList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proofList = ref.watch(servProofAtDate(Tuple2(
-        clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
+      clientServiceAt.date?.dateOnly(),
+      clientServiceAt.clientService,
+    )));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -101,7 +103,9 @@ class ProofListBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proofList = ref.watch(servProofAtDate(Tuple2(
-        clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
+      clientServiceAt.date?.dateOnly(),
+      clientServiceAt.clientService,
+    )));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 
     return Column(
@@ -276,7 +280,10 @@ class AddProofButton extends StatelessWidget {
             ),
           );
           await callAddProof(
-              indexInProofList, defaultImgPath, strBeforeOrAfter);
+            indexInProofList,
+            defaultImgPath,
+            strBeforeOrAfter,
+          );
         },
       ),
     );
