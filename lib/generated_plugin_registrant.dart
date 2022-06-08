@@ -8,11 +8,12 @@
 
 import 'package:audioplayers_web/audioplayers_web.dart';
 import 'package:camera_web/camera_web.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:record_web/record_web.dart';
 import 'package:share_plus_web/share_plus_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
-import 'package:url_launcher_web/url_launcher_webdart';
+import 'package:url_launcher_web/url_launcher_web.dart';
+
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 // ignore: public_member_api_docs
 void registerPlugins(Registrar registrar) {
