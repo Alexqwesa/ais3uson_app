@@ -39,7 +39,7 @@ dependencies:
   google_fonts: any
   hive_flutter: any
   hive_generator: any
-  hooks_riverpod: ^2.0.0-dev.7
+  hooks_riverpod: ^2.0.0-dev.9
   http: any
   intl: any
   #  itertools: any
@@ -51,10 +51,7 @@ dependencies:
   path_provider: any
   peanut: any
   provider: any
-  qr_code_scanner:
-    git:
-      url: "https://github.com/juliuscanute/qr_code_scanner.git"
-      ref: "0fe54cbb19d2cba155f5a0f05d1e7f10ebb0590c"
+  qr_code_scanner: any
   quiver: any
   record: any
   share_plus: any

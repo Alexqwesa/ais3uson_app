@@ -14,7 +14,7 @@ import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
-import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -127,11 +127,8 @@ mixin ClientServiceMixin {
   int get left => plan - filled - done - added;
 
   bool get isToday {
-    if (date == null) {
-      return true;
-    } else {
-      return date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
-    }
+    return date == null ||
+        date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
   }
 
   bool get addAllowed => left > 0 && isToday;

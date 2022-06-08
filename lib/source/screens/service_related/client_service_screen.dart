@@ -3,8 +3,8 @@ import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/ui/service_related/service_card_state.dart';
-import 'package:ais3uson_app/source/ui/service_related/service_proofs_list.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_proofs_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,9 +25,10 @@ class ClientServiceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ClientServiceAt(
-        clientService: clientService ?? ref.watch(lastClientService),
-        date: (serviceDate ?? ref.watch(archiveDate) ?? DateTime.now())
-            .dateOnly());
+      clientService: clientService ?? ref.watch(lastClientService),
+      date:
+          (serviceDate ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
+    );
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width < height
         ? MediaQuery.of(context).size.width

@@ -21,8 +21,7 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -66,11 +65,8 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">bool get isToday {
-  if (date == null) {
-    return true;
-  } else {
-    return date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
-  }
+  return date == null ||
+      date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
 }</code></pre>
 </section>
 
@@ -167,7 +163,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

@@ -7,7 +7,8 @@ import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
-import 'package:ais3uson_app/source/ui/service_related/camera.dart';
+import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
+import 'package:ais3uson_app/source/screens/service_related/camera.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -24,16 +25,20 @@ import 'package:tuple/tuple.dart';
 class ServiceProofList extends ConsumerWidget {
   const ServiceProofList({
     required this.clientServiceAt,
+    // required this.clientProfile,
     // this.date,
     Key? key,
   }) : super(key: key);
 
+  // final ClientProfile clientProfile;
   final ClientServiceAt clientServiceAt;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proofList = ref.watch(servProofAtDate(Tuple2(
-        clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
+      clientServiceAt.date?.dateOnly(),
+      clientServiceAt.clientService,
+    )));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -101,7 +106,9 @@ class ProofListBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proofList = ref.watch(servProofAtDate(Tuple2(
-        clientServiceAt.date?.dateOnly(), clientServiceAt.clientService)));
+      clientServiceAt.date?.dateOnly(),
+      clientServiceAt.clientService,
+    )));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 
     return Column(
@@ -143,6 +150,36 @@ class ProofListBuilder extends ConsumerWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  //
+                  // > audio proofs
+                  //
+                  if (proofList.proofGroups.isNotEmpty)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: AudioProofController(
+                              proof: proofList,
+                              beforeOrAfter: 'before_audio_',
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: AudioProofController(
+                              proof: proofList,
+                              // beforeOrAfter: 'after_audio_',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  //
+                  // > photo proofs
+                  //
                   for (int i = 0; i < proofList.proofGroups.length; i++)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -276,7 +313,10 @@ class AddProofButton extends StatelessWidget {
             ),
           );
           await callAddProof(
-              indexInProofList, defaultImgPath, strBeforeOrAfter);
+            indexInProofList,
+            defaultImgPath,
+            strBeforeOrAfter,
+          );
         },
       ),
     );

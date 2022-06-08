@@ -5,7 +5,7 @@ import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/ui/service_related/service_card.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'client_service_at.freezed.dart';

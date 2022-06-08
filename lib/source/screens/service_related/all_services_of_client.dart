@@ -8,17 +8,13 @@ import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
-import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
-import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
-import 'package:share_plus/share_plus.dart';
-import 'package:tuple/tuple.dart';
 
 const tileSize = 500.0;
 
@@ -115,19 +111,20 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
                     ),
                   ),
                 ),
-                //
-                // > Proof Buttons
-                //
-                AudioProofButtons(
-                  client: client,
-                  date: service.provDate,
-                  beforeOrAfter: 'after_audio_',
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Column(
+                    children: [
+                      AudioProofController(
+                        client: client,
+                        service: service,
+                        // beforeOrAfter: 'after_audio_',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-            //
-            // > Service
-            //
             Align(
               alignment: Alignment.bottomCenter,
               child: _ServiceOfJournalTile(
@@ -137,122 +134,6 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// Buttons to make/play/share audio proofs of service.
-///
-/// {@category UI Services}
-/// {@category UI Proofs}
-class AudioProofButtons extends ConsumerWidget {
-  const AudioProofButtons({
-    required this.date,
-    required this.client,
-    required this.beforeOrAfter,
-    Key? key,
-  }) : super(key: key);
-
-  final DateTime date;
-  final ClientProfile client;
-  final String beforeOrAfter;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final proof = ref.watch(proofAtDate(Tuple2(date.dateOnly(), client)));
-    final proofList = ref.watch(groupsOfProof(proof));
-    final player = AudioPlayer();
-    final recorder = ref.watch(proofRecorder);
-    // only needed to trigger rebuild
-    // ignore: unused_local_variable
-    final recorderState = ref.watch(proofRecorderState);
-    final proofEntry = proofList[0]; // allow only one audio proof
-
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Row(
-        children: [
-          //
-          // > record button
-          //
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: FloatingActionButton(
-              heroTag: null,
-              // tooltip: ,
-              child: const Icon(Icons.record_voice_over_sharp),
-              backgroundColor:
-                  recorder.color(proofList.isNotEmpty ? proofList.first : null),
-              onPressed: () async {
-                if (ref.read(proofRecorderState) != RecorderState.ready) {
-                  await recorder.stop();
-                } else {
-                  if (proofList.isEmpty) {
-                    proof.addNewGroup();
-                  }
-
-                  await recorder.start(proof.proofGroups.first);
-                }
-              },
-            ),
-          ),
-          //
-          // > play button
-          //
-          if (proofList.isNotEmpty && proofEntry[beforeOrAfter] != null)
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: FloatingActionButton(
-                heroTag: null,
-                // tooltip: ,
-                backgroundColor:
-                    recorderState == RecorderState.ready ? null : Colors.grey,
-                child: const Icon(Icons.play_arrow),
-                onPressed: () async {
-                  await recorder.stop();
-                  if (proofEntry[beforeOrAfter] != null) {
-                    await player.play(
-                        DeviceFileSource(proofEntry[beforeOrAfter] as String));
-                  }
-                },
-              ),
-            ),
-          //
-          // > share button
-          //
-          if (proofList.isNotEmpty && proofEntry[beforeOrAfter] != null)
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: FloatingActionButton(
-                heroTag: null,
-                // tooltip: ,
-                backgroundColor:
-                    recorderState == RecorderState.ready ? null : Colors.grey,
-                child: const Icon(Icons.share),
-                onPressed: () async {
-                  await recorder.stop();
-                  if (proofEntry[beforeOrAfter] != null) {
-                    final filePath = proofEntry[beforeOrAfter] as String;
-                    try {
-                      await Share.shareFiles([filePath]);
-                      // ignore: avoid_catching_errors
-                    } on UnimplementedError {
-                      showNotification(
-                        locator<S>().fileSavedTo + filePath,
-                        duration: const Duration(seconds: 10),
-                      );
-                    } on MissingPluginException {
-                      showNotification(
-                        locator<S>().fileSavedTo + filePath,
-                        duration: const Duration(seconds: 10),
-                      );
-                    }
-                  }
-                },
-              ),
-            ),
-        ],
       ),
     );
   }

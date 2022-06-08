@@ -21,14 +21,14 @@ final datesInArchive = Provider<List<DateTime>>((ref) {
     ...ref
         .watch(workerProfiles)
         .map((e) => ref.watch(datesInArchiveOfProfile(e.apiKey)))
-        .reduce((value, element) => value.addAll(element) as List<DateTime>)
+        .reduce((value, element) => value.addAll(element) as List<DateTime>),
   }.toList();
 });
 
 final _datesInArchiveInited = FutureProvider((ref) async {
   await Future.wait([
     ...ref.watch(workerProfiles).map((e) async =>
-        ref.watch(datesInArchiveOfProfile(e.apiKey).notifier).inited())
+        ref.watch(datesInArchiveOfProfile(e.apiKey).notifier).inited()),
   ]);
 
   return ref
@@ -43,9 +43,10 @@ final _datesInArchiveInited = FutureProvider((ref) async {
 /// {@category Providers}
 final datesInArchiveOfProfile =
     StateNotifierProvider.family<_DatesInArchiveState, List<DateTime>, String>(
-        (ref, apiKey) {
-  return _DatesInArchiveState(ref, apiKey);
-});
+  (ref, apiKey) {
+    return _DatesInArchiveState(ref, apiKey);
+  },
+);
 
 class _DatesInArchiveState extends StateNotifier<List<DateTime>> {
   _DatesInArchiveState(this.ref, this.apiKey) : super([]) {
@@ -110,7 +111,8 @@ class _DateListController {
 
   Future<void> save() async {
     await Future.wait(ref.read(workerProfiles).map(
-        (e) => ref.read(datesInArchiveOfProfile(e.apiKey).notifier).save()));
+          (e) => ref.read(datesInArchiveOfProfile(e.apiKey).notifier).save(),
+        ));
   }
 
   Future<List<DateTime>> datesInited() async {
@@ -129,6 +131,8 @@ class _DateListController {
         ...ref
             .read(workerProfiles)
             .map((e) => ref.read(datesInArchiveOfProfile(e.apiKey)))
-            .reduce((value, element) => value.addAll(element) as List<DateTime>)
+            .reduce(
+              (value, element) => value.addAll(element) as List<DateTime>,
+            ),
       }.toList();
 }
