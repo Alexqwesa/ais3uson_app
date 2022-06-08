@@ -107,6 +107,9 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final host = ref.read(workerProfiles).first.key.activeHost;
+  final port = ref.read(workerProfiles).first.key.activePort;
+
   return Column(
     children: &lt;Widget&gt;[
       ElevatedButton(
@@ -118,7 +121,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       if (ref.watch(_httpFuture(false)) != null)
         Column(
           children: [
-            const Text(&#39;Http Response:&#39;),
+            Text(&#39;Http Response to http:&#47;&#47;$host:$port&#47;stat:&#39;),
             FutureBuilder(
               future: ref.watch(_httpFuture(false)),
               builder: buildHttpFuture,
@@ -128,7 +131,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       if (ref.watch(_httpFuture(true)) != null)
         Column(
           children: [
-            const Text(&#39;Https Response:&#39;),
+            Text(&#39;Https Response to https:&#47;&#47;$host:$port&#47;stat:&#39;),
             FutureBuilder(
               future: ref.watch(_httpFuture(true)),
               builder: buildHttpFuture,
@@ -205,7 +208,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+11
+      1.0.1+12
   </span>
 
   

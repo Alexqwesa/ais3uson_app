@@ -108,6 +108,8 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final tileType = ref.watch(tileTypeProvider);
+  final _ = ref.read(groupsOfService(service.clientService)); &#47;&#47; rebuild on
+  final active = service.addAllowed || ref.watch(isArchive);
 
   return SizedBox.fromSize(
     size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
@@ -115,7 +117,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       children: [
         ColorFiltered(
           colorFilter: ColorFilter.mode(
-            service.addAllowed ? Colors.white.withOpacity(0) : Colors.grey,
+            active ? Colors.white.withOpacity(0) : Colors.grey,
             BlendMode.multiply,
           ),
           child: ClipRect(
@@ -230,7 +232,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+11
+      1.0.1+12
   </span>
 
   

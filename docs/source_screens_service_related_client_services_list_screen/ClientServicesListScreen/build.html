@@ -113,7 +113,9 @@ Widget build(BuildContext context, WidgetRef ref) {
       .watch(servicesOfClient(client))
       .map((e) =&gt; ClientServiceAt(
             clientService: e,
-            date: ref.watch(archiveDate) ?? DateTime.now(),
+            date: ref.watch(isArchive)
+                ? ref.watch(archiveDate)
+                : DateTime.now(),
           ))
       .toList(growable: false);
 
@@ -277,7 +279,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+11
+      1.0.1+12
   </span>
 
   
