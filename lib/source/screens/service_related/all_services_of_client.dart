@@ -9,7 +9,7 @@ import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
-import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:collection/collection.dart';
