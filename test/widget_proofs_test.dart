@@ -17,6 +17,7 @@ import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tuple/tuple.dart';
@@ -135,9 +136,9 @@ void main() {
       //
       // > add proof
       //
-      File('${Directory.current.path}/test/helpers/auth_qr_test.png').copySync(
-        '${Directory.systemTemp.path}/auth_qr_test.png',
-      );
+      File('${Directory.current.path}/test/helpers/auth_qr_test.png'
+              .replaceAll('/', Platform.pathSeparator))
+          .copySync(path.join(Directory.systemTemp.path, 'auth_qr_test.png'));
       final file = XFile('${Directory.systemTemp.path}/auth_qr_test.png');
       // final srcFileLength = await file.length();
       // expect(srcFileLength > 0, true);
@@ -161,34 +162,12 @@ void main() {
       );
       final dstFile = File(
         // ignore: prefer_interpolation_to_compose_strings
-        '${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
-            standardFormat.format(DateTime.now()) +
-            '_/831_Покупка продуктов питания/group_0_/before_img_auth_qr_test.png',
+        ('${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
+                standardFormat.format(DateTime.now()) +
+                '_/831_Покупка продуктов питания/group_0_/before_img_auth_qr_test.png')
+            .replaceAll('/', Platform.pathSeparator)
+            .replaceAll(' ', ''),
       );
-
-      // check widget
-      // await tester.pumpWidget(
-      //   ProviderScope(
-      //     parent: ref,
-      //     child: localizedMaterialApp(
-      //       const ConfirmationForServicesScreen(),
-      //       //
-      //       // > routes
-      //       //
-      //       initialRoute: '/client_journal',
-      //       routes: {
-      //         '/client_journal': (context) =>
-      //             const ConfirmationForServicesScreen(),
-      //         '/service': /*     */ (context) => const ClientServiceScreen(),
-      //       },
-      //     ),
-      //   ),
-      // );
-      // await tester.pumpAndSettle();
-      // expect(find.byType(ListTile), findsOneWidget);
-      // await tester.tap(find.byType(ListTile));
-      //
-
       expect(service.proofList.proofGroups.length, 1);
       final proofList =
           ref.read(servProofAtDate(Tuple2(DateTime.now().dateOnly(), service)));

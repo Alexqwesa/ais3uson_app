@@ -55,7 +55,7 @@ class AudioProofController extends ConsumerWidget {
     final recorderState = ref.watch(proofRecorderState);
 
     final audioProof =
-        proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String;
+        proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String?;
 
     return Row(
       children: [

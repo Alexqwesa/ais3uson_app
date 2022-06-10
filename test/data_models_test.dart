@@ -13,6 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -192,10 +193,16 @@ void main() {
       //
       // > add proof
       //
-      File('${Directory.current.path}/test/helpers/auth_qr_test.png').copySync(
-        '${Directory.systemTemp.path}/auth_qr_test.png',
+      File(path.join(
+        Directory.current.path,
+        'test',
+        'helpers',
+        'auth_qr_test.png',
+      )).copySync(
+        path.join(Directory.systemTemp.path, 'auth_qr_test.png'),
       );
-      final file = XFile('${Directory.systemTemp.path}/auth_qr_test.png');
+      final file =
+          XFile(path.join(Directory.systemTemp.path, 'auth_qr_test.png'));
       final srcFileLength = await file.length();
       expect(srcFileLength > 0, true);
       final serv = wp.clients.first.services.first;
@@ -212,13 +219,18 @@ void main() {
       // > check: file created
       //
       final appDocDir = Directory(
-        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
+        path.join(
+          (await getApplicationDocumentsDirectory()).path,
+          'Ais3uson',
+        ),
       );
       final dstFile = File(
         // ignore: prefer_interpolation_to_compose_strings
-        '${appDocDir.path}/1_Работник Тестового Отделения /1_Тес. . чек/' +
-            standardFormat.format(DateTime.now()) +
-            '_/828_Итого/group_0_/before_img_auth_qr_test.png',
+        ('${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
+                standardFormat.format(DateTime.now()) +
+                '_/828_Итого/group_0_/before_img_auth_qr_test.png')
+            .replaceAll('/', Platform.pathSeparator)
+            .replaceAll(' ', ''),
       );
       expect(
         await dstFile.length(),
@@ -250,22 +262,28 @@ void main() {
       // > create dir for proof
       //
       final appDocDir = Directory(
-        '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
+        path.join(
+          (await getApplicationDocumentsDirectory()).path,
+          'Ais3uson',
+        ),
       );
       final dst = Directory(
-        '${appDocDir.path}/'
-        // ignore: missing_whitespace_between_adjacent_strings
-        '1_Работник Тестового Отделения 2/1_Тес. . чек/01.03.2022_/'
-        '828_Итого/group_0_/',
+        '${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/01.03.2022_/828_Итого/group_0_/'
+            .replaceAll('/', Platform.pathSeparator)
+            .replaceAll(' ', ''),
       );
       if (!dst.existsSync()) {
         dst.createSync(recursive: true);
       }
       // add proof
-      final file =
-          File('${Directory.current.path}/test/helpers/auth_qr_test.png')
-              .copySync(
-        '${dst.path}/before_img_auth_qr_test.png',
+
+      final file = File(path.join(
+        Directory.current.path,
+        'test',
+        'helpers',
+        'auth_qr_test.png',
+      )).copySync(
+        path.join(dst.path, 'before_img_auth_qr_test.png'),
       );
       final serv2 = wp.clients.first.services.first;
       expect(serv2.proofList.proofGroups.length, 0); // can be raced?
