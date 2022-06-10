@@ -17,13 +17,13 @@ import 'package:tuple/tuple.dart';
 /// Widget for record, play and share audio proof.
 class AudioProofController extends ConsumerWidget {
   AudioProofController({
-    this.proof,
+    this.proofs,
     this.client,
     this.service,
     this.beforeOrAfter = 'after_audio_',
     Key? key,
   }) : super(key: key) {
-    if (!(proof != null || (client != null && service != null))) {
+    if (!(proofs != null || (client != null && service != null))) {
       throw StateError('Wrong parameters for AudioProofController');
     }
   }
@@ -31,17 +31,21 @@ class AudioProofController extends ConsumerWidget {
   final String beforeOrAfter;
   final ServiceOfJournal? service;
   final ClientProfile? client;
-  ProofList? proof;
+  final ProofList? proofs;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     late final List<ProofEntry> proofList;
+    late final ProofList proof;
     if (client != null && service != null) {
-      proof ??=
-          ref.watch(proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)));
-      proofList = ref.watch(groupsOfProof(proof!));
+      proof = proofs != null
+          ? proofs!
+          : ref.watch(
+              proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)),
+            );
+      proofList = ref.watch(groupsOfProof(proof));
     } else {
-      proofList = ref.watch(groupsOfProof(proof!));
+      proofList = ref.watch(groupsOfProof(proofs!));
     }
 
     final player = AudioPlayer();
@@ -50,11 +54,8 @@ class AudioProofController extends ConsumerWidget {
     // ignore: unused_local_variable
     final recorderState = ref.watch(proofRecorderState);
 
-    final audioProof = proofList.isEmpty
-        ? null
-        : beforeOrAfter == 'after_audio_'
-            ? proofList[0].afterAudio
-            : proofList[0].beforeAudio;
+    final audioProof =
+        proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String;
 
     return Row(
       children: [
@@ -75,9 +76,12 @@ class AudioProofController extends ConsumerWidget {
                 await recorder.stop();
               } else {
                 if (proofList.isEmpty) {
-                  proof!.addNewGroup();
+                  proof.addNewGroup();
                 }
-                await recorder.start(ref.read(groupsOfProof(proof!)).first);
+                await recorder.start(
+                  ref.read(groupsOfProof(proof)).first,
+                  prefix: beforeOrAfter,
+                );
               }
             },
           ),

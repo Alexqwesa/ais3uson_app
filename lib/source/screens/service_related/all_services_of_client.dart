@@ -111,6 +111,9 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
                     ),
                   ),
                 ),
+                //
+                // > Audio Proof Buttons
+                //
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Column(
@@ -125,6 +128,9 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
                 ),
               ],
             ),
+            //
+            // > service tile
+            //
             Align(
               alignment: Alignment.bottomCenter,
               child: _ServiceOfJournalTile(
@@ -139,7 +145,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
   }
 }
 
-/// Show [ServiceOfJournal] as Tile widget
+/// Show [ServiceOfJournal] as Tile widget.
 class _ServiceOfJournalTile extends ConsumerWidget {
   const _ServiceOfJournalTile({
     required this.serviceOfJournal,

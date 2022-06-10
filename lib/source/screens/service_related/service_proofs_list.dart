@@ -161,7 +161,7 @@ class ProofListBuilder extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: AudioProofController(
-                              proof: proofList,
+                              proofs: proofList,
                               beforeOrAfter: 'before_audio_',
                             ),
                           ),
@@ -170,7 +170,7 @@ class ProofListBuilder extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: AudioProofController(
-                              proof: proofList,
+                              proofs: proofList,
                               // beforeOrAfter: 'after_audio_',
                             ),
                           ),
