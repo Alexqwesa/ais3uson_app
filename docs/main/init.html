@@ -96,7 +96,7 @@
   final sharedPreferences = await SharedPreferences.getInstance();
   try {
     locator
-      ..registerLazySingleton&lt;S&gt;(() =&gt; S())
+      ..registerLazySingleton&lt;S&gt;(S.new)
       ..registerLazySingleton&lt;SharedPreferences&gt;(() =&gt; sharedPreferences);
     &#47;&#47; ignore: avoid_catches_without_on_clauses
   } catch (e) {
@@ -150,7 +150,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+12
+      1.0.1+13
   </span>
 
   

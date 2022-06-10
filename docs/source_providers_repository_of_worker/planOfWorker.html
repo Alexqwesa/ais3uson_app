@@ -72,7 +72,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
 
   return ref
       .watch(httpDataProvider(wp.apiUrlPlan))
-      .map&lt;ClientPlan&gt;((json) =&gt; ClientPlan.fromJson(json))
+      .map&lt;ClientPlan&gt;(ClientPlan.fromJson)
       .toList(growable: false);
 });</code></pre>
 </section>
@@ -121,7 +121,7 @@ Return List&lt;<a href="../source_client_server_api_client_plan/ClientPlan-class
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+12
+      1.0.1+13
   </span>
 
   

@@ -72,7 +72,7 @@ Return List&lt;<a href="../source_client_server_api_service_entry/ServiceEntry-c
 
   return ref
       .watch(httpDataProvider(wp.apiUrlServices))
-      .map&lt;ServiceEntry&gt;((json) =&gt; ServiceEntry.fromJson(json))
+      .map&lt;ServiceEntry&gt;(ServiceEntry.fromJson)
       .toList(growable: false);
 });</code></pre>
 </section>
@@ -121,7 +121,7 @@ Return List&lt;<a href="../source_client_server_api_service_entry/ServiceEntry-c
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+12
+      1.0.1+13
   </span>
 
   

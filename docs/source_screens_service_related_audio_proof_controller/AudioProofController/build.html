@@ -117,6 +117,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           );
     proofList = ref.watch(groupsOfProof(proof));
   } else {
+    proof = proofs!;
     proofList = ref.watch(groupsOfProof(proofs!));
   }
 
@@ -286,7 +287,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+12
+      1.0.1+13
   </span>
 
   

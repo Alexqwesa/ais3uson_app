@@ -72,7 +72,7 @@ Return List&lt;<a href="../source_data_models_client_profile/ClientProfile-class
 
     return ref
         .watch(httpDataProvider(wp.apiUrlClients))
-        .map&lt;ClientEntry&gt;((json) =&gt; ClientEntry.fromJson(json))
+        .map&lt;ClientEntry&gt;(ClientEntry.fromJson)
         .map((el) =&gt; ClientProfile(workerProfile: wp, entry: el))
         .toList(growable: false);
   },
@@ -123,7 +123,7 @@ Return List&lt;<a href="../source_data_models_client_profile/ClientProfile-class
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+12
+      1.0.1+13
   </span>
 
   
