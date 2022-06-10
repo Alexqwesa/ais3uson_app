@@ -64,7 +64,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">String safeName(String s, {int length = 150}) {
-  const regex = r&#39;[^\p{Alphabetic}\p{Decimal_Number}_ .\s]+&#39;;
+  const regex = r&#39;[^\p{Alphabetic}\p{Decimal_Number}_.]+&#39;;
   final e = s.replaceAll(RegExp(regex, unicode: true), &#39;&#39;);
 
   return e.substring(0, e.length &gt; length ? length : e.length);
