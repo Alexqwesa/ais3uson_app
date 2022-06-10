@@ -28,9 +28,8 @@ class AddDepartmentScreen extends ConsumerWidget {
             1 * MediaQuery.of(context).size.height
         ? columnWidth
         : columnWidth / 2;
-    final newWorkerKeys = mapJsonDecode(qrCodes)
-        .map((e) => WorkerKey.fromJson(e))
-        .toList(growable: false);
+    final newWorkerKeys =
+        mapJsonDecode(qrCodes).map(WorkerKey.fromJson).toList(growable: false);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

@@ -56,7 +56,7 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   try {
     locator
-      ..registerLazySingleton<S>(() => S())
+      ..registerLazySingleton<S>(S.new)
       ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {

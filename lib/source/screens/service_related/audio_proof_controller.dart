@@ -45,6 +45,7 @@ class AudioProofController extends ConsumerWidget {
             );
       proofList = ref.watch(groupsOfProof(proof));
     } else {
+      proof = proofs!;
       proofList = ref.watch(groupsOfProof(proofs!));
     }
 

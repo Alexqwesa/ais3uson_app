@@ -29,6 +29,7 @@ class ServiceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tileType = ref.watch(tileTypeProvider);
+    // ignore: no_leading_underscores_for_local_identifiers
     final _ = ref.read(groupsOfService(service.clientService)); // rebuild on
     final active = service.addAllowed || ref.watch(isArchive);
 

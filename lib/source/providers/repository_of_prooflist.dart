@@ -25,14 +25,14 @@ class _ProofRecorder {
 
   String _audioPath = '';
 
+  ProofEntry? _proof;
+
+  ProofEntry? get proof => _proof;
+
   RecorderState get state => ref.read(proofRecorderState);
 
   set state(RecorderState newState) =>
       ref.read(proofRecorderState.notifier).state = newState;
-
-  ProofEntry? _proof;
-
-  ProofEntry? get proof => _proof;
 
   bool setProof(ProofEntry? value) {
     if (state == RecorderState.ready) {

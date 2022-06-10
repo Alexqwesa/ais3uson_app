@@ -31,6 +31,12 @@ class _LastUsed {
         date: ref.read(lastServiceAt),
       );
 
+  ClientService get service => ref.read(lastClientService);
+
+  ClientProfile get client => ref.read(lastClient);
+
+  WorkerProfile get worker => ref.read(lastWorkerProfile);
+
   set serviceAt(ClientServiceAt value) {
     ref.read(lastServiceAt.notifier).state = value.dateOnly;
     ref.read(lastClientServiceId.notifier).state = value.servId;
@@ -38,22 +44,16 @@ class _LastUsed {
     ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
   }
 
-  ClientService get service => ref.read(lastClientService);
-
   set service(ClientService value) {
     ref.read(lastClientServiceId.notifier).state = value.servId;
     ref.read(lastClientId.notifier).state = value.contractId;
     ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
   }
 
-  ClientProfile get client => ref.read(lastClient);
-
   set client(ClientProfile value) {
     ref.read(lastClientId.notifier).state = value.contractId;
     ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
   }
-
-  WorkerProfile get worker => ref.read(lastWorkerProfile);
 
   set worker(WorkerProfile value) =>
       ref.read(lastApiKey.notifier).state = value.apiKey;

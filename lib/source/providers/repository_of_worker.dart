@@ -20,7 +20,7 @@ final clientsOfWorker = Provider.family<List<ClientProfile>, WorkerProfile>(
 
     return ref
         .watch(httpDataProvider(wp.apiUrlClients))
-        .map<ClientEntry>((json) => ClientEntry.fromJson(json))
+        .map<ClientEntry>(ClientEntry.fromJson)
         .map((el) => ClientProfile(workerProfile: wp, entry: el))
         .toList(growable: false);
   },
@@ -38,7 +38,7 @@ final servicesOfWorker =
 
   return ref
       .watch(httpDataProvider(wp.apiUrlServices))
-      .map<ServiceEntry>((json) => ServiceEntry.fromJson(json))
+      .map<ServiceEntry>(ServiceEntry.fromJson)
       .toList(growable: false);
 });
 
@@ -54,6 +54,6 @@ final planOfWorker =
 
   return ref
       .watch(httpDataProvider(wp.apiUrlPlan))
-      .map<ClientPlan>((json) => ClientPlan.fromJson(json))
+      .map<ClientPlan>(ClientPlan.fromJson)
       .toList(growable: false);
 });

@@ -9,7 +9,7 @@ Future<void> main() async {
   // enableFlutterDriverExtension();
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter('Ais3uson');
-  app.locator.registerLazySingleton<S>(() => S());
+  app.locator.registerLazySingleton<S>(S.new);
 
   testWidgets('Main window', (tester) async {
     await app.main();
