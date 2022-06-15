@@ -105,9 +105,10 @@ void showNotification(String text, {Duration? duration}) {
 Future<String?> getSafePath(List<String> subFolders) async {
   Directory appDocDir;
   try {
-    appDocDir = Directory(
-      '${(await getApplicationDocumentsDirectory()).path}/Ais3uson',
-    );
+    appDocDir = Directory(path.join(
+      (await getApplicationDocumentsDirectory()).path,
+      'Ais3uson',
+    ));
     if (!appDocDir.existsSync()) {
       appDocDir.createSync(recursive: true);
     }
