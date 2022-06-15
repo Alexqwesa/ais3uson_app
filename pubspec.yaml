@@ -22,7 +22,7 @@ environment:
 
 
 dependencies:
-  audioplayers: ^1.0.0-rc.4
+  audioplayers: any
   camera: any
   collection: any
   context_menus: any
@@ -80,10 +80,9 @@ dev_dependencies:
     sdk: flutter
   json_serializable:
   mockito: any
-  very_good_analysis: any
+#  very_good_analysis: any
 
 
-#  hive_generator: any
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 flutter_icons:
