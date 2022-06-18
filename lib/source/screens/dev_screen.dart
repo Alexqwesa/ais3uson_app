@@ -99,6 +99,10 @@ class CheckWorkerServer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.read(workerProfiles).isEmpty) {
+      return const Text('Please add Department or test Department!');
+    }
+
     final host = ref.read(workerProfiles).first.key.activeHost;
     final port = ref.read(workerProfiles).first.key.activePort;
 
