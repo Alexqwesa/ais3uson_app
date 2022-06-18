@@ -13,8 +13,8 @@ import 'package:toggle_switch/toggle_switch.dart';
 /// Show screen with main menu and with list of [WorkerProfile].
 ///
 /// {@category UI WorkerProfiles}
-class HomePage extends ConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

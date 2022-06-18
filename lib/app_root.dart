@@ -142,7 +142,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
 /// This is main MaterialApp widget.
 ///
 /// Only theme [standardTheme] and navigation routes here.
-/// home: [HomePage].
+/// home: [HomeScreen].
 ///
 /// {@category UI Root}
 class MainMaterialApp extends ConsumerWidget {
@@ -184,7 +184,7 @@ class MainMaterialApp extends ConsumerWidget {
         '/scan_qr': /*     */ (context) => const QRScanScreen(),
         '/dev': /*         */ (context) => const DevScreen(),
         '/delete_department': (context) => const DeleteDepartmentScreen(),
-        '/': /*            */ (context) => const HomePage(),
+        '/': /*            */ (context) => const HomeScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

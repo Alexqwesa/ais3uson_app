@@ -107,7 +107,7 @@ void main() {
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
               '/dev': /*         */ (context) => const DevScreen(),
               '/delete_department': (context) => const DeleteDepartmentScreen(),
-              '/': /*            */ (context) => const HomePage(),
+              '/': /*            */ (context) => const HomeScreen(),
             },
           ),
         ),
@@ -131,7 +131,7 @@ void main() {
               return ProviderScope(
                 parent: ref,
                 child: localizedMaterialApp(
-                  const HomePage(),
+                  const HomeScreen(),
                 ),
               );
             },
@@ -159,7 +159,7 @@ void main() {
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
-            const HomePage(),
+            const HomeScreen(),
           ),
         ),
       );
@@ -210,7 +210,7 @@ void main() {
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
               '/dev': /*         */ (context) => const DevScreen(),
               '/delete_department': (context) => const DeleteDepartmentScreen(),
-              '/': /*            */ (context) => const HomePage(),
+              '/': /*            */ (context) => const HomeScreen(),
             },
           ),
         );
