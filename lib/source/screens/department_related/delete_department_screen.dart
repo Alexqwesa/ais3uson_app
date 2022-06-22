@@ -29,47 +29,55 @@ class DeleteDepartmentScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: wpKeys.isNotEmpty
-          ? ListView.builder(
-              itemCount: wpKeys.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Transform.rotate(
-                    angle: pi / 30,
-                    child: const Icon(
-                      Icons.group,
-                      // color: Colors.red,
-                    ),
-                  ),
-                  title: Text(wpKeys[index].dep),
-                  trailing: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  subtitle: Text(wpKeys[index].name),
-                  //
-                  // > call dialog
-                  //
-                  onTap: () async {
-                    final result = await _showDialog(
-                      context,
-                      wpKeys[index].dep,
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: SizedBox(
+          width: 650,
+          child: wpKeys.isNotEmpty
+              ? ListView.builder(
+                  itemCount: wpKeys.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        leading: Transform.rotate(
+                          angle: pi / 30,
+                          child: const Icon(
+                            Icons.group,
+                            // color: Colors.red,
+                          ),
+                        ),
+                        title: Text(wpKeys[index].dep),
+                        trailing: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        subtitle: Text(wpKeys[index].name),
+                        //
+                        // > call dialog
+                        //
+                        onTap: () async {
+                          final result = await _showDialog(
+                            context,
+                            wpKeys[index].dep,
+                          );
+                          if (result == 'delete') {
+                            ref
+                                .read(workerProfiles.notifier)
+                                .profileDelete(wpKeys[index]);
+                            // ignore: use_build_context_synchronously
+                            Navigator.pop(context, 'delete');
+                          }
+                        },
+                      ),
                     );
-                    if (result == 'delete') {
-                      ref
-                          .read(workerProfiles.notifier)
-                          .profileDelete(wpKeys[index]);
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context, 'delete');
-                    }
                   },
-                );
-              },
-            )
-          : Center(
-              child: Text(S.of(context).emptyDepList),
-            ),
+                )
+              : Center(
+                  child: Text(S.of(context).emptyDepList),
+                ),
+        ),
+      ),
     );
   }
 }
