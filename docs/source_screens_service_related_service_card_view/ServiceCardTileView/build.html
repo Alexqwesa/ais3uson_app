@@ -127,9 +127,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       width: 90,
                       child: Hero(
                         tag: serviceAt.servId,
-                        child: Image.asset(
-                          &#39;images&#47;${serviceAt.image}&#39;,
-                        ),
+                        child: ref.watch(image(serviceAt.image)),
                       ),
                     ),
                     &#47;&#47;

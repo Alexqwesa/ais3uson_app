@@ -216,44 +216,47 @@ Widget build(BuildContext context, WidgetRef ref) {
                 &#47;&#47;
                 &#47;&#47; &gt; list of test department
                 &#47;&#47;
-                ListView.builder(
-                  itemCount: newWorkerKeys.length,
-                  shrinkWrap: true,
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: Card(
-                        child: ListTile(
-                          leading: Transform.rotate(
-                            angle: pi &#47; 30,
-                            child: const Icon(
-                              Icons.group,
-                              &#47;&#47; color: Colors.green,
+                SizedBox(
+                  width: 650,
+                  child: ListView.builder(
+                    itemCount: newWorkerKeys.length,
+                    shrinkWrap: true,
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Card(
+                          child: ListTile(
+                            leading: Transform.rotate(
+                              angle: pi &#47; 30,
+                              child: const Icon(
+                                Icons.group,
+                                &#47;&#47; color: Colors.green,
+                              ),
                             ),
+                            title: Text(newWorkerKeys[index].dep),
+                            trailing: const Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                            subtitle: Text(newWorkerKeys[index].name),
+                            &#47;&#47;
+                            &#47;&#47; &gt; add Dep
+                            &#47;&#47;
+                            onTap: () {
+                              Navigator.pop(context, &#39;added&#39;);
+                              addNewWProfile(
+                                context,
+                                ref,
+                                qrCodes[index],
+                              );
+                            },
                           ),
-                          title: Text(newWorkerKeys[index].dep),
-                          trailing: const Icon(
-                            Icons.add,
-                            color: Colors.green,
-                          ),
-                          subtitle: Text(newWorkerKeys[index].name),
-                          &#47;&#47;
-                          &#47;&#47; &gt; add Dep
-                          &#47;&#47;
-                          onTap: () {
-                            Navigator.pop(context, &#39;added&#39;);
-                            addNewWProfile(
-                              context,
-                              ref,
-                              qrCodes[index],
-                            );
-                          },
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

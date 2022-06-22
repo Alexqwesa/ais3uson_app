@@ -70,9 +70,10 @@ If file plugin or DocumentsDirectory didn't exist - return null.</p>
   <pre class="language-dart"><code class="language-dart">Future&lt;String?&gt; getSafePath(List&lt;String&gt; subFolders) async {
   Directory appDocDir;
   try {
-    appDocDir = Directory(
-      &#39;${(await getApplicationDocumentsDirectory()).path}&#47;Ais3uson&#39;,
-    );
+    appDocDir = Directory(path.join(
+      (await getApplicationDocumentsDirectory()).path,
+      &#39;Ais3uson&#39;,
+    ));
     if (!appDocDir.existsSync()) {
       appDocDir.createSync(recursive: true);
     }
