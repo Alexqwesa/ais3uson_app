@@ -126,9 +126,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       child: SizedBox(
                         height: 90,
                         width: 90,
-                        child: Image.asset(
-                          &#39;images&#47;${serviceAt.image}&#39;,
-                        ),
+                        child: ref.watch(image(serviceAt.image)),
                       ),
                     ),
                     const Divider(
