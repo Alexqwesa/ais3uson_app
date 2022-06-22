@@ -39,7 +39,6 @@ class ServiceCardState extends ConsumerWidget {
   ];
 
   final ClientServiceAt clientServiceAt;
-
   final bool rightOfText;
 
   @override
@@ -65,29 +64,23 @@ class ServiceCardState extends ConsumerWidget {
                   maintainState: true,
                   visible: listDoneProgressError.elementAt(i) != 0,
                   child: rightOfText
-                      ? ColoredBox(
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              icons.elementAt(i),
-                              Text(
-                                listDoneProgressError.elementAt(i).toString(),
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                            ],
-                          ),
+                      ? Row(
+                          children: [
+                            icons.elementAt(i),
+                            Text(
+                              listDoneProgressError.elementAt(i).toString(),
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ],
                         )
-                      : ColoredBox(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              icons.elementAt(i),
-                              Text(
-                                listDoneProgressError.elementAt(i).toString(),
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                            ],
-                          ),
+                      : Column(
+                          children: [
+                            icons.elementAt(i),
+                            Text(
+                              listDoneProgressError.elementAt(i).toString(),
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ],
                         ),
                 ),
               );
