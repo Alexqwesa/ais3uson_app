@@ -28,6 +28,7 @@ cp qrcode_ais3uson_app_on_google_play.png doc/api/
 # gitHub wants docs dir - conform
 rm -rf docs/*
 cp -a doc/api/* docs/
+rm -f docs/source_client_server_api_service_entry/ServiceEntry/tNum.html  # remove duplicate
 
 # open generated docs in browser
 if [ `echo $DISPLAY`  ==  '' ] ; then
