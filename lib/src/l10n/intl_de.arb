@@ -57,6 +57,8 @@
   "serviceIsFull": "Dieser Dienst is voll!",
   "optional": "OPTIONAL!",
   "proofOfService": "Nachweis des Dienstes:",
-  "makeProofOfService": "Foto oder Tonaufnahme als Beweis erstellen:"
+  "makeProofOfService": "Foto oder Tonaufnahme als Beweis erstellen:",
+  "maxServicesToStoreInArchive": "Maximale Anzahl der im Archiv zu speichernden Dienste:",
+  "magnificationOfServiceWidgets": "Zoomfaktor des Dienst-Widgets:"
 
 }

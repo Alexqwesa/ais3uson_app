@@ -86,8 +86,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "listOfServicesByDays":
             MessageLookupByLibrary.simpleMessage("List of services by days"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "magnificationOfServiceWidgets": MessageLookupByLibrary.simpleMessage(
+            "Magnifycation of service widgets:"),
         "makeProofOfService": MessageLookupByLibrary.simpleMessage(
             "Make photo or audio record as a proof:"),
+        "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
+            "The maximum number of services stored in the archive:"),
         "optional": MessageLookupByLibrary.simpleMessage("OPTIONAL!"),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Or add example department from list:"),
