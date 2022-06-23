@@ -629,6 +629,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Максимальное количество услуг, которые будут храниться в архиве:`
+  String get maxServicesToStoreInArchive {
+    return Intl.message(
+      'Максимальное количество услуг, которые будут храниться в архиве:',
+      name: 'maxServicesToStoreInArchive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Коэффициент увеличения виджетов услуг:`
+  String get magnificationOfServiceWidgets {
+    return Intl.message(
+      'Коэффициент увеличения виджетов услуг:',
+      name: 'magnificationOfServiceWidgets',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

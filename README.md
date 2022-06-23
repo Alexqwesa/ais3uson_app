@@ -97,13 +97,14 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
   поделится (в программе для заведующих: импорт без дупликатов)
 - [x] услуги списком, с разделением по дням
 - [x] Переводы (en/ru/de)
+- [x] Возможность загрузки картинки услуги как по имени файла ресурсов, так и по http(s)
+- [x] Настраиваемый размер виджетов услуг
 
 ## В разработке:
 
 - [ ] Резервный способ сбора и хранения услуг (на случай недоступности mysql сервера), shadow
   server?
 - [ ] Резервный web-сервер(WorkerKey allow several servers (comma separated list))
-- [ ] Настраиваемый размер виджетов
 
 ## TODO:
 
@@ -118,7 +119,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
 - [ ] Разные интервалы обновлений для сервисов(раз в 3 дня), список клиентов(12 часов), положено
   услуг (раз в день),
 - [ ] Контрольная сумма для списка услуг? (желательно на стороне SQL сервера)
-- [ ] Возможность загрузки некоторых картинок с сервера
 - [ ] dynamic setting from BD: allow collect proofs, etc...
 - [ ] maybe backup media data? only on full backup?
 - [ ] использовать темы для изменения размера шрифта
@@ -129,7 +129,6 @@ web-приложение ( [https://alexqwesa.github.io/web3uson/](https://alexq
   получения архива ввода)
 - [ ] try autoreconnect few times(with timeout) if there is a problem with network
 - [ ] add server tests
-- [ ] use badges
 - [ ] tutorial
 - [ ] get list of revoked services by date from server
 - [ ] get list of date/money/services count from server for month, if some day disagree with local

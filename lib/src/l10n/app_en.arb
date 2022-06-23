@@ -57,7 +57,9 @@
   "serviceIsFull": "This service is full!",
   "optional": "OPTIONAL!",
   "proofOfService": "Proof of the service:",
-  "makeProofOfService": "Make photo or audio record as a proof:"
+  "makeProofOfService": "Make photo or audio record as a proof:",
+  "maxServicesToStoreInArchive": "The maximum number of services stored in the archive:",
+  "magnificationOfServiceWidgets": "Magnifycation of service widgets:"
 
 
 

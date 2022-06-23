@@ -54,6 +54,31 @@ class _HiveArchiveLimitState extends StateNotifier<int> {
   }
 }
 
+/// Provider of setting - hiveArchiveLimit.
+///
+/// Read/save from/to SharedPreferences, had default preinitialized value.
+///
+/// Depend on [locator]<SharedPreferences>.
+///
+/// {@category Providers}
+final serviceCardMagnifying =
+    StateNotifierProvider<_ServiceCardMagnifyState, double>((ref) {
+  return _ServiceCardMagnifyState();
+});
+
+class _ServiceCardMagnifyState extends StateNotifier<double> {
+  _ServiceCardMagnifyState()
+      : super(locator<SharedPreferences>().getDouble(name) ?? 1.0);
+
+  static const name = 'serviceCardMagnifying';
+
+  @override
+  set state(double value) {
+    super.state = value;
+    locator<SharedPreferences>().setDouble(name, value);
+  }
+}
+
 /// Calculate size of ServiceCard based on parentSize and tileType.
 ///
 /// {@category Providers}
@@ -64,7 +89,8 @@ final serviceCardSize =
 
   final parentWidth = parentSize.width;
   if (tileType == 'tile') {
-    final divider = (parentWidth - 20) ~/ 400.0;
+    final divider =
+        (parentWidth - 20) ~/ (400.0 * ref.watch(serviceCardMagnifying));
     var cardWidth = (parentWidth / divider) - 10;
     if (divider == 0) {
       cardWidth = (parentWidth - 10).abs();
@@ -75,10 +101,11 @@ final serviceCardSize =
       cardWidth / 4,
     );
   } else if (tileType == 'square') {
-    var divider = (parentWidth - 20) ~/ 150.0;
-    if (parentWidth < 130) {
+    var divider =
+        (parentWidth - 20) ~/ (150.0 * ref.watch(serviceCardMagnifying));
+    if (parentWidth < (130 * ref.watch(serviceCardMagnifying))) {
       divider = 1;
-    } else if (parentWidth < 260) {
+    } else if (parentWidth < (260 * ref.watch(serviceCardMagnifying))) {
       divider = 2;
     } else {
       divider = divider > 2 ? divider : 3;
@@ -90,7 +117,8 @@ final serviceCardSize =
       cardWidth,
     );
   } else {
-    var divider = (parentWidth - 20) ~/ 250.0;
+    var divider =
+        (parentWidth - 20) ~/ (250.0 * ref.watch(serviceCardMagnifying));
     divider = divider > 1 ? divider : 2;
     final cardWidth = parentWidth / divider;
 

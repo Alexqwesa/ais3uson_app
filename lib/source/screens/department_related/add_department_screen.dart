@@ -132,44 +132,47 @@ class AddDepartmentScreen extends ConsumerWidget {
                   //
                   // > list of test department
                   //
-                  ListView.builder(
-                    itemCount: newWorkerKeys.length,
-                    shrinkWrap: true,
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(2),
-                        child: Card(
-                          child: ListTile(
-                            leading: Transform.rotate(
-                              angle: pi / 30,
-                              child: const Icon(
-                                Icons.group,
-                                // color: Colors.green,
+                  SizedBox(
+                    width: 650,
+                    child: ListView.builder(
+                      itemCount: newWorkerKeys.length,
+                      shrinkWrap: true,
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: Card(
+                            child: ListTile(
+                              leading: Transform.rotate(
+                                angle: pi / 30,
+                                child: const Icon(
+                                  Icons.group,
+                                  // color: Colors.green,
+                                ),
                               ),
+                              title: Text(newWorkerKeys[index].dep),
+                              trailing: const Icon(
+                                Icons.add,
+                                color: Colors.green,
+                              ),
+                              subtitle: Text(newWorkerKeys[index].name),
+                              //
+                              // > add Dep
+                              //
+                              onTap: () {
+                                Navigator.pop(context, 'added');
+                                addNewWProfile(
+                                  context,
+                                  ref,
+                                  qrCodes[index],
+                                );
+                              },
                             ),
-                            title: Text(newWorkerKeys[index].dep),
-                            trailing: const Icon(
-                              Icons.add,
-                              color: Colors.green,
-                            ),
-                            subtitle: Text(newWorkerKeys[index].name),
-                            //
-                            // > add Dep
-                            //
-                            onTap: () {
-                              Navigator.pop(context, 'added');
-                              addNewWProfile(
-                                context,
-                                ref,
-                                qrCodes[index],
-                              );
-                            },
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

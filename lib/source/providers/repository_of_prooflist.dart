@@ -59,7 +59,9 @@ class _ProofRecorder {
       if (dir != null) {
         _audioPath = path.join(
           dir.path,
-          '${prefix}_${newProof.proof.client}_${newProof.proof.date}.m4a',
+          safeName(
+            '${prefix}_${newProof.proof.client}_${newProof.proof.date}.m4a',
+          ),
         );
         // Check and request permission
         if (await _record.hasPermission()) {
@@ -81,7 +83,12 @@ class _ProofRecorder {
   Future<RecorderState> stop() async {
     if (state == RecorderState.recording) {
       await _record.stop();
-      _proof!.afterAudio = _audioPath;
+      if (_audioPath.startsWith('after_audio_')) {
+        _proof!.afterAudio = _audioPath;
+      } else {
+        _proof!.beforeAudio = _audioPath;
+      }
+
       state = RecorderState.ready;
 
       return RecorderState.finished;

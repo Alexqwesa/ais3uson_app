@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,4 +23,13 @@ final hiveJournalBox =
 /// Base provider of hive [Box], type [DateTime].
 final hiveDateTimeBox = FutureProvider.family<Box<DateTime>, String>(
   (ref, boxName) async => Hive.openBox<DateTime>(boxName),
+);
+
+/// Base provider of Images.
+final image = Provider.family<Image, String>(
+  (ref, imgSrc) {
+    return imgSrc.startsWith('http://') || imgSrc.startsWith('https://')
+        ? Image.network(imgSrc)
+        : Image.asset('images/$imgSrc');
+  },
 );

@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/client_service_at.dart';
+import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +54,7 @@ class ServiceCardView extends ConsumerWidget {
                           child: SizedBox(
                             height: 90,
                             width: 90,
-                            child: Image.asset(
-                              'images/${serviceAt.image}',
-                            ),
+                            child: ref.watch(image(serviceAt.image)),
                           ),
                         ),
                       ),
@@ -142,9 +141,7 @@ class ServiceCardSquareView extends ConsumerWidget {
                         child: SizedBox(
                           height: 90,
                           width: 90,
-                          child: Image.asset(
-                            'images/${serviceAt.image}',
-                          ),
+                          child: ref.watch(image(serviceAt.image)),
                         ),
                       ),
                       const Divider(
@@ -223,9 +220,7 @@ class ServiceCardTileView extends ConsumerWidget {
                         width: 90,
                         child: Hero(
                           tag: serviceAt.servId,
-                          child: Image.asset(
-                            'images/${serviceAt.image}',
-                          ),
+                          child: ref.watch(image(serviceAt.image)),
                         ),
                       ),
                       //
