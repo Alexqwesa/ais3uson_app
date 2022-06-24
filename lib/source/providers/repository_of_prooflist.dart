@@ -1,8 +1,10 @@
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
@@ -115,6 +117,33 @@ class _ProofRecorder {
 /// {@category Providers}
 final proofRecorderState = StateProvider<RecorderState>((ref) {
   return RecorderState.ready;
+});
+
+/// State of [audioPlayer].
+///
+/// {@category Providers}
+final proofPlayState = StateProvider<PlayerState>((ref) {
+  return PlayerState.stopped;
+});
+
+/// Global audioPlayer.
+///
+/// Init and subscribe [proofPlayState] to streams of state change.
+/// {@category Providers}
+final audioPlayer = Provider<AudioPlayer>((ref) {
+  final player = AudioPlayer();
+  player.onPlayerStateChanged.listen((s) {
+    ref.watch(proofPlayState.notifier).state = s;
+    log.finest(player.state.toString());
+  });
+
+  player.onPlayerComplete.listen((event) {
+    ref.watch(proofPlayState.notifier).state = PlayerState.stopped;
+    player.state = PlayerState.stopped;
+    log.finest(player.state.toString());
+  });
+
+  return player;
 });
 
 /// States used by ProofRecorder.
