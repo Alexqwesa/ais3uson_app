@@ -118,7 +118,7 @@ Widget build(BuildContext context, WidgetRef ref) {
         child: Column(
           children: [
             ListTile(
-              title: Text(locator&lt;S&gt;().maxServicesToStoreInArchive),
+              title: Text(tr().maxServicesToStoreInArchive),
               trailing: SizedBox(
                 width: 60,
                 child: TextFormField(
@@ -140,16 +140,8 @@ Widget build(BuildContext context, WidgetRef ref) {
               ),
             ),
             const Divider(),
-            ListTile(
-              title: Text(locator&lt;S&gt;().magnificationOfServiceWidgets),
-              subtitle: Slider(
-                min: 0.7,
-                max: 1.6,
-                value: ref.watch(serviceCardMagnifying),
-                onChanged: (value) {
-                  ref.read(serviceCardMagnifying.notifier).state = value;
-                },
-              ),
+            SettingServiceSizeWidget(
+              title: tr().magnificationOfServiceWidgets,
             ),
           ],
         ),

@@ -51,10 +51,17 @@
 <li><code>ClientServicesScreen</code> to display <strong>one</strong> service.</li>
 </ul>
 <p>Both of them use <code>ServiceCard</code> to display <code>ClientService</code>.</p>
-<p>The <code>ServiceCard</code> calculate it size via <code>AppData.serviceCardSize</code> and select one of views:
-<code>ServiceCardView</code> or <code>ServiceCardTileView</code>, to display <code>ClientService</code>.</p>
-<p>Each service view use <code>ServiceCardState</code> to display <code>Journal</code> data (how many services is added, etc...).</p>
-<p><code>ClientServicesScreen</code> is also displayed service <code>ProofList</code>.</p>
+<p>The <code>ServiceCard</code> is display widget for <code>ClientService</code>. 
+Based on <code>tileTypeProvider</code> it select one of views:</p>
+<ul>
+<li><code>ServiceCardView</code>,</li>
+<li><code>ServiceCardSquareView</code>,</li>
+<li><code>ServiceCardTileView</code>,
+ each of them get it size from provider <code>serviceCardSize</code> (which depend on <code>serviceCardMagnifying</code>).</li>
+</ul>
+<p>Each <code>ServiceCard</code> view use <code>ServiceCardState</code> to display data from <code>Journal</code>
+(how many services is added, etc...).</p>
+<p><code>ClientServicesScreen</code> is also displayed service's <code>ProofList</code>.</p>
 </section>
 
 

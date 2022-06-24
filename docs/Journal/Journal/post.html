@@ -72,7 +72,7 @@
     await servicesProvider.post(se);
     &#47;&#47; ignore: avoid_catching_errors, avoid_catches_without_on_clauses
   } catch (e) {
-    showErrorNotification(locator&lt;S&gt;().errorSave);
+    showErrorNotification(tr().errorSave);
     await commitAll(); &#47;&#47; still call?
 
     return false;
@@ -133,10 +133,7 @@
 
     <li class="section-title"><a href="../../Journal/Journal-class.html#instance-methods">Methods</a></li>
     <li><a href="../../Journal/Journal/archiveOldServices.html">archiveOldServices</a></li>
-    <li><a href="../../Journal/Journal/commitAdd.html">commitAdd</a></li>
     <li><a href="../../Journal/Journal/commitAll.html">commitAll</a></li>
-    <li><a href="../../Journal/Journal/commitDel.html">commitDel</a></li>
-    <li><a href="../../Journal/Journal/commitUrl.html">commitUrl</a></li>
     <li><a href="../../Journal/Journal/delete.html">delete</a></li>
     <li><a href="../../Journal/Journal/export.html">export</a></li>
     <li><a href="../../Journal/Journal/exportToFile.html">exportToFile</a></li>

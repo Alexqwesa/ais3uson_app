@@ -202,12 +202,12 @@ Widget build(BuildContext context, WidgetRef ref) {
                   &#47;&#47; ignore: avoid_catching_errors
                 } on UnimplementedError {
                   showNotification(
-                    locator&lt;S&gt;().fileSavedTo + filePath,
+                    tr().fileSavedTo + filePath,
                     duration: const Duration(seconds: 10),
                   );
                 } on MissingPluginException {
                   showNotification(
-                    locator&lt;S&gt;().fileSavedTo + filePath,
+                    tr().fileSavedTo + filePath,
                     duration: const Duration(seconds: 10),
                   );
                 }

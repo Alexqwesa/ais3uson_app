@@ -60,7 +60,7 @@
     
 <section class="desc markdown">
   <p>Try to commit all <a href="../../Journal/Journal/servicesForSync.html">servicesForSync</a>.</p>
-<p>It works via <a href="../../Journal/Journal/commitAdd.html">commitAdd</a>,
+<p>It works via <code>_commitAdd</code>,
 it change state of services.</p>
 </section>
 
@@ -76,7 +76,7 @@ it change state of services.</p>
     await Future.wait(
       servicesForSync.map((serv) async {
         try {
-          switch (await commitAdd(serv)) {
+          switch (await _commitAdd(serv)) {
             case ServiceState.added:
               log.info(&#39;stale service $serv&#39;);
               break; &#47;&#47; no changes - do nothing
@@ -153,10 +153,7 @@ it change state of services.</p>
 
     <li class="section-title"><a href="../../Journal/Journal-class.html#instance-methods">Methods</a></li>
     <li><a href="../../Journal/Journal/archiveOldServices.html">archiveOldServices</a></li>
-    <li><a href="../../Journal/Journal/commitAdd.html">commitAdd</a></li>
     <li><a href="../../Journal/Journal/commitAll.html">commitAll</a></li>
-    <li><a href="../../Journal/Journal/commitDel.html">commitDel</a></li>
-    <li><a href="../../Journal/Journal/commitUrl.html">commitUrl</a></li>
     <li><a href="../../Journal/Journal/delete.html">delete</a></li>
     <li><a href="../../Journal/Journal/export.html">export</a></li>
     <li><a href="../../Journal/Journal/exportToFile.html">exportToFile</a></li>

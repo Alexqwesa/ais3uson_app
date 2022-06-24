@@ -132,7 +132,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                     icon: const Icon(Icons.cancel_outlined),
                   ),
                   Text(
-                    &#39;${locator&lt;S&gt;().archiveAt} &#39;
+                    &#39;${tr().archiveAt} &#39;
                     &#47;&#47; ignore: lines_longer_than_80_chars
                     &#39;${ref.watch(archiveDate) == null ? &#39;&#39; : standardFormat.format(ref.watch(archiveDate)!)}&#39;,
                   ),

@@ -79,7 +79,7 @@ most old will be deleted first.</p>
   &#47;&#47;
   await ref.read(hiveJournalBox(&#39;journal_archive_$apiKey&#39;).future);
   hiveArchive = ref.read(hiveJournalBox(&#39;journal_archive_$apiKey&#39;)).value!;
-  final forDelete = _forDelete.toList(); &#47;&#47; don&#39;t lose this list after delete
+  final forDelete = _forArchive.toList(); &#47;&#47; don&#39;t lose this list after delete
   final forArchive = forDelete.map((e) =&gt; e.copyWith());
   if (forArchive.isNotEmpty) {
     await hiveArchive.addAll(forArchive); &#47;&#47; check duplicates error
@@ -162,10 +162,7 @@ most old will be deleted first.</p>
 
     <li class="section-title"><a href="../../Journal/Journal-class.html#instance-methods">Methods</a></li>
     <li><a href="../../Journal/Journal/archiveOldServices.html">archiveOldServices</a></li>
-    <li><a href="../../Journal/Journal/commitAdd.html">commitAdd</a></li>
     <li><a href="../../Journal/Journal/commitAll.html">commitAll</a></li>
-    <li><a href="../../Journal/Journal/commitDel.html">commitDel</a></li>
-    <li><a href="../../Journal/Journal/commitUrl.html">commitUrl</a></li>
     <li><a href="../../Journal/Journal/delete.html">delete</a></li>
     <li><a href="../../Journal/Journal/export.html">export</a></li>
     <li><a href="../../Journal/Journal/exportToFile.html">exportToFile</a></li>

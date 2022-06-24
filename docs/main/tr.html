@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the main function from the main library, for the Dart programming language.">
-  <title>main function - main library - Dart API</title>
+  <meta name="description" content="API docs for the tr property from the main library, for the Dart programming language.">
+  <title>tr property - main library - Dart API</title>
 
 
   
@@ -30,9 +30,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../main/main-library.html">main</a></li>
-    <li class="self-crumb">main function</li>
+    <li class="self-crumb">tr property</li>
   </ol>
-  <div class="self-name">main</div>
+  <div class="self-name">tr</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -43,42 +43,31 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-function">main</span> function 
+<h1><span class="kind-top-level-property">tr</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category about cp-0 linked" title="This is part of the About Topic."><a href="../topics/About-topic.html">About</a></span>
     <span class="category ui-root cp-7 linked" title="This is part of the UI Root Topic."><a href="../topics/UI Root-topic.html">UI&nbsp;Root</a></span>
 </h1></div>
 
-    <section class="multi-line-signature">
+        <section class="multi-line-signature">
+          S Function<span class="signature">(<span class="parameter" id="param-instanceName">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">instanceName</span>, </span><span class="parameter" id="param-param1"><span class="type-annotation">dynamic</span> <span class="parameter-name">param1</span>, </span><span class="parameter" id="param-param2"><span class="type-annotation">dynamic</span> <span class="parameter-name">param2</span>}</span>)</span>
+          <span class="name ">tr</span>
+          <div class="features">final</div>
+
+        </section>
         
-
-<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">main</span>(<wbr>)
-
-    </section>
-    
 <section class="desc markdown">
-  <p>Init application, init <a href="https://pub.dev/documentation/hive/2.2.2/hive/Hive.html">Hive</a>.</p>
-<p>Create <a href="https://pub.dev/documentation/overlay_support/2.0.1/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../app_root/AppRoot-class.html">AppRoot</a>.</p>
+  <p>Translations strings getter.</p>
+<p>tr = get_it locator<s>.
+{@category UI Root}</s></p>
 </section>
 
-
-    
+        
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await init();
-  &#47;&#47;
-  &#47;&#47; &gt; hive init
-  &#47;&#47;
-  await Hive.initFlutter(&#39;Ais3uson&#39;);
-  &#47;&#47; unawaited(locator&lt;AppData&gt;().postInit());
-  runApp(const OverlaySupport.global(child: ProviderScope(child: AppRoot())));
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">final tr = locator&lt;S&gt;;</code></pre>
 </section>
+
 
 
   </div> <!-- /.main-content -->
@@ -93,7 +82,7 @@
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
   <li><a href="../main/main-library.html">main</a></li>
-  <li class="self-crumb">main function</li>
+  <li class="self-crumb">tr property</li>
 </ol>
 
 

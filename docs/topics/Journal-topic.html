@@ -45,15 +45,17 @@
   
 <section class="desc markdown">
   <h1 id="journal-classes">Journal Classes</h1>
-<p>This is the classes that store worker input: such as add service, delete service and in between
-states. It store input services as instances of <code>ServiceOfJournal</code>, in 4 different lists(for each
-state, see <code>ServiceState</code>). These classes:</p>
+<p>There are two classes <code>Journal</code> and <code>JournalArchive</code>.</p>
+<p>The <code>Journal</code> class store worker inputs as instances of <code>ServiceOfJournal</code>, it store them in 4
+different lists (see <code>ServiceState</code>) which are provided by <code>groupsOfJournal</code>. This class:</p>
 <ul>
-<li>store services in Hive,</li>
+<li>store services in Hive(via provider <code>servicesOfJournal</code>),</li>
 <li>make network requests(add/delete),</li>
-<li>manage state of <code>ServiceOfJournal</code>,</li>
-<li>store archived services.</li>
+<li>change state of <code>ServiceOfJournal</code>,</li>
+<li>move old <code>finished</code> and <code>outDated</code> services into <code>JournalArchive</code>.</li>
 </ul>
+<p>The <code>JournalArchive</code> class is a cut version of <code>Journal</code>, it store old <code>finished</code> and <code>outDated</code>
+services.</p>
 <p>Each instance of <code>WorkerProfile</code> had it's own <code>Journal</code>.</p>
 </section>
 

@@ -160,7 +160,7 @@ prints green, as expected.</p>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(title: const Text(&#39;Take a picture&#39;)),
+    appBar: AppBar(title: Text(tr().takePicture)),
     &#47;&#47; You must wait until the controller is initialized before displaying the
     &#47;&#47; camera preview. Use a FutureBuilder to display a loading spinner until
     &#47;&#47; the controller has finished initializing.

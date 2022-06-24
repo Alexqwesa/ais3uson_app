@@ -120,7 +120,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       child: SingleChildScrollView(
         child: Wrap(
           children: [
-            if (all.isEmpty) Text(locator&lt;S&gt;().emptyListOfServices),
+            if (all.isEmpty) Text(tr().emptyListOfServices),
             for (final serviceDayGroup
                 in allByGroups.entries.map((e) =&gt; e.value))
               SizedBox(
