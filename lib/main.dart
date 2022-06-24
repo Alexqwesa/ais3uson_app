@@ -12,6 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:url_strategy/url_strategy.dart';
 
 /// get_it locator
 /// {@category UI Root}
@@ -79,6 +80,7 @@ Future<void> init() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // setPathUrlStrategy();
   await init();
   //
   // > hive init
