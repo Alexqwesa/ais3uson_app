@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please, authorize \n (scan QR-code). \n (Or add example department)"),
         "awaitResults":
             MessageLookupByLibrary.simpleMessage("Awaiting results..."),
+        "cameraAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "Access denied: Please, allow app access to camera"),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
             "Can\'t add department. Wrong format of string."),
         "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
@@ -47,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "detailed": MessageLookupByLibrary.simpleMessage("Detailed"),
         "developer": MessageLookupByLibrary.simpleMessage(
             "Developer: Savin Alexander Victorovich aka Alexqwesa"),
+        "doScanQrCode": MessageLookupByLibrary.simpleMessage("Scan your QR"),
         "emptyDepList": MessageLookupByLibrary.simpleMessage(
             "List of departments is empty!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
@@ -118,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "small": MessageLookupByLibrary.simpleMessage("Small"),
         "sslError": MessageLookupByLibrary.simpleMessage(
             "Error: secure connection error!"),
+        "takePicture":
+            MessageLookupByLibrary.simpleMessage("Take picture as proof"),
         "testConnection":
             MessageLookupByLibrary.simpleMessage("Test connection!"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme:")

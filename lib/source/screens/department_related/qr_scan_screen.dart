@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/screens/department_related/add_department_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
@@ -42,7 +43,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Сканируйте ваш qr-код'),
+        title: Text(locator<S>().doScanQrCode),
       ),
       body: Column(
         children: <Widget>[
@@ -161,8 +162,8 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                             builder: (context, snapshot) {
                               return snapshot.data != null
                                   ? describeEnum(snapshot.data!) == 'front'
-                                      ? const Text('2 камера')
-                                      : const Text('1 камера')
+                                      ? const Icon(Icons.cameraswitch)
+                                      : const Icon(Icons.cameraswitch_outlined)
                                   : Text(S.of(context).loading);
                             },
                           ),
@@ -286,8 +287,8 @@ class ShowQrView extends StatelessWidget {
     dev.log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Нет доступа, разрешите приложению доступ к камере'),
+        SnackBar(
+          content: Text(locator<S>().cameraAccessDenied),
         ),
       );
     }

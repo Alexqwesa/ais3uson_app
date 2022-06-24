@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte autorisieren Sie \n (QR-Code scannen). \n (Oder Beispielabteilung hinzufügen)"),
         "awaitResults":
             MessageLookupByLibrary.simpleMessage("Warten auf Ergebnis..."),
+        "cameraAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf die Kamera"),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
             "Abteilung kann nicht hinzugefügt werden. Falsches Format der Zeichenfolge."),
         "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
@@ -48,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "detailed": MessageLookupByLibrary.simpleMessage("Eingehend"),
         "developer": MessageLookupByLibrary.simpleMessage(
             "Entwickler: Savin Alexander Victorovich aka Alexqwesa"),
+        "doScanQrCode":
+            MessageLookupByLibrary.simpleMessage("Scannen Sie Ihren QR-Code"),
         "emptyDepList": MessageLookupByLibrary.simpleMessage(
             "Liste der Abteilungen ist leer!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
@@ -119,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "small": MessageLookupByLibrary.simpleMessage("Klein"),
         "sslError": MessageLookupByLibrary.simpleMessage(
             "Fehler bei sicherer Verbindung!"),
+        "takePicture": MessageLookupByLibrary.simpleMessage(
+            "Machen Sie ein Foto als Beweis"),
         "testConnection":
             MessageLookupByLibrary.simpleMessage("Testverbindung!"),
         "theme": MessageLookupByLibrary.simpleMessage("Thema:")

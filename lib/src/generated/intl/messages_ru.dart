@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Пожалуйста, авторизируйтесь \n(отсканируйте QR код) \n (Или добавьте тестовое отделение)"),
         "awaitResults":
             MessageLookupByLibrary.simpleMessage("Ожидание данных..."),
+        "cameraAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "Нет доступа, разрешите приложению доступ к камере"),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
             "Не удалось добавить отделение. Возможно неправильный формат строки."),
         "cantAddDepDuplicate": MessageLookupByLibrary.simpleMessage(
@@ -47,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "detailed": MessageLookupByLibrary.simpleMessage("Подбробно"),
         "developer": MessageLookupByLibrary.simpleMessage(
             "Разработчик: Савин Александр Викторович aka Alexqwesa"),
+        "doScanQrCode":
+            MessageLookupByLibrary.simpleMessage("Сканируйте QR код отделения"),
         "emptyDepList":
             MessageLookupByLibrary.simpleMessage("Список отделений пуст!"),
         "emptyListOfPeople": MessageLookupByLibrary.simpleMessage(
@@ -91,7 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeProofOfService": MessageLookupByLibrary.simpleMessage(
             "Сделайте снимки или аудиозаписи подтверждающие оказание услуги:"),
         "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
-            "Максимальное количество услуг, которые будут храниться в архиве:"),
+            "Максимальное количество услуг в архиве:"),
         "optional": MessageLookupByLibrary.simpleMessage("НЕОБЯЗАТЕЛЬНО!"),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Либо добавьте тестовое отделение из списка ниже:"),
@@ -118,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "small": MessageLookupByLibrary.simpleMessage("Значки"),
         "sslError": MessageLookupByLibrary.simpleMessage(
             "Ошибка защищенного соединения!"),
+        "takePicture": MessageLookupByLibrary.simpleMessage(
+            "Сделайте снимок-доказательство"),
         "testConnection": MessageLookupByLibrary.simpleMessage("Соединение!"),
         "theme": MessageLookupByLibrary.simpleMessage("Тема:")
       };
