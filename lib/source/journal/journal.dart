@@ -85,7 +85,7 @@ class Journal {
 
   DateTime get today => DateTime(now.year, now.month, now.day);
 
-  Iterable<ServiceOfJournal> get _forDelete =>
+  Iterable<ServiceOfJournal> get _forArchive =>
       (finished + outDated).where((el) => el.provDate.isBefore(today));
 
   /// Only for tests! Don't use in real code.
@@ -97,18 +97,6 @@ class Journal {
     await servicesProvider.initAsync();
     hive = ref.read(hiveJournalBox(journalHiveName)).value!;
   }
-
-  // @override
-  // void dispose() {
-  //   if (hive.isOpen) {
-  //     () async {
-  //       await hive.compact();
-  //       // await hive.close();
-  //     }();
-  //   }
-  //
-  //   return super.dispose();
-  // }
 
   /// Return json String with [ServiceOfJournal] between dates [start] and [end]
   ///
@@ -189,10 +177,10 @@ class Journal {
     return true;
   }
 
-  /// Delete service from DB.
+  /// Delete service from remote DB.
   ///
-  /// Create request body and call [commitUrl].
-  Future<ServiceState?> commitDel(ServiceOfJournal serv) async {
+  /// Create request body and call [_commitUrl].
+  Future<ServiceState?> _commitDel(ServiceOfJournal serv) async {
     //
     // > create body of post request
     //
@@ -210,13 +198,16 @@ class Journal {
     final k = workerProfile.key;
     final urlAddress = '${k.activeServer}/delete';
 
-    return commitUrl(urlAddress, body: body);
+    return _commitUrl(urlAddress, body: body);
   }
 
-  /// Add service to DB.
+  /// Add service to remote DB.
   ///
-  /// Create request body and call [commitUrl].
-  Future<ServiceState?> commitAdd(ServiceOfJournal serv, {String? body}) async {
+  /// Create request body and call [_commitUrl].
+  Future<ServiceState?> _commitAdd(
+    ServiceOfJournal serv, {
+    String? body,
+  }) async {
     //
     // > create body of post request
     //
@@ -242,7 +233,7 @@ class Journal {
     final k = workerProfile.key;
     final urlAddress = '${k.activeServer}/add';
 
-    return commitUrl(urlAddress, body: body);
+    return _commitUrl(urlAddress, body: body);
   }
 
   /// Try to commit service(send http post request).
@@ -257,7 +248,7 @@ class Journal {
   /// or find host without https support.
   ///
   /// {@category Client-Server API}
-  Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
+  Future<ServiceState?> _commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
     final http = workerProfile.ref
         .read(httpClientProvider(workerProfile.key.certificate));
@@ -316,7 +307,7 @@ class Journal {
 
   /// Try to commit all [servicesForSync].
   ///
-  /// It works via [commitAdd],
+  /// It works via [_commitAdd],
   /// it change state of services.
   Future<void> commitAll() async {
     //
@@ -326,7 +317,7 @@ class Journal {
       await Future.wait(
         servicesForSync.map((serv) async {
           try {
-            switch (await commitAdd(serv)) {
+            switch (await _commitAdd(serv)) {
               case ServiceState.added:
                 log.info('stale service $serv');
                 break; // no changes - do nothing
@@ -374,7 +365,7 @@ class Journal {
       ServiceState.finished,
       ServiceState.outDated,
     ].contains(serv.state)) {
-      await commitDel(serv);
+      await _commitDel(serv);
     }
     //
     // delete
@@ -403,7 +394,7 @@ class Journal {
     //
     await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
     hiveArchive = ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-    final forDelete = _forDelete.toList(); // don't lose this list after delete
+    final forDelete = _forArchive.toList(); // don't lose this list after delete
     final forArchive = forDelete.map((e) => e.copyWith());
     if (forArchive.isNotEmpty) {
       await hiveArchive.addAll(forArchive); // check duplicates error

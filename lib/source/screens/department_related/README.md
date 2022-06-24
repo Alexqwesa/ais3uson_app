@@ -8,5 +8,5 @@ These classes provide gui for actions:
 - Open worker profile [ListOfProfiles],
 - Show list of clients of worker profile [ClientScreen].
 
-There is also [HomePage] screen for displaying main menu and [ListOfProfiles]. It is initial route
+There is also [HomeScreen] screen for displaying main menu and [ListOfProfiles]. It is initial route
 of app.

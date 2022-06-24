@@ -15,7 +15,8 @@ family [WorkerProfile].
 
 The methods for output are:
 
-- [Journal.commitUrl] is used to send **/add** and **/delete** requests to server,
+- [Journal.post] is used to send **/add** requests to server,
+- [Journal.delete] is used to send **/delete** requests to server,
 - [Journal.exportToFile] is used to save list of [ServiceOfJournal] to a file **.ais_json** .
 
 These methods use json format.
