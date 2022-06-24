@@ -107,6 +107,13 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final player = ref.watch(audioPlayer);
+  final playState = ref.watch(proofPlayState);
+  final recorder = ref.watch(proofRecorder);
+  final recorderState = ref.watch(proofRecorderState);
+  &#47;&#47;
+  &#47;&#47; &gt; get proof
+  &#47;&#47;
   late final List&lt;ProofEntry&gt; proofList;
   late final ProofList proof;
   if (client != null &amp;&amp; service != null) {
@@ -120,13 +127,6 @@ Widget build(BuildContext context, WidgetRef ref) {
     proof = proofs!;
     proofList = ref.watch(groupsOfProof(proofs!));
   }
-
-  final player = AudioPlayer();
-  final recorder = ref.watch(proofRecorder);
-  &#47;&#47; only needed to trigger rebuild
-  &#47;&#47; ignore: unused_local_variable
-  final recorderState = ref.watch(proofRecorderState);
-
   final audioProof =
       proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String?;
 
@@ -168,15 +168,30 @@ Widget build(BuildContext context, WidgetRef ref) {
           child: FloatingActionButton(
             heroTag: null,
             &#47;&#47; tooltip: ,
-            backgroundColor:
-                recorderState == RecorderState.ready ? null : Colors.grey,
-            child: const Icon(Icons.play_arrow),
+            backgroundColor: recorderState != RecorderState.ready
+                ? Colors.grey
+                : playState == PlayerState.stopped
+                    ? null
+                    : Colors.green,
+            child: playState == PlayerState.stopped
+                ? const Icon(Icons.play_arrow)
+                : const Icon(Icons.stop),
+            &#47;&#47;
+            &#47;&#47; &gt; onPressed
+            &#47;&#47;
             onPressed: () async {
               await recorder.stop();
-              if (audioProof != null) {
-                await player.play(DeviceFileSource(
-                  audioProof,
-                ));
+              if (playState == PlayerState.playing) {
+                await player.stop();
+              } else {
+                if (audioProof != null) {
+                  ref.watch(proofPlayState.notifier).state =
+                      PlayerState.playing;
+                  await player.play(
+                    DeviceFileSource(audioProof),
+                    &#47;&#47; mode: PlayerMode.lowLatency,
+                  );
+                }
               }
             },
           ),
