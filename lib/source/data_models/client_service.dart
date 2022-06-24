@@ -15,7 +15,6 @@ import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
@@ -155,7 +154,7 @@ mixin ClientServiceMixin {
         ),
       );
     } else {
-      showErrorNotification(locator<S>().serviceIsFull);
+      showErrorNotification(tr().serviceIsFull);
     }
   }
 

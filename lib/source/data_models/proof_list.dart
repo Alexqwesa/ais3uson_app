@@ -7,7 +7,6 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -62,7 +61,7 @@ class ProofList {
   Future<void> _crawler() async {
     final appDocDirPath = await getSafePath([]);
     if (appDocDirPath == null) {
-      showErrorNotification(locator<S>().errorFS);
+      showErrorNotification(tr().errorFS);
 
       return;
     }

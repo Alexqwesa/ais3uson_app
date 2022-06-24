@@ -17,6 +17,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// {@category UI Root}
 final locator = GetIt.instance;
 
+/// Translations strings getter.
+///
+/// tr = get_it locator<S>.
+/// {@category UI Root}
+final tr = locator<S>;
+
 /// App Logger
 /// {@category UI Root}
 final log = Logger('MyClassName');

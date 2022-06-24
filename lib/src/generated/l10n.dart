@@ -630,10 +630,10 @@ class S {
     );
   }
 
-  /// `Максимальное количество услуг, которые будут храниться в архиве:`
+  /// `Максимальное количество услуг в архиве:`
   String get maxServicesToStoreInArchive {
     return Intl.message(
-      'Максимальное количество услуг, которые будут храниться в архиве:',
+      'Максимальное количество услуг в архиве:',
       name: 'maxServicesToStoreInArchive',
       desc: '',
       args: [],
@@ -645,6 +645,46 @@ class S {
     return Intl.message(
       'Коэффициент увеличения виджетов услуг:',
       name: 'magnificationOfServiceWidgets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Увеличение:`
+  String get magnification {
+    return Intl.message(
+      'Увеличение:',
+      name: 'magnification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сделайте снимок-доказательство`
+  String get takePicture {
+    return Intl.message(
+      'Сделайте снимок-доказательство',
+      name: 'takePicture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сканируйте QR код отделения`
+  String get doScanQrCode {
+    return Intl.message(
+      'Сканируйте QR код отделения',
+      name: 'doScanQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Нет доступа, разрешите приложению доступ к камере`
+  String get cameraAccessDenied {
+    return Intl.message(
+      'Нет доступа, разрешите приложению доступ к камере',
+      name: 'cameraAccessDenied',
       desc: '',
       args: [],
     );

@@ -19,7 +19,6 @@ import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -85,7 +84,7 @@ class Journal {
 
   DateTime get today => DateTime(now.year, now.month, now.day);
 
-  Iterable<ServiceOfJournal> get _forDelete =>
+  Iterable<ServiceOfJournal> get _forArchive =>
       (finished + outDated).where((el) => el.provDate.isBefore(today));
 
   /// Only for tests! Don't use in real code.
@@ -97,18 +96,6 @@ class Journal {
     await servicesProvider.initAsync();
     hive = ref.read(hiveJournalBox(journalHiveName)).value!;
   }
-
-  // @override
-  // void dispose() {
-  //   if (hive.isOpen) {
-  //     () async {
-  //       await hive.compact();
-  //       // await hive.close();
-  //     }();
-  //   }
-  //
-  //   return super.dispose();
-  // }
 
   /// Return json String with [ServiceOfJournal] between dates [start] and [end]
   ///
@@ -161,12 +148,12 @@ class Journal {
         // ignore: avoid_catching_errors
       } on UnimplementedError {
         showNotification(
-          locator<S>().fileSavedTo + filePath,
+          tr().fileSavedTo + filePath,
           duration: const Duration(seconds: 10),
         );
       } on MissingPluginException {
         showNotification(
-          locator<S>().fileSavedTo + filePath,
+          tr().fileSavedTo + filePath,
           duration: const Duration(seconds: 10),
         );
       }
@@ -179,7 +166,7 @@ class Journal {
       await servicesProvider.post(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
-      showErrorNotification(locator<S>().errorSave);
+      showErrorNotification(tr().errorSave);
       await commitAll(); // still call?
 
       return false;
@@ -189,10 +176,10 @@ class Journal {
     return true;
   }
 
-  /// Delete service from DB.
+  /// Delete service from remote DB.
   ///
-  /// Create request body and call [commitUrl].
-  Future<ServiceState?> commitDel(ServiceOfJournal serv) async {
+  /// Create request body and call [_commitUrl].
+  Future<ServiceState?> _commitDel(ServiceOfJournal serv) async {
     //
     // > create body of post request
     //
@@ -210,13 +197,16 @@ class Journal {
     final k = workerProfile.key;
     final urlAddress = '${k.activeServer}/delete';
 
-    return commitUrl(urlAddress, body: body);
+    return _commitUrl(urlAddress, body: body);
   }
 
-  /// Add service to DB.
+  /// Add service to remote DB.
   ///
-  /// Create request body and call [commitUrl].
-  Future<ServiceState?> commitAdd(ServiceOfJournal serv, {String? body}) async {
+  /// Create request body and call [_commitUrl].
+  Future<ServiceState?> _commitAdd(
+    ServiceOfJournal serv, {
+    String? body,
+  }) async {
     //
     // > create body of post request
     //
@@ -242,7 +232,7 @@ class Journal {
     final k = workerProfile.key;
     final urlAddress = '${k.activeServer}/add';
 
-    return commitUrl(urlAddress, body: body);
+    return _commitUrl(urlAddress, body: body);
   }
 
   /// Try to commit service(send http post request).
@@ -257,7 +247,7 @@ class Journal {
   /// or find host without https support.
   ///
   /// {@category Client-Server API}
-  Future<ServiceState?> commitUrl(String urlAddress, {String? body}) async {
+  Future<ServiceState?> _commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
     final http = workerProfile.ref
         .read(httpClientProvider(workerProfile.key.certificate));
@@ -296,16 +286,16 @@ class Journal {
       // > just error handling
       //
     } on HandshakeException {
-      showErrorNotification(locator<S>().sslError);
+      showErrorNotification(tr().sslError);
       log.severe('Server HandshakeException error $url ');
     } on ClientException {
-      showErrorNotification(locator<S>().serverError);
+      showErrorNotification(tr().serverError);
       log.severe('Server error  $url  ');
     } on SocketException {
-      showErrorNotification(locator<S>().internetError);
+      showErrorNotification(tr().internetError);
       log.warning('No internet connection $url ');
     } on HttpException {
-      showErrorNotification(locator<S>().httpAccessError);
+      showErrorNotification(tr().httpAccessError);
       log.severe('Server access error $url ');
     } finally {
       log.fine('sync ended $url ');
@@ -316,7 +306,7 @@ class Journal {
 
   /// Try to commit all [servicesForSync].
   ///
-  /// It works via [commitAdd],
+  /// It works via [_commitAdd],
   /// it change state of services.
   Future<void> commitAll() async {
     //
@@ -326,7 +316,7 @@ class Journal {
       await Future.wait(
         servicesForSync.map((serv) async {
           try {
-            switch (await commitAdd(serv)) {
+            switch (await _commitAdd(serv)) {
               case ServiceState.added:
                 log.info('stale service $serv');
                 break; // no changes - do nothing
@@ -374,7 +364,7 @@ class Journal {
       ServiceState.finished,
       ServiceState.outDated,
     ].contains(serv.state)) {
-      await commitDel(serv);
+      await _commitDel(serv);
     }
     //
     // delete
@@ -403,7 +393,7 @@ class Journal {
     //
     await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
     hiveArchive = ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-    final forDelete = _forDelete.toList(); // don't lose this list after delete
+    final forDelete = _forArchive.toList(); // don't lose this list after delete
     final forArchive = forDelete.map((e) => e.copyWith());
     if (forArchive.isNotEmpty) {
       await hiveArchive.addAll(forArchive); // check duplicates error

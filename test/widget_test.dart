@@ -7,7 +7,6 @@
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/screens/department_related/list_profiles.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -51,7 +50,7 @@ void main() {
     expect(find.byKey(const ValueKey(111)), findsOneWidget);
     // Check empty
     expect(
-      find.textContaining(locator<S>().authorizePlease.substring(0, 10)),
+      find.textContaining(tr().authorizePlease.substring(0, 10)),
       findsOneWidget,
     );
     expect(find.text('Тестовое отделение 48080'), findsNothing);

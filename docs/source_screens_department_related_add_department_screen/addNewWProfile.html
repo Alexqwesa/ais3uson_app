@@ -73,7 +73,7 @@
         );
     if (!res) {
       showErrorNotification(
-        locator&lt;S&gt;().cantAddDepDuplicate,
+        tr().cantAddDepDuplicate,
       );
       FocusScope.of(context).requestFocus(
         FocusNode(),
@@ -83,7 +83,7 @@
     }
   } on FormatException {
     showErrorNotification(
-      locator&lt;S&gt;().cantAddDepBadFormat,
+      tr().cantAddDepBadFormat,
     );
     FocusScope.of(context).requestFocus(
       FocusNode(),

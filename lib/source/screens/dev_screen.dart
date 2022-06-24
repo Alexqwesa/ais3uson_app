@@ -38,7 +38,7 @@ class DevScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    locator<S>().developer,
+                    tr().developer,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   const Divider(),
@@ -226,7 +226,7 @@ class CheckWorkerServer extends ConsumerWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 16),
-          child: Text(locator<S>().awaitResults),
+          child: Text(tr().awaitResults),
         ),
       ];
     }

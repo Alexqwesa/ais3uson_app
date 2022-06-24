@@ -22,7 +22,6 @@ import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/service_related/all_services_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
 import 'package:ais3uson_app/source/screens/settings_screen.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -73,7 +72,7 @@ void main() {
       expect(wp.key.name, wKeysData2().name);
       await tester.pumpAndSettle();
       // Check
-      expect(find.textContaining(locator<S>().authorizePlease), findsNothing);
+      expect(find.textContaining(tr().authorizePlease), findsNothing);
       expect(find.text(wKeysData2().name), findsOneWidget);
     });
 
@@ -164,7 +163,7 @@ void main() {
         ),
       );
       await tester.pump();
-      expect(find.textContaining(locator<S>().authorizePlease), findsNothing);
+      expect(find.textContaining(tr().authorizePlease), findsNothing);
       expect(find.text(wp.key.comment), findsOneWidget);
       expect(find.text(wp.key.name), findsOneWidget);
       expect(find.text(wp.key.dep), findsOneWidget);
@@ -172,7 +171,7 @@ void main() {
       await tester.pumpAndSettle();
       // Check
       expect(
-        find.textContaining(locator<S>().emptyListOfPeople),
+        find.textContaining(tr().emptyListOfPeople),
         findsNothing,
       );
     });
@@ -266,7 +265,7 @@ void main() {
         findsOneWidget,
       );
       expect(
-        find.textContaining(locator<S>().emptyListOfPeople),
+        find.textContaining(tr().emptyListOfPeople),
         findsNothing,
       );
     });

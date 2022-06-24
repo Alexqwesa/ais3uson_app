@@ -58,6 +58,10 @@
   "optional": "НЕОБЯЗАТЕЛЬНО!",
   "proofOfService": "Подтверждение оказания услуги",
   "makeProofOfService": "Сделайте снимки или аудиозаписи подтверждающие оказание услуги:",
-  "maxServicesToStoreInArchive": "Максимальное количество услуг, которые будут храниться в архиве:",
-  "magnificationOfServiceWidgets": "Коэффициент увеличения виджетов услуг:"
+  "maxServicesToStoreInArchive": "Максимальное количество услуг в архиве:",
+  "magnificationOfServiceWidgets": "Коэффициент увеличения виджетов услуг:",
+  "magnification": "Увеличение:",
+  "takePicture": "Сделайте снимок-доказательство",
+  "doScanQrCode": "Сканируйте QR код отделения",
+  "cameraAccessDenied": "Нет доступа, разрешите приложению доступ к камере"
 }

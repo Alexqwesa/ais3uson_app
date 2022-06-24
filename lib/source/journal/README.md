@@ -1,12 +1,16 @@
 # Journal Classes
 
-This is the classes that store worker input: such as add service, delete service and in between
-states. It store input services as instances of [ServiceOfJournal], in 4 different lists(for each
-state, see [ServiceState]). These classes:
+There are two classes [Journal] and [JournalArchive].
 
-- store services in Hive,
+The [Journal] class store worker inputs as instances of [ServiceOfJournal], it store them in 4
+different lists (see [ServiceState]) which are provided by [groupsOfJournal]. This class:
+
+- store services in Hive(via provider [servicesOfJournal]),
 - make network requests(add/delete),
-- manage state of [ServiceOfJournal],
-- store archived services.
+- change state of [ServiceOfJournal],
+- move old [finished] and [outDated] services into [JournalArchive].
+
+The [JournalArchive] class is a cut version of [Journal], it store old [finished] and [outDated]
+services.
 
 Each instance of [WorkerProfile] had it's own [Journal].

@@ -6,7 +6,6 @@ import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -130,12 +129,12 @@ class AudioProofController extends ConsumerWidget {
                     // ignore: avoid_catching_errors
                   } on UnimplementedError {
                     showNotification(
-                      locator<S>().fileSavedTo + filePath,
+                      tr().fileSavedTo + filePath,
                       duration: const Duration(seconds: 10),
                     );
                   } on MissingPluginException {
                     showNotification(
-                      locator<S>().fileSavedTo + filePath,
+                      tr().fileSavedTo + filePath,
                       duration: const Duration(seconds: 10),
                     );
                   }

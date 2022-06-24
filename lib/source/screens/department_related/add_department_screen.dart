@@ -193,7 +193,7 @@ bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
         );
     if (!res) {
       showErrorNotification(
-        locator<S>().cantAddDepDuplicate,
+        tr().cantAddDepDuplicate,
       );
       FocusScope.of(context).requestFocus(
         FocusNode(),
@@ -203,7 +203,7 @@ bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
     }
   } on FormatException {
     showErrorNotification(
-      locator<S>().cantAddDepBadFormat,
+      tr().cantAddDepBadFormat,
     );
     FocusScope.of(context).requestFocus(
       FocusNode(),

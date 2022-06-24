@@ -9,7 +9,6 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -103,21 +102,21 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
     } on FormatException {
       log.severe(' Wrong json format - FormatException');
       showSimpleNotification(
-        Text(locator<S>().errorFormat),
+        Text(tr().errorFormat),
         background: Colors.red[300],
         position: NotificationPosition.bottom,
       );
     } on HandshakeException {
-      showErrorNotification(locator<S>().sslError);
+      showErrorNotification(tr().sslError);
       log.severe('Server HandshakeException error $url ');
     } on http.ClientException {
-      showErrorNotification(locator<S>().serverError);
+      showErrorNotification(tr().serverError);
       log.severe('Server error  $url  ');
     } on SocketException {
-      showErrorNotification(locator<S>().internetError);
+      showErrorNotification(tr().internetError);
       log.warning('No internet connection $url ');
     } on HttpException {
-      showErrorNotification(locator<S>().httpAccessError);
+      showErrorNotification(tr().httpAccessError);
       log.severe('Server access error $url ');
     } finally {
       log.fine('sync ended $url ');
@@ -209,7 +208,7 @@ final httpClientProvider =
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       log.severe('!!!!Bad certificate');
-      showErrorNotification(locator<S>().errorWrongCertificate);
+      showErrorNotification(tr().errorWrongCertificate);
     }
   }
 

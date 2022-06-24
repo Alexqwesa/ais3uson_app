@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
+import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,7 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             children: [
               ListTile(
-                title: Text(locator<S>().maxServicesToStoreInArchive),
+                title: Text(tr().maxServicesToStoreInArchive),
                 trailing: SizedBox(
                   width: 60,
                   child: TextFormField(
@@ -43,20 +44,39 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ),
               const Divider(),
-              ListTile(
-                title: Text(locator<S>().magnificationOfServiceWidgets),
-                subtitle: Slider(
-                  min: 0.7,
-                  max: 1.6,
-                  value: ref.watch(serviceCardMagnifying),
-                  onChanged: (value) {
-                    ref.read(serviceCardMagnifying.notifier).state = value;
-                  },
-                ),
+              SettingServiceSizeWidget(
+                title: tr().magnificationOfServiceWidgets,
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Widget for changing size of [ServiceCard] view in list of services.
+class SettingServiceSizeWidget extends ConsumerWidget {
+  const SettingServiceSizeWidget({
+    this.title,
+    Key? key,
+  }) : super(key: key);
+
+  final String? title;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final titleText = title ?? tr().magnification;
+
+    return ListTile(
+      title: Text(titleText),
+      subtitle: Slider(
+        min: 60, // 60%
+        max: 220, // 220%
+        value: (ref.watch(serviceCardMagnifying) * 100).toInt().toDouble(),
+        onChanged: (value) {
+          ref.read(serviceCardMagnifying.notifier).state = value / 100;
+        },
       ),
     );
   }
