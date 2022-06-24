@@ -60,6 +60,7 @@
   "makeProofOfService": "Make photo or audio record as a proof:",
   "maxServicesToStoreInArchive": "The maximum number of services stored in the archive:",
   "magnificationOfServiceWidgets": "Magnifycation of service widgets:",
+  "magnification": "Magnifycation:",
   "takePicture": "Take picture as proof",
   "doScanQrCode": "Scan your QR",
   "cameraAccessDenied": "Access denied: Please, allow app access to camera"

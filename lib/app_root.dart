@@ -72,7 +72,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
                       icon: const Icon(Icons.cancel_outlined),
                     ),
                     Text(
-                      '${locator<S>().archiveAt} '
+                      '${tr().archiveAt} '
                       // ignore: lines_longer_than_80_chars
                       '${ref.watch(archiveDate) == null ? '' : standardFormat.format(ref.watch(archiveDate)!)}',
                     ),

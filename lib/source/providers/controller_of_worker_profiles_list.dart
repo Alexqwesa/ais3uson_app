@@ -6,7 +6,6 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -113,7 +112,7 @@ class _WorkerKeysState extends StateNotifier<List<WorkerKey>> {
         .then((res) {
       if (!res) {
         showErrorNotification(
-          locator<S>().errorDepSave,
+          tr().errorDepSave,
         );
       }
     });

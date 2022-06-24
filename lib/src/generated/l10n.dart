@@ -650,6 +650,16 @@ class S {
     );
   }
 
+  /// `Увеличение:`
+  String get magnification {
+    return Intl.message(
+      'Увеличение:',
+      name: 'magnification',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Сделайте снимок-доказательство`
   String get takePicture {
     return Intl.message(

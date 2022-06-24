@@ -9,7 +9,6 @@ import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
 import 'package:ais3uson_app/source/screens/service_related/camera.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,19 +53,19 @@ class ServiceProofList extends ConsumerWidget {
                 child: Divider(),
               ),
               Text(
-                locator<S>().optional,
+                tr().optional,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4,
               ),
               Text(
-                locator<S>().proofOfService,
+                tr().proofOfService,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(
-                  locator<S>().makeProofOfService,
+                  tr().makeProofOfService,
                   textAlign: TextAlign.center,
                 ),
               ),

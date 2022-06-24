@@ -91,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "listOfServicesByDays": MessageLookupByLibrary.simpleMessage(
             "Liste der Dienste nach Tagen"),
         "loading": MessageLookupByLibrary.simpleMessage("Laden..."),
+        "magnification": MessageLookupByLibrary.simpleMessage("Zoomfaktor:"),
         "magnificationOfServiceWidgets": MessageLookupByLibrary.simpleMessage(
             "Zoomfaktor des Dienst-Widgets:"),
         "makeProofOfService": MessageLookupByLibrary.simpleMessage(

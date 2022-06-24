@@ -43,7 +43,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(locator<S>().doScanQrCode),
+        title: Text(tr().doScanQrCode),
       ),
       body: Column(
         children: <Widget>[
@@ -288,7 +288,7 @@ class ShowQrView extends StatelessWidget {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(locator<S>().cameraAccessDenied),
+          content: Text(tr().cameraAccessDenied),
         ),
       );
     }

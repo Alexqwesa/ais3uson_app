@@ -60,6 +60,7 @@
   "makeProofOfService": "Foto oder Tonaufnahme als Beweis erstellen:",
   "maxServicesToStoreInArchive": "Maximale Anzahl der im Archiv zu speichernden Dienste:",
   "magnificationOfServiceWidgets": "Zoomfaktor des Dienst-Widgets:",
+  "magnification": "Zoomfaktor:",
   "takePicture": "Machen Sie ein Foto als Beweis",
   "doScanQrCode": "Scannen Sie Ihren QR-Code",
   "cameraAccessDenied": "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf die Kamera"

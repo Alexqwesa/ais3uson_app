@@ -43,7 +43,7 @@ class AllServicesOfClientScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Wrap(
             children: [
-              if (all.isEmpty) Text(locator<S>().emptyListOfServices),
+              if (all.isEmpty) Text(tr().emptyListOfServices),
               for (final serviceDayGroup
                   in allByGroups.entries.map((e) => e.value))
                 SizedBox(
@@ -173,8 +173,8 @@ class _ServiceOfJournalTile extends ConsumerWidget {
         workerProfile: client.workerProfile,
         service: ServiceEntry(
           id: 0,
-          serv_text: locator<S>().errorService,
-          short_text: locator<S>().errorService,
+          serv_text: tr().errorService,
+          short_text: tr().errorService,
           image: 'not-found.png',
         ),
         planned:

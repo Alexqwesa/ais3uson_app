@@ -19,7 +19,6 @@ import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -149,12 +148,12 @@ class Journal {
         // ignore: avoid_catching_errors
       } on UnimplementedError {
         showNotification(
-          locator<S>().fileSavedTo + filePath,
+          tr().fileSavedTo + filePath,
           duration: const Duration(seconds: 10),
         );
       } on MissingPluginException {
         showNotification(
-          locator<S>().fileSavedTo + filePath,
+          tr().fileSavedTo + filePath,
           duration: const Duration(seconds: 10),
         );
       }
@@ -167,7 +166,7 @@ class Journal {
       await servicesProvider.post(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
-      showErrorNotification(locator<S>().errorSave);
+      showErrorNotification(tr().errorSave);
       await commitAll(); // still call?
 
       return false;
@@ -287,16 +286,16 @@ class Journal {
       // > just error handling
       //
     } on HandshakeException {
-      showErrorNotification(locator<S>().sslError);
+      showErrorNotification(tr().sslError);
       log.severe('Server HandshakeException error $url ');
     } on ClientException {
-      showErrorNotification(locator<S>().serverError);
+      showErrorNotification(tr().serverError);
       log.severe('Server error  $url  ');
     } on SocketException {
-      showErrorNotification(locator<S>().internetError);
+      showErrorNotification(tr().internetError);
       log.warning('No internet connection $url ');
     } on HttpException {
-      showErrorNotification(locator<S>().httpAccessError);
+      showErrorNotification(tr().httpAccessError);
       log.severe('Server access error $url ');
     } finally {
       log.fine('sync ended $url ');

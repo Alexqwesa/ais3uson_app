@@ -1,7 +1,6 @@
 import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +51,7 @@ class TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(locator<S>().takePicture)),
+      appBar: AppBar(title: Text(tr().takePicture)),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until
       // the controller has finished initializing.

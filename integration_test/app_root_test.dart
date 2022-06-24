@@ -17,27 +17,27 @@ Future<void> main() async {
     // Verify start screen
     expect(find.text('Тестовое отделение 2'), findsNothing);
     expect(find.text('Тестовое отделение'), findsNothing);
-    expect(find.text(app.locator<S>().authorizePlease), findsOneWidget);
+    expect(find.text(app.tr().authorizePlease), findsOneWidget);
   });
   testWidgets('Main: add test department', (tester) async {
     await app.main();
     await tester.pumpAndSettle();
     // Verify start screen
-    expect(find.text(app.locator<S>().authorizePlease), findsOneWidget);
+    expect(find.text(app.tr().authorizePlease), findsOneWidget);
     final appBarIcon = find.descendant(
       of: find.byType(AppBar),
       matching: find.byType(Padding),
     );
     await tester.tap(appBarIcon);
-    final addDep = find.text(app.locator<S>().addDepFromText);
+    final addDep = find.text(app.tr().addDepFromText);
     expect(addDep, findsOneWidget);
     await tester.tap(addDep);
 
-    final addDepButton = find.text(app.locator<S>().addDep);
+    final addDepButton = find.text(app.tr().addDep);
 
     await tester.tap(addDepButton);
 
-    expect(find.text(app.locator<S>().authorizePlease), findsNothing);
+    expect(find.text(app.tr().authorizePlease), findsNothing);
     expect(find.text('Тестовое отделение 2'), findsNothing);
     expect(find.text('Тестовое отделение'), findsOneWidget);
   });
