@@ -11,10 +11,12 @@ import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
 import 'package:tuple/tuple.dart';
 
-/// Global record controller.
+/// Global audio record controller.
 ///
+/// Used to record audio proofs of services.
 /// {@category Providers}
 /// {@category Controllers}
+/// {@category UI Proofs}
 final proofRecorder = Provider((ref) {
   return _ProofRecorder(ref);
 });
@@ -100,7 +102,7 @@ class _ProofRecorder {
   }
 
   /// Return color for buttons (active/inactive).
-  Color? color(ProofEntry? newProof) {
+  Color? colorOf(ProofEntry? newProof) {
     if (state == RecorderState.ready) {
       return null;
     } else if (state == RecorderState.recording) {
@@ -113,7 +115,6 @@ class _ProofRecorder {
 
 /// State of global recorder.
 ///
-/// Todo: make it readOnly!
 /// {@category Providers}
 final proofRecorderState = StateProvider<RecorderState>((ref) {
   return RecorderState.ready;
@@ -130,6 +131,7 @@ final proofPlayState = StateProvider<PlayerState>((ref) {
 ///
 /// Init and subscribe [proofPlayState] to streams of state change.
 /// {@category Providers}
+/// {@category UI Proofs}
 final audioPlayer = Provider<AudioPlayer>((ref) {
   final player = AudioPlayer();
   player.onPlayerStateChanged.listen((s) {

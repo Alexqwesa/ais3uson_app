@@ -14,6 +14,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 
 /// Widget for record, play and share audio proof.
+///
+/// {@category UI Proofs}
 class AudioProofController extends ConsumerWidget {
   AudioProofController({
     this.proofs,
@@ -34,6 +36,9 @@ class AudioProofController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //
+    // > init
+    //
     final player = ref.watch(audioPlayer);
     final playState = ref.watch(proofPlayState);
     final recorder = ref.watch(proofRecorder);
@@ -57,6 +62,9 @@ class AudioProofController extends ConsumerWidget {
     final audioProof =
         proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String?;
 
+    //
+    // > build
+    //
     return Row(
       children: [
         //
@@ -68,9 +76,12 @@ class AudioProofController extends ConsumerWidget {
             heroTag: null,
             // tooltip: ,
             child: const Icon(Icons.record_voice_over_sharp),
-            backgroundColor: recorder.color(
+            backgroundColor: recorder.colorOf(
               proofList.isNotEmpty ? proofList.first : null,
             ),
+            //
+            // > onPressed: start/stop
+            //
             onPressed: () async {
               if (ref.read(proofRecorderState) != RecorderState.ready) {
                 await recorder.stop();
@@ -89,7 +100,7 @@ class AudioProofController extends ConsumerWidget {
         //
         // > play button
         //
-        if (proofList.isNotEmpty && audioProof != null)
+        if (audioProof != null)
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: FloatingActionButton(
@@ -104,7 +115,7 @@ class AudioProofController extends ConsumerWidget {
                   ? const Icon(Icons.play_arrow)
                   : const Icon(Icons.stop),
               //
-              // > onPressed
+              // > onPressed: play/stop
               //
               onPressed: () async {
                 await recorder.stop();
@@ -126,7 +137,7 @@ class AudioProofController extends ConsumerWidget {
         //
         // > share button
         //
-        if (proofList.isNotEmpty && audioProof != null)
+        if (audioProof != null)
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: FloatingActionButton(
@@ -135,6 +146,9 @@ class AudioProofController extends ConsumerWidget {
               backgroundColor:
                   recorderState == RecorderState.ready ? null : Colors.grey,
               child: const Icon(Icons.share),
+              //
+              // > onPressed: try share, or show notification
+              //
               onPressed: () async {
                 await recorder.stop();
                 if (audioProof != null) {
