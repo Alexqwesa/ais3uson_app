@@ -107,6 +107,9 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  &#47;&#47;
+  &#47;&#47; &gt; init
+  &#47;&#47;
   final player = ref.watch(audioPlayer);
   final playState = ref.watch(proofPlayState);
   final recorder = ref.watch(proofRecorder);
@@ -130,6 +133,9 @@ Widget build(BuildContext context, WidgetRef ref) {
   final audioProof =
       proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String?;
 
+  &#47;&#47;
+  &#47;&#47; &gt; build
+  &#47;&#47;
   return Row(
     children: [
       &#47;&#47;
@@ -141,9 +147,12 @@ Widget build(BuildContext context, WidgetRef ref) {
           heroTag: null,
           &#47;&#47; tooltip: ,
           child: const Icon(Icons.record_voice_over_sharp),
-          backgroundColor: recorder.color(
+          backgroundColor: recorder.colorOf(
             proofList.isNotEmpty ? proofList.first : null,
           ),
+          &#47;&#47;
+          &#47;&#47; &gt; onPressed: start&#47;stop
+          &#47;&#47;
           onPressed: () async {
             if (ref.read(proofRecorderState) != RecorderState.ready) {
               await recorder.stop();
@@ -162,7 +171,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       &#47;&#47;
       &#47;&#47; &gt; play button
       &#47;&#47;
-      if (proofList.isNotEmpty &amp;&amp; audioProof != null)
+      if (audioProof != null)
         Padding(
           padding: const EdgeInsets.all(2.0),
           child: FloatingActionButton(
@@ -177,7 +186,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ? const Icon(Icons.play_arrow)
                 : const Icon(Icons.stop),
             &#47;&#47;
-            &#47;&#47; &gt; onPressed
+            &#47;&#47; &gt; onPressed: play&#47;stop
             &#47;&#47;
             onPressed: () async {
               await recorder.stop();
@@ -199,7 +208,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       &#47;&#47;
       &#47;&#47; &gt; share button
       &#47;&#47;
-      if (proofList.isNotEmpty &amp;&amp; audioProof != null)
+      if (audioProof != null)
         Padding(
           padding: const EdgeInsets.all(2.0),
           child: FloatingActionButton(
@@ -208,6 +217,9 @@ Widget build(BuildContext context, WidgetRef ref) {
             backgroundColor:
                 recorderState == RecorderState.ready ? null : Colors.grey,
             child: const Icon(Icons.share),
+            &#47;&#47;
+            &#47;&#47; &gt; onPressed: try share, or show notification
+            &#47;&#47;
             onPressed: () async {
               await recorder.stop();
               if (audioProof != null) {
