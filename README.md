@@ -1,3 +1,15 @@
+# The anti-war statement:
+
+I want to clearly define my position about the current Russia-Ukraine war. The decision to start a
+military intrusion is taken **without any approval from citizens** of Russian Federation. I firmly
+stand **against** any war and especially this particular war, but I can do almost nothing about it
+except writing these words. Furthermore, I'm sure that the most russians are also **against this
+war**, no matter what our propaganda may say. Here is my statement to the Government: I demand to
+immediately **stop** the military operations and **withdraw** all military forces from all Ukraine's
+territory.
+
+----
+
 # AIS-3USON backend (Мобильное приложения для ИС "АИС ТриУСОН")[<img alt="get it on Google Play" height="55" src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg" />](https://play.google.com/store/apps/details?id=com.ais3uson.app.ais3uson_app)
 
 <img align="right" src="assets/ais-3uson-logo-128.png">
@@ -7,13 +19,13 @@
 [![style surf_lint](https://badgen.net/badge/style/surf_lint/purple)](https://pub.dev/packages/surf_lint_rules)
 [![flutter android|web|windows|linux|ios](https://badgen.net/badge/flutter/android%20%7C%20web%20%7C%20windows%20%7C%20linux%20%7C%20ios/blue/?icon=github)](https://badgen.net/badge/flutter:/android%7Cweb%7Cwindows%7Clinux%7Cios/blue/?icon=github)
 
-A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
-
 Это мобильное приложение для ввода услуг в информационной
 системе "[АИС ТриУСОН](https://github.com/Alexqwesa/AIS-3USON)" ("Автоматизированная Информационная
 Система Учета Услуг Учреждений Социального Обслуживания Населения"). В данном приложении
 используются только обезличенные данные обслуживаемых людей, получающих социальные услуги (далее -
 получатели СУ).
+
+A Flutter mobile backend for [AIS-3USON](https://github.com/Alexqwesa/AIS-3USON)
 
 ## Содержание
 
