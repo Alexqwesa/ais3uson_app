@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the proofAtDate property from the repository_of_prooflist library, for the Dart programming language.">
-  <title>proofAtDate property - repository_of_prooflist library - Dart API</title>
+  <meta name="description" content="API docs for the proofPlayState property from the repository_of_prooflist library, for the Dart programming language.">
+  <title>proofPlayState property - repository_of_prooflist library - Dart API</title>
 
 
   
@@ -30,9 +30,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
-    <li class="self-crumb">proofAtDate property</li>
+    <li class="self-crumb">proofPlayState property</li>
   </ol>
-  <div class="self-name">proofAtDate</div>
+  <div class="self-name">proofPlayState</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -43,34 +43,29 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-top-level-property">proofAtDate</span> top-level property 
+<h1><span class="kind-top-level-property">proofPlayState</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
     <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_models_proof_list/ProofList-class.html">ProofList</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.0/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, <span class="type-parameter"><a href="../source_data_models_client_profile/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span>&gt;</span>
-          <span class="name ">proofAtDate</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers_platform_interface/1.0.0/api_player_state/PlayerState.html">PlayerState</a></span>&gt;</span>
+          <span class="name ">proofPlayState</span>
           <div class="features">final</div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Create <code>ProofList</code> for <a href="../source_data_models_client_service/ClientService-class.html">ClientService</a> at date,
-if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
+  <p>State of <a href="../source_providers_repository_of_prooflist/audioPlayer.html">audioPlayer</a>.</p>
 <p>{@category Providers}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final proofAtDate =
-    Provider.family&lt;ProofList, Tuple2&lt;DateTime?, ClientProfile&gt;&gt;((ref, tuple) {
-  return ref.watch(_proofAtDate(Tuple2(
-    (tuple.item1 ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
-    tuple.item2,
-  )));
+  <pre class="language-dart"><code class="language-dart">final proofPlayState = StateProvider&lt;PlayerState&gt;((ref) {
+  return PlayerState.stopped;
 });</code></pre>
 </section>
 
@@ -88,7 +83,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
   <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
-  <li class="self-crumb">proofAtDate property</li>
+  <li class="self-crumb">proofPlayState property</li>
 </ol>
 
 

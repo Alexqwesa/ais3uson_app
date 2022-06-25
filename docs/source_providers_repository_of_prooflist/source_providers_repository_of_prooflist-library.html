@@ -58,6 +58,18 @@
       <h2>Properties</h2>
 
       <dl class="properties">
+        <dt id="audioPlayer" class="property">
+  <span class="name"><a href="../source_providers_repository_of_prooflist/audioPlayer.html">audioPlayer</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers/1.0.1/audioplayers/AudioPlayer-class.html">AudioPlayer</a></span>&gt;</span></span> 
+    <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
+
+</dt>
+<dd>
+  Global audioPlayer.
+  <div class="features">final</div>
+
+</dd>
+
         <dt id="groupsOfProof" class="property">
   <span class="name"><a href="../source_providers_repository_of_prooflist/groupsOfProof.html">groupsOfProof</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_GroupsOfProofState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_data_models_proof_list/ProofEntry-class.html">ProofEntry</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../source_data_models_proof_list/ProofList-class.html">ProofList</a></span>&gt;</span></span> 
@@ -79,6 +91,18 @@
 <dd>
   Create <code>ProofList</code> for <a href="../source_data_models_client_service/ClientService-class.html">ClientService</a> at date,
 if date is null: ref.watch(archiveDate) ?? DateTime.now().
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="proofPlayState" class="property">
+  <span class="name"><a href="../source_providers_repository_of_prooflist/proofPlayState.html">proofPlayState</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers_platform_interface/1.0.0/api_player_state/PlayerState.html">PlayerState</a></span>&gt;</span></span> 
+    <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
+
+</dt>
+<dd>
+  State of <a href="../source_providers_repository_of_prooflist/audioPlayer.html">audioPlayer</a>.
   <div class="features">final</div>
 
 </dd>
@@ -229,8 +253,10 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 
   <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#properties">Properties</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/audioPlayer.html">audioPlayer</a></li>
   <li><a href="../source_providers_repository_of_prooflist/groupsOfProof.html">groupsOfProof</a></li>
   <li><a href="../source_providers_repository_of_prooflist/proofAtDate.html">proofAtDate</a></li>
+  <li><a href="../source_providers_repository_of_prooflist/proofPlayState.html">proofPlayState</a></li>
   <li><a href="../source_providers_repository_of_prooflist/proofRecorder.html">proofRecorder</a></li>
   <li><a href="../source_providers_repository_of_prooflist/proofRecorderState.html">proofRecorderState</a></li>
   <li><a href="../source_providers_repository_of_prooflist/servProofAtDate.html">servProofAtDate</a></li>
