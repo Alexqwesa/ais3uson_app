@@ -87,7 +87,7 @@ class _ProofRecorder {
   Future<RecorderState> stop() async {
     if (state == RecorderState.recording) {
       await _record.stop();
-      if (_audioPath.startsWith('after_audio_')) {
+      if (path.basename(_audioPath).startsWith('after_audio_')) {
         _proof!.afterAudio = _audioPath;
       } else {
         _proof!.beforeAudio = _audioPath;
