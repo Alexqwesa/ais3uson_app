@@ -30,7 +30,7 @@ class ServiceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tileType = ref.watch(tileTypeProvider);
     // ignore: no_leading_underscores_for_local_identifiers
-    final _ = ref.read(groupsOfService(service.clientService)); // rebuild on
+    final _ = ref.watch(groupsOfService(service.clientService));
     final active = service.addAllowed || ref.watch(isArchive);
 
     return SizedBox.fromSize(

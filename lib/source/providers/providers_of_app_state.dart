@@ -207,9 +207,24 @@ class _LastClientServiceIdState extends StateNotifier<int> {
 /// Provider of setting - isArchive. Inited with false, doesn't save its value.
 ///
 /// {@category Providers}
-final isArchive = StateProvider<bool>((ref) {
-  return false;
+// Todo: only use archiveDate?
+final isArchive = StateNotifierProvider<_ArchiveState, bool>((ref) {
+  return _ArchiveState(ref.read);
 });
+
+class _ArchiveState extends StateNotifier<bool> {
+  _ArchiveState(this.read) : super(false);
+
+  final Reader read;
+
+  @override
+  set state(bool value) {
+    super.state = value;
+    if (!value) {
+      read(archiveDate.notifier).state = null;
+    }
+  }
+}
 
 /// Provider of setting - archiveDate. Inited with null, doesn't save its value.
 ///

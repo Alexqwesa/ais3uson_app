@@ -67,7 +67,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        ref.read(isArchive.notifier).update((state) => !state);
+                        ref.read(isArchive.notifier).state = false;
                       },
                       icon: const Icon(Icons.cancel_outlined),
                     ),

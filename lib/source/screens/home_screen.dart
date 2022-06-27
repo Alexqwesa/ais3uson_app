@@ -112,7 +112,7 @@ class HomeScreen extends ConsumerWidget {
                           ref,
                         );
                       } else {
-                        ref.read(isArchive.notifier).update((state) => !state);
+                        ref.read(isArchive.notifier).state = false;
                       }
                     },
                   ),
