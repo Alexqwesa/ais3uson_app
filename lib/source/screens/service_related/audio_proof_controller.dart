@@ -25,7 +25,7 @@ class AudioProofController extends ConsumerWidget {
     Key? key,
   }) : super(key: key) {
     if (!(proofs != null || (client != null && service != null))) {
-      throw StateError('Wrong parameters for AudioProofController');
+      throw StateError('AudioProofController: wrong parameters!');
     }
   }
 
@@ -46,21 +46,13 @@ class AudioProofController extends ConsumerWidget {
     //
     // > get proof
     //
-    late final List<ProofEntry> proofList;
-    late final ProofList proof;
-    if (client != null && service != null) {
-      proof = proofs != null
-          ? proofs!
-          : ref.watch(
-              proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)),
-            );
-      proofList = ref.watch(groupsOfProof(proof));
-    } else {
-      proof = proofs!;
-      proofList = ref.watch(groupsOfProof(proofs!));
-    }
-    final audioProof =
-        proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String?;
+    final proofController = proofs != null
+        ? proofs!
+        : ref.watch(proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)));
+    final firstProof = ref.watch(groupsOfProof(proofController)).isNotEmpty
+        ? ref.watch(groupsOfProof(proofController)).first
+        : null;
+    final audioProof = firstProof?[beforeOrAfter] as String?;
 
     //
     // > build
@@ -77,7 +69,7 @@ class AudioProofController extends ConsumerWidget {
             // tooltip: ,
             child: const Icon(Icons.record_voice_over_sharp),
             backgroundColor: recorder.colorOf(
-              proofList.isNotEmpty ? proofList.first : null,
+              firstProof,
             ),
             //
             // > onPressed: start/stop
@@ -86,11 +78,11 @@ class AudioProofController extends ConsumerWidget {
               if (ref.read(proofRecorderState) != RecorderState.ready) {
                 await recorder.stop();
               } else {
-                if (proofList.isEmpty) {
-                  proof.addNewGroup();
+                if (firstProof == null) {
+                  proofController.addNewGroup();
                 }
                 await recorder.start(
-                  ref.read(groupsOfProof(proof)).first,
+                  firstProof!,
                   prefix: beforeOrAfter,
                 );
               }
