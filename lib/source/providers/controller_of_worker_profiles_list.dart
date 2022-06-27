@@ -42,12 +42,19 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
   void sync(List<WorkerKey> wKeys) {
     final newState = <WorkerProfile>[];
     final keySet = <WorkerKey>{};
+    // keep exists if they are in wKeys
     for (final wp in state) {
-      if (wKeys.contains(wp.key)) {
-        newState.add(wp);
-        keySet.add(wp.key);
+      try {
+        if (wKeys.contains(wp.key)) {
+          newState.add(wp);
+          keySet.add(wp.key);
+        }
+        // ignore: avoid_catching_errors
+      } on StateError {
+        // we can't access wp.key of deleted department
       }
     }
+    // add new
     wKeys.where((element) => !keySet.contains(element)).forEach((key) {
       newState.add(WorkerProfile(key.apiKey, ref.container));
     });
@@ -68,7 +75,11 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
         state.indexOf(state.firstWhere((element) => element.key == key));
     final wp = state[index];
     final apiKey = key.apiKey;
-    state = state.whereNot((element) => element.key != key).toList();
+    ref.read(_workerKeys.notifier).state = ref
+        .read(_workerKeys)
+        .whereNot((element) => element.apiKey == apiKey)
+        .toList();
+    // state = state.whereNot((element) => element.key != key).toList();
     Hive
       ..deleteBoxFromDisk(wp.hiveName)
       ..deleteBoxFromDisk('archiveDates_$apiKey')
