@@ -109,7 +109,7 @@ and</li>
 Widget build(BuildContext context, WidgetRef ref) {
   final tileType = ref.watch(tileTypeProvider);
   &#47;&#47; ignore: no_leading_underscores_for_local_identifiers
-  final _ = ref.read(groupsOfService(service.clientService)); &#47;&#47; rebuild on
+  final _ = ref.watch(groupsOfService(service.clientService));
   final active = service.addAllowed || ref.watch(isArchive);
 
   return SizedBox.fromSize(

@@ -127,7 +127,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 children: [
                   IconButton(
                     onPressed: () {
-                      ref.read(isArchive.notifier).update((state) =&gt; !state);
+                      ref.read(isArchive.notifier).state = false;
                     },
                     icon: const Icon(Icons.cancel_outlined),
                   ),
