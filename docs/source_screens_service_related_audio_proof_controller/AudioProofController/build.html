@@ -117,21 +117,13 @@ Widget build(BuildContext context, WidgetRef ref) {
   &#47;&#47;
   &#47;&#47; &gt; get proof
   &#47;&#47;
-  late final List&lt;ProofEntry&gt; proofList;
-  late final ProofList proof;
-  if (client != null &amp;&amp; service != null) {
-    proof = proofs != null
-        ? proofs!
-        : ref.watch(
-            proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)),
-          );
-    proofList = ref.watch(groupsOfProof(proof));
-  } else {
-    proof = proofs!;
-    proofList = ref.watch(groupsOfProof(proofs!));
-  }
-  final audioProof =
-      proofList.isEmpty ? null : proofList[0][beforeOrAfter] as String?;
+  final proofController = proofs != null
+      ? proofs!
+      : ref.watch(proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)));
+  final firstProof = ref.watch(groupsOfProof(proofController)).isNotEmpty
+      ? ref.watch(groupsOfProof(proofController)).first
+      : null;
+  final audioProof = firstProof?[beforeOrAfter] as String?;
 
   &#47;&#47;
   &#47;&#47; &gt; build
@@ -148,7 +140,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           &#47;&#47; tooltip: ,
           child: const Icon(Icons.record_voice_over_sharp),
           backgroundColor: recorder.colorOf(
-            proofList.isNotEmpty ? proofList.first : null,
+            firstProof,
           ),
           &#47;&#47;
           &#47;&#47; &gt; onPressed: start&#47;stop
@@ -157,11 +149,11 @@ Widget build(BuildContext context, WidgetRef ref) {
             if (ref.read(proofRecorderState) != RecorderState.ready) {
               await recorder.stop();
             } else {
-              if (proofList.isEmpty) {
-                proof.addNewGroup();
+              if (firstProof == null) {
+                proofController.addNewGroup();
               }
               await recorder.start(
-                ref.read(groupsOfProof(proof)).first,
+                firstProof!,
                 prefix: beforeOrAfter,
               );
             }
@@ -314,7 +306,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+13
+      1.0.1+14
   </span>
 
   
