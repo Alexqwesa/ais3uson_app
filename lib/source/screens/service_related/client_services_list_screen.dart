@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
@@ -7,10 +10,12 @@ import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerState, ConsumerStatefulWidget, ConsumerWidget, WidgetRef;
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 /// Show list of services assigned to client, allow input by click.
 ///
@@ -36,18 +41,8 @@ class _ClientServicesListScreen
       hintText: 'Поиск',
       setState: setState,
       controller: _textEditingController,
-      onSubmitted: (value) {
-        searchText = value;
-        setState(
-          () => searchText = value,
-        );
-      },
-      onChanged: (value) {
-        searchText = value;
-        setState(
-          () => searchText = value,
-        );
-      },
+      onSubmitted: (value) => setState(() => searchText = value),
+      onChanged: (value) => setState(() => searchText = value),
       buildDefaultAppBar: buildAppBar,
       clearOnSubmit: false,
     );
@@ -56,38 +51,82 @@ class _ClientServicesListScreen
   String searchText = '';
   late final SearchBar searchBar;
   final _textEditingController = TextEditingController();
-  // void onRecognitionResult(String text) => setState(() => _textEditingController.text = text);
+  final speech = stt.SpeechToText();
 
   Widget buildAppBar(BuildContext context) {
     final client = ref.watch(lastClient);
     final workerProfile = client.workerProfile;
 
-    return AppBar(
-      title: GestureDetector(
-        onTap: () => setState(() => searchText = ''),
-        child: Text(
-          searchText != '' ? ' "$searchText" ' : client.name,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
-      actions: [
-        searchBar.getSearchAction(context),
-
-        IconButton(
-          icon: const Icon(Icons.refresh),
-          onPressed: () async {
-            await ref.read(journalOfWorker(workerProfile)).archiveOldServices();
-            await ref.read(journalOfWorker(workerProfile)).commitAll();
-            await workerProfile.syncPlanned();
-          },
-        ),
-        const _AppBarPopupMenu(),
-      ],
-    );
+    return speech.lastStatus != stt.SpeechToText.listeningStatus
+        //
+        // > default appBar
+        //
+        ? AppBar(
+            title: GestureDetector(
+              onTap: () => setState(() => searchText = ''),
+              child: Text(
+                searchText != '' ? ' "$searchText" ' : client.name,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            //
+            // > buttons in appBar
+            //
+            actions: [
+              // search
+              searchBar.getSearchAction(context),
+              // microphone
+              if (Platform.isAndroid || Platform.isIOS || kIsWeb)
+                IconButton(
+                  icon: const Icon(Icons.mic_none_rounded),
+                  onPressed: startSpeechRecognition,
+                ),
+              // refresh
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  await ref
+                      .read(journalOfWorker(workerProfile))
+                      .archiveOldServices();
+                  await ref.read(journalOfWorker(workerProfile)).commitAll();
+                  await workerProfile.syncPlanned();
+                },
+              ),
+              //
+              // > popup menu
+              //
+              const _AppBarPopupMenu(),
+            ],
+          )
+        //
+        // > stop words recognition button, only shown on listening
+        //
+        : AppBar(
+            title: ElevatedButton(
+              child: const Icon(Icons.mic_rounded),
+              autofocus: true,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+              ),
+              onPressed: () async {
+                await speech.stop();
+                log
+                  ..fine('speech ${speech.lastStatus}')
+                  ..fine('speech ${speech.lastRecognizedWords}');
+                if (mounted) searchBar.beginSearch(context);
+                setState(() {
+                  searchText = speech.lastRecognizedWords;
+                });
+              },
+            ),
+          );
   }
 
   @override
   Widget build(BuildContext context) {
+    //
+    // > init and filter
+    //
     final client = ref.watch(lastClient);
     final search = searchText.toLowerCase();
     final servList = ref
@@ -106,6 +145,9 @@ class _ClientServicesListScreen
       // > appBar
       //
       appBar: searchBar.build(context),
+      //
+      // > body
+      //
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Center(
@@ -127,15 +169,12 @@ class _ClientServicesListScreen
                         ),
                       )
                     : Text(
-                        'По запросу: ${searchText},\n\n'
-                        'Услги не найдены!',
+                        '${tr().onRequest} $searchText ${tr().servicesNotFound}',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5,
                       )
                 : Text(
-                    'Список положенных услуг пуст, \n\n'
-                    'возможно заведующий отделением уже закрыл договор\n\n'
-                    'обновите список',
+                    tr().noServicesForClient,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline5,
                   ),
@@ -143,6 +182,35 @@ class _ClientServicesListScreen
         },
       ),
     );
+  }
+
+  Future<void> startSpeechRecognition() async {
+    if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
+      final available = await speech.initialize(
+        onStatus: (status) {
+          log.fine('Speech status $status');
+        },
+        onError: (error) {
+          log.severe('Speech error $error');
+        },
+      );
+      if (available) {
+        await speech.listen(
+          onResult: (result) => setState(
+            () {
+              _textEditingController.text = result.recognizedWords;
+              searchBar.beginSearch(context);
+            },
+          ),
+        );
+        setState(() {
+          log.fine('speech ${speech.lastStatus}');
+        });
+        log.fine('speech ${speech.lastStatus}');
+      } else {
+        log.warning('The user has denied the use of speech recognition.');
+      }
+    }
   }
 }
 

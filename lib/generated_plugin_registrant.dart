@@ -11,6 +11,7 @@ import 'package:camera_web/camera_web.dart';
 import 'package:record_web/record_web.dart';
 import 'package:share_plus_web/share_plus_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
+import 'package:speech_to_text/speech_to_text_web.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
 import 'package:video_player_web/video_player_web.dart';
 import 'package:wakelock_web/wakelock_web.dart';
@@ -24,6 +25,7 @@ void registerPlugins(Registrar registrar) {
   RecordPluginWeb.registerWith(registrar);
   SharePlusPlugin.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
+  SpeechToTextPlugin.registerWith(registrar);
   UrlLauncherPlugin.registerWith(registrar);
   VideoPlayerPlugin.registerWith(registrar);
   WakelockWeb.registerWith(registrar);

@@ -5,8 +5,14 @@
 
 <key>io.flutter.embedded_views_preview</key>
 <true/>
+
+
 <key>NSCameraUsageDescription</key>
 <string>This app needs camera access to scan QR codes and takes proof images</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>This application needs to access your microphone</string>
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>This application needs the speech recognition permission</string>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
