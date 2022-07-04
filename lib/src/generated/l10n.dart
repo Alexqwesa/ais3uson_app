@@ -689,6 +689,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Список положенных услуг пуст, \n\n возможно заведующий отделением уже закрыл договор,\n\n либо обновите список!`
+  String get noServicesForClient {
+    return Intl.message(
+      'Список положенных услуг пуст, \n\n возможно заведующий отделением уже закрыл договор,\n\n либо обновите список!',
+      name: 'noServicesForClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `\n\nУслги не найдены!`
+  String get servicesNotFound {
+    return Intl.message(
+      '\n\nУслги не найдены!',
+      name: 'servicesNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `По запросу: \n\n`
+  String get onRequest {
+    return Intl.message(
+      'По запросу: \n\n',
+      name: 'onRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `До:`
+  String get before {
+    return Intl.message(
+      'До:',
+      name: 'before',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `После:`
+  String get after {
+    return Intl.message(
+      'После:',
+      name: 'after',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Повторить поиск`
+  String get repeatSearch {
+    return Intl.message(
+      'Повторить поиск',
+      name: 'repeatSearch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

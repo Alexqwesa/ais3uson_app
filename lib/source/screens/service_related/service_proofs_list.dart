@@ -125,14 +125,14 @@ class ProofListBuilder extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'До:',
+                        tr().before,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5,
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        'После:',
+                        tr().after,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5,
                       ),

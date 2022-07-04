@@ -63,6 +63,12 @@
   "magnification": "Magnifycation:",
   "takePicture": "Take picture as proof",
   "doScanQrCode": "Scan your QR",
-  "cameraAccessDenied": "Access denied: Please, allow app access to camera"
+  "cameraAccessDenied": "Access denied: Please, allow app access to camera",
+  "noServicesForClient": "List of client's services is empty, \n\n maybe manager already close the contract,\n\n or you can try to refresh the list!",
+  "servicesNotFound": "\n\nServices not found!",
+  "onRequest": "On search: \n\n",
+  "before": "Before:",
+  "after": "After:",
+  "repeatSearch": "RepeatSearch"
 
 }

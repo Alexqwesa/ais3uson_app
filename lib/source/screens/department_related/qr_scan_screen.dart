@@ -102,8 +102,8 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                           });
                           await controller?.resumeCamera();
                         },
-                        child: const Text(
-                          'Повторить поиск',
+                        child: Text(
+                          tr().repeatSearch,
                         ),
                       ),
                     ),
@@ -195,9 +195,9 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                           return;
                         }
                         var newKey = result!.code!;
-                        if (newKey.startsWith('http://')) {
-                          newKey = newKey.substring(7, newKey.length);
-                        }
+                        newKey = newKey.startsWith('http://')
+                            ? newKey.substring(7, newKey.length)
+                            : newKey;
                         //
                         // > add profile or resume camera
                         //
@@ -241,10 +241,16 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
       setState(() {
         result = scanData;
       });
-      if (describeEnum(result!.format) == 'qrcode' ||
-          result!.code!.startsWith('http://{"app": "AIS-3USON web"')) {
-        controller.pauseCamera();
-        dev.log(result!.code!);
+      if (result != null || result!.code != null) {
+        var newKey = result!.code!;
+        newKey = newKey.startsWith('http://')
+            ? newKey.substring(7, newKey.length)
+            : newKey;
+        if (describeEnum(newKey) == 'qrcode' ||
+            newKey.startsWith('{"app": "AIS-3USON web"')) {
+          controller.pauseCamera();
+          dev.log(newKey);
+        }
       }
     });
   }

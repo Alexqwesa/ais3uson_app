@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDep": MessageLookupByLibrary.simpleMessage("Add department"),
         "addDepFromText":
             MessageLookupByLibrary.simpleMessage("Add department from text"),
+        "after": MessageLookupByLibrary.simpleMessage("After:"),
         "archive": MessageLookupByLibrary.simpleMessage("Archive"),
         "archiveAt": MessageLookupByLibrary.simpleMessage("Archive at: "),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
@@ -35,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please, authorize \n (scan QR-code). \n (Or add example department)"),
         "awaitResults":
             MessageLookupByLibrary.simpleMessage("Awaiting results..."),
+        "before": MessageLookupByLibrary.simpleMessage("Before:"),
         "cameraAccessDenied": MessageLookupByLibrary.simpleMessage(
             "Access denied: Please, allow app access to camera"),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
@@ -96,6 +98,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Make photo or audio record as a proof:"),
         "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
             "The maximum number of services stored in the archive:"),
+        "noServicesForClient": MessageLookupByLibrary.simpleMessage(
+            "List of client\'s services is empty, \n\n maybe manager already close the contract,\n\n or you can try to refresh the list!"),
+        "onRequest": MessageLookupByLibrary.simpleMessage("On search: \n\n"),
         "optional": MessageLookupByLibrary.simpleMessage("OPTIONAL!"),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Or add example department from list:"),
@@ -107,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Put department code here"),
         "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
             "Put department code here (this is redundant mode of department addition), it useful in case of broken or absent camera... \n the recommended way is: scan QR-code!"),
+        "repeatSearch": MessageLookupByLibrary.simpleMessage("RepeatSearch"),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Add department from QR code"),
         "searchQR": MessageLookupByLibrary.simpleMessage("searching QR..."),
@@ -116,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error: server error!"),
         "serviceIsFull":
             MessageLookupByLibrary.simpleMessage("This service is full!"),
+        "servicesNotFound":
+            MessageLookupByLibrary.simpleMessage("\n\nServices not found!"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App for accounting services AIS 3USON"),

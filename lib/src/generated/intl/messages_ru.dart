@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDep": MessageLookupByLibrary.simpleMessage("Добавить отделение"),
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Добавить отделение из строки текста"),
+        "after": MessageLookupByLibrary.simpleMessage("После:"),
         "archive": MessageLookupByLibrary.simpleMessage("Архив ввода услуг"),
         "archiveAt": MessageLookupByLibrary.simpleMessage("Архив на: "),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
@@ -35,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Пожалуйста, авторизируйтесь \n(отсканируйте QR код) \n (Или добавьте тестовое отделение)"),
         "awaitResults":
             MessageLookupByLibrary.simpleMessage("Ожидание данных..."),
+        "before": MessageLookupByLibrary.simpleMessage("До:"),
         "cameraAccessDenied": MessageLookupByLibrary.simpleMessage(
             "Нет доступа, разрешите приложению доступ к камере"),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
@@ -97,6 +99,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Сделайте снимки или аудиозаписи подтверждающие оказание услуги:"),
         "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
             "Максимальное количество услуг в архиве:"),
+        "noServicesForClient": MessageLookupByLibrary.simpleMessage(
+            "Список положенных услуг пуст, \n\n возможно заведующий отделением уже закрыл договор,\n\n либо обновите список!"),
+        "onRequest": MessageLookupByLibrary.simpleMessage("По запросу: \n\n"),
         "optional": MessageLookupByLibrary.simpleMessage("НЕОБЯЗАТЕЛЬНО!"),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Либо добавьте тестовое отделение из списка ниже:"),
@@ -108,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Вставте текст-код отделение сюда..."),
         "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
             "Вставьте текст qr-кода отделения здесь, это резервный способ добавления отделения, например для тех у кого не работает камера на телефоне... \n рекомендуемый способ - сканировать QR код!"),
+        "repeatSearch": MessageLookupByLibrary.simpleMessage("Повторить поиск"),
         "scanQrCode": MessageLookupByLibrary.simpleMessage(
             "Сканировать QR код отделения"),
         "searchQR": MessageLookupByLibrary.simpleMessage(
@@ -117,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "serverError": MessageLookupByLibrary.simpleMessage("Ошибка сервера!"),
         "serviceIsFull":
             MessageLookupByLibrary.simpleMessage("Данная услуга переполнена!"),
+        "servicesNotFound":
+            MessageLookupByLibrary.simpleMessage("\n\nУслги не найдены!"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "Приложение для учета услуг АИС ТриУСОН"),

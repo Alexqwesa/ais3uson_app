@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDep": MessageLookupByLibrary.simpleMessage("Abteilung hinzufügen"),
         "addDepFromText": MessageLookupByLibrary.simpleMessage(
             "Abteilung aus Text hinzufügen"),
+        "after": MessageLookupByLibrary.simpleMessage("Nach:"),
         "archive": MessageLookupByLibrary.simpleMessage("Archiv"),
         "archiveAt": MessageLookupByLibrary.simpleMessage("Archiv am: "),
         "areYouSureToDelete": MessageLookupByLibrary.simpleMessage(
@@ -35,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte autorisieren Sie \n (QR-Code scannen). \n (Oder Beispielabteilung hinzufügen)"),
         "awaitResults":
             MessageLookupByLibrary.simpleMessage("Warten auf Ergebnis..."),
+        "before": MessageLookupByLibrary.simpleMessage("Vorher:"),
         "cameraAccessDenied": MessageLookupByLibrary.simpleMessage(
             "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf die Kamera"),
         "cantAddDepBadFormat": MessageLookupByLibrary.simpleMessage(
@@ -98,6 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Foto oder Tonaufnahme als Beweis erstellen:"),
         "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
             "Maximale Anzahl der im Archiv zu speichernden Dienste:"),
+        "noServicesForClient": MessageLookupByLibrary.simpleMessage(
+            "Liste der Dienstleistungen des Kunden ist leer, \n\n vielleicht hat der Manager den Vertrag bereits geschlossen,\n\n oder Sie können versuchen, die Liste zu aktualisieren!"),
+        "onRequest":
+            MessageLookupByLibrary.simpleMessage("Auf Suchanfrage: \n\n"),
         "optional": MessageLookupByLibrary.simpleMessage("OPTIONAL!"),
         "orTestDepList": MessageLookupByLibrary.simpleMessage(
             "Oder Beispielabteilung aus Liste hinzufügen: "),
@@ -118,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fehler: Serverfehler!"),
         "serviceIsFull":
             MessageLookupByLibrary.simpleMessage("Dieser Dienst is voll!"),
+        "servicesNotFound":
+            MessageLookupByLibrary.simpleMessage("\n\nDienste nicht gefunden!"),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "shortAboutApp": MessageLookupByLibrary.simpleMessage(
             "App für Dienstleistungen zählen AIS 3USON"),

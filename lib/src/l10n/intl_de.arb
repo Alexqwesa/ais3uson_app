@@ -63,5 +63,11 @@
   "magnification": "Zoomfaktor:",
   "takePicture": "Machen Sie ein Foto als Beweis",
   "doScanQrCode": "Scannen Sie Ihren QR-Code",
-  "cameraAccessDenied": "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf die Kamera"
+  "cameraAccessDenied": "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf die Kamera",
+  "noServicesForClient": "Liste der Dienstleistungen des Kunden ist leer, \n\n vielleicht hat der Manager den Vertrag bereits geschlossen,\n\n oder Sie können versuchen, die Liste zu aktualisieren!",
+  "servicesNotFound": "\n\nDienste nicht gefunden!",
+  "onRequest": "Auf Suchanfrage: \n\n",
+  "before": "Vorher:",
+  "after": "Nach:"
+
 }
