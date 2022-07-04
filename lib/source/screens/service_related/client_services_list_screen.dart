@@ -76,7 +76,7 @@ class _ClientServicesListScreen
               // search
               searchBar.getSearchAction(context),
               // microphone
-              if (Platform.isAndroid || Platform.isIOS || kIsWeb)
+              if (kIsWeb || Platform.isAndroid || Platform.isIOS )
                 IconButton(
                   icon: const Icon(Icons.mic_none_rounded),
                   onPressed: startSpeechRecognition,
@@ -185,7 +185,7 @@ class _ClientServicesListScreen
   }
 
   Future<void> startSpeechRecognition() async {
-    if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
+    if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
       final available = await speech.initialize(
         onStatus: (status) {
           log.fine('Speech status $status');
