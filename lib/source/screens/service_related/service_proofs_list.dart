@@ -6,7 +6,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/repository_of_prooflist.dart';
+import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
 import 'package:ais3uson_app/source/screens/service_related/camera.dart';
 import 'package:camera/camera.dart';

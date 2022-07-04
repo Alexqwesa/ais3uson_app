@@ -16,15 +16,26 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// Return List<[ClientPlan]>.
 ///
 /// {@category Providers}
+/// {@category Journal}
 final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
-  // () async {
-  //   await ref.watch(hiveJournalBox(wp.hiveName).future);
-  // }();
   ref.watch(isArchive);
 
   return ref.watch(archiveDate) != null
       ? ref.watch(_journalArchiveOfWorker(wp))
       : ref.watch(_journalOfWorker(wp));
+});
+
+/// This Journal, is the only one who can write to Hive.
+final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
+  return Journal(wp);
+});
+
+/// Archived version of Journal at date, depend on archiveDate.
+final _journalArchiveOfWorker =
+    Provider.family<Journal, WorkerProfile>((ref, wp) {
+  ref.watch(archiveDate);
+
+  return JournalArchive(wp);
 });
 
 /// Today + archived [ServiceOfJournal] of client.
@@ -43,6 +54,7 @@ final journalOfClient =
   ];
 });
 
+/// Helper for provider [journalOfClient],
 final _archiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   ref.watch(hiveJournalBox(client.workerProfile.hiveName));
@@ -57,20 +69,11 @@ final _archiveOfClient =
       .toList();
 });
 
-/// This Journal, is the only one who can write to Hive.
-final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
-  return Journal(wp);
-});
-
-/// Depend on archiveDate, maybe autoDispose?
-final _journalArchiveOfWorker =
-    Provider.family<Journal, WorkerProfile>((ref, wp) {
-  ref.watch(archiveDate);
-
-  return JournalArchive(wp);
-});
-
-/// Depend on archiveDate, maybe autoDispose?
+/// Archived version of Journal with all dates, depend on archiveDate.
+///
+/// Helper for provider [_archiveOfClient],
+/// which is helper for [journalOfClient].
+/// Exist just for caching results.
 final _journalArchiveAllOfWorker =
     Provider.family<Journal, WorkerProfile>((ref, wp) {
   return JournalArchiveAll(wp);

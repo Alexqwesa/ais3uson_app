@@ -11,6 +11,7 @@ import 'package:tuple/tuple.dart';
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
+/// {@category UI Settings}
 final tileTypeProvider =
     StateNotifierProvider<_ServiceViewState, String>((ref) {
   return _ServiceViewState();
@@ -36,6 +37,7 @@ class _ServiceViewState extends StateNotifier<String> {
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
+/// {@category UI Settings}
 final hiveArchiveLimit =
     StateNotifierProvider<_HiveArchiveLimitState, int>((ref) {
   return _HiveArchiveLimitState();
@@ -61,6 +63,7 @@ class _HiveArchiveLimitState extends StateNotifier<int> {
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
+/// {@category UI Settings}
 final serviceCardMagnifying =
     StateNotifierProvider<_ServiceCardMagnifyState, double>((ref) {
   return _ServiceCardMagnifyState();
@@ -82,6 +85,7 @@ class _ServiceCardMagnifyState extends StateNotifier<double> {
 /// Calculate size of ServiceCard based on parentSize and tileType.
 ///
 /// {@category Providers}
+/// {@category UI Settings}
 final serviceCardSize =
     Provider.family<Size, Tuple2<Size, String>>((ref, tuple) {
   final parentSize = tuple.item1;

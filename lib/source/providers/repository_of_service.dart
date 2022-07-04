@@ -7,9 +7,10 @@ import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Groups of [ServiceOfJournal] sorted by [ServiceState].
+/// Provider of groups of [ServiceOfJournal] sorted by [ServiceState].
 ///
 /// Depend on [servicesOfJournal], if not inited - return null.
+/// {@category Providers}
 final groupsOfJournal =
     Provider.family<Map<ServiceState, List<ServiceOfJournal>>?, Journal>(
   (ref, journal) {
@@ -20,7 +21,10 @@ final groupsOfJournal =
   },
 );
 
-/// Create groups of journal services for [ClientService].
+/// Provider of groups of [ServiceOfJournal] sorted by [ServiceState] and
+/// filtered by [ClientService].
+///
+/// Based on provider [groupsOfJournal].
 ///
 /// {@category Providers}
 final groupsOfService =
@@ -43,7 +47,12 @@ final groupsOfService =
   },
 );
 
-/// listDoneProgressErrorOfService for [ClientService].
+/// Provider of [ClientService] statistics:
+///
+/// List of integers:
+/// - Done (finished+outDated),
+/// - Progress (added),
+/// - Error (rejected).
 ///
 /// {@category Providers}
 final listDoneProgressErrorOfService =

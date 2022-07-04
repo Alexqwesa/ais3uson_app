@@ -3,7 +3,7 @@ import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Create a list of Services of client List<[ClientService]>.
+/// Provider of list of [ClientService]s for client.
 ///
 /// {@category Providers}
 final servicesOfClient =

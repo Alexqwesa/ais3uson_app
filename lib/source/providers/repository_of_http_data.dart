@@ -17,11 +17,6 @@ import 'package:http/http.dart' as http;
 import 'package:overlay_support/overlay_support.dart';
 import 'package:tuple/tuple.dart';
 
-// final futureHttpDataProvider =
-//     FutureProvider.family<String, HttpDataState>((ref, notifier) async {
-//   return notifier.syncHiveHttp();
-// });
-
 /// Provider of httpData, create families by apiKey and url.
 ///
 /// {@category Providers}

@@ -9,6 +9,10 @@ import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:synchronized/synchronized.dart';
 
+/// Provider of [servicesOfJournal] for [Journal].
+///
+/// {@category Providers}
+/// {@category Journal}
 final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
     List<ServiceOfJournal>?, Journal>((ref, journal) {
   ref.watch(archiveDate);
@@ -22,10 +26,16 @@ final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
 
 final _lockProvider = Provider((ref) => Lock());
 
-/// This class store list of [ServiceOfJournal],
+/// Repository of [ServiceOfJournal] for [Journal], it:
 ///
-/// read them from hive(async), and [Journal.archiveOldServices].
+/// - post new service,
+/// - delete service,
+/// - read services from hive(async),
+/// - call [Journal.archiveOldServices].
 /// Based on [Journal.aData] it filter list by date, or accept all if null.
+///
+/// {@category Providers}
+/// {@category Journal}
 class ServicesListState extends StateNotifier<List<ServiceOfJournal>?> {
   ServicesListState(this.journal) : super(null);
 

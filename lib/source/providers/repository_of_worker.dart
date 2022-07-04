@@ -8,7 +8,7 @@ import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Providers clients of [WorkerProfile].
+/// Provider of clients for [WorkerProfile].
 ///
 /// It check is update needed, and auto update list.
 /// Return List<[ClientProfile]>.
@@ -26,7 +26,7 @@ final clientsOfWorker = Provider.family<List<ClientProfile>, WorkerProfile>(
   },
 );
 
-/// Providers services of [WorkerProfile].
+/// Provider of services for [WorkerProfile].
 ///
 /// It check is update needed, and auto update list.
 /// Return List<[ServiceEntry]>.
@@ -42,7 +42,7 @@ final servicesOfWorker =
       .toList(growable: false);
 });
 
-/// Providers services of [WorkerProfile].
+/// Provider of planned services for [WorkerProfile].
 ///
 /// It check is update needed, and auto update list.
 /// Return List<[ClientPlan]>.

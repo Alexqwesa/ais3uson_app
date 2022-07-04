@@ -100,18 +100,6 @@ final lastClient = Provider<ClientProfile>((ref) {
     log.severe('lastClient requested but provider failed');
 
     return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first;
-    //
-    // return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).isNotEmpty
-    //     ? ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first
-    //     : ClientProfile(
-    //         workerProfile: ref.watch(lastWorkerProfile),
-    //         entry: const ClientEntry(
-    //           dhw_id: 0,
-    //           client_id: 0,
-    //           client: 'Error',
-    //           contract_id: 0,
-    //           dep_id: 0,
-    //         ));
   }
 });
 
