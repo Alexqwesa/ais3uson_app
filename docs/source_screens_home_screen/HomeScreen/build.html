@@ -107,9 +107,32 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final title = S.of(context).depList;
-
   return Scaffold(
+    &#47;&#47;
+    &#47;&#47; &gt; appBar
+    &#47;&#47;
+    appBar: AppBar(
+      title: Text(tr().depList),
+    ),
+    &#47;&#47;
+    &#47;&#47; &gt; body
+    &#47;&#47;
+    body: const ListOfProfiles(),
+    &#47;&#47;
+    &#47;&#47; &gt; scan qr button
+    &#47;&#47;
+    floatingActionButton: ref.watch(isArchive)
+        ? null
+        : FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                &#39;&#47;scan_qr&#39;,
+              );
+            },
+            tooltip: S.of(context).scanQrCode,
+            child: const Icon(Icons.add),
+          ),
     &#47;&#47;
     &#47;&#47; &gt; drawer
     &#47;&#47;
@@ -266,41 +289,6 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ),
               ],
             ),
-          ),
-    &#47;&#47;
-    &#47;&#47; appBar
-    &#47;&#47;
-    appBar: AppBar(
-      title: Text(title),
-    ),
-    &#47;&#47;
-    &#47;&#47; &gt; body
-    &#47;&#47;
-    body: Center(
-      heightFactor: 1.1,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const &lt;Widget&gt;[
-          Expanded(
-            child: ListOfProfiles(),
-          ),
-        ],
-      ),
-    ),
-    &#47;&#47;
-    &#47;&#47; &gt; scan qr button
-    &#47;&#47;
-    floatingActionButton: ref.watch(isArchive)
-        ? null
-        : FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                &#39;&#47;scan_qr&#39;,
-              );
-            },
-            tooltip: S.of(context).scanQrCode,
-            child: const Icon(Icons.add),
           ),
   );
 }</code></pre>

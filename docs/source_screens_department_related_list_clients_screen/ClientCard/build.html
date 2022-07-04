@@ -140,22 +140,18 @@ Widget build(BuildContext context, WidgetRef ref) {
           ),
         ),
       ),
-      onLongPress: () async {
-        ref.read(lastClientId.notifier).state = client.contractId;
-        unawaited(
-          Navigator.pushNamed(
-            context,
-            &#39;&#47;client_journal&#39;,
-          ),
+      onLongPress: () {
+        ref.read(lastUsed).client = client;
+        Navigator.pushNamed(
+          context,
+          &#39;&#47;client_journal&#39;,
         );
       },
-      onTap: () async {
-        ref.read(lastClientId.notifier).state = client.contractId;
-        unawaited(
-          Navigator.pushNamed(
-            context,
-            &#39;&#47;client_services&#39;,
-          ),
+      onTap: () {
+        ref.read(lastUsed).client = client;
+        Navigator.pushNamed(
+          context,
+          &#39;&#47;client_services&#39;,
         );
       },
     ),

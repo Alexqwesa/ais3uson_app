@@ -107,7 +107,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final client = ref.watch(lastClient);
+  final client = ref.watch(lastUsed).client;
   final all = ref.watch(journalOfClient(client));
   final allByGroups = groupBy&lt;ServiceOfJournal, int&gt;(
     all,
@@ -116,8 +116,8 @@ Widget build(BuildContext context, WidgetRef ref) {
 
   return Scaffold(
     appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
-    body: Center(
-      child: SingleChildScrollView(
+    body: SingleChildScrollView(
+      child: Center(
         child: Wrap(
           children: [
             if (all.isEmpty) Text(tr().emptyListOfServices),

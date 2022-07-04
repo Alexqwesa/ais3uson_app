@@ -155,7 +155,7 @@ Widget build(BuildContext context, WidgetRef ref) {
             onTap: service.add,
             onLongPress: () {
               &#47;&#47; set last service
-              ref.read(lastClientServiceId.notifier).state = service.servId;
+              ref.read(lastUsed).serviceAt = service;
               &#47;&#47; open ClientServiceScreen
               Navigator.pushNamed(context, &#39;&#47;service&#39;);
             },
