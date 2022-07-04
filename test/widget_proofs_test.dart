@@ -175,9 +175,7 @@ void main() {
       //
       // > check ClientServiceScreen
       //
-      ref.read(lastApiKey.notifier).state = wp.apiKey;
-      ref.read(lastClientId.notifier).state = service.contractId;
-      ref.read(lastClientServiceId.notifier).state = service.servId;
+      ref.read(lastUsed).service = service;
 
       final widgetForTesting = ClientServiceScreen(
         clientService: service,

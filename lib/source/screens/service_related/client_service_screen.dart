@@ -25,7 +25,7 @@ class ClientServiceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ClientServiceAt(
-      clientService: clientService ?? ref.watch(lastClientService),
+      clientService: clientService ?? ref.watch(lastUsed).service,
       date:
           (serviceDate ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
     );

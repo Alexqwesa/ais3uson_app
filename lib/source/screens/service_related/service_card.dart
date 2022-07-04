@@ -76,7 +76,7 @@ class ServiceCard extends ConsumerWidget {
               onTap: service.add,
               onLongPress: () {
                 // set last service
-                ref.read(lastClientServiceId.notifier).state = service.servId;
+                ref.read(lastUsed).serviceAt = service;
                 // open ClientServiceScreen
                 Navigator.pushNamed(context, '/service');
               },

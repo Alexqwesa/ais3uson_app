@@ -167,7 +167,7 @@ void main() {
       expect(find.text(wp.key.comment), findsOneWidget);
       expect(find.text(wp.key.name), findsOneWidget);
       expect(find.text(wp.key.dep), findsOneWidget);
-      ref.read(lastApiKey.notifier).state = wp.apiKey;
+      ref.read(lastUsed).worker = wp;
       await tester.pumpAndSettle();
       // Check
       expect(
@@ -257,7 +257,7 @@ void main() {
         await ref.read(hiveBox(hiveProfiles).future);
         await wp.syncClients();
       });
-      ref.read(lastApiKey.notifier).state = wp.apiKey;
+      ref.read(lastUsed).worker = wp;
       await tester.pumpAndSettle();
       // Check
       expect(
@@ -292,8 +292,8 @@ void main() {
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
-      ref.read(lastApiKey.notifier).state = wp.apiKey;
-      ref.read(lastClientId.notifier).state = wp.clients.first.contractId;
+      ref.read(lastUsed).worker = wp;
+      ref.read(lastUsed).client = wp.clients.first;
       await tester.pumpAndSettle();
       // Scroll until the item to be found appears.
       // final listFinder = find.byKey(const ValueKey('MainScroll'));
@@ -323,8 +323,8 @@ void main() {
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
-      ref.read(lastApiKey.notifier).state = wp.apiKey;
-      ref.read(lastClientId.notifier).state = wp.clients[1].contractId;
+      ref.read(lastUsed).worker = wp;
+      ref.read(lastUsed).client = wp.clients[1];
       // wp.clients[1].services.clear();
       expect(wp.clients[1].services.isEmpty, false);
       const widgetForTesting = ClientServicesListScreen();

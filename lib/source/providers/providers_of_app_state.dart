@@ -27,93 +27,93 @@ class _LastUsed {
   final ProviderRef ref;
 
   ClientServiceAt get serviceAt => ClientServiceAt(
-        clientService: ref.read(lastClientService),
-        date: ref.read(lastServiceAt),
+        clientService: ref.read(_lastClientService),
+        date: ref.read(_lastServiceAt),
       );
 
-  ClientService get service => ref.read(lastClientService);
+  ClientService get service => ref.read(_lastClientService);
 
-  ClientProfile get client => ref.read(lastClient);
+  ClientProfile get client => ref.read(_lastClient);
 
-  WorkerProfile get worker => ref.read(lastWorkerProfile);
+  WorkerProfile get worker => ref.read(_lastWorkerProfile);
 
   set serviceAt(ClientServiceAt value) {
-    ref.read(lastServiceAt.notifier).state = value.dateOnly;
-    ref.read(lastClientServiceId.notifier).state = value.servId;
-    ref.read(lastClientId.notifier).state = value.contractId;
-    ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
+    ref.read(_lastServiceAt.notifier).state = value.dateOnly;
+    ref.read(_lastClientServiceId.notifier).state = value.servId;
+    ref.read(_lastClientId.notifier).state = value.contractId;
+    ref.read(_lastApiKey.notifier).state = value.workerProfile.apiKey;
   }
 
   set service(ClientService value) {
-    ref.read(lastClientServiceId.notifier).state = value.servId;
-    ref.read(lastClientId.notifier).state = value.contractId;
-    ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
+    ref.read(_lastClientServiceId.notifier).state = value.servId;
+    ref.read(_lastClientId.notifier).state = value.contractId;
+    ref.read(_lastApiKey.notifier).state = value.workerProfile.apiKey;
   }
 
   set client(ClientProfile value) {
-    ref.read(lastClientId.notifier).state = value.contractId;
-    ref.read(lastApiKey.notifier).state = value.workerProfile.apiKey;
+    ref.read(_lastClientId.notifier).state = value.contractId;
+    ref.read(_lastApiKey.notifier).state = value.workerProfile.apiKey;
   }
 
   set worker(WorkerProfile value) =>
-      ref.read(lastApiKey.notifier).state = value.apiKey;
+      ref.read(_lastApiKey.notifier).state = value.apiKey;
 }
 
 /// Should always return last used service [ClientService].
 ///
 /// If can't find last client - return first client from first profile.
-/// This is readonly provider, but you can change it values via [lastApiKey] and
-/// [lastClientId] and [lastClientServiceId] providers.
+/// This is readonly provider, but you can change it values via [_lastApiKey] and
+/// [_lastClientId] and [_lastClientServiceId] providers.
 ///
 /// {@category Providers}
-final lastClientService = Provider<ClientService>((ref) {
-  final id = ref.watch(lastClientServiceId);
+final _lastClientService = Provider<ClientService>((ref) {
+  final id = ref.watch(_lastClientServiceId);
 
   try {
     return ref
-        .watch(servicesOfClient(ref.watch(lastClient)))
+        .watch(servicesOfClient(ref.watch(_lastClient)))
         .firstWhere((e) => e.servId == id);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClientService requested but provider failed');
 
-    return ref.watch(servicesOfClient(ref.watch(lastClient))).first;
+    return ref.watch(servicesOfClient(ref.watch(_lastClient))).first;
   }
 });
 
 /// Should always return last used client [ClientProfile].
 ///
 /// If can't find last client - return first client from first profile.
-/// This is readonly provider, but you can change it values via [lastApiKey] and
-/// [lastClientId] providers.
+/// This is readonly provider, but you can change it values via [_lastApiKey] and
+/// [_lastClientId] providers.
 ///
 /// {@category Providers}
-final lastClient = Provider<ClientProfile>((ref) {
-  final id = ref.watch(lastClientId);
+final _lastClient = Provider<ClientProfile>((ref) {
+  final id = ref.watch(_lastClientId);
 
   try {
     return ref
-        .watch(clientsOfWorker(ref.watch(lastWorkerProfile)))
+        .watch(clientsOfWorker(ref.watch(_lastWorkerProfile)))
         .firstWhere((e) => e.contractId == id);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClient requested but provider failed');
 
-    return ref.watch(clientsOfWorker(ref.watch(lastWorkerProfile))).first;
+    return ref.watch(clientsOfWorker(ref.watch(_lastWorkerProfile))).first;
   }
 });
 
 /// Should always return last used worker [WorkerProfile].
 ///
 /// If can't find last, return first profile.
-/// This is readonly provider, but you can change it values via [lastApiKey].
+/// This is readonly provider, but you can change it values via [_lastApiKey].
 ///
 /// {@category Providers}
-final lastWorkerProfile = Provider((ref) {
+final _lastWorkerProfile = Provider((ref) {
   try {
     return ref
         .watch(workerProfiles)
-        .firstWhere((element) => element.apiKey == ref.watch(lastApiKey));
+        .firstWhere((element) => element.apiKey == ref.watch(_lastApiKey));
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastWorkerProfile requested but provider failed');
@@ -128,7 +128,7 @@ final lastWorkerProfile = Provider((ref) {
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
-final lastApiKey = StateNotifierProvider<LastApiKeyState, String>((ref) {
+final _lastApiKey = StateNotifierProvider<LastApiKeyState, String>((ref) {
   return LastApiKeyState();
 });
 
@@ -150,12 +150,12 @@ class LastApiKeyState extends StateNotifier<String> {
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
-final lastClientId = StateNotifierProvider<LastClientIdState, int>((ref) {
-  return LastClientIdState();
+final _lastClientId = StateNotifierProvider<_LastClientIdState, int>((ref) {
+  return _LastClientIdState();
 });
 
-class LastClientIdState extends StateNotifier<int> {
-  LastClientIdState() : super(locator<SharedPreferences>().getInt(name) ?? 0);
+class _LastClientIdState extends StateNotifier<int> {
+  _LastClientIdState() : super(locator<SharedPreferences>().getInt(name) ?? 0);
 
   static const name = 'last_client_id';
 
@@ -172,7 +172,7 @@ class LastClientIdState extends StateNotifier<int> {
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
-final lastClientServiceId =
+final _lastClientServiceId =
     StateNotifierProvider<_LastClientServiceIdState, int>((ref) {
   return _LastClientServiceIdState();
 });
@@ -224,6 +224,6 @@ final archiveDate = StateProvider<DateTime?>((ref) {
 /// Provider of setting - date of LastService
 ///
 /// {@category Providers}
-final lastServiceAt = StateProvider<DateTime?>((ref) {
+final _lastServiceAt = StateProvider<DateTime?>((ref) {
   return DateTime.now().dateOnly();
 });

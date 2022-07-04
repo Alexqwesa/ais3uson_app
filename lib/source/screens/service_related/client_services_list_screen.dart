@@ -54,7 +54,7 @@ class _ClientServicesListScreen
   final speech = stt.SpeechToText();
 
   Widget buildAppBar(BuildContext context) {
-    final client = ref.watch(lastClient);
+    final client = ref.watch(lastUsed).client;
     final workerProfile = client.workerProfile;
 
     return speech.lastStatus != stt.SpeechToText.listeningStatus
@@ -127,7 +127,7 @@ class _ClientServicesListScreen
     //
     // > init and filter
     //
-    final client = ref.watch(lastClient);
+    final client = ref.watch(lastUsed).client;
     final search = searchText.toLowerCase();
     final servList = ref
         .watch(servicesOfClient(client))

@@ -30,7 +30,7 @@ class AllServicesOfClientScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final client = ref.watch(lastClient);
+    final client = ref.watch(lastUsed).client;
     final all = ref.watch(journalOfClient(client));
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,

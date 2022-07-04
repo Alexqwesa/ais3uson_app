@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
@@ -17,7 +15,7 @@ class ClientScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final workerProfile = ref.watch(lastWorkerProfile);
+    final workerProfile = ref.watch(lastUsed).worker;
     final clientList = ref.watch(clientsOfWorker(workerProfile));
 
     return Scaffold(
@@ -109,22 +107,18 @@ class ClientCard extends ConsumerWidget {
             ),
           ),
         ),
-        onLongPress: () async {
-          ref.read(lastClientId.notifier).state = client.contractId;
-          unawaited(
-            Navigator.pushNamed(
-              context,
-              '/client_journal',
-            ),
+        onLongPress: () {
+          ref.read(lastUsed).client = client;
+          Navigator.pushNamed(
+            context,
+            '/client_journal',
           );
         },
-        onTap: () async {
-          ref.read(lastClientId.notifier).state = client.contractId;
-          unawaited(
-            Navigator.pushNamed(
-              context,
-              '/client_services',
-            ),
+        onTap: () {
+          ref.read(lastUsed).client = client;
+          Navigator.pushNamed(
+            context,
+            '/client_services',
           );
         },
       ),

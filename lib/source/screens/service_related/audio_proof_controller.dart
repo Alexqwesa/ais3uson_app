@@ -84,7 +84,7 @@ class AudioProofController extends ConsumerWidget {
                   proofController.addNewGroup();
                 }
                 await recorder.start(
-                  firstProof!,
+                  ref.read(groupsOfProof(proofController)).first,
                   prefix: beforeOrAfter,
                 );
               }

@@ -75,17 +75,14 @@ void main() {
     //
     // > it read lastClient
     //
-    ref.read(lastApiKey.notifier).state = wp.apiKey;
-    ref.read(lastClientId.notifier).state = wp.clients[3].contractId;
-    expect(ref.read(lastClient).contract, '701/2021/t/2017');
+    ref.read(lastUsed).client = wp.clients[3];
+    expect(ref.read(lastUsed).client.contract, '701/2021/t/2017');
     //
     // > it read last service
     //
-    final service = ref.read(lastClient).services[3];
-    ref.read(lastApiKey.notifier).state = wp.apiKey;
-    ref.read(lastClientId.notifier).state = wp.clients[3].contractId;
-    ref.read(lastClientServiceId.notifier).state = service.servId;
-    expect(ref.read(lastClientService).servId, service.servId);
+    final service = ref.read(lastUsed).client.services[3];
+    ref.read(lastUsed).service = service;
+    expect(ref.read(lastUsed).service, service);
     //
     // > archive state
     //
