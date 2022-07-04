@@ -20,105 +20,106 @@ class ListOfProfiles extends ConsumerWidget {
 
     return Center(
       child: wps.isNotEmpty
-          ? SizedBox(
-              width: 650,
-              child: ContextMenuOverlay(
-                child: ListView.builder(
-                  controller: ScrollController(),
-                  itemCount: wps.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final workerProfile = wps[index];
+          ? ContextMenuOverlay(
+              child: ListView.builder(
+                itemCount: wps.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final workerProfile = wps[index];
 
-                    return ContextMenuRegion(
-                      //
-                      // > context menu
-                      //
-                      contextMenu: GenericContextMenu(
-                        buttonConfigs: [
-                          ContextMenuButtonConfig(
-                            S.of(context).exportThisWeek,
-                            onPressed: () => ref
-                                .read(journalOfWorker(workerProfile))
-                                .exportToFile(
-                                  mostRecentMonday(),
-                                  mostRecentMonday(addDays: 7),
-                                ),
-                          ),
-                          ContextMenuButtonConfig(
-                            S.of(context).exportLastWeek,
-                            onPressed: () => ref
-                                .read(journalOfWorker(workerProfile))
-                                .exportToFile(
-                                  mostRecentMonday(addDays: -7),
-                                  mostRecentMonday(),
-                                ),
-                          ),
-                          ContextMenuButtonConfig(
-                            S.of(context).exportThisMonth,
-                            onPressed: () => ref
-                                .read(journalOfWorker(workerProfile))
-                                .exportToFile(
-                                  mostRecentMonth(),
-                                  mostRecentMonth(addMonths: 1),
-                                ),
-                          ),
-                          ContextMenuButtonConfig(
-                            S.of(context).exportLastMonth,
-                            onPressed: () => ref
-                                .read(journalOfWorker(workerProfile))
-                                .exportToFile(
-                                  mostRecentMonth(addMonths: -1),
-                                  mostRecentMonth(),
-                                ),
-                          ),
-                        ],
-                      ),
-                      //
-                      // > card
-                      //
-                      child: Card(
-                        margin: const EdgeInsets.all(12),
-                        child: ListTile(
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Transform.scale(
-                              scale: 2,
-                              child: const Icon(Icons.group),
+                  return Center(
+                    child: SizedBox(
+                      width: 650,
+                      child: ContextMenuRegion(
+                        //
+                        // > context menu
+                        //
+                        contextMenu: GenericContextMenu(
+                          buttonConfigs: [
+                            ContextMenuButtonConfig(
+                              S.of(context).exportThisWeek,
+                              onPressed: () => ref
+                                  .read(journalOfWorker(workerProfile))
+                                  .exportToFile(
+                                    mostRecentMonday(),
+                                    mostRecentMonday(addDays: 7),
+                                  ),
                             ),
-                          ),
-                          title: Text(
-                            wps[index].key.dep,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          //
-                          // > onTap call
-                          //
-                          onTap: () {
-                            ref.read(lastUsed).worker = wps[index];
-                            Navigator.pushNamed(
-                              context,
-                              '/department',
-                            );
-                          },
-                          subtitle: Align(
-                            alignment: Alignment.topLeft,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(wps[index].name),
-                                Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(wps[index].key.comment),
-                                ),
-                              ],
+                            ContextMenuButtonConfig(
+                              S.of(context).exportLastWeek,
+                              onPressed: () => ref
+                                  .read(journalOfWorker(workerProfile))
+                                  .exportToFile(
+                                    mostRecentMonday(addDays: -7),
+                                    mostRecentMonday(),
+                                  ),
+                            ),
+                            ContextMenuButtonConfig(
+                              S.of(context).exportThisMonth,
+                              onPressed: () => ref
+                                  .read(journalOfWorker(workerProfile))
+                                  .exportToFile(
+                                    mostRecentMonth(),
+                                    mostRecentMonth(addMonths: 1),
+                                  ),
+                            ),
+                            ContextMenuButtonConfig(
+                              S.of(context).exportLastMonth,
+                              onPressed: () => ref
+                                  .read(journalOfWorker(workerProfile))
+                                  .exportToFile(
+                                    mostRecentMonth(addMonths: -1),
+                                    mostRecentMonth(),
+                                  ),
+                            ),
+                          ],
+                        ),
+                        //
+                        // > card
+                        //
+                        child: Card(
+                          margin: const EdgeInsets.all(12),
+                          child: ListTile(
+                            leading: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Transform.scale(
+                                scale: 2,
+                                child: const Icon(Icons.group),
+                              ),
+                            ),
+                            title: Text(
+                              wps[index].key.dep,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            //
+                            // > onTap call
+                            //
+                            onTap: () {
+                              ref.read(lastUsed).worker = wps[index];
+                              Navigator.pushNamed(
+                                context,
+                                '/department',
+                              );
+                            },
+                            subtitle: Align(
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(wps[index].name),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Text(wps[index].key.comment),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             )
           : Text(

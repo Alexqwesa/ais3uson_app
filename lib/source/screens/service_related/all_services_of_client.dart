@@ -39,8 +39,8 @@ class AllServicesOfClientScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Wrap(
             children: [
               if (all.isEmpty) Text(tr().emptyListOfServices),

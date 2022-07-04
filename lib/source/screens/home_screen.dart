@@ -1,6 +1,7 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:ais3uson_app/app_root.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/screens/department_related/list_profiles.dart';
@@ -18,9 +19,32 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title = S.of(context).depList;
-
     return Scaffold(
+      //
+      // > appBar
+      //
+      appBar: AppBar(
+        title: Text(tr().depList),
+      ),
+      //
+      // > body
+      //
+      body: const ListOfProfiles(),
+      //
+      // > scan qr button
+      //
+      floatingActionButton: ref.watch(isArchive)
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/scan_qr',
+                );
+              },
+              tooltip: S.of(context).scanQrCode,
+              child: const Icon(Icons.add),
+            ),
       //
       // > drawer
       //
@@ -177,41 +201,6 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-            ),
-      //
-      // appBar
-      //
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      //
-      // > body
-      //
-      body: Center(
-        heightFactor: 1.1,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Expanded(
-              child: ListOfProfiles(),
-            ),
-          ],
-        ),
-      ),
-      //
-      // > scan qr button
-      //
-      floatingActionButton: ref.watch(isArchive)
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/scan_qr',
-                );
-              },
-              tooltip: S.of(context).scanQrCode,
-              child: const Icon(Icons.add),
             ),
     );
   }
