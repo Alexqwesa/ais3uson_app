@@ -305,7 +305,7 @@ void main() {
       // Check
       expect(find.text('Покупка продуктов питания'), findsOneWidget);
       expect(
-        find.textContaining('Список положенных услуг пуст,'),
+        find.textContaining(tr().noServicesForClient),
         findsNothing,
       );
     });
@@ -342,7 +342,7 @@ void main() {
       final listFinder = find.byKey(const ValueKey('MainScroll'));
       expect(listFinder, findsNothing);
       expect(
-        find.textContaining('Список положенных услуг пуст,'),
+        find.textContaining(tr().noServicesForClient),
         findsOneWidget,
       );
     });

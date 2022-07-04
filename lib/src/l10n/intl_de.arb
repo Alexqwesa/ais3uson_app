@@ -68,6 +68,7 @@
   "servicesNotFound": "\n\nDienste nicht gefunden!",
   "onRequest": "Auf Suchanfrage: \n\n",
   "before": "Vorher:",
-  "after": "Nach:"
+  "after": "Nach:",
+  "repeatSearch": "Suchanfrage wiederholen"
 
 }

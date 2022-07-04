@@ -115,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Geben Sie hier den Abteilungscode ein"),
         "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
             "Geben Sie hier den Abteilungscode ein (dies ist ein redundanter Modus der Abteilungsergänzung), dies ist nützlich im Falle einer defekten oder fehlenden Kamera ... \n Der empfohlene Weg ist: QR-Code scannen!"),
+        "repeatSearch":
+            MessageLookupByLibrary.simpleMessage("Suchanfrage wiederholen"),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Abteilung aus QR hinzufügen"),
         "searchQR": MessageLookupByLibrary.simpleMessage("QR suchen..."),
