@@ -32,58 +32,63 @@ class ServiceCard extends ConsumerWidget {
     // ignore: no_leading_underscores_for_local_identifiers
     final _ = ref.watch(groupsOfService(service.clientService));
     final active = service.addAllowed || ref.watch(isArchive);
+    final size = ref.watch(serviceCardSize(Tuple2(parentSize, tileType)));
 
-    return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
-      child: Stack(
-        children: [
-          ColorFiltered(
-            colorFilter: ColorFilter.mode(
-              active ? Colors.white.withOpacity(0) : Colors.grey,
-              BlendMode.multiply,
-            ),
-            child: ClipRect(
-              child: Row(
-                children: [
-                  //
-                  // > select view
-                  //
-                  if (tileType == '')
-                    ServiceCardView(
-                      serviceAt: service,
-                      parentSize: parentSize,
-                    )
-                  else if (tileType == 'tile')
-                    ServiceCardTileView(
-                      serviceAt: service,
-                      parentSize: parentSize,
-                    )
-                  else if (tileType == 'square')
-                    ServiceCardSquareView(
-                      serviceAt: service,
-                      parentSize: parentSize,
-                    ),
-                ],
+    return AnimatedSize(
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+      child: SizedBox.fromSize(
+        size: size,
+        child: Stack(
+          children: [
+            ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                active ? Colors.white.withOpacity(0) : Colors.grey,
+                BlendMode.multiply,
+              ),
+              child: ClipRect(
+                child: Row(
+                  children: [
+                    //
+                    // > select view
+                    //
+                    if (tileType == '')
+                      ServiceCardView(
+                        serviceAt: service,
+                        parentSize: parentSize,
+                      )
+                    else if (tileType == 'tile')
+                      ServiceCardTileView(
+                        serviceAt: service,
+                        parentSize: parentSize,
+                      )
+                    else if (tileType == 'square')
+                      ServiceCardSquareView(
+                        serviceAt: service,
+                        parentSize: parentSize,
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-          //
-          // InkWell animation and handler
-          //
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: service.add,
-              onLongPress: () {
-                // set last service
-                ref.read(lastUsed).serviceAt = service;
-                // open ClientServiceScreen
-                Navigator.pushNamed(context, '/service');
-              },
-              child: Container(),
+            //
+            // InkWell animation and handler
+            //
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: service.add,
+                onLongPress: () {
+                  // set last service
+                  ref.read(lastUsed).serviceAt = service;
+                  // open ClientServiceScreen
+                  Navigator.pushNamed(context, '/service');
+                },
+                child: Container(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
