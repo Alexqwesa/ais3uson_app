@@ -1,4 +1,5 @@
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/data_models/client_service_at.dart';
@@ -98,8 +99,23 @@ final _lastClient = Provider<ClientProfile>((ref) {
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClient requested but provider failed');
+    try {
+      return ref.watch(clientsOfWorker(ref.watch(_lastWorkerProfile))).first;
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      log.severe('lastClient requested but provider failed twice');
 
-    return ref.watch(clientsOfWorker(ref.watch(_lastWorkerProfile))).first;
+      return ClientProfile(
+        workerProfile: ref.watch(_lastWorkerProfile),
+        entry: const ClientEntry(
+          contract_id: 0,
+          dep_id: 0,
+          client_id: 0,
+          dhw_id: 0,
+          comment: 'Error Client',
+        ),
+      );
+    }
   }
 });
 

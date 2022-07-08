@@ -125,6 +125,7 @@ class _ClientServicesListScreen
       ref.read(currentServiceContainerSize.notifier).state =
           MediaQuery.of(context).size;
     }
+
     final client = ref.watch(lastUsed).client;
     final servList = ref.watch(filteredServices(client));
 
