@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
 import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
@@ -14,7 +14,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
-    show ConsumerState, ConsumerStatefulWidget, ConsumerWidget, WidgetRef;
+    show
+        ConsumerState,
+        ConsumerStatefulWidget,
+        ConsumerWidget,
+        ProviderScope,
+        WidgetRef;
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 /// Show list of services assigned to client, allow input by click.
@@ -41,14 +46,15 @@ class _ClientServicesListScreen
       hintText: 'Поиск',
       setState: setState,
       controller: _textEditingController,
-      onSubmitted: (value) => setState(() => searchText = value),
-      onChanged: (value) => setState(() => searchText = value),
+      onSubmitted: (value) =>
+          setState(() => ref.read(currentSearch.notifier).state = value),
+      onChanged: (value) =>
+          setState(() => ref.read(currentSearch.notifier).state = value),
       buildDefaultAppBar: buildAppBar,
       clearOnSubmit: false,
     );
   }
 
-  String searchText = '';
   late final SearchBar searchBar;
   final _textEditingController = TextEditingController();
   final speech = stt.SpeechToText();
@@ -63,9 +69,11 @@ class _ClientServicesListScreen
         //
         ? AppBar(
             title: GestureDetector(
-              onTap: () => setState(() => searchText = ''),
+              onTap: () => ref.read(currentSearch.notifier).state = '',
               child: Text(
-                searchText != '' ? ' "$searchText" ' : client.name,
+                ref.watch(currentSearch) != ''
+                    ? ' "${ref.watch(currentSearch)}" '
+                    : client.name,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -76,7 +84,7 @@ class _ClientServicesListScreen
               // search
               searchBar.getSearchAction(context),
               // microphone
-              if (kIsWeb || Platform.isAndroid || Platform.isIOS )
+              if (kIsWeb || Platform.isAndroid || Platform.isIOS)
                 IconButton(
                   icon: const Icon(Icons.mic_none_rounded),
                   onPressed: startSpeechRecognition,
@@ -101,44 +109,24 @@ class _ClientServicesListScreen
         //
         // > stop words recognition button, only shown on listening
         //
-        : AppBar(
-            title: ElevatedButton(
-              child: const Icon(Icons.mic_rounded),
-              autofocus: true,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-              ),
-              onPressed: () async {
-                await speech.stop();
-                log
-                  ..fine('speech ${speech.lastStatus}')
-                  ..fine('speech ${speech.lastRecognizedWords}');
-                if (mounted) searchBar.beginSearch(context);
-                setState(() {
-                  searchText = speech.lastRecognizedWords;
-                });
-              },
-            ),
+        : _StopListenMicAppBar(
+            speech: speech,
+            searchBar: searchBar,
           );
   }
 
+  bool inited = false;
+
   @override
   Widget build(BuildContext context) {
-    //
-    // > init and filter
-    //
+    if (!inited) {
+      inited = true;
+      // ignore: invalid_use_of_protected_member
+      ref.read(currentServiceContainerSize.notifier).state =
+          MediaQuery.of(context).size;
+    }
     final client = ref.watch(lastUsed).client;
-    final search = searchText.toLowerCase();
-    final servList = ref
-        .watch(servicesOfClient(client))
-        .where((element) => element.servText.toLowerCase().contains(search))
-        .map((e) => ClientServiceAt(
-              clientService: e,
-              date: ref.watch(isArchive)
-                  ? ref.watch(archiveDate)
-                  : DateTime.now(),
-            ))
-        .toList(growable: false);
+    final servList = ref.watch(filteredServices(client));
 
     return Scaffold(
       //
@@ -148,28 +136,26 @@ class _ClientServicesListScreen
       //
       // > body
       //
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Center(
+      body: NotificationListener<SizeChangedLayoutNotification>(
+        onNotification: (size) {
+          Future.delayed(
+            const Duration(milliseconds: 100),
+            () => ref
+                .read(currentServiceContainerSize.notifier)
+                .delayedChange(MediaQuery.of(context).size),
+          );
+
+          return true;
+        },
+        child: SizeChangedLayoutNotifier(
+          child: Center(
             child: ref.watch(servicesOfClient(client)).isNotEmpty
                 ? servList.isNotEmpty
-                    ? Center(
-                        child: SingleChildScrollView(
-                          key: const ValueKey('MainScroll'),
-                          child: Wrap(
-                            children: servList
-                                .map(
-                                  (element) => ServiceCard(
-                                    service: element,
-                                    parentSize: constraints.biggest,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
+                    ? const Center(
+                        child: _ListOfServices(),
                       )
                     : Text(
-                        '${tr().onRequest} $searchText ${tr().servicesNotFound}',
+                        '${tr().onRequest} ${ref.watch(currentSearch)} ${tr().servicesNotFound}',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5,
                       )
@@ -178,8 +164,8 @@ class _ClientServicesListScreen
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline5,
                   ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
@@ -211,6 +197,67 @@ class _ClientServicesListScreen
         log.warning('The user has denied the use of speech recognition.');
       }
     }
+  }
+}
+
+/// Stop words recognition button in AppBar, only shown on listening.
+class _StopListenMicAppBar extends ConsumerWidget {
+  const _StopListenMicAppBar({
+    required this.speech,
+    required this.searchBar,
+    Key? key,
+  }) : super(key: key);
+
+  final stt.SpeechToText speech;
+  final SearchBar searchBar;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AppBar(
+      title: ElevatedButton(
+        child: const Icon(Icons.mic_rounded),
+        autofocus: true,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+        ),
+        onPressed: () async {
+          searchBar.beginSearch(context);
+          await speech.stop();
+          log
+            ..fine('speech ${speech.lastStatus}')
+            ..fine('speech ${speech.lastRecognizedWords}');
+          ref.read(currentSearch.notifier).state = speech.lastRecognizedWords;
+        },
+      ),
+    );
+  }
+}
+
+class _ListOfServices extends ConsumerWidget {
+  const _ListOfServices({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final client = ref.watch(lastUsed).client;
+    final servList = ref.watch(filteredServices(client));
+
+    return SingleChildScrollView(
+      key: const ValueKey('MainScroll'),
+      child: Wrap(
+        children: servList
+            .map(
+              (element) => ProviderScope(
+                overrides: [
+                  currentService.overrideWithValue(element),
+                ],
+                child: const ServiceCard(),
+              ),
+            )
+            .toList(),
+      ),
+    );
   }
 }
 

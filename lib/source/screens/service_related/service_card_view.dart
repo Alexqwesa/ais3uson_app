@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,17 +12,16 @@ import 'package:tuple/tuple.dart';
 /// {@category UI Services}
 class ServiceCardView extends ConsumerWidget {
   const ServiceCardView({
-    required this.serviceAt,
-    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   static const tileType = '';
-  final ClientServiceAt serviceAt;
-  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final parentSize = ref.watch(currentServiceContainerSize);
+    final serviceAt = ref.watch(currentService)!; // as ClientServiceAt;
+
     return SizedBox.fromSize(
       size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
@@ -111,17 +110,16 @@ class ServiceCardView extends ConsumerWidget {
 /// {@category UI Services}
 class ServiceCardSquareView extends ConsumerWidget {
   const ServiceCardSquareView({
-    required this.serviceAt,
-    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   static const tileType = 'square';
-  final ClientServiceAt serviceAt;
-  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final parentSize = ref.watch(currentServiceContainerSize);
+    final serviceAt = ref.watch(currentService)!; // as ClientServiceAt;
+
     return SizedBox.fromSize(
       size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
@@ -189,17 +187,16 @@ class ServiceCardSquareView extends ConsumerWidget {
 /// {@category UI Services}
 class ServiceCardTileView extends ConsumerWidget {
   const ServiceCardTileView({
-    required this.serviceAt,
-    required this.parentSize,
     Key? key,
   }) : super(key: key);
 
   static const tileType = 'tile';
-  final ClientServiceAt serviceAt;
-  final Size parentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final parentSize = ref.watch(currentServiceContainerSize);
+    final serviceAt = ref.watch(currentService)!; // as ClientServiceAt;
+
     return SizedBox.fromSize(
       size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
