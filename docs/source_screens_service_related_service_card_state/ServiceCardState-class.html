@@ -53,7 +53,7 @@
 <section class="desc markdown">
   <p>Display state of the client service: amount of done/added/rejected...</p>
 <p>It collect data from Journal
-via <code>ref.watch(listDoneProgressErrorOfService(clientService))</code>,
+via <code>ref.watch(doneProgressErrorOfService(clientService))</code>,
 these numbers mean:</p>
 <ul>
 <li>done - finished and outDated,</li>
@@ -98,7 +98,7 @@ these numbers mean:</p>
 
     <dl class="constructor-summary-list">
         <dt id="ServiceCardState" class="callable">
-          <span class="name"><a href="../source_screens_service_related_service_card_state/ServiceCardState/ServiceCardState.html">ServiceCardState</a></span><span class="signature">(<span class="parameter" id="-param-clientServiceAt">{<span>required</span> <span class="type-annotation"><a href="../source_data_models_client_service_at/ClientServiceAt-class.html">ClientServiceAt</a></span> <span class="parameter-name">clientServiceAt</span>, </span><span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-rightOfText"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">rightOfText</span> = <span class="default-value">false</span>}</span>)</span>
+          <span class="name"><a href="../source_screens_service_related_service_card_state/ServiceCardState/ServiceCardState.html">ServiceCardState</a></span><span class="signature">(<span class="parameter" id="-param-key">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-rightOfText"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">rightOfText</span> = <span class="default-value">false</span>}</span>)</span>
         </dt>
         <dd>
           
@@ -111,17 +111,6 @@ these numbers mean:</p>
       <h2>Properties</h2>
 
       <dl class="properties">
-        <dt id="clientServiceAt" class="property">
-  <span class="name"><a href="../source_screens_service_related_service_card_state/ServiceCardState/clientServiceAt.html">clientServiceAt</a></span>
-  <span class="signature">&#8594; <a href="../source_data_models_client_service_at/ClientServiceAt-class.html">ClientServiceAt</a></span> 
-
-</dt>
-<dd>
-  
-  <div class="features">final</div>
-
-</dd>
-
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
@@ -411,7 +400,6 @@ tools and by <a href="https://api.flutter.dev/flutter/foundation/DiagnosticsNode
     <li class="section-title">
       <a href="../source_screens_service_related_service_card_state/ServiceCardState-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../source_screens_service_related_service_card_state/ServiceCardState/clientServiceAt.html">clientServiceAt</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
     <li><a href="../source_screens_service_related_service_card_state/ServiceCardState/rightOfText.html">rightOfText</a></li>
@@ -447,7 +435,7 @@ tools and by <a href="https://api.flutter.dev/flutter/foundation/DiagnosticsNode
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+14
+      1.0.1+15
   </span>
 
   

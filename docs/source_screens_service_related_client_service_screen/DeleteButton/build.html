@@ -57,7 +57,8 @@
 </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.9/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -105,18 +106,20 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context) {
+Widget build(BuildContext context, WidgetRef ref) {
+  final allowed = ref.watch(deleteAllowedOfService(service));
+
   return FittedBox(
     fit: BoxFit.fitHeight,
     child: IconButton(
-      onPressed: service.delete,
+      onPressed: allowed ? service.delete : null,
       icon: Transform.scale(
         scale: 2.5,
         child: Transform.rotate(
           angle: 3.14,
           child: Icon(
             Icons.publish_rounded,
-            color: service.deleteAllowed ? Colors.red : Colors.grey,
+            color: allowed ? Colors.red : Colors.grey,
           ),
         ),
       ),
@@ -160,7 +163,8 @@ Widget build(BuildContext context) {
 
     <li class="section-title"><a href="../../source_screens_service_related_client_service_screen/DeleteButton-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_service_related_client_service_screen/DeleteButton/build.html">build</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.9/flutter_riverpod/ConsumerStatefulWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.9/flutter_riverpod/ConsumerWidget/createState.html">createState</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
@@ -188,7 +192,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+14
+      1.0.1+15
   </span>
 
   
