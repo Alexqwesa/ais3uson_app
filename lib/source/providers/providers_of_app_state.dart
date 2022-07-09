@@ -2,9 +2,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/providers/repository_of_worker.dart';
@@ -27,23 +25,11 @@ class _LastUsed {
 
   final ProviderRef ref;
 
-  ClientServiceAt get serviceAt => ClientServiceAt(
-        clientService: ref.read(_lastClientService),
-        date: ref.read(_lastServiceAt),
-      );
+  ClientService get service => ref.watch(_lastClientService);
 
-  ClientService get service => ref.read(_lastClientService);
+  ClientProfile get client => ref.watch(_lastClient);
 
-  ClientProfile get client => ref.read(_lastClient);
-
-  WorkerProfile get worker => ref.read(_lastWorkerProfile);
-
-  set serviceAt(ClientServiceAt value) {
-    ref.read(_lastServiceAt.notifier).state = value.dateOnly;
-    ref.read(_lastClientServiceId.notifier).state = value.servId;
-    ref.read(_lastClientId.notifier).state = value.contractId;
-    ref.read(_lastApiKey.notifier).state = value.workerProfile.apiKey;
-  }
+  WorkerProfile get worker => ref.watch(_lastWorkerProfile);
 
   set service(ClientService value) {
     ref.read(_lastClientServiceId.notifier).state = value.servId;
@@ -237,9 +223,3 @@ final archiveDate = StateProvider<DateTime?>((ref) {
   return null;
 });
 
-/// Provider of setting - date of LastService
-///
-/// {@category Providers}
-final _lastServiceAt = StateProvider<DateTime?>((ref) {
-  return DateTime.now().dateOnly();
-});

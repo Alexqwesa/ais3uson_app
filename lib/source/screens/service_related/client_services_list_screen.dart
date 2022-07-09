@@ -249,11 +249,21 @@ class _ListOfServices extends ConsumerWidget {
       child: Wrap(
         children: servList
             .map(
-              (element) => ProviderScope(
-                overrides: [
-                  currentService.overrideWithValue(element),
-                ],
-                child: const ServiceCard(),
+              (element) => InkWell(
+                child: ProviderScope(
+                  overrides: [
+                    currentService.overrideWithValue(element),
+                  ],
+                  child: const ServiceCard(
+                      // key: ObjectKey(element),
+                      ),
+                ),
+                onLongPress: () {
+                  // set last service
+                  ref.read(lastUsed).service = element;
+                  // open ClientServiceScreen
+                  Navigator.pushNamed(context, '/service');
+                },
               ),
             )
             .toList(),

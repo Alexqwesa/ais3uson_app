@@ -1,6 +1,7 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class ServiceCardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parentSize = ref.watch(currentServiceContainerSize);
-    final serviceAt = ref.watch(currentService)!; // as ClientServiceAt;
+    final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
       size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
@@ -29,15 +30,14 @@ class ServiceCardView extends ConsumerWidget {
           width: 205,
           height: 230,
           child: Card(
-            elevation: serviceAt.addAllowed ? 6 : 0,
+            elevation: ref.watch(addAllowedOfService(service)) ? 6 : 0,
             child: Padding(
               padding: const EdgeInsets.all(2),
               child: Stack(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                     child: ServiceCardState(
-                      clientServiceAt: serviceAt,
                       rightOfText: true,
                     ),
                   ),
@@ -49,11 +49,11 @@ class ServiceCardView extends ConsumerWidget {
                         // > service image
                         //
                         child: Hero(
-                          tag: serviceAt.servId,
+                          tag: service.servId,
                           child: SizedBox(
                             height: 90,
                             width: 90,
-                            child: ref.watch(image(serviceAt.image)),
+                            child: ref.watch(image(service.image)),
                           ),
                         ),
                       ),
@@ -70,7 +70,7 @@ class ServiceCardView extends ConsumerWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(6),
                                   child: Text(
-                                    serviceAt.shortText,
+                                    service.shortText,
                                     textScaleFactor: 1.1,
                                     textAlign: TextAlign.center,
                                     style:
@@ -81,7 +81,7 @@ class ServiceCardView extends ConsumerWidget {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                   child: Text(
-                                    serviceAt.servTextAdd,
+                                    service.servTextAdd,
                                     softWrap: true,
                                     // overflow: TextOverflow.ellipsis,
                                   ),
@@ -118,7 +118,7 @@ class ServiceCardSquareView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parentSize = ref.watch(currentServiceContainerSize);
-    final serviceAt = ref.watch(currentService)!; // as ClientServiceAt;
+    final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
       size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
@@ -131,15 +131,15 @@ class ServiceCardSquareView extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
                 child: Card(
-                  elevation: serviceAt.addAllowed ? 6 : 0,
+                  elevation: ref.watch(addAllowedOfService(service)) ? 6 : 0,
                   child: Column(
                     children: <Widget>[
                       Hero(
-                        tag: serviceAt.servId,
+                        tag: service.servId,
                         child: SizedBox(
                           height: 90,
                           width: 90,
-                          child: ref.watch(image(serviceAt.image)),
+                          child: ref.watch(image(service.image)),
                         ),
                       ),
                       const Divider(
@@ -150,7 +150,7 @@ class ServiceCardSquareView extends ConsumerWidget {
                       //
                       Center(
                         child: Text(
-                          serviceAt.shortText,
+                          service.shortText,
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -163,13 +163,9 @@ class ServiceCardSquareView extends ConsumerWidget {
                   ),
                 ),
               ),
-              // Align(
-              //   alignment: const Alignment(-1, -0.9),
-              //   child:
-              SizedBox(
+              const SizedBox(
                 height: 50,
                 child: ServiceCardState(
-                  clientServiceAt: serviceAt,
                   rightOfText: true,
                 ),
                 // ),
@@ -195,7 +191,7 @@ class ServiceCardTileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parentSize = ref.watch(currentServiceContainerSize);
-    final serviceAt = ref.watch(currentService)!; // as ClientServiceAt;
+    final service= ref.watch(currentService);
 
     return SizedBox.fromSize(
       size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
@@ -207,7 +203,7 @@ class ServiceCardTileView extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Card(
-              elevation: serviceAt.addAllowed ? 6 : 0,
+              elevation: ref.watch(addAllowedOfService(service))  ? 6 : 0,
               child: Stack(
                 children: [
                   Row(
@@ -216,8 +212,8 @@ class ServiceCardTileView extends ConsumerWidget {
                         height: 90,
                         width: 90,
                         child: Hero(
-                          tag: serviceAt.servId,
-                          child: ref.watch(image(serviceAt.image)),
+                          tag: service.servId,
+                          child: ref.watch(image(service.image)),
                         ),
                       ),
                       //
@@ -233,7 +229,7 @@ class ServiceCardTileView extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(6),
                                 child: Text(
-                                  serviceAt.shortText,
+                                  service.shortText,
                                   textScaleFactor: 1.1,
                                   textAlign: TextAlign.left,
                                   style: Theme.of(context).textTheme.bodyText1,
@@ -242,7 +238,7 @@ class ServiceCardTileView extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                 child: Text(
-                                  serviceAt.servTextAdd,
+                                  service.servTextAdd,
                                   textAlign: TextAlign.left,
                                   softWrap: true,
                                   // overflow: TextOverflow.ellipsis,
@@ -257,13 +253,12 @@ class ServiceCardTileView extends ConsumerWidget {
                   //
                   // > service state
                   //
-                  Align(
+                  const Align(
                     alignment: Alignment.topRight,
                     child: SizedBox(
                       width: 50,
                       height: 88,
                       child: ServiceCardState(
-                        clientServiceAt: serviceAt,
                         rightOfText: true,
                       ),
                     ),

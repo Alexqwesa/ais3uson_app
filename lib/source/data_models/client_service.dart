@@ -3,13 +3,11 @@ import 'dart:async';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/data_models/proof_list.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/journal/service_state.dart';
 import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
@@ -21,7 +19,7 @@ import 'package:tuple/tuple.dart';
 
 part 'client_service.freezed.dart';
 
-/// Model for [ClientServiceAt] and [ServiceCard].
+/// Model for [ServiceCard] and other widget.
 ///
 /// This is mostly a view model for data from:
 /// - [Journal],
@@ -30,7 +28,7 @@ part 'client_service.freezed.dart';
 ///
 /// {@category Data Models}
 @freezed
-class ClientService with _$ClientService, ClientServiceMixin {
+class ClientService with _$ClientService {
   const factory ClientService({
     /// Reference to existing [WorkerProfile].
     required WorkerProfile workerProfile,
@@ -41,29 +39,11 @@ class ClientService with _$ClientService, ClientServiceMixin {
     /// Reference to existing [ClientPlan].
     required ClientPlan planned,
 
-    /// Null - for dynamic date (from provider [archiveDate])
-    DateTime? date,
+    /// Should be Null to depend on global variable, !null break dependency.
+    @Default(null) DateTime? date,
   }) = _ClientService;
 
   const ClientService._();
-}
-
-/// This is a helper mixin for [ClientService] and [ClientServiceAt] classes.
-mixin ClientServiceMixin {
-  /// Reference to existing [WorkerProfile].
-  WorkerProfile get workerProfile =>
-      throw UnsupportedError('The stub is called!');
-
-  /// Reference to existing [ServiceEntry].
-  ServiceEntry get service => throw UnsupportedError('The stub is called!');
-
-  /// Reference to existing [ClientPlan].
-  ClientPlan get planned => throw UnsupportedError('The stub is called!');
-
-  /// Null - for dynamic date (from provider [archiveDate])
-  DateTime? get date => throw UnsupportedError('The stub is called!');
-
-  ClientService? get thisClientService => null;
 
   //
   // > shortcuts for underline classes
@@ -94,50 +74,10 @@ mixin ClientServiceMixin {
 
   Journal get journal => ref.read(journalOfWorker(workerProfile));
 
-  ClientService get theThis => thisClientService ?? this as ClientService;
-
-  //
-  // > services getters
-  //
-  int get added =>
-      ref.read(groupsOfService(theThis))?[ServiceState.added]?.length ?? 0;
-
-  int get done =>
-      (ref.read(groupsOfService(theThis))?[ServiceState.finished]?.length ??
-          0) +
-      (ref.read(groupsOfService(theThis))?[ServiceState.outDated]?.length ?? 0);
-
-  // int get rejected =>
-  //     ref.read(groupsOfService(this))?[ServiceState.rejected]?.length ?? 0;
-
-  int get all => journal.all
-      .where(
-        (e) => e.contractId == contractId && e.servId == service.id,
-      )
-      .length;
-
-  @Deprecated('Better use ref.watch of listDoneProgressErrorOfService')
-  List<int> get listDoneProgressError =>
-      ref.read(listDoneProgressErrorOfService(theThis));
-
-  //
-  // > logical getters
-  //
-  int get left => plan - filled - done - added;
-
-  bool get isToday {
-    return date == null ||
-        date?.daysSinceEpoch == DateTime.now().daysSinceEpoch;
-  }
-
-  bool get addAllowed => left > 0 && isToday;
-
-  bool get deleteAllowed => all > 0 && isToday;
-
   //
   // > proof managing
   //
-  ProofList get proofList => ref.read(servProofAtDate(Tuple2(date, theThis)));
+  ProofList get proofList => ref.read(servProofAtDate(Tuple2(date, this)));
 
   void addProof() {
     proofList.addNewGroup();
@@ -145,7 +85,7 @@ mixin ClientServiceMixin {
 
   /// Add [ServiceOfJournal].
   Future<void> add() async {
-    if (addAllowed) {
+    if (ref.read(addAllowedOfService(this))) {
       await journal.post(
         autoServiceOfJournal(
           servId: planned.servId,
@@ -160,11 +100,13 @@ mixin ClientServiceMixin {
 
   /// Delete [ServiceOfJournal].
   Future<void> delete() async {
-    await journal.delete(
-      uuid: journal.getUuidOfLastService(
-        servId: planned.servId,
-        contractId: planned.contractId,
-      ),
-    );
+    if (ref.read(deleteAllowedOfService(this))) {
+      await journal.delete(
+        uuid: journal.getUuidOfLastService(
+          servId: planned.servId,
+          contractId: planned.contractId,
+        ),
+      );
+    }
   }
 }

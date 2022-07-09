@@ -51,7 +51,7 @@ class ProofList {
 
   /// Crawl through file system to generate [ProofEntry]s.
   ///
-  /// ![Mind map if directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
+  /// ![Mind map of directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
   Future<void> crawler() async {
     crawled ??= _crawler();
 

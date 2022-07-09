@@ -67,16 +67,16 @@ class Journal {
   List<ServiceOfJournal> get all => ref.read(servicesOfJournal(this)) ?? [];
 
   List<ServiceOfJournal> get added =>
-      ref.read(groupsOfJournal(this))?[ServiceState.added] ?? [];
+      ref.read(groupsOfJournal(this))[ServiceState.added] ?? [];
 
   List<ServiceOfJournal> get finished =>
-      ref.read(groupsOfJournal(this))?[ServiceState.finished] ?? [];
+      ref.read(groupsOfJournal(this))[ServiceState.finished] ?? [];
 
   List<ServiceOfJournal> get outDated =>
-      ref.read(groupsOfJournal(this))?[ServiceState.outDated] ?? [];
+      ref.read(groupsOfJournal(this))[ServiceState.outDated] ?? [];
 
   List<ServiceOfJournal> get rejected =>
-      ref.read(groupsOfJournal(this))?[ServiceState.rejected] ?? [];
+      ref.read(groupsOfJournal(this))[ServiceState.rejected] ?? [];
 
   List<ServiceOfJournal> get servicesForSync => added;
 

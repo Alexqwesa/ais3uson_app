@@ -1,8 +1,7 @@
 import 'package:ais3uson_app/source/data_models/client_service.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
+import 'package:ais3uson_app/source/providers/repository_of_service.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
 import 'package:ais3uson_app/source/screens/service_related/service_proofs_list.dart';
 import 'package:flutter/foundation.dart';
@@ -14,21 +13,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category UI Services}
 class ClientServiceScreen extends ConsumerWidget {
   const ClientServiceScreen({
-    this.clientService,
-    this.serviceDate,
     Key? key,
   }) : super(key: key);
 
-  final ClientService? clientService;
-  final DateTime? serviceDate;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final service = ClientServiceAt(
-      clientService: clientService ?? ref.watch(lastUsed).service,
-      date:
-          (serviceDate ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
-    );
+    final service = ref.watch(currentService);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width < height
         ? MediaQuery.of(context).size.width
@@ -61,8 +51,7 @@ class ClientServiceScreen extends ConsumerWidget {
                           SizedBox(
                             height: width / 4,
                             width: width / 5,
-                            child: ServiceCardState(
-                              clientServiceAt: service,
+                            child: const ServiceCardState(
                               rightOfText: true,
                             ),
                           ),
@@ -143,7 +132,7 @@ class ClientServiceScreen extends ConsumerWidget {
                   //
                   // > prof of service
                   //
-                  if (!kIsWeb) ServiceProofList(clientServiceAt: service),
+                  if (!kIsWeb) ServiceProofList(clientService: service),
                 ],
               ),
             ),
@@ -163,19 +152,21 @@ class AddButton extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final ClientServiceAt service;
+  final ClientService service;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final allowed = ref.watch(addAllowedOfService(service));
+
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: service.add,
+        onPressed: allowed ? service.add : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Icon(
             Icons.publish_rounded,
-            color: service.addAllowed ? Colors.green : Colors.grey,
+            color: allowed ? Colors.green : Colors.grey,
           ),
         ),
       ),
@@ -186,27 +177,29 @@ class AddButton extends ConsumerWidget {
 /// Button to delete [ServiceOfJournal], used in [ClientServiceScreen].
 ///
 /// {@category UI Services}
-class DeleteButton extends StatelessWidget {
+class DeleteButton extends ConsumerWidget {
   const DeleteButton({
     required this.service,
     Key? key,
   }) : super(key: key);
 
-  final ClientServiceAt service;
+  final ClientService service;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final allowed = ref.watch(deleteAllowedOfService(service));
+
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: service.delete,
+        onPressed: allowed ? service.delete : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Transform.rotate(
             angle: 3.14,
             child: Icon(
               Icons.publish_rounded,
-              color: service.deleteAllowed ? Colors.red : Colors.grey,
+              color: allowed ? Colors.red : Colors.grey,
             ),
           ),
         ),

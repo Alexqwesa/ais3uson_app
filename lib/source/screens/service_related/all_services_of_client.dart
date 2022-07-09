@@ -10,11 +10,12 @@ import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
-    show ConsumerWidget, WidgetRef;
+    show ConsumerWidget, ProviderScope, WidgetRef;
 
 const tileSize = 500.0;
 
@@ -97,7 +98,6 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //
                 // > Date
@@ -167,7 +167,6 @@ class _ServiceOfJournalTile extends ConsumerWidget {
           );
       // ignore: avoid_catching_errors
     } on StateError {
-      // if (e.message == 'No element') {
       service = ClientService(
         // maybe use error constructor?
         workerProfile: client.workerProfile,
@@ -208,8 +207,8 @@ class _ServiceOfJournalTile extends ConsumerWidget {
                   ],
                 ),
               ),
-              onTap: () => openClientServiceScreen(context, service),
-              onLongPress: () => openClientServiceScreen(context, service),
+              onTap: () => openClientServiceScreen(context, service, ref),
+              onLongPress: () => openClientServiceScreen(context, service, ref),
             ),
           ),
         ),
@@ -218,14 +217,22 @@ class _ServiceOfJournalTile extends ConsumerWidget {
   }
 
   /// Open [ClientServiceScreen] without setting lastUsed (for serviceOfJournal).
-  void openClientServiceScreen(BuildContext context, ClientService service) {
+  void openClientServiceScreen(
+    BuildContext context,
+    ClientService service,
+    WidgetRef ref,
+  ) {
     Navigator.push(
       context,
       MaterialPageRoute<ClientServiceScreen>(
         builder: (context) {
-          return ClientServiceScreen(
-            clientService: service,
-            serviceDate: serviceOfJournal.provDate,
+          return ProviderScope(
+            child: const ClientServiceScreen(),
+            overrides: [
+              currentService.overrideWithValue(
+                service.copyWith(date: serviceOfJournal.provDate.dateOnly()),
+              ),
+            ],
           );
         },
       ),

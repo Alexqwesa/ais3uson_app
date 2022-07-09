@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_service.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
+import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
 import 'package:ais3uson_app/source/screens/service_related/camera.dart';
 import 'package:camera/camera.dart';
@@ -23,20 +23,22 @@ import 'package:tuple/tuple.dart';
 /// {@category UI Proofs}
 class ServiceProofList extends ConsumerWidget {
   const ServiceProofList({
-    required this.clientServiceAt,
+    required this.clientService,
     // required this.clientProfile,
     // this.date,
     Key? key,
   }) : super(key: key);
 
   // final ClientProfile clientProfile;
-  final ClientServiceAt clientServiceAt;
+  final ClientService clientService;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proofList = ref.watch(servProofAtDate(Tuple2(
-      clientServiceAt.date?.dateOnly(),
-      clientServiceAt.clientService,
+      clientService.date ??
+          ref.watch(archiveDate) ??
+          DateTimeExtensions.today(),
+      clientService,
     )));
 
     return Column(
@@ -76,7 +78,7 @@ class ServiceProofList extends ConsumerWidget {
         // > Display list of proofs in columns
         //
         ProofListBuilder(
-          clientServiceAt: clientServiceAt,
+          clientService: clientService,
         ),
         //
         // > add new record(proof row) button
@@ -96,17 +98,19 @@ class ServiceProofList extends ConsumerWidget {
 /// {@category UI Proofs}
 class ProofListBuilder extends ConsumerWidget {
   const ProofListBuilder({
-    required this.clientServiceAt,
+    required this.clientService,
     Key? key,
   }) : super(key: key);
 
-  final ClientServiceAt clientServiceAt;
+  final ClientService clientService;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proofList = ref.watch(servProofAtDate(Tuple2(
-      clientServiceAt.date?.dateOnly(),
-      clientServiceAt.clientService,
+      clientService.date ??
+          ref.watch(archiveDate) ??
+          DateTimeExtensions.today(),
+      clientService,
     )));
     final proofGroups = ref.watch(groupsOfProof(proofList));
 

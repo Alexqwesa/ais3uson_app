@@ -1,6 +1,7 @@
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
+import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/archive/journal_archive.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
@@ -9,6 +10,7 @@ import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
 /// Provider of [Journal] for [WorkerProfile].
 ///
@@ -25,7 +27,24 @@ final journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
       : ref.watch(_journalOfWorker(wp));
 });
 
-/// This Journal, is the only one who can write to Hive.
+/// Provider of [Journal] for [WorkerProfile].
+///
+/// It check is update needed, and auto update list.
+/// Return List<[ClientPlan]>.
+///
+/// {@category Providers}
+/// {@category Journal}
+final journalOfWorkerAtDate =
+    Provider.family<Journal, Tuple2<WorkerProfile, DateTime?>>((ref, tuple) {
+  final wp = tuple.item1;
+  final date = tuple.item2;
+
+  return date == DateTimeExtensions.today() || date == null
+      ? ref.watch(_journalOfWorker(wp))
+      : ref.watch(_journalArchiveOfWorker(wp));
+});
+
+/// This Journal, is the only one who can write new services to Hive.
 final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
   return Journal(wp);
 });

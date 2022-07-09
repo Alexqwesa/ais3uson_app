@@ -6,11 +6,11 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/screens/department_related/add_department_screen.dart';
 import 'package:ais3uson_app/source/screens/department_related/delete_department_screen.dart';
@@ -21,6 +21,7 @@ import 'package:ais3uson_app/source/screens/dev_screen.dart';
 import 'package:ais3uson_app/source/screens/home_screen.dart';
 import 'package:ais3uson_app/source/screens/service_related/all_services_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -323,14 +324,17 @@ void main() {
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
-      ref.read(lastUsed).worker = wp;
       ref.read(lastUsed).client = wp.clients[1];
       // wp.clients[1].services.clear();
       expect(wp.clients[1].services.isEmpty, false);
       const widgetForTesting = ClientServicesListScreen();
       await tester.pumpWidget(
         ProviderScope(
-          overrides: [servicesOfClient(wp.clients[1]).overrideWithValue([])],
+          overrides: [
+            filteredServices.overrideWithProvider(
+              (argument) => Provider((ref) => <ClientService>[]),
+            ),
+          ],
           parent: ref,
           child: localizedMaterialApp(
             widgetForTesting,
@@ -342,7 +346,7 @@ void main() {
       final listFinder = find.byKey(const ValueKey('MainScroll'));
       expect(listFinder, findsNothing);
       expect(
-        find.textContaining(tr().noServicesForClient),
+        find.textContaining(tr().servicesNotFound),
         findsOneWidget,
       );
     });

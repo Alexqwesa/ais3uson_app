@@ -1,12 +1,14 @@
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
+import 'package:ais3uson_app/source/data_models/client_service.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Stub provider of current service. Should be overwritten before used.
-final currentService = Provider<ClientServiceAt?>((ref) => null);
+/// Stub provider of current service. Separate from [lastUsed] for overriding.
+final currentService = Provider<ClientService>(
+  (ref) => ref.watch(lastUsed).service,
+);
 
 /// Provider of current size of container of services.
 final currentServiceContainerSize =
@@ -55,17 +57,11 @@ class _CurrentSearch extends StateNotifier<String> {
 
 /// List of services of client filtered by currentSearch.
 final filteredServices =
-    Provider.family<List<ClientServiceAt>, ClientProfile>((ref, client) {
-  // final client = ref.watch(lastUsed).client;
+    Provider.family<List<ClientService>, ClientProfile>((ref, client) {
   final search = ref.watch(currentSearch).toLowerCase();
   final servList = ref
       .watch(servicesOfClient(client))
       .where((element) => element.servText.toLowerCase().contains(search))
-      .map((e) => ClientServiceAt(
-            clientService: e,
-            date:
-                ref.watch(isArchive) ? ref.watch(archiveDate) : DateTime.now(),
-          ))
       .toList(growable: false);
 
   return servList;

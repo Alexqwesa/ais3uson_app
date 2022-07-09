@@ -10,6 +10,7 @@ import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/screens/service_related/all_services_of_client.dart';
 import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -177,9 +178,13 @@ void main() {
       //
       ref.read(lastUsed).service = service;
 
-      final widgetForTesting = ClientServiceScreen(
-        clientService: service,
-        serviceDate: DateTime.now().dateOnly(),
+      final widgetForTesting = ProviderScope(
+        child: const ClientServiceScreen(),
+        overrides: [
+          currentService.overrideWithValue(
+            service.copyWith(date: DateTimeExtensions.today()),
+          ),
+        ],
       );
       await tester.pumpWidget(
         ProviderScope(

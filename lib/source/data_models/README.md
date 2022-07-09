@@ -8,11 +8,12 @@ Hierarchy of classes:
     - [WorkerProfile]s with different:
         - [ClientProfile]s with different:
             - [ClientService]s with different:
-                - [ClientServiceAt]s with different:
+                - [atData] provider witch is set by overridden, s with different:
                     - [ServiceOfJournal]s,
                     - [ProofList]s.
-    
-Note: [ProofList] is intentionally not depend on [ServiceOfJournal] to allow: 
+
+Note: [ProofList] is intentionally not depend on [ServiceOfJournal] to allow:
+
 - make one proof for several [ServiceOfJournal],
 - to leave proof even in case of deleting of [ServiceOfJournal].
 

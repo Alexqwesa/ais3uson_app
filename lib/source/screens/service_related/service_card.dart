@@ -24,13 +24,12 @@ class ServiceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parentSize = ref.watch(currentServiceContainerSize);
-    final service = ref.watch(currentService)!; // as ClientServiceAt;
+    final service = ref.watch(currentService);
     final tileType = ref.watch(tileTypeProvider);
     // ignore: no_leading_underscores_for_local_identifiers
-    final _ = ref.watch(
-      groupsOfService(service.clientService),
-    ); // in case of date change
-    final active = service.addAllowed || ref.watch(isArchive);
+    final _ = ref.watch(groupsOfService(service)); // in case of date change
+    final activeViewOfCard =
+        ref.watch(addAllowedOfService(service)) || ref.watch(isArchive);
     final size = ref.watch(serviceCardSize(Tuple2(parentSize, tileType)));
 
     return AnimatedSize(
@@ -40,7 +39,7 @@ class ServiceCard extends ConsumerWidget {
         size: size,
         child: Stack(
           children: [
-            if (!active)
+            if (!activeViewOfCard)
               const ColorFiltered(
                 colorFilter: ColorFilter.mode(
                   Colors.grey,
@@ -48,7 +47,7 @@ class ServiceCard extends ConsumerWidget {
                 ),
                 child: _ServiceCardViewSelector(),
               ),
-            if (active) const _ServiceCardViewSelector(),
+            if (activeViewOfCard) const _ServiceCardViewSelector(),
             //
             // InkWell animation and handler
             //
@@ -56,12 +55,6 @@ class ServiceCard extends ConsumerWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: service.add,
-                onLongPress: () {
-                  // set last service
-                  ref.read(lastUsed).serviceAt = service;
-                  // open ClientServiceScreen
-                  Navigator.pushNamed(context, '/service');
-                },
                 child: Container(),
               ),
             ),

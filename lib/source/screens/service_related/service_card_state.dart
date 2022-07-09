@@ -1,12 +1,12 @@
-import 'package:ais3uson_app/source/data_models/client_service_at.dart';
 import 'package:ais3uson_app/source/providers/repository_of_service.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///
 /// It collect data from Journal
-/// via [ref.watch(listDoneProgressErrorOfService(clientService))],
+/// via [ref.watch(doneProgressErrorOfService(clientService))],
 /// these numbers mean:
 /// - done - finished and outDated,
 /// - progress - added,
@@ -15,7 +15,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category UI Services}
 class ServiceCardState extends ConsumerWidget {
   const ServiceCardState({
-    required this.clientServiceAt,
     Key? key,
     this.rightOfText = false,
   }) : super(key: key);
@@ -38,13 +37,12 @@ class ServiceCardState extends ConsumerWidget {
     ),
   ];
 
-  final ClientServiceAt clientServiceAt;
   final bool rightOfText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listDoneProgressError = ref
-        .watch(listDoneProgressErrorOfService(clientServiceAt.clientService));
+    final service = ref.watch(currentService);
+    final listDoneProgressError = ref.watch(doneStaleErrorOf(service));
 
     return SizedBox.expand(
       child: FittedBox(
