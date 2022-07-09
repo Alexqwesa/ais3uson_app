@@ -178,11 +178,17 @@ void main() {
       //
       ref.read(lastUsed).service = service;
 
+      final newService = service.copyWith(
+        date: DateTimeExtensions.today(), //instead of null,
+      );
+      await tester.runAsync<void>(() async {
+        await newService.proofList.crawler(); // didn't work, without runAsync
+      });
       final widgetForTesting = ProviderScope(
         child: const ClientServiceScreen(),
         overrides: [
           currentService.overrideWithValue(
-            service.copyWith(date: DateTimeExtensions.today()),
+            newService,
           ),
         ],
       );
