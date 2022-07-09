@@ -107,6 +107,9 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final parentSize = ref.watch(currentServiceContainerSize);
+  final service = ref.watch(currentService);
+
   return SizedBox.fromSize(
     size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
     child: FittedBox(
@@ -114,15 +117,14 @@ Widget build(BuildContext context, WidgetRef ref) {
         width: 205,
         height: 230,
         child: Card(
-          elevation: serviceAt.addAllowed ? 6 : 0,
+          elevation: ref.watch(addAllowedOfService(service)) ? 6 : 0,
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Stack(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 100,
                   child: ServiceCardState(
-                    clientServiceAt: serviceAt,
                     rightOfText: true,
                   ),
                 ),
@@ -134,11 +136,11 @@ Widget build(BuildContext context, WidgetRef ref) {
                       &#47;&#47; &gt; service image
                       &#47;&#47;
                       child: Hero(
-                        tag: serviceAt.servId,
+                        tag: service.servId,
                         child: SizedBox(
                           height: 90,
                           width: 90,
-                          child: ref.watch(image(serviceAt.image)),
+                          child: ref.watch(image(service.image)),
                         ),
                       ),
                     ),
@@ -155,7 +157,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                               Padding(
                                 padding: const EdgeInsets.all(6),
                                 child: Text(
-                                  serviceAt.shortText,
+                                  service.shortText,
                                   textScaleFactor: 1.1,
                                   textAlign: TextAlign.center,
                                   style:
@@ -166,7 +168,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                                 padding:
                                     const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                 child: Text(
-                                  serviceAt.servTextAdd,
+                                  service.servTextAdd,
                                   softWrap: true,
                                   &#47;&#47; overflow: TextOverflow.ellipsis,
                                 ),
@@ -213,14 +215,12 @@ Widget build(BuildContext context, WidgetRef ref) {
           <li><a href="../../source_screens_service_related_service_card_view/ServiceCardView/ServiceCardView.html">ServiceCardView</a></li>
 
 
-    <li class="section-title">
+    <li class="section-title inherited">
       <a href="../../source_screens_service_related_service_card_view/ServiceCardView-class.html#instance-properties">Properties</a>
     </li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
-    <li><a href="../../source_screens_service_related_service_card_view/ServiceCardView/parentSize.html">parentSize</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../source_screens_service_related_service_card_view/ServiceCardView/serviceAt.html">serviceAt</a></li>
 
     <li class="section-title"><a href="../../source_screens_service_related_service_card_view/ServiceCardView-class.html#instance-methods">Methods</a></li>
     <li><a href="../../source_screens_service_related_service_card_view/ServiceCardView/build.html">build</a></li>
@@ -255,7 +255,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+14
+      1.0.1+15
   </span>
 
   

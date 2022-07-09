@@ -107,15 +107,17 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final allowed = ref.watch(addAllowedOfService(service));
+
   return FittedBox(
     fit: BoxFit.fitHeight,
     child: IconButton(
-      onPressed: service.add,
+      onPressed: allowed ? service.add : null,
       icon: Transform.scale(
         scale: 2.5,
         child: Icon(
           Icons.publish_rounded,
-          color: service.addAllowed ? Colors.green : Colors.grey,
+          color: allowed ? Colors.green : Colors.grey,
         ),
       ),
     ),
@@ -187,7 +189,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+14
+      1.0.1+15
   </span>
 
   

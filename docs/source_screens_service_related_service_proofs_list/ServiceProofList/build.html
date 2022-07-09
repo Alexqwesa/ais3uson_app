@@ -107,9 +107,12 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final clientService = ref.watch(currentService);
   final proofList = ref.watch(servProofAtDate(Tuple2(
-    clientServiceAt.date?.dateOnly(),
-    clientServiceAt.clientService,
+    clientService.date ??
+        ref.watch(archiveDate) ??
+        DateTimeExtensions.today(),
+    clientService,
   )));
 
   return Column(
@@ -148,9 +151,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       &#47;&#47;
       &#47;&#47; &gt; Display list of proofs in columns
       &#47;&#47;
-      ProofListBuilder(
-        clientServiceAt: clientServiceAt,
-      ),
+      const ProofListBuilder(),
       &#47;&#47;
       &#47;&#47; &gt; add new record(proof row) button
       &#47;&#47;
@@ -188,10 +189,9 @@ Widget build(BuildContext context, WidgetRef ref) {
           <li><a href="../../source_screens_service_related_service_proofs_list/ServiceProofList/ServiceProofList.html">ServiceProofList</a></li>
 
 
-    <li class="section-title">
+    <li class="section-title inherited">
       <a href="../../source_screens_service_related_service_proofs_list/ServiceProofList-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../source_screens_service_related_service_proofs_list/ServiceProofList/clientServiceAt.html">clientServiceAt</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
@@ -227,7 +227,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+14
+      1.0.1+15
   </span>
 
   

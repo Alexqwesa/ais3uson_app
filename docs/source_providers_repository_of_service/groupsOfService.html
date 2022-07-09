@@ -69,11 +69,14 @@ filtered by <code>ClientService</code>.</p>
   <pre class="language-dart"><code class="language-dart">final groupsOfService =
     Provider.family&lt;Map&lt;ServiceState, List&lt;ServiceOfJournal&gt;&gt;?, ClientService&gt;(
   (ref, clientService) {
-    final groups = ref.watch(groupsOfJournal(ref.watch(
-      journalOfWorker(clientService.workerProfile),
+    final groups = ref.watch(groupsOfJournalAtDate(Tuple2(
+      ref.watch(journalOfWorkerAtDate(
+        Tuple2(clientService.workerProfile, clientService.date),
+      )),
+      clientService.date,
     )));
 
-    return groups?.map(
+    return groups.map(
       (key, value) =&gt; MapEntry(
         key,
         value
@@ -112,9 +115,17 @@ filtered by <code>ClientService</code>.</p>
 
 
   <li class="section-title"><a href="../source_providers_repository_of_service/source_providers_repository_of_service-library.html#properties">Properties</a></li>
+  <li><a href="../source_providers_repository_of_service/addAllowedOfService.html">addAllowedOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/addedOfService.html">addedOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/allOfService.html">allOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/deleteAllowedOfService.html">deleteAllowedOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/doneOfService.html">doneOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/doneStaleErrorOf.html">doneStaleErrorOf</a></li>
   <li><a href="../source_providers_repository_of_service/groupsOfJournal.html">groupsOfJournal</a></li>
+  <li><a href="../source_providers_repository_of_service/groupsOfJournalAtDate.html">groupsOfJournalAtDate</a></li>
   <li><a href="../source_providers_repository_of_service/groupsOfService.html">groupsOfService</a></li>
-  <li><a href="../source_providers_repository_of_service/listDoneProgressErrorOfService.html">listDoneProgressErrorOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/isTodayOfService.html">isTodayOfService</a></li>
+  <li><a href="../source_providers_repository_of_service/leftOfService.html">leftOfService</a></li>
 
 
 
@@ -131,7 +142,7 @@ filtered by <code>ClientService</code>.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+14
+      1.0.1+15
   </span>
 
   
