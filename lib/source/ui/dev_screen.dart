@@ -2,7 +2,6 @@ import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,7 +19,7 @@ class DevScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.of(context).about,
+          tr().about,
         ),
       ),
       body: SingleChildScrollView(
@@ -32,7 +31,7 @@ class DevScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      S.of(context).shortAboutApp,
+                      tr().shortAboutApp,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline2,
                     ),
@@ -111,7 +110,7 @@ class CheckWorkerServer extends ConsumerWidget {
         ElevatedButton(
           onPressed: () => checkHTTP(ref),
           child: Text(
-            S.of(context).testConnection,
+            tr().testConnection,
           ),
         ),
         if (ref.watch(_httpFuture(false)) != null)

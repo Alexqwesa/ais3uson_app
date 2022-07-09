@@ -37,7 +37,7 @@ class ListOfProfiles extends ConsumerWidget {
                         contextMenu: GenericContextMenu(
                           buttonConfigs: [
                             ContextMenuButtonConfig(
-                              S.of(context).exportThisWeek,
+                              tr().exportThisWeek,
                               onPressed: () => ref
                                   .read(journalOfWorker(workerProfile))
                                   .exportToFile(
@@ -46,7 +46,7 @@ class ListOfProfiles extends ConsumerWidget {
                                   ),
                             ),
                             ContextMenuButtonConfig(
-                              S.of(context).exportLastWeek,
+                              tr().exportLastWeek,
                               onPressed: () => ref
                                   .read(journalOfWorker(workerProfile))
                                   .exportToFile(
@@ -55,7 +55,7 @@ class ListOfProfiles extends ConsumerWidget {
                                   ),
                             ),
                             ContextMenuButtonConfig(
-                              S.of(context).exportThisMonth,
+                              tr().exportThisMonth,
                               onPressed: () => ref
                                   .read(journalOfWorker(workerProfile))
                                   .exportToFile(
@@ -64,7 +64,7 @@ class ListOfProfiles extends ConsumerWidget {
                                   ),
                             ),
                             ContextMenuButtonConfig(
-                              S.of(context).exportLastMonth,
+                              tr().exportLastMonth,
                               onPressed: () => ref
                                   .read(journalOfWorker(workerProfile))
                                   .exportToFile(
@@ -123,7 +123,7 @@ class ListOfProfiles extends ConsumerWidget {
               ),
             )
           : Text(
-              S.of(context).authorizePlease,
+              tr().authorizePlease,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline5,
             ),

@@ -9,7 +9,6 @@ import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/ui/service_related/service_card_widget/service_card.dart';
 import 'package:ais3uson_app/source/ui/settings_screen.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -285,7 +284,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
         PopupMenuItem<ListTile>(
           child: ListTile(
             leading: const Icon(Icons.grid_3x3),
-            title: Text(S.of(context).detailed),
+            title: Text(tr().detailed),
             onTap: () {
               Navigator.pop(context, '');
               ref.read(tileTypeProvider.notifier).state = '';
@@ -295,7 +294,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
         PopupMenuItem<ListTile>(
           child: ListTile(
             leading: const Icon(Icons.list_alt),
-            title: Text(S.of(context).list),
+            title: Text(tr().list),
             onTap: () {
               Navigator.pop(context, 'tile');
               ref.read(tileTypeProvider.notifier).state = 'tile';
@@ -305,7 +304,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
         PopupMenuItem<ListTile>(
           child: ListTile(
             leading: const Icon(Icons.image),
-            title: Text(S.of(context).small),
+            title: Text(tr().small),
             onTap: () {
               Navigator.pop(context, 'square');
               ref.read(tileTypeProvider.notifier).state = 'square';

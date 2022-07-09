@@ -53,7 +53,7 @@ class ClientScreen extends ConsumerWidget {
             )
           : Center(
               child: Text(
-                S.of(context).emptyListOfPeople,
+                tr().emptyListOfPeople,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),

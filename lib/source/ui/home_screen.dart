@@ -5,7 +5,6 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/ui/department_related/list_profiles.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -42,7 +41,7 @@ class HomeScreen extends ConsumerWidget {
                   '/scan_qr',
                 );
               },
-              tooltip: S.of(context).scanQrCode,
+              tooltip: tr().scanQrCode,
               child: const Icon(Icons.add),
             ),
       //
@@ -72,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   Center(
                     child: Text(
-                      S.of(context).shortAboutApp,
+                      tr().shortAboutApp,
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
@@ -84,7 +83,7 @@ class HomeScreen extends ConsumerWidget {
                   ListTile(
                     leading: const Icon(Icons.group_add),
                     title: Text(
-                      S.of(context).addDepFromText,
+                      tr().addDepFromText,
                     ),
                     onTap: () {
                       Navigator.pop(
@@ -103,7 +102,7 @@ class HomeScreen extends ConsumerWidget {
                       Icons.add,
                       color: Colors.green,
                     ),
-                    title: Text(S.of(context).scanQrCode),
+                    title: Text(tr().scanQrCode),
                     onTap: () {
                       Navigator.pop(context, 'qr');
                       Navigator.pushNamed(
@@ -114,7 +113,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.delete),
-                    title: Text(S.of(context).deleteDep),
+                    title: Text(tr().deleteDep),
                     onTap: () {
                       Navigator.pop(context, 'delete_department');
                       Navigator.pushNamed(
@@ -127,7 +126,7 @@ class HomeScreen extends ConsumerWidget {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.archive),
-                    title: Text(S.of(context).archive),
+                    title: Text(tr().archive),
                     onTap: () async {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
@@ -142,7 +141,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.settings),
-                    title: Text(S.of(context).settings),
+                    title: Text(tr().settings),
                     onTap: () {
                       Navigator.pop(context, 'settings');
                       Navigator.pushNamed(
@@ -154,7 +153,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.adb),
-                    title: Text(S.of(context).about),
+                    title: Text(tr().about),
                     onTap: () {
                       Navigator.pop(context, 'dev');
                       Navigator.pushNamed(
@@ -170,7 +169,7 @@ class HomeScreen extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.all(8),
                         child: Text(
-                          S.of(context).theme,
+                          tr().theme,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
@@ -188,7 +187,7 @@ class HomeScreen extends ConsumerWidget {
                         initialLabelIndex: [ThemeMode.light, ThemeMode.dark]
                             .indexOf(ref.watch(standardTheme)),
                         totalSwitches: 2,
-                        labels: [S.of(context).light, S.of(context).dark],
+                        labels: [tr().light, tr().dark],
                         radiusStyle: true,
                         onToggle: (index) {
                           ref.read(standardTheme.notifier).state = [

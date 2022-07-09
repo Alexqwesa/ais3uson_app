@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/ui/department_related/add_department_screen.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -65,9 +64,9 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
               margin: const EdgeInsets.all(8),
               child: Center(
                 child: (result == null)
-                    ? Text(S.of(context).searchQR)
+                    ? Text(tr().searchQR)
                     : Text(
-                        '${S.of(context).data}${result!.code}',
+                        '${tr().data}${result!.code}',
                         softWrap: true,
                       ),
               ),
@@ -141,7 +140,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                                     int doNothing;
                                   });
                                 },
-                                child: Text(S.of(context).flashLight),
+                                child: Text(tr().flashLight),
                               ),
                             );
                           },
@@ -164,7 +163,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                                   ? describeEnum(snapshot.data!) == 'front'
                                       ? const Icon(Icons.cameraswitch)
                                       : const Icon(Icons.cameraswitch_outlined)
-                                  : Text(S.of(context).loading);
+                                  : Text(tr().loading);
                             },
                           ),
                         ),
@@ -214,7 +213,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                         }
                       },
                       child: Text(
-                        S.of(context).add,
+                        tr().add,
                       ),
                     ),
                   ),

@@ -34,7 +34,7 @@ class AddDepartmentScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(S.of(context).putDepText),
+        title: Text(tr().putDepText),
         backgroundColor: Colors.green,
         actions: [
           IconButton(
@@ -66,7 +66,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                           Padding(
                             padding: const EdgeInsets.all(8),
                             child: Text(
-                              S.of(context).putDepTextField,
+                              tr().putDepTextField,
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headline6,
                               softWrap: true,
@@ -84,11 +84,11 @@ class AddDepartmentScreen extends ConsumerWidget {
                               children: [
                                 TextButton(
                                   onPressed: controller.clear,
-                                  child: Text(S.of(context).clear),
+                                  child: Text(tr().clear),
                                 ),
                                 const Spacer(),
                                 ElevatedButton(
-                                  child: Text(S.of(context).addDep),
+                                  child: Text(tr().addDep),
                                   //
                                   // > add Dep
                                   //
@@ -123,7 +123,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(
-                        S.of(context).orTestDepList,
+                        tr().orTestDepList,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline6,
                       ),
@@ -232,7 +232,7 @@ class SimpleTextField extends StatelessWidget {
         maxLines: 5,
         cursorColor: Colors.teal,
         decoration: InputDecoration(
-          hintText: S.of(context).putDepTextFieldHint,
+          hintText: tr().putDepTextFieldHint,
           border: const OutlineInputBorder(),
           isDense: true,
         ),

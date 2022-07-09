@@ -11,7 +11,6 @@ import 'package:ais3uson_app/source/providers/repository_of_client.dart';
 import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
 import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
 import 'package:ais3uson_app/source/ui/service_related/proofs/audio_proof_controller.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -39,7 +38,7 @@ class ArchiveServicesOfClientScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).listOfServicesByDays)),
+      appBar: AppBar(title: Text(tr().listOfServicesByDays)),
       body: SingleChildScrollView(
         child: Center(
           child: Wrap(

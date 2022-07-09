@@ -18,7 +18,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).selectDepForDelete),
+        title: Text(tr().selectDepForDelete),
         backgroundColor: Colors.red,
         actions: [
           IconButton(
@@ -74,7 +74,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                   },
                 )
               : Center(
-                  child: Text(S.of(context).emptyDepList),
+                  child: Text(tr().emptyDepList),
                 ),
         ),
       ),
@@ -92,11 +92,11 @@ Future<String?> _showDialog(BuildContext context, String depName) async {
     barrierDismissible: false, // user must tap button!
     builder: (context) {
       return AlertDialog(
-        title: Text(S.of(context).deleteDep),
+        title: Text(tr().deleteDep),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text(S.of(context).areYouSureToDelete),
+              Text(tr().areYouSureToDelete),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(
