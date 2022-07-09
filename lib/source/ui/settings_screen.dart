@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_card_widget/service_card.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

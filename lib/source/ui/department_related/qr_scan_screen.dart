@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
-import 'package:ais3uson_app/source/screens/department_related/add_department_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/add_department_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

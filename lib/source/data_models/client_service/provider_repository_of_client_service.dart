@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
@@ -98,19 +98,6 @@ final doneStaleErrorOf =
           groups[ServiceState.rejected]?.length ?? 0,
         ]);
 });
-
-// /// {@category Providers}
-// final dateOrArchiveOrToday =
-//     Provider.family<DateTime, ClientService>((ref, clientService) {
-//   return ref.watch(atDate) ??
-//       ref.watch(archiveDate) ??
-//       DateTimeExtensions.today();
-// });
-// DateTime dateOrArchiveOrToday(WidgetRef ref) {
-//   return ref.watch(atDate) ??
-//       ref.watch(archiveDate) ??
-//       DateTimeExtensions.today();
-// }
 
 /// Provider helper for [ClientService].
 ///

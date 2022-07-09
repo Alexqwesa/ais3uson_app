@@ -4,16 +4,16 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/controller_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/screens/department_related/add_department_screen.dart';
-import 'package:ais3uson_app/source/screens/department_related/delete_department_screen.dart';
-import 'package:ais3uson_app/source/screens/department_related/list_clients_screen.dart';
-import 'package:ais3uson_app/source/screens/department_related/qr_scan_screen.dart';
-import 'package:ais3uson_app/source/screens/dev_screen.dart';
-import 'package:ais3uson_app/source/screens/home_screen.dart';
-import 'package:ais3uson_app/source/screens/service_related/all_services_of_client.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
-import 'package:ais3uson_app/source/screens/settings_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/add_department_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/delete_department_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/list_clients_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/qr_scan_screen.dart';
+import 'package:ais3uson_app/source/ui/dev_screen.dart';
+import 'package:ais3uson_app/source/ui/home_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/archive_services_of_client_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen.dart';
+import 'package:ais3uson_app/source/ui/settings_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/foundation.dart';
@@ -175,9 +175,9 @@ class MainMaterialApp extends ConsumerWidget {
       //
       initialRoute: '/',
       routes: {
-        '/client_journal': (context) => const AllServicesOfClientScreen(),
+        '/client_journal': (context) => const ArchiveServicesOfClientScreen(),
         '/add_department': (context) => const AddDepartmentScreen(),
-        '/client_services': (context) => const ClientServicesListScreen(),
+        '/client_services': (context) => const ListOfClientServicesScreen(),
         '/service': /*     */ (context) => const ClientServiceScreen(),
         '/settings': /*    */ (context) => const SettingsScreen(),
         '/department': /*  */ (context) => const ClientScreen(),

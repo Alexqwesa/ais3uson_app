@@ -8,7 +8,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/provider_repository_of_client_service.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
@@ -18,7 +19,6 @@ import 'package:ais3uson_app/source/providers/controller_dates_in_archive.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
 import 'package:ais3uson_app/source/providers/repository_of_journal.dart';
-import 'package:ais3uson_app/source/providers/repository_of_service.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';

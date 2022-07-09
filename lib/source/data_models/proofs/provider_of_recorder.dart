@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/source/data_models/proof_list.dart';
+import 'package:ais3uson_app/source/data_models/proofs/proofs.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

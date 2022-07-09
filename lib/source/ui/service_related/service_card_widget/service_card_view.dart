@@ -1,9 +1,9 @@
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/provider_repository_of_client_service.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
-import 'package:ais3uson_app/source/providers/repository_of_service.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card_state.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_card_widget/service_card_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';

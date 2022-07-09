@@ -2,12 +2,12 @@
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
-import 'package:ais3uson_app/source/data_models/proof_list.dart';
+import 'package:ais3uson_app/source/data_models/proofs/proofs.dart';
+import 'package:ais3uson_app/source/data_models/proofs/provider_of_audioplayer.dart';
+import 'package:ais3uson_app/source/data_models/proofs/provider_of_recorder.dart';
+import 'package:ais3uson_app/source/data_models/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/providers/proofs/controller_of_proof_recorder.dart';
-import 'package:ais3uson_app/source/providers/proofs/provider_of_audioplayer.dart';
-import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +34,7 @@ class AudioProofController extends ConsumerWidget {
   final String beforeOrAfter;
   final ServiceOfJournal? service;
   final ClientProfile? client;
-  final ProofList? proofs;
+  final Proofs? proofs;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

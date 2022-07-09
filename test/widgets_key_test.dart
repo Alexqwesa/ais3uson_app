@@ -6,23 +6,23 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/providers/basic_providers.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
-import 'package:ais3uson_app/source/screens/department_related/add_department_screen.dart';
-import 'package:ais3uson_app/source/screens/department_related/delete_department_screen.dart';
-import 'package:ais3uson_app/source/screens/department_related/list_clients_screen.dart';
-import 'package:ais3uson_app/source/screens/department_related/list_profiles.dart';
-import 'package:ais3uson_app/source/screens/department_related/qr_scan_screen.dart';
-import 'package:ais3uson_app/source/screens/dev_screen.dart';
-import 'package:ais3uson_app/source/screens/home_screen.dart';
-import 'package:ais3uson_app/source/screens/service_related/all_services_of_client.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
-import 'package:ais3uson_app/source/screens/settings_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/add_department_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/delete_department_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/list_clients_screen.dart';
+import 'package:ais3uson_app/source/ui/department_related/list_profiles.dart';
+import 'package:ais3uson_app/source/ui/department_related/qr_scan_screen.dart';
+import 'package:ais3uson_app/source/ui/dev_screen.dart';
+import 'package:ais3uson_app/source/ui/home_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/archive_services_of_client_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -99,9 +99,9 @@ void main() {
             //
             initialRoute: '/add_department',
             routes: {
-              '/client_journal': (context) => const AllServicesOfClientScreen(),
+              '/client_journal': (context) => const ArchiveServicesOfClientScreen(),
               '/add_department': (context) => const AddDepartmentScreen(),
-              '/client_services': (context) => const ClientServicesListScreen(),
+              '/client_services': (context) => const ListOfClientServicesScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),
               '/department': /*  */ (context) => const ClientScreen(),
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
@@ -202,9 +202,9 @@ void main() {
             //
             initialRoute: '/add_department',
             routes: {
-              '/client_journal': (context) => const AllServicesOfClientScreen(),
+              '/client_journal': (context) => const ArchiveServicesOfClientScreen(),
               '/add_department': (context) => const AddDepartmentScreen(),
-              '/client_services': (context) => const ClientServicesListScreen(),
+              '/client_services': (context) => const ListOfClientServicesScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),
               '/department': /*  */ (context) => const ClientScreen(),
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
@@ -279,7 +279,7 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      const widgetForTesting = ClientServicesListScreen();
+      const widgetForTesting = ListOfClientServicesScreen();
       await tester.pumpWidget(
         ProviderScope(
           parent: ref,
@@ -327,7 +327,7 @@ void main() {
       ref.read(lastUsed).client = wp.clients[1];
       // wp.clients[1].services.clear();
       expect(wp.clients[1].services.isEmpty, false);
-      const widgetForTesting = ClientServicesListScreen();
+      const widgetForTesting = ListOfClientServicesScreen();
       await tester.pumpWidget(
         ProviderScope(
           overrides: [

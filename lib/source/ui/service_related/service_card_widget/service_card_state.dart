@@ -1,5 +1,5 @@
-import 'package:ais3uson_app/source/providers/repository_of_service.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/data_models/client_service/provider_repository_of_client_service.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -2,15 +2,15 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
-import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_service_screen.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/service_related/proofs/audio_proof_controller.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +24,8 @@ const tileSize = 500.0;
 /// Also allow to create proof at date(for all services at day).
 ///
 /// {@category UI Services}
-class AllServicesOfClientScreen extends ConsumerWidget {
-  const AllServicesOfClientScreen({
+class ArchiveServicesOfClientScreen extends ConsumerWidget {
+  const ArchiveServicesOfClientScreen({
     Key? key,
   }) : super(key: key);
 

@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
 import 'package:ais3uson_app/source/data_models/client_profile.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';

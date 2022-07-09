@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
 import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
-import 'package:ais3uson_app/source/data_models/proof_list.dart';
+import 'package:ais3uson_app/source/data_models/client_service/provider_repository_of_client_service.dart';
+import 'package:ais3uson_app/source/data_models/proofs/proofs.dart';
+import 'package:ais3uson_app/source/data_models/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
 import 'package:ais3uson_app/source/journal/journal.dart';
 import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/providers/repository_of_service.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_card_widget/service_card.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
@@ -77,7 +77,7 @@ class ClientService with _$ClientService {
   //
   // > proof managing
   //
-  ProofList get proofList => ref.read(servProofAtDate(Tuple2(date, this)));
+  Proofs get proofList => ref.read(servProofAtDate(Tuple2(date, this)));
 
   void addProof() {
     proofList.addNewGroup();

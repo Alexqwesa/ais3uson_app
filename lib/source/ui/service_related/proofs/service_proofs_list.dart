@@ -3,13 +3,13 @@
 import 'dart:async';
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
+import 'package:ais3uson_app/source/data_models/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
-import 'package:ais3uson_app/source/screens/service_related/camera.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/service_related/proofs/audio_proof_controller.dart';
+import 'package:ais3uson_app/source/ui/service_related/proofs/take_proof_picture_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

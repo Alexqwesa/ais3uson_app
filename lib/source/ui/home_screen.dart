@@ -4,7 +4,7 @@ import 'package:ais3uson_app/app_root.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/source/data_models/worker_profile.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/screens/department_related/list_profiles.dart';
+import 'package:ais3uson_app/source/ui/department_related/list_profiles.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/themes_data.dart';
 import 'package:flutter/material.dart';

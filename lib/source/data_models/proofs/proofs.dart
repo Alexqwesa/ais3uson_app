@@ -4,9 +4,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
+import 'package:ais3uson_app/source/data_models/proofs/repository_of_prooflist.dart';
 import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,8 +23,8 @@ import 'package:path/path.dart' as path;
 ///
 /// {@category Data Models}
 /// {@category Client-Server API}
-class ProofList {
-  ProofList({
+class Proofs {
+  Proofs({
     required this.workerId,
     required this.contractId,
     required this.date,
@@ -234,7 +234,7 @@ class ProofEntry {
 
   ProofEntry.empty(this.proof, this.name);
 
-  ProofList proof;
+  Proofs proof;
 
   Image? beforeImg;
 

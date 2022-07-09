@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_models/client_service.dart';
+import 'package:ais3uson_app/source/data_models/client_service/client_service.dart';
 import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
 import 'package:ais3uson_app/source/providers/repository_of_client.dart';
-import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
-import 'package:ais3uson_app/source/screens/service_related/service_card.dart';
-import 'package:ais3uson_app/source/screens/settings_screen.dart';
+import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
+import 'package:ais3uson_app/source/ui/service_related/service_card_widget/service_card.dart';
+import 'package:ais3uson_app/source/ui/settings_screen.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +28,9 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 /// Support: resync button and change of view of the list.
 ///
 /// {@category UI Services}
-class ClientServicesListScreen extends ConsumerStatefulWidget {
+class ListOfClientServicesScreen extends ConsumerStatefulWidget {
   /// Show list of services assigned to client, allow input by click.
-  const ClientServicesListScreen({
+  const ListOfClientServicesScreen({
     Key? key,
   }) : super(key: key);
 
@@ -39,7 +39,7 @@ class ClientServicesListScreen extends ConsumerStatefulWidget {
 }
 
 class _ClientServicesListScreen
-    extends ConsumerState<ClientServicesListScreen> {
+    extends ConsumerState<ListOfClientServicesScreen> {
   _ClientServicesListScreen() {
     searchBar = SearchBar(
       inBar: false,
