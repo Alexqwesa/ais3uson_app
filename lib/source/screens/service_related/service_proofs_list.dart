@@ -9,6 +9,7 @@ import 'package:ais3uson_app/source/providers/proofs/repository_of_prooflist.dar
 import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
 import 'package:ais3uson_app/source/screens/service_related/audio_proof_controller.dart';
 import 'package:ais3uson_app/source/screens/service_related/camera.dart';
+import 'package:ais3uson_app/source/screens/service_related/client_services_list_screen_provider_helper.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,17 +24,12 @@ import 'package:tuple/tuple.dart';
 /// {@category UI Proofs}
 class ServiceProofList extends ConsumerWidget {
   const ServiceProofList({
-    required this.clientService,
-    // required this.clientProfile,
-    // this.date,
     Key? key,
   }) : super(key: key);
 
-  // final ClientProfile clientProfile;
-  final ClientService clientService;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final clientService = ref.watch(currentService);
     final proofList = ref.watch(servProofAtDate(Tuple2(
       clientService.date ??
           ref.watch(archiveDate) ??
@@ -77,9 +73,7 @@ class ServiceProofList extends ConsumerWidget {
         //
         // > Display list of proofs in columns
         //
-        ProofListBuilder(
-          clientService: clientService,
-        ),
+        const ProofListBuilder(),
         //
         // > add new record(proof row) button
         //
@@ -98,14 +92,12 @@ class ServiceProofList extends ConsumerWidget {
 /// {@category UI Proofs}
 class ProofListBuilder extends ConsumerWidget {
   const ProofListBuilder({
-    required this.clientService,
     Key? key,
   }) : super(key: key);
 
-  final ClientService clientService;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final clientService = ref.watch(currentService);
     final proofList = ref.watch(servProofAtDate(Tuple2(
       clientService.date ??
           ref.watch(archiveDate) ??
@@ -122,7 +114,7 @@ class ProofListBuilder extends ConsumerWidget {
             //
             // > column's titles
             //
-            if (proofList.proofGroups.isNotEmpty)
+            if (proofGroups.isNotEmpty)
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -149,14 +141,14 @@ class ProofListBuilder extends ConsumerWidget {
             // > main columns
             //
 
-            if (proofList.proofGroups.isNotEmpty)
+            if (proofGroups.isNotEmpty)
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   //
                   // > audio proofs
                   //
-                  if (proofList.proofGroups.isNotEmpty)
+                  if (proofGroups.isNotEmpty)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -183,7 +175,7 @@ class ProofListBuilder extends ConsumerWidget {
                   //
                   // > photo proofs
                   //
-                  for (int i = 0; i < proofList.proofGroups.length; i++)
+                  for (int i = 0; i < proofGroups.length; i++)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -191,13 +183,9 @@ class ProofListBuilder extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8),
                             child: SizedBox.square(
-                              child: ImageOrButtonAdd(
-                                image: proofGroups[i].beforeImg,
-                                addProofButton: AddProofButton(
-                                  indexInProofList: i,
-                                  callAddProof: proofList.addImage,
-                                  strBeforeOrAfter: 'before_',
-                                ),
+                              child: _ImageOrButtonAdd(
+                                proofIndex: i,
+                                beforeOrAfter: 'before_',
                               ),
                             ),
                           ),
@@ -206,14 +194,9 @@ class ProofListBuilder extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8),
                             child: SizedBox.square(
-                              // dimension: MediaQuery.of(context).size.width / 2.4,
-                              child: ImageOrButtonAdd(
-                                image: proofGroups[i].afterImg,
-                                addProofButton: AddProofButton(
-                                  indexInProofList: i,
-                                  callAddProof: proofList.addImage,
-                                  strBeforeOrAfter: 'after_',
-                                ),
+                              child: _ImageOrButtonAdd(
+                                proofIndex: i,
+                                beforeOrAfter: 'after_',
                               ),
                             ),
                           ),
@@ -232,23 +215,37 @@ class ProofListBuilder extends ConsumerWidget {
 /// Show add button or Image.
 ///
 /// {@category UI Proofs}
-class ImageOrButtonAdd extends StatelessWidget {
-  const ImageOrButtonAdd({
-    required this.addProofButton,
-    required this.image,
+class _ImageOrButtonAdd extends ConsumerWidget {
+  const _ImageOrButtonAdd({
+    required this.proofIndex,
+    required this.beforeOrAfter,
     Key? key,
   }) : super(key: key);
 
-  final Widget addProofButton;
-  final Image? image;
+  final String beforeOrAfter;
+  final int proofIndex;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final clientService = ref.watch(currentService);
+    final proofList = ref.watch(servProofAtDate(Tuple2(
+      clientService.date ??
+          ref.watch(archiveDate) ??
+          DateTimeExtensions.today(),
+      clientService,
+    )));
+    final proofGroups = ref.watch(groupsOfProof(proofList));
+
+    final valueKey = ValueKey(
+      '${proofIndex}___$beforeOrAfter',
+    );
+    final image = proofGroups[proofIndex]['${beforeOrAfter}img_'] as Image?;
+
     return Center(
       child: (image != null)
           ? Hero(
-              key: ValueKey(image.toString()),
-              tag: ValueKey(image.toString()),
+              key: valueKey,
+              tag: valueKey,
               child: GestureDetector(
                 child: image,
                 onTap: () {
@@ -257,7 +254,7 @@ class ImageOrButtonAdd extends StatelessWidget {
                       context,
                       MaterialPageRoute<XFile>(
                         builder: (context) => DisplayPictureScreen(
-                          image: image!,
+                          image: image,
                         ),
                       ),
                     ),
@@ -265,19 +262,25 @@ class ImageOrButtonAdd extends StatelessWidget {
                 },
               ),
             )
-          : Center(child: addProofButton),
+          : Center(
+              child: AddProofButton(
+                indexInProofList: proofIndex,
+                callAddProof: proofList.addImage,
+                beforeOrAfter: beforeOrAfter,
+              ),
+            ),
     );
   }
 }
 
-/// Display add button for add proof.
+/// Display add button which add image proof.
 ///
 /// {@category UI Proofs}
 class AddProofButton extends StatelessWidget {
   const AddProofButton({
     required this.indexInProofList,
     required this.callAddProof,
-    required this.strBeforeOrAfter,
+    required this.beforeOrAfter,
     Key? key,
   }) : super(key: key);
 
@@ -285,14 +288,14 @@ class AddProofButton extends StatelessWidget {
   final Function(int, XFile?, String) callAddProof;
 
   /// Either before_ or after_
-  final String strBeforeOrAfter;
+  final String beforeOrAfter;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: FloatingActionButton(
-        heroTag: ValueKey(strBeforeOrAfter + indexInProofList.toString()),
+        heroTag: ValueKey(beforeOrAfter + indexInProofList.toString()),
         child: const Icon(Icons.camera_alt),
         onPressed: () async {
           late final List<CameraDescription> cameras;
@@ -318,7 +321,7 @@ class AddProofButton extends StatelessWidget {
           await callAddProof(
             indexInProofList,
             defaultImgPath,
-            strBeforeOrAfter,
+            beforeOrAfter,
           );
         },
       ),

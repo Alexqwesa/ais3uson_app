@@ -202,10 +202,10 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text(service.servTextAdd), findsOneWidget);
-      // expect(find.byType(Hero), findsNWidgets(2));
+      final proof = service.proofList.proofGroups.first;
       expect(
         find.byKey(ValueKey(
-          service.proofList.proofGroups.first.beforeImg.toString(),
+          '${proof.name}___before_',
         )),
         findsOneWidget,
       );

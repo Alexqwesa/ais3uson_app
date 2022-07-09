@@ -132,7 +132,7 @@ class ClientServiceScreen extends ConsumerWidget {
                   //
                   // > prof of service
                   //
-                  if (!kIsWeb) ServiceProofList(clientService: service),
+                  if (!kIsWeb) const ServiceProofList(),
                 ],
               ),
             ),
