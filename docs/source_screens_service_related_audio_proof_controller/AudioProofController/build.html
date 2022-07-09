@@ -153,7 +153,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 proofController.addNewGroup();
               }
               await recorder.start(
-                firstProof!,
+                ref.read(groupsOfProof(proofController)).first,
                 prefix: beforeOrAfter,
               );
             }

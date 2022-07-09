@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the proofRecorder property from the repository_of_prooflist library, for the Dart programming language.">
-  <title>proofRecorder property - repository_of_prooflist library - Dart API</title>
+  <meta name="description" content="API docs for the proofRecorderState property from the controller_of_proof_recorder library, for the Dart programming language.">
+  <title>proofRecorderState property - controller_of_proof_recorder library - Dart API</title>
 
 
   
@@ -29,10 +29,10 @@
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
-    <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
-    <li class="self-crumb">proofRecorder property</li>
+    <li><a href="../source_providers_proofs_controller_of_proof_recorder/source_providers_proofs_controller_of_proof_recorder-library.html">controller_of_proof_recorder</a></li>
+    <li class="self-crumb">proofRecorderState property</li>
   </ol>
-  <div class="self-name">proofRecorder</div>
+  <div class="self-name">proofRecorderState</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -43,34 +43,29 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-top-level-property">proofRecorder</span> top-level property 
+<h1><span class="kind-top-level-property">proofRecorderState</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category controllers cp-2" title="This is part of the Controllers Topic.">Controllers</span>
     <span class="category providers cp-5 linked" title="This is part of the Providers Topic."><a href="../topics/Providers-topic.html">Providers</a></span>
-    <span class="category ui-proofs cp-6" title="This is part of the UI Proofs Topic.">UI&nbsp;Proofs</span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ProofRecorder</span>&gt;</span>
-          <span class="name ">proofRecorder</span>
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../source_providers_proofs_controller_of_proof_recorder/RecorderState.html">RecorderState</a></span>&gt;</span>
+          <span class="name ">proofRecorderState</span>
           <div class="features">final</div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Global audio record controller.</p>
-<p>Used to record audio proofs of services.
-{@category Providers}
-{@category Controllers}
-{@category UI Proofs}</p>
+  <p>State of global recorder.</p>
+<p>{@category Providers}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final proofRecorder = Provider((ref) {
-  return _ProofRecorder(ref);
+  <pre class="language-dart"><code class="language-dart">final proofRecorderState = StateProvider&lt;RecorderState&gt;((ref) {
+  return RecorderState.ready;
 });</code></pre>
 </section>
 
@@ -87,29 +82,24 @@
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html">repository_of_prooflist</a></li>
-  <li class="self-crumb">proofRecorder property</li>
+  <li><a href="../source_providers_proofs_controller_of_proof_recorder/source_providers_proofs_controller_of_proof_recorder-library.html">controller_of_proof_recorder</a></li>
+  <li class="self-crumb">proofRecorderState property</li>
 </ol>
 
 
-    <h5>repository_of_prooflist library</h5>
+    <h5>controller_of_proof_recorder library</h5>
     <ol>
 
 
 
 
-  <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#properties">Properties</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/audioPlayer.html">audioPlayer</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/groupsOfProof.html">groupsOfProof</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/proofAtDate.html">proofAtDate</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/proofPlayState.html">proofPlayState</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/proofRecorder.html">proofRecorder</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/proofRecorderState.html">proofRecorderState</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/servProofAtDate.html">servProofAtDate</a></li>
+  <li class="section-title"><a href="../source_providers_proofs_controller_of_proof_recorder/source_providers_proofs_controller_of_proof_recorder-library.html#properties">Properties</a></li>
+  <li><a href="../source_providers_proofs_controller_of_proof_recorder/proofRecorder.html">proofRecorder</a></li>
+  <li><a href="../source_providers_proofs_controller_of_proof_recorder/proofRecorderState.html">proofRecorderState</a></li>
 
 
-  <li class="section-title"><a href="../source_providers_repository_of_prooflist/source_providers_repository_of_prooflist-library.html#enums">Enums</a></li>
-  <li><a href="../source_providers_repository_of_prooflist/RecorderState.html">RecorderState</a></li>
+  <li class="section-title"><a href="../source_providers_proofs_controller_of_proof_recorder/source_providers_proofs_controller_of_proof_recorder-library.html#enums">Enums</a></li>
+  <li><a href="../source_providers_proofs_controller_of_proof_recorder/RecorderState.html">RecorderState</a></li>
 
 
 </ol>
