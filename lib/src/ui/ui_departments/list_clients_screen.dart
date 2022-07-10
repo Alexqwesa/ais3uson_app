@@ -1,6 +1,7 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
@@ -114,6 +115,7 @@ class ClientCard extends ConsumerWidget {
         },
         onTap: () {
           ref.read(lastUsed).client = client;
+          ref.read(currentSearch.notifier).state = '';
           Navigator.pushNamed(
             context,
             '/client_services',
