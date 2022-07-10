@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="data_models library API docs, for the Dart programming language.">
+  <title>data_models library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">data_models library</li>
+  </ol>
+  <div class="self-name">data_models</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-library">data_models</span> library 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <h1 id="data-models">Data Models</h1>
+<p>These classes provide data for UI classes.</p>
+<p>Hierarchy of classes:</p>
+<ul>
+<li>provider <a href="../data_models/workerProfiles.html">workerProfiles</a> store list of:
+<ul>
+<li><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>s with different:
+<ul>
+<li><a href="../data_models/ClientProfile-class.html">ClientProfile</a>s with different:
+<ul>
+<li><a href="../data_models/ClientService-class.html">ClientService</a>s with different:
+<ul>
+<li><a href="../ui_services/currentService.html">currentService</a> provider witch overridden(optional), with different:
+<ul>
+<li><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>s (with different date),
+<ul>
+<li><a href="../data_models/Proofs-class.html">Proofs</a>s.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Note: <a href="../data_models/Proofs-class.html">Proofs</a> is intentionally not depend on <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> to allow:</p>
+<ul>
+<li>make one proof for several <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>,</li>
+<li>to leave proof even in case of deleting of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.</li>
+</ul>
+<p><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>, <a href="../data_models/ClientProfile-class.html">ClientProfile</a>, <a href="../data_models/ClientService-class.html">ClientService</a> classes provide data that they got from classes in
+category <code>Client-Server API</code>.</p>
+<p><a href="../data_models/Proofs-class.html">Proofs</a> class collect data from filesystem and make lists of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>s. It also has methods
+for creating new <a href="../data_models/ProofEntry-class.html">ProofEntry</a>s.</p>
+</section>
+
+
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        <dt id="ClientProfile">
+  <span class="name "><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span> 
+    <span class="category data-models cp-3" title="This is part of the Data Models Topic.">Data&nbsp;Models</span>
+
+</dt>
+<dd>
+  Model with data about client:
+</dd>
+
+        <dt id="ClientService">
+  <span class="name "><a href="../data_models/ClientService-class.html">ClientService</a></span> 
+    <span class="category data-models cp-3" title="This is part of the Data Models Topic.">Data&nbsp;Models</span>
+
+</dt>
+<dd>
+  Model for <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> and other widget.
+</dd>
+
+        <dt id="ProofEntry">
+  <span class="name "><a href="../data_models/ProofEntry-class.html">ProofEntry</a></span> 
+    <span class="category data-models cp-3" title="This is part of the Data Models Topic.">Data&nbsp;Models</span>
+
+</dt>
+<dd>
+  A single entry of proof, contains evidence of states before and after.
+</dd>
+
+        <dt id="Proofs">
+  <span class="name "><a href="../data_models/Proofs-class.html">Proofs</a></span> 
+    <span class="category client-server-api cp-1" title="This is part of the Client-Server API Topic.">Client-Server&nbsp;API</span>
+    <span class="category data-models cp-3" title="This is part of the Data Models Topic.">Data&nbsp;Models</span>
+
+</dt>
+<dd>
+  Store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>s for <a href="../data_models/ClientService-class.html">ClientService</a>.
+</dd>
+
+        <dt id="WorkerProfile">
+  <span class="name "><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> 
+    <span class="category data-models cp-3" title="This is part of the Data Models Topic.">Data&nbsp;Models</span>
+
+</dt>
+<dd>
+  A profile of worker, just model with shortcuts to various providers.
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+    <section class="summary offset-anchor" id="properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="addAllowedOfService" class="property">
+  <span class="name"><a href="../data_models/addAllowedOfService.html">addAllowedOfService</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>, <span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider helper for <code>ClientService</code>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="audioPlayer" class="property">
+  <span class="name"><a href="../data_models/audioPlayer.html">audioPlayer</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers/1.0.1/audioplayers/AudioPlayer-class.html">AudioPlayer</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+    <span class="category ui-proofs cp-6" title="This is part of the UI Proofs Topic.">UI&nbsp;Proofs</span>
+
+</dt>
+<dd>
+  Global audioPlayer.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="clientsOfWorker" class="property">
+  <span class="name"><a href="../data_models/clientsOfWorker.html">clientsOfWorker</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider of clients for <code>WorkerProfile</code>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="deleteAllowedOfService" class="property">
+  <span class="name"><a href="../data_models/deleteAllowedOfService.html">deleteAllowedOfService</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>, <span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider helper for <code>ClientService</code>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="doneStaleErrorOf" class="property">
+  <span class="name"><a href="../data_models/doneStaleErrorOf.html">doneStaleErrorOf</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider of <code>ClientService</code> statistics:
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="groupsOfJournal" class="property">
+  <span class="name"><a href="../data_models/groupsOfJournal.html">groupsOfJournal</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceState.html">ServiceState</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span>, <span class="type-parameter"><a href="../journal/Journal-class.html">Journal</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider of groups of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> sorted by <a href="../journal/ServiceState.html">ServiceState</a>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="groupsOfProof" class="property">
+  <span class="name"><a href="../data_models/groupsOfProof.html">groupsOfProof</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_GroupsOfProofState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ProofEntry-class.html">ProofEntry</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/Proofs-class.html">Proofs</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Store list of ProofEntry for <code>Proofs</code> (for <a href="../data_models/ClientService-class.html">ClientService</a>).
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="planOfWorker" class="property">
+  <span class="name"><a href="../data_models/planOfWorker.html">planOfWorker</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../client_server_api/ClientPlan-class.html">ClientPlan</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider of planned services for <code>WorkerProfile</code>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="proofAtDate" class="property">
+  <span class="name"><a href="../data_models/proofAtDate.html">proofAtDate</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/Proofs-class.html">Proofs</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.0/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, <span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Create <code>Proofs</code> for <a href="../data_models/ClientProfile-class.html">ClientProfile</a> at date,
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="proofPlayState" class="property">
+  <span class="name"><a href="../data_models/proofPlayState.html">proofPlayState</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers_platform_interface/1.0.0/api_player_state/PlayerState.html">PlayerState</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  State of <a href="../data_models/audioPlayer.html">audioPlayer</a>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="proofRecorder" class="property">
+  <span class="name"><a href="../data_models/proofRecorder.html">proofRecorder</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ProofRecorder</span>&gt;</span></span> 
+    <span class="category controllers cp-2" title="This is part of the Controllers Topic.">Controllers</span>
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+    <span class="category ui-proofs cp-6" title="This is part of the UI Proofs Topic.">UI&nbsp;Proofs</span>
+
+</dt>
+<dd>
+  Global audio record controller.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="proofRecorderState" class="property">
+  <span class="name"><a href="../data_models/proofRecorderState.html">proofRecorderState</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/RecorderState.html">RecorderState</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  State of global recorder.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="servicesOfClient" class="property">
+  <span class="name"><a href="../data_models/servicesOfClient.html">servicesOfClient</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider of list of <a href="../data_models/ClientService-class.html">ClientService</a>s for client.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="servicesOfWorker" class="property">
+  <span class="name"><a href="../data_models/servicesOfWorker.html">servicesOfWorker</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../client_server_api/ServiceEntry-class.html">ServiceEntry</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider of services for <code>WorkerProfile</code>.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="servProofAtDate" class="property">
+  <span class="name"><a href="../data_models/servProofAtDate.html">servProofAtDate</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/Proofs-class.html">Proofs</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.0/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, <span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span>&gt;</span></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Create <code>Proofs</code> for <a href="../data_models/ClientService-class.html">ClientService</a> at date,
+if date is null: ref.watch(archiveDate) ?? DateTime.now().
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="workerProfiles" class="property">
+  <span class="name"><a href="../data_models/workerProfiles.html">workerProfiles</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_WorkerProfilesState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span></span> 
+    <span class="category controllers cp-2" title="This is part of the Controllers Topic.">Controllers</span>
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider and controller of List&lt;<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>&gt;.
+  <div class="features">final</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+
+    <section class="summary offset-anchor" id="enums">
+      <h2>Enums</h2>
+
+      <dl>
+        <dt id="RecorderState">
+  <span class="name "><a href="../data_models/RecorderState.html">RecorderState</a></span> 
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+
+</dt>
+<dd>
+  States used by ProofRecorder.
+</dd>
+
+      </dl>
+    </section>
+
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">ais3uson_app</a></li>
+  <li class="self-crumb">data_models library</li>
+</ol>
+
+
+    <h5><span class="package-name">ais3uson_app</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/About-topic.html">About</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../client_server_api/client_server_api-library.html">client_server_api</a></li>
+      <li><a href="../data_models/data_models-library.html">data_models</a></li>
+      <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
+      <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
+      <li><a href="../journal/journal-library.html">journal</a></li>
+      <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../providers/providers-library.html">providers</a></li>
+      <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
+      <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
+      <li><a href="../ui_root/ui_root-library.html">ui_root</a></li>
+      <li><a href="../ui_service_card_widget/ui_service_card_widget-library.html">ui_service_card_widget</a></li>
+      <li><a href="../ui_services/ui_services-library.html">ui_services</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>data_models library</h5>
+    <ol>
+  <li class="section-title"><a href="../data_models/data_models-library.html#classes">Classes</a></li>
+  <li><a href="../data_models/ClientProfile-class.html">ClientProfile</a></li>
+  <li><a href="../data_models/ClientService-class.html">ClientService</a></li>
+  <li><a href="../data_models/ProofEntry-class.html">ProofEntry</a></li>
+  <li><a href="../data_models/Proofs-class.html">Proofs</a></li>
+  <li><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></li>
+
+
+
+
+  <li class="section-title"><a href="../data_models/data_models-library.html#properties">Properties</a></li>
+  <li><a href="../data_models/addAllowedOfService.html">addAllowedOfService</a></li>
+  <li><a href="../data_models/audioPlayer.html">audioPlayer</a></li>
+  <li><a href="../data_models/clientsOfWorker.html">clientsOfWorker</a></li>
+  <li><a href="../data_models/deleteAllowedOfService.html">deleteAllowedOfService</a></li>
+  <li><a href="../data_models/doneStaleErrorOf.html">doneStaleErrorOf</a></li>
+  <li><a href="../data_models/groupsOfJournal.html">groupsOfJournal</a></li>
+  <li><a href="../data_models/groupsOfProof.html">groupsOfProof</a></li>
+  <li><a href="../data_models/planOfWorker.html">planOfWorker</a></li>
+  <li><a href="../data_models/proofAtDate.html">proofAtDate</a></li>
+  <li><a href="../data_models/proofPlayState.html">proofPlayState</a></li>
+  <li><a href="../data_models/proofRecorder.html">proofRecorder</a></li>
+  <li><a href="../data_models/proofRecorderState.html">proofRecorderState</a></li>
+  <li><a href="../data_models/servicesOfClient.html">servicesOfClient</a></li>
+  <li><a href="../data_models/servicesOfWorker.html">servicesOfWorker</a></li>
+  <li><a href="../data_models/servProofAtDate.html">servProofAtDate</a></li>
+  <li><a href="../data_models/workerProfiles.html">workerProfiles</a></li>
+
+
+  <li class="section-title"><a href="../data_models/data_models-library.html#enums">Enums</a></li>
+  <li><a href="../data_models/RecorderState.html">RecorderState</a></li>
+
+
+</ol>
+
+  </div><!--/sidebar-offcanvas-right-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.0.1+16
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

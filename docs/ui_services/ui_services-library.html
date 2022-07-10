@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="ui_services library API docs, for the Dart programming language.">
+  <title>ui_services library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">ui_services library</li>
+  </ol>
+  <div class="self-name">ui_services</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-library">ui_services</span> library 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <h1 id="ui_services---classes-to-display-service-related-data">ui_services - Classes to display service related data</h1>
+<p>There are two screens to display services:</p>
+<ul>
+<li><a href="../ui_services/ListOfClientServicesScreen-class.html">ListOfClientServicesScreen</a> to display <strong>list</strong> of services,</li>
+<li><a href="../ui_services/ClientServiceScreen-class.html">ClientServiceScreen</a> to display <strong>one</strong> service.</li>
+</ul>
+<p>Both of them use <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> to display <a href="../data_models/ClientService-class.html">ClientService</a>.</p>
+<p>The <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> is display widget for <a href="../data_models/ClientService-class.html">ClientService</a>.
+Based on <a href="../providers/tileTypeProvider.html">tileTypeProvider</a> it select one of views:</p>
+<ul>
+<li><a href="../ui_service_card_widget/ServiceCardView-class.html">ServiceCardView</a>,</li>
+<li><a href="../ui_service_card_widget/ServiceCardSquareView-class.html">ServiceCardSquareView</a>,</li>
+<li><a href="../ui_service_card_widget/ServiceCardTileView-class.html">ServiceCardTileView</a>,
+each of them get it size from provider <a href="../providers/serviceCardSize.html">serviceCardSize</a> (which depend on <a href="../providers/serviceCardMagnifying.html">serviceCardMagnifying</a>).</li>
+</ul>
+<p>Each <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> view use <a href="../ui_service_card_widget/ServiceCardState-class.html">ServiceCardState</a> to display data from <a href="../journal/Journal-class.html">Journal</a>
+(how many services is added, etc...).</p>
+<p><a href="../ui_services/ClientServiceScreen-class.html">ClientServiceScreen</a> is also displayed service's <a href="../data_models/Proofs-class.html">Proofs</a>.</p>
+</section>
+
+
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        <dt id="AddButton">
+  <span class="name "><a href="../ui_services/AddButton-class.html">AddButton</a></span> 
+    <span class="category ui-services cp-8" title="This is part of the UI Services Topic.">UI&nbsp;Services</span>
+
+</dt>
+<dd>
+  Button to add new <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>, used in <a href="../ui_services/ClientServiceScreen-class.html">ClientServiceScreen</a>.
+</dd>
+
+        <dt id="ArchiveServicesOfClientScreen">
+  <span class="name "><a href="../ui_services/ArchiveServicesOfClientScreen-class.html">ArchiveServicesOfClientScreen</a></span> 
+    <span class="category ui-services cp-8" title="This is part of the UI Services Topic.">UI&nbsp;Services</span>
+
+</dt>
+<dd>
+  Display all service of client (today + archive).
+</dd>
+
+        <dt id="ClientServiceScreen">
+  <span class="name "><a href="../ui_services/ClientServiceScreen-class.html">ClientServiceScreen</a></span> 
+    <span class="category ui-services cp-8" title="This is part of the UI Services Topic.">UI&nbsp;Services</span>
+
+</dt>
+<dd>
+  Display one <a href="../data_models/ClientService-class.html">ClientService</a> on fullscreen.
+</dd>
+
+        <dt id="DeleteButton">
+  <span class="name "><a href="../ui_services/DeleteButton-class.html">DeleteButton</a></span> 
+    <span class="category ui-services cp-8" title="This is part of the UI Services Topic.">UI&nbsp;Services</span>
+
+</dt>
+<dd>
+  Button to delete <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>, used in <a href="../ui_services/ClientServiceScreen-class.html">ClientServiceScreen</a>.
+</dd>
+
+        <dt id="ListOfClientServicesScreen">
+  <span class="name "><a href="../ui_services/ListOfClientServicesScreen-class.html">ListOfClientServicesScreen</a></span> 
+    <span class="category ui-services cp-8" title="This is part of the UI Services Topic.">UI&nbsp;Services</span>
+
+</dt>
+<dd>
+  Show list of services assigned to client, allow input by click.
+</dd>
+
+      </dl>
+    </section>
+
+
+
+    <section class="summary offset-anchor" id="constants">
+      <h2>Constants</h2>
+
+      <dl class="properties">
+        <dt id="tileSize" class="constant">
+    <span class="name "><a href="../ui_services/tileSize-constant.html">tileSize</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>500.0</code></span>
+  </div>
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="currentSearch" class="property">
+  <span class="name"><a href="../ui_services/currentSearch.html">currentSearch</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_CurrentSearch</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Stub provider of current size of container of services.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="currentService" class="property">
+  <span class="name"><a href="../ui_services/currentService.html">currentService</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Stub provider of current service. Separate from <a href="../providers/lastUsed.html">lastUsed</a> for overriding.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="currentServiceContainerSize" class="property">
+  <span class="name"><a href="../ui_services/currentServiceContainerSize.html">currentServiceContainerSize</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ServiceContainerSizeState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Provider of current size of container of services.
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="filteredServices" class="property">
+  <span class="name"><a href="../ui_services/filteredServices.html">filteredServices</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  List of services of client filtered by currentSearch.
+  <div class="features">final</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">ais3uson_app</a></li>
+  <li class="self-crumb">ui_services library</li>
+</ol>
+
+
+    <h5><span class="package-name">ais3uson_app</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/About-topic.html">About</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../client_server_api/client_server_api-library.html">client_server_api</a></li>
+      <li><a href="../data_models/data_models-library.html">data_models</a></li>
+      <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
+      <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
+      <li><a href="../journal/journal-library.html">journal</a></li>
+      <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../providers/providers-library.html">providers</a></li>
+      <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
+      <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
+      <li><a href="../ui_root/ui_root-library.html">ui_root</a></li>
+      <li><a href="../ui_service_card_widget/ui_service_card_widget-library.html">ui_service_card_widget</a></li>
+      <li><a href="../ui_services/ui_services-library.html">ui_services</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>ui_services library</h5>
+    <ol>
+  <li class="section-title"><a href="../ui_services/ui_services-library.html#classes">Classes</a></li>
+  <li><a href="../ui_services/AddButton-class.html">AddButton</a></li>
+  <li><a href="../ui_services/ArchiveServicesOfClientScreen-class.html">ArchiveServicesOfClientScreen</a></li>
+  <li><a href="../ui_services/ClientServiceScreen-class.html">ClientServiceScreen</a></li>
+  <li><a href="../ui_services/DeleteButton-class.html">DeleteButton</a></li>
+  <li><a href="../ui_services/ListOfClientServicesScreen-class.html">ListOfClientServicesScreen</a></li>
+
+
+
+  <li class="section-title"><a href="../ui_services/ui_services-library.html#constants">Constants</a></li>
+  <li><a href="../ui_services/tileSize-constant.html">tileSize</a></li>
+
+  <li class="section-title"><a href="../ui_services/ui_services-library.html#properties">Properties</a></li>
+  <li><a href="../ui_services/currentSearch.html">currentSearch</a></li>
+  <li><a href="../ui_services/currentService.html">currentService</a></li>
+  <li><a href="../ui_services/currentServiceContainerSize.html">currentServiceContainerSize</a></li>
+  <li><a href="../ui_services/filteredServices.html">filteredServices</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/sidebar-offcanvas-right-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.0.1+16
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the journalOfWorkerAtDate property from the journal library, for the Dart programming language.">
+  <title>journalOfWorkerAtDate property - journal library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../journal/journal-library.html">journal</a></li>
+    <li class="self-crumb">journalOfWorkerAtDate property</li>
+  </ol>
+  <div class="self-name">journalOfWorkerAtDate</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-top-level-property">journalOfWorkerAtDate</span> top-level property 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+    <span class="category journal cp-4" title="This is part of the Journal Topic.">Journal</span>
+    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+</h1></div>
+
+        <section class="multi-line-signature">
+          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/Journal-class.html">Journal</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.0/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>&gt;</span></span>&gt;</span>
+          <span class="name ">journalOfWorkerAtDate</span>
+          <div class="features">final</div>
+
+        </section>
+        
+<section class="desc markdown">
+  <p>Provider of <code>Journal</code> for <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.</p>
+<p>It check is update needed, and auto update list.
+Return List&lt;<a href="../client_server_api/ClientPlan-class.html">ClientPlan</a>&gt;.</p>
+<p>{@category Providers}
+{@category Journal}</p>
+</section>
+
+        
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">final journalOfWorkerAtDate =
+    Provider.family&lt;Journal, Tuple2&lt;WorkerProfile, DateTime?&gt;&gt;((ref, tuple) {
+  final wp = tuple.item1;
+  final date = tuple.item2;
+
+  return date == DateTimeExtensions.today() || date == null
+      ? ref.watch(_journalOfWorker(wp))
+      : ref.watch(_journalArchiveOfWorker(wp));
+});</code></pre>
+</section>
+
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">ais3uson_app</a></li>
+  <li><a href="../journal/journal-library.html">journal</a></li>
+  <li class="self-crumb">journalOfWorkerAtDate property</li>
+</ol>
+
+
+    <h5>journal library</h5>
+    <ol>
+  <li class="section-title"><a href="../journal/journal-library.html#classes">Classes</a></li>
+  <li><a href="../journal/Journal-class.html">Journal</a></li>
+  <li><a href="../journal/JournalArchive-class.html">JournalArchive</a></li>
+  <li><a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
+  <li><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
+  <li><a href="../journal/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
+  <li><a href="../journal/ServicesListState-class.html">ServicesListState</a></li>
+  <li><a href="../journal/ServiceStateAdapter-class.html">ServiceStateAdapter</a></li>
+
+
+
+
+  <li class="section-title"><a href="../journal/journal-library.html#properties">Properties</a></li>
+  <li><a href="../journal/datesInArchive.html">datesInArchive</a></li>
+  <li><a href="../journal/datesInArchiveController.html">datesInArchiveController</a></li>
+  <li><a href="../journal/datesInArchiveOfProfile.html">datesInArchiveOfProfile</a></li>
+  <li><a href="../journal/journalOfClient.html">journalOfClient</a></li>
+  <li><a href="../journal/journalOfWorker.html">journalOfWorker</a></li>
+  <li><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a></li>
+  <li><a href="../journal/servicesOfJournal.html">servicesOfJournal</a></li>
+
+  <li class="section-title"><a href="../journal/journal-library.html#functions">Functions</a></li>
+  <li><a href="../journal/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
+
+  <li class="section-title"><a href="../journal/journal-library.html#enums">Enums</a></li>
+  <li><a href="../journal/ServiceState.html">ServiceState</a></li>
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.0.1+16
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
