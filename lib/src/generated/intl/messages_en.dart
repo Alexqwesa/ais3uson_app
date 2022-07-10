@@ -112,9 +112,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Put department code here"),
         "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
             "Put department code here (this is redundant mode of department addition), it useful in case of broken or absent camera... \n the recommended way is: scan QR-code!"),
-        "repeatSearch": MessageLookupByLibrary.simpleMessage("RepeatSearch"),
+        "repeatSearch": MessageLookupByLibrary.simpleMessage("Repeat search"),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Add department from QR code"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchQR": MessageLookupByLibrary.simpleMessage("searching QR..."),
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
             "Select department to delete..."),

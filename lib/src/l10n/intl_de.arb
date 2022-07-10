@@ -69,6 +69,7 @@
   "onRequest": "Auf Suchanfrage: \n\n",
   "before": "Vorher:",
   "after": "Nach:",
-  "repeatSearch": "Suchanfrage wiederholen"
+  "repeatSearch": "Suchanfrage wiederholen",
+  "search": "Suche"
 
 }

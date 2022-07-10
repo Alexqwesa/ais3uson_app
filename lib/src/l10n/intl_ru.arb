@@ -69,6 +69,7 @@
   "onRequest": "По запросу: \n\n",
   "before": "До:",
   "after": "После:",
-  "repeatSearch": "Повторить поиск"
+  "repeatSearch": "Повторить поиск",
+  "search": "Поиск"
 
 }

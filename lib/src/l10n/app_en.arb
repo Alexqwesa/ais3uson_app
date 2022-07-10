@@ -67,9 +67,10 @@
   "noServicesForClient": "List of client's services is empty, \n\n maybe manager already close the contract,\n\n or you can try to refresh the list!",
   "servicesNotFound": "\n\nServices not found!",
   "onRequest": "On search: \n\n",
-  "before": "До:",
-  "after": "После:",
-  "repeatSearch": "Suche wiederholen"
+  "before": "Before:",
+  "after": "After:",
+  "repeatSearch": "Repeat search",
+  "search": "Search"
 
 
 

@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeatSearch": MessageLookupByLibrary.simpleMessage("Повторить поиск"),
         "scanQrCode": MessageLookupByLibrary.simpleMessage(
             "Сканировать QR код отделения"),
+        "search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "searchQR": MessageLookupByLibrary.simpleMessage(
             "Выполняется поиск QR-кода..."),
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(

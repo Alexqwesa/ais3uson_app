@@ -119,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Suchanfrage wiederholen"),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Abteilung aus QR hinzufügen"),
+        "search": MessageLookupByLibrary.simpleMessage("Suche"),
         "searchQR": MessageLookupByLibrary.simpleMessage("QR suchen..."),
         "selectDepForDelete": MessageLookupByLibrary.simpleMessage(
             "Wählen Sie die zu löschende Abteilung..."),

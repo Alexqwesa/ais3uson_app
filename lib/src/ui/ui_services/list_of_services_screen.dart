@@ -40,7 +40,7 @@ class _ClientServicesListScreen
   _ClientServicesListScreen() {
     searchBar = SearchBar(
       inBar: false,
-      hintText: 'Поиск',
+      hintText: tr().search,
       setState: setState,
       controller: _textEditingController,
       onSubmitted: (value) =>

@@ -69,6 +69,6 @@
   "onRequest": "On search: \n\n",
   "before": "Before:",
   "after": "After:",
-  "repeatSearch": "RepeatSearch"
-
+  "repeatSearch": "Repeat search",
+  "search": "Search"
 }
