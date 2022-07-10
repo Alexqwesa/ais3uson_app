@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/ui/department_related/list_profiles.dart';
+import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';

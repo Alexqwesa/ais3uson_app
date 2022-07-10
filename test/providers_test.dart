@@ -1,9 +1,7 @@
+import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/basic_providers.dart';
-import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
-import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

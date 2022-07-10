@@ -2,15 +2,12 @@
 
 import 'dart:io';
 
+import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/data_models/proofs/repository_of_prooflist.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
-import 'package:ais3uson_app/source/providers/providers_of_app_state.dart';
-import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
-import 'package:ais3uson_app/source/ui/service_related/archive_services_of_client_screen.dart';
-import 'package:ais3uson_app/source/ui/service_related/client_service_screen.dart';
-import 'package:ais3uson_app/source/ui/service_related/list_of_services_screen_provider_helper.dart';
+// ignore: unnecessary_import
+import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/ui_services.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 
+import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/journal/service_state.dart';
-import 'package:ais3uson_app/source/providers/controller_dates_in_archive.dart';
-import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';

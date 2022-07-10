@@ -3,27 +3,27 @@ dartdoc:
     'About':
       name: About
       markdown: README.md
-    'Data Models':
-      name: Data Models
-      markdown: lib/source/data_models/README.md
-    'Journal':
-      name: Journal
-      markdown: lib/source/journal/README.md
-    'Client-Server API':
-      name: Client-server API
-      markdown: lib/source/client_server_api/README.md
-    'UI Services':
-      name: Classes to display service related data
-      markdown: lib/source/ui/service_related/README.md
-    'UI WorkerProfiles':
-      name: Classes to manage worker profiles
-      markdown: lib/source/ui/department_related/README.md
-    'Providers':
-      name: Providers of App
-      markdown: lib/source/providers/README.md
-    'UI Root':
-      name: UI Root
-      markdown: lib/source/ui/README.md
+#    'Data Models':
+#      name: Data Models
+#      markdown: lib/source/data_models/README.md
+#    'Journal':
+#      name: Journal
+#      markdown: lib/source/journal/README.md
+#    'Client-Server API':
+#      name: Client-server API
+#      markdown: lib/source/client_server_api/README.md
+#    'UI Services':
+#      name: Classes to display service related data
+#      markdown: lib/source/ui/service_related/README.md
+#    'UI WorkerProfiles':
+#      name: Classes to manage worker profiles
+#      markdown: lib/source/ui/ui_departments/README.md
+#    'Providers':
+#      name: Providers of App
+#      markdown: lib/source/providers/README.md
+#    'UI Root':
+#      name: UI Root
+#      markdown: lib/source/ui/README.md
 
   showUndocumentedCategories: true
   ignore:

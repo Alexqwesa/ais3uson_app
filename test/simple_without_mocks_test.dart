@@ -2,11 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/client_server_api/client_entry.dart';
-import 'package:ais3uson_app/source/client_server_api/client_plan.dart';
-import 'package:ais3uson_app/source/client_server_api/service_entry.dart';
-import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

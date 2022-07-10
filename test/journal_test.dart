@@ -1,15 +1,9 @@
-// ignore_for_file: deprecated_member_use_from_same_package
-
+import 'package:ais3uson_app/client_server_api.dart';
+import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/source/client_server_api/worker_key.dart';
-import 'package:ais3uson_app/source/data_models/client_service/provider_repository_of_client_service.dart';
-import 'package:ais3uson_app/source/global_helpers.dart';
-import 'package:ais3uson_app/source/journal/service_of_journal.dart';
-import 'package:ais3uson_app/source/journal/service_state.dart';
-import 'package:ais3uson_app/source/providers/controller_of_worker_profiles_list.dart';
-import 'package:ais3uson_app/source/providers/provider_of_journal.dart';
-import 'package:ais3uson_app/source/providers/providers_of_settings.dart';
-import 'package:ais3uson_app/source/providers/repository_of_http_data.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';
