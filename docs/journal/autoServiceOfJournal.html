@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the autoServiceOfJournal function from the journal library, for the Dart programming language.">
+  <title>autoServiceOfJournal function - journal library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../journal/journal-library.html">journal</a></li>
+    <li class="self-crumb">autoServiceOfJournal function</li>
+  </ol>
+  <div class="self-name">autoServiceOfJournal</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-function">autoServiceOfJournal</span> function 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+<span class="name ">autoServiceOfJournal</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="autoServiceOfJournal-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span></li>
+<li><span class="parameter" id="autoServiceOfJournal-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span></li>
+<li><span class="parameter" id="autoServiceOfJournal-param-workerId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span></li>
+<li><span class="parameter" id="autoServiceOfJournal-param-provDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">provDate</span>, </span></li>
+<li><span class="parameter" id="autoServiceOfJournal-param-state"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a>?</span> <span class="parameter-name">state</span>}</span></li>
+</ol>)
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Helper for ServiceOfJournal constructor.</p>
+<p>It call const constructor with dynamic default values:</p>
+<ul>
+<li>uid: uuid.v4(),</li>
+<li>provDate: provDate ?? DateTime.now().</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">&#47;&#47; ignore: long-parameter-list
+ServiceOfJournal autoServiceOfJournal({
+  required int servId,
+  required int contractId,
+  required int workerId,
+  DateTime? provDate,
+  ServiceState? state,
+}) {
+  return ServiceOfJournal(
+    servId: servId,
+    contractId: contractId,
+    workerId: workerId,
+    uid: uuid.v4(),
+    provDate: provDate ?? DateTime.now(),
+    state: state ?? ServiceState.added,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">ais3uson_app</a></li>
+  <li><a href="../journal/journal-library.html">journal</a></li>
+  <li class="self-crumb">autoServiceOfJournal function</li>
+</ol>
+
+
+    <h5>journal library</h5>
+    <ol>
+  <li class="section-title"><a href="../journal/journal-library.html#classes">Classes</a></li>
+  <li><a href="../journal/Journal-class.html">Journal</a></li>
+  <li><a href="../journal/JournalArchive-class.html">JournalArchive</a></li>
+  <li><a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
+  <li><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
+  <li><a href="../journal/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
+  <li><a href="../journal/ServicesListState-class.html">ServicesListState</a></li>
+  <li><a href="../journal/ServiceStateAdapter-class.html">ServiceStateAdapter</a></li>
+
+
+
+
+  <li class="section-title"><a href="../journal/journal-library.html#properties">Properties</a></li>
+  <li><a href="../journal/datesInArchive.html">datesInArchive</a></li>
+  <li><a href="../journal/datesInArchiveController.html">datesInArchiveController</a></li>
+  <li><a href="../journal/datesInArchiveOfProfile.html">datesInArchiveOfProfile</a></li>
+  <li><a href="../journal/journalOfClient.html">journalOfClient</a></li>
+  <li><a href="../journal/journalOfWorker.html">journalOfWorker</a></li>
+  <li><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a></li>
+  <li><a href="../journal/servicesOfJournal.html">servicesOfJournal</a></li>
+
+  <li class="section-title"><a href="../journal/journal-library.html#functions">Functions</a></li>
+  <li><a href="../journal/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
+
+  <li class="section-title"><a href="../journal/journal-library.html#enums">Enums</a></li>
+  <li><a href="../journal/ServiceState.html">ServiceState</a></li>
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.0.1+16
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
