@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 ///
 /// Used to make proof images.
 ///
-/// {@category UI Services}
+/// {@category UI Proofs}
 class TakeProofPictureScreen extends StatefulWidget {
   const TakeProofPictureScreen({
     required this.camera,
@@ -18,10 +18,10 @@ class TakeProofPictureScreen extends StatefulWidget {
   final CameraDescription camera;
 
   @override
-  TakeProofPictureScreenState createState() => TakeProofPictureScreenState();
+  _TakeProofPictureScreenState createState() => _TakeProofPictureScreenState();
 }
 
-class TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
+class _TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
@@ -85,16 +85,6 @@ class TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
                   // If the picture was taken, return it.
                   if (!mounted) return;
                   Navigator.pop(context, image);
-
-                  // await Navigator.of(context).push(
-                  //   MaterialPageRoute<void>(
-                  //     builder: (context) => DisplayPictureScreen(
-                  //       // Pass the automatically generated path to
-                  //       // the DisplayPictureScreen widget.
-                  //       imagePath: image.path,
-                  //     ),
-                  //   ),
-                  // );
                   // ignore: avoid_catches_without_on_clauses
                 } catch (e) {
                   // If an error occurs, log the error to the console.
@@ -110,7 +100,9 @@ class TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
   }
 }
 
-// A widget that displays the picture taken by the user.
+/// Displays the picture taken by the worker as proof of work.
+///
+/// {@category UI Proofs}
 class DisplayPictureScreen extends StatelessWidget {
   const DisplayPictureScreen({
     required this.image,
