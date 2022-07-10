@@ -108,41 +108,45 @@ class Journal {
 
   Future<void> exportToFile(DateTime start, DateTime end) async {
     final content = await export(start, end);
-    // final _base64 = base64Encode(content.codeUnits);
     final fileName =
         '${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_'
         '${standardFormat.format(start)}_'
         '${standardFormat.format(end)}.ais_json';
-    final filePath = await getSafePath([fileName]);
-    if (filePath == null) {
-      if (kIsWeb) {
-        final blob = html.Blob(
-          <String>[content],
-          'text/json',
-          'native',
-        );
-
-        html.AnchorElement(
-          href: html.Url.createObjectUrlFromBlob(blob),
-        )
-          ..setAttribute('download', fileName)
-          ..click();
-      }
+    //
+    // > for web - just download
+    //
+    if (kIsWeb) {
+      final blob = html.Blob(
+        <String>[content],
+        'text/json',
+        'native',
+      );
+      html.AnchorElement(href: html.Url.createObjectUrlFromBlob(blob))
+        ..setAttribute('download', fileName)
+        ..click();
     } else {
-      File(filePath).writeAsStringSync(content);
-      try {
-        await Share.shareFiles([filePath]);
-        // ignore: avoid_catching_errors
-      } on UnimplementedError {
-        showNotification(
-          tr().fileSavedTo + filePath,
-          duration: const Duration(seconds: 10),
-        );
-      } on MissingPluginException {
-        showNotification(
-          tr().fileSavedTo + filePath,
-          duration: const Duration(seconds: 10),
-        );
+      //
+      // > save and try to share
+      //
+      final filePath = await getSafePath([fileName]);
+      if (filePath == null) {
+        showNotification(tr().errorSave);
+      } else {
+        File(filePath).writeAsStringSync(content);
+        try {
+          await Share.shareFiles([filePath]);
+          // ignore: avoid_catching_errors
+        } on UnimplementedError {
+          showNotification(
+            tr().fileSavedTo + filePath,
+            duration: const Duration(seconds: 10),
+          );
+        } on MissingPluginException {
+          showNotification(
+            tr().fileSavedTo + filePath,
+            duration: const Duration(seconds: 10),
+          );
+        }
       }
     }
   }
