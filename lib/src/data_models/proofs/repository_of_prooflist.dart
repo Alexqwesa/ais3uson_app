@@ -3,6 +3,7 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
@@ -29,7 +30,8 @@ final _proofAtDate =
     contractId: client.contractId,
     date: standardFormat.format(date),
     serviceId: null,
-    client: client.workerProfile.clients
+    client: ref
+        .read(clientsOfWorker(client.workerProfile))
         .firstWhere((element) => element.contractId == client.contractId)
         .name,
     worker: client.workerProfile.name,
@@ -60,9 +62,11 @@ final _servProofAtDate =
     contractId: service.contractId,
     date: standardFormat.format(date),
     serviceId: service.servId,
-    client: service.workerProfile.clients
-        .firstWhere((element) => element.contractId == service.contractId)
-        .name,
+    client: ref
+            .watch(clientsOfWorker(service.workerProfile))
+            .firstWhereOrNull((e) => e.contractId == service.contractId)
+            ?.name ??
+        ref.watch(lastUsed).client.name,
     worker: service.workerProfile.name,
     service: service.shortText,
     ref: ref.container,
@@ -72,12 +76,14 @@ final _servProofAtDate =
 /// Store list of ProofEntry for [Proofs] (for [ClientService]).
 ///
 /// {@category Providers}
-final groupsOfProof = StateNotifierProvider.family<_GroupsOfProofState,
-    List<ProofEntry>, Proofs>((ref, proofList) {
-  proofList.crawler();
+final groupsOfProof =
+    StateNotifierProvider.family<_GroupsOfProofState, List<ProofEntry>, Proofs>(
+  (ref, proofList) {
+    proofList.crawler();
 
-  return _GroupsOfProofState();
-});
+    return _GroupsOfProofState();
+  },
+);
 
 class _GroupsOfProofState extends StateNotifier<List<ProofEntry>> {
   _GroupsOfProofState() : super([]);

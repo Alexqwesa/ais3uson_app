@@ -59,7 +59,7 @@ class WorkerProfile {
   ///
   /// Async init actions such as:
   /// - postInit of [Journal] class,
-  /// - read [clients], [clientPlan] and [services] from hive if empty.
+  /// - read `clients`, [clientPlan] and [services] from hive if empty.
   Future<void> postInit() async {
     await ref.read(journalOfWorker(this)).postInit();
     await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();

@@ -12,6 +12,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// {@category Providers}
 final lastUsed = Provider<_LastUsed>((ref) {
+  // todo: test it
+  ref
+    ..watch(_lastClientService)
+    ..watch(_lastClient)
+    ..watch(_lastWorkerProfile);
+
   return _LastUsed(ref);
 });
 
@@ -58,8 +64,19 @@ final _lastClientService = Provider<ClientService>((ref) {
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClientService requested but provider failed');
+    try {
+      return ref.watch(servicesOfClient(ref.watch(_lastClient))).first;
 
-    return ref.watch(servicesOfClient(ref.watch(_lastClient))).first;
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      log.severe('lastClientService requested but provider failed');
+
+      return ClientService(
+        workerProfile: ref.watch(_lastWorkerProfile),
+        service: const ServiceEntry(serv_text: '', id: 0),
+        planned: const ClientPlan(filled: 0, planned: 0, serv_id: 0, contract_id: 0),
+      );
+    }
   }
 });
 

@@ -5,6 +5,7 @@ import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
+import 'package:ais3uson_app/src/ui/app_route_observer.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Root widget of whole app.
 ///
@@ -138,9 +140,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
 ///
 /// {@category UI Root}
 class MainMaterialApp extends ConsumerWidget {
-  const MainMaterialApp({
-    Key? key,
-  }) : super(key: key);
+  const MainMaterialApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -165,7 +165,10 @@ class MainMaterialApp extends ConsumerWidget {
       //
       // > routes
       //
-      initialRoute: '/',
+      navigatorObservers: <NavigatorObserver>[
+        AppRouteObserver(), // this will listen all changes
+      ],
+      initialRoute: locator<SharedPreferences>().getString('last_route') ?? '/',
       routes: {
         '/client_journal': (context) => const ArchiveServicesOfClientScreen(),
         '/add_department': (context) => const AddDepartmentScreen(),
