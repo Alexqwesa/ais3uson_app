@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// - service at date.
 ///
 /// {@category Providers}
+/// {@category App State}
 final lastUsed = Provider<_LastUsed>((ref) {
   // todo: test it
   ref
@@ -47,6 +48,39 @@ class _LastUsed {
       ref.read(_lastApiKey.notifier).state = value.apiKey;
 }
 
+/// Provider of setting - archiveDate. Inited with null, doesn't save its value.
+///
+/// {@category Providers}
+/// {@category App State}
+final archiveDate = StateProvider<DateTime?>((ref) {
+  return null;
+});
+
+/// Archive view or usual view of App.
+///
+/// Provider of setting - isArchive. Inited with false, doesn't save its value.
+///
+/// {@category Providers}
+/// {@category App State}
+// Todo: only use archiveDate?
+final isArchive = StateNotifierProvider<_ArchiveState, bool>((ref) {
+  return _ArchiveState(ref.read);
+});
+
+class _ArchiveState extends StateNotifier<bool> {
+  _ArchiveState(this.read) : super(false);
+
+  final Reader read;
+
+  @override
+  set state(bool value) {
+    super.state = value;
+    if (!value) {
+      read(archiveDate.notifier).state = null;
+    }
+  }
+}
+
 /// Should always return last used service [ClientService].
 ///
 /// If can't find last client - return first client from first profile.
@@ -74,7 +108,8 @@ final _lastClientService = Provider<ClientService>((ref) {
       return ClientService(
         workerProfile: ref.watch(_lastWorkerProfile),
         service: const ServiceEntry(serv_text: '', id: 0),
-        planned: const ClientPlan(filled: 0, planned: 0, serv_id: 0, contract_id: 0),
+        planned:
+            const ClientPlan(filled: 0, planned: 0, serv_id: 0, contract_id: 0),
       );
     }
   }
@@ -204,34 +239,3 @@ class _LastClientServiceIdState extends StateNotifier<int> {
     locator<SharedPreferences>().setInt(name, value);
   }
 }
-
-/// Archive view or usual view of App.
-///
-/// Provider of setting - isArchive. Inited with false, doesn't save its value.
-///
-/// {@category Providers}
-// Todo: only use archiveDate?
-final isArchive = StateNotifierProvider<_ArchiveState, bool>((ref) {
-  return _ArchiveState(ref.read);
-});
-
-class _ArchiveState extends StateNotifier<bool> {
-  _ArchiveState(this.read) : super(false);
-
-  final Reader read;
-
-  @override
-  set state(bool value) {
-    super.state = value;
-    if (!value) {
-      read(archiveDate.notifier).state = null;
-    }
-  }
-}
-
-/// Provider of setting - archiveDate. Inited with null, doesn't save its value.
-///
-/// {@category Providers}
-final archiveDate = StateProvider<DateTime?>((ref) {
-  return null;
-});
