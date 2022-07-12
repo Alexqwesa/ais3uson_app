@@ -166,7 +166,7 @@ class MainMaterialApp extends ConsumerWidget {
       // > routes
       //
       navigatorObservers: <NavigatorObserver>[
-        AppRouteObserver(), // this will listen all changes
+        AppRouteObserver(ref), // this will listen all changes
       ],
       initialRoute: locator<SharedPreferences>().getString('last_route') ?? '/',
       routes: {
