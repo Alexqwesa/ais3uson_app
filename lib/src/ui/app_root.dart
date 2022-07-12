@@ -5,7 +5,6 @@ import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
-import 'package:ais3uson_app/src/ui/app_route_observer.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';

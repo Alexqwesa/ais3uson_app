@@ -118,7 +118,7 @@ class ClientCard extends ConsumerWidget {
         },
         onTap: () {
           ref.read(lastUsed).client = client;
-          ref.read(currentSearch.notifier).state = '';
+          ref.read(currentSearchText.notifier).state = '';
           Navigator.pushNamed(
             context,
             '/client_services',

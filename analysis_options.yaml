@@ -41,15 +41,12 @@ analyzer:
   plugins:
     - dart_code_metrics
   exclude:
-    - packages/**/lib/generated_plugin_registrant.dart
-    - test/helpers/mock_server.mocks.dart
-    - test/helpers/*.mocks.dart
-    - lib/generated/**
-    - lib/generated/**/**
     - lib/src/generated/**
     - lib/src/generated/**/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - "**/*.chopper.dart"
+    - "**/*.mocks.dart"
   errors:
     invalid_annotation_target: ignore
 dart_code_metrics:

@@ -9,7 +9,6 @@ import 'package:ais3uson_app/ui_service_card_widget.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show
@@ -45,9 +44,8 @@ class _ClientServicesListScreen
       setState: setState,
       controller: _textEditingController,
       onSubmitted: (value) =>
-          setState(() => ref.read(currentSearch.notifier).state = value),
-      onChanged: (value) =>
-          setState(() => ref.read(currentSearch.notifier).state = value),
+          ref.read(currentSearchText.notifier).state = value,
+      onChanged: (value) => ref.read(currentSearchText.notifier).state = value,
       buildDefaultAppBar: buildAppBar,
       clearOnSubmit: false,
     );
@@ -55,25 +53,23 @@ class _ClientServicesListScreen
 
   late final SearchBar searchBar;
   final _textEditingController = TextEditingController();
-  final speech = stt.SpeechToText();
 
   Widget buildAppBar(BuildContext context) {
-    // final speech = ref.watch(speechEngine);
     final client = ref.watch(lastUsed).client;
     final workerProfile = client.workerProfile;
 
     return AppBar(
       title: GestureDetector(
-        onTap: () => ref.read(currentSearch.notifier).state = '',
+        onTap: () => ref.read(currentSearchText.notifier).state = '',
         child: Text(
-          ref.watch(currentSearch) != ''
-              ? ' "${ref.watch(currentSearch)}" '
+          ref.watch(currentSearchText) != ''
+              ? ' "${ref.watch(currentSearchText)}" '
               : client.name,
           overflow: TextOverflow.ellipsis,
         ),
       ),
       //
-      // > buttons in appBar
+      // > buttons in appBar:
       //
       actions: [
         // search
@@ -82,7 +78,20 @@ class _ClientServicesListScreen
         if (kIsWeb || Platform.isAndroid || Platform.isIOS)
           IconButton(
             icon: const Icon(Icons.mic_none_rounded),
-            onPressed: startSpeechRecognition,
+            //
+            // > Start listening
+            //
+            onPressed: () async {
+              await ref.watch(speechEngineInited.future);
+              await ref.watch(speechEngine).listen(
+                onResult: (result) {
+                  ref.read(currentSearchText.notifier).state =
+                      result.recognizedWords;
+                  _textEditingController.text = result.recognizedWords;
+                  searchBar.beginSearch(context);
+                },
+              );
+            },
           ),
         // refresh
         IconButton(
@@ -117,22 +126,19 @@ class _ClientServicesListScreen
 
     final client = ref.watch(lastUsed).client;
     final servList = ref.watch(filteredServices(client));
+    final speechStatus = ref.watch(speechEngineStatus);
+    final searchedText = ref.watch(currentSearchText);
 
     return Scaffold(
       //
       // > appBar
       //
-      appBar: (speech.lastStatus != stt.SpeechToText.listeningStatus
-          //
-          // > default appBar
-          //
+      appBar: (speechStatus != stt.SpeechToText.listeningStatus
           ? searchBar.build(context)
-
           //
           // > stop words recognition button, only shown on listening
           //
           : _StopListenMicAppBar(
-              speech: speech,
               searchBar: searchBar,
             )) as PreferredSizeWidget,
       //
@@ -157,7 +163,7 @@ class _ClientServicesListScreen
                         child: _ListOfServices(),
                       )
                     : Text(
-                        '${tr().onRequest} ${ref.watch(currentSearch)} ${tr().servicesNotFound}',
+                        '${tr().onRequest} $searchedText  ${tr().servicesNotFound}',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5,
                       )
@@ -171,80 +177,56 @@ class _ClientServicesListScreen
       ),
     );
   }
-
-  Future<void> startSpeechRecognition() async {
-    if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
-      // final speech = stt.SpeechToText(); // ref.read(speechEngine);
-      try {
-        final available = await speech.initialize(
-          onStatus: (status) {
-            log.fine('Speech status $status');
-          },
-          onError: (error) {
-            log.severe('Speech error $error');
-          },
-        );
-        if (available) {
-          await speech.listen(
-            onResult: (result) {
-              searchBar.beginSearch(context);
-              setState(() {
-                _textEditingController.text = result.recognizedWords;
-              });
-            },
-          );
-          setState(() {
-            log.fine('speech ${speech.lastStatus}');
-          });
-        } else {
-          log.warning('The user has denied the use of speech recognition.');
-        }
-      } on PlatformException catch (e) {
-        // todo: handle no Bluetooth permission here
-        log.severe(e.details);
-      }
-    }
-  }
 }
 
 /// Stop words recognition button in AppBar, only shown on listening.
 class _StopListenMicAppBar extends ConsumerWidget
     implements PreferredSizeWidget {
   const _StopListenMicAppBar({
-    required this.speech,
     required this.searchBar,
     Key? key,
   }) : super(key: key);
 
-  final stt.SpeechToText speech;
   final SearchBar searchBar;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final speech = ref.read(speechEngine);
+    final speech = ref.read(speechEngine);
 
     return GestureDetector(
       child: Container(
         alignment: Alignment.center,
-        color: Colors.red,
-        child: FloatingActionButton(
-          child: const Icon(Icons.mic_rounded),
-          autofocus: true,
-          onPressed: () async {
-            searchBar.beginSearch(context);
-            await speech.stop();
-            log
-              ..fine('speech ${speech.lastStatus}')
-              ..fine('speech ${speech.lastRecognizedWords}');
-            ref.read(currentSearch.notifier).state = speech.lastRecognizedWords;
-          },
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              FloatingActionButton(
+                backgroundColor: Colors.red,
+                child: const Icon(Icons.mic_rounded),
+                autofocus: true,
+                onPressed: () async {
+                  // searchBar.beginSearch(context);
+                  await speech.stop();
+                  log
+                    ..fine('speech ${speech.lastStatus}')
+                    ..fine('speech ${speech.lastRecognizedWords}');
+                  ref.read(currentSearchText.notifier).state =
+                      speech.lastRecognizedWords;
+                },
+              ),
+              Center(
+                child: Text(speech.lastRecognizedWords),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight) * 1.5;
 }
 
 class _ListOfServices extends ConsumerWidget {
