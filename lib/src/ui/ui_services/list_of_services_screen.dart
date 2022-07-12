@@ -118,9 +118,12 @@ class _ClientServicesListScreen
   Widget build(BuildContext context) {
     if (!inited) {
       inited = true;
-      // ignore: invalid_use_of_protected_member
-      ref.read(currentServiceContainerSize.notifier).state =
-          MediaQuery.of(context).size;
+      Future.delayed(
+        // todo: fix it
+        const Duration(milliseconds: 100),
+        () => ref.read(currentServiceContainerSize.notifier).state =
+            MediaQuery.of(context).size,
+      );
     }
 
     final client = ref.watch(lastUsed).client;
