@@ -112,6 +112,9 @@ Widget build(BuildContext context, WidgetRef ref) {
     child: ListTile(
       leading: Transform.scale(
         scale: 1.5,
+        &#47;&#47;
+        &#47;&#47; &gt; colorful icons
+        &#47;&#47;
         child: Icon(
           Icons.person,
           color: HSVColor.fromColor(
@@ -149,7 +152,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       },
       onTap: () {
         ref.read(lastUsed).client = client;
-        ref.read(currentSearch.notifier).state = &#39;&#39;;
+        ref.read(currentSearchText.notifier).state = &#39;&#39;;
         Navigator.pushNamed(
           context,
           &#39;&#47;client_services&#39;,

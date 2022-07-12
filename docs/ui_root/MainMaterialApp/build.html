@@ -129,7 +129,7 @@ Widget build(BuildContext context, WidgetRef ref) {
     &#47;&#47; &gt; routes
     &#47;&#47;
     navigatorObservers: &lt;NavigatorObserver&gt;[
-      AppRouteObserver(), &#47;&#47; this will listen all changes
+      AppRouteObserver(ref), &#47;&#47; this will listen all changes
     ],
     initialRoute: locator&lt;SharedPreferences&gt;().getString(&#39;last_route&#39;) ?? &#39;&#47;&#39;,
     routes: {

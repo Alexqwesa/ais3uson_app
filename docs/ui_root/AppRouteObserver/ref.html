@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the saveLastRoute method from the AppRouteObserver class, for the Dart programming language.">
-  <title>saveLastRoute method - AppRouteObserver class - ui_root library - Dart API</title>
+  <meta name="description" content="API docs for the ref property from the AppRouteObserver class, for the Dart programming language.">
+  <title>ref property - AppRouteObserver class - ui_root library - Dart API</title>
 
 
   
@@ -31,9 +31,9 @@
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../ui_root/ui_root-library.html">ui_root</a></li>
     <li><a href="../../ui_root/AppRouteObserver-class.html">AppRouteObserver</a></li>
-    <li class="self-crumb">saveLastRoute method</li>
+    <li class="self-crumb">ref property</li>
   </ol>
-  <div class="self-name">saveLastRoute</div>
+  <div class="self-name">ref</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,34 +44,24 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-method">saveLastRoute</span> method 
+<h1><span class="kind-property">ref</span> property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
-    <section class="multi-line-signature">
-      
+        <section class="multi-line-signature">
+          <a href="https://pub.dev/documentation/flutter_riverpod/2.0.0-dev.9/flutter_riverpod/WidgetRef-class.html">WidgetRef</a>
+          <span class="name ">ref</span>
+          <div class="features">final</div>
 
-<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">saveLastRoute</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="saveLastRoute-param-lastRoute"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Route-class.html">Route</a>?</span> <span class="parameter-name">lastRoute</span></span></li>
-</ol>)
+        </section>
+        
 
-      
-
-    </section>
-    
-
-
-    
+        
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; saveLastRoute(Route? lastRoute) async {
-  unawaited(ref.read(audioPlayer).stop());
-  unawaited(ref.read(proofRecorder).stop());
-  unawaited(ref.read(speechEngine).stop());
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setString(&#39;last_route&#39;, lastRoute?.settings.name ?? &#39;&#47;&#39;);
-  log.fine(&#39;route: ${lastRoute?.settings.name ?? &#39;&#39;}&#39;);
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">final WidgetRef ref;
+
+</code></pre>
 </section>
 
 
@@ -88,7 +78,7 @@
   <li><a href="../../index.html">ais3uson_app</a></li>
   <li><a href="../../ui_root/ui_root-library.html">ui_root</a></li>
   <li><a href="../../ui_root/AppRouteObserver-class.html">AppRouteObserver</a></li>
-  <li class="self-crumb">saveLastRoute method</li>
+  <li class="self-crumb">ref property</li>
 </ol>
 
 
