@@ -9,6 +9,7 @@ import 'package:ais3uson_app/ui_service_card_widget.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show
@@ -57,59 +58,47 @@ class _ClientServicesListScreen
   final speech = stt.SpeechToText();
 
   Widget buildAppBar(BuildContext context) {
+    // final speech = ref.watch(speechEngine);
     final client = ref.watch(lastUsed).client;
     final workerProfile = client.workerProfile;
 
-    return speech.lastStatus != stt.SpeechToText.listeningStatus
+    return AppBar(
+      title: GestureDetector(
+        onTap: () => ref.read(currentSearch.notifier).state = '',
+        child: Text(
+          ref.watch(currentSearch) != ''
+              ? ' "${ref.watch(currentSearch)}" '
+              : client.name,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      //
+      // > buttons in appBar
+      //
+      actions: [
+        // search
+        searchBar.getSearchAction(context),
+        // microphone
+        if (kIsWeb || Platform.isAndroid || Platform.isIOS)
+          IconButton(
+            icon: const Icon(Icons.mic_none_rounded),
+            onPressed: startSpeechRecognition,
+          ),
+        // refresh
+        IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () async {
+            await ref.read(journalOfWorker(workerProfile)).archiveOldServices();
+            await ref.read(journalOfWorker(workerProfile)).commitAll();
+            await workerProfile.syncPlanned();
+          },
+        ),
         //
-        // > default appBar
+        // > popup menu
         //
-        ? AppBar(
-            title: GestureDetector(
-              onTap: () => ref.read(currentSearch.notifier).state = '',
-              child: Text(
-                ref.watch(currentSearch) != ''
-                    ? ' "${ref.watch(currentSearch)}" '
-                    : client.name,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            //
-            // > buttons in appBar
-            //
-            actions: [
-              // search
-              searchBar.getSearchAction(context),
-              // microphone
-              if (kIsWeb || Platform.isAndroid || Platform.isIOS)
-                IconButton(
-                  icon: const Icon(Icons.mic_none_rounded),
-                  onPressed: startSpeechRecognition,
-                ),
-              // refresh
-              IconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: () async {
-                  await ref
-                      .read(journalOfWorker(workerProfile))
-                      .archiveOldServices();
-                  await ref.read(journalOfWorker(workerProfile)).commitAll();
-                  await workerProfile.syncPlanned();
-                },
-              ),
-              //
-              // > popup menu
-              //
-              const _AppBarPopupMenu(),
-            ],
-          )
-        //
-        // > stop words recognition button, only shown on listening
-        //
-        : _StopListenMicAppBar(
-            speech: speech,
-            searchBar: searchBar,
-          );
+        const _AppBarPopupMenu(),
+      ],
+    );
   }
 
   bool inited = false;
@@ -133,7 +122,19 @@ class _ClientServicesListScreen
       //
       // > appBar
       //
-      appBar: searchBar.build(context),
+      appBar: (speech.lastStatus != stt.SpeechToText.listeningStatus
+          //
+          // > default appBar
+          //
+          ? searchBar.build(context)
+
+          //
+          // > stop words recognition button, only shown on listening
+          //
+          : _StopListenMicAppBar(
+              speech: speech,
+              searchBar: searchBar,
+            )) as PreferredSizeWidget,
       //
       // > body
       //
@@ -173,36 +174,42 @@ class _ClientServicesListScreen
 
   Future<void> startSpeechRecognition() async {
     if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
-      final available = await speech.initialize(
-        onStatus: (status) {
-          log.fine('Speech status $status');
-        },
-        onError: (error) {
-          log.severe('Speech error $error');
-        },
-      );
-      if (available) {
-        await speech.listen(
-          onResult: (result) => setState(
-            () {
-              _textEditingController.text = result.recognizedWords;
-              searchBar.beginSearch(context);
-            },
-          ),
+      // final speech = stt.SpeechToText(); // ref.read(speechEngine);
+      try {
+        final available = await speech.initialize(
+          onStatus: (status) {
+            log.fine('Speech status $status');
+          },
+          onError: (error) {
+            log.severe('Speech error $error');
+          },
         );
-        setState(() {
-          log.fine('speech ${speech.lastStatus}');
-        });
-        log.fine('speech ${speech.lastStatus}');
-      } else {
-        log.warning('The user has denied the use of speech recognition.');
+        if (available) {
+          await speech.listen(
+            onResult: (result) {
+              searchBar.beginSearch(context);
+              setState(() {
+                _textEditingController.text = result.recognizedWords;
+              });
+            },
+          );
+          setState(() {
+            log.fine('speech ${speech.lastStatus}');
+          });
+        } else {
+          log.warning('The user has denied the use of speech recognition.');
+        }
+      } on PlatformException catch (e) {
+        // todo: handle no Bluetooth permission here
+        log.severe(e.details);
       }
     }
   }
 }
 
 /// Stop words recognition button in AppBar, only shown on listening.
-class _StopListenMicAppBar extends ConsumerWidget {
+class _StopListenMicAppBar extends ConsumerWidget
+    implements PreferredSizeWidget {
   const _StopListenMicAppBar({
     required this.speech,
     required this.searchBar,
@@ -214,24 +221,30 @@ class _StopListenMicAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AppBar(
-      title: ElevatedButton(
-        child: const Icon(Icons.mic_rounded),
-        autofocus: true,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+    // final speech = ref.read(speechEngine);
+
+    return GestureDetector(
+      child: Container(
+        alignment: Alignment.center,
+        color: Colors.red,
+        child: FloatingActionButton(
+          child: const Icon(Icons.mic_rounded),
+          autofocus: true,
+          onPressed: () async {
+            searchBar.beginSearch(context);
+            await speech.stop();
+            log
+              ..fine('speech ${speech.lastStatus}')
+              ..fine('speech ${speech.lastRecognizedWords}');
+            ref.read(currentSearch.notifier).state = speech.lastRecognizedWords;
+          },
         ),
-        onPressed: () async {
-          searchBar.beginSearch(context);
-          await speech.stop();
-          log
-            ..fine('speech ${speech.lastStatus}')
-            ..fine('speech ${speech.lastRecognizedWords}');
-          ref.read(currentSearch.notifier).state = speech.lastRecognizedWords;
-        },
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _ListOfServices extends ConsumerWidget {
