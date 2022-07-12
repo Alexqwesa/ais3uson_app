@@ -149,6 +149,7 @@ Widget build(BuildContext context, WidgetRef ref) {
       },
       onTap: () {
         ref.read(lastUsed).client = client;
+        ref.read(currentSearch.notifier).state = &#39;&#39;;
         Navigator.pushNamed(
           context,
           &#39;&#47;client_services&#39;,

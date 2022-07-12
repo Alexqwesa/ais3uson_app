@@ -46,7 +46,8 @@
 <h1><span class="kind-top-level-property">lastUsed</span> top-level property 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category providers cp-5" title="This is part of the Providers Topic.">Providers</span>
+    <span class="category app-state cp-1" title="This is part of the App State Topic.">App&nbsp;State</span>
+    <span class="category providers cp-7" title="This is part of the Providers Topic.">Providers</span>
 </h1></div>
 
         <section class="multi-line-signature">
@@ -64,13 +65,20 @@
 <li>service,</li>
 <li>service at date.</li>
 </ul>
-<p>{@category Providers}</p>
+<p>{@category Providers}
+{@category App State}</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final lastUsed = Provider&lt;_LastUsed&gt;((ref) {
+  &#47;&#47; todo: test it
+  ref
+    ..watch(_lastClientService)
+    ..watch(_lastClient)
+    ..watch(_lastWorkerProfile);
+
   return _LastUsed(ref);
 });</code></pre>
 </section>

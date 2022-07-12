@@ -67,41 +67,45 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; exportToFile(DateTime start, DateTime end) async {
   final content = await export(start, end);
-  &#47;&#47; final _base64 = base64Encode(content.codeUnits);
   final fileName =
       &#39;${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_&#39;
       &#39;${standardFormat.format(start)}_&#39;
       &#39;${standardFormat.format(end)}.ais_json&#39;;
-  final filePath = await getSafePath([fileName]);
-  if (filePath == null) {
-    if (kIsWeb) {
-      final blob = html.Blob(
-        &lt;String&gt;[content],
-        &#39;text&#47;json&#39;,
-        &#39;native&#39;,
-      );
-
-      html.AnchorElement(
-        href: html.Url.createObjectUrlFromBlob(blob),
-      )
-        ..setAttribute(&#39;download&#39;, fileName)
-        ..click();
-    }
+  &#47;&#47;
+  &#47;&#47; &gt; for web - just download
+  &#47;&#47;
+  if (kIsWeb) {
+    final blob = html.Blob(
+      &lt;String&gt;[content],
+      &#39;text&#47;json&#39;,
+      &#39;native&#39;,
+    );
+    html.AnchorElement(href: html.Url.createObjectUrlFromBlob(blob))
+      ..setAttribute(&#39;download&#39;, fileName)
+      ..click();
   } else {
-    File(filePath).writeAsStringSync(content);
-    try {
-      await Share.shareFiles([filePath]);
-      &#47;&#47; ignore: avoid_catching_errors
-    } on UnimplementedError {
-      showNotification(
-        tr().fileSavedTo + filePath,
-        duration: const Duration(seconds: 10),
-      );
-    } on MissingPluginException {
-      showNotification(
-        tr().fileSavedTo + filePath,
-        duration: const Duration(seconds: 10),
-      );
+    &#47;&#47;
+    &#47;&#47; &gt; save and try to share
+    &#47;&#47;
+    final filePath = await getSafePath([fileName]);
+    if (filePath == null) {
+      showNotification(tr().errorSave);
+    } else {
+      File(filePath).writeAsStringSync(content);
+      try {
+        await Share.shareFiles([filePath]);
+        &#47;&#47; ignore: avoid_catching_errors
+      } on UnimplementedError {
+        showNotification(
+          tr().fileSavedTo + filePath,
+          duration: const Duration(seconds: 10),
+        );
+      } on MissingPluginException {
+        showNotification(
+          tr().fileSavedTo + filePath,
+          duration: const Duration(seconds: 10),
+        );
+      }
     }
   }
 }</code></pre>
