@@ -36,41 +36,47 @@ class ArchiveServicesOfClientScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(tr().listOfServicesByDays)),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Wrap(
-            children: [
-              if (all.isEmpty) Text(tr().emptyListOfServices),
-              for (final serviceDayGroup
-                  in allByGroups.entries.map((e) => e.value))
-                SizedBox(
-                  width: tileSize + 32,
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
-                    child: ListView(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        _TitleWidgetOfServicesGroup(
-                          service: serviceDayGroup[0],
-                          client: client,
-                        ),
-                        for (int index = 1;
-                            index < serviceDayGroup.length;
-                            index++)
-                          _ServiceOfJournalTile(
-                            serviceOfJournal: serviceDayGroup[index],
-                            client: client,
+      body: all.isEmpty
+          ? Center(
+              child: Text(
+                tr().emptyListOfServices,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            )
+          : SingleChildScrollView(
+              child: Center(
+                child: Wrap(
+                  children: [
+                    for (final serviceDayGroup
+                        in allByGroups.entries.map((e) => e.value))
+                      SizedBox(
+                        width: tileSize + 32,
+                        child: Card(
+                          margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                          child: ListView(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              _TitleWidgetOfServicesGroup(
+                                service: serviceDayGroup[0],
+                                client: client,
+                              ),
+                              for (int index = 1;
+                                  index < serviceDayGroup.length;
+                                  index++)
+                                _ServiceOfJournalTile(
+                                  serviceOfJournal: serviceDayGroup[index],
+                                  client: client,
+                                ),
+                              const SizedBox(height: 16),
+                            ],
                           ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
+                        ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ),
-      ),
+              ),
+            ),
     );
   }
 }

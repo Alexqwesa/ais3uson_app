@@ -78,6 +78,9 @@ class ClientCard extends ConsumerWidget {
       child: ListTile(
         leading: Transform.scale(
           scale: 1.5,
+          //
+          // > colorful icons
+          //
           child: Icon(
             Icons.person,
             color: HSVColor.fromColor(
