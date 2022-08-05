@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
@@ -7,9 +5,8 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_service_card_widget.dart';
 import 'package:ais3uson_app/ui_services.dart';
-import 'package:flutter/foundation.dart';
+import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show
         ConsumerState,
@@ -17,7 +14,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
         ConsumerWidget,
         ProviderScope,
         WidgetRef;
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 /// Show list of services assigned to client, allow input by click.
 ///
@@ -37,78 +33,7 @@ class ListOfClientServicesScreen extends ConsumerStatefulWidget {
 
 class _ClientServicesListScreen
     extends ConsumerState<ListOfClientServicesScreen> {
-  _ClientServicesListScreen() {
-    searchBar = SearchBar(
-      inBar: false,
-      hintText: tr().search,
-      setState: setState,
-      controller: _textEditingController,
-      onSubmitted: (value) =>
-          ref.read(currentSearchText.notifier).state = value,
-      onChanged: (value) => ref.read(currentSearchText.notifier).state = value,
-      buildDefaultAppBar: buildAppBar,
-      clearOnSubmit: false,
-    );
-  }
-
-  late final SearchBar searchBar;
-  final _textEditingController = TextEditingController();
-
-  Widget buildAppBar(BuildContext context) {
-    final client = ref.watch(lastUsed).client;
-    final workerProfile = client.workerProfile;
-
-    return AppBar(
-      title: GestureDetector(
-        onTap: () => ref.read(currentSearchText.notifier).state = '',
-        child: Text(
-          ref.watch(currentSearchText) != ''
-              ? ' "${ref.watch(currentSearchText)}" '
-              : client.name,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
-      //
-      // > buttons in appBar:
-      //
-      actions: [
-        // search
-        searchBar.getSearchAction(context),
-        // microphone
-        if (kIsWeb || Platform.isAndroid || Platform.isIOS)
-          IconButton(
-            icon: const Icon(Icons.mic_none_rounded),
-            //
-            // > Start listening
-            //
-            onPressed: () async {
-              await ref.watch(speechEngineInited.future);
-              await ref.watch(speechEngine).listen(
-                onResult: (result) {
-                  ref.read(currentSearchText.notifier).state =
-                      result.recognizedWords;
-                  _textEditingController.text = result.recognizedWords;
-                  searchBar.beginSearch(context);
-                },
-              );
-            },
-          ),
-        // refresh
-        IconButton(
-          icon: const Icon(Icons.refresh),
-          onPressed: () async {
-            await ref.read(journalOfWorker(workerProfile)).archiveOldServices();
-            await ref.read(journalOfWorker(workerProfile)).commitAll();
-            await workerProfile.syncPlanned();
-          },
-        ),
-        //
-        // > popup menu
-        //
-        const _AppBarPopupMenu(),
-      ],
-    );
-  }
+  _ClientServicesListScreen();
 
   bool inited = false;
 
@@ -126,21 +51,49 @@ class _ClientServicesListScreen
 
     final client = ref.watch(lastUsed).client;
     final servList = ref.watch(filteredServices(client));
-    final speechStatus = ref.watch(speechEngineStatus);
     final searchedText = ref.watch(currentSearchText);
+    final workerProfile = client.workerProfile;
 
     return Scaffold(
       //
       // > appBar
       //
-      appBar: (speechStatus != stt.SpeechToText.listeningStatus
-          ? searchBar.build(context)
-          //
-          // > stop words recognition button, only shown on listening
-          //
-          : _StopListenMicAppBar(
-              searchBar: searchBar,
-            )) as PreferredSizeWidget,
+      appBar: AppBarWithSearchSwitch(
+        appBarBuilder: (context) {
+          return AppBar(
+            title: Text(
+              client.name,
+              overflow: TextOverflow.ellipsis,
+            ),
+            //
+            // > buttons in appBar:
+            //
+            actions: [
+              // search
+              const AppBarSpeechButton(),
+              // microphone
+              const AppBarSearchButton(),
+              // refresh
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  await ref
+                      .read(journalOfWorker(workerProfile))
+                      .archiveOldServices();
+                  await ref.read(journalOfWorker(workerProfile)).commitAll();
+                  await workerProfile.syncPlanned();
+                },
+              ),
+              //
+              // > popup menu
+              //
+              const _AppBarPopupMenu(),
+            ],
+          );
+        },
+        onChanged: (text) => ref.read(currentSearchText.notifier).state = text,
+      ),
+
       //
       // > body
       //
@@ -177,56 +130,6 @@ class _ClientServicesListScreen
       ),
     );
   }
-}
-
-/// Stop words recognition button in AppBar, only shown on listening.
-class _StopListenMicAppBar extends ConsumerWidget
-    implements PreferredSizeWidget {
-  const _StopListenMicAppBar({
-    required this.searchBar,
-    Key? key,
-  }) : super(key: key);
-
-  final SearchBar searchBar;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final speech = ref.read(speechEngine);
-
-    return GestureDetector(
-      child: Container(
-        alignment: Alignment.center,
-        color: Theme.of(context).primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              FloatingActionButton(
-                backgroundColor: Colors.red,
-                child: const Icon(Icons.mic_rounded),
-                autofocus: true,
-                onPressed: () async {
-                  // searchBar.beginSearch(context);
-                  await speech.stop();
-                  log
-                    ..fine('speech ${speech.lastStatus}')
-                    ..fine('speech ${speech.lastRecognizedWords}');
-                  ref.read(currentSearchText.notifier).state =
-                      speech.lastRecognizedWords;
-                },
-              ),
-              Center(
-                child: Text(speech.lastRecognizedWords),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight) * 1.5;
 }
 
 class _ListOfServices extends ConsumerWidget {
