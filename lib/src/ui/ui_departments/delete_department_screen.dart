@@ -108,7 +108,7 @@ Future<String?> _showDialog(BuildContext context, String depName) async {
         ),
         actions: <Widget>[
           ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child: Text(
               MaterialLocalizations.of(context).deleteButtonTooltip,
             ),
