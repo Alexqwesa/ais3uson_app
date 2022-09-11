@@ -2,26 +2,28 @@
 ///
 /// These classes provide data for UI classes.
 ///
-/// Hierarchy of classes:
+/// Dependency hierarchy:
 ///
 /// - provider [workerProfiles] store list of:
 ///   - [WorkerProfile]s with different:
 ///     - [ClientProfile]s with different:
 ///       - [ClientService]s with different:
-///         - [currentService] provider witch overridden(optional), with different:
-///           - [ServiceOfJournal]s (with different date),
-///             - [Proofs]s.
+///         - [ServiceOfJournal]s with different:
+///           - [Proofs]s.
 ///
-/// Note: [Proofs] is intentionally not depend on [ServiceOfJournal] to allow:
+/// **Notes:**
+/// [Proofs] is actually intentionally not depend on [ServiceOfJournal] to allow:
 ///
 /// - make one proof for several [ServiceOfJournal],
 /// - to leave proof even in case of deleting of [ServiceOfJournal].
 ///
-/// [WorkerProfile], [ClientProfile], [ClientService] classes provide data that they got from classes in
+/// Also [ServiceOfJournal] managed separately by the class [Journal], that is part of [WorkerProfile].
+///
+/// The [WorkerProfile], [ClientProfile], [ClientService] classes provide data that they got from classes in
 /// category [Client-Server API].
 ///
-/// [Proofs] class collect data from filesystem and make lists of [ProofEntry]s. It also has methods
-/// for creating new [ProofEntry]s.
+/// The [Proofs] class collect data from filesystem and make lists of [ProofEntry]s.
+/// It also has methods for creating new [ProofEntry]s.
 library data_models;
 
 import 'package:ais3uson_app/data_models.dart';

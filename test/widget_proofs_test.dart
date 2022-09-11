@@ -210,7 +210,12 @@ void main() {
       // cleanup
       await tester.runAsync<void>(() async {
         expect(await dstFile.length() > 0, true);
-        dstFile.deleteSync(); // todo: delete folder too (if empty)
+        try {
+          dstFile.deleteSync(); // todo: delete folder too (if empty)
+        // ignore: avoid_catches_without_on_clauses, empty_catches
+        }catch (e){
+
+        }
       });
     });
   });
