@@ -241,7 +241,7 @@ class Journal {
   Future<ServiceState?> _commitUrl(String urlAddress, {String? body}) async {
     final url = Uri.parse(urlAddress);
     final http = workerProfile.ref
-        .read(httpClientProvider(workerProfile.key.certificate));
+        .read(httpClientProvider(workerProfile.key.certBase64));
     var ret = ServiceState.added;
     final fullHeaders = {'api_key': apiKey}..addAll(httpHeaders);
     try {

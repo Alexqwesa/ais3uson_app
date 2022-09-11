@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,9 +65,9 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
       // > main - call server
       //
       final workerProfile =
-          read(workerProfiles).firstWhereOrNull((e) => e.apiKey == apiKey);
+          read(workerProfiles).firstWhere((e) => e.apiKey == apiKey);
       final client = read<http.Client>(
-        httpClientProvider(workerProfile?.key.certificate),
+        httpClientProvider(workerProfile.key.certBase64),
       );
       final response = await client.get(url, headers: headers);
       //
@@ -130,6 +128,11 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
   }
 
   Future<String> syncHiveHttp() async {
+    if (apiKey == 'none') {
+      log.fine('Skip none apiKey sync');
+
+      return 'None';
+    }
     final hive = await read(hiveBox(hiveProfiles).future);
     //
     // > check hive update needed
@@ -178,14 +181,14 @@ final _lastUpdate = StateProvider.family<DateTime, String>((ref, apiUrl) {
 ///
 /// {@category Providers}
 final httpClientProvider =
-    Provider.family<http.Client, Uint8List?>((ref, certificate) {
+    Provider.family<http.Client, String>((ref, certificate) {
   var client = http.Client();
 
-  if (certificate != null) {
+  if (certificate.isNotEmpty) {
+    final cert = const Base64Decoder().convert(certificate);
     try {
-      if (certificate.isNotEmpty) {
-        final context = SecurityContext()
-          ..setTrustedCertificatesBytes(certificate);
+      if (cert.isNotEmpty) {
+        final context = SecurityContext()..setTrustedCertificatesBytes(cert);
         client = (HttpClient(context: context)
           ..badCertificateCallback = (cert, host, port) {
             // if (host == '80.87.196.11') {

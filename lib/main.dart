@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer' as dev;
 
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -51,7 +55,9 @@ Future<void> init() async {
     // never fail on double adapter registration
     Hive
       ..registerAdapter(ServiceOfJournalAdapter())
-      ..registerAdapter(ServiceStateAdapter());
+      ..registerAdapter(
+        ServiceStateAdapter(),
+      );
     // ignore: avoid_catching_errors
   } on HiveError catch (e) {
     dev.log(e.toString());
@@ -86,5 +92,14 @@ Future<void> main() async {
   //
   await Hive.initFlutter('Ais3uson');
   // unawaited(locator<AppData>().postInit());
-  runApp(const OverlaySupport.global(child: ProviderScope(child: AppRoot())));
+  final testClient = (jsonDecode(qrData2WithLocalCache)
+      as Map<String, dynamic>)['certBase64'] as String;
+  runApp(OverlaySupport.global(
+    child: ProviderScope(
+      child: const AppRoot(),
+      overrides: [
+        httpClientProvider(testClient).overrideWithValue(getMockHttpClient()),
+      ],
+    ),
+  ));
 }

@@ -11,6 +11,7 @@ import 'package:ais3uson_app/global_helpers.dart';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
@@ -21,7 +22,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
-import 'helpers/mock_server.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 
 void main() {
@@ -42,7 +42,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -72,7 +72,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -174,7 +174,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -232,7 +232,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -270,7 +270,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -310,7 +310,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );

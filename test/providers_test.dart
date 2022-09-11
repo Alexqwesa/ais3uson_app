@@ -2,6 +2,9 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart' show ExtMock, getMockHttpClient;
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart' as mock;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,9 +12,6 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
-import 'helpers/mock_server.dart';
-import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
-import 'helpers/mock_server.mocks.dart' as mock;
 
 void main() {
   setUpAll(() async {
@@ -33,7 +33,7 @@ void main() {
     final wKey = wKeysData2();
     final ref = ProviderContainer(
       overrides: [
-        httpClientProvider(wKey.certificate)
+        httpClientProvider(wKey.certBase64)
             .overrideWithValue(getMockHttpClient()),
       ],
     );
@@ -54,7 +54,7 @@ void main() {
     // > it sync clients list
     //
     final httpClient =
-        ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+        ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
     await wp.syncClients(); // second call of testReqGetClients
     await wp.postInit(); // it didn't make initial sync twice
     expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);

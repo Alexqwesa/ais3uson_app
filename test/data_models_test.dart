@@ -6,6 +6,10 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
+    show ExtMock, getMockHttpClient;
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
+    as mock;
 import 'package:camera/camera.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -14,9 +18,6 @@ import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
-import 'helpers/mock_server.mocks.dart' as mock;
 
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {
@@ -84,7 +85,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -99,7 +100,7 @@ void main() {
       expect(wp.services.length, 272);
       expect(wp.clientPlan.length, 500);
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
       expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
@@ -112,7 +113,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -122,7 +123,7 @@ void main() {
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
       final wp = ref.read(workerProfiles).first;
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       await wp.postInit();
       await wp.postInit(); // second call - should do nothing
       //
@@ -144,7 +145,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -154,7 +155,7 @@ void main() {
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
       final wp = ref.read(workerProfiles).first;
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       await wp.postInit();
       // test http
       expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
@@ -178,7 +179,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -245,7 +246,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );

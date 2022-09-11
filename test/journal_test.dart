@@ -4,6 +4,8 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart' show ExtMock, getMockHttpClient;
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart' as mock;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';
@@ -13,8 +15,6 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
-import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
-import 'helpers/mock_server.mocks.dart' as mock;
 
 void main() {
   //
@@ -48,12 +48,12 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       //
       // > configure http request as successful
       //
@@ -137,12 +137,12 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       //
       // > prefill hive with services
       //
@@ -199,7 +199,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -258,7 +258,7 @@ void main() {
         final wKey = wKeysData2();
         final ref = ProviderContainer(
           overrides: [
-            httpClientProvider(wKey.certificate)
+            httpClientProvider(wKey.certBase64)
                 .overrideWithValue(getMockHttpClient()),
           ],
         );
@@ -314,12 +314,12 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       //
       // > init workerProfile
       //
@@ -354,7 +354,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -374,7 +374,7 @@ void main() {
       expect(service3.shortText, 'Покупка продуктов питания');
       when(
         ExtMock(
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient,
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient,
         ).testReqPostAdd,
       ).thenAnswer((_) async {
         throw StateError('timeout as expected');
@@ -396,12 +396,12 @@ void main() {
         final wKey = wKeysData2();
         final ref = ProviderContainer(
           overrides: [
-            httpClientProvider(wKey.certificate)
+            httpClientProvider(wKey.certBase64)
                 .overrideWithValue(getMockHttpClient()),
           ],
         );
         final httpClient =
-            ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+            ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
         //
         // > init workerProfile
         //

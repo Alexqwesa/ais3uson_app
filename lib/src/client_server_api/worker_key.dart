@@ -1,9 +1,3 @@
-// ignore: unused_import
-// ignore_for_file: non_constant_identifier_names
-
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:ais3uson_app/data_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -97,10 +91,4 @@ class WorkerKey with _$WorkerKey {
   int get workerDepId => worker_dep_id;
 
   String get apiKey => api_key;
-
-  Uint8List? get certificate {
-    if (certBase64.isNotEmpty) const Base64Decoder().convert(certBase64);
-
-    return null;
-  }
 }

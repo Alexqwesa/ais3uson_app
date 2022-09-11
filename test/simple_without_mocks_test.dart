@@ -4,10 +4,9 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'helpers/default_data.dart';
 
 String qrDataWithSSL =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения ", '''

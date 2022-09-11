@@ -5,8 +5,14 @@ import 'dart:io';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
+
 // ignore: unnecessary_import
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
+    show ExtMock, getMockHttpClient;
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
+    as mock;
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +27,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tuple/tuple.dart';
 
 import 'data_models_test.dart';
-import 'helpers/mock_server.dart' show ExtMock, getMockHttpClient;
-import 'helpers/mock_server.dart';
-import 'helpers/mock_server.mocks.dart' as mock;
 import 'helpers/setup_and_teardown_helpers.dart';
 
 void main() {
@@ -58,7 +61,7 @@ void main() {
         final wKey = wKeysData2();
         final ref = ProviderContainer(
           overrides: [
-            httpClientProvider(wKey.certificate)
+            httpClientProvider(wKey.certBase64)
                 .overrideWithValue(getMockHttpClient()),
           ],
         );
@@ -70,7 +73,7 @@ void main() {
         });
         // add service
         final httpClient =
-            ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+            ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
         when(ExtMock(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 2}', 200));
         final service =
@@ -110,7 +113,7 @@ void main() {
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
-          httpClientProvider(wKey.certificate)
+          httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
         ],
       );
@@ -122,7 +125,7 @@ void main() {
       });
       // add service
       final httpClient =
-          ref.read(httpClientProvider(wKey.certificate)) as mock.MockClient;
+          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       when(ExtMock(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       final service = ref.read(workerProfiles).first.clients.first.services[3];
@@ -212,10 +215,8 @@ void main() {
         expect(await dstFile.length() > 0, true);
         try {
           dstFile.deleteSync(); // todo: delete folder too (if empty)
-        // ignore: avoid_catches_without_on_clauses, empty_catches
-        }catch (e){
-
-        }
+          // ignore: avoid_catches_without_on_clauses, empty_catches
+        } catch (e) {}
       });
     });
   });
