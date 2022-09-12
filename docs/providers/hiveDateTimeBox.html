@@ -71,7 +71,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final hiveDateTimeBox = FutureProvider.family&lt;Box&lt;DateTime&gt;, String&gt;(
-  (ref, boxName) async =&gt; Hive.openBox&lt;DateTime&gt;(boxName),
+  (ref, boxName) async =&gt; Hive.openBox&lt;DateTime&gt;(&#39;$boxName-DateTime&#39;),
 );</code></pre>
 </section>
 

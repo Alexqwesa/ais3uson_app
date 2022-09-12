@@ -80,7 +80,7 @@
       super.state = [
         ...state,
         &#47;&#47;
-        &#47;&#47; &gt; read from hive and filter if needed
+        &#47;&#47; &gt; read or read filter from hive
         &#47;&#47;
         if (journal.aData == null)
           ...ref.read(hiveJournalBox(journal.journalHiveName)).value!.values

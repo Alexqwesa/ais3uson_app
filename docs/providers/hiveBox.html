@@ -71,7 +71,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final hiveBox = FutureProvider.family&lt;Box&lt;dynamic&gt;, String&gt;((ref, boxName) {
-  return Hive.openBox&lt;dynamic&gt;(boxName);
+  return Hive.openBox&lt;dynamic&gt;(&#39;$boxName-main&#39;);
 });</code></pre>
 </section>
 

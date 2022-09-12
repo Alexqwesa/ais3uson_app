@@ -151,7 +151,16 @@ Widget build(BuildContext context, WidgetRef ref) {
                         Icons.delete,
                         color: Colors.red,
                       ),
-                      subtitle: Text(wpKeys[index].name),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(wpKeys[index].name),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(wpKeys[index].comment),
+                                ),
+                              ],
+                            ),
                       &#47;&#47;
                       &#47;&#47; &gt; call dialog
                       &#47;&#47;
