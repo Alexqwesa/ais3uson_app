@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,7 +21,7 @@
 </head>
 
 
-<body data-base-href="../" data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
@@ -36,10 +36,16 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span class="material-symbols-outlined">
+        brightness_4
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
@@ -124,7 +130,7 @@
 <dd class="inherited">
   Get the box in which this object is stored. Returns <code>null</code> if object has
 not been added to a box yet.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -135,7 +141,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(1), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(1)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(1)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -146,7 +152,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/json_annotation/4.6.0/json_annotation/JsonKey-class.html">JsonKey</a>(ignore: true), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/json_annotation/4.6.0/json_annotation/JsonKey-class.html">JsonKey</a>(ignore: true)">@<a href="https://pub.dev/documentation/json_annotation/4.6.0/json_annotation/JsonKey-class.html">JsonKey</a>(ignore: true)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -157,7 +163,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(6), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(6)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(6)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -168,7 +174,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -179,7 +185,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   Returns whether this object is currently stored in a box.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -191,7 +197,7 @@ not been added to a box yet.
 <dd class="inherited">
   Get the key associated with this object. Returns <code>null</code> if object has
 not been added to a box yet.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -202,7 +208,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(3), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(3)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(3)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -213,7 +219,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -224,7 +230,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(0), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(0)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(0)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -235,7 +241,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(5), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(5)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(5)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -246,7 +252,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(4), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(4)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(4)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -257,7 +263,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(2), read-only, inherited</div>
+  <div class="features"><span class=" @<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(2)">@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html">HiveField</a>(2)</span><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -279,7 +285,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   Deletes this object from the box it is stored in.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -292,7 +298,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -305,7 +311,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   Persists this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -318,7 +324,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -331,7 +337,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -352,7 +358,7 @@ not been added to a box yet.
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -460,7 +466,7 @@ not been added to a box yet.
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+16
+      1.0.1+17
   </span>
 
   
