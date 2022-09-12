@@ -209,7 +209,7 @@ class __$$_WorkerKeyCopyWithImpl<$Res> extends _$WorkerKeyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
+class _$_WorkerKey extends _WorkerKey {
   const _$_WorkerKey(
       {required this.app,
       required this.name,
@@ -251,25 +251,8 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
   final String certBase64;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'WorkerKey(app: $app, name: $name, api_key: $api_key, worker_dep_id: $worker_dep_id, dep: $dep, db: $db, servers: $servers, activeServerIndex: $activeServerIndex, comment: $comment, certBase64: $certBase64)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'WorkerKey'))
-      ..add(DiagnosticsProperty('app', app))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('api_key', api_key))
-      ..add(DiagnosticsProperty('worker_dep_id', worker_dep_id))
-      ..add(DiagnosticsProperty('dep', dep))
-      ..add(DiagnosticsProperty('db', db))
-      ..add(DiagnosticsProperty('servers', servers))
-      ..add(DiagnosticsProperty('activeServerIndex', activeServerIndex))
-      ..add(DiagnosticsProperty('comment', comment))
-      ..add(DiagnosticsProperty('certBase64', certBase64));
   }
 
   @override
@@ -314,7 +297,9 @@ class _$_WorkerKey extends _WorkerKey with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WorkerKeyToJson(this);
+    return _$$_WorkerKeyToJson(
+      this,
+    );
   }
 }
 
@@ -336,25 +321,25 @@ abstract class _WorkerKey extends WorkerKey {
       _$_WorkerKey.fromJson;
 
   @override
-  String get app => throw _privateConstructorUsedError;
+  String get app;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get api_key => throw _privateConstructorUsedError;
+  String get api_key;
   @override
-  int get worker_dep_id => throw _privateConstructorUsedError;
+  int get worker_dep_id;
   @override
-  String get dep => throw _privateConstructorUsedError;
+  String get dep;
   @override
-  String get db => throw _privateConstructorUsedError;
+  String get db;
   @override
-  String get servers => throw _privateConstructorUsedError;
+  String get servers;
   @override
-  int get activeServerIndex => throw _privateConstructorUsedError;
+  int get activeServerIndex;
   @override
-  String get comment => throw _privateConstructorUsedError;
+  String get comment;
   @override
-  String get certBase64 => throw _privateConstructorUsedError;
+  String get certBase64;
   @override
   @JsonKey(ignore: true)
   _$$_WorkerKeyCopyWith<_$_WorkerKey> get copyWith =>

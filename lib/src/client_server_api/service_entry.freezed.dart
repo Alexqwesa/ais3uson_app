@@ -305,7 +305,9 @@ class _$_ServiceEntry extends _ServiceEntry {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ServiceEntryToJson(this);
+    return _$$_ServiceEntryToJson(
+      this,
+    );
   }
 }
 
@@ -327,25 +329,25 @@ abstract class _ServiceEntry extends ServiceEntry {
       _$_ServiceEntry.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get serv_text => throw _privateConstructorUsedError;
+  String get serv_text;
   @override
-  String get image => throw _privateConstructorUsedError;
+  String get image;
   @override
-  String get tnum => throw _privateConstructorUsedError;
+  String get tnum;
   @override
-  int get total => throw _privateConstructorUsedError;
+  int get total;
   @override
-  String get short_text => throw _privateConstructorUsedError;
+  String get short_text;
   @override
-  String get serv_id_list => throw _privateConstructorUsedError;
+  String get serv_id_list;
   @override
-  int get sub_serv => throw _privateConstructorUsedError;
+  int get sub_serv;
   @override // subServiceOf
-  String get comment => throw _privateConstructorUsedError;
+  String get comment;
   @override
-  double get price => throw _privateConstructorUsedError;
+  double get price;
   @override
   @JsonKey(ignore: true)
   _$$_ServiceEntryCopyWith<_$_ServiceEntry> get copyWith =>

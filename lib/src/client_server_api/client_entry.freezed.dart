@@ -211,7 +211,7 @@ class __$$_ClientEntryCopyWithImpl<$Res> extends _$ClientEntryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
+class _$_ClientEntry extends _ClientEntry {
   const _$_ClientEntry(
       {required this.contract_id,
       required this.dep_id,
@@ -256,25 +256,8 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
   final double max_pay;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ClientEntry(contract_id: $contract_id, dep_id: $dep_id, client_id: $client_id, dhw_id: $dhw_id, contract: $contract, client: $client, contract_duration: $contract_duration, comment: $comment, percent: $percent, max_pay: $max_pay)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ClientEntry'))
-      ..add(DiagnosticsProperty('contract_id', contract_id))
-      ..add(DiagnosticsProperty('dep_id', dep_id))
-      ..add(DiagnosticsProperty('client_id', client_id))
-      ..add(DiagnosticsProperty('dhw_id', dhw_id))
-      ..add(DiagnosticsProperty('contract', contract))
-      ..add(DiagnosticsProperty('client', client))
-      ..add(DiagnosticsProperty('contract_duration', contract_duration))
-      ..add(DiagnosticsProperty('comment', comment))
-      ..add(DiagnosticsProperty('percent', percent))
-      ..add(DiagnosticsProperty('max_pay', max_pay));
   }
 
   @override
@@ -318,7 +301,9 @@ class _$_ClientEntry extends _ClientEntry with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClientEntryToJson(this);
+    return _$$_ClientEntryToJson(
+      this,
+    );
   }
 }
 
@@ -340,25 +325,25 @@ abstract class _ClientEntry extends ClientEntry {
       _$_ClientEntry.fromJson;
 
   @override
-  int get contract_id => throw _privateConstructorUsedError;
+  int get contract_id;
   @override
-  int get dep_id => throw _privateConstructorUsedError;
+  int get dep_id;
   @override
-  int get client_id => throw _privateConstructorUsedError;
+  int get client_id;
   @override
-  int get dhw_id => throw _privateConstructorUsedError;
+  int get dhw_id;
   @override
-  String get contract => throw _privateConstructorUsedError;
+  String get contract;
   @override
-  String get client => throw _privateConstructorUsedError;
+  String get client;
   @override
-  String get contract_duration => throw _privateConstructorUsedError;
+  String get contract_duration;
   @override
-  String get comment => throw _privateConstructorUsedError;
+  String get comment;
   @override
-  double get percent => throw _privateConstructorUsedError;
+  double get percent;
   @override
-  double get max_pay => throw _privateConstructorUsedError;
+  double get max_pay;
   @override
   @JsonKey(ignore: true)
   _$$_ClientEntryCopyWith<_$_ClientEntry> get copyWith =>

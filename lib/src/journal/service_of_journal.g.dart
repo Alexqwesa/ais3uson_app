@@ -81,7 +81,7 @@ Map<String, dynamic> _$$_ServiceOfJournalToJson(_$_ServiceOfJournal instance) =>
       'workerId': instance.workerId,
       'provDate': instance.provDate.toIso8601String(),
       'uid': instance.uid,
-      'state': _$ServiceStateEnumMap[instance.state],
+      'state': _$ServiceStateEnumMap[instance.state]!,
       'error': instance.error,
     };
 

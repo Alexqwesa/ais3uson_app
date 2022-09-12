@@ -259,7 +259,9 @@ class _$_ServiceOfJournal extends _ServiceOfJournal {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ServiceOfJournalToJson(this);
+    return _$$_ServiceOfJournalToJson(
+      this,
+    );
   }
 }
 
@@ -279,25 +281,25 @@ abstract class _ServiceOfJournal extends ServiceOfJournal {
 
   @override
   @HiveField(0)
-  int get servId => throw _privateConstructorUsedError;
+  int get servId;
   @override
   @HiveField(1)
-  int get contractId => throw _privateConstructorUsedError;
+  int get contractId;
   @override
   @HiveField(2)
-  int get workerId => throw _privateConstructorUsedError;
+  int get workerId;
   @override
   @HiveField(3)
-  DateTime get provDate => throw _privateConstructorUsedError;
+  DateTime get provDate;
   @override
   @HiveField(4)
-  String get uid => throw _privateConstructorUsedError;
+  String get uid;
   @override
   @HiveField(5)
-  ServiceState get state => throw _privateConstructorUsedError;
+  ServiceState get state;
   @override
   @HiveField(6)
-  String get error => throw _privateConstructorUsedError;
+  String get error;
   @override
   @JsonKey(ignore: true)
   _$$_ServiceOfJournalCopyWith<_$_ServiceOfJournal> get copyWith =>

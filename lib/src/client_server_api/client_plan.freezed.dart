@@ -125,7 +125,7 @@ class __$$_ClientPlanCopyWithImpl<$Res> extends _$ClientPlanCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
+class _$_ClientPlan extends _ClientPlan {
   const _$_ClientPlan(
       {required this.contract_id,
       required this.serv_id,
@@ -146,19 +146,8 @@ class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
   final int filled;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ClientPlan(contract_id: $contract_id, serv_id: $serv_id, planned: $planned, filled: $filled)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ClientPlan'))
-      ..add(DiagnosticsProperty('contract_id', contract_id))
-      ..add(DiagnosticsProperty('serv_id', serv_id))
-      ..add(DiagnosticsProperty('planned', planned))
-      ..add(DiagnosticsProperty('filled', filled));
   }
 
   @override
@@ -189,7 +178,9 @@ class _$_ClientPlan extends _ClientPlan with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClientPlanToJson(this);
+    return _$$_ClientPlanToJson(
+      this,
+    );
   }
 }
 
@@ -205,13 +196,13 @@ abstract class _ClientPlan extends ClientPlan {
       _$_ClientPlan.fromJson;
 
   @override
-  int get contract_id => throw _privateConstructorUsedError;
+  int get contract_id;
   @override
-  int get serv_id => throw _privateConstructorUsedError;
+  int get serv_id;
   @override
-  int get planned => throw _privateConstructorUsedError;
+  int get planned;
   @override
-  int get filled => throw _privateConstructorUsedError;
+  int get filled;
   @override
   @JsonKey(ignore: true)
   _$$_ClientPlanCopyWith<_$_ClientPlan> get copyWith =>

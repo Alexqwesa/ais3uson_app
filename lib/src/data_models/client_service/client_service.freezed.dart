@@ -25,7 +25,7 @@ mixin _$ClientService {
   /// Reference to existing [ClientPlan].
   ClientPlan get planned => throw _privateConstructorUsedError;
 
-  /// Null - for dynamic date (from provider [archiveDate])
+  /// Should be Null to depend on global variable, !null break dependency.
   DateTime? get date => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -164,7 +164,7 @@ class _$_ClientService extends _ClientService {
       {required this.workerProfile,
       required this.service,
       required this.planned,
-      this.date})
+      this.date = null})
       : super._();
 
   /// Reference to existing [WorkerProfile].
@@ -179,8 +179,9 @@ class _$_ClientService extends _ClientService {
   @override
   final ClientPlan planned;
 
-  /// Null - for dynamic date (from provider [archiveDate])
+  /// Should be Null to depend on global variable, !null break dependency.
   @override
+  @JsonKey()
   final DateTime? date;
 
   @override
@@ -225,19 +226,19 @@ abstract class _ClientService extends ClientService {
   @override
 
   /// Reference to existing [WorkerProfile].
-  WorkerProfile get workerProfile => throw _privateConstructorUsedError;
+  WorkerProfile get workerProfile;
   @override
 
   /// Reference to existing [ServiceEntry].
-  ServiceEntry get service => throw _privateConstructorUsedError;
+  ServiceEntry get service;
   @override
 
   /// Reference to existing [ClientPlan].
-  ClientPlan get planned => throw _privateConstructorUsedError;
+  ClientPlan get planned;
   @override
 
-  /// Null - for dynamic date (from provider [archiveDate])
-  DateTime? get date => throw _privateConstructorUsedError;
+  /// Should be Null to depend on global variable, !null break dependency.
+  DateTime? get date;
   @override
   @JsonKey(ignore: true)
   _$$_ClientServiceCopyWith<_$_ClientService> get copyWith =>
