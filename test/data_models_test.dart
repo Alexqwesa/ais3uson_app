@@ -6,6 +6,7 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show ExtMock, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
@@ -40,6 +41,14 @@ void main() {
   setUp(() async {
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues({});
+    //
+    // > locator
+    //
+    await locator.reset();
+    final sharedPreferences = await SharedPreferences.getInstance();
+      locator
+        ..registerLazySingleton<S>(S.new)
+        ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();
   });
@@ -54,7 +63,7 @@ void main() {
       final ref = ProviderContainer();
       ref.read(workerProfiles.notifier).addProfileFromKey(
             WorkerKey.fromJson(
-              jsonDecode(qrDataWithSSL) as Map<String, dynamic>,
+              jsonDecode(qrDataShortKey) as Map<String, dynamic>,
             ),
           );
       expect(
@@ -76,6 +85,31 @@ void main() {
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
+      expect(ref.read(workerProfiles).length, 1);
+      ref.dispose();
+      ref.dispose();
+    });
+
+    test('it create only one WorkerProfiles', () async {
+      final ref = ProviderContainer();
+      await ref.pump();
+      await ref.pump();
+      await ref.pump();
+      await ref.pump();
+
+      ref.refresh(workerProfiles);
+      ref.read(workerProfiles.notifier).sync([]);
+      await ref.pump();
+      // ref.refresh(workerKeys);
+      expect(ref.read(workerProfiles).length, 0);
+      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      expect(ref.read(workerProfiles).length, 1);
+      expect(
+        ref.read(workerProfiles).first,
+        isA<WorkerProfile>(),
+      );
+      expect(wKeysData2(), isA<WorkerKey>());
+      expect(ref.read(workerProfiles).length, 1);
     });
 
     test('it check date of last sync before sync on load', () async {
