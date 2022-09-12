@@ -11,6 +11,7 @@ import 'package:ais3uson_app/global_helpers.dart';
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
@@ -31,6 +32,14 @@ void main() {
   setUp(() async {
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues({});
+    //
+    // > locator
+    //
+    await locator.reset();
+    final sharedPreferences = await SharedPreferences.getInstance();
+    locator
+      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();
   });
