@@ -52,7 +52,7 @@ class ServicesListState extends StateNotifier<List<ServiceOfJournal>?> {
         super.state = [
           ...state,
           //
-          // > read from hive and filter if needed
+          // > read or read filter from hive
           //
           if (journal.aData == null)
             ...ref.read(hiveJournalBox(journal.journalHiveName)).value!.values

@@ -15,7 +15,7 @@ final preference = FutureProvider<SharedPreferences>((ref) async {
 ///
 /// {@category Base Providers}
 final hiveBox = FutureProvider.family<Box<dynamic>, String>((ref, boxName) {
-  return Hive.openBox<dynamic>(boxName);
+  return Hive.openBox<dynamic>('$boxName-main');
 });
 
 /// Base provider of hive [Box], type [ServiceOfJournal].
@@ -30,7 +30,7 @@ final hiveJournalBox =
 ///
 /// {@category Base Providers}
 final hiveDateTimeBox = FutureProvider.family<Box<DateTime>, String>(
-  (ref, boxName) async => Hive.openBox<DateTime>(boxName),
+  (ref, boxName) async => Hive.openBox<DateTime>('$boxName-DateTime'),
 );
 
 /// Base provider of Images.

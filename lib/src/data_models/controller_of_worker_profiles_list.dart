@@ -7,7 +7,6 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:collection/collection.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -71,19 +70,20 @@ class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
 
   /// Delete [WorkerProfile].
   void profileDelete(WorkerKey key) {
-    final index =
-        state.indexOf(state.firstWhere((element) => element.key == key));
-    final wp = state[index];
-    final apiKey = key.apiKey;
     ref.read(_workerKeys.notifier).state = ref
         .read(_workerKeys)
-        .whereNot((element) => element.apiKey == apiKey)
+        .whereNot((element) => element.apiKey == key.apiKey)
         .toList();
+    // Todo: cleanup deleted profiles (on exit?)
+    // final apiKey = key.apiKey;
+    // final index =
+    //     state.indexOf(state.firstWhere((element) => element.key == key));
+    // final wp = state[index];
     // state = state.whereNot((element) => element.key != key).toList();
-    Hive
-      ..deleteBoxFromDisk(wp.hiveName)
-      ..deleteBoxFromDisk('archiveDates_$apiKey')
-      ..deleteBoxFromDisk('journal_archive_$apiKey');
+    // Hive
+    //   ..deleteBoxFromDisk(wp.hiveName)
+    //   ..deleteBoxFromDisk('archiveDates_$apiKey')
+    //   ..deleteBoxFromDisk('journal_archive_$apiKey');
   }
 }
 
