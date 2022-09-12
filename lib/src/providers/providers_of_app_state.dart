@@ -4,6 +4,18 @@ import 'package:ais3uson_app/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final stubWorker =  WorkerProfile('none', ProviderContainer());
+final stubClient = ClientProfile(
+        workerProfile: stubWorker,
+        entry: const ClientEntry(
+          contract_id: 0,
+          dep_id: 0,
+          client_id: 0,
+          dhw_id: 0,
+          comment: 'Error Client',
+        ),
+      );
+
 /// Controller of App states, last used:
 /// - worker,
 /// - client,
@@ -138,16 +150,7 @@ final _lastClient = Provider<ClientProfile>((ref) {
     } catch (e) {
       log.severe('lastClient requested but provider failed twice');
 
-      return ClientProfile(
-        workerProfile: ref.watch(_lastWorkerProfile),
-        entry: const ClientEntry(
-          contract_id: 0,
-          dep_id: 0,
-          client_id: 0,
-          dhw_id: 0,
-          comment: 'Error Client',
-        ),
-      );
+      return stubClient;
     }
   }
 });
@@ -166,8 +169,14 @@ final _lastWorkerProfile = Provider((ref) {
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastWorkerProfile requested but provider failed');
+    try {
+      return ref.watch(workerProfiles).first;
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      log.severe('lastWorkerProfile requested but it did not exist');
 
-    return ref.watch(workerProfiles).first;
+      return stubWorker;
+    }
   }
 });
 

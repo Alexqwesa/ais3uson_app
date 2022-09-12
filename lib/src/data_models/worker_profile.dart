@@ -38,7 +38,17 @@ class WorkerProfile {
 
   Tuple2<String, String> get apiUrlServices => Tuple2(apiKey, urlServices);
 
-  WorkerKey get key => ref.read(workerProfiles.notifier).key(apiKey);
+  WorkerKey get key {
+    try {
+      return ref.read(workerProfiles.notifier).key(apiKey);
+    }
+    // ignore: avoid_catching_errors
+    on StateError {
+      return WorkerKey.fromJson(
+        jsonDecode(stubJsonWorkerKey) as Map<String, dynamic>,
+      );
+    }
+  }
 
   /// For tests only.
   Journal get journal => ref.read(journalOfWorker(this));
