@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,7 +21,7 @@
 </head>
 
 
-<body data-base-href="../" data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
@@ -36,10 +36,16 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span class="material-symbols-outlined">
+        brightness_4
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
@@ -103,14 +109,15 @@
         <li><a href="../global_helpers/formatStandard-constant.html">formatStandard</a></li>
         <li><a href="../global_helpers/hiveProfiles-constant.html">hiveProfiles</a></li>
         <li><a href="../global_helpers/httpHeaders-constant.html">httpHeaders</a></li>
+        <li><a href="../global_helpers/qrCodes-constant.html">qrCodes</a></li>
+        <li><a href="../global_helpers/qrData2WithAutossl-constant.html">qrData2WithAutossl</a></li>
+        <li><a href="../global_helpers/qrData2WithLocalCache-constant.html">qrData2WithLocalCache</a></li>
+        <li><a href="../global_helpers/qrDataShortKey-constant.html">qrDataShortKey</a></li>
+        <li><a href="../global_helpers/stubJsonWorkerKey-constant.html">stubJsonWorkerKey</a></li>
         <li><a href="../global_helpers/uuid-constant.html">uuid</a></li>
 
       <li class="section-title"><a href="../global_helpers/global_helpers-library.html#properties">Properties</a></li>
         <li><a href="../global_helpers/nullDate.html">nullDate</a></li>
-        <li><a href="../global_helpers/qrCodes.html">qrCodes</a></li>
-        <li><a href="../global_helpers/qrData2WithAutossl.html">qrData2WithAutossl</a></li>
-        <li><a href="../global_helpers/qrDataShortKey.html">qrDataShortKey</a></li>
-        <li><a href="../global_helpers/qrDataWithSSL.html">qrDataWithSSL</a></li>
         <li><a href="../global_helpers/sqlFormat.html">sqlFormat</a></li>
         <li><a href="../global_helpers/standardFormat.html">standardFormat</a></li>
 
@@ -138,7 +145,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+16
+      1.0.1+17
   </span>
 
   

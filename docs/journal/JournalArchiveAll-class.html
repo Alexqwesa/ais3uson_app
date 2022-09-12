@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,7 +21,7 @@
 </head>
 
 
-<body data-base-href="../" data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
@@ -36,10 +36,16 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span class="material-symbols-outlined">
+        brightness_4
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
@@ -102,7 +108,7 @@
 </dt>
 <dd>
   If aData null - load all values.
-  <div class="features">read-only, override</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature override">override</span></div>
 
 </dd>
 
@@ -113,7 +119,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -124,7 +130,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -135,7 +141,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -146,7 +152,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -157,7 +163,7 @@
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -168,7 +174,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read / write, inherited</div>
+  <div class="features"><span class="feature read / write">read / write</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -179,7 +185,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read / write, inherited</div>
+  <div class="features"><span class="feature read / write">read / write</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -190,7 +196,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -201,7 +207,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -212,7 +218,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -223,7 +229,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -234,7 +240,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -245,7 +251,7 @@
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -256,7 +262,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -267,7 +273,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -278,7 +284,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -289,7 +295,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature read-only">read-only</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -300,7 +306,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">late, final, inherited</div>
+  <div class="features"><span class="feature late">late</span><span class="feature final">final</span><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -322,7 +328,7 @@
 </dt>
 <dd class="inherited">
   This method of base class is stubbed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -335,7 +341,7 @@
 </dt>
 <dd class="inherited">
   This method of base class is stubbed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -348,7 +354,7 @@
 </dt>
 <dd class="inherited">
   This method of base class is stubbed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -361,7 +367,7 @@
 </dt>
 <dd class="inherited">
   Return json String with <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> between dates <code>start</code> and <code>end</code>
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -374,7 +380,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -387,7 +393,7 @@
 </dt>
 <dd class="inherited">
   Helper, only used in <a href="../data_models/ClientService-class.html">ClientService</a>, it delete last <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -400,7 +406,7 @@
 </dt>
 <dd class="inherited">
   Move service - create new in dst, delete old in src list of <a href="../journal/Journal-class.html">Journal</a>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -413,7 +419,7 @@
 </dt>
 <dd class="inherited">
   Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -426,7 +432,7 @@
 </dt>
 <dd class="inherited">
   This method of base class is stubbed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -439,7 +445,7 @@
 </dt>
 <dd class="inherited">
   Only for tests! Don't use in real code.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -452,7 +458,7 @@
 </dt>
 <dd class="inherited">
   Remove <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> from lists of <a href="../journal/Journal-class.html">Journal</a> and from Hive.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -465,7 +471,7 @@
 </dt>
 <dd class="inherited">
   Shortcut for <a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -478,7 +484,7 @@
 </dt>
 <dd class="inherited">
   Shortcut for <a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -491,7 +497,7 @@
 </dt>
 <dd class="inherited">
   Shortcut for <a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -504,7 +510,7 @@
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -517,7 +523,7 @@
 </dt>
 <dd class="inherited">
   This method of base class is stubbed.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -530,7 +536,7 @@
 </dt>
 <dd class="inherited">
   
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -551,7 +557,7 @@
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature inherited">inherited</span></div>
 
 </dd>
 
@@ -676,7 +682,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+16
+      1.0.1+17
   </span>
 
   
