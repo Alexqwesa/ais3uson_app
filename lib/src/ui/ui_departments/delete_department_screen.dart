@@ -51,7 +51,16 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                           Icons.delete,
                           color: Colors.red,
                         ),
-                        subtitle: Text(wpKeys[index].name),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(wpKeys[index].name),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(wpKeys[index].comment),
+                                  ),
+                                ],
+                              ),
                         //
                         // > call dialog
                         //

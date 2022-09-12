@@ -154,7 +154,17 @@ class AddDepartmentScreen extends ConsumerWidget {
                                 Icons.add,
                                 color: Colors.green,
                               ),
-                              subtitle: Text(newWorkerKeys[index].name),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(newWorkerKeys[index].name),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(newWorkerKeys[index].comment),
+                                  ),
+                                ],
+                              ),
+
                               //
                               // > add Dep
                               //
