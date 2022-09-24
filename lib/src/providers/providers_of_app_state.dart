@@ -4,17 +4,17 @@ import 'package:ais3uson_app/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final stubWorker =  WorkerProfile('none', ProviderContainer());
+final stubWorker = WorkerProfile('none', ProviderContainer());
 final stubClient = ClientProfile(
-        workerProfile: stubWorker,
-        entry: const ClientEntry(
-          contract_id: 0,
-          dep_id: 0,
-          client_id: 0,
-          dhw_id: 0,
-          comment: 'Error Client',
-        ),
-      );
+  workerProfile: stubWorker,
+  entry: const ClientEntry(
+    contract_id: 0,
+    dep_id: 0,
+    client_id: 0,
+    dhw_id: 0,
+    comment: 'Error Client',
+  ),
+);
 
 /// Controller of App states, last used:
 /// - worker,

@@ -46,9 +46,9 @@ void main() {
     //
     await locator.reset();
     final sharedPreferences = await SharedPreferences.getInstance();
-      locator
-        ..registerLazySingleton<S>(S.new)
-        ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+    locator
+      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();
   });
@@ -86,7 +86,6 @@ void main() {
       );
       expect(wKeysData2(), isA<WorkerKey>());
       expect(ref.read(workerProfiles).length, 1);
-      ref.dispose();
       ref.dispose();
     });
 

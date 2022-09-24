@@ -4,8 +4,10 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart' show ExtMock, getMockHttpClient;
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart' as mock;
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
+    show ExtMock, getMockHttpClient;
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
+    as mock;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';
