@@ -121,13 +121,15 @@ class ArchiveMaterialApp extends ConsumerWidget {
 
       return;
     }
-    ref.read(archiveDate.notifier).state = await showDatePicker(
+    if (context.mounted) {
+      ref.read(archiveDate.notifier).state = await showDatePicker(
       context: context,
       selectableDayPredicate: archiveDates.contains,
       initialDate: archiveDates.last,
       lastDate: archiveDates.last,
       firstDate: archiveDates.first,
     );
+    }
     ref.read(isArchive.notifier).state = true;
   }
 }

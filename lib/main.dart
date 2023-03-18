@@ -29,7 +29,7 @@ final tr = locator<S>;
 
 /// App Logger
 /// {@category UI Root}
-final log = Logger('MyClassName');
+final log = Logger('ais3uson');
 
 /// Main function for initializing whole App, also used in tests.
 ///
@@ -60,7 +60,7 @@ Future<void> init() async {
       );
     // ignore: avoid_catching_errors
   } on HiveError catch (e) {
-    dev.log(e.toString());
+    log.severe(e.toString());
   }
   //
   // > locator
