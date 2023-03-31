@@ -46,7 +46,7 @@ void main() {
     test('it create WorkerProfiles from SharedPreferences', () async {
       SharedPreferences.setMockInitialValues({
         'WorkerKeys2':
-            '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
+            '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
       });
       await init();
       final ref = ProviderContainer();
@@ -78,7 +78,7 @@ void main() {
       expect(ref.read(workerProfiles).length, 1);
       expect(
         ref.read(workerProfiles).first.apiKey,
-        '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
+        '3.01567984187',
       );
     });
 
@@ -139,7 +139,7 @@ void main() {
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         expect(
           ref.read(workerProfiles).first.apiKey,
-          '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
+          '3.01567984187',
         );
         await ref.read(workerProfiles).first.journal.postInit(); // init journal
         //

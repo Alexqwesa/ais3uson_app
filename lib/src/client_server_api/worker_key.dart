@@ -17,7 +17,7 @@ part 'worker_key.g.dart';
 /// Example key look like this:
 /// ```
 /// app : "AIS3USON web"
-/// api_key : "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c"
+/// api_key : "3.01567984187"
 /// name : "Test"
 /// worker_dep_id: 1
 /// dep_id : 1

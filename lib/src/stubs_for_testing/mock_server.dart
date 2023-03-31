@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 final httpTestHeader = {
   'Content-type': 'application/json',
   'Accept': 'application/json',
-  'api_key': '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c',
+  'api_key': '3.01567984187',
 };
 
 /// Generate a MockClient using the Mockito package.
