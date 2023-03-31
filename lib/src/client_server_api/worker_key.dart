@@ -23,8 +23,6 @@ part 'worker_key.g.dart';
 /// dep_id : 1
 /// dep : "Test Department"
 /// servers: "https://alexqwesa.fvds.ru:48080|http://alexqwesa.fvds.ru:48081/|https://192.168.0.102:48082"
-/// host : "192.168.0.102" // obsolete
-/// port : "48080" // obsolete
 /// db : "kcson"
 /// comment : "any text"
 /// certBase64 : ""

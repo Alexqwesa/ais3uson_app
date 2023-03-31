@@ -76,10 +76,11 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
       log.finest('$urlAddress response.statusCode = ${response.statusCode}');
       if (response.statusCode == 200 && response.body.isNotEmpty) {
         // ignore: avoid_dynamic_calls
-        state = jsonDecode(response.body)
-            .whereType<Map<String, dynamic>>()
-            .toList(growable: false) as List<Map<String, dynamic>>;
-        await _writeHive(response.body);
+        final dynamic js = jsonDecode(response.body);
+        if (js is List) {
+          state = js.whereType<Map<String, dynamic>>().toList(growable: false);
+          await _writeHive(response.body);
+        }
       } else {
         //
         // > on fail: rollback update date
