@@ -19,7 +19,7 @@ import 'package:tuple/tuple.dart';
 final httpDataProvider = StateNotifierProvider.family<_HttpDataState,
     List<Map<String, dynamic>>, Tuple2<String, String>>((ref, apiUrl) {
   final notifier = _HttpDataState(
-    read: ref.read,
+    ref: ref,
     apiKey: apiUrl.item1,
     urlAddress: apiUrl.item2,
   );
@@ -40,14 +40,14 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
   _HttpDataState({
     required this.apiKey,
     required this.urlAddress,
-    required this.read,
+    required this.ref,
   }) : super([]) {
     log.severe('HttpDataState recreated $urlAddress');
   }
 
   final String urlAddress;
   final String apiKey;
-  final Reader read;
+  final Ref ref;
 
   Map<String, String> get headers => {
         'Content-type': 'application/json',
@@ -57,16 +57,16 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
 
   /// Force get new data from http.
   Future<void> getHttpData() async {
-    final prevLastUpdate = read(_lastUpdate(apiKey + urlAddress));
-    read(_lastUpdate('$apiKey$urlAddress').notifier).state = DateTime.now();
+    final prevLastUpdate = ref.read(_lastUpdate(apiKey + urlAddress));
+    ref.read(_lastUpdate('$apiKey$urlAddress').notifier).state = DateTime.now();
     final url = Uri.parse(urlAddress);
     try {
       //
       // > main - call server
       //
       final workerProfile =
-          read(workerProfiles).firstWhere((e) => e.apiKey == apiKey);
-      final client = read<http.Client>(
+          ref.read(workerProfiles).firstWhere((e) => e.apiKey == apiKey);
+      final client = ref.read<http.Client>(
         httpClientProvider(workerProfile.key.certBase64),
       );
       final response = await client.get(url, headers: headers);
@@ -85,7 +85,7 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
         //
         // > on fail: rollback update date
         //
-        read(_lastUpdate(apiKey + urlAddress).notifier).state =
+        ref.read(_lastUpdate(apiKey + urlAddress).notifier).state =
             prevLastUpdate; // = lastUpdate.add(Duration(hours: 1.9))
       }
       //
@@ -116,15 +116,15 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
   }
 
   Future<void> _writeHive(String data) async {
-    await read(hiveBox(hiveProfiles).future);
-    final hive = read(hiveBox(hiveProfiles)).value!;
+    await ref.read(hiveBox(hiveProfiles).future);
+    final hive = ref.read(hiveBox(hiveProfiles)).value!;
     // for getting new test data
     // print("=== " + apiKey + url);
     // print("=== " + response.body);
     await hive.put(apiKey + urlAddress, data);
     await hive.put(
       'sync_date_$apiKey$urlAddress',
-      read(_lastUpdate('$apiKey$urlAddress')),
+      ref.read(_lastUpdate('$apiKey$urlAddress')),
     );
   }
 
@@ -134,18 +134,19 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
 
       return 'None';
     }
-    final hive = await read(hiveBox(hiveProfiles).future);
+    final hive = await ref.read(hiveBox(hiveProfiles).future);
     //
     // > check hive update needed
     //
-    if (read(_lastUpdate('$apiKey$urlAddress')) == nullDate) {
-      state = read(_loadMapFromHiveKeyProvider(apiKey + urlAddress));
-      read(_lastUpdate('$apiKey$urlAddress').notifier).state =
+    if (ref.read(_lastUpdate('$apiKey$urlAddress')) == nullDate) {
+      state = ref.read(_loadMapFromHiveKeyProvider(apiKey + urlAddress));
+      ref.read(_lastUpdate('$apiKey$urlAddress').notifier).state =
           hive.get('sync_date_$apiKey$urlAddress') as DateTime? ??
               nullDate.add(const Duration(days: 1));
     }
 
-    if (read(_lastUpdate('$apiKey$urlAddress'))
+    if (ref
+        .read(_lastUpdate('$apiKey$urlAddress'))
         .add(const Duration(hours: 2))
         .isBefore(DateTime.now())) {
       await getHttpData();

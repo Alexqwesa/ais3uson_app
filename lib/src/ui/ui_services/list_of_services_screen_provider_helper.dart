@@ -19,7 +19,7 @@ final currentService = Provider<ClientService>(
 /// Provider of current size of container of services.
 final currentServiceContainerSize =
     StateNotifierProvider<_ServiceContainerSizeState, Size>((ref) {
-  return _ServiceContainerSizeState(ref.read);
+  return _ServiceContainerSizeState(ref);
 });
 
 final speechEngineStatus = StateNotifierProvider<_SpeechEngineStatus, String>((
@@ -39,17 +39,17 @@ class _SpeechEngineStatus extends StateNotifier<String> {
 
 final speechEngineInited = FutureProvider((ref) async {
   final speech = ref.watch(speechEngine);
-  await _initSpeechEngine(speech, ref.read);
+  await _initSpeechEngine(speech, ref);
 
   return speech;
 });
 
-Future<void> _initSpeechEngine(stt.SpeechToText speech, Reader read) async {
+Future<void> _initSpeechEngine(stt.SpeechToText speech, Ref ref) async {
   if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
     try {
       final available = await speech.initialize(
         onStatus: (status) {
-          read(speechEngineStatus.notifier).state = status;
+          ref.read(speechEngineStatus.notifier).state = status;
           // log.fine('Speech status $status');
         },
         onError: (error) {
@@ -74,7 +74,7 @@ Future<void> _initSpeechEngine(stt.SpeechToText speech, Reader read) async {
 final speechEngine = Provider((ref) {
   final speech = stt.SpeechToText();
   () async {
-    await _initSpeechEngine(speech, ref.read);
+    await _initSpeechEngine(speech, ref);
   }();
 
   return speech;
@@ -98,9 +98,9 @@ class _CurrentSearch extends StateNotifier<String> {
 }
 
 class _ServiceContainerSizeState extends StateNotifier<Size> {
-  _ServiceContainerSizeState(this.read) : super(const Size(100, 100));
+  _ServiceContainerSizeState(this.ref) : super(const Size(100, 100));
 
-  Reader read;
+  final Ref ref;
 
   @override
   Size get state => super.state;
@@ -111,10 +111,10 @@ class _ServiceContainerSizeState extends StateNotifier<Size> {
   }
 
   Future<void> delayedChange(Size value) async {
-    read(_sizeHelper.notifier).state = value;
+    ref.read(_sizeHelper.notifier).state = value;
     Future.delayed(const Duration(milliseconds: 1000), () {
-      if (value.width == read(_sizeHelper).width &&
-          value.height == read(_sizeHelper).height) {
+      final size = ref.read(_sizeHelper);
+      if (value.width == size.width && value.height == size.height) {
         super.state = value;
       }
     });

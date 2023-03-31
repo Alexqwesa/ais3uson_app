@@ -76,19 +76,19 @@ final archiveDate = StateProvider<DateTime?>((ref) {
 /// {@category App State}
 // Todo: only use archiveDate?
 final isArchive = StateNotifierProvider<_ArchiveState, bool>((ref) {
-  return _ArchiveState(ref.read);
+  return _ArchiveState(ref);
 });
 
 class _ArchiveState extends StateNotifier<bool> {
-  _ArchiveState(this.read) : super(false);
+  final Ref ref;
 
-  final Reader read;
+  _ArchiveState(this.ref) : super(false);
 
   @override
   set state(bool value) {
     super.state = value;
     if (!value) {
-      read(archiveDate.notifier).state = null;
+      ref.read(archiveDate.notifier).state = null;
     }
   }
 }

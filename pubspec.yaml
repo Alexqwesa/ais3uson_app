@@ -80,11 +80,13 @@ dev_dependencies:
   freezed:
   hive_generator: any
   hive_test: any
+#  http_certificate_pinning: any
   integration_test:
     sdk: flutter
   json_serializable:
   mockito: any
   surf_lint_rules: any
+
 #  very_good_analysis: any
 
 
