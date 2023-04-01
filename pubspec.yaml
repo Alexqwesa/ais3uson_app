@@ -27,7 +27,7 @@ dependencies:
   camera: any
   collection: any
   context_menus: any
-  dartdoc: any
+  dartdoc: ^6.2.1
   flutter:
     sdk: flutter
   flutter_hooks: any

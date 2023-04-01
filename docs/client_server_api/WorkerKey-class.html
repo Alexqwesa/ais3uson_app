@@ -39,8 +39,11 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
@@ -50,9 +53,8 @@
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">WorkerKey</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category client-server-api cp-3" title="This is part of the Client-Server API Topic.">Client-Server&nbsp;API</span>
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
 </h1></div>
 
     
@@ -63,14 +65,12 @@
 TODO: implement active server switch.</p>
 <p>Example key look like this:</p>
 <pre class="language-dart"><code>app : "AIS3USON web"
-api_key : "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c"
+api_key : "3.01567984187"
 name : "Test"
 worker_dep_id: 1
 dep_id : 1
 dep : "Test Department"
 servers: "https://alexqwesa.fvds.ru:48080|http://alexqwesa.fvds.ru:48081/|https://192.168.0.102:48082"
-host : "192.168.0.102" // obsolete
-port : "48080" // obsolete
 db : "kcson"
 comment : "any text"
 certBase64 : ""
@@ -92,9 +92,11 @@ certBase64 : ""
   <dt>Annotations</dt>
   <dd>
     <ul class="annotation-list clazz-relationships">
-        <li>@<a href="https://pub.dev/documentation/freezed_annotation/2.1.0/freezed_annotation/freezed-constant.html">freezed</a></li>
+        <li>@<a href="https://pub.dev/documentation/freezed_annotation/2.2.0/freezed_annotation/freezed-constant.html">freezed</a></li>
     </ul>
   </dd>
+
+
       </dl>
     </section>
 
@@ -104,7 +106,7 @@ certBase64 : ""
 
     <dl class="constructor-summary-list">
         <dt id="WorkerKey" class="callable">
-          <span class="name"><a href="../client_server_api/WorkerKey/WorkerKey.html">WorkerKey</a></span><span class="signature">(<span class="parameter" id="-param-app">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">app</span>, </span><span class="parameter" id="-param-name"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="-param-api_key"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">api_key</span>, </span><span class="parameter" id="-param-worker_dep_id"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">worker_dep_id</span>, </span><span class="parameter" id="-param-dep"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">dep</span>, </span><span class="parameter" id="-param-db"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">db</span>, </span><span class="parameter" id="-param-servers"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">servers</span>, </span><span class="parameter" id="-param-activeServerIndex"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.1.0/freezed_annotation/Default-class.html">Default</a>(0)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">activeServerIndex</span>, </span><span class="parameter" id="-param-comment"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.1.0/freezed_annotation/Default-class.html">Default</a>(&#39;&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">comment</span>, </span><span class="parameter" id="-param-certBase64"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.1.0/freezed_annotation/Default-class.html">Default</a>(&#39;&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">certBase64</span>}</span>)</span>
+          <span class="name"><a href="../client_server_api/WorkerKey/WorkerKey.html">WorkerKey</a></span><span class="signature">(<span class="parameter" id="-param-app">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">app</span>, </span><span class="parameter" id="-param-name"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="-param-api_key"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">api_key</span>, </span><span class="parameter" id="-param-worker_dep_id"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">worker_dep_id</span>, </span><span class="parameter" id="-param-dep"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">dep</span>, </span><span class="parameter" id="-param-db"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">db</span>, </span><span class="parameter" id="-param-servers"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">servers</span>, </span><span class="parameter" id="-param-activeServerIndex"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.2.0/freezed_annotation/Default-class.html">Default</a>(0)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">activeServerIndex</span>, </span><span class="parameter" id="-param-comment"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.2.0/freezed_annotation/Default-class.html">Default</a>(&#39;&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">comment</span>, </span><span class="parameter" id="-param-certBase64"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.2.0/freezed_annotation/Default-class.html">Default</a>(&#39;&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">certBase64</span>}</span>)</span>
         </dt>
         <dd>
           
@@ -253,7 +255,7 @@ certBase64 : ""
 </dt>
 <dd class="inherited">
   
-  <div class="features"><span class="">@<a href="https://pub.dev/documentation/json_annotation/4.6.0/json_annotation/JsonKey-class.html">JsonKey</a>(ignore: true)</span><span class="feature">read-only</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -508,7 +510,7 @@ certBase64 : ""
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+17
+      1.0.1+22
   </span>
 
   
