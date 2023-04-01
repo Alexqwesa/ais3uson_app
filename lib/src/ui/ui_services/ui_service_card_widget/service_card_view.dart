@@ -22,7 +22,7 @@ class ServiceCardView extends ConsumerWidget {
     final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
+      size: ref.watch(tileSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
         child: SizedBox(
           width: 205,
@@ -72,7 +72,7 @@ class ServiceCardView extends ConsumerWidget {
                                     textScaleFactor: 1.1,
                                     textAlign: TextAlign.center,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ),
                                 Padding(
@@ -119,7 +119,7 @@ class ServiceCardSquareView extends ConsumerWidget {
     final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
+      size: ref.watch(tileSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
         child: SizedBox(
           width: 150,
@@ -153,7 +153,7 @@ class ServiceCardSquareView extends ConsumerWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .bodyLarge
                               ?.copyWith(fontSize: 12),
                         ),
                       ),
@@ -192,7 +192,7 @@ class ServiceCardTileView extends ConsumerWidget {
     final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
-      size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
+      size: ref.watch(tileSize(Tuple2(parentSize, tileType))),
       child: FittedBox(
         fit: BoxFit.fill,
         child: SizedBox(
@@ -230,7 +230,7 @@ class ServiceCardTileView extends ConsumerWidget {
                                   service.shortText,
                                   textScaleFactor: 1.1,
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                               Padding(

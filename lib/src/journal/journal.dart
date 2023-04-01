@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/providers/settings/hive_archive_size.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:universal_html/html.dart' as html;
 
-/// Journal of services
+/// Journal of services.
 ///
 /// This is a main repository for services (in various states),
 /// it is member of [WorkerProfile] class.
@@ -48,10 +49,8 @@ class Journal {
   //
   // > main list of services
   //
-  ServicesListState get servicesProvider =>
-      ref.read(servicesOfJournal(this).notifier);
 
-  List<ServiceOfJournal> get all => ref.read(servicesOfJournal(this)) ?? [];
+  List<ServiceOfJournal> get all => ref.read(controllerOfJournal(this)) ?? [];
 
   List<ServiceOfJournal> get added =>
       ref.read(groupsOfJournal(this))[ServiceState.added] ?? [];
@@ -80,7 +79,7 @@ class Journal {
     // > read hive at date or all
     //
     // await ref.read(datesInArchive.future);
-    await servicesProvider.initAsync();
+    await ref.read(controllerOfJournal(this).notifier).initAsync();
     hive = ref.read(hiveJournalBox(journalHiveName)).value!;
   }
 
@@ -154,7 +153,7 @@ class Journal {
   /// Add new [ServiceOfJournal] to [Journal] and call [commitAll].
   Future<bool> post(ServiceOfJournal se) async {
     try {
-      await servicesProvider.post(se);
+      await ref.read(controllerOfJournal(this).notifier).post(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(tr().errorSave);
@@ -361,7 +360,7 @@ class Journal {
     // delete
     //
     try {
-      await servicesProvider.delete(serv);
+      await ref.read(controllerOfJournal(this).notifier).delete(serv);
       // ignore: avoid_catching_errors
     } on RangeError {
       log.info('RangeError double delete');
@@ -400,7 +399,7 @@ class Journal {
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
-      final archiveLimit = ref.read(hiveArchiveLimit);
+      final archiveLimit = ref.read(hiveArchiveSize);
       if (hiveArchive.length > archiveLimit) {
         await hiveArchive.deleteAll(
           archList.slice(archiveLimit).map<dynamic>((e) => e.key),
@@ -420,12 +419,11 @@ class Journal {
     await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
     final hiveArchive =
         ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-    final dates = ref.read(datesInArchiveOfProfile(apiKey).notifier);
-    dates.state = hiveArchive
-        .values
-        .map((element) => element.provDate)
-        .map((e) => DateTime(e.year, e.month, e.day))
-        .toList();
+    final dates = ref.read(datesInArchiveOfProfile(apiKey).notifier)
+      ..state = hiveArchive.values
+          .map((element) => element.provDate)
+          .map((e) => DateTime(e.year, e.month, e.day))
+          .toList();
     await dates.save();
   }
 
@@ -476,7 +474,7 @@ class Journal {
     await _lock.synchronized(() async {
       // work with copy
       finished.toList().forEach(
-        (element) async {
+        (element) {
           if (element.provDate.isBefore(
             workerProfile.ref.read(planOfWorkerSyncDate(workerProfile)),
           )) {
@@ -490,7 +488,7 @@ class Journal {
   /// Remove [ServiceOfJournal] from lists of [Journal] and from Hive.
   void toDelete(List<ServiceOfJournal> forDelete) {
     forDelete.forEach((s) {
-      servicesProvider.delete(s);
+      ref.read(controllerOfJournal(this).notifier).delete(s);
       s.delete();
     });
   }
@@ -517,12 +515,12 @@ class Journal {
     //
     // > remove
     //
-    servicesProvider.delete(service);
+    ref.read(controllerOfJournal(this).notifier).delete(service);
     //
     // > add
     //
     final newService = service.copyWith(state: newState);
-    servicesProvider.post(newService);
+    ref.read(controllerOfJournal(this).notifier).post(newService);
 
     return newService;
   }

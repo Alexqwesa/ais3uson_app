@@ -24,11 +24,11 @@ final standardFormat = DateFormat(formatStandard);
 final nullDate = DateTime(1900);
 
 const qrDataShortKey =
-    '''{"app": "AIS3USON web", "name": "Работник Тест Тестович", '''
+'''{"app": "AIS3USON web", "name": "Работник Тест Тестович", '''
     '''"worker_dep_id": 1, "api_key": "3.01567984187", "dep": "https://alexqwesa.fvds.ru:48081 отделение", '''
     '''"db": "kcson", "servers": "http://alexqwesa.fvds.ru:48081"}''';
 const qrData2WithAutossl =
-    '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
+'''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №2", '''
     '''"worker_dep_id": 1, "api_key": "3.01567984187", "dep": "Тестовое отделение https://alexqwesa.fvds.ru:48082", '''
     '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "защищенный SSL"}''';
 // const qrDataWithSSL =
@@ -39,7 +39,7 @@ const stubJsonWorkerKey = '''{"app": "AIS3USON web", "name": "stub", '''
     '''"worker_dep_id": 0, "api_key": "none", "dep": "none", '''
     '''"db": "none", "servers": "none", "comment": "stub", "certBase64": ""}''';
 const qrData2WithLocalCache =
-    '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №1", '''
+'''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №1", '''
     '''"worker_dep_id": 1, "api_key": "3.01567984187", "dep": "Тестовое отделение https://alexqwesa.fvds.ru:48082", '''
     '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "With local cache", "certBase64": "VGVzdCBwcm9maWxlIHdpdGggY2FjaGU="}'''; //Base64Encoder().convert('Test profile with cache'.codeUnits));
 
@@ -53,8 +53,7 @@ List<Map<String, dynamic>> mapJsonDecode(List<String> list) {
 
 /// Helper, convert String to List of Map<String, dynamic>
 Future<List<Map<String, dynamic>>> loadFromHiveJsonDecode(
-  List<String> list,
-) async {
+    List<String> list,) async {
   final hiveName = list[0];
   final hiveKey = list[1];
   final hive = await Hive.openBox<dynamic>(hiveName);
@@ -109,7 +108,8 @@ void showNotification(String text, {Duration? duration}) {
 /// It join all subFolders into path string and make safety checks.
 /// If file plugin or DocumentsDirectory didn't exist - return null.
 Future<String?> getSafePath(List<String> subFolders) async {
-  Directory appDocDir;
+  // TODO: use getApplicationSupportDirectory for some files and as fallback
+  Directory? appDocDir;
   try {
     appDocDir = Directory(path.join(
       (await getApplicationDocumentsDirectory()).path,
@@ -120,13 +120,10 @@ Future<String?> getSafePath(List<String> subFolders) async {
     }
   } on MissingPlatformDirectoryException {
     log.severe('Can not find folder');
-
-    return null;
   } on MissingPluginException {
     log.severe('Can not find plugin');
-
-    return null;
   }
+  appDocDir ??= await getApplicationSupportDirectory();
   //
   // > create path without special characters
   //
@@ -158,28 +155,4 @@ DateTime mostRecentMonth({DateTime? date, int addMonths = 0}) {
   date ??= DateTime.now();
 
   return DateTime(date.year, date.month + addMonths);
-}
-
-/// Get millisecondsSinceEpoch and round down to days.
-///
-/// {@category Universal_helpers}
-extension DateTimeExtensions on DateTime {
-  DateTime dateOnly() {
-    return DateTime(year, month, day);
-  }
-
-  int get daysSinceEpoch {
-    return (millisecondsSinceEpoch + timeZoneOffset.inMilliseconds) ~/
-        (Duration.secondsPerDay * 1000);
-  }
-
-  // DateTime dateFromDays(int days) {
-  //   return DateTime.fromMillisecondsSinceEpoch(
-  //     days * (Duration.secondsPerDay * 1000) - timeZoneOffset.inMilliseconds,
-  //   );
-  // }
-
-  static DateTime today() {
-    return DateTime.now().dateOnly();
-  }
 }

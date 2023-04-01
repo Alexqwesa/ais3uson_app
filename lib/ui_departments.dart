@@ -16,7 +16,7 @@ import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 
 export 'package:ais3uson_app/src/ui/ui_departments/add_department_screen.dart';
-export 'package:ais3uson_app/src/ui/ui_departments/clients_screen.dart';
+export 'package:ais3uson_app/src/ui/ui_departments/client_screen.dart';
 export 'package:ais3uson_app/src/ui/ui_departments/delete_department_screen.dart';
 export 'package:ais3uson_app/src/ui/ui_departments/list_of_profiles.dart';
 export 'package:ais3uson_app/src/ui/ui_departments/qr_scan_screen.dart';

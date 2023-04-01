@@ -71,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
                   Center(
                     child: Text(
                       tr().shortAboutApp,
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -126,10 +126,10 @@ class HomeScreen extends ConsumerWidget {
                   ListTile(
                     leading: const Icon(Icons.archive),
                     title: Text(tr().archive),
-                    onTap: () async {
+                    onTap: () {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
-                        await ArchiveMaterialApp.setArchiveOnWithDatePicker(
+                        ArchiveMaterialApp.setArchiveOnWithDatePicker(
                           context,
                           ref,
                         );
@@ -169,7 +169,7 @@ class HomeScreen extends ConsumerWidget {
                         padding: const EdgeInsets.all(8),
                         child: Text(
                           tr().theme,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
                       ToggleSwitch(

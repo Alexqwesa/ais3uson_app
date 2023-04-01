@@ -66,7 +66,7 @@ class ServiceCardState extends ConsumerWidget {
                             icons.elementAt(i),
                             Text(
                               listDoneProgressError.elementAt(i).toString(),
-                              style: Theme.of(context).textTheme.headline5,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ],
                         )
@@ -75,7 +75,7 @@ class ServiceCardState extends ConsumerWidget {
                             icons.elementAt(i),
                             Text(
                               listDoneProgressError.elementAt(i).toString(),
-                              style: Theme.of(context).textTheme.headline5,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ],
                         ),

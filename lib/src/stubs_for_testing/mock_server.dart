@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 final httpTestHeader = {
   'Content-type': 'application/json',
   'Accept': 'application/json',
-  'api_key': '3.01567984187',
+  'api-key': '3.01567984187',
 };
 
 /// Generate a MockClient using the Mockito package.
@@ -39,7 +39,7 @@ http.Client getMockHttpClient() {
   return client;
 }
 
-extension ExtMock on MockClient {
+extension MockServer on MockClient {
   Map<String, String> get h => httpTestHeader;
 
   String get httpTcpIpPort =>

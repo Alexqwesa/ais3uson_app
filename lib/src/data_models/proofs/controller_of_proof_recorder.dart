@@ -1,22 +1,10 @@
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/src/data_models/proofs/recorder_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
-
-/// States used by ProofRecorder.
-///
-/// {@category Providers}
-enum RecorderState {
-  // States of _ProofRecorder.state
-  ready,
-  recording,
-  busy,
-  // additional states: only for return
-  failed,
-  finished,
-}
 
 /// Global audio record controller.
 ///
@@ -25,11 +13,11 @@ enum RecorderState {
 /// {@category Controllers}
 /// {@category UI Proofs}
 final proofRecorder = Provider((ref) {
-  return _ProofRecorder(ref);
+  return _ControllerOfProofRecorder(ref);
 });
 
-class _ProofRecorder {
-  _ProofRecorder(this.ref);
+class _ControllerOfProofRecorder {
+  _ControllerOfProofRecorder(this.ref);
 
   final ProviderRef ref;
   final _record = Record();

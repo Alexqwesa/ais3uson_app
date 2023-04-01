@@ -3,7 +3,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +16,9 @@ import 'package:tuple/tuple.dart';
 /// Provider of httpData, create families by apiKey and url.
 ///
 /// {@category Providers}
-final httpDataProvider = StateNotifierProvider.family<_HttpDataState,
+final repositoryOfHttpData = StateNotifierProvider.family<_RepositoryOfHttpData,
     List<Map<String, dynamic>>, Tuple2<String, String>>((ref, apiUrl) {
-  final notifier = _HttpDataState(
+  final notifier = _RepositoryOfHttpData(
     ref: ref,
     apiKey: apiUrl.item1,
     urlAddress: apiUrl.item2,
@@ -27,7 +27,7 @@ final httpDataProvider = StateNotifierProvider.family<_HttpDataState,
   return notifier;
 });
 
-/// Repository for families of providers [httpDataProvider].
+/// Repository for families of providers [repositoryOfHttpData].
 ///
 /// Read hive on init, [state] is a [http.Response] in json format,
 ///  save state to [Hive].
@@ -36,8 +36,8 @@ final httpDataProvider = StateNotifierProvider.family<_HttpDataState,
 /// Public field [_lastUpdate].
 ///
 /// {@category Providers}
-class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
-  _HttpDataState({
+class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
+  _RepositoryOfHttpData({
     required this.apiKey,
     required this.urlAddress,
     required this.ref,

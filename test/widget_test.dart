@@ -23,6 +23,7 @@ void main() {
     await tearDownTestHive();
   });
   setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
     await init();
   });
   setUp(() async {

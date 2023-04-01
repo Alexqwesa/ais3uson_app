@@ -1,5 +1,5 @@
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -88,7 +88,7 @@ class ListOfProfiles extends ConsumerWidget {
                             ),
                             title: Text(
                               wps[index].key.dep,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                             //
                             // > onTap call
@@ -124,7 +124,7 @@ class ListOfProfiles extends ConsumerWidget {
           : Text(
               tr().authorizePlease,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
     );
   }

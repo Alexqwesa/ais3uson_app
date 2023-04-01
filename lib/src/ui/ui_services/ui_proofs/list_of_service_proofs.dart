@@ -3,7 +3,8 @@
 import 'dart:async';
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/date_time_extensions.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
@@ -20,8 +21,8 @@ import 'package:tuple/tuple.dart';
 ///
 /// {@category UI Services}
 /// {@category UI Proofs}
-class ServiceProofs extends ConsumerWidget {
-  const ServiceProofs({
+class ListOfServiceProofs extends ConsumerWidget {
+  const ListOfServiceProofs({
     Key? key,
   }) : super(key: key);
 
@@ -51,12 +52,12 @@ class ServiceProofs extends ConsumerWidget {
               Text(
                 tr().optional,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               Text(
                 tr().proofOfService,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -121,14 +122,14 @@ class ProofsBuilder extends ConsumerWidget {
                       child: Text(
                         tr().before,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                     Expanded(
                       child: Text(
                         tr().after,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                   ],
@@ -295,7 +296,7 @@ class AddProofButton extends StatelessWidget {
       child: FloatingActionButton(
         heroTag: ValueKey(beforeOrAfter + indexInProofs.toString()),
         child: const Icon(Icons.camera_alt),
-        onPressed: () async {
+        onPressed: () => () async {
           late final List<CameraDescription> cameras;
           try {
             cameras = await availableCameras();

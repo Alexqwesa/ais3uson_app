@@ -13,10 +13,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category Providers}
 final clientsOfWorker = Provider.family<List<ClientProfile>, WorkerProfile>(
   (ref, wp) {
-    ref.watch(httpDataProvider(wp.apiUrlClients).notifier).syncHiveHttp();
+    ref.watch(repositoryOfHttpData(wp.apiUrlClients).notifier).syncHiveHttp();
 
     return ref
-        .watch(httpDataProvider(wp.apiUrlClients))
+        .watch(repositoryOfHttpData(wp.apiUrlClients))
         .map<ClientEntry>(ClientEntry.fromJson)
         .map((el) => ClientProfile(workerProfile: wp, entry: el))
         .toList(growable: false);
@@ -31,10 +31,10 @@ final clientsOfWorker = Provider.family<List<ClientProfile>, WorkerProfile>(
 /// {@category Providers}
 final servicesOfWorker =
     Provider.family<List<ServiceEntry>, WorkerProfile>((ref, wp) {
-  ref.watch(httpDataProvider(wp.apiUrlServices).notifier).syncHiveHttp();
+  ref.watch(repositoryOfHttpData(wp.apiUrlServices).notifier).syncHiveHttp();
 
   return ref
-      .watch(httpDataProvider(wp.apiUrlServices))
+      .watch(repositoryOfHttpData(wp.apiUrlServices))
       .map<ServiceEntry>(ServiceEntry.fromJson)
       .toList(growable: false);
 });
@@ -47,10 +47,10 @@ final servicesOfWorker =
 /// {@category Providers}
 final planOfWorker =
     Provider.family<List<ClientPlan>, WorkerProfile>((ref, wp) {
-  ref.watch(httpDataProvider(wp.apiUrlPlan).notifier).syncHiveHttp();
+  ref.watch(repositoryOfHttpData(wp.apiUrlPlan).notifier).syncHiveHttp();
 
   return ref
-      .watch(httpDataProvider(wp.apiUrlPlan))
+      .watch(repositoryOfHttpData(wp.apiUrlPlan))
       .map<ClientPlan>(ClientPlan.fromJson)
       .toList(growable: false);
 });

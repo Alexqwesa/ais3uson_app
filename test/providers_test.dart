@@ -1,10 +1,10 @@
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show ExtMock, getMockHttpClient;
+    show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +17,7 @@ import 'data_models_test.dart';
 
 void main() {
   setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
     await init();
   });
   setUp(() async {
@@ -59,9 +60,9 @@ void main() {
         ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
     await wp.syncClients(); // second call of testReqGetClients
     await wp.postInit(); // it didn't make initial sync twice
-    expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
+    expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
     expect(
-      ref.read(httpDataProvider(wp.apiUrlClients)).length,
+      ref.read(repositoryOfHttpData(wp.apiUrlClients)).length,
       10,
     );
     expect(wp.clients.length, 10);

@@ -22,7 +22,7 @@ environment:
 
 
 dependencies:
-  app_bar_with_search_switch: ^2.0.0-dev.2
+  app_bar_with_search_switch: ^2.0.0-dev.5
   audioplayers: any
   camera: any
   collection: any
@@ -48,7 +48,9 @@ dependencies:
   json_annotation: any
   lint: any
   logging: any
+  mockito: any
   overlay_support: any
+  path: any
   path_provider: any
   peanut: any
   provider: any
@@ -57,6 +59,7 @@ dependencies:
   record: ">=4.2.0-dev.3"
   share_plus: any
   shared_preferences: any
+  speech_to_text: any
   synchronized: any
   toggle_switch: any
   tuple: any
@@ -80,11 +83,12 @@ dev_dependencies:
   freezed:
   hive_generator: any
   hive_test: any
-#  http_certificate_pinning: any
+  #  http_certificate_pinning: any
   integration_test:
     sdk: flutter
   json_serializable:
-  mockito: any
+  path_provider_platform_interface: any
+  plugin_platform_interface: any
   surf_lint_rules: any
 
 #  very_good_analysis: any

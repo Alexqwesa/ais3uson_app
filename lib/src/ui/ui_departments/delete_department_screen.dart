@@ -64,7 +64,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                         //
                         // > call dialog
                         //
-                        onTap: () async {
+                        onTap: () => () async {
                           final result = await _showDialog(
                             context,
                             wpKeys[index].dep,
@@ -109,7 +109,7 @@ Future<String?> _showDialog(BuildContext context, String depName) async {
                 padding: const EdgeInsets.all(8),
                 child: Text(
                   depName,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ],

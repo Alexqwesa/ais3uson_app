@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,12 +19,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// {@category Providers}
 /// {@category Controllers}
 final workerProfiles =
-    StateNotifierProvider<_WorkerProfilesState, List<WorkerProfile>>((ref) {
-  return _WorkerProfilesState(ref); //, ref.watch(workerKeys));
+    StateNotifierProvider<_ControllerOfWorkerProfiles, List<WorkerProfile>>((ref) {
+  return _ControllerOfWorkerProfiles(ref); //, ref.watch(workerKeys));
 });
 
-class _WorkerProfilesState extends StateNotifier<List<WorkerProfile>> {
-  _WorkerProfilesState(this.ref) // , List<WorkerKey> wKeys
+class _ControllerOfWorkerProfiles extends StateNotifier<List<WorkerProfile>> {
+  _ControllerOfWorkerProfiles(this.ref) // , List<WorkerKey> wKeys
       : super(<WorkerProfile>[]) {
     sync(ref.read(_workerKeys));
     ref.listen(_workerKeys, (previous, next) {

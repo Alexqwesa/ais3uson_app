@@ -1,11 +1,12 @@
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/providers/settings/hive_archive_size.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show ExtMock, getMockHttpClient;
+    show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:flutter_test/flutter_test.dart';
@@ -26,6 +27,7 @@ void main() {
     await tearDownTestHive();
   });
   setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
     await init();
   });
   setUp(() async {
@@ -59,7 +61,7 @@ void main() {
       //
       // > configure http request as successful
       //
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       //
       // > start test
@@ -79,22 +81,22 @@ void main() {
       //
       // > configure addition stale
       //
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('', 400));
       await wp.clients[0].services[0].add();
       expect(ref.read(doneStaleErrorOf(wp.clients[0].services[0])), [1, 1, 0]);
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       await wp.journal.commitAll();
       expect(ref.read(doneStaleErrorOf(wp.clients[0].services[0])), [2, 0, 0]);
       //
       // > configure addition rejected
       //
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 0}', 200));
       await wp.clients[0].services[0].add();
       expect(ref.read(doneStaleErrorOf(wp.clients[0].services[0])), [2, 0, 1]);
-      expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 4);
+      expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
     //
@@ -172,7 +174,7 @@ void main() {
           .read(workerProfiles)
           .firstWhere((element) => element.apiKey == wKey.apiKey);
       // delayed init, should look like values were loaded from hive
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await wp.postInit();
       //
@@ -190,7 +192,7 @@ void main() {
       expect(ref.read(doneStaleErrorOf(wp.clients[0].services[0])), [3, 0, 0]);
       await wp.journal.commitAll();
       expect(ref.read(doneStaleErrorOf(wp.clients[0].services[0])), [3, 0, 0]);
-      expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 4);
+      expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
 
@@ -290,7 +292,7 @@ void main() {
         //
         // > init workerProfile
         //
-        ref.read(hiveArchiveLimit.notifier).state = 10;
+        ref.read(hiveArchiveSize.notifier).state = 10;
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         final wp = ref.read(workerProfiles).first;
         // await AppData.instance
@@ -325,7 +327,7 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(hiveArchiveLimit.notifier).state = 10;
+      ref.read(hiveArchiveSize.notifier).state = 10;
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
@@ -343,7 +345,7 @@ void main() {
       expect(ref.read(doneStaleErrorOf(service3)), [0, 4, 0]);
       await client.workerProfile.journal.commitAll();
       expect(ref.read(doneStaleErrorOf(service3)), [0, 4, 0]);
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await client.workerProfile.journal.commitAll();
       expect(ref.read(doneStaleErrorOf(service3)), [4, 0, 0]);
@@ -363,7 +365,7 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(hiveArchiveLimit.notifier).state = 10;
+      ref.read(hiveArchiveSize.notifier).state = 10;
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
@@ -375,7 +377,7 @@ void main() {
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
       when(
-        ExtMock(
+        MockServer(
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient,
         ).testReqPostAdd,
       ).thenAnswer((_) async {
@@ -407,7 +409,7 @@ void main() {
         //
         // > init workerProfile
         //
-        ref.read(hiveArchiveLimit.notifier).state = 10;
+        ref.read(hiveArchiveSize.notifier).state = 10;
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         final wp = ref.read(workerProfiles).first;
         await wp.postInit();
@@ -423,10 +425,10 @@ void main() {
         //
         expect(ref.read(doneStaleErrorOf(service3)), [0, 10, 0]);
         expect(
-          verify(ExtMock(httpClient).testReqPostAdd).callCount,
+          verify(MockServer(httpClient).testReqPostAdd).callCount,
           (servNum + 1) * (servNum / 2),
         );
-        when(ExtMock(httpClient).testReqPostAdd)
+        when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 1}', 200));
         await client.workerProfile.journal.commitAll();
         expect(ref.read(doneStaleErrorOf(service3)), [10, 0, 0]);
@@ -451,35 +453,35 @@ void main() {
         }
         await ref.pump();
         expect(ref.read(doneStaleErrorOf(service3)), [20, 0, 0]);
-        expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 20);
+        expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 20);
         //
         // > add 10 rejected
         //
-        when(ExtMock(httpClient).testReqPostAdd)
+        when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 0}', 200));
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
         expect(ref.read(doneStaleErrorOf(service3)), [20, 0, 10]);
-        expect(verify(ExtMock(httpClient).testReqPostAdd).callCount, 10);
+        expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 10);
         //
         // > add 10 stale
         //
-        when(ExtMock(httpClient).testReqPostAdd)
+        when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('', 500));
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
         expect(ref.read(doneStaleErrorOf(service3)), [20, 10, 10]);
-        expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
+        expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 2);
         expect(
-          verify(ExtMock(httpClient).testReqPostAdd).callCount,
+          verify(MockServer(httpClient).testReqPostAdd).callCount,
           (servNum + 1) * (servNum / 2),
         );
         //
         // > delete
         //
-        when(ExtMock(httpClient).testReqDelete)
+        when(MockServer(httpClient).testReqDelete)
             .thenAnswer((_) async => http.Response('{"id": 0}', 200));
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
@@ -501,7 +503,7 @@ void main() {
           await service3.delete();
         }
         expect(ref.read(doneStaleErrorOf(service3)), [0, 0, 0]);
-        expect(verify(ExtMock(httpClient).testReqDelete).callCount, 20);
+        expect(verify(MockServer(httpClient).testReqDelete).callCount, 20);
       },
     );
   });

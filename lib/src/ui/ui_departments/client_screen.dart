@@ -28,7 +28,7 @@ class ClientScreen extends ConsumerWidget {
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed: () async {
+              onPressed: () => () async {
                 await workerProfile.syncClients();
               },
             ),
@@ -54,7 +54,7 @@ class ClientScreen extends ConsumerWidget {
               child: Text(
                 tr().emptyListOfPeople,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
     );
@@ -97,7 +97,7 @@ class ClientCard extends ConsumerWidget {
         ),
         title: Text(
           client.name,
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         subtitle: Padding(
           padding: const EdgeInsets.fromLTRB(25, 8, 0, 4),

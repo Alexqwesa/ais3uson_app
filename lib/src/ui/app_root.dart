@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -37,6 +37,33 @@ class ArchiveMaterialApp extends ConsumerWidget {
   const ArchiveMaterialApp({
     Key? key,
   }) : super(key: key);
+
+  /// Activate archive mode([isArchive]) only if [datesInArchiveController].dates
+  /// not empty.
+  ///
+  /// It also show date picker to set [archiveDate].
+  static Future<void> setArchiveOnWithDatePicker(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final archiveDates = await ref.read(datesInArchiveController).datesInited();
+
+    if (archiveDates.isEmpty) {
+      ref.read(isArchive.notifier).state = false;
+
+      return;
+    }
+    if (context.mounted) {
+      ref.read(archiveDate.notifier).state = await showDatePicker(
+        context: context,
+        selectableDayPredicate: archiveDates.contains,
+        initialDate: archiveDates.last,
+        lastDate: archiveDates.last,
+        firstDate: archiveDates.first,
+      );
+    }
+    ref.read(isArchive.notifier).state = true;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -77,7 +104,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
                     builder: (context) {
                       return IconButton(
                         icon: const Icon(Icons.date_range),
-                        onPressed: () async {
+                        onPressed: () => () async {
                           await setArchiveOnWithDatePicker(context, ref);
                         },
                       );
@@ -104,33 +131,6 @@ class ArchiveMaterialApp extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  /// Activate archive mode([isArchive]) only if [datesInArchiveController].dates
-  /// not empty.
-  ///
-  /// It also show date picker to set [archiveDate].
-  static Future<void> setArchiveOnWithDatePicker(
-    BuildContext context,
-    WidgetRef ref,
-  ) async {
-    final archiveDates = await ref.read(datesInArchiveController).datesInited();
-
-    if (archiveDates.isEmpty) {
-      ref.read(isArchive.notifier).state = false;
-
-      return;
-    }
-    if (context.mounted) {
-      ref.read(archiveDate.notifier).state = await showDatePicker(
-      context: context,
-      selectableDayPredicate: archiveDates.contains,
-      initialDate: archiveDates.last,
-      lastDate: archiveDates.last,
-      firstDate: archiveDates.first,
-    );
-    }
-    ref.read(isArchive.notifier).state = true;
   }
 }
 
@@ -160,8 +160,8 @@ class MainMaterialApp extends ConsumerWidget {
       //
       // > theme
       //
-      theme: StandardThemeState.light(),
-      darkTheme: StandardThemeState.dark(),
+      theme: ThemesData.light(),
+      darkTheme: ThemesData.dark(),
       themeMode: ref.watch(standardTheme),
       //
       // > routes

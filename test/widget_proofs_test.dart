@@ -3,18 +3,20 @@
 import 'dart:io';
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/date_time_extensions.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-
-// ignore: unnecessary_import
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show ExtMock, getMockHttpClient;
+    show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
+    show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
@@ -23,13 +25,15 @@ import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tuple/tuple.dart';
 
-import 'data_models_test.dart';
+import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   //
   // > Setup
   //
@@ -37,6 +41,8 @@ void main() {
     await tearDownTestHive();
   });
   setUpAll(() async {
+    PathProviderPlatform.instance = FakePathProviderPlatform();
+    SharedPreferences.setMockInitialValues({});
     await init();
   });
   setUp(() async {
@@ -74,7 +80,7 @@ void main() {
         // add service
         final httpClient =
             ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
-        when(ExtMock(httpClient).testReqPostAdd)
+        when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 2}', 200));
         final service =
             ref.read(workerProfiles).first.clients.first.services.first;
@@ -126,7 +132,7 @@ void main() {
       // add service
       final httpClient =
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
-      when(ExtMock(httpClient).testReqPostAdd)
+      when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       final service = ref.read(workerProfiles).first.clients.first.services[3];
       await tester.runAsync<void>(() async {

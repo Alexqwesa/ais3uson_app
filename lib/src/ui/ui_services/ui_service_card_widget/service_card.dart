@@ -23,12 +23,12 @@ class ServiceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final parentSize = ref.watch(currentServiceContainerSize);
     final service = ref.watch(currentService);
-    final tileType = ref.watch(tileTypeProvider);
+    final tileView = ref.watch(tileType);
     // ignore: no_leading_underscores_for_local_identifiers
     final _ = ref.watch(archiveDate); // in case of date change
     final activeViewOfCard =
         ref.watch(addAllowedOfService(service)) || ref.watch(isArchive);
-    final size = ref.watch(serviceCardSize(Tuple2(parentSize, tileType)));
+    final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
 
     return AnimatedSize(
       // todo: don't show border during animation
@@ -53,7 +53,7 @@ class ServiceCard extends ConsumerWidget {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: service.add,
+                onTap: () => service.add,
                 child: Container(),
               ),
             ),
@@ -71,7 +71,7 @@ class _ServiceCardViewSelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tileType = ref.watch(tileTypeProvider);
+    final tileView = ref.watch(tileType);
 
     return ClipRect(
       child: Row(
@@ -79,11 +79,11 @@ class _ServiceCardViewSelector extends ConsumerWidget {
           //
           // > select view
           //
-          if (tileType == '')
+          if (tileView == '')
             const ServiceCardView()
-          else if (tileType == 'tile')
+          else if (tileView == 'tile')
             const ServiceCardTileView()
-          else if (tileType == 'square')
+          else if (tileView == 'square')
             const ServiceCardSquareView(),
         ],
       ),

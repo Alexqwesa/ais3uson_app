@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:ais3uson_app/data_models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

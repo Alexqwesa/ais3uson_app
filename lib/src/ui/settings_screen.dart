@@ -1,5 +1,7 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/providers/settings/hive_archive_size.dart';
+import 'package:ais3uson_app/src/providers/settings/tile_magnification.dart';
 import 'package:ais3uson_app/ui_service_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,11 +34,11 @@ class SettingsScreen extends ConsumerWidget {
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]{1,4}$')),
                     ],
                     controller: TextEditingController(
-                      text: ref.read(hiveArchiveLimit).toString(),
+                      text: ref.read(hiveArchiveSize).toString(),
                     ),
                     // hintText:,
                     onChanged: (value) {
-                      ref.read(hiveArchiveLimit.notifier).state =
+                      ref.read(hiveArchiveSize.notifier).state =
                           int.parse(value);
                     },
                   ),
@@ -72,9 +74,9 @@ class SettingServiceSizeWidget extends ConsumerWidget {
       subtitle: Slider(
         min: 60, // 60%
         max: 220, // 220%
-        value: (ref.watch(serviceCardMagnifying) * 100).toInt().toDouble(),
+        value: (ref.watch(tileMagnification) * 100).toInt().toDouble(),
         onChanged: (value) {
-          ref.read(serviceCardMagnifying.notifier).state = value / 100;
+          ref.read(tileMagnification.notifier).state = value / 100;
         },
       ),
     );

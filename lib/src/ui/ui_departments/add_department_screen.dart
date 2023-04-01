@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,11 +21,9 @@ class AddDepartmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var columnWidth = MediaQuery.of(context).size.width;
-    columnWidth = MediaQuery.of(context).size.width <
-            1 * MediaQuery.of(context).size.height
-        ? columnWidth
-        : columnWidth / 2;
+    final size = MediaQuery.of(context).size;
+    final columnWidth =
+        (size.width < size.height * 1) ? size.width : size.width / 2;
     final newWorkerKeys =
         mapJsonDecode(qrCodes).map(WorkerKey.fromJson).toList(growable: false);
 
@@ -66,7 +64,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                             child: Text(
                               tr().putDepTextField,
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                               softWrap: true,
                             ),
                           ),
@@ -123,7 +121,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                       child: Text(
                         tr().orTestDepList,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                   ),

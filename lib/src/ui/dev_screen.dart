@@ -33,12 +33,12 @@ class DevScreen extends StatelessWidget {
                     child: Text(
                       tr().shortAboutApp,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ),
                   Text(
                     tr().developer,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                   const Divider(),
                   Html(
@@ -167,10 +167,11 @@ class CheckWorkerServer extends ConsumerWidget {
   /// Function for FutureBuilder
   // ignore:long-method
   Widget buildHttpFuture(
-    BuildContext context,
+    BuildContext _,
     AsyncSnapshot<http.Response> snapshot,
   ) {
-    List<Widget> children;
+    final List<Widget> children;
+
     if (snapshot.hasData) {
       children = <Widget>[
         // FractionallySizedBox(

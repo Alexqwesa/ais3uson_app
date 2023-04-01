@@ -63,8 +63,9 @@ class WorkerKey with _$WorkerKey {
 
   String get activePort {
     var port = '80';
-    if (activeServer.split(':').length > 2) {
-      port = activeServer.split(':')[2];
+    final splitUrl = activeServer.split(':');
+    if (splitUrl.length > 2) {
+      port = splitUrl[2];
       port = port.contains('/') ? port.substring(0, port.indexOf('/')) : port;
     }
 

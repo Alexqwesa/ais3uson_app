@@ -8,11 +8,11 @@
 /// Both of them use [ServiceCard] to display [ClientService].
 ///
 /// The [ServiceCard] is display widget for [ClientService].
-/// Based on [tileTypeProvider] it select one of views:
+/// Based on [tileType] it select one of views:
 /// - [ServiceCardView],
 /// - [ServiceCardSquareView],
 /// - [ServiceCardTileView],
-/// each of them get it size from provider [serviceCardSize] (which depend on [serviceCardMagnifying]).
+/// each of them get it size from provider [tileSize] (which depend on [tileMagnification]).
 ///
 /// Each [ServiceCard] view use [ServiceCardState] to display data from [Journal]
 /// (how many services is added, etc...).
@@ -28,5 +28,5 @@ import 'package:ais3uson_app/ui_services.dart';
 
 export 'package:ais3uson_app/src/ui/ui_services/archive_services_of_client_screen.dart';
 export 'package:ais3uson_app/src/ui/ui_services/client_service_screen.dart';
-export 'package:ais3uson_app/src/ui/ui_services/list_of_services_screen.dart';
-export 'package:ais3uson_app/src/ui/ui_services/list_of_services_screen_provider_helper.dart';
+export 'package:ais3uson_app/src/ui/ui_services/list_of_client_services_screen.dart';
+export 'package:ais3uson_app/src/ui/ui_services/list_of_services_screen_helper.dart';

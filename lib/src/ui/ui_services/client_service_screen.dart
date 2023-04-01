@@ -18,10 +18,9 @@ class ClientServiceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ref.watch(currentService);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width < height
-        ? MediaQuery.of(context).size.width
-        : height;
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width < height ? size.width : height;
 
     return Scaffold(
       appBar: AppBar(
@@ -111,7 +110,7 @@ class ClientServiceScreen extends ConsumerWidget {
                               padding: const EdgeInsets.all(8),
                               child: Text(
                                 service.shortText,
-                                style: Theme.of(context).textTheme.headline6,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ),
                             Padding(
@@ -131,7 +130,7 @@ class ClientServiceScreen extends ConsumerWidget {
                   //
                   // > prof of service
                   //
-                  if (!kIsWeb) const ServiceProofs(),
+                  if (!kIsWeb) const ListOfServiceProofs(),
                 ],
               ),
             ),
@@ -160,7 +159,7 @@ class AddButton extends ConsumerWidget {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: allowed ? service.add : null,
+        onPressed: () => () async => allowed ? service.add : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Icon(
@@ -191,7 +190,7 @@ class DeleteButton extends ConsumerWidget {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: allowed ? service.delete : null,
+        onPressed: () => () async => allowed ? service.delete : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Transform.rotate(

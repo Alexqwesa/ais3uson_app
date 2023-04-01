@@ -76,7 +76,7 @@ class _ClientServicesListScreen
               // refresh
               IconButton(
                 icon: const Icon(Icons.refresh),
-                onPressed: () async {
+                onPressed: () => () async {
                   await ref
                       .read(journalOfWorker(workerProfile))
                       .archiveOldServices();
@@ -118,12 +118,12 @@ class _ClientServicesListScreen
                     : Text(
                         '${tr().onRequest} $searchedText  ${tr().servicesNotFound}',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       )
                 : Text(
                     tr().noServicesForClient,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
           ),
         ),
@@ -186,7 +186,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
             title: Text(tr().detailed),
             onTap: () {
               Navigator.pop(context, '');
-              ref.read(tileTypeProvider.notifier).state = '';
+              ref.read(tileType.notifier).state = '';
             },
           ),
         ),
@@ -196,7 +196,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
             title: Text(tr().list),
             onTap: () {
               Navigator.pop(context, 'tile');
-              ref.read(tileTypeProvider.notifier).state = 'tile';
+              ref.read(tileType.notifier).state = 'tile';
             },
           ),
         ),
@@ -206,7 +206,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
             title: Text(tr().small),
             onTap: () {
               Navigator.pop(context, 'square');
-              ref.read(tileTypeProvider.notifier).state = 'square';
+              ref.read(tileType.notifier).state = 'square';
             },
           ),
         ),

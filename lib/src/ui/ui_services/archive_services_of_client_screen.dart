@@ -2,7 +2,8 @@
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/date_time_extensions.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, ProviderScope, WidgetRef;
 
-const tileSize = 500.0;
+const _tileSize = 500.0;
 
 /// Display all service of client (today + archive).
 ///
@@ -40,7 +41,7 @@ class ArchiveServicesOfClientScreen extends ConsumerWidget {
           ? Center(
               child: Text(
                 tr().emptyListOfServices,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             )
           : SingleChildScrollView(
@@ -50,7 +51,7 @@ class ArchiveServicesOfClientScreen extends ConsumerWidget {
                     for (final serviceDayGroup
                         in allByGroups.entries.map((e) => e.value))
                       SizedBox(
-                        width: tileSize + 32,
+                        width: _tileSize + 32,
                         child: Card(
                           margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
                           child: ListView(
@@ -94,7 +95,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: tileSize + 32,
+      width: _tileSize + 32,
       child: Padding(
         padding: const EdgeInsets.only(top: 16),
         child: Column(
@@ -109,7 +110,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       ' ${standardFormat.format(service.provDate)}',
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
                   ),
                 ),
@@ -187,7 +188,7 @@ class _ServiceOfJournalTile extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: SizedBox(
-        width: tileSize,
+        width: _tileSize,
         child: FractionallySizedBox(
           widthFactor: 1,
           child: SizedBox(
@@ -222,7 +223,7 @@ class _ServiceOfJournalTile extends ConsumerWidget {
   void openClientServiceScreen(
     BuildContext context,
     ClientService service,
-    WidgetRef ref,
+    WidgetRef _,
   ) {
     Navigator.push(
       context,

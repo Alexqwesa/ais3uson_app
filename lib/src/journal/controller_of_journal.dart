@@ -1,20 +1,22 @@
 import 'dart:async';
 
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/date_time_extensions.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:synchronized/synchronized.dart';
 
-/// Provider of [servicesOfJournal] for [Journal].
+/// Controller of List<[ServiceOfJournal]> for [Journal] class.
+///
+/// See [_ControllerOfJournal] for more information.
 ///
 /// {@category Providers}
 /// {@category Journal}
-final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
+final controllerOfJournal = StateNotifierProvider.family<_ControllerOfJournal,
     List<ServiceOfJournal>?, Journal>((ref, journal) {
   ref.watch(archiveDate);
-  final state = ServicesListState(journal);
+  final state = _ControllerOfJournal(journal);
   () async {
     await state.initAsync();
   }();
@@ -24,7 +26,7 @@ final servicesOfJournal = StateNotifierProvider.family<ServicesListState,
 
 final _lockProvider = Provider((ref) => Lock());
 
-/// Repository of [ServiceOfJournal] for [Journal], it:
+/// Controller of List<[ServiceOfJournal]> for [Journal] class, it:
 ///
 /// - post new service,
 /// - delete service,
@@ -34,8 +36,8 @@ final _lockProvider = Provider((ref) => Lock());
 ///
 /// {@category Providers}
 /// {@category Journal}
-class ServicesListState extends StateNotifier<List<ServiceOfJournal>?> {
-  ServicesListState(this.journal) : super(null);
+class _ControllerOfJournal extends StateNotifier<List<ServiceOfJournal>?> {
+  _ControllerOfJournal(this.journal) : super(null);
 
   final Journal journal;
 

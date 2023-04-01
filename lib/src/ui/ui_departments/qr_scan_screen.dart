@@ -25,6 +25,28 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
   Barcode? result;
   QRViewController? controller;
 
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+      if (result != null || result!.code != null) {
+        var newKey = result!.code!;
+        newKey = newKey.startsWith('http://')
+            ? newKey.substring(7, newKey.length)
+            : newKey;
+        if (describeEnum(newKey) == 'qrcode' ||
+            newKey.startsWith('{"app": "AIS-3USON web"')) {
+          controller.pauseCamera();
+          dev.log(newKey);
+        }
+      }
+    });
+  }
+
   // In order to get hot reload to work we need to
   // pause the camera if the platform is android,
   // or resume the camera if the platform is iOS.
@@ -95,7 +117,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                             Colors.blue[900]!,
                           ),
                         ),
-                        onPressed: () async {
+                        onPressed: () => () async {
                           setState(() {
                             result = null;
                           });
@@ -133,8 +155,8 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                                       BlendMode.lighten,
                                     ),
                               child: ElevatedButton(
-                                onPressed: () async {
-                                  await controller?.toggleFlash();
+                                onPressed: () {
+                                  controller?.toggleFlash();
                                   setState(() {
                                     // ignore: unused_local_variable
                                     int doNothing;
@@ -149,7 +171,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                       Container(
                         margin: const EdgeInsets.all(2),
                         child: ElevatedButton(
-                          onPressed: () async {
+                          onPressed: () => () async {
                             await controller?.flipCamera();
                             setState(() {
                               // ignore: unused_local_variable
@@ -189,7 +211,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                       //
                       // > add new worker profile
                       //
-                      onPressed: () async {
+                      onPressed: () => () async {
                         if (result == null) {
                           return;
                         }
@@ -226,33 +248,6 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-      if (result != null || result!.code != null) {
-        var newKey = result!.code!;
-        newKey = newKey.startsWith('http://')
-            ? newKey.substring(7, newKey.length)
-            : newKey;
-        if (describeEnum(newKey) == 'qrcode' ||
-            newKey.startsWith('{"app": "AIS-3USON web"')) {
-          controller.pauseCamera();
-          dev.log(newKey);
-        }
-      }
-    });
-  }
 }
 
 class ShowQrView extends StatelessWidget {
@@ -264,6 +259,17 @@ class ShowQrView extends StatelessWidget {
 
   final GlobalKey qrKey;
   final void Function(QRViewController) onQRViewCreated;
+
+  void _onPermissionSet(BuildContext context, QRViewController _, bool p) {
+    dev.log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(tr().cameraAccessDenied),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -286,16 +292,5 @@ class ShowQrView extends StatelessWidget {
       ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    dev.log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(tr().cameraAccessDenied),
-        ),
-      );
-    }
   }
 }

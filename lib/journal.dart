@@ -8,7 +8,7 @@
 ///
 /// [Journal] class:
 ///
-/// - store services in Hive(via provider [servicesOfJournal]),
+/// - store services in Hive(via provider [controllerOfJournal]),
 /// - make network requests(add/delete),
 /// - change state of [ServiceOfJournal],
 /// - move old `finished` and `outDated` services into [JournalArchive].
@@ -29,9 +29,9 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 
 export 'package:ais3uson_app/src/journal/controller_dates_in_archive.dart';
+export 'package:ais3uson_app/src/journal/controller_of_journal.dart';
 export 'package:ais3uson_app/src/journal/journal.dart';
 export 'package:ais3uson_app/src/journal/journal_archive.dart';
-export 'package:ais3uson_app/src/journal/provider_of_journal.dart';
-export 'package:ais3uson_app/src/journal/repository_of_journal.dart';
+export 'package:ais3uson_app/src/journal/providers_of_journal.dart';
 export 'package:ais3uson_app/src/journal/service_of_journal.dart';
 export 'package:ais3uson_app/src/journal/service_state.dart';

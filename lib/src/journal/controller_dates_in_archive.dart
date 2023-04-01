@@ -41,14 +41,14 @@ final _datesInArchiveInited = FutureProvider((ref) async {
 ///
 /// {@category Providers}
 final datesInArchiveOfProfile =
-    StateNotifierProvider.family<_DatesInArchiveState, List<DateTime>, String>(
+    StateNotifierProvider.family<_ControllerDatesInArchive, List<DateTime>, String>(
   (ref, apiKey) {
-    return _DatesInArchiveState(ref, apiKey);
+    return _ControllerDatesInArchive(ref, apiKey);
   },
 );
 
-class _DatesInArchiveState extends StateNotifier<List<DateTime>> {
-  _DatesInArchiveState(this.ref, this.apiKey) : super([]) {
+class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
+  _ControllerDatesInArchive(this.ref, this.apiKey) : super([]) {
     hiveName = 'allArchiveDates_$apiKey';
     ref.read(hiveDateTimeBox(hiveName)).whenData((data) {
       super.state = <DateTime>{...state, ...data.values}.toList();

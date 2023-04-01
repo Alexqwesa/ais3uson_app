@@ -71,7 +71,7 @@ class _TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
             scale: 1.3,
             child: FloatingActionButton(
               // Provide an onPressed callback.
-              onPressed: () async {
+              onPressed: () => () async {
                 // Take the Picture in a try / catch block. If anything goes wrong,
                 // catch the error.
                 try {

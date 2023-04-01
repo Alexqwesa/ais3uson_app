@@ -741,7 +741,7 @@ packages:
     source: hosted
     version: "1.0.4"
   mockito:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mockito
       sha256: dd61809f04da1838a680926de50a9e87385c1de91c6579629c3d1723946e8059
@@ -781,7 +781,7 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       sha256: db9d4f58c908a4ba5953fcee2ae317c94889433e5024c27ce74a37f94267945b
@@ -821,7 +821,7 @@ packages:
     source: hosted
     version: "2.1.10"
   path_provider_platform_interface:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: path_provider_platform_interface
       sha256: "57585299a729335f1298b43245842678cb9f43a6310351b18fb577d6e33165ec"
@@ -869,7 +869,7 @@ packages:
     source: hosted
     version: "3.1.0"
   plugin_platform_interface:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: plugin_platform_interface
       sha256: "6a2128648c854906c53fa8e33986fc0247a1116122f9534dd20e3ab9e16a32bc"
@@ -1016,10 +1016,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: "78528fd87d0d08ffd3e69551173c026e8eacc7b7079c82eb6a77413957b7e394"
+      sha256: "858aaa72d8f61637d64e776aca82e1c67e6d9ee07979123c5d17115031c1b13b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.20"
+    version: "2.1.0"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -1114,7 +1114,7 @@ packages:
     source: hosted
     version: "1.9.1"
   speech_to_text:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: speech_to_text
       sha256: ff8fbd31d039bdbac6c7ec9f0516d37df2cbea62c45198326d3b64034e6fb920

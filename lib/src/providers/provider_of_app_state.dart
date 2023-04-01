@@ -4,6 +4,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 final stubWorker = WorkerProfile('none', ProviderContainer());
 final stubClient = ClientProfile(
   workerProfile: stubWorker,
@@ -24,18 +25,18 @@ final stubClient = ClientProfile(
 ///
 /// {@category Providers}
 /// {@category App State}
-final lastUsed = Provider<_LastUsed>((ref) {
+final lastUsed = Provider<_ProviderOfAPPState>((ref) {
   // todo: test it
   ref
     ..watch(_lastClientService)
     ..watch(_lastClient)
     ..watch(_lastWorkerProfile);
 
-  return _LastUsed(ref);
+  return _ProviderOfAPPState(ref);
 });
 
-class _LastUsed {
-  _LastUsed(this.ref);
+class _ProviderOfAPPState {
+  _ProviderOfAPPState(this.ref);
 
   final ProviderRef ref;
 
@@ -80,9 +81,9 @@ final isArchive = StateNotifierProvider<_ArchiveState, bool>((ref) {
 });
 
 class _ArchiveState extends StateNotifier<bool> {
-  final Ref ref;
-
   _ArchiveState(this.ref) : super(false);
+
+  final Ref ref;
 
   @override
   set state(bool value) {

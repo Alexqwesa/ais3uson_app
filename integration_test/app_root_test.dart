@@ -14,7 +14,7 @@ Future<void> main() async {
   testWidgets('Main window', (tester) async {
     await app.main();
     await tester.pumpAndSettle();
-    // Verify start screen
+    // Verify start screen.
     expect(find.text('Тестовое отделение 2'), findsNothing);
     expect(find.text('Тестовое отделение'), findsNothing);
     expect(find.text(app.tr().authorizePlease), findsOneWidget);

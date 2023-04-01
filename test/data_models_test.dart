@@ -3,22 +3,26 @@ import 'dart:io';
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show ExtMock, getMockHttpClient;
+    show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'helpers/fake_path_provider_platform.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {
@@ -29,6 +33,7 @@ WorkerKey wKeysData2() {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   //
   // > Setup
   //
@@ -36,7 +41,16 @@ void main() {
     await tearDownTestHive();
   });
   setUpAll(() async {
+    PathProviderPlatform.instance = FakePathProviderPlatform();
+    SharedPreferences.setMockInitialValues({});
     await init();
+    // WidgetsFlutterBinding.ensureInitialized();
+    // DartPluginRegistrant.ensureInitialized();
+
+    // const channel = MethodChannel('plugins.flutter.io/path_provider');
+    // channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    //   return "/tmp/unit_tests";
+    // });
   });
   setUp(() async {
     // set SharedPreferences values
@@ -134,9 +148,9 @@ void main() {
       expect(wp.clientPlan.length, 500);
       final httpClient =
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
-      expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
-      expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
-      expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
     });
 
     test('it always sync old data on load', () async {
@@ -166,9 +180,9 @@ void main() {
       // skip services update
       // await wp.syncHiveServices();
       await wp.syncClients();
-      expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 2);
-      expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 2);
-      expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
+      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 2);
+      expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
     });
 
     test('it create list of clients with list of services', () async {
@@ -191,9 +205,9 @@ void main() {
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       await wp.postInit();
       // test http
-      expect(verify(ExtMock(httpClient).testReqGetClients).callCount, 1);
-      expect(verify(ExtMock(httpClient).testReqGetPlanned).callCount, 1);
-      expect(verify(ExtMock(httpClient).testReqGetServices).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
       // test profile
       expect(wp.clients.length, 10);
       expect(wp.clients.first.contractId, 1);
@@ -220,6 +234,7 @@ void main() {
       // > init workerProfile
       //
       ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
       //
@@ -272,6 +287,12 @@ void main() {
       dstFile.deleteSync(); // todo: delete folder too (if empty)
     });
 
+    // path_provider didn't work in tests anymore
+    test('it can access filesystem', () async {
+      final dir = await getSafePath([""]);
+      expect(dir, isNot(null));
+    });
+
     test('it can found proof files', () async {
       //
       // > prepare ProviderContainer + httpClient
@@ -290,9 +311,12 @@ void main() {
       final wp = ref.read(workerProfiles).first;
       ref.read(archiveDate.notifier).state = DateTime(2022, 3);
       await wp.postInit();
+
+      if (kIsWeb) return; // todo:
       //
       // > create dir for proof
       //
+
       final appDocDir = Directory(
         path.join(
           (await getApplicationDocumentsDirectory()).path,

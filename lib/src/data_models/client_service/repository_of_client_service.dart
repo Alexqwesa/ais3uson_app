@@ -1,5 +1,5 @@
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/date_time_extensions.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';
@@ -22,13 +22,13 @@ final addAllowedOfService = Provider.family<bool, ClientService>((ref, cs) {
 
 /// Provider of groups of [ServiceOfJournal] sorted by [ServiceState].
 ///
-/// Depend on [servicesOfJournal].
+/// Depend on [controllerOfJournal].
 /// {@category Providers}
 final groupsOfJournal =
     Provider.family<Map<ServiceState, List<ServiceOfJournal>>, Journal>(
   (ref, journal) {
     return groupBy<ServiceOfJournal, ServiceState>(
-      ref.watch(servicesOfJournal(journal))!,
+      ref.watch(controllerOfJournal(journal))!,
       (e) => e.state,
     );
   },
@@ -58,23 +58,22 @@ final doneStaleErrorOf =
 
 /// Provider of groups of [ServiceOfJournal] sorted by [ServiceState].
 ///
-/// Depend on [servicesOfJournal].
+/// Depend on [controllerOfJournal].
 /// {@category Providers}
 final _groupsOfJournalAtDate = Provider.family<
     Map<ServiceState, List<ServiceOfJournal>>, Tuple2<Journal, DateTime?>>(
   (ref, tuple) {
     final journal = tuple.item1;
     final date = tuple.item2;
+    final journalServices = ref.watch(controllerOfJournal(journal))!;
 
     return date == null // do date check or not
         ? groupBy<ServiceOfJournal, ServiceState>(
-            ref.watch(servicesOfJournal(journal))!,
+            journalServices,
             (e) => e.state,
           )
         : groupBy<ServiceOfJournal, ServiceState>(
-            ref
-                .watch(servicesOfJournal(journal))!
-                .where((e) => e.provDate.dateOnly() == date),
+            journalServices.where((e) => e.provDate.dateOnly() == date),
             (e) => e.state,
           );
   },
@@ -120,9 +119,10 @@ final _addedOfService = Provider.family<int, ClientService>((ref, cs) {
 ///
 /// {@category Providers}
 final _doneOfService = Provider.family<int, ClientService>((ref, cs) {
-  return (ref.watch(_groupsOfService(cs))?[ServiceState.finished]?.length ??
-          0) +
-      (ref.watch(_groupsOfService(cs))?[ServiceState.outDated]?.length ?? 0);
+  final serviceGroup = ref.watch(_groupsOfService(cs));
+
+  return (serviceGroup?[ServiceState.finished]?.length ?? 0) +
+      (serviceGroup?[ServiceState.outDated]?.length ?? 0);
 });
 
 /// Provider helper for [ClientService].
@@ -148,7 +148,9 @@ final _leftOfService = Provider.family<int, ClientService>((ref, cs) {
 ///
 /// {@category Providers}
 final _isTodayOfService = Provider.family<bool, ClientService>((ref, cs) {
+  final archive = ref.watch(isArchive);
+
   return !(cs.date != null &&
-      (ref.watch(isArchive) && (cs.date != ref.watch(archiveDate)) ||
-          (!ref.watch(isArchive) && cs.date != DateTimeExtensions.today())));
+      (archive && (cs.date != ref.watch(archiveDate)) ||
+          (!archive && cs.date != DateTimeExtensions.today())));
 });

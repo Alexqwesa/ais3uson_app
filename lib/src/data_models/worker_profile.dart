@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -74,9 +74,9 @@ class WorkerProfile {
   /// - read `clients`, [clientPlan] and [services] from hive if empty.
   Future<void> postInit() async {
     await ref.read(journalOfWorker(this)).postInit();
-    await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
-    await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
-    await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();
+    await ref.read(repositoryOfHttpData(apiUrlClients).notifier).syncHiveHttp();
+    await ref.read(repositoryOfHttpData(apiUrlServices).notifier).syncHiveHttp();
+    await ref.read(repositoryOfHttpData(apiUrlPlan).notifier).syncHiveHttp();
   }
 
   /// Synchronize services for [WorkerProfile.services].
@@ -88,15 +88,15 @@ class WorkerProfile {
   /// This function also called from [checkAllServicesExist], if there is a
   /// [clientPlan] with wrong [ClientPlan.servId].
   Future<void> syncServices() async {
-    await ref.read(httpDataProvider(apiUrlServices).notifier).getHttpData();
+    await ref.read(repositoryOfHttpData(apiUrlServices).notifier).getHttpData();
   }
 
   Future<void> syncClients() async {
-    await ref.read(httpDataProvider(apiUrlClients).notifier).getHttpData();
+    await ref.read(repositoryOfHttpData(apiUrlClients).notifier).getHttpData();
   }
 
   Future<void> syncPlanned() async {
-    await ref.read(httpDataProvider(apiUrlPlan).notifier).getHttpData();
+    await ref.read(repositoryOfHttpData(apiUrlPlan).notifier).getHttpData();
   }
 
   /// This should only be called if there is inconsistency:

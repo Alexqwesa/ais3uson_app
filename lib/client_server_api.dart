@@ -11,7 +11,7 @@
 /// are used to convert server responses from Json strings to dart classes.
 /// Mostly freezed.
 ///
-/// First [httpDataProvider] get data
+/// First [repositoryOfHttpData] get data
 /// from server and convert to Json. Then it is converted to classes and assigned to providers of
 /// family [WorkerProfile].
 ///

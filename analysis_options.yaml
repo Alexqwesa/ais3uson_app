@@ -61,13 +61,22 @@ dart_code_metrics:
   metrics-exclude:
     - test/**
   rules:
+    - format-comment:
+#        only-doc-comments: true
+        ignored-patterns:
+          - ^ *
+    - prefer-moving-to-variable:
+        allowed-duplicated-chains: 3
+    - prefer-match-file-name:
+        exclude:
+          - lib/**/*helper.dart
     - newline-before-return
     - no-boolean-literal-compare
     - no-empty-block
     - prefer-trailing-comma
     - prefer-conditional-expressions
     - no-equal-then-else
-    - member-ordering-extended:
+    - member-ordering:
         alphabetize: false
         order:
           - constructors
