@@ -60,7 +60,7 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">buildHttpFuture</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="buildHttpFuture-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<span class="name ">buildHttpFuture</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="buildHttpFuture-param-_"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">_</span>, </span></li>
 <li><span class="parameter" id="buildHttpFuture-param-snapshot"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/AsyncSnapshot-class.html">AsyncSnapshot</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/http/0.13.5/http/Response-class.html">Response</a></span>&gt;</span></span> <span class="parameter-name">snapshot</span></span></li>
 </ol>)
 
@@ -78,10 +78,11 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">&#47;&#47; ignore:long-method
 Widget buildHttpFuture(
-  BuildContext context,
+  BuildContext _,
   AsyncSnapshot&lt;http.Response&gt; snapshot,
 ) {
-  List&lt;Widget&gt; children;
+  final List&lt;Widget&gt; children;
+
   if (snapshot.hasData) {
     children = &lt;Widget&gt;[
       &#47;&#47; FractionallySizedBox(

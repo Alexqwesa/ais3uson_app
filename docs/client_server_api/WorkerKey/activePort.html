@@ -75,8 +75,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">String get activePort {
   var port = &#39;80&#39;;
-  if (activeServer.split(&#39;:&#39;).length &gt; 2) {
-    port = activeServer.split(&#39;:&#39;)[2];
+  final splitUrl = activeServer.split(&#39;:&#39;);
+  if (splitUrl.length &gt; 2) {
+    port = splitUrl[2];
     port = port.contains(&#39;&#47;&#39;) ? port.substring(0, port.indexOf(&#39;&#47;&#39;)) : port;
   }
 

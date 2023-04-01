@@ -80,7 +80,7 @@ we should check: is it really necessary, i.e. is <a href="../../data_models/Work
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncServices() async {
-  await ref.read(httpDataProvider(apiUrlServices).notifier).getHttpData();
+  await ref.read(repositoryOfHttpData(apiUrlServices).notifier).getHttpData();
 }</code></pre>
 </section>
 

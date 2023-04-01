@@ -115,11 +115,9 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  var columnWidth = MediaQuery.of(context).size.width;
-  columnWidth = MediaQuery.of(context).size.width &lt;
-          1 * MediaQuery.of(context).size.height
-      ? columnWidth
-      : columnWidth &#47; 2;
+  final size = MediaQuery.of(context).size;
+  final columnWidth =
+      (size.width &lt; size.height * 1) ? size.width : size.width &#47; 2;
   final newWorkerKeys =
       mapJsonDecode(qrCodes).map(WorkerKey.fromJson).toList(growable: false);
 
@@ -160,7 +158,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                           child: Text(
                             tr().putDepTextField,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                             softWrap: true,
                           ),
                         ),
@@ -217,7 +215,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                     child: Text(
                       tr().orTestDepList,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ),

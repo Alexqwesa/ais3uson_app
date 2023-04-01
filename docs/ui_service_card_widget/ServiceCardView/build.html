@@ -119,7 +119,7 @@ Widget build(BuildContext context, WidgetRef ref) {
   final service = ref.watch(currentService);
 
   return SizedBox.fromSize(
-    size: ref.watch(serviceCardSize(Tuple2(parentSize, tileType))),
+    size: ref.watch(tileSize(Tuple2(parentSize, tileType))),
     child: FittedBox(
       child: SizedBox(
         width: 205,
@@ -169,7 +169,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                                   textScaleFactor: 1.1,
                                   textAlign: TextAlign.center,
                                   style:
-                                      Theme.of(context).textTheme.bodyText1,
+                                      Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                               Padding(

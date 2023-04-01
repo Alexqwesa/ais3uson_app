@@ -117,12 +117,12 @@ and</li>
 Widget build(BuildContext context, WidgetRef ref) {
   final parentSize = ref.watch(currentServiceContainerSize);
   final service = ref.watch(currentService);
-  final tileType = ref.watch(tileTypeProvider);
+  final tileView = ref.watch(tileType);
   &#47;&#47; ignore: no_leading_underscores_for_local_identifiers
   final _ = ref.watch(archiveDate); &#47;&#47; in case of date change
   final activeViewOfCard =
       ref.watch(addAllowedOfService(service)) || ref.watch(isArchive);
-  final size = ref.watch(serviceCardSize(Tuple2(parentSize, tileType)));
+  final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
 
   return AnimatedSize(
     &#47;&#47; todo: don&#39;t show border during animation
@@ -147,7 +147,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: service.add,
+              onTap: () =&gt; service.add,
               child: Container(),
             ),
           ),

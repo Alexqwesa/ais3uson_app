@@ -129,7 +129,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () async {
+            onPressed: () =&gt; () async {
               await workerProfile.syncClients();
             },
           ),
@@ -155,7 +155,7 @@ Widget build(BuildContext context, WidgetRef ref) {
             child: Text(
               tr().emptyListOfPeople,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
   );

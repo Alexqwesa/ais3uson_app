@@ -81,9 +81,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; postInit() async {
   await ref.read(journalOfWorker(this)).postInit();
-  await ref.read(httpDataProvider(apiUrlClients).notifier).syncHiveHttp();
-  await ref.read(httpDataProvider(apiUrlServices).notifier).syncHiveHttp();
-  await ref.read(httpDataProvider(apiUrlPlan).notifier).syncHiveHttp();
+  await ref.read(repositoryOfHttpData(apiUrlClients).notifier).syncHiveHttp();
+  await ref.read(repositoryOfHttpData(apiUrlServices).notifier).syncHiveHttp();
+  await ref.read(repositoryOfHttpData(apiUrlPlan).notifier).syncHiveHttp();
 }</code></pre>
 </section>
 

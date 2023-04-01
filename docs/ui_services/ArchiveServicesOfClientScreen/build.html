@@ -128,7 +128,7 @@ Widget build(BuildContext context, WidgetRef ref) {
         ? Center(
             child: Text(
               tr().emptyListOfServices,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           )
         : SingleChildScrollView(
@@ -138,7 +138,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   for (final serviceDayGroup
                       in allByGroups.entries.map((e) =&gt; e.value))
                     SizedBox(
-                      width: tileSize + 32,
+                      width: _tileSize + 32,
                       child: Card(
                         margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
                         child: ListView(

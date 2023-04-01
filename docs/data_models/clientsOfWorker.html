@@ -77,10 +77,10 @@ Return List&lt;<a href="../data_models/ClientProfile-class.html">ClientProfile</
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final clientsOfWorker = Provider.family&lt;List&lt;ClientProfile&gt;, WorkerProfile&gt;(
   (ref, wp) {
-    ref.watch(httpDataProvider(wp.apiUrlClients).notifier).syncHiveHttp();
+    ref.watch(repositoryOfHttpData(wp.apiUrlClients).notifier).syncHiveHttp();
 
     return ref
-        .watch(httpDataProvider(wp.apiUrlClients))
+        .watch(repositoryOfHttpData(wp.apiUrlClients))
         .map&lt;ClientEntry&gt;(ClientEntry.fromJson)
         .map((el) =&gt; ClientProfile(workerProfile: wp, entry: el))
         .toList(growable: false);
@@ -137,8 +137,6 @@ Return List&lt;<a href="../data_models/ClientProfile-class.html">ClientProfile</
         <li><a href="../data_models/workerProfiles.html">workerProfiles</a></li>
 
 
-      <li class="section-title"><a href="../data_models/data_models-library.html#enums">Enums</a></li>
-        <li><a href="../data_models/RecorderState.html">RecorderState</a></li>
 
 
 </ol>

@@ -120,7 +120,7 @@ Widget build(BuildContext context, WidgetRef ref) {
   return FittedBox(
     fit: BoxFit.fitHeight,
     child: IconButton(
-      onPressed: allowed ? service.add : null,
+      onPressed: () =&gt; () async =&gt; allowed ? service.add : null,
       icon: Transform.scale(
         scale: 2.5,
         child: Icon(

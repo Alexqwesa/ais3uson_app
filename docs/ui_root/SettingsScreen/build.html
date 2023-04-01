@@ -137,11 +137,11 @@ Widget build(BuildContext context, WidgetRef ref) {
                     FilteringTextInputFormatter.allow(RegExp(r&#39;[0-9]{1,4}$&#39;)),
                   ],
                   controller: TextEditingController(
-                    text: ref.read(hiveArchiveLimit).toString(),
+                    text: ref.read(hiveArchiveSize).toString(),
                   ),
                   &#47;&#47; hintText:,
                   onChanged: (value) {
-                    ref.read(hiveArchiveLimit.notifier).state =
+                    ref.read(hiveArchiveSize.notifier).state =
                         int.parse(value);
                   },
                 ),
