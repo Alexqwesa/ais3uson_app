@@ -243,7 +243,7 @@ class Journal {
     final http = workerProfile.ref
         .read(httpClientProvider(workerProfile.key.certBase64));
     var ret = ServiceState.added;
-    final fullHeaders = {'api_key': apiKey}..addAll(httpHeaders);
+    final fullHeaders = {'api-key': apiKey}..addAll(httpHeaders);
     try {
       Response response;
 
@@ -420,12 +420,13 @@ class Journal {
     await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
     final hiveArchive =
         ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-    ref.read(datesInArchiveOfProfile(apiKey).notifier).state = hiveArchive
+    final dates = ref.read(datesInArchiveOfProfile(apiKey).notifier);
+    dates.state = hiveArchive
         .values
         .map((element) => element.provDate)
         .map((e) => DateTime(e.year, e.month, e.day))
         .toList();
-    await ref.read(datesInArchiveOfProfile(apiKey).notifier).save();
+    await dates.save();
   }
 
   /// Helper, only used in [ClientService], it delete last [ServiceOfJournal].

@@ -52,7 +52,7 @@ class _HttpDataState extends StateNotifier<List<Map<String, dynamic>>> {
   Map<String, String> get headers => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'api_key': apiKey,
+        'api-key': apiKey,
       };
 
   /// Force get new data from http.
