@@ -39,8 +39,11 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
@@ -50,10 +53,9 @@
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-function">main</span> function 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category about cp-0 linked" title="This is part of the About Topic."><a href="../topics/About-topic.html">About</a></span>
-    <span class="category ui-root cp-9" title="This is part of the UI Root Topic.">UI&nbsp;Root</span>
+    <span class="category about cp-0 linked" title="This is part of the About topic."><a href="../topics/About-topic.html">About</a></span>
+    <span class="category ui-root cp-9" title="This is part of the UI Root topic.">UI&nbsp;Root</span>
 </h1></div>
 
     <section class="multi-line-signature">
@@ -62,11 +64,13 @@
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">main</span>(<wbr>)
 
+        
+
     </section>
     
 <section class="desc markdown">
   <p>Init application, init <a href="https://pub.dev/documentation/hive/2.2.3/hive/Hive.html">Hive</a>.</p>
-<p>Create <a href="https://pub.dev/documentation/overlay_support/2.0.1/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../ui_root/AppRoot-class.html">AppRoot</a>.</p>
+<p>Create <a href="https://pub.dev/documentation/overlay_support/2.1.0/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../ui_root/AppRoot-class.html">AppRoot</a>.</p>
 </section>
 
 
@@ -76,6 +80,12 @@
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  if (!kIsWeb) {
+    final data =
+        await PlatformAssetBundle().load(&#39;assets&#47;ca&#47;lets-encrypt-r3.pem&#39;);
+    SecurityContext.defaultContext
+        .setTrustedCertificatesBytes(data.buffer.asUint8List());
+  }
   &#47;&#47; setPathUrlStrategy();
   await init();
   &#47;&#47;
@@ -142,7 +152,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+17
+      1.0.1+22
   </span>
 
   

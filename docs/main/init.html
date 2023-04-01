@@ -39,8 +39,11 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
@@ -50,9 +53,8 @@
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-function">init</span> function 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category ui-root cp-9" title="This is part of the UI Root Topic.">UI&nbsp;Root</span>
+    <span class="category ui-root cp-9" title="This is part of the UI Root topic.">UI&nbsp;Root</span>
 </h1></div>
 
     <section class="multi-line-signature">
@@ -60,6 +62,8 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">init</span>(<wbr>)
+
+        
 
     </section>
     
@@ -96,7 +100,7 @@
       );
     &#47;&#47; ignore: avoid_catching_errors
   } on HiveError catch (e) {
-    dev.log(e.toString());
+    log.severe(e.toString());
   }
   &#47;&#47;
   &#47;&#47; &gt; locator
@@ -159,7 +163,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+17
+      1.0.1+22
   </span>
 
   

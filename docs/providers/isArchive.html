@@ -39,8 +39,11 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
@@ -50,14 +53,14 @@
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-top-level-property">isArchive</span> top-level property 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
-    <span class="category app-state cp-1" title="This is part of the App State Topic.">App&nbsp;State</span>
-    <span class="category providers cp-7" title="This is part of the Providers Topic.">Providers</span>
+    <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
+    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://pub.dev/documentation/riverpod/2.0.0-dev.9/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ArchiveState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span>
+          
+          <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ArchiveState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span>
           <span class="name ">isArchive</span>
           <div class="features"><span class="feature">final</span></div>
 
@@ -75,7 +78,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">&#47;&#47; Todo: only use archiveDate?
 final isArchive = StateNotifierProvider&lt;_ArchiveState, bool&gt;((ref) {
-  return _ArchiveState(ref.read);
+  return _ArchiveState(ref);
 });</code></pre>
 </section>
 
@@ -138,7 +141,7 @@ final isArchive = StateNotifierProvider&lt;_ArchiveState, bool&gt;((ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+17
+      1.0.1+22
   </span>
 
   
