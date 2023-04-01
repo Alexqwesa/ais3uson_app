@@ -1,4 +1,4 @@
-/// # ui_root - Top level GUI classes
+/// # Top level GUI classes
 ///
 /// These classes provide GUI for:
 ///

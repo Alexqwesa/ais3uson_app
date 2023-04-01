@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
@@ -22,6 +22,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/fake_data.dart';
 import 'helpers/fake_path_provider_platform.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
@@ -289,7 +290,7 @@ void main() {
 
     // path_provider didn't work in tests anymore
     test('it can access filesystem', () async {
-      final dir = await getSafePath([""]);
+      final dir = await getSafePath(['']);
       expect(dir, isNot(null));
     });
 

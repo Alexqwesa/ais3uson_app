@@ -30,9 +30,11 @@ rm -rf docs/*
 cp -a doc/api/* docs/
 rm -f docs/source_client_server_api_service_entry/ServiceEntry/tNum.html  # remove duplicate
 
+echo "Generation of documentation is complete"
 # open generated docs in browser
 if [ `echo $DISPLAY`  ==  '' ] ; then
-  exit 1
+  echo "No DISPLAY found - exiting"
+  exit 0
 fi
-dhttpd --path doc/api &
+dart pub global run dhttpd --path doc/api &
 xdg-open  http://localhost:8080 &

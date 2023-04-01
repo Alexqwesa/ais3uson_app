@@ -18,7 +18,7 @@ class TakeProofPictureScreen extends StatefulWidget {
   final CameraDescription camera;
 
   @override
-  _TakeProofPictureScreenState createState() => _TakeProofPictureScreenState();
+  State<TakeProofPictureScreen> createState() => _TakeProofPictureScreenState();
 }
 
 class _TakeProofPictureScreenState extends State<TakeProofPictureScreen> {

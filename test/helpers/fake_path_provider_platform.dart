@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/client_server_api.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+import 'fake_data.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {

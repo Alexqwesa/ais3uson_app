@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
-import 'package:ais3uson_app/ui_service_card_widget.dart';
+import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

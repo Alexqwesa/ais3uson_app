@@ -1,4 +1,4 @@
-/// # ui_proofs
+/// # Display Proofs of service and related widgets (create proof, etc...)
 ///
 library ui_proofs;
 

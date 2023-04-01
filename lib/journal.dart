@@ -1,4 +1,4 @@
-/// # journal classes
+/// # The [Journal] class itself and related classes.
 ///
 /// There are two classes [Journal] and [JournalArchive].
 ///

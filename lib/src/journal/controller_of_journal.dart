@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ais3uson_app/helpers/date_time_extensions.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';

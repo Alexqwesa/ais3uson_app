@@ -20,7 +20,7 @@
 /// Also [ServiceOfJournal] managed separately by the class [Journal], that is part of [WorkerProfile].
 ///
 /// The [WorkerProfile], [ClientProfile], [ClientService] classes provide data that they got from classes in
-/// category [Client-Server API].
+/// category [Client-Server API](https://alexqwesa.github.io/ais3uson_app/client_server_api/client_server_api-library.html).
 ///
 /// The [Proofs] class collect data from filesystem and make lists of [ProofEntry]s.
 /// It also has methods for creating new [ProofEntry]s.
@@ -37,6 +37,7 @@ export 'package:ais3uson_app/src/data_models/proofs/controller_groups_of_proof.d
 export 'package:ais3uson_app/src/data_models/proofs/controller_of_proof_recorder.dart';
 export 'package:ais3uson_app/src/data_models/proofs/proofs.dart';
 export 'package:ais3uson_app/src/data_models/proofs/provider_of_audioplayer.dart';
+export 'package:ais3uson_app/src/data_models/proofs/recorder_state.dart';
 export 'package:ais3uson_app/src/data_models/providers_for_worker_profile.dart';
 export 'package:ais3uson_app/src/data_models/services_of_client.dart';
 export 'package:ais3uson_app/src/data_models/worker_profile.dart';

@@ -1,8 +1,7 @@
 // ignore_for_file: unnecessary_import
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/date_time_extensions.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -77,8 +76,8 @@ final _servProofAtDate =
 /// Store list of ProofEntry for [Proofs] (for [ClientService]).
 ///
 /// {@category Providers}
-final groupsOfProof =
-    StateNotifierProvider.family<_ControllerGroupsOfProof, List<ProofEntry>, Proofs>(
+final groupsOfProof = StateNotifierProvider.family<_ControllerGroupsOfProof,
+    List<ProofEntry>, Proofs>(
   (ref, proofList) {
     proofList.crawler();
 

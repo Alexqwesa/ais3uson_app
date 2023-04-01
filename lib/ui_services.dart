@@ -1,4 +1,4 @@
-/// # ui_services - Classes to display service related data
+/// # Classes to display services and related data
 ///
 /// There are two screens to display services:
 ///
@@ -22,8 +22,8 @@ library ui_services;
 
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/ui_service_card_widget.dart';
+import 'package:ais3uson_app/settings.dart';
+import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:ais3uson_app/ui_services.dart';
 
 export 'package:ais3uson_app/src/ui/ui_services/archive_services_of_client_screen.dart';

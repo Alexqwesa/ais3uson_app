@@ -1,4 +1,6 @@
 dartdoc:
+  exclude:
+    - generated_plugin_registrant
   categories:
     'About':
       name: About

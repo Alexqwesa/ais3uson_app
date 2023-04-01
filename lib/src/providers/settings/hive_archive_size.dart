@@ -11,14 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// {@category Providers}
 /// {@category UI Settings}
-final hiveArchiveSize =
-    StateNotifierProvider<_HiveArchiveSize, int>((ref) {
+/// {@category Journal}
+final hiveArchiveSize = StateNotifierProvider<_HiveArchiveSize, int>((ref) {
   return _HiveArchiveSize();
 });
 
 class _HiveArchiveSize extends StateNotifier<int> {
-  _HiveArchiveSize()
-      : super(locator<SharedPreferences>().getInt(name) ?? 3000);
+  _HiveArchiveSize() : super(locator<SharedPreferences>().getInt(name) ?? 3000);
 
   static const name = 'HiveArchiveLimitState';
 

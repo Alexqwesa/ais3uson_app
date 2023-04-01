@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 // ignore_for_file: unnecessary_import
 
 import 'package:ais3uson_app/main.dart';

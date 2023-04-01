@@ -1,8 +1,6 @@
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/providers/settings/hive_archive_size.dart';
-import 'package:ais3uson_app/src/providers/settings/tile_magnification.dart';
-import 'package:ais3uson_app/ui_service_card_widget.dart';
+import 'package:ais3uson_app/settings.dart';
+import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

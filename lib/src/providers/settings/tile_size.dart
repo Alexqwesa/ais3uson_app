@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:ais3uson_app/src/providers/settings/tile_magnification.dart';
+import 'package:ais3uson_app/src/providers/settings/tile_type.dart';
+import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
-/// Calculate size of ServiceCard based on parentSize and tileType.
+/// Calculate size of [ServiceCard] based on parentSize and [tileType].
 ///
 /// {@category Providers}
 /// {@category UI Settings}

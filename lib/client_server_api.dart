@@ -13,7 +13,11 @@
 ///
 /// First [repositoryOfHttpData] get data
 /// from server and convert to Json. Then it is converted to classes and assigned to providers of
-/// family [WorkerProfile].
+/// [WorkerProfile].
+///
+/// Detailed API online at [https://alexqwesa.fvds.ru:48080/docs](https://alexqwesa.fvds.ru:48080/docs)
+///  (usually it works from 02:00 to 16:00 GMT - didn't send it to cloud yet...) ,
+///  test api-key is '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c'
 ///
 /// ## Output API
 ///
@@ -31,7 +35,7 @@
 /// {
 /// "Content-type": "application/json",
 /// "Accept": "application/json",
-/// "api_key": "your real key will be here"
+/// "api-key": "your real key will be here"
 /// }
 /// ```
 ///

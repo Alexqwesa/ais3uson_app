@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/providers/settings/hive_archive_size.dart';
+import 'package:ais3uson_app/settings.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +22,7 @@ import 'package:universal_html/html.dart' as html;
 /// This is a main repository for services (in various states),
 /// it is member of [WorkerProfile] class.
 ///
-/// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/journal/journal.png)
+/// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/src/journal/journal.png
 ///
 /// {@category Journal}
 /// {@category Client-Server API}
@@ -133,7 +133,7 @@ class Journal {
       } else {
         File(filePath).writeAsStringSync(content);
         try {
-          await Share.shareFiles([filePath]);
+          await Share.shareXFiles([XFile(filePath)]);
           // ignore: avoid_catching_errors
         } on UnimplementedError {
           showNotification(
@@ -410,7 +410,7 @@ class Journal {
       // > update datesInArchive
       //
       await updateDatesInArchiveOfProfile();
-    } else if (ref.read(datesInArchiveOfProfile(apiKey)).isEmpty) {
+    } else if (ref.read(controllerDatesInArchive(apiKey)).isEmpty) {
       await updateDatesInArchiveOfProfile();
     }
   }
@@ -419,12 +419,10 @@ class Journal {
     await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
     final hiveArchive =
         ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-    final dates = ref.read(datesInArchiveOfProfile(apiKey).notifier)
-      ..state = hiveArchive.values
-          .map((element) => element.provDate)
-          .map((e) => DateTime(e.year, e.month, e.day))
-          .toList();
-    await dates.save();
+
+    await ref
+        .read(controllerDatesInArchive(apiKey).notifier)
+        .updateFrom(hiveArchive.values);
   }
 
   /// Helper, only used in [ClientService], it delete last [ServiceOfJournal].

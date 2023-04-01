@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';

@@ -1,6 +1,5 @@
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
-import 'package:ais3uson_app/src/data_models/proofs/recorder_state.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;

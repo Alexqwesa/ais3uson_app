@@ -3,7 +3,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';

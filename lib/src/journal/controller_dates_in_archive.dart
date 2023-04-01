@@ -1,9 +1,10 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/journal/service_of_journal.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Controller for list of dates at which there are exist archived services
-/// (aggregate from [datesInArchiveOfProfile]).
+/// (aggregate from [controllerDatesInArchive]).
 ///
 /// {@category Providers}
 /// {@category Controllers}
@@ -12,14 +13,14 @@ final datesInArchiveController = Provider<_DateListController>((ref) {
 });
 
 /// Dates at which there are exist archived services (aggregate from
-/// [datesInArchiveOfProfile]).
+/// [controllerDatesInArchive]).
 ///
 /// {@category Providers}
 final datesInArchive = Provider<List<DateTime>>((ref) {
   return <DateTime>{
     ...ref
         .watch(workerProfiles)
-        .map((e) => ref.watch(datesInArchiveOfProfile(e.apiKey)))
+        .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
         .reduce((value, element) => value.addAll(element) as List<DateTime>),
   }.toList();
 });
@@ -27,12 +28,12 @@ final datesInArchive = Provider<List<DateTime>>((ref) {
 final _datesInArchiveInited = FutureProvider((ref) async {
   await Future.wait([
     ...ref.watch(workerProfiles).map((e) async =>
-        ref.watch(datesInArchiveOfProfile(e.apiKey).notifier).inited()),
+        ref.watch(controllerDatesInArchive(e.apiKey).notifier).inited()),
   ]);
 
   return ref
       .watch(workerProfiles)
-      .map((e) => ref.watch(datesInArchiveOfProfile(e.apiKey)))
+      .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
       .reduce((value, element) => value.addAll(element) as List<DateTime>);
 });
 
@@ -40,8 +41,8 @@ final _datesInArchiveInited = FutureProvider((ref) async {
 /// Depend on [hiveDateTimeBox] ('allArchiveDates').
 ///
 /// {@category Providers}
-final datesInArchiveOfProfile =
-    StateNotifierProvider.family<_ControllerDatesInArchive, List<DateTime>, String>(
+final controllerDatesInArchive = StateNotifierProvider.family<
+    _ControllerDatesInArchive, List<DateTime>, String>(
   (ref, apiKey) {
     return _ControllerDatesInArchive(ref, apiKey);
   },
@@ -65,6 +66,14 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
     // log.info(state);
 
     return state;
+  }
+
+  Future<void> updateFrom(Iterable<ServiceOfJournal> newDates) async {
+    state = newDates
+        .map((element) => element.provDate)
+        .map((e) => DateTime(e.year, e.month, e.day))
+        .toList();
+    await save();
   }
 
   /// Future for await save.
@@ -96,7 +105,7 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
 }
 
 /// Controller for list of dates at which there are exist archived services
-/// (aggregate from [datesInArchiveOfProfile]).
+/// (aggregate from [controllerDatesInArchive]).
 ///
 /// Hidden, to get reference use [datesInArchiveController] provider.
 ///
@@ -110,7 +119,7 @@ class _DateListController {
 
   Future<void> save() async {
     await Future.wait(ref.read(workerProfiles).map(
-          (e) => ref.read(datesInArchiveOfProfile(e.apiKey).notifier).save(),
+          (e) => ref.read(controllerDatesInArchive(e.apiKey).notifier).save(),
         ));
   }
 
@@ -129,7 +138,7 @@ class _DateListController {
   List<DateTime> get dates => <DateTime>{
         ...ref
             .read(workerProfiles)
-            .map((e) => ref.read(datesInArchiveOfProfile(e.apiKey)))
+            .map((e) => ref.read(controllerDatesInArchive(e.apiKey)))
             .reduce(
               (value, element) => value.addAll(element) as List<DateTime>,
             ),

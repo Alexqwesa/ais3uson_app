@@ -1,11 +1,9 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/helpers/date_time_extensions.dart';
-import 'package:ais3uson_app/helpers/global_helpers.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/src/data_models/proofs/recorder_state.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -146,7 +144,7 @@ class AudioProofController extends ConsumerWidget {
                 if (audioProof != null) {
                   final filePath = audioProof;
                   try {
-                    await Share.shareFiles([filePath]);
+                    await Share.shareXFiles([XFile(filePath)]);
                     // ignore: avoid_catching_errors
                   } on UnimplementedError {
                     showNotification(
