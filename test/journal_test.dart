@@ -3,7 +3,7 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
@@ -18,6 +18,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
+import 'helpers/worker_profile_post_init.dart';
 
 void main() {
   //

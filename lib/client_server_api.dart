@@ -11,8 +11,8 @@
 /// are used to convert server responses from Json strings to dart classes.
 /// Mostly freezed.
 ///
-/// First [repositoryOfHttpData] get data
-/// from server and convert to Json. Then it is converted to classes and assigned to providers of
+/// First [repositoryHttp] get data from server and store it into hive
+/// then it is converted to Json. Then it is converted to classes and assigned to providers of
 /// [WorkerProfile].
 ///
 /// Detailed API online at [https://alexqwesa.fvds.ru:48080/docs](https://alexqwesa.fvds.ru:48080/docs)
@@ -53,7 +53,7 @@ library client_server_api;
 import 'package:ais3uson_app/client_server_api.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

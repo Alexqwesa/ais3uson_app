@@ -1,6 +1,6 @@
+import 'package:ais3uson_app/data_entities.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
 
 /// This class is for showing archived services at date [archiveDate].
 ///
@@ -66,15 +66,4 @@ class JournalArchive extends Journal {
 // Future<ServiceState?> _commitUrl(String urlAddress, {String? body}) async {
 //   return null; // stub
 // }
-}
-
-/// Journal with all archived dates.
-///
-/// {@category Journal}
-class JournalArchiveAll extends JournalArchive {
-  JournalArchiveAll(WorkerProfile wp) : super(wp);
-
-  /// If aData null - load all values.
-  @override
-  DateTime? get aData => null;
 }

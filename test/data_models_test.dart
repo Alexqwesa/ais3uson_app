@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ais3uson_app/client_server_api.dart';
+import 'package:ais3uson_app/data_entities.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
@@ -24,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_data.dart';
 import 'helpers/fake_path_provider_platform.dart';
+import 'helpers/worker_profile_post_init.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {

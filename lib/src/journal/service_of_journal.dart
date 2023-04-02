@@ -9,7 +9,7 @@ part 'service_of_journal.g.dart';
 
 /// This class is used to store one entry of [Journal] (one input service).
 ///
-/// It should be inited with state [ServiceState.added], and
+/// It should be initialized with state [ServiceState.added], and
 ///  with current date and unique uuid.
 ///
 /// [Journal] send services in state [ServiceState.added] to DB, then move them
@@ -17,6 +17,15 @@ part 'service_of_journal.g.dart';
 ///
 /// Services in state [ServiceState.finished] or [ServiceState.outDated] send to
 /// [Journal.hiveArchive] on next day.
+///
+///
+/// Usual life of [ServiceOfJournal] and it's states are:
+///
+/// | Created | Sent to DB | Next day                | Deleted              |
+/// |---------|------------|-------------------------|----------------------|
+/// | `added` | `finished` | `outDated` and archived | when archive is full |
+/// | `added` | `rejected` | never archived          | deleted by user      |
+///
 ///
 // ignore: comment_references
 /// [ServiceOfJournal.toJson] is used to export services into file .ais_json .

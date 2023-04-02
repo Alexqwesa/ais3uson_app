@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';
@@ -100,7 +100,6 @@ Future<void> main() async {
   // > hive init
   //
   await Hive.initFlutter('Ais3uson');
-  // unawaited(locator<AppData>().postInit());
   final testClient = (jsonDecode(qrData2WithLocalCache)
       as Map<String, dynamic>)['certBase64'] as String;
   runApp(OverlaySupport.global(

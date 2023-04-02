@@ -5,7 +5,7 @@ import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -19,8 +19,27 @@ import 'package:universal_html/html.dart' as html;
 
 /// Journal of services.
 ///
-/// This is a main repository for services (in various states),
-/// it is member of [WorkerProfile] class.
+/// The [Journal] class is a member of [WorkerProfile],
+/// it manage worker's input([ServiceOfJournal]),
+/// and provides access to them via lists of services [ServiceOfJournal].
+///
+/// The purpose of the [Journal] class is to:
+///
+/// - store services in Hive(via provider [controllerOfJournal]),
+/// - make network requests(add/delete),
+/// - change state of [ServiceOfJournal],
+/// - move old `finished` and `outDated` services into [JournalArchive],
+/// - export services into file.ais_json.
+///
+/// The [JournalArchive] class is a cut version of [Journal],
+/// it store old `finished` and `outDated services.
+///
+/// Each instance of [WorkerProfile] can access [Journal] classes via providers:
+///
+/// - [journalOfWorker],
+/// - [journalOfWorkerAtDate].
+///
+/// [ClientProfile] can access both `Journal` classes at once via [journalOfClient].
 ///
 /// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/src/journal/journal.png)
 ///
@@ -390,7 +409,7 @@ class Journal {
       //
       // > delete finished old services and save hive
       //
-      toDelete(forDelete);
+      _toDelete(forDelete);
       //
       // > keep only [archiveLimit] number of services, delete oldest and close
       //
@@ -468,13 +487,14 @@ class Journal {
 
   /// Mark all finished service as [ServiceState.outDated]
   /// after [WorkerProfile.clientPlan] synchronized.
+  // TODO: delete it
   Future<void> updateBasedOnNewPlanDate() async {
     await _lock.synchronized(() async {
       // work with copy
       finished.toList().forEach(
         (element) {
           if (element.provDate.isBefore(
-            workerProfile.ref.read(planOfWorkerSyncDate(workerProfile)),
+            workerProfile.planSyncDate,
           )) {
             _toOutDated(element);
           }
@@ -484,7 +504,7 @@ class Journal {
   }
 
   /// Remove [ServiceOfJournal] from lists of [Journal] and from Hive.
-  void toDelete(List<ServiceOfJournal> forDelete) {
+  void _toDelete(List<ServiceOfJournal> forDelete) {
     forDelete.forEach((s) {
       ref.read(controllerOfJournal(this).notifier).delete(s);
       s.delete();

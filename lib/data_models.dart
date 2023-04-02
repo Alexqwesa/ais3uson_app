@@ -31,7 +31,6 @@ import 'package:ais3uson_app/journal.dart';
 
 export 'package:ais3uson_app/src/data_models/client_profile.dart';
 export 'package:ais3uson_app/src/data_models/client_service/client_service.dart';
-export 'package:ais3uson_app/src/data_models/client_service/repository_of_client_service.dart';
 export 'package:ais3uson_app/src/data_models/controller_of_worker_profiles.dart';
 export 'package:ais3uson_app/src/data_models/proofs/controller_groups_of_proof.dart';
 export 'package:ais3uson_app/src/data_models/proofs/controller_of_proof_recorder.dart';
@@ -41,3 +40,4 @@ export 'package:ais3uson_app/src/data_models/proofs/recorder_state.dart';
 export 'package:ais3uson_app/src/data_models/providers_for_worker_profile.dart';
 export 'package:ais3uson_app/src/data_models/services_of_client.dart';
 export 'package:ais3uson_app/src/data_models/worker_profile.dart';
+export 'package:ais3uson_app/src/data_providers/providers_for_client_service.dart';

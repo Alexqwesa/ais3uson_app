@@ -1,15 +1,6 @@
 import 'package:ais3uson_app/journal.dart';
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-/// Base provider of [SharedPreferences].
-///
-/// {@category Base Providers}
-final preference = FutureProvider<SharedPreferences>((ref) async {
-  return SharedPreferences.getInstance();
-});
 
 /// Base provider of hive [Box], type [dynamic].
 ///
@@ -31,15 +22,4 @@ final hiveJournalBox =
 /// {@category Base Providers}
 final hiveDateTimeBox = FutureProvider.family<Box<DateTime>, String>(
   (ref, boxName) async => Hive.openBox<DateTime>('$boxName-DateTime'),
-);
-
-/// Base provider of Images.
-///
-/// {@category Base Providers}
-final image = Provider.family<Image, String>(
-  (ref, imgSrc) {
-    return imgSrc.startsWith('http://') || imgSrc.startsWith('https://')
-        ? Image.network(imgSrc)
-        : Image.asset('images/$imgSrc');
-  },
 );

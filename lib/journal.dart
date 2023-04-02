@@ -1,22 +1,13 @@
 /// # The [Journal] class itself and related classes.
 ///
-/// There are two classes [Journal] and [JournalArchive].
+/// There are two classes [Journal], [JournalArchive] [JournalArchiveAll]
 ///
-/// The [Journal] class store worker inputs as instances of [ServiceOfJournal],
-/// it store them in 4 different lists (see [ServiceState]),
-/// which are provided by [groupsOfJournal].
-///
-/// [Journal] class:
-///
-/// - store services in Hive(via provider [controllerOfJournal]),
-/// - make network requests(add/delete),
-/// - change state of [ServiceOfJournal],
-/// - move old `finished` and `outDated` services into [JournalArchive].
+/// The [Journal] class store worker input as instance of [ServiceOfJournal].
 ///
 /// The [JournalArchive] class is a cut version of [Journal],
 /// it store old `finished` and `outDated services.
 ///
-/// Each instance of [WorkerProfile] can access `Journal` classes via providers:
+/// Each instance of [WorkerProfile] can access [Journal] classes via providers:
 ///
 /// - [journalOfWorker],
 /// - [journalOfWorkerAtDate].
@@ -32,6 +23,7 @@ export 'package:ais3uson_app/src/journal/controller_dates_in_archive.dart';
 export 'package:ais3uson_app/src/journal/controller_of_journal.dart';
 export 'package:ais3uson_app/src/journal/journal.dart';
 export 'package:ais3uson_app/src/journal/journal_archive.dart';
+export 'package:ais3uson_app/src/journal/journal_archive_all.dart';
 export 'package:ais3uson_app/src/journal/providers_of_journal.dart';
 export 'package:ais3uson_app/src/journal/service_of_journal.dart';
 export 'package:ais3uson_app/src/journal/service_state.dart';

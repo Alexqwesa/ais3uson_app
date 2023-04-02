@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:ais3uson_app/client_server_api.dart';
+import 'package:ais3uson_app/data_entities.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
@@ -32,11 +33,11 @@ class WorkerProfile {
 
   String get urlServices => '${key.activeServer}/services';
 
-  Tuple2<String, String> get apiUrlClients => Tuple2(apiKey, urlClients);
+  Tuple2<WorkerKey, String> get apiUrlClients => Tuple2(key, urlClients);
 
-  Tuple2<String, String> get apiUrlPlan => Tuple2(apiKey, urlPlan);
+  Tuple2<WorkerKey, String> get apiUrlPlan => Tuple2(key, urlPlan);
 
-  Tuple2<String, String> get apiUrlServices => Tuple2(apiKey, urlServices);
+  Tuple2<WorkerKey, String> get apiUrlServices => Tuple2(key, urlServices);
 
   WorkerKey get key {
     try {
@@ -59,6 +60,11 @@ class WorkerProfile {
   /// All planned amount of each service for each client.
   List<ClientPlan> get clientPlan => ref.read(planOfWorker(this));
 
+  DateTime get planSyncDate => ref.read(planOfWorkerSyncDate(this));
+
+  DateTime get servicesSyncDate =>
+      ref.read(servicesOfWorkerSyncDate(this)); // TODO:
+
   /// List of services.
   ///
   /// Since workers could potentially work
@@ -66,18 +72,6 @@ class WorkerProfile {
   /// with different service list, store services in worker profile.
   // TODO: update by server policy.
   List<ServiceEntry> get services => ref.read(servicesOfWorker(this));
-
-  /// Only for tests! Don't use in real code.
-  ///
-  /// Async init actions such as:
-  /// - postInit of [Journal] class,
-  /// - read `clients`, [clientPlan] and [services] from hive if empty.
-  Future<void> postInit() async {
-    await ref.read(journalOfWorker(this)).postInit();
-    await ref.read(repositoryOfHttpData(apiUrlClients).notifier).syncHiveHttp();
-    await ref.read(repositoryOfHttpData(apiUrlServices).notifier).syncHiveHttp();
-    await ref.read(repositoryOfHttpData(apiUrlPlan).notifier).syncHiveHttp();
-  }
 
   /// Synchronize services for [WorkerProfile.services].
   ///
@@ -88,15 +82,15 @@ class WorkerProfile {
   /// This function also called from [checkAllServicesExist], if there is a
   /// [clientPlan] with wrong [ClientPlan.servId].
   Future<void> syncServices() async {
-    await ref.read(repositoryOfHttpData(apiUrlServices).notifier).getHttpData();
+    await ref.read(repositoryHttp(apiUrlServices).notifier).getHttpData();
   }
 
   Future<void> syncClients() async {
-    await ref.read(repositoryOfHttpData(apiUrlClients).notifier).getHttpData();
+    await ref.read(repositoryHttp(apiUrlClients).notifier).getHttpData();
   }
 
   Future<void> syncPlanned() async {
-    await ref.read(repositoryOfHttpData(apiUrlPlan).notifier).getHttpData();
+    await ref.read(repositoryHttp(apiUrlPlan).notifier).getHttpData();
   }
 
   /// This should only be called if there is inconsistency:

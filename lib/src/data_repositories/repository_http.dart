@@ -2,72 +2,70 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/client_server_api.dart' show WorkerKey;
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
-import 'package:flutter/material.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:overlay_support/overlay_support.dart';
 import 'package:tuple/tuple.dart';
 
 /// Provider of httpData, create families by apiKey and url.
 ///
 /// {@category Providers}
-final repositoryOfHttpData = StateNotifierProvider.family<_RepositoryOfHttpData,
-    List<Map<String, dynamic>>, Tuple2<String, String>>((ref, apiUrl) {
-  final notifier = _RepositoryOfHttpData(
+final repositoryHttp = StateNotifierProvider.family<_RepositoryHttp,
+    List<Map<String, dynamic>>, Tuple2<WorkerKey, String>>((ref, apiUrl) {
+  final notifier = _RepositoryHttp(
     ref: ref,
-    apiKey: apiUrl.item1,
+    workerKey: apiUrl.item1,
     urlAddress: apiUrl.item2,
   );
 
   return notifier;
 });
 
-/// Repository for families of providers [repositoryOfHttpData].
+/// Repository for families of providers [repositoryHttp].
 ///
 /// Read hive on init, [state] is a [http.Response] in json format,
 ///  save state to [Hive].
 ///
 /// Public methods [getHttpData] and [syncHiveHttp].
-/// Public field [_lastUpdate].
 ///
 /// {@category Providers}
-class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
-  _RepositoryOfHttpData({
-    required this.apiKey,
+class _RepositoryHttp extends StateNotifier<List<Map<String, dynamic>>> {
+  _RepositoryHttp({
+    required this.workerKey,
     required this.urlAddress,
     required this.ref,
   }) : super([]) {
     log.severe('HttpDataState recreated $urlAddress');
+    apiKey = workerKey.apiKey;
   }
 
   final String urlAddress;
-  final String apiKey;
+  final WorkerKey workerKey;
+  late final String apiKey;
   final Ref ref;
 
   Map<String, String> get headers => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'api-key': apiKey,
+        'api-key': workerKey.apiKey,
       };
 
   /// Force get new data from http.
   Future<void> getHttpData() async {
-    final prevLastUpdate = ref.read(_lastUpdate(apiKey + urlAddress));
-    ref.read(_lastUpdate('$apiKey$urlAddress').notifier).state = DateTime.now();
+    final prevLastUpdate = ref.read(lastHttpUpdate(apiKey + urlAddress));
+    ref.read(lastHttpUpdate('$apiKey$urlAddress').notifier).state =
+        DateTime.now();
     final url = Uri.parse(urlAddress);
     try {
       //
       // > main - call server
       //
-      final workerProfile =
-          ref.read(workerProfiles).firstWhere((e) => e.apiKey == apiKey);
       final client = ref.read<http.Client>(
-        httpClientProvider(workerProfile.key.certBase64),
+        httpClientProvider(workerKey.certBase64),
       );
       final response = await client.get(url, headers: headers);
       //
@@ -85,7 +83,7 @@ class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
         //
         // > on fail: rollback update date
         //
-        ref.read(_lastUpdate(apiKey + urlAddress).notifier).state =
+        ref.read(lastHttpUpdate(apiKey + urlAddress).notifier).state =
             prevLastUpdate; // = lastUpdate.add(Duration(hours: 1.9))
       }
       //
@@ -93,11 +91,7 @@ class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
       //
     } on FormatException {
       log.severe(' Wrong json format - FormatException');
-      showSimpleNotification(
-        Text(tr().errorFormat),
-        background: Colors.red[300],
-        position: NotificationPosition.bottom,
-      );
+      showErrorNotification(tr().errorFormat);
     } on HandshakeException {
       showErrorNotification(tr().sslError);
       log.severe('Server HandshakeException error $url ');
@@ -124,7 +118,7 @@ class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
     await hive.put(apiKey + urlAddress, data);
     await hive.put(
       'sync_date_$apiKey$urlAddress',
-      ref.read(_lastUpdate('$apiKey$urlAddress')),
+      ref.read(lastHttpUpdate('$apiKey$urlAddress')),
     );
   }
 
@@ -138,15 +132,15 @@ class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
     //
     // > check hive update needed
     //
-    if (ref.read(_lastUpdate('$apiKey$urlAddress')) == nullDate) {
+    if (ref.read(lastHttpUpdate('$apiKey$urlAddress')) == nullDate) {
       state = ref.read(_loadMapFromHiveKeyProvider(apiKey + urlAddress));
-      ref.read(_lastUpdate('$apiKey$urlAddress').notifier).state =
+      ref.read(lastHttpUpdate('$apiKey$urlAddress').notifier).state =
           hive.get('sync_date_$apiKey$urlAddress') as DateTime? ??
               nullDate.add(const Duration(days: 1));
     }
 
     if (ref
-        .read(_lastUpdate('$apiKey$urlAddress'))
+        .read(lastHttpUpdate('$apiKey$urlAddress'))
         .add(const Duration(hours: 2))
         .isBefore(DateTime.now())) {
       await getHttpData();
@@ -158,24 +152,8 @@ class _RepositoryOfHttpData extends StateNotifier<List<Map<String, dynamic>>> {
   }
 }
 
-/// DateTime of last update of [planOfWorker].
-///
-/// {@category Providers}
-final planOfWorkerSyncDate =
-    Provider.family<DateTime, WorkerProfile>((ref, wp) {
-  return ref.watch(_lastUpdate(wp.apiKey + wp.urlPlan));
-});
-
-/// DateTime of last update of [servicesOfWorker].
-///
-/// {@category Providers}
-final servicesOfWorkerSyncDate =
-    Provider.family<DateTime, WorkerProfile>((ref, wp) {
-  return ref.watch(_lastUpdate(wp.apiKey + wp.urlServices));
-});
-
 /// Provider of httpData, create families by apiKey and url.
-final _lastUpdate = StateProvider.family<DateTime, String>((ref, apiUrl) {
+final lastHttpUpdate = StateProvider.family<DateTime, String>((ref, apiUrl) {
   return nullDate;
 });
 

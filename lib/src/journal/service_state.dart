@@ -4,13 +4,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'service_state.g.dart';
 
-/// These states control [ServiceOfJournal].
+/// These states are used to describe [ServiceOfJournal].
 ///
-/// ```
-/// Usual life of [ServiceOfJournal] is:
-///                 added -> finished -> outDated -> archived -> deleted
-///                 added -> rejected ->                      -> deleted
-///```
+/// Usual life of [ServiceOfJournal] and it's states, looks like:
+///
+/// | Created | Sent to DB | Next day                | Deleted              |
+/// |---------|------------|-------------------------|----------------------|
+/// | `added` | `finished` | `outDated` and archived | when archive is full |
+/// | `added` | `rejected` | never archived          | deleted by user      |
 ///
 /// {@category Journal}
 @HiveType(typeId: 10)

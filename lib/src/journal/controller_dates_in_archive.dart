@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -80,8 +80,8 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
 }
 
 /// Provider of list of dates at which there are exist archived services
-/// in all [WorkerProfile]s, if empty will try to reinitialize all underlying lists
-/// by calling [Journal.updateDatesInArchiveOfProfile] for each.
+/// in all [WorkerProfile]s, if list is empty, it will try to reinitialize all
+/// underlying lists by calling [Journal.updateDatesInArchiveOfProfile] for each.
 ///
 /// (aggregate from [controllerDatesInArchive]).
 ///
@@ -89,7 +89,7 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
 /// {@category Controllers}
 final initDatesInAllArchives = FutureProvider((ref) async {
   Future<void> initControllers() async {
-     await Future.wait([
+    await Future.wait([
       ...ref.watch(workerProfiles).map((e) async =>
           ref.watch(controllerDatesInArchive(e.apiKey).notifier).inited()),
     ]);
