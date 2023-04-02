@@ -16,8 +16,8 @@
 /// [WorkerProfile].
 ///
 /// Detailed API online at [https://alexqwesa.fvds.ru:48080/docs](https://alexqwesa.fvds.ru:48080/docs)
-///  (usually it works from 02:00 to 16:00 GMT - didn't send it to cloud yet...) ,
-///  test api-key is '3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c'
+///  (usually it online `from 02:00 to 16:00 GMT` - didn't send it to cloud yet...) ,
+///  test api-key is `3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c`
 ///
 /// ## Output API
 ///

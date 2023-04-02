@@ -38,7 +38,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  /// Activate archive mode([isArchive]) only if [datesInArchiveController].dates
+  /// Activate archive mode([isArchive]) only if [initDatesInAllArchives].dates
   /// not empty.
   ///
   /// It also show date picker to set [archiveDate].
@@ -46,7 +46,9 @@ class ArchiveMaterialApp extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) async {
-    final archiveDates = await ref.read(datesInArchiveController).datesInited();
+    await ref.read(initDatesInAllArchives.future);
+    final archiveDates =
+        ref.read(initDatesInAllArchives).asData?.value ?? <DateTime>{};
 
     if (archiveDates.isEmpty) {
       ref.read(isArchive.notifier).state = false;

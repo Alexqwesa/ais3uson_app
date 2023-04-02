@@ -163,17 +163,19 @@ void main() {
         // expect(ref.read(archiveDate), roundYesterday);
         // await ref.pump();
         expect(
-          ref.read(datesInArchive).length,
+          ref.read(datesInAllArchives).length,
           2,
         );
         expect(
           ref
-              .read(datesInArchive)
-              .toSet()
+              .read(datesInAllArchives)
               .containsAll([roundYesterday, roundBeforeYesterday]),
           true,
         );
-        await ref.read(datesInArchiveController).save();
+        await Future.wait(ref.read(workerProfiles).map(
+              (e) =>
+                  ref.read(controllerDatesInArchive(e.apiKey).notifier).save(),
+            ));
       },
     );
   });

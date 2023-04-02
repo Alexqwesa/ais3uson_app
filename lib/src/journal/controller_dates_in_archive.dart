@@ -1,41 +1,8 @@
 import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/journal/service_of_journal.dart';
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-/// Controller for list of dates at which there are exist archived services
-/// (aggregate from [controllerDatesInArchive]).
-///
-/// {@category Providers}
-/// {@category Controllers}
-final datesInArchiveController = Provider<_DateListController>((ref) {
-  return _DateListController(ref); //..datesInited();
-});
-
-/// Dates at which there are exist archived services (aggregate from
-/// [controllerDatesInArchive]).
-///
-/// {@category Providers}
-final datesInArchive = Provider<List<DateTime>>((ref) {
-  return <DateTime>{
-    ...ref
-        .watch(workerProfiles)
-        .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
-        .reduce((value, element) => value.addAll(element) as List<DateTime>),
-  }.toList();
-});
-
-final _datesInArchiveInited = FutureProvider((ref) async {
-  await Future.wait([
-    ...ref.watch(workerProfiles).map((e) async =>
-        ref.watch(controllerDatesInArchive(e.apiKey).notifier).inited()),
-  ]);
-
-  return ref
-      .watch(workerProfiles)
-      .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
-      .reduce((value, element) => value.addAll(element) as List<DateTime>);
-});
 
 /// Dates at which where exist archived services in [WorkerProfile].
 /// Depend on [hiveDateTimeBox] ('allArchiveDates').
@@ -59,7 +26,7 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
   late final String hiveName;
   final String apiKey;
   final StateNotifierProviderRef ref;
-  Future<void>? _save;
+  bool _saved = false;
 
   Future<List<DateTime>> inited() async {
     await ref.read(hiveDateTimeBox(hiveName).future);
@@ -78,10 +45,24 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
 
   /// Future for await save.
   Future<void> save() async {
-    if (_save != null) {
-      await _save;
-      _save = null;
+    if (!_saved) {
+      await _saveAll();
+      _saved = true;
     }
+  }
+
+  Future<bool> _saveAll() async {
+    await ref.read(hiveDateTimeBox(hiveName).future);
+    final box = ref.read(hiveDateTimeBox(hiveName)).value;
+    // await box!.clear();
+    if (box != null) {
+      await box.compact();
+      await box.addAll(state.whereNot((el) => box.values.contains(el)));
+
+      return true;
+    }
+
+    return false;
   }
 
   @override
@@ -90,13 +71,7 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
     //
     // > save
     //
-    _save = () async {
-      await ref.read(hiveDateTimeBox(hiveName).future);
-      final box = ref.read(hiveDateTimeBox(hiveName)).value;
-      // await box!.clear();
-      await box?.compact();
-      await box?.addAll(value);
-    }();
+    _saved = false;
   }
 
   void addAll(Iterable<DateTime> map) {
@@ -104,43 +79,44 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
   }
 }
 
-/// Controller for list of dates at which there are exist archived services
+/// Provider of list of dates at which there are exist archived services
+/// in all [WorkerProfile]s, if empty will try to reinitialize all underlying lists
+/// by calling [Journal.updateDatesInArchiveOfProfile] for each.
+///
 /// (aggregate from [controllerDatesInArchive]).
 ///
-/// Hidden, to get reference use [datesInArchiveController] provider.
-///
+/// {@category Providers}
 /// {@category Controllers}
-class _DateListController {
-  _DateListController(this.ref) {
-    datesInited();
+final initDatesInAllArchives = FutureProvider((ref) async {
+  Future<void> initControllers() async {
+     await Future.wait([
+      ...ref.watch(workerProfiles).map((e) async =>
+          ref.watch(controllerDatesInArchive(e.apiKey).notifier).inited()),
+    ]);
   }
 
-  final ProviderRef ref;
-
-  Future<void> save() async {
-    await Future.wait(ref.read(workerProfiles).map(
-          (e) => ref.read(controllerDatesInArchive(e.apiKey).notifier).save(),
-        ));
+  if (ref.watch(datesInAllArchives).isEmpty) {
+    await Future.wait(ref
+        .read(workerProfiles)
+        .map((e) async => e.journal.updateDatesInArchiveOfProfile()));
+    await initControllers();
   }
 
-  Future<List<DateTime>> datesInited() async {
-    await ref.read(_datesInArchiveInited.future);
-    if (ref.read(_datesInArchiveInited).value!.isEmpty) {
-      await Future.wait(ref
-          .read(workerProfiles)
-          .map((e) async => e.journal.updateDatesInArchiveOfProfile()));
-      await ref.read(_datesInArchiveInited.future);
-    }
+  return ref.watch(datesInAllArchives);
+});
 
-    return ref.read(_datesInArchiveInited).value!;
-  }
-
-  List<DateTime> get dates => <DateTime>{
-        ...ref
-            .read(workerProfiles)
-            .map((e) => ref.read(controllerDatesInArchive(e.apiKey)))
-            .reduce(
-              (value, element) => value.addAll(element) as List<DateTime>,
-            ),
-      }.toList();
-}
+/// Dates at which there are exist archived services (aggregate from
+/// [controllerDatesInArchive]).
+///
+/// The same as [initDatesInAllArchives] but don't try to reinitialize if empty.
+///
+/// {@category Providers}
+final datesInAllArchives = Provider<Set<DateTime>>((ref) {
+  return <DateTime>{
+    ...ref
+        .watch(workerProfiles)
+        .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
+        .expand((list) => list)
+        .toList(),
+  };
+});

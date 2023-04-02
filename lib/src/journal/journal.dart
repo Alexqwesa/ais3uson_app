@@ -22,7 +22,7 @@ import 'package:universal_html/html.dart' as html;
 /// This is a main repository for services (in various states),
 /// it is member of [WorkerProfile] class.
 ///
-/// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/src/journal/journal.png
+/// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/src/journal/journal.png)
 ///
 /// {@category Journal}
 /// {@category Client-Server API}
@@ -30,7 +30,7 @@ import 'package:universal_html/html.dart' as html;
 class Journal {
   Journal(this.workerProfile);
 
-  /// At what date is journal, null - load all values.
+  /// At what date is journal, if null - load all values.
   final DateTime? aData = null;
 
   late final WorkerProfile workerProfile;
@@ -66,9 +66,9 @@ class Journal {
 
   List<ServiceOfJournal> get servicesForSync => added;
 
-  DateTime get now => DateTime.now();
+  DateTime get _now => DateTime.now();
 
-  DateTime get today => DateTime(now.year, now.month, now.day);
+  DateTime get today => DateTime(_now.year, _now.month, _now.day);
 
   Iterable<ServiceOfJournal> get _forArchive =>
       (finished + outDated).where((el) => el.provDate.isBefore(today));
@@ -312,11 +312,11 @@ class Journal {
                 break; // no changes - do nothing
               case ServiceState.finished:
                 log.finest('finished service $serv');
-                toFinished(serv);
+                _toFinished(serv);
                 break;
               case ServiceState.rejected:
                 log.warning('rejected service $serv');
-                toRejected(serv);
+                _toRejected(serv);
                 break;
               case ServiceState.outDated:
                 throw StateError('commit can not make service outDated');
@@ -476,7 +476,7 @@ class Journal {
           if (element.provDate.isBefore(
             workerProfile.ref.read(planOfWorkerSyncDate(workerProfile)),
           )) {
-            toOutDated(element);
+            _toOutDated(element);
           }
         },
       );
@@ -491,22 +491,22 @@ class Journal {
     });
   }
 
-  /// Shortcut for [moveServiceTo].
-  ServiceOfJournal toOutDated(ServiceOfJournal service) =>
-      moveServiceTo(service, ServiceState.outDated);
+  /// Shortcut for [_moveToNewState].
+  ServiceOfJournal _toOutDated(ServiceOfJournal service) =>
+      _moveToNewState(service, ServiceState.outDated);
 
-  /// Shortcut for [moveServiceTo].
-  ServiceOfJournal toRejected(ServiceOfJournal service) =>
-      moveServiceTo(service, ServiceState.rejected);
+  /// Shortcut for [_moveToNewState].
+  ServiceOfJournal _toRejected(ServiceOfJournal service) =>
+      _moveToNewState(service, ServiceState.rejected);
 
-  /// Shortcut for [moveServiceTo].
-  ServiceOfJournal toFinished(ServiceOfJournal service) =>
-      moveServiceTo(service, ServiceState.finished);
+  /// Shortcut for [_moveToNewState].
+  ServiceOfJournal _toFinished(ServiceOfJournal service) =>
+      _moveToNewState(service, ServiceState.finished);
 
   /// Move service - create new in dst, delete old in src list of [Journal].
   ///
   /// Take care of [Journal] lists and Hive.
-  ServiceOfJournal moveServiceTo(
+  ServiceOfJournal _moveToNewState(
     ServiceOfJournal service,
     ServiceState newState,
   ) {
