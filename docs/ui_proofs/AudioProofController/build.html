@@ -225,7 +225,7 @@ Widget build(BuildContext context, WidgetRef ref) {
               if (audioProof != null) {
                 final filePath = audioProof;
                 try {
-                  await Share.shareFiles([filePath]);
+                  await Share.shareXFiles([XFile(filePath)]);
                   &#47;&#47; ignore: avoid_catching_errors
                 } on UnimplementedError {
                   showNotification(

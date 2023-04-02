@@ -58,7 +58,7 @@
 
     
 <section class="desc markdown">
-  <h1 id="journal-classes">journal classes</h1>
+  <h1 id="the-journal-class-itself-and-related-classes">The <a href="../journal/Journal-class.html">Journal</a> class itself and related classes.</h1>
 <p>There are two classes <a href="../journal/Journal-class.html">Journal</a> and <a href="../journal/JournalArchive-class.html">JournalArchive</a>.</p>
 <p>The <a href="../journal/Journal-class.html">Journal</a> class store worker inputs as instances of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>,
 it store them in 4 different lists (see <a href="../journal/ServiceState.html">ServiceState</a>),
@@ -149,6 +149,19 @@ it store old <code>finished</code> and `outDated services.</p>
       <h2>Properties</h2>
 
       <dl class="properties">
+        <dt id="controllerDatesInArchive" class="property">
+  <span class="name"><a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerDatesInArchive</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
+    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+
+</dt>
+<dd>
+  Dates at which where exist archived services in <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
+Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allArchiveDates').
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
         <dt id="controllerOfJournal" class="property">
   <span class="name"><a href="../journal/controllerOfJournal.html">controllerOfJournal</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerOfJournal</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span>?</span>, <span class="type-parameter"><a href="../journal/Journal-class.html">Journal</a></span>&gt;</span></span> 
@@ -170,7 +183,7 @@ it store old <code>finished</code> and `outDated services.</p>
 </dt>
 <dd>
   Dates at which there are exist archived services (aggregate from
-<a href="../journal/datesInArchiveOfProfile.html">datesInArchiveOfProfile</a>).
+<a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a>).
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -184,20 +197,7 @@ it store old <code>finished</code> and `outDated services.</p>
 </dt>
 <dd>
   Controller for list of dates at which there are exist archived services
-(aggregate from <a href="../journal/datesInArchiveOfProfile.html">datesInArchiveOfProfile</a>).
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="datesInArchiveOfProfile" class="property">
-  <span class="name"><a href="../journal/datesInArchiveOfProfile.html">datesInArchiveOfProfile</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerDatesInArchive</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Dates at which where exist archived services in <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
-Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allArchiveDates').
+(aggregate from <a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a>).
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -303,12 +303,11 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
       <li class="section-title">Libraries</li>
       <li><a href="../client_server_api/client_server_api-library.html">client_server_api</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
-      <li><a href="../helpers_date_time_extensions/helpers_date_time_extensions-library.html">date_time_extensions</a></li>
-      <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
-      <li><a href="../helpers_global_helpers/helpers_global_helpers-library.html">global_helpers</a></li>
+      <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
+      <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
       <li><a href="../ui_root/ui_root-library.html">ui_root</a></li>
@@ -333,10 +332,10 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
 
 
       <li class="section-title"><a href="../journal/journal-library.html#properties">Properties</a></li>
+        <li><a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a></li>
         <li><a href="../journal/controllerOfJournal.html">controllerOfJournal</a></li>
         <li><a href="../journal/datesInArchive.html">datesInArchive</a></li>
         <li><a href="../journal/datesInArchiveController.html">datesInArchiveController</a></li>
-        <li><a href="../journal/datesInArchiveOfProfile.html">datesInArchiveOfProfile</a></li>
         <li><a href="../journal/journalOfClient.html">journalOfClient</a></li>
         <li><a href="../journal/journalOfWorker.html">journalOfWorker</a></li>
         <li><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a></li>

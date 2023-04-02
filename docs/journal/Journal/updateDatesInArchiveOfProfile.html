@@ -75,12 +75,10 @@
   await ref.read(hiveJournalBox(&#39;journal_archive_$apiKey&#39;).future);
   final hiveArchive =
       ref.read(hiveJournalBox(&#39;journal_archive_$apiKey&#39;)).value!;
-  final dates = ref.read(datesInArchiveOfProfile(apiKey).notifier)
-    ..state = hiveArchive.values
-        .map((element) =&gt; element.provDate)
-        .map((e) =&gt; DateTime(e.year, e.month, e.day))
-        .toList();
-  await dates.save();
+
+  await ref
+      .read(controllerDatesInArchive(apiKey).notifier)
+      .updateFrom(hiveArchive.values);
 }</code></pre>
 </section>
 
