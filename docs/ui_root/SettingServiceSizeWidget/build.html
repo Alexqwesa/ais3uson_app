@@ -122,9 +122,9 @@ Widget build(BuildContext context, WidgetRef ref) {
     subtitle: Slider(
       min: 60, &#47;&#47; 60%
       max: 220, &#47;&#47; 220%
-      value: (ref.watch(serviceCardMagnifying) * 100).toInt().toDouble(),
+      value: (ref.watch(tileMagnification) * 100).toInt().toDouble(),
       onChanged: (value) {
-        ref.read(serviceCardMagnifying.notifier).state = value &#47; 100;
+        ref.read(tileMagnification.notifier).state = value &#47; 100;
       },
     ),
   );

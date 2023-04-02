@@ -72,7 +72,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; syncPlanned() async {
-  await ref.read(httpDataProvider(apiUrlPlan).notifier).getHttpData();
+  await ref.read(repositoryOfHttpData(apiUrlPlan).notifier).getHttpData();
 }</code></pre>
 </section>
 

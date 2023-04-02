@@ -77,10 +77,10 @@ Return List&lt;<a href="../client_server_api/ClientPlan-class.html">ClientPlan</
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final planOfWorker =
     Provider.family&lt;List&lt;ClientPlan&gt;, WorkerProfile&gt;((ref, wp) {
-  ref.watch(httpDataProvider(wp.apiUrlPlan).notifier).syncHiveHttp();
+  ref.watch(repositoryOfHttpData(wp.apiUrlPlan).notifier).syncHiveHttp();
 
   return ref
-      .watch(httpDataProvider(wp.apiUrlPlan))
+      .watch(repositoryOfHttpData(wp.apiUrlPlan))
       .map&lt;ClientPlan&gt;(ClientPlan.fromJson)
       .toList(growable: false);
 });</code></pre>
@@ -135,8 +135,6 @@ Return List&lt;<a href="../client_server_api/ClientPlan-class.html">ClientPlan</
         <li><a href="../data_models/workerProfiles.html">workerProfiles</a></li>
 
 
-      <li class="section-title"><a href="../data_models/data_models-library.html#enums">Enums</a></li>
-        <li><a href="../data_models/RecorderState.html">RecorderState</a></li>
 
 
 </ol>

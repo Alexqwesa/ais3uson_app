@@ -66,12 +66,12 @@
 </ul>
 <p>Both of them use <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> to display <a href="../data_models/ClientService-class.html">ClientService</a>.</p>
 <p>The <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> is display widget for <a href="../data_models/ClientService-class.html">ClientService</a>.
-Based on <a href="../providers/tileTypeProvider.html">tileTypeProvider</a> it select one of views:</p>
+Based on <a href="../providers/tileType.html">tileType</a> it select one of views:</p>
 <ul>
 <li><a href="../ui_service_card_widget/ServiceCardView-class.html">ServiceCardView</a>,</li>
 <li><a href="../ui_service_card_widget/ServiceCardSquareView-class.html">ServiceCardSquareView</a>,</li>
 <li><a href="../ui_service_card_widget/ServiceCardTileView-class.html">ServiceCardTileView</a>,
-each of them get it size from provider <a href="../providers/serviceCardSize.html">serviceCardSize</a> (which depend on <a href="../providers/serviceCardMagnifying.html">serviceCardMagnifying</a>).</li>
+each of them get it size from provider <a href="../providers/tileSize.html">tileSize</a> (which depend on <a href="../providers/tileMagnification.html">tileMagnification</a>).</li>
 </ul>
 <p>Each <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> view use <a href="../ui_service_card_widget/ServiceCardState-class.html">ServiceCardState</a> to display data from <a href="../journal/Journal-class.html">Journal</a>
 (how many services is added, etc...).</p>
@@ -133,27 +133,6 @@ each of them get it size from provider <a href="../providers/serviceCardSize.htm
 
 
 
-    <section class="summary offset-anchor" id="constants">
-      <h2>Constants</h2>
-
-      <dl class="properties">
-        <dt id="tileSize" class="constant">
-    <span class="name "><a href="../ui_services/tileSize-constant.html">tileSize</a></span>
-  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
-  
-
-</dt>
-<dd>
-  
-  
-
-    <div>
-      <span class="signature"><code>500.0</code></span>
-    </div>
-</dd>
-
-      </dl>
-    </section>
 
     <section class="summary offset-anchor" id="properties">
       <h2>Properties</h2>
@@ -267,8 +246,9 @@ each of them get it size from provider <a href="../providers/serviceCardSize.htm
       <li class="section-title">Libraries</li>
       <li><a href="../client_server_api/client_server_api-library.html">client_server_api</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
+      <li><a href="../helpers_date_time_extensions/helpers_date_time_extensions-library.html">date_time_extensions</a></li>
       <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
-      <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
+      <li><a href="../helpers_global_helpers/helpers_global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
@@ -293,8 +273,6 @@ each of them get it size from provider <a href="../providers/serviceCardSize.htm
 
 
 
-      <li class="section-title"><a href="../ui_services/ui_services-library.html#constants">Constants</a></li>
-        <li><a href="../ui_services/tileSize-constant.html">tileSize</a></li>
 
       <li class="section-title"><a href="../ui_services/ui_services-library.html#properties">Properties</a></li>
         <li><a href="../ui_services/currentSearchText.html">currentSearchText</a></li>

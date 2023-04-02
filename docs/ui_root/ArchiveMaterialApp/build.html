@@ -152,7 +152,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   builder: (context) {
                     return IconButton(
                       icon: const Icon(Icons.date_range),
-                      onPressed: () async {
+                      onPressed: () =&gt; () async {
                         await setArchiveOnWithDatePicker(context, ref);
                       },
                     );

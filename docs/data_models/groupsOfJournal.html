@@ -67,7 +67,7 @@
         
 <section class="desc markdown">
   <p>Provider of groups of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> sorted by <a href="../journal/ServiceState.html">ServiceState</a>.</p>
-<p>Depend on <a href="../journal/servicesOfJournal.html">servicesOfJournal</a>.
+<p>Depend on <a href="../journal/controllerOfJournal.html">controllerOfJournal</a>.
 {@category Providers}</p>
 </section>
 
@@ -78,7 +78,7 @@
     Provider.family&lt;Map&lt;ServiceState, List&lt;ServiceOfJournal&gt;&gt;, Journal&gt;(
   (ref, journal) {
     return groupBy&lt;ServiceOfJournal, ServiceState&gt;(
-      ref.watch(servicesOfJournal(journal))!,
+      ref.watch(controllerOfJournal(journal))!,
       (e) =&gt; e.state,
     );
   },
@@ -134,8 +134,6 @@
         <li><a href="../data_models/workerProfiles.html">workerProfiles</a></li>
 
 
-      <li class="section-title"><a href="../data_models/data_models-library.html#enums">Enums</a></li>
-        <li><a href="../data_models/RecorderState.html">RecorderState</a></li>
 
 
 </ol>

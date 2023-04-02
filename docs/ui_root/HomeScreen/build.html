@@ -169,7 +169,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 Center(
                   child: Text(
                     tr().shortAboutApp,
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -224,10 +224,10 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ListTile(
                   leading: const Icon(Icons.archive),
                   title: Text(tr().archive),
-                  onTap: () async {
+                  onTap: () {
                     Navigator.pop(context, &#39;archive&#39;);
                     if (ref.read(archiveDate) == null) {
-                      await ArchiveMaterialApp.setArchiveOnWithDatePicker(
+                      ArchiveMaterialApp.setArchiveOnWithDatePicker(
                         context,
                         ref,
                       );
@@ -267,7 +267,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       padding: const EdgeInsets.all(8),
                       child: Text(
                         tr().theme,
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     ToggleSwitch(

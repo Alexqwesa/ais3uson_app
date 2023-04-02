@@ -119,7 +119,7 @@ Widget build(BuildContext context) {
     child: FloatingActionButton(
       heroTag: ValueKey(beforeOrAfter + indexInProofs.toString()),
       child: const Icon(Icons.camera_alt),
-      onPressed: () async {
+      onPressed: () =&gt; () async {
         late final List&lt;CameraDescription&gt; cameras;
         try {
           cameras = await availableCameras();

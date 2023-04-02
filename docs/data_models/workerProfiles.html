@@ -60,7 +60,7 @@
 
         <section class="multi-line-signature">
           
-          <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_WorkerProfilesState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerOfWorkerProfiles</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span>
           <span class="name ">workerProfiles</span>
           <div class="features"><span class="feature">final</span></div>
 
@@ -79,8 +79,8 @@ Show profiles based on <code>_workerKeys</code>, which is saved by
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final workerProfiles =
-    StateNotifierProvider&lt;_WorkerProfilesState, List&lt;WorkerProfile&gt;&gt;((ref) {
-  return _WorkerProfilesState(ref); &#47;&#47;, ref.watch(workerKeys));
+    StateNotifierProvider&lt;_ControllerOfWorkerProfiles, List&lt;WorkerProfile&gt;&gt;((ref) {
+  return _ControllerOfWorkerProfiles(ref); &#47;&#47;, ref.watch(workerKeys));
 });</code></pre>
 </section>
 
@@ -133,8 +133,6 @@ Show profiles based on <code>_workerKeys</code>, which is saved by
         <li><a href="../data_models/workerProfiles.html">workerProfiles</a></li>
 
 
-      <li class="section-title"><a href="../data_models/data_models-library.html#enums">Enums</a></li>
-        <li><a href="../data_models/RecorderState.html">RecorderState</a></li>
 
 
 </ol>
