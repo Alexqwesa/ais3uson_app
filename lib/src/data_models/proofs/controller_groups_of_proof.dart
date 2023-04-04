@@ -1,8 +1,9 @@
 // ignore_for_file: unnecessary_import
 
-import 'package:ais3uson_app/data_entities.dart';
 import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
@@ -30,10 +31,7 @@ final _proofAtDate =
     contractId: client.contractId,
     date: standardFormat.format(date),
     serviceId: null,
-    client: ref
-        .read(clientsOfWorker(client.workerProfile))
-        .firstWhere((element) => element.contractId == client.contractId)
-        .name,
+    client: client.name,
     worker: client.workerProfile.name,
     ref: ref.container,
   );
@@ -63,7 +61,7 @@ final _servProofAtDate =
     date: standardFormat.format(date),
     serviceId: service.servId,
     client: ref
-            .watch(clientsOfWorker(service.workerProfile))
+            .watch(service.workerProfile.clientsOf)
             .firstWhereOrNull((e) => e.contractId == service.contractId)
             ?.name ??
         ref.watch(lastUsed).client.name,

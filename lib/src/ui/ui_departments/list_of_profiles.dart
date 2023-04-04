@@ -1,8 +1,7 @@
-import 'package:ais3uson_app/data_entities.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
-import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +37,7 @@ class ListOfProfiles extends ConsumerWidget {
                             ContextMenuButtonConfig(
                               tr().exportThisWeek,
                               onPressed: () => ref
-                                  .read(journalOfWorker(workerProfile))
+                                  .read(workerProfile.journalAllOf)
                                   .exportToFile(
                                     mostRecentMonday(),
                                     mostRecentMonday(addDays: 7),
@@ -47,7 +46,7 @@ class ListOfProfiles extends ConsumerWidget {
                             ContextMenuButtonConfig(
                               tr().exportLastWeek,
                               onPressed: () => ref
-                                  .read(journalOfWorker(workerProfile))
+                                  .read(workerProfile.journalAllOf)
                                   .exportToFile(
                                     mostRecentMonday(addDays: -7),
                                     mostRecentMonday(),
@@ -56,7 +55,7 @@ class ListOfProfiles extends ConsumerWidget {
                             ContextMenuButtonConfig(
                               tr().exportThisMonth,
                               onPressed: () => ref
-                                  .read(journalOfWorker(workerProfile))
+                                  .read(workerProfile.journalAllOf)
                                   .exportToFile(
                                     mostRecentMonth(),
                                     mostRecentMonth(addMonths: 1),
@@ -65,7 +64,7 @@ class ListOfProfiles extends ConsumerWidget {
                             ContextMenuButtonConfig(
                               tr().exportLastMonth,
                               onPressed: () => ref
-                                  .read(journalOfWorker(workerProfile))
+                                  .read(workerProfile.journalAllOf)
                                   .exportToFile(
                                     mostRecentMonth(addMonths: -1),
                                     mostRecentMonth(),

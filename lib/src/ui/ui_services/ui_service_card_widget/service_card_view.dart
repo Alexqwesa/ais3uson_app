@@ -1,5 +1,5 @@
-import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/repositories.dart';
+import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:ais3uson_app/ui_services.dart';
@@ -29,7 +29,7 @@ class ServiceCardView extends ConsumerWidget {
           width: 205,
           height: 230,
           child: Card(
-            elevation: ref.watch(addAllowedOfService(service)) ? 6 : 0,
+            elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
             child: Padding(
               padding: const EdgeInsets.all(2),
               child: Stack(
@@ -130,7 +130,7 @@ class ServiceCardSquareView extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
                 child: Card(
-                  elevation: ref.watch(addAllowedOfService(service)) ? 6 : 0,
+                  elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
                   child: Column(
                     children: <Widget>[
                       Hero(
@@ -202,7 +202,7 @@ class ServiceCardTileView extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Card(
-              elevation: ref.watch(addAllowedOfService(service)) ? 6 : 0,
+              elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
               child: Stack(
                 children: [
                   Row(

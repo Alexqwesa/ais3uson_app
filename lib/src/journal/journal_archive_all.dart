@@ -1,9 +1,6 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 
-
-
-
 /// Journal with all archived dates.
 ///
 /// {@category Journal}

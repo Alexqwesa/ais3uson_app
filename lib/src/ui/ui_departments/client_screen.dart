@@ -1,6 +1,6 @@
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -15,7 +15,7 @@ class ClientScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final workerProfile = ref.watch(lastUsed).worker;
-    final clientList = ref.watch(clientsOfWorker(workerProfile));
+    final clientList = ref.watch(workerProfile.clientsOf);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +28,8 @@ class ClientScreen extends ConsumerWidget {
             ),
             IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed: () => () async {
+              // ignore: avoid-passing-async-when-sync-expected
+              onPressed: () async {
                 await workerProfile.syncClients();
               },
             ),

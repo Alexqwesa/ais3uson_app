@@ -1,6 +1,9 @@
-import 'package:ais3uson_app/data_entities.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
+import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// This class is for showing archived services at date [archiveDate].
 ///
@@ -17,6 +20,22 @@ class JournalArchive extends Journal {
 
   @override
   String get journalHiveName => 'journal_archive_$apiKey';
+
+  @override
+  Box<ServiceOfJournal> get hive => hiveRepository.hive; // only for test
+
+  @override
+  ProviderContainer get ref => workerProfile.ref;
+
+  @override
+  JournalHiveRepository get hiveRepository => workerProfile.hiveRepository;
+
+  @override
+  JournalHttpRepository get httpRepository => workerProfile.httpRepository;
+
+  // @override
+  @override
+  Provider<List<ServiceOfJournal>> get servicesOf => hiveRepository.servicesOf;
 
   /// This method of base class is stubbed.
   @override

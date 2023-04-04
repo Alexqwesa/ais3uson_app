@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ais3uson_app/client_server_api.dart';
+import 'package:ais3uson_app/api_classes.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -16,8 +16,11 @@ WorkerKey wKeysData2() {
 }
 
 class FakePathProviderPlatform extends Fake
-    with MockPlatformInterfaceMixin
-    implements PathProviderPlatform {
+    with
+        // ignore: prefer_mixin
+        MockPlatformInterfaceMixin
+    implements
+        PathProviderPlatform {
   @override
   Future<String?> getApplicationDocumentsPath() async {
     return '/tmp';

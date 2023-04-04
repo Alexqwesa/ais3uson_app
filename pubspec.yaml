@@ -75,7 +75,7 @@ dev_dependencies:
   #  analyzer_plugin: 0.11.0
   #  lints: 2.0.0
   build_runner: any
-  dart_code_metrics: any
+  dart_code_metrics: ^5.7.0
   flutter_launcher_icons: any
   flutter_lints: any
   flutter_test:

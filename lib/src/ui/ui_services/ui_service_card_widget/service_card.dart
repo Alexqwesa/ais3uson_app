@@ -1,5 +1,5 @@
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:ais3uson_app/ui_services.dart';
@@ -28,7 +28,7 @@ class ServiceCard extends ConsumerWidget {
     // ignore: no_leading_underscores_for_local_identifiers
     final _ = ref.watch(archiveDate); // in case of date change
     final activeViewOfCard =
-        ref.watch(addAllowedOfService(service)) || ref.watch(isArchive);
+        ref.watch(service.addAllowedOf) || ref.watch(isArchive);
     final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
 
     return AnimatedSize(

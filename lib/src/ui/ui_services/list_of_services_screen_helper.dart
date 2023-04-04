@@ -2,9 +2,9 @@
 
 import 'dart:io';
 
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -135,7 +135,7 @@ final filteredServices =
     Provider.family<List<ClientService>, ClientProfile>((ref, client) {
   final searched = ref.watch(currentSearchText).toLowerCase();
   final servList = ref
-      .watch(servicesOfClient(client))
+      .watch(client.servicesOf)
       .where((element) => element.servText.toLowerCase().contains(searched))
       .toList(growable: false);
 

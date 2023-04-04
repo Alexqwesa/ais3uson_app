@@ -1,11 +1,11 @@
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///
-/// It collect data from Journal via provider [doneStaleErrorOf],
+/// It present data of the client service state [ClientServiceLogic.fullStateOf]
 /// these numbers mean:
 /// - done - finished + outDated,
 /// - stale - added,
@@ -41,7 +41,7 @@ class ServiceCardState extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ref.watch(currentService);
-    final listDoneProgressError = ref.watch(doneStaleErrorOf(service));
+    final listDoneProgressError = ref.watch(service.fullStateOf);
 
     return SizedBox.expand(
       child: FittedBox(

@@ -117,7 +117,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                             Colors.blue[900]!,
                           ),
                         ),
-                        onPressed: () => () async {
+                        onPressed: () async {
                           setState(() {
                             result = null;
                           });
@@ -171,7 +171,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                       Container(
                         margin: const EdgeInsets.all(2),
                         child: ElevatedButton(
-                          onPressed: () => () async {
+                          onPressed: () async {
                             await controller?.flipCamera();
                             setState(() {
                               // ignore: unused_local_variable
@@ -211,7 +211,7 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                       //
                       // > add new worker profile
                       //
-                      onPressed: () => () async {
+                      onPressed: () async {
                         if (result == null) {
                           return;
                         }
@@ -247,7 +247,6 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
       ),
     );
   }
-
 }
 
 class ShowQrView extends StatelessWidget {

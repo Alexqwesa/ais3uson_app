@@ -72,7 +72,7 @@ class AudioProofController extends ConsumerWidget {
             //
             // > onPressed: start/stop
             //
-            onPressed: () => () async {
+            onPressed: () async {
               if (ref.read(proofRecorderState) != RecorderState.ready) {
                 await recorder.stop();
               } else {
@@ -107,7 +107,7 @@ class AudioProofController extends ConsumerWidget {
               //
               // > onPressed: play/stop
               //
-              onPressed: () => () async {
+              onPressed: () async {
                 await recorder.stop();
                 if (playState == PlayerState.playing) {
                   await player.stop();
@@ -139,7 +139,7 @@ class AudioProofController extends ConsumerWidget {
               //
               // > onPressed: try share, or show notification
               //
-              onPressed: () => () async {
+              onPressed: () async {
                 await recorder.stop();
                 if (audioProof != null) {
                   final filePath = audioProof;

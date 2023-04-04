@@ -10,8 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category UI Root}
-final standardTheme =
-    StateNotifierProvider<ThemesData, ThemeMode>((ref) {
+final standardTheme = StateNotifierProvider<ThemesData, ThemeMode>((ref) {
   return ThemesData();
 });
 

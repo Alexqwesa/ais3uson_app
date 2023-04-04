@@ -1,11 +1,17 @@
-import 'package:ais3uson_app/client_server_api.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'dart:convert';
+
+import 'package:ais3uson_app/api_classes.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-final stubWorker = WorkerProfile('none', ProviderContainer());
+final _stubKey = WorkerKey.fromJson(
+  jsonDecode(stubJsonWorkerKey) as Map<String, dynamic>,
+);
+final stubWorker = WorkerProfile(_stubKey, ProviderContainer());
 final stubClient = ClientProfile(
   workerProfile: stubWorker,
   entry: const ClientEntry(
@@ -20,8 +26,7 @@ final stubClient = ClientProfile(
 /// Controller of App states, last used:
 /// - worker,
 /// - client,
-/// - service,
-/// - service at date.
+/// - service.
 ///
 /// {@category Providers}
 /// {@category App State}
@@ -106,13 +111,13 @@ final _lastClientService = Provider<ClientService>((ref) {
 
   try {
     return ref
-        .watch(servicesOfClient(ref.watch(_lastClient)))
+        .watch(ref.watch(_lastClient).servicesOf)
         .firstWhere((e) => e.servId == id);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClientService requested but provider failed');
     try {
-      return ref.watch(servicesOfClient(ref.watch(_lastClient))).first;
+      return ref.watch(ref.watch(_lastClient).servicesOf).first;
 
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
@@ -140,13 +145,13 @@ final _lastClient = Provider<ClientProfile>((ref) {
 
   try {
     return ref
-        .watch(clientsOfWorker(ref.watch(_lastWorkerProfile)))
+        .watch(ref.watch(_lastWorkerProfile).clientsOf)
         .firstWhere((e) => e.contractId == id);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastClient requested but provider failed');
     try {
-      return ref.watch(clientsOfWorker(ref.watch(_lastWorkerProfile))).first;
+      return ref.watch(ref.watch(_lastWorkerProfile).clientsOf).first;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       log.severe('lastClient requested but provider failed twice');

@@ -1,12 +1,11 @@
-import 'package:ais3uson_app/client_server_api.dart';
+import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:flutter/material.dart';
 
 /// Model with data about client:
 /// - [name],
 /// - [contractId],
-/// - [services] - list of [ClientService],
-/// - reference to worker (of type [WorkerProfile]) assigned to this client.
+/// - [workerProfile] a worker (of type [WorkerProfile]) assigned to this client.
 ///
 /// {@category Data Models}
 @immutable
@@ -26,8 +25,4 @@ class ClientProfile {
   String get name => entry.client;
 
   String get contract => entry.contract;
-
-  /// Return List of [ClientService]s (only for tests).
-  List<ClientService> get services =>
-      workerProfile.ref.read(servicesOfClient(this));
 }

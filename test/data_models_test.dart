@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ais3uson_app/client_server_api.dart';
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/api_classes.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/repositories.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
@@ -25,7 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_data.dart';
 import 'helpers/fake_path_provider_platform.dart';
-import 'helpers/worker_profile_post_init.dart';
+import 'helpers/worker_profile_test_extensions.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {
@@ -148,7 +148,7 @@ void main() {
       // await ref.pump();
       expect(wp.clients.length, 10);
       expect(wp.services.length, 272);
-      expect(wp.clientPlan.length, 500);
+      expect(wp.clientsPlan.length, 500);
       final httpClient =
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
@@ -156,7 +156,7 @@ void main() {
       expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
     });
 
-    test('it always sync old data on load', () async {
+    test('it always sync old http data on load', () async {
       //
       // > prepare ProviderContainer + httpClient
       //

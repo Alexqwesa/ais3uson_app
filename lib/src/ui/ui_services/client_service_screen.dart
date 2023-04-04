@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
@@ -154,7 +154,7 @@ class AddButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allowed = ref.watch(addAllowedOfService(service));
+    final allowed = ref.watch(service.addAllowedOf);
 
     return FittedBox(
       fit: BoxFit.fitHeight,
@@ -185,7 +185,7 @@ class DeleteButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allowed = ref.watch(deleteAllowedOfService(service));
+    final allowed = ref.watch(service.deleteAllowedOf);
 
     return FittedBox(
       fit: BoxFit.fitHeight,

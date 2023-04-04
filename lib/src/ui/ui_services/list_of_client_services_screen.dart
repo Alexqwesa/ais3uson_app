@@ -1,7 +1,6 @@
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
-import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
@@ -78,11 +77,9 @@ class _ClientServicesListScreen
               // refresh
               IconButton(
                 icon: const Icon(Icons.refresh),
-                onPressed: () => () async {
-                  await ref
-                      .read(journalOfWorker(workerProfile))
-                      .archiveOldServices();
-                  await ref.read(journalOfWorker(workerProfile)).commitAll();
+                onPressed: () async {
+                  await ref.read(workerProfile.journalOf).archiveOldServices();
+                  await ref.read(workerProfile.journalOf).commitAll();
                   await workerProfile.syncPlanned();
                 },
               ),
@@ -112,7 +109,7 @@ class _ClientServicesListScreen
         },
         child: SizeChangedLayoutNotifier(
           child: Center(
-            child: ref.watch(servicesOfClient(client)).isNotEmpty
+            child: ref.watch(client.servicesOf).isNotEmpty
                 ? servList.isNotEmpty
                     ? const Center(
                         child: _ListOfServices(),

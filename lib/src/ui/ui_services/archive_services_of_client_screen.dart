@@ -1,11 +1,11 @@
 // ignore_for_file: unnecessary_import
 
-import 'package:ais3uson_app/client_server_api.dart';
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/api_classes.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:collection/collection.dart';
@@ -28,7 +28,7 @@ class ArchiveServicesOfClientScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(lastUsed).client;
-    final all = ref.watch(journalOfClient(client));
+    final all = ref.watch(client.allServicesOf);
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,
       (e) => e.provDate.daysSinceEpoch,
@@ -164,7 +164,7 @@ class _ServiceOfJournalTile extends ConsumerWidget {
     ClientService service;
 
     try {
-      service = ref.watch(servicesOfClient(client)).firstWhere(
+      service = ref.watch(client.servicesOf).firstWhere(
             (element) => element.servId == serviceOfJournal.servId,
           );
       // ignore: avoid_catching_errors

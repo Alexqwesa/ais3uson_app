@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:ais3uson_app/client_server_api.dart';
+import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

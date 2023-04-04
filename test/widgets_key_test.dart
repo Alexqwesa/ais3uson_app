@@ -5,13 +5,13 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 // ignore_for_file: unnecessary_import
 
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/repositories.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_departments.dart';
@@ -25,7 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_post_init.dart';
+import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   setUpAll(() async {

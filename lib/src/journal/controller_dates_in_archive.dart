@@ -1,5 +1,7 @@
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/repositories.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,17 +11,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category Providers}
 final controllerDatesInArchive = StateNotifierProvider.family<
-    _ControllerDatesInArchive, List<DateTime>, String>(
+    _ControllerDatesInArchive, Set<DateTime>, String>(
   (ref, apiKey) {
     return _ControllerDatesInArchive(ref, apiKey);
   },
 );
 
-class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
-  _ControllerDatesInArchive(this.ref, this.apiKey) : super([]) {
+class _ControllerDatesInArchive extends StateNotifier<Set<DateTime>> {
+  _ControllerDatesInArchive(this.ref, this.apiKey) : super({}) {
     hiveName = 'allArchiveDates_$apiKey';
     ref.read(hiveDateTimeBox(hiveName)).whenData((data) {
-      super.state = <DateTime>{...state, ...data.values}.toList();
+      super.state = <DateTime>{...state, ...data.values};
     });
   }
 
@@ -28,7 +30,7 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
   final StateNotifierProviderRef ref;
   bool _saved = false;
 
-  Future<List<DateTime>> inited() async {
+  Future<Set<DateTime>> _initialize() async {
     await ref.read(hiveDateTimeBox(hiveName).future);
     // log.info(state);
 
@@ -39,7 +41,7 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
     state = newDates
         .map((element) => element.provDate)
         .map((e) => DateTime(e.year, e.month, e.day))
-        .toList();
+        .toSet();
     await save();
   }
 
@@ -66,8 +68,8 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
   }
 
   @override
-  set state(List<DateTime> value) {
-    super.state = [...value];
+  set state(Set<DateTime> value) {
+    super.state = {...value};
     //
     // > save
     //
@@ -75,13 +77,13 @@ class _ControllerDatesInArchive extends StateNotifier<List<DateTime>> {
   }
 
   void addAll(Iterable<DateTime> map) {
-    state = <DateTime>{...state, ...map}.toList();
+    state = <DateTime>{...state, ...map};
   }
 }
 
 /// Provider of list of dates at which there are exist archived services
 /// in all [WorkerProfile]s, if list is empty, it will try to reinitialize all
-/// underlying lists by calling [Journal.updateDatesInArchiveOfProfile] for each.
+/// underlying lists by calling [JournalHiveRepository.updateDatesInArchiveOfProfile] for each.
 ///
 /// (aggregate from [controllerDatesInArchive]).
 ///
@@ -91,14 +93,13 @@ final initDatesInAllArchives = FutureProvider((ref) async {
   Future<void> initControllers() async {
     await Future.wait([
       ...ref.watch(workerProfiles).map((e) async =>
-          ref.watch(controllerDatesInArchive(e.apiKey).notifier).inited()),
+          ref.watch(controllerDatesInArchive(e.apiKey).notifier)._initialize()),
     ]);
   }
 
   if (ref.watch(datesInAllArchives).isEmpty) {
-    await Future.wait(ref
-        .read(workerProfiles)
-        .map((e) async => e.journal.updateDatesInArchiveOfProfile()));
+    await Future.wait(ref.read(workerProfiles).map((e) async =>
+        ref.read(e.journalOf).hiveRepository.updateDatesInArchiveOfProfile()));
     await initControllers();
   }
 

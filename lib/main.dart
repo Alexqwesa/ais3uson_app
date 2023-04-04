@@ -1,11 +1,23 @@
+/// # The entry point for the application
+///
+/// Not a library, just a place to initialize some properties and plugins
+/// of the application:
+/// - tr  - translation provider,
+/// - log - logger,
+/// - set lets-encrypt certificate,
+/// - register Hive adapters...
+///
+
+library main;
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';

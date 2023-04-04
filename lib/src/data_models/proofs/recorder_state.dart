@@ -1,4 +1,3 @@
-
 /// States used by ProofRecorder.
 ///
 /// {@category Providers}

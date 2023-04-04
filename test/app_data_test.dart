@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/hive_test.dart';
@@ -11,6 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
+import 'helpers/journal_test_extensions.dart';
+import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   //
@@ -149,7 +151,10 @@ void main() {
           'journal_archive_${ref.read(workerProfiles).first.apiKey}',
         );
         expect(hiveArchive.length, 40);
-        expect(ref.read(workerProfiles).first.journal.hive.values.length, 0);
+        expect(
+          ref.read(workerProfiles).first.hiveRepository.hive.values.length,
+          0,
+        );
         //
         // > test archive dates
         //

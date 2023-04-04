@@ -2,11 +2,11 @@
 
 import 'dart:io';
 
-import 'package:ais3uson_app/data_entities.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/repositories.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
@@ -27,7 +27,7 @@ import 'package:tuple/tuple.dart';
 
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_post_init.dart';
+import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

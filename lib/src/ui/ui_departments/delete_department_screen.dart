@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -64,7 +65,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                         //
                         // > call dialog
                         //
-                        onTap: () => () async {
+                        onTap: () async {
                           final result = await _showDialog(
                             context,
                             wpKeys[index].dep,
