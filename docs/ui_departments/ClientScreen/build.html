@@ -116,7 +116,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final workerProfile = ref.watch(lastUsed).worker;
-  final clientList = ref.watch(clientsOfWorker(workerProfile));
+  final clientList = ref.watch(workerProfile.clientsOf);
 
   return Scaffold(
     appBar: AppBar(
@@ -129,7 +129,8 @@ Widget build(BuildContext context, WidgetRef ref) {
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () =&gt; () async {
+            &#47;&#47; ignore: avoid-passing-async-when-sync-expected
+            onPressed: () async {
               await workerProfile.syncClients();
             },
           ),

@@ -138,7 +138,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                           ContextMenuButtonConfig(
                             tr().exportThisWeek,
                             onPressed: () =&gt; ref
-                                .read(journalOfWorker(workerProfile))
+                                .read(workerProfile.journalAllOf)
                                 .exportToFile(
                                   mostRecentMonday(),
                                   mostRecentMonday(addDays: 7),
@@ -147,7 +147,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                           ContextMenuButtonConfig(
                             tr().exportLastWeek,
                             onPressed: () =&gt; ref
-                                .read(journalOfWorker(workerProfile))
+                                .read(workerProfile.journalAllOf)
                                 .exportToFile(
                                   mostRecentMonday(addDays: -7),
                                   mostRecentMonday(),
@@ -156,7 +156,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                           ContextMenuButtonConfig(
                             tr().exportThisMonth,
                             onPressed: () =&gt; ref
-                                .read(journalOfWorker(workerProfile))
+                                .read(workerProfile.journalAllOf)
                                 .exportToFile(
                                   mostRecentMonth(),
                                   mostRecentMonth(addMonths: 1),
@@ -165,7 +165,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                           ContextMenuButtonConfig(
                             tr().exportLastMonth,
                             onPressed: () =&gt; ref
-                                .read(journalOfWorker(workerProfile))
+                                .read(workerProfile.journalAllOf)
                                 .exportToFile(
                                   mostRecentMonth(addMonths: -1),
                                   mostRecentMonth(),

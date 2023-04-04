@@ -153,7 +153,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           &#47;&#47;
           &#47;&#47; &gt; onPressed: start&#47;stop
           &#47;&#47;
-          onPressed: () =&gt; () async {
+          onPressed: () async {
             if (ref.read(proofRecorderState) != RecorderState.ready) {
               await recorder.stop();
             } else {
@@ -188,7 +188,7 @@ Widget build(BuildContext context, WidgetRef ref) {
             &#47;&#47;
             &#47;&#47; &gt; onPressed: play&#47;stop
             &#47;&#47;
-            onPressed: () =&gt; () async {
+            onPressed: () async {
               await recorder.stop();
               if (playState == PlayerState.playing) {
                 await player.stop();
@@ -220,7 +220,7 @@ Widget build(BuildContext context, WidgetRef ref) {
             &#47;&#47;
             &#47;&#47; &gt; onPressed: try share, or show notification
             &#47;&#47;
-            onPressed: () =&gt; () async {
+            onPressed: () async {
               await recorder.stop();
               if (audioProof != null) {
                 final filePath = audioProof;

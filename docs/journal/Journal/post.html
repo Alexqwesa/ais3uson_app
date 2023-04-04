@@ -58,26 +58,32 @@
 
     <section class="multi-line-signature">
       
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
-<span class="name ">post</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span></li>
+<span class="name ">post</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span></li>
 </ol>)
 
-      
+      <div class="features"><span class="feature">override</span></div>
 
     </section>
     
 <section class="desc markdown">
-  <p>Add new <a href="../../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> to <a href="../../journal/Journal-class.html">Journal</a> and call <a href="../../journal/Journal/commitAll.html">commitAll</a>.</p>
+  <p>Add new <a href="../../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a> to <a href="../../journal/Journal-class.html">Journal</a> and call <a href="../../journal/Journal/commitAll.html">commitAll</a>.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; post(ServiceOfJournal se) async {
+  <pre class="language-dart"><code class="language-dart">@override
+Future&lt;bool&gt; post(ServiceOfJournal se) async {
   try {
-    await ref.read(controllerOfJournal(this).notifier).post(se);
+    await hiveRepository.post(se);
     &#47;&#47; ignore: avoid_catching_errors, avoid_catches_without_on_clauses
   } catch (e) {
     showErrorNotification(tr().errorSave);
@@ -119,43 +125,36 @@
         <li class="section-title">
           <a href="../../journal/Journal-class.html#instance-properties">Properties</a>
         </li>
-          <li><a href="../../journal/Journal/aData.html">aData</a></li>
+          <li class="inherited"><a href="../../data_models/BaseJournal/aData.html">aData</a></li>
           <li><a href="../../journal/Journal/added.html">added</a></li>
           <li><a href="../../journal/Journal/all.html">all</a></li>
-          <li><a href="../../journal/Journal/apiKey.html">apiKey</a></li>
+          <li class="inherited"><a href="../../data_models/BaseJournal/apiKey.html">apiKey</a></li>
           <li><a href="../../journal/Journal/finished.html">finished</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
           <li><a href="../../journal/Journal/hive.html">hive</a></li>
-          <li><a href="../../journal/Journal/hiveArchive.html">hiveArchive</a></li>
+          <li><a href="../../journal/Journal/hiveRepository.html">hiveRepository</a></li>
+          <li><a href="../../journal/Journal/httpRepository.html">httpRepository</a></li>
           <li><a href="../../journal/Journal/journalHiveName.html">journalHiveName</a></li>
-          <li><a href="../../journal/Journal/now.html">now</a></li>
           <li><a href="../../journal/Journal/outDated.html">outDated</a></li>
           <li><a href="../../journal/Journal/ref.html">ref</a></li>
           <li><a href="../../journal/Journal/rejected.html">rejected</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
           <li><a href="../../journal/Journal/servicesForSync.html">servicesForSync</a></li>
-          <li><a href="../../journal/Journal/today.html">today</a></li>
-          <li><a href="../../journal/Journal/workerDepId.html">workerDepId</a></li>
-          <li><a href="../../journal/Journal/workerProfile.html">workerProfile</a></li>
+          <li><a href="../../journal/Journal/servicesOf.html">servicesOf</a></li>
+          <li class="inherited"><a href="../../data_models/BaseJournal/today.html">today</a></li>
+          <li class="inherited"><a href="../../data_models/BaseJournal/workerDepId.html">workerDepId</a></li>
+          <li class="inherited"><a href="../../data_models/BaseJournal/workerProfile.html">workerProfile</a></li>
 
         <li class="section-title"><a href="../../journal/Journal-class.html#instance-methods">Methods</a></li>
           <li><a href="../../journal/Journal/archiveOldServices.html">archiveOldServices</a></li>
           <li><a href="../../journal/Journal/commitAll.html">commitAll</a></li>
           <li><a href="../../journal/Journal/delete.html">delete</a></li>
-          <li><a href="../../journal/Journal/export.html">export</a></li>
           <li><a href="../../journal/Journal/exportToFile.html">exportToFile</a></li>
           <li><a href="../../journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
-          <li><a href="../../journal/Journal/moveServiceTo.html">moveServiceTo</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
           <li><a href="../../journal/Journal/post.html">post</a></li>
-          <li><a href="../../journal/Journal/postInit.html">postInit</a></li>
-          <li><a href="../../journal/Journal/toDelete.html">toDelete</a></li>
-          <li><a href="../../journal/Journal/toFinished.html">toFinished</a></li>
-          <li><a href="../../journal/Journal/toOutDated.html">toOutDated</a></li>
-          <li><a href="../../journal/Journal/toRejected.html">toRejected</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
           <li><a href="../../journal/Journal/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
-          <li><a href="../../journal/Journal/updateDatesInArchiveOfProfile.html">updateDatesInArchiveOfProfile</a></li>
 
         <li class="section-title inherited"><a href="../../journal/Journal-class.html#operators">Operators</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>

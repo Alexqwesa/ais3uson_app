@@ -54,7 +54,7 @@
       <div>
 <h1><span class="kind-class">JournalArchive</span> class 
  
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
 </h1></div>
 
     
@@ -73,6 +73,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
   <dd>
     <ul class="gt-separated dark clazz-relationships">
       <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+        <li><a href="../data_models/BaseJournal-class.html">BaseJournal</a></li>
         <li><a href="../journal/Journal-class.html">Journal</a></li>
       <li>JournalArchive</li>
     </ul>
@@ -117,14 +118,14 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
 </dt>
 <dd>
-  At what date is journal, null - load all values.
+  At what date is journal, if null - load all values.
   <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="added" class="property inherited">
   <span class="name"><a href="../journal/Journal/added.html">added</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -135,7 +136,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
         <dt id="all" class="property inherited">
   <span class="name"><a href="../journal/Journal/all.html">all</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -145,7 +146,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 </dd>
 
         <dt id="apiKey" class="property inherited">
-  <span class="name"><a href="../journal/Journal/apiKey.html">apiKey</a></span>
+  <span class="name"><a href="../data_models/BaseJournal/apiKey.html">apiKey</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
 
 </dt>
@@ -157,7 +158,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
         <dt id="finished" class="property inherited">
   <span class="name"><a href="../journal/Journal/finished.html">finished</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -177,25 +178,36 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
 </dd>
 
-        <dt id="hive" class="property inherited">
-  <span class="name"><a href="../journal/Journal/hive.html">hive</a></span>
-  <span class="signature">&#8596; <a href="https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+        <dt id="hive" class="property">
+  <span class="name"><a href="../journal/JournalArchive/hive.html">hive</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
-<dd class="inherited">
+<dd>
   
-  <div class="features"><span class="feature">read / write</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
-        <dt id="hiveArchive" class="property inherited">
-  <span class="name"><a href="../journal/Journal/hiveArchive.html">hiveArchive</a></span>
-  <span class="signature">&#8596; <a href="https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+        <dt id="hiveRepository" class="property">
+  <span class="name"><a href="../journal/JournalArchive/hiveRepository.html">hiveRepository</a></span>
+  <span class="signature">&#8594; <a href="../repositories/JournalHiveRepository-class.html">JournalHiveRepository</a></span> 
 
 </dt>
-<dd class="inherited">
+<dd>
   
-  <div class="features"><span class="feature">read / write</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
+
+</dd>
+
+        <dt id="httpRepository" class="property">
+  <span class="name"><a href="../journal/JournalArchive/httpRepository.html">httpRepository</a></span>
+  <span class="signature">&#8594; <a href="../repositories/JournalHttpRepository-class.html">JournalHttpRepository</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
@@ -210,20 +222,9 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
 </dd>
 
-        <dt id="now" class="property inherited">
-  <span class="name"><a href="../journal/Journal/now.html">now</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> 
-
-</dt>
-<dd class="inherited">
-  
-  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
-
-</dd>
-
         <dt id="outDated" class="property inherited">
   <span class="name"><a href="../journal/Journal/outDated.html">outDated</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -232,20 +233,20 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
 </dd>
 
-        <dt id="ref" class="property inherited">
-  <span class="name"><a href="../journal/Journal/ref.html">ref</a></span>
+        <dt id="ref" class="property">
+  <span class="name"><a href="../journal/JournalArchive/ref.html">ref</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> 
 
 </dt>
-<dd class="inherited">
+<dd>
   
-  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="rejected" class="property inherited">
   <span class="name"><a href="../journal/Journal/rejected.html">rejected</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -267,7 +268,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
         <dt id="servicesForSync" class="property inherited">
   <span class="name"><a href="../journal/Journal/servicesForSync.html">servicesForSync</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -276,8 +277,19 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
 </dd>
 
+        <dt id="servicesOf" class="property">
+  <span class="name"><a href="../journal/JournalArchive/servicesOf.html">servicesOf</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
+
+</dd>
+
         <dt id="today" class="property inherited">
-  <span class="name"><a href="../journal/Journal/today.html">today</a></span>
+  <span class="name"><a href="../data_models/BaseJournal/today.html">today</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> 
 
 </dt>
@@ -288,7 +300,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 </dd>
 
         <dt id="workerDepId" class="property inherited">
-  <span class="name"><a href="../journal/Journal/workerDepId.html">workerDepId</a></span>
+  <span class="name"><a href="../data_models/BaseJournal/workerDepId.html">workerDepId</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
@@ -299,7 +311,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 </dd>
 
         <dt id="workerProfile" class="property inherited">
-  <span class="name"><a href="../journal/Journal/workerProfile.html">workerProfile</a></span>
+  <span class="name"><a href="../data_models/BaseJournal/workerProfile.html">workerProfile</a></span>
   <span class="signature">&#8596; <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> 
 
 </dt>
@@ -345,7 +357,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 </dd>
 
         <dt id="delete" class="callable">
-  <span class="name"><a href="../journal/JournalArchive/delete.html">delete</a></span><span class="signature">(<wbr><span class="parameter" id="delete-param-serv">{<span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>?</span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="delete-param-uuid"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uuid</span>}</span>)
+  <span class="name"><a href="../journal/JournalArchive/delete.html">delete</a></span><span class="signature">(<wbr><span class="parameter" id="delete-param-serv">{<span class="type-annotation"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>?</span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="delete-param-uuid"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uuid</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -354,19 +366,6 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 <dd>
   This method of base class is stubbed.
   <div class="features"><span class="feature">override</span></div>
-
-</dd>
-
-        <dt id="export" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/export.html">export</a></span><span class="signature">(<wbr><span class="parameter" id="export-param-start"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="export-param-end"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">end</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Return json String with <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> between dates <code>start</code> and <code>end</code>
-  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -391,20 +390,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
 </dt>
 <dd class="inherited">
-  Helper, only used in <a href="../data_models/ClientService-class.html">ClientService</a>, it delete last <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="moveServiceTo" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a></span><span class="signature">(<wbr><span class="parameter" id="moveServiceTo-param-service"><span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span>, </span><span class="parameter" id="moveServiceTo-param-newState"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a></span> <span class="parameter-name">newState</span></span>)
-    <span class="returntype parameter">&#8594; <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Move service - create new in dst, delete old in src list of <a href="../journal/Journal-class.html">Journal</a>.
+  Helper, only used in <a href="../data_models/ClientService-class.html">ClientService</a>, it delete last <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -423,7 +409,7 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 </dd>
 
         <dt id="post" class="callable">
-  <span class="name"><a href="../journal/JournalArchive/post.html">post</a></span><span class="signature">(<wbr><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span>)
+  <span class="name"><a href="../journal/JournalArchive/post.html">post</a></span><span class="signature">(<wbr><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
   </span>
   
@@ -432,71 +418,6 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 <dd>
   This method of base class is stubbed.
   <div class="features"><span class="feature">override</span></div>
-
-</dd>
-
-        <dt id="postInit" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/postInit.html">postInit</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Only for tests! Don't use in real code.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="toDelete" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/toDelete.html">toDelete</a></span><span class="signature">(<wbr><span class="parameter" id="toDelete-param-forDelete"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> <span class="parameter-name">forDelete</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Remove <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> from lists of <a href="../journal/Journal-class.html">Journal</a> and from Hive.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="toFinished" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/toFinished.html">toFinished</a></span><span class="signature">(<wbr><span class="parameter" id="toFinished-param-service"><span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span></span>)
-    <span class="returntype parameter">&#8594; <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Shortcut for <a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a>.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="toOutDated" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/toOutDated.html">toOutDated</a></span><span class="signature">(<wbr><span class="parameter" id="toOutDated-param-service"><span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span></span>)
-    <span class="returntype parameter">&#8594; <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Shortcut for <a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a>.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="toRejected" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/toRejected.html">toRejected</a></span><span class="signature">(<wbr><span class="parameter" id="toRejected-param-service"><span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">service</span></span>)
-    <span class="returntype parameter">&#8594; <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Shortcut for <a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a>.
-  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -523,19 +444,6 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 <dd>
   This method of base class is stubbed.
   <div class="features"><span class="feature">override</span></div>
-
-</dd>
-
-        <dt id="updateDatesInArchiveOfProfile" class="callable inherited">
-  <span class="name"><a href="../journal/Journal/updateDatesInArchiveOfProfile.html">updateDatesInArchiveOfProfile</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  
-  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -589,8 +497,8 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
         <li><a href="../journal/Journal-class.html">Journal</a></li>
         <li><a href="../journal/JournalArchive-class.html">JournalArchive</a></li>
         <li><a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
-        <li><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
-        <li><a href="../journal/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
+        <li><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
+        <li><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
         <li><a href="../journal/ServiceStateAdapter-class.html">ServiceStateAdapter</a></li>
 
 
@@ -598,15 +506,11 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
 
       <li class="section-title"><a href="../journal/journal-library.html#properties">Properties</a></li>
         <li><a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a></li>
-        <li><a href="../journal/controllerOfJournal.html">controllerOfJournal</a></li>
-        <li><a href="../journal/datesInArchive.html">datesInArchive</a></li>
-        <li><a href="../journal/datesInArchiveController.html">datesInArchiveController</a></li>
-        <li><a href="../journal/journalOfClient.html">journalOfClient</a></li>
-        <li><a href="../journal/journalOfWorker.html">journalOfWorker</a></li>
-        <li><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a></li>
+        <li><a href="../journal/datesInAllArchives.html">datesInAllArchives</a></li>
+        <li><a href="../journal/initDatesInAllArchives.html">initDatesInAllArchives</a></li>
 
       <li class="section-title"><a href="../journal/journal-library.html#functions">Functions</a></li>
-        <li><a href="../journal/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
+        <li><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
 
       <li class="section-title"><a href="../journal/journal-library.html#enums">Enums</a></li>
         <li><a href="../journal/ServiceState.html">ServiceState</a></li>
@@ -629,40 +533,33 @@ TODO: The member <a href="../journal/Journal/all.html">all</a> - sorted by date(
           <li><a href="../journal/JournalArchive/aData.html">aData</a></li>
           <li class="inherited"><a href="../journal/Journal/added.html">added</a></li>
           <li class="inherited"><a href="../journal/Journal/all.html">all</a></li>
-          <li class="inherited"><a href="../journal/Journal/apiKey.html">apiKey</a></li>
+          <li class="inherited"><a href="../data_models/BaseJournal/apiKey.html">apiKey</a></li>
           <li class="inherited"><a href="../journal/Journal/finished.html">finished</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-          <li class="inherited"><a href="../journal/Journal/hive.html">hive</a></li>
-          <li class="inherited"><a href="../journal/Journal/hiveArchive.html">hiveArchive</a></li>
+          <li><a href="../journal/JournalArchive/hive.html">hive</a></li>
+          <li><a href="../journal/JournalArchive/hiveRepository.html">hiveRepository</a></li>
+          <li><a href="../journal/JournalArchive/httpRepository.html">httpRepository</a></li>
           <li><a href="../journal/JournalArchive/journalHiveName.html">journalHiveName</a></li>
-          <li class="inherited"><a href="../journal/Journal/now.html">now</a></li>
           <li class="inherited"><a href="../journal/Journal/outDated.html">outDated</a></li>
-          <li class="inherited"><a href="../journal/Journal/ref.html">ref</a></li>
+          <li><a href="../journal/JournalArchive/ref.html">ref</a></li>
           <li class="inherited"><a href="../journal/Journal/rejected.html">rejected</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
           <li class="inherited"><a href="../journal/Journal/servicesForSync.html">servicesForSync</a></li>
-          <li class="inherited"><a href="../journal/Journal/today.html">today</a></li>
-          <li class="inherited"><a href="../journal/Journal/workerDepId.html">workerDepId</a></li>
-          <li class="inherited"><a href="../journal/Journal/workerProfile.html">workerProfile</a></li>
+          <li><a href="../journal/JournalArchive/servicesOf.html">servicesOf</a></li>
+          <li class="inherited"><a href="../data_models/BaseJournal/today.html">today</a></li>
+          <li class="inherited"><a href="../data_models/BaseJournal/workerDepId.html">workerDepId</a></li>
+          <li class="inherited"><a href="../data_models/BaseJournal/workerProfile.html">workerProfile</a></li>
 
         <li class="section-title"><a href="../journal/JournalArchive-class.html#instance-methods">Methods</a></li>
           <li><a href="../journal/JournalArchive/archiveOldServices.html">archiveOldServices</a></li>
           <li><a href="../journal/JournalArchive/commitAll.html">commitAll</a></li>
           <li><a href="../journal/JournalArchive/delete.html">delete</a></li>
-          <li class="inherited"><a href="../journal/Journal/export.html">export</a></li>
           <li class="inherited"><a href="../journal/Journal/exportToFile.html">exportToFile</a></li>
           <li class="inherited"><a href="../journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
-          <li class="inherited"><a href="../journal/Journal/moveServiceTo.html">moveServiceTo</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
           <li><a href="../journal/JournalArchive/post.html">post</a></li>
-          <li class="inherited"><a href="../journal/Journal/postInit.html">postInit</a></li>
-          <li class="inherited"><a href="../journal/Journal/toDelete.html">toDelete</a></li>
-          <li class="inherited"><a href="../journal/Journal/toFinished.html">toFinished</a></li>
-          <li class="inherited"><a href="../journal/Journal/toOutDated.html">toOutDated</a></li>
-          <li class="inherited"><a href="../journal/Journal/toRejected.html">toRejected</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
           <li><a href="../journal/JournalArchive/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
-          <li class="inherited"><a href="../journal/Journal/updateDatesInArchiveOfProfile.html">updateDatesInArchiveOfProfile</a></li>
 
         <li class="section-title inherited"><a href="../journal/JournalArchive-class.html#operators">Operators</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>

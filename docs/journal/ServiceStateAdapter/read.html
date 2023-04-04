@@ -91,6 +91,8 @@ ServiceState read(BinaryReader reader) {
       return ServiceState.rejected;
     case 4:
       return ServiceState.outDated;
+    case 5:
+      return ServiceState.removed;
     default:
       return ServiceState.added;
   }

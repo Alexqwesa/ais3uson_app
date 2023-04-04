@@ -58,26 +58,25 @@
 
     
 <section class="desc markdown">
-  <h1 id="the-journal-class-itself-and-related-classes">The <a href="../journal/Journal-class.html">Journal</a> class itself and related classes.</h1>
-<p>There are two classes <a href="../journal/Journal-class.html">Journal</a> and <a href="../journal/JournalArchive-class.html">JournalArchive</a>.</p>
-<p>The <a href="../journal/Journal-class.html">Journal</a> class store worker inputs as instances of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>,
-it store them in 4 different lists (see <a href="../journal/ServiceState.html">ServiceState</a>),
-which are provided by <a href="../data_models/groupsOfJournal.html">groupsOfJournal</a>.</p>
-<p><a href="../journal/Journal-class.html">Journal</a> class:</p>
+  <h1 id="this-library-contain-journal-class-itself">This library contain <a href="../journal/Journal-class.html">Journal</a> class itself.</h1>
+<p>It is used to manage issued services of worker:</p>
 <ul>
-<li>store services in Hive(via provider <a href="../journal/controllerOfJournal.html">controllerOfJournal</a>),</li>
-<li>make network requests(add/delete),</li>
-<li>change state of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>,</li>
-<li>move old <code>finished</code> and <code>outDated</code> services into <a href="../journal/JournalArchive-class.html">JournalArchive</a>.</li>
+<li>it store worker input as instance of <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>,</li>
+<li>it send them to server,</li>
+<li>it archive old services,</li>
+<li>it send delete requests.</li>
 </ul>
-<p>The <a href="../journal/JournalArchive-class.html">JournalArchive</a> class is a cut version of <a href="../journal/Journal-class.html">Journal</a>,
-it store old <code>finished</code> and `outDated services.</p>
-<p>Each instance of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a> can access <code>Journal</code> classes via providers:</p>
+<p>Each instance of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a> let access to <a href="../journal/Journal-class.html">Journal</a> classes via providers:</p>
 <ul>
-<li><a href="../journal/journalOfWorker.html">journalOfWorker</a>,</li>
-<li><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a>.</li>
+<li><a href="../data_models/WorkerProfile/journalOf.html">WorkerProfile.journalOf</a>,</li>
+<li><a href="../data_models/WorkerProfile/journalAtDateOf.html">WorkerProfile.journalAtDateOf</a>,  // archived services at date</li>
+<li><a href="../data_models/WorkerProfile/journalAllOf.html">WorkerProfile.journalAllOf</a>.     // all archived services</li>
 </ul>
-<p><a href="../data_models/ClientProfile-class.html">ClientProfile</a> can access both <code>Journal</code> classes at once via <a href="../journal/journalOfClient.html">journalOfClient</a>.</p>
+<p>These providers point to a three classes <a href="../journal/Journal-class.html">Journal</a>, <a href="../journal/JournalArchive-class.html">JournalArchive</a> and <a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a>.</p>
+<p>The <a href="../journal/JournalArchive-class.html">JournalArchive</a> class is a cut version of <a href="../journal/Journal-class.html">Journal</a>, provide access to
+services of previous days(one day specified by date).</p>
+<p>The <a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a> class is a version of <a href="../journal/JournalArchive-class.html">JournalArchive</a>, that
+provides access to all days.</p>
 </section>
 
 
@@ -88,7 +87,7 @@ it store old <code>finished</code> and `outDated services.</p>
         <dt id="Journal">
   <span class="name "><a href="../journal/Journal-class.html">Journal</a></span> 
     <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
 
 </dt>
 <dd>
@@ -97,7 +96,7 @@ it store old <code>finished</code> and `outDated services.</p>
 
         <dt id="JournalArchive">
   <span class="name "><a href="../journal/JournalArchive-class.html">JournalArchive</a></span> 
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
 
 </dt>
 <dd>
@@ -106,7 +105,7 @@ it store old <code>finished</code> and `outDated services.</p>
 
         <dt id="JournalArchiveAll">
   <span class="name "><a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a></span> 
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
 
 </dt>
 <dd>
@@ -114,9 +113,9 @@ it store old <code>finished</code> and `outDated services.</p>
 </dd>
 
         <dt id="ServiceOfJournal">
-  <span class="name "><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> 
+  <span class="name "><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span> 
     <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
 
 </dt>
 <dd>
@@ -124,7 +123,7 @@ it store old <code>finished</code> and `outDated services.</p>
 </dd>
 
         <dt id="ServiceOfJournalAdapter">
-  <span class="name "><a href="../journal/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></span> 
+  <span class="name "><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></span> 
 
 </dt>
 <dd>
@@ -151,34 +150,21 @@ it store old <code>finished</code> and `outDated services.</p>
       <dl class="properties">
         <dt id="controllerDatesInArchive" class="property">
   <span class="name"><a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerDatesInArchive</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerDatesInArchive</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
   Dates at which where exist archived services in <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
-Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allArchiveDates').
+Depend on <a href="../access_to_io/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allArchiveDates').
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
 
-        <dt id="controllerOfJournal" class="property">
-  <span class="name"><a href="../journal/controllerOfJournal.html">controllerOfJournal</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_ControllerOfJournal</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span>?</span>, <span class="type-parameter"><a href="../journal/Journal-class.html">Journal</a></span>&gt;</span></span> 
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Controller of List&lt;<a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>&gt; for <code>Journal</code> class.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="datesInArchive" class="property">
-  <span class="name"><a href="../journal/datesInArchive.html">datesInArchive</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+        <dt id="datesInAllArchives" class="property">
+  <span class="name"><a href="../journal/datesInAllArchives.html">datesInAllArchives</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>&gt;</span></span> 
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
@@ -188,54 +174,17 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
 
 </dd>
 
-        <dt id="datesInArchiveController" class="property">
-  <span class="name"><a href="../journal/datesInArchiveController.html">datesInArchiveController</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter">_DateListController</span>&gt;</span></span> 
+        <dt id="initDatesInAllArchives" class="property">
+  <span class="name"><a href="../journal/initDatesInAllArchives.html">initDatesInAllArchives</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/FutureProvider-class.html">FutureProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>&gt;</span></span> 
     <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
-  Controller for list of dates at which there are exist archived services
-(aggregate from <a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a>).
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="journalOfClient" class="property">
-  <span class="name"><a href="../journal/journalOfClient.html">journalOfClient</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Today + archived <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> of client.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="journalOfWorker" class="property">
-  <span class="name"><a href="../journal/journalOfWorker.html">journalOfWorker</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/Journal-class.html">Journal</a></span>, <span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> 
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of <code>Journal</code> for <code>WorkerProfile</code>.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="journalOfWorkerAtDate" class="property">
-  <span class="name"><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/Journal-class.html">Journal</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.1/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>&gt;</span></span>&gt;</span></span> 
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of <code>Journal</code> for <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
+  Provider of list of dates at which there are exist archived services
+in all <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>s, if list is empty, it will try to reinitialize all
+underlying lists by calling <a href="../repositories/JournalHiveRepository/updateDatesInArchiveOfProfile.html">JournalHiveRepository.updateDatesInArchiveOfProfile</a> for each.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -248,8 +197,8 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
 
       <dl class="callables">
         <dt id="autoServiceOfJournal" class="callable">
-  <span class="name"><a href="../journal/autoServiceOfJournal.html">autoServiceOfJournal</a></span><span class="signature">(<wbr><span class="parameter" id="autoServiceOfJournal-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-workerId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-provDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">provDate</span>, </span><span class="parameter" id="autoServiceOfJournal-param-state"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a>?</span> <span class="parameter-name">state</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  <span class="name"><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></span><span class="signature">(<wbr><span class="parameter" id="autoServiceOfJournal-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-workerId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-provDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">provDate</span>, </span><span class="parameter" id="autoServiceOfJournal-param-state"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a>?</span> <span class="parameter-name">state</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
   </span>
   
 
@@ -269,11 +218,11 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
       <dl>
         <dt id="ServiceState">
   <span class="name "><a href="../journal/ServiceState.html">ServiceState</a></span> 
-    <span class="category journal cp-6" title="This is part of the Journal topic.">Journal</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
 
 </dt>
 <dd>
-  These states control <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.
+  These states are used to describe <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>.
 </dd>
 
       </dl>
@@ -301,12 +250,15 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
       <li class="section-title">Topics</li>
         <li><a href="../topics/About-topic.html">About</a></li>
       <li class="section-title">Libraries</li>
-      <li><a href="../client_server_api/client_server_api-library.html">client_server_api</a></li>
+      <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
+      <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
+      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
+      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -324,8 +276,8 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
         <li><a href="../journal/Journal-class.html">Journal</a></li>
         <li><a href="../journal/JournalArchive-class.html">JournalArchive</a></li>
         <li><a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
-        <li><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
-        <li><a href="../journal/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
+        <li><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
+        <li><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
         <li><a href="../journal/ServiceStateAdapter-class.html">ServiceStateAdapter</a></li>
 
 
@@ -333,15 +285,11 @@ Depend on <a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a> ('allA
 
       <li class="section-title"><a href="../journal/journal-library.html#properties">Properties</a></li>
         <li><a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a></li>
-        <li><a href="../journal/controllerOfJournal.html">controllerOfJournal</a></li>
-        <li><a href="../journal/datesInArchive.html">datesInArchive</a></li>
-        <li><a href="../journal/datesInArchiveController.html">datesInArchiveController</a></li>
-        <li><a href="../journal/journalOfClient.html">journalOfClient</a></li>
-        <li><a href="../journal/journalOfWorker.html">journalOfWorker</a></li>
-        <li><a href="../journal/journalOfWorkerAtDate.html">journalOfWorkerAtDate</a></li>
+        <li><a href="../journal/datesInAllArchives.html">datesInAllArchives</a></li>
+        <li><a href="../journal/initDatesInAllArchives.html">initDatesInAllArchives</a></li>
 
       <li class="section-title"><a href="../journal/journal-library.html#functions">Functions</a></li>
-        <li><a href="../journal/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
+        <li><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
 
       <li class="section-title"><a href="../journal/journal-library.html#enums">Enums</a></li>
         <li><a href="../journal/ServiceState.html">ServiceState</a></li>
