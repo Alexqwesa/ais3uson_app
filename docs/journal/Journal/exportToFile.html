@@ -101,7 +101,7 @@
     } else {
       File(filePath).writeAsStringSync(content);
       try {
-        await Share.shareFiles([filePath]);
+        await Share.shareXFiles([XFile(filePath)]);
         &#47;&#47; ignore: avoid_catching_errors
       } on UnimplementedError {
         showNotification(
