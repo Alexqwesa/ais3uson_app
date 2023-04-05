@@ -75,7 +75,7 @@
     Provider.family&lt;List&lt;ClientService&gt;, ClientProfile&gt;((ref, client) {
   final searched = ref.watch(currentSearchText).toLowerCase();
   final servList = ref
-      .watch(servicesOfClient(client))
+      .watch(client.servicesOf)
       .where((element) =&gt; element.servText.toLowerCase().contains(searched))
       .toList(growable: false);
 

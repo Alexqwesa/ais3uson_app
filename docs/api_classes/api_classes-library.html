@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="api_classes library API docs, for the Dart programming language.">
+  <title>api_classes library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">api_classes library</li>
+  </ol>
+  <div class="self-name">api_classes</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+    
+      <div>
+<h1><span class="kind-library">api_classes</span> library 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <h1 id="client-server-api">Client-Server API</h1>
+<h2 id="input-api">Input API</h2>
+<p>Classes like:</p>
+<ul>
+<li><a href="../api_classes/ClientEntry-class.html">ClientEntry</a>,</li>
+<li><a href="../api_classes/ClientPlan-class.html">ClientPlan</a>,</li>
+<li><a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a>,</li>
+</ul>
+<p>are used to convert server responses from Json strings to dart classes.
+Mostly freezed.</p>
+<p>First <a href="../access_to_io/repositoryHttp.html">repositoryHttp</a> get data from server and store it into hive
+then it is converted to Json. Then it is converted to classes and assigned to providers of
+<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.</p>
+<p>Detailed API online at <a href="https://alexqwesa.fvds.ru:48080/docs">https://alexqwesa.fvds.ru:48080/docs</a>
+ (usually it online <code>from 02:00 to 16:00 GMT</code> - didn't send it to cloud yet...) ,
+ test api-key is <code>3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c</code></p>
+<h2 id="output-api">Output API</h2>
+<p>The methods for output are:</p>
+<ul>
+<li><a href="../journal/Journal/post.html">Journal.post</a> is used to send <strong>/add</strong> requests to server(<a href="../api_classes/AddClientServiceRequest-class.html">AddClientServiceRequest</a>),</li>
+<li><a href="../journal/Journal/delete.html">Journal.delete</a> is used to send <strong>/delete</strong> requests to server(<a href="../api_classes/DeleteClientServiceRequest-class.html">DeleteClientServiceRequest</a>),</li>
+<li><a href="../journal/Journal/exportToFile.html">Journal.exportToFile</a> is used to save list of <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a> to a file <strong>.ais_json</strong> .</li>
+</ul>
+<p>These methods use json format.</p>
+<h4 id="http-headers">Http headers</h4>
+<pre class="language-json"><code class="language-json">{
+"Content-type": "application/json",
+"Accept": "application/json",
+"api-key": "your real key will be here"
+}
+</code></pre>
+<h2 id="storage-api">Storage API</h2>
+<p>Most data is stored in <a href="https://pub.dev/documentation/hive/2.2.3/hive/Hive.html">Hive</a> Boxes. Http responses are stored as strings.</p>
+<p>The settings and <a href="../api_classes/WorkerKey-class.html">WorkerKey</a>s are stored in <a href="https://pub.dev/documentation/shared_preferences/2.1.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>.</p>
+<p>The <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>s are stored in <a href="https://pub.dev/documentation/hive/2.2.3/hive/Hive.html">Hive</a> as objects.</p>
+<p>The <a href="../data_models/Proofs-class.html">Proofs</a>s store files in filesystem.</p>
+</section>
+
+
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        <dt id="AddClientServiceRequest">
+  <span class="name "><a href="../api_classes/AddClientServiceRequest-class.html">AddClientServiceRequest</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+
+</dt>
+<dd>
+  Immutable class to create <a href="../api_classes/AddClientServiceRequest-class.html">AddClientServiceRequest</a> from JSON strings.
+</dd>
+
+        <dt id="ClientEntry">
+  <span class="name "><a href="../api_classes/ClientEntry-class.html">ClientEntry</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+
+</dt>
+<dd>
+  Immutable class to create <a href="../api_classes/ClientEntry-class.html">ClientEntry</a> from JSON strings.
+</dd>
+
+        <dt id="ClientPlan">
+  <span class="name "><a href="../api_classes/ClientPlan-class.html">ClientPlan</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+
+</dt>
+<dd>
+  Immutable class to create <a href="../api_classes/ClientPlan-class.html">ClientPlan</a> from JSON strings.
+</dd>
+
+        <dt id="DeleteClientServiceRequest">
+  <span class="name "><a href="../api_classes/DeleteClientServiceRequest-class.html">DeleteClientServiceRequest</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+
+</dt>
+<dd>
+  Immutable class to create <a href="../api_classes/DeleteClientServiceRequest-class.html">DeleteClientServiceRequest</a> from JSON strings.
+</dd>
+
+        <dt id="ServiceEntry">
+  <span class="name "><a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+
+</dt>
+<dd>
+  Immutable class to create <a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a> from JSON strings.
+</dd>
+
+        <dt id="ServiceOfJournal">
+  <span class="name "><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+    <span class="category journal cp-7" title="This is part of the Journal topic.">Journal</span>
+
+</dt>
+<dd>
+  This class is used to store one entry of <a href="../journal/Journal-class.html">Journal</a> (one input service).
+</dd>
+
+        <dt id="ServiceOfJournalAdapter">
+  <span class="name "><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+        <dt id="WorkerKey">
+  <span class="name "><a href="../api_classes/WorkerKey-class.html">WorkerKey</a></span> 
+    <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
+
+</dt>
+<dd>
+  Immutable class to create <a href="../api_classes/WorkerKey-class.html">WorkerKey</a> from/to JSON strings.
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+
+    <section class="summary offset-anchor" id="functions">
+      <h2>Functions</h2>
+
+      <dl class="callables">
+        <dt id="autoServiceOfJournal" class="callable">
+  <span class="name"><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></span><span class="signature">(<wbr><span class="parameter" id="autoServiceOfJournal-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-workerId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-provDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">provDate</span>, </span><span class="parameter" id="autoServiceOfJournal-param-state"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a>?</span> <span class="parameter-name">state</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Helper for ServiceOfJournal constructor.
+  
+
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">ais3uson_app</a></li>
+  <li class="self-crumb">api_classes library</li>
+</ol>
+
+
+    <h5><span class="package-name">ais3uson_app</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/About-topic.html">About</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
+      <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
+      <li><a href="../data_models/data_models-library.html">data_models</a></li>
+      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
+      <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
+      <li><a href="../journal/journal-library.html">journal</a></li>
+      <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../providers/providers-library.html">providers</a></li>
+      <li><a href="../repositories/repositories-library.html">repositories</a></li>
+      <li><a href="../settings/settings-library.html">settings</a></li>
+      <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
+      <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
+      <li><a href="../ui_root/ui_root-library.html">ui_root</a></li>
+      <li><a href="../ui_service_card_widget/ui_service_card_widget-library.html">ui_service_card_widget</a></li>
+      <li><a href="../ui_services/ui_services-library.html">ui_services</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>api_classes library</h5>
+    <ol>
+      <li class="section-title"><a href="../api_classes/api_classes-library.html#classes">Classes</a></li>
+        <li><a href="../api_classes/AddClientServiceRequest-class.html">AddClientServiceRequest</a></li>
+        <li><a href="../api_classes/ClientEntry-class.html">ClientEntry</a></li>
+        <li><a href="../api_classes/ClientPlan-class.html">ClientPlan</a></li>
+        <li><a href="../api_classes/DeleteClientServiceRequest-class.html">DeleteClientServiceRequest</a></li>
+        <li><a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a></li>
+        <li><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
+        <li><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
+        <li><a href="../api_classes/WorkerKey-class.html">WorkerKey</a></li>
+
+
+
+
+
+      <li class="section-title"><a href="../api_classes/api_classes-library.html#functions">Functions</a></li>
+        <li><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
+
+
+
+</ol>
+
+  </div><!--/sidebar-offcanvas-right-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.0.1+22
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

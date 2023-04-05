@@ -58,10 +58,34 @@
 
     
 <section class="desc markdown">
-  <h1 id="providers---providers-of-app">Providers - Providers of App</h1>
+  <h1 id="providers-of-app">Providers of App</h1>
+<p>Top level providers of the application, they provide the entry points for UI components.</p>
+<p><a href="../providers/workerProfiles.html">workerProfiles</a> - Store List of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>s</p>
+<p><a href="../providers/isArchive.html">isArchive</a> - Show archive date or today's data(helper <a href="../providers/archiveDate.html">archiveDate</a> let select the date).</p>
+<p><a href="../providers/lastUsed.html">lastUsed</a> - Store last used instance of classes:</p>
+<ul>
+<li>worker - <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>,</li>
+<li>client - <a href="../data_models/ClientProfile-class.html">ClientProfile</a>,</li>
+<li>service - <a href="../data_models/ClientService-class.html">ClientService</a>.</li>
+</ul>
+<p><a href="../providers/lastUsed.html">lastUsed</a> - is essential for navigation between screens.</p>
 </section>
 
 
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        <dt id="ProviderOfJournal">
+  <span class="name "><a href="../providers/ProviderOfJournal-class.html">ProviderOfJournal</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+      </dl>
+    </section>
 
 
 
@@ -74,7 +98,7 @@
   <span class="name"><a href="../providers/archiveDate.html">archiveDate</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateProvider-class.html">StateProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>&gt;</span></span> 
     <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
@@ -83,71 +107,11 @@
 
 </dd>
 
-        <dt id="hiveBox" class="property">
-  <span class="name"><a href="../providers/hiveBox.html">hiveBox</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/FutureProviderFamily-class.html">FutureProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html">Box</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category base-providers cp-2" title="This is part of the Base Providers topic.">Base&nbsp;Providers</span>
-
-</dt>
-<dd>
-  Base provider of hive <code>Box</code>, type <code>dynamic</code>.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="hiveDateTimeBox" class="property">
-  <span class="name"><a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/FutureProviderFamily-class.html">FutureProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category base-providers cp-2" title="This is part of the Base Providers topic.">Base&nbsp;Providers</span>
-
-</dt>
-<dd>
-  Base provider of hive <code>Box</code>, type <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="hiveJournalBox" class="property">
-  <span class="name"><a href="../providers/hiveJournalBox.html">hiveJournalBox</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/FutureProviderFamily-class.html">FutureProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category base-providers cp-2" title="This is part of the Base Providers topic.">Base&nbsp;Providers</span>
-
-</dt>
-<dd>
-  Base provider of hive <code>Box</code>, type <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="httpClientProvider" class="property">
-  <span class="name"><a href="../providers/httpClientProvider.html">httpClientProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/http/0.13.5/http/Client-class.html">Client</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of httpClient (with certificate if not null).
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="image" class="property">
-  <span class="name"><a href="../providers/image.html">image</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/Image-class.html">Image</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
-    <span class="category base-providers cp-2" title="This is part of the Base Providers topic.">Base&nbsp;Providers</span>
-
-</dt>
-<dd>
-  Base provider of Images.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
         <dt id="isArchive" class="property">
   <span class="name"><a href="../providers/isArchive.html">isArchive</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ArchiveState</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span> 
     <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
@@ -160,59 +124,11 @@
   <span class="name"><a href="../providers/lastUsed.html">lastUsed</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ProviderOfAPPState</span>&gt;</span></span> 
     <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
   Controller of App states, last used:
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="planOfWorkerSyncDate" class="property">
-  <span class="name"><a href="../providers/planOfWorkerSyncDate.html">planOfWorkerSyncDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>, <span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  DateTime of last update of <a href="../data_models/planOfWorker.html">planOfWorker</a>.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="preference" class="property">
-  <span class="name"><a href="../providers/preference.html">preference</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/FutureProvider-class.html">FutureProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/shared_preferences/2.1.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a></span>&gt;</span></span> 
-    <span class="category base-providers cp-2" title="This is part of the Base Providers topic.">Base&nbsp;Providers</span>
-
-</dt>
-<dd>
-  Base provider of <code>SharedPreferences</code>.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="repositoryOfHttpData" class="property">
-  <span class="name"><a href="../providers/repositoryOfHttpData.html">repositoryOfHttpData</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProviderFamily-class.html">StateNotifierProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">_RepositoryOfHttpData</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.1/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of httpData, create families by apiKey and url.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="servicesOfWorkerSyncDate" class="property">
-  <span class="name"><a href="../providers/servicesOfWorkerSyncDate.html">servicesOfWorkerSyncDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>, <span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> 
-    <span class="category providers cp-7" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  DateTime of last update of <a href="../data_models/servicesOfWorker.html">servicesOfWorker</a>.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -235,6 +151,19 @@
 </dt>
 <dd>
   
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="workerProfiles" class="property">
+  <span class="name"><a href="../providers/workerProfiles.html">workerProfiles</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ProviderOfListOfProfiles</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span></span> 
+    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
+    <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider and controller of List&lt;<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>&gt;.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -266,12 +195,15 @@
       <li class="section-title">Topics</li>
         <li><a href="../topics/About-topic.html">About</a></li>
       <li class="section-title">Libraries</li>
-      <li><a href="../client_server_api/client_server_api-library.html">client_server_api</a></li>
+      <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
+      <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
+      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
+      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -285,25 +217,19 @@
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>providers library</h5>
     <ol>
+      <li class="section-title"><a href="../providers/providers-library.html#classes">Classes</a></li>
+        <li><a href="../providers/ProviderOfJournal-class.html">ProviderOfJournal</a></li>
 
 
 
 
       <li class="section-title"><a href="../providers/providers-library.html#properties">Properties</a></li>
         <li><a href="../providers/archiveDate.html">archiveDate</a></li>
-        <li><a href="../providers/hiveBox.html">hiveBox</a></li>
-        <li><a href="../providers/hiveDateTimeBox.html">hiveDateTimeBox</a></li>
-        <li><a href="../providers/hiveJournalBox.html">hiveJournalBox</a></li>
-        <li><a href="../providers/httpClientProvider.html">httpClientProvider</a></li>
-        <li><a href="../providers/image.html">image</a></li>
         <li><a href="../providers/isArchive.html">isArchive</a></li>
         <li><a href="../providers/lastUsed.html">lastUsed</a></li>
-        <li><a href="../providers/planOfWorkerSyncDate.html">planOfWorkerSyncDate</a></li>
-        <li><a href="../providers/preference.html">preference</a></li>
-        <li><a href="../providers/repositoryOfHttpData.html">repositoryOfHttpData</a></li>
-        <li><a href="../providers/servicesOfWorkerSyncDate.html">servicesOfWorkerSyncDate</a></li>
         <li><a href="../providers/stubClient.html">stubClient</a></li>
         <li><a href="../providers/stubWorker.html">stubWorker</a></li>
+        <li><a href="../providers/workerProfiles.html">workerProfiles</a></li>
 
 
 

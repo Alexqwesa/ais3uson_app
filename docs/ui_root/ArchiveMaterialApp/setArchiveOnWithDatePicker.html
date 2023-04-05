@@ -69,7 +69,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Activate archive mode(<a href="../../providers/isArchive.html">isArchive</a>) only if <a href="../../journal/datesInArchiveController.html">datesInArchiveController</a>.dates
+  <p>Activate archive mode(<a href="../../providers/isArchive.html">isArchive</a>) only if <a href="../../journal/initDatesInAllArchives.html">initDatesInAllArchives</a>.dates
 not empty.</p>
 <p>It also show date picker to set <a href="../../providers/archiveDate.html">archiveDate</a>.</p>
 </section>
@@ -82,7 +82,9 @@ not empty.</p>
   BuildContext context,
   WidgetRef ref,
 ) async {
-  final archiveDates = await ref.read(datesInArchiveController).datesInited();
+  await ref.read(initDatesInAllArchives.future);
+  final archiveDates =
+      ref.read(initDatesInAllArchives).asData?.value ?? &lt;DateTime&gt;{};
 
   if (archiveDates.isEmpty) {
     ref.read(isArchive.notifier).state = false;

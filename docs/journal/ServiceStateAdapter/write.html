@@ -96,6 +96,9 @@ void write(BinaryWriter writer, ServiceState obj) {
     case ServiceState.outDated:
       writer.writeByte(4);
       break;
+    case ServiceState.removed:
+      writer.writeByte(5);
+      break;
   }
 }</code></pre>
 </section>

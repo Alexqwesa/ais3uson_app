@@ -56,36 +56,19 @@
 <h1><span class="kind-property">key</span> property 
 </h1></div>
 
+        <section class="multi-line-signature">
+          
+          <a href="../../api_classes/WorkerKey-class.html">WorkerKey</a>
+          <span class="name ">key</span>
+          <div class="features"><span class="feature">final</span></div>
+
+        </section>
+        
 
         
-<section id="getter">
-
-<section class="multi-line-signature">
-  
-  <span class="returntype"><a href="../../client_server_api/WorkerKey-class.html">WorkerKey</a></span>
-  <span class="name ">key</span>
-  
-
-</section>
-
-
-
-
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">WorkerKey get key {
-  try {
-    return ref.read(workerProfiles.notifier).key(apiKey);
-  }
-  &#47;&#47; ignore: avoid_catching_errors
-  on StateError {
-    return WorkerKey.fromJson(
-      jsonDecode(stubJsonWorkerKey) as Map&lt;String, dynamic&gt;,
-    );
-  }
-}</code></pre>
-</section>
-
+  <pre class="language-dart"><code class="language-dart">final WorkerKey key;</code></pre>
 </section>
 
 
@@ -120,27 +103,24 @@
           <li><a href="../../data_models/WorkerProfile/apiUrlClients.html">apiUrlClients</a></li>
           <li><a href="../../data_models/WorkerProfile/apiUrlPlan.html">apiUrlPlan</a></li>
           <li><a href="../../data_models/WorkerProfile/apiUrlServices.html">apiUrlServices</a></li>
-          <li><a href="../../data_models/WorkerProfile/clientPlan.html">clientPlan</a></li>
-          <li><a href="../../data_models/WorkerProfile/clients.html">clients</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
           <li><a href="../../data_models/WorkerProfile/hiveName.html">hiveName</a></li>
-          <li><a href="../../data_models/WorkerProfile/journal.html">journal</a></li>
+          <li><a href="../../data_models/WorkerProfile/hiveRepository.html">hiveRepository</a></li>
+          <li><a href="../../data_models/WorkerProfile/httpRepository.html">httpRepository</a></li>
+          <li><a href="../../data_models/WorkerProfile/journalAllOf.html">journalAllOf</a></li>
+          <li><a href="../../data_models/WorkerProfile/journalOf.html">journalOf</a></li>
+          <li><a href="../../data_models/WorkerProfile/journalProvider.html">journalProvider</a></li>
           <li><a href="../../data_models/WorkerProfile/key.html">key</a></li>
           <li><a href="../../data_models/WorkerProfile/name.html">name</a></li>
           <li><a href="../../data_models/WorkerProfile/ref.html">ref</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-          <li><a href="../../data_models/WorkerProfile/services.html">services</a></li>
           <li><a href="../../data_models/WorkerProfile/urlClients.html">urlClients</a></li>
           <li><a href="../../data_models/WorkerProfile/urlPlan.html">urlPlan</a></li>
           <li><a href="../../data_models/WorkerProfile/urlServices.html">urlServices</a></li>
 
         <li class="section-title"><a href="../../data_models/WorkerProfile-class.html#instance-methods">Methods</a></li>
-          <li><a href="../../data_models/WorkerProfile/checkAllServicesExist.html">checkAllServicesExist</a></li>
+          <li><a href="../../data_models/WorkerProfile/journalAtDateOf.html">journalAtDateOf</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-          <li><a href="../../data_models/WorkerProfile/postInit.html">postInit</a></li>
-          <li><a href="../../data_models/WorkerProfile/syncClients.html">syncClients</a></li>
-          <li><a href="../../data_models/WorkerProfile/syncPlanned.html">syncPlanned</a></li>
-          <li><a href="../../data_models/WorkerProfile/syncServices.html">syncServices</a></li>
           <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
         <li class="section-title inherited"><a href="../../data_models/WorkerProfile-class.html#operators">Operators</a></li>

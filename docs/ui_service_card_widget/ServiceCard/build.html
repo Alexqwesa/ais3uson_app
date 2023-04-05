@@ -121,7 +121,7 @@ Widget build(BuildContext context, WidgetRef ref) {
   &#47;&#47; ignore: no_leading_underscores_for_local_identifiers
   final _ = ref.watch(archiveDate); &#47;&#47; in case of date change
   final activeViewOfCard =
-      ref.watch(addAllowedOfService(service)) || ref.watch(isArchive);
+      ref.watch(service.addAllowedOf) || ref.watch(isArchive);
   final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
 
   return AnimatedSize(

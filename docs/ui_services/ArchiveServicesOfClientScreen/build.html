@@ -116,7 +116,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final client = ref.watch(lastUsed).client;
-  final all = ref.watch(journalOfClient(client));
+  final all = ref.watch(client.allServicesOf);
   final allByGroups = groupBy&lt;ServiceOfJournal, int&gt;(
     all,
     (e) =&gt; e.provDate.daysSinceEpoch,

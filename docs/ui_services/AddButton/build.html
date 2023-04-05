@@ -115,7 +115,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final allowed = ref.watch(addAllowedOfService(service));
+  final allowed = ref.watch(service.addAllowedOf);
 
   return FittedBox(
     fit: BoxFit.fitHeight,
