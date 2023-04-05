@@ -120,7 +120,7 @@ Widget build(BuildContext context, WidgetRef ref) {
   return FittedBox(
     fit: BoxFit.fitHeight,
     child: IconButton(
-      onPressed: () =&gt; () async =&gt; allowed ? service.add : null,
+      onPressed: allowed ? service.add : null,
       icon: Transform.scale(
         scale: 2.5,
         child: Icon(
@@ -197,7 +197,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+22
+      1.0.1+23
   </span>
 
   

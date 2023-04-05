@@ -75,7 +75,6 @@
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; saveLastRoute(Route? lastRoute) async {
   unawaited(ref.read(audioPlayer).stop());
   unawaited(ref.read(proofRecorder).stop());
-  unawaited(ref.read(speechEngine).stop());
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString(&#39;last_route&#39;, lastRoute?.settings.name ?? &#39;&#47;&#39;);
   log.fine(&#39;route: ${lastRoute?.settings.name ?? &#39;&#39;}&#39;);
@@ -147,7 +146,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+22
+      1.0.1+23
   </span>
 
   
