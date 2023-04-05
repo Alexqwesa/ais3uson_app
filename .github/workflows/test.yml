@@ -31,7 +31,7 @@ jobs:
           cache: true
           cache-key: flutter # optional, change this to force refresh cache
           cache-path: ${{ runner.tool_cache }}/flutter
-          
+
       - name: Version
         run: flutter doctor -v
       - name: Install dependencies
@@ -55,7 +55,7 @@ jobs:
           flutter test --coverage
           lcov --remove coverage/lcov.info 'lib/src/l10n/*' 'lib/src/generated/*' 'lib/src/stubs_for_testing/*' -o coverage/lcov.info
           # genhtml coverage/lcov.info --output=coverage
-        
+
       - name: Upload coverage to Codecov
         # uses: actions/checkout@master
         uses: codecov/codecov-action@v2
@@ -69,15 +69,15 @@ jobs:
           # files: lcov.info
           # fail_ci_if_error: true # optional (default = false)
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          
-        
+
+
       - name: Build web3uson
-        run: flutter build web --release
-        
+        run: flutter build web --release --base-href web3uson
+
       - name: Move web to docs
         run: |
           mv 'build/web/' 'build/docs/'
-          
+
       - name: Deploy ais3uson to web
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
