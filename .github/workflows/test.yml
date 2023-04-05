@@ -49,7 +49,10 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: flutter test --coverage 
+        run: |
+          flutter test --coverage
+          lcov --remove coverage/lcov.info 'lib/src/l10n/*' 'lib/src/generated/*' 'lib/src/stubs_for_testing/*' -o coverage/lcov.info
+          # genhtml coverage/lcov.info --output=coverage
         
       - name: Upload coverage to Codecov
         # uses: actions/checkout@master
