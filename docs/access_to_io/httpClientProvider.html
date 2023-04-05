@@ -84,12 +84,12 @@
         final context = SecurityContext()..setTrustedCertificatesBytes(cert);
         client = (HttpClient(context: context)
           ..badCertificateCallback = (cert, host, port) {
-            &#47;&#47; if (host == &#39;80.87.196.11&#39;) {
+            &#47;&#47; if (host == &#39;localhost&#39;) {
             &#47;&#47;   &#47;&#47; for debug
             &#47;&#47;   return true;
             &#47;&#47; }
             log.severe(&#39;!!!!Bad certificate&#39;);
-            &#47;&#47; showErrorNotification(&#39;Ошибка!неправильный сертификат сервера!&#39;);
+            &#47;&#47; showErrorNotification(tr().errorWrongCertificate);
 
             return false;
           }) as http.Client;
@@ -154,7 +154,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+22
+      1.0.1+23
   </span>
 
   
