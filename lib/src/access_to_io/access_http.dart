@@ -155,7 +155,7 @@ class _AccessHttp extends StateNotifier<List<Map<String, dynamic>>> {
   }
 }
 
-/// Provider of httpData, create families by apiKey and url.
+/// Provider of DateTime of last update for [repositoryHttp], create families by apiKey and url.
 final lastHttpUpdate = StateProvider.family<DateTime, String>((ref, apiUrl) {
   return nullDate;
 });
@@ -174,12 +174,12 @@ final httpClientProvider =
         final context = SecurityContext()..setTrustedCertificatesBytes(cert);
         client = (HttpClient(context: context)
           ..badCertificateCallback = (cert, host, port) {
-            // if (host == '80.87.196.11') {
+            // if (host == 'localhost') {
             //   // for debug
             //   return true;
             // }
             log.severe('!!!!Bad certificate');
-            // showErrorNotification('Ошибка!неправильный сертификат сервера!');
+            // showErrorNotification(tr().errorWrongCertificate);
 
             return false;
           }) as http.Client;

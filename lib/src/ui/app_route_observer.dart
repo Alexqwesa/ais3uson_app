@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +14,6 @@ class AppRouteObserver extends RouteObserver {
   Future<void> saveLastRoute(Route? lastRoute) async {
     unawaited(ref.read(audioPlayer).stop());
     unawaited(ref.read(proofRecorder).stop());
-    unawaited(ref.read(speechEngine).stop());
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('last_route', lastRoute?.settings.name ?? '/');
     log.fine('route: ${lastRoute?.settings.name ?? ''}');

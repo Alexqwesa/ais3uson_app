@@ -19,7 +19,7 @@ class ServiceCardView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final parentSize = ref.watch(currentServiceContainerSize);
+    final parentSize = ref.watch(currentSizeOfParentForListOfServices);
     final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
@@ -116,7 +116,7 @@ class ServiceCardSquareView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final parentSize = ref.watch(currentServiceContainerSize);
+    final parentSize = ref.watch(currentSizeOfParentForListOfServices);
     final service = ref.watch(currentService);
 
     return SizedBox.fromSize(
@@ -189,7 +189,7 @@ class ServiceCardTileView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final parentSize = ref.watch(currentServiceContainerSize);
+    final parentSize = ref.watch(currentSizeOfParentForListOfServices);
     final service = ref.watch(currentService);
 
     return SizedBox.fromSize(

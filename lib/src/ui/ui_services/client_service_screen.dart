@@ -159,7 +159,7 @@ class AddButton extends ConsumerWidget {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: () => () async => allowed ? service.add : null,
+        onPressed: allowed ? service.add : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Icon(
@@ -190,7 +190,7 @@ class DeleteButton extends ConsumerWidget {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: () => () async => allowed ? service.delete : null,
+        onPressed: allowed ? service.delete : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Transform.rotate(

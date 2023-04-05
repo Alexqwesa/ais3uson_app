@@ -1,7 +1,7 @@
 /// # settings of application
 ///
-/// Classes and providers that stored configuration settings and related functions.
-/// Mostly through provider [preference] of [SharedPreferences]
+/// Classes and providers that store configuration settings and related functions.
+/// They mostly work through provider [preference] of [SharedPreferences].
 ///
 
 library settings;

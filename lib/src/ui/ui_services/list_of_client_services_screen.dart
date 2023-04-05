@@ -45,7 +45,7 @@ class _ClientServicesListScreen
       Future.delayed(
         // todo: fix it
         const Duration(milliseconds: 100),
-        () => ref.read(currentServiceContainerSize.notifier).state =
+        () => ref.read(currentSizeOfParentForListOfServices.notifier).state =
             MediaQuery.of(context).size,
       );
     }
@@ -101,7 +101,7 @@ class _ClientServicesListScreen
           Future.delayed(
             const Duration(milliseconds: 100),
             () => ref
-                .read(currentServiceContainerSize.notifier)
+                .read(currentSizeOfParentForListOfServices.notifier)
                 .delayedChange(MediaQuery.of(context).size),
           );
 

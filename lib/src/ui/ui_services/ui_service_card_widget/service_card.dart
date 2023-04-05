@@ -22,7 +22,7 @@ class ServiceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final parentSize = ref.watch(currentServiceContainerSize);
+    final parentSize = ref.watch(currentSizeOfParentForListOfServices);
     final service = ref.watch(currentService);
     final tileView = ref.watch(tileType);
     // ignore: no_leading_underscores_for_local_identifiers
@@ -54,7 +54,7 @@ class ServiceCard extends ConsumerWidget {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () => service.add,
+                onTap: service.add,
                 child: Container(),
               ),
             ),
