@@ -38,6 +38,15 @@
 
   <style type="text/css">
 
+    #overlay{
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        align-items: center;
+        justify-content: center;
+    }
+
+
     .loading {
         display: flex;
         justify-content: center;
@@ -93,6 +102,39 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <script>
+    function updateLoad(fileName, id) {
+      const req = new XMLHttpRequest();
+      req.addEventListener("progress", updateProgress);
+      <!--    req.addEventListener("load", transferComplete);-->
+      <!--    req.addEventListener("error", transferFailed);-->
+      <!--    req.addEventListener("abort", transferCanceled);-->
+
+      req.open("GET", fileName);
+      req.send();
+      // progress on transfers from the server to the client (downloads)
+      function updateProgress(event) {
+        if (event.lengthComputable) {
+          const percentComplete = (event.loaded / event.total) * 100;
+          document.getElementById(id).innerHTML = percentComplete + "% of " + event.total;
+        } else {
+          // Unable to compute progress information since the total size is unknown
+          document.getElementById(id).innerHTML = event.loaded
+        }
+      }
+    }
+
+    updateLoad("main.dart.js", "main_dart");
+    updateLoad("assets/fonts/MaterialIcons-Regular.otf", "MaterialIcons");
+    <!--    function updateLoad("canvaskit.wasm", "main_dart");-->
+</script>
+
+<div id="overlay">
+    <div id="canvas">loading...</div>
+    <div id="main_dart"></div>
+    <div id="MaterialIcons"></div>
+    <!--<div id="progress">asdfaslkdjflaskjdf;laskjfd;lkj</div>-->
+</div>
 
 <div class="loading">
   <div class="loader"></div>

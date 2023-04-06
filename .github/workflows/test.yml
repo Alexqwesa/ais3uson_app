@@ -72,7 +72,7 @@ jobs:
 
 
       - name: Build web3uson
-        run: flutter build web --release --base-href web3uson
+        run: flutter build web --release --base-href /web3uson/
 
       - name: Move web to docs
         run: |
