@@ -44,6 +44,7 @@
         left: 50%;
         align-items: center;
         justify-content: center;
+        -webkit-font-smoothing: antialiased;
     }
 
 
@@ -124,12 +125,14 @@
       }
     }
 
+    var canvaskit = "canvaskit/canvaskit.wasm";
     updateLoad("main.dart.js", "main_dart");
     updateLoad("assets/fonts/MaterialIcons-Regular.otf", "MaterialIcons");
-    <!--    function updateLoad("canvaskit.wasm", "main_dart");-->
+<!--    updateLoad(canvaskit, "canvas");-->
 </script>
 
 <div id="overlay">
+    <div>loading...</div>
     <div id="canvas">loading...</div>
     <div id="main_dart"></div>
     <div id="MaterialIcons"></div>
@@ -150,6 +153,7 @@
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
+<!--    {canvasKitBaseUrl: canvaskit}-->
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
           });
