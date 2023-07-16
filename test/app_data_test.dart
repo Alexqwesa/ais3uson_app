@@ -82,6 +82,9 @@ void main() {
         ref.read(workerProfiles).first.apiKey,
         '3.01567984187',
       );
+      await ref.read(workerProfiles).first.journal.postInit();
+      expect(ref.read(ref.read(workerProfiles).first.journal.servicesOf), []);
+      // expect( ref.read(workerProfiles).first.ref.toString() ,"" );
     });
 
     test(

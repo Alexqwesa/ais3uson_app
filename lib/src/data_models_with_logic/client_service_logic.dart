@@ -15,7 +15,7 @@ import 'package:tuple/tuple.dart';
 ///
 /// {@category Data Models}
 extension ClientServiceLogic on ClientService {
-  ProviderContainer get ref => workerProfile.ref;
+  Ref get ref => workerProfile.ref;
 
   // Provider<Journal> get journalOf => workerProfile.journalOf;
 

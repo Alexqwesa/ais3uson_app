@@ -23,14 +23,14 @@ class JournalHiveRepository {
   late Box<ServiceOfJournal> hive; // only for test
   late final Box<ServiceOfJournal> hiveArchive; // todo: use provider
 
-  ProviderContainer get ref => workerProfile.ref;
+  Ref get ref => workerProfile.ref;
 
   String get journalHiveName => 'journal_$apiKey';
 
   String get apiKey => workerProfile.apiKey;
 
-  Provider<List<ServiceOfJournal>> get servicesOf =>
-      _listOfServices(ref.read(workerProfile.journalOf));
+  Provider<List<ServiceOfJournal>> get servicesOf => Provider((ref) =>
+      ref.watch(_controllerOf(ref.watch(workerProfile.journalOf))) ?? []);
 
   Future<Box<ServiceOfJournal>> get openHive async {
     return Hive.openBox<ServiceOfJournal>(journalHiveName);
@@ -133,12 +133,11 @@ class JournalHiveRepository {
         .read(_controllerOf(ref.read(workerProfile.journalOf)).notifier)
         .initAsync();
   }
-}
 
-final _listOfServices =
-    Provider.family<List<ServiceOfJournal>, Journal>((ref, journal) {
-  return ref.watch(_controllerOf(journal)) ?? [];
-});
+  // List<ServiceOfJournal> get _listOfServices {
+  //   return ref.watch(_controllerOf(ref.watch(workerProfile.journalOf))) ?? [];
+  // }
+}
 
 /// Controller of List<[ServiceOfJournal]> for [Journal] class.
 ///
@@ -174,7 +173,7 @@ class _ControllerOfJournal extends StateNotifier<List<ServiceOfJournal>?> {
 
   final Journal journal;
 
-  ProviderContainer get ref => journal.workerProfile.ref;
+  Ref get ref => journal.workerProfile.ref;
 
   Future<void> initAsync() async {
     //

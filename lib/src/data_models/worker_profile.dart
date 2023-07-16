@@ -12,18 +12,19 @@ import 'package:tuple/tuple.dart';
 @immutable
 class WorkerProfile {
   /// Constructor [WorkerProfile] with [Journal] by default
-  WorkerProfile(this.key, this.ref) {
+  WorkerProfile(this.key, this._ref) {
     hiveRepository = JournalHiveRepository(this);
     httpRepository = JournalHttpRepository(this);
     journalProvider = ProviderOfJournal(this);
   }
 
-  final ProviderContainer ref;
+  final Ref? _ref;
   final WorkerKey key;
   late final JournalHiveRepository hiveRepository;
   late final JournalHttpRepository httpRepository;
   late final ProviderOfJournal journalProvider;
 
+  Ref get ref => _ref ?? ProviderContainer() as Ref;
   Provider<Journal> get journalOf => journalProvider.journalOf;
 
   Provider<Journal> get journalAllOf => journalProvider.journalAllOf;

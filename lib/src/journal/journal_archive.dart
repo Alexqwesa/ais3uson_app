@@ -24,7 +24,7 @@ class JournalArchive extends Journal {
   Box<ServiceOfJournal> get hive => hiveRepository.hive; // only for test
 
   @override
-  ProviderContainer get ref => workerProfile.ref;
+  Ref get ref => workerProfile.ref;
 
   @override
   JournalHiveRepository get hiveRepository => workerProfile.hiveRepository;

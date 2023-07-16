@@ -11,7 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 final _stubKey = WorkerKey.fromJson(
   jsonDecode(stubJsonWorkerKey) as Map<String, dynamic>,
 );
-final stubWorker = WorkerProfile(_stubKey, ProviderContainer());
+
+final stubWorker = WorkerProfile(_stubKey, null);
 final stubClient = ClientProfile(
   workerProfile: stubWorker,
   entry: const ClientEntry(

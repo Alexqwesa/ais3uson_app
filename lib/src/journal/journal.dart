@@ -50,7 +50,7 @@ class Journal extends BaseJournal {
 
   Box<ServiceOfJournal> get hive => hiveRepository.hive; // only for test
 
-  ProviderContainer get ref => workerProfile.ref;
+  Ref get ref => workerProfile.ref;
 
   JournalHiveRepository get hiveRepository => workerProfile.hiveRepository;
 

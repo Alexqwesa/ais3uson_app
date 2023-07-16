@@ -57,7 +57,7 @@ class _ProviderOfListOfProfiles extends StateNotifier<List<WorkerProfile>> {
     }
     // add new
     wKeys.where((element) => !keySet.contains(element)).forEach((key) {
-      newState.add(WorkerProfile(key, ref.container));
+      newState.add(WorkerProfile(key, ref));
     });
     state = newState;
   }
