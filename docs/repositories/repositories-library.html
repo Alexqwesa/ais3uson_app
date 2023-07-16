@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="repositories&#47;repositories-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">repositories</span> library 
  
@@ -96,15 +100,16 @@
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li class="self-crumb">repositories library</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">repositories library</li>
 </ol>
 
 
@@ -134,20 +139,6 @@
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>repositories library</h5>
-    <ol>
-      <li class="section-title"><a href="../repositories/repositories-library.html#classes">Classes</a></li>
-        <li><a href="../repositories/JournalHiveRepository-class.html">JournalHiveRepository</a></li>
-        <li><a href="../repositories/JournalHttpRepository-class.html">JournalHttpRepository</a></li>
-
-
-
-
-
-
-
-
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>
@@ -155,7 +146,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   

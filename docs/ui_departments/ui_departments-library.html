@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="ui_departments&#47;ui_departments-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">ui_departments</span> library 
  
@@ -65,7 +69,7 @@
 <li>Add worker profile from text string <a href="../ui_departments/AddDepartmentScreen-class.html">AddDepartmentScreen</a>,</li>
 <li>Delete worker profile <a href="../ui_departments/DeleteDepartmentScreen-class.html">DeleteDepartmentScreen</a>,</li>
 <li>Open worker profile <a href="../ui_departments/ListOfProfiles-class.html">ListOfProfiles</a>,</li>
-<li>Show list of clients of worker profile <a href="../ui_departments/ClientScreen-class.html">ClientScreen</a>.</li>
+<li>Show list of clients of worker profile <a href="../ui_departments/ListOfClientsScreen-class.html">ListOfClientsScreen</a>.</li>
 </ul>
 <p>There is also <a href="../ui_root/HomeScreen-class.html">HomeScreen</a> screen for displaying main menu and <a href="../ui_departments/ListOfProfiles-class.html">ListOfProfiles</a>. It is initial route
 of app.</p>
@@ -93,15 +97,6 @@ of app.</p>
   
 </dd>
 
-        <dt id="ClientScreen">
-  <span class="name "><a href="../ui_departments/ClientScreen-class.html">ClientScreen</a></span> 
-    <span class="category ui-workerprofiles cp-13" title="This is part of the UI WorkerProfiles topic.">UI&nbsp;WorkerProfiles</span>
-
-</dt>
-<dd>
-  Show screen with client of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
-</dd>
-
         <dt id="DeleteDepartmentScreen">
   <span class="name "><a href="../ui_departments/DeleteDepartmentScreen-class.html">DeleteDepartmentScreen</a></span> 
     <span class="category ui-workerprofiles cp-13" title="This is part of the UI WorkerProfiles topic.">UI&nbsp;WorkerProfiles</span>
@@ -109,6 +104,15 @@ of app.</p>
 </dt>
 <dd>
   Show screen where user can delete <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
+</dd>
+
+        <dt id="ListOfClientsScreen">
+  <span class="name "><a href="../ui_departments/ListOfClientsScreen-class.html">ListOfClientsScreen</a></span> 
+    <span class="category ui-workerprofiles cp-13" title="This is part of the UI WorkerProfiles topic.">UI&nbsp;WorkerProfiles</span>
+
+</dt>
+<dd>
+  Show screen with client of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
 </dd>
 
         <dt id="ListOfProfiles">
@@ -157,7 +161,7 @@ of app.</p>
 
       <dl class="callables">
         <dt id="addNewWProfile" class="callable">
-  <span class="name"><a href="../ui_departments/addNewWProfile.html">addNewWProfile</a></span><span class="signature">(<wbr><span class="parameter" id="addNewWProfile-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span><span class="parameter" id="addNewWProfile-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.2/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="addNewWProfile-param-text"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">text</span></span>)
+  <span class="name"><a href="../ui_departments/addNewWProfile.html">addNewWProfile</a></span><span class="signature">(<wbr><span class="parameter" id="addNewWProfile-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span><span class="parameter" id="addNewWProfile-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.6/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="addNewWProfile-param-text"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">text</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
   </span>
   
@@ -178,15 +182,16 @@ of app.</p>
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li class="self-crumb">ui_departments library</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">ui_departments library</li>
 </ol>
 
 
@@ -216,28 +221,6 @@ of app.</p>
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>ui_departments library</h5>
-    <ol>
-      <li class="section-title"><a href="../ui_departments/ui_departments-library.html#classes">Classes</a></li>
-        <li><a href="../ui_departments/AddDepartmentScreen-class.html">AddDepartmentScreen</a></li>
-        <li><a href="../ui_departments/ClientCard-class.html">ClientCard</a></li>
-        <li><a href="../ui_departments/ClientScreen-class.html">ClientScreen</a></li>
-        <li><a href="../ui_departments/DeleteDepartmentScreen-class.html">DeleteDepartmentScreen</a></li>
-        <li><a href="../ui_departments/ListOfProfiles-class.html">ListOfProfiles</a></li>
-        <li><a href="../ui_departments/QRScanScreen-class.html">QRScanScreen</a></li>
-        <li><a href="../ui_departments/ShowQrView-class.html">ShowQrView</a></li>
-        <li><a href="../ui_departments/SimpleTextField-class.html">SimpleTextField</a></li>
-
-
-
-
-
-      <li class="section-title"><a href="../ui_departments/ui_departments-library.html#functions">Functions</a></li>
-        <li><a href="../ui_departments/addNewWProfile.html">addNewWProfile</a></li>
-
-
-
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>
@@ -245,7 +228,7 @@ of app.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   

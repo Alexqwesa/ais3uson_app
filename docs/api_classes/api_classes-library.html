@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="api_classes&#47;api_classes-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">api_classes</span> library 
  
@@ -91,7 +95,7 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 </code></pre>
 <h2 id="storage-api">Storage API</h2>
 <p>Most data is stored in <a href="https://pub.dev/documentation/hive/2.2.3/hive/Hive.html">Hive</a> Boxes. Http responses are stored as strings.</p>
-<p>The settings and <a href="../api_classes/WorkerKey-class.html">WorkerKey</a>s are stored in <a href="https://pub.dev/documentation/shared_preferences/2.1.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>.</p>
+<p>The settings and <a href="../api_classes/WorkerKey-class.html">WorkerKey</a>s are stored in <a href="https://pub.dev/documentation/shared_preferences/2.2.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>.</p>
 <p>The <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>s are stored in <a href="https://pub.dev/documentation/hive/2.2.3/hive/Hive.html">Hive</a> as objects.</p>
 <p>The <a href="../data_models/Proofs-class.html">Proofs</a>s store files in filesystem.</p>
 </section>
@@ -206,15 +210,16 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li class="self-crumb">api_classes library</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">api_classes library</li>
 </ol>
 
 
@@ -244,28 +249,6 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>api_classes library</h5>
-    <ol>
-      <li class="section-title"><a href="../api_classes/api_classes-library.html#classes">Classes</a></li>
-        <li><a href="../api_classes/AddClientServiceRequest-class.html">AddClientServiceRequest</a></li>
-        <li><a href="../api_classes/ClientEntry-class.html">ClientEntry</a></li>
-        <li><a href="../api_classes/ClientPlan-class.html">ClientPlan</a></li>
-        <li><a href="../api_classes/DeleteClientServiceRequest-class.html">DeleteClientServiceRequest</a></li>
-        <li><a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a></li>
-        <li><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
-        <li><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
-        <li><a href="../api_classes/WorkerKey-class.html">WorkerKey</a></li>
-
-
-
-
-
-      <li class="section-title"><a href="../api_classes/api_classes-library.html#functions">Functions</a></li>
-        <li><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
-
-
-
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>
@@ -273,7 +256,7 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   

@@ -50,7 +50,11 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="settings&#47;settings-library-sidebar.html"
+      data-below-sidebar="">
       <div>
 <h1><span class="kind-top-level-property">tileSize</span> top-level property 
  
@@ -60,14 +64,15 @@
 
         <section class="multi-line-signature">
           
-          <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.1/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.2/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>&gt;</span>
           <span class="name ">tileSize</span>
           <div class="features"><span class="feature">final</span></div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Calculate size of <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> based on parentSize and <a href="../settings/tileType.html">tileType</a>.</p>
+  <p>Calculate size of <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> based on parentSize <a href="../settings/tileMagnificationProvider.html">tileMagnificationProvider</a>
+and <a href="../settings/tileTypeProvider.html">tileTypeProvider</a>.</p>
 <p>{@category Providers}
 {@category UI Settings}</p>
 </section>
@@ -76,7 +81,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final tileSize = Provider.family&lt;Size, Tuple2&lt;Size, String&gt;&gt;((ref, tuple) {
-  final magnification = ref.watch(tileMagnification);
+  final magnification = ref.watch(tileMagnificationProvider);
 
   final parentSize = tuple.item1;
   final tileType = tuple.item2;
@@ -126,36 +131,21 @@
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../settings/settings-library.html">settings</a></li>
-  <li class="self-crumb">tileSize property</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../settings/settings-library.html">settings</a></li>
+    <li class="self-crumb">tileSize property</li>
 </ol>
 
 
     <h5>settings library</h5>
-    <ol>
-
-
-
-
-      <li class="section-title"><a href="../settings/settings-library.html#properties">Properties</a></li>
-        <li><a href="../settings/hiveArchiveSize.html">hiveArchiveSize</a></li>
-        <li><a href="../settings/tileMagnification.html">tileMagnification</a></li>
-        <li><a href="../settings/tileSize.html">tileSize</a></li>
-        <li><a href="../settings/tileType.html">tileType</a></li>
-
-
-
-
-</ol>
-
   </div><!--/.sidebar-offcanvas-left-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -166,7 +156,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   

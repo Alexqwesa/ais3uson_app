@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the tileType property from the settings library, for the Dart programming language.">
-  <title>tileType property - settings library - Dart API</title>
+  <meta name="description" content="API docs for the tileTypeProvider property from the settings library, for the Dart programming language.">
+  <title>tileTypeProvider property - settings library - Dart API</title>
 
 
   
@@ -30,9 +30,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../settings/settings-library.html">settings</a></li>
-    <li class="self-crumb">tileType property</li>
+    <li class="self-crumb">tileTypeProvider property</li>
   </ol>
-  <div class="self-name">tileType</div>
+  <div class="self-name">tileTypeProvider</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -50,9 +50,13 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="settings&#47;settings-library-sidebar.html"
+      data-below-sidebar="">
       <div>
-<h1><span class="kind-top-level-property">tileType</span> top-level property 
+<h1><span class="kind-top-level-property">tileTypeProvider</span> top-level property 
  
     <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-12" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
@@ -60,26 +64,38 @@
 
         <section class="multi-line-signature">
           
-          <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_TileType</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>
-          <span class="name ">tileType</span>
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/ProviderFor-class.html">ProviderFor</a>(TileType)</li>
+    </ol>
+  </div>
+          <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/TileType-class.html">TileType</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>
+          <span class="name ">tileTypeProvider</span>
           <div class="features"><span class="feature">final</span></div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Provider of setting - tileType (for tiles in list of services).</p>
+  <p>Provider of setting - Type of tiles in list of services.</p>
 <p>Read/save from/to SharedPreferences, had default preinitialized value.
 Depend on <a href="../main/locator.html">locator</a><sharedpreferences>.</sharedpreferences></p>
 <p>{@category Providers}
 {@category UI Settings}</p>
+<p>Copied from <code>TileType</code>.</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final tileType = StateNotifierProvider&lt;_TileType, String&gt;((ref) {
-  return _TileType();
-});</code></pre>
+  <pre class="language-dart"><code class="language-dart">@ProviderFor(TileType)
+final tileTypeProvider = NotifierProvider&lt;TileType, String&gt;.internal(
+  TileType.new,
+  name: r&#39;tileTypeProvider&#39;,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment(&#39;dart.vm.product&#39;) ? null : _$tileTypeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);</code></pre>
 </section>
 
 
@@ -87,36 +103,21 @@ Depend on <a href="../main/locator.html">locator</a><sharedpreferences>.</shared
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../settings/settings-library.html">settings</a></li>
-  <li class="self-crumb">tileType property</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../settings/settings-library.html">settings</a></li>
+    <li class="self-crumb">tileTypeProvider property</li>
 </ol>
 
 
     <h5>settings library</h5>
-    <ol>
-
-
-
-
-      <li class="section-title"><a href="../settings/settings-library.html#properties">Properties</a></li>
-        <li><a href="../settings/hiveArchiveSize.html">hiveArchiveSize</a></li>
-        <li><a href="../settings/tileMagnification.html">tileMagnification</a></li>
-        <li><a href="../settings/tileSize.html">tileSize</a></li>
-        <li><a href="../settings/tileType.html">tileType</a></li>
-
-
-
-
-</ol>
-
   </div><!--/.sidebar-offcanvas-left-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -127,7 +128,7 @@ Depend on <a href="../main/locator.html">locator</a><sharedpreferences>.</shared
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   
