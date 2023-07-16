@@ -19,7 +19,7 @@ class _ControllerOfProofRecorder {
   _ControllerOfProofRecorder(this.ref);
 
   final Ref ref;
-  final _record = Record();
+  final _record = AudioRecorder();
 
   String _audioPath = '';
 
@@ -63,7 +63,7 @@ class _ControllerOfProofRecorder {
         );
         // Check and request permission
         if (await _record.hasPermission()) {
-          await _record.start(path: _audioPath);
+          await _record.start(const RecordConfig(), path: _audioPath);
 
           return state;
         } else {

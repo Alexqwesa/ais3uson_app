@@ -56,7 +56,7 @@ dependencies:
   provider: any
   qr_code_scanner: any
   quiver: any
-  record: any
+  record: ^5.0.0-beta.2
   riverpod: any
   riverpod_annotation: any
   share_plus: any
