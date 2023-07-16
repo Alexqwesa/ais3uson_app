@@ -4,6 +4,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Helper for HomeScreen, this widget: show list of [WorkerProfile].
@@ -94,10 +95,7 @@ class ListOfProfiles extends ConsumerWidget {
                             //
                             onTap: () {
                               ref.read(lastUsed).worker = wps[index];
-                              Navigator.pushNamed(
-                                context,
-                                '/department',
-                              );
+                              context.push('/department');
                             },
                             subtitle: Align(
                               alignment: Alignment.topLeft,

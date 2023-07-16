@@ -11,8 +11,59 @@ import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+GoRouter _router(WidgetRef ref) {
+  return GoRouter(
+    initialLocation: '/',
+    observers: <NavigatorObserver>[
+      AppRouteObserver(ref),
+    ],
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: '/delete_department',
+        builder: (context, state) => const DeleteDepartmentScreen(),
+      ),
+      GoRoute(
+        path: '/dev',
+        builder: (context, state) => const DevScreen(),
+      ),
+      GoRoute(
+        path: '/scan_qr',
+        builder: (context, state) => const QRScanScreen(),
+      ),
+      GoRoute(
+        path: '/department',
+        builder: (context, state) => const ListOfClientsScreen(),
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/service',
+        builder: (context, state) => const ClientServiceScreen(),
+      ),
+      GoRoute(
+        path: '/client_services',
+        builder: (context, state) => const ListOfClientServicesScreen(),
+      ),
+      GoRoute(
+        path: '/add_department',
+        builder: (context, state) => const AddDepartmentScreen(),
+      ),
+      GoRoute(
+        path: '/client_journal',
+        builder: (context, state) => const ArchiveServicesOfClientScreen(),
+      ),
+    ],
+  );
+}
 
 /// Root widget of whole app.
 ///
@@ -148,7 +199,8 @@ class MainMaterialApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router(ref),
       //
       // > l10n
       //
@@ -166,25 +218,7 @@ class MainMaterialApp extends ConsumerWidget {
       theme: ThemesData.light(),
       darkTheme: ThemesData.dark(),
       themeMode: ref.watch(standardTheme),
-      //
-      // > routes
-      //
-      navigatorObservers: <NavigatorObserver>[
-        AppRouteObserver(ref), // this will listen all changes
-      ],
-      initialRoute: locator<SharedPreferences>().getString('last_route') ?? '/',
-      routes: {
-        '/client_journal': (context) => const ArchiveServicesOfClientScreen(),
-        '/add_department': (context) => const AddDepartmentScreen(),
-        '/client_services': (context) => const ListOfClientServicesScreen(),
-        '/service': /*     */ (context) => const ClientServiceScreen(),
-        '/settings': /*    */ (context) => const SettingsScreen(),
-        '/department': /*  */ (context) => const ClientScreen(),
-        '/scan_qr': /*     */ (context) => const QRScanScreen(),
-        '/dev': /*         */ (context) => const DevScreen(),
-        '/delete_department': (context) => const DeleteDepartmentScreen(),
-        '/': /*            */ (context) => const HomeScreen(),
-      },
+
       debugShowCheckedModeBanner: false,
     );
   }

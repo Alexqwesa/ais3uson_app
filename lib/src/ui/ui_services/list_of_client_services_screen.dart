@@ -7,6 +7,7 @@ import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show
         ConsumerState,
@@ -157,7 +158,7 @@ class _ListOfServices extends ConsumerWidget {
                   // set last service
                   ref.read(lastUsed).service = element;
                   // open ClientServiceScreen
-                  Navigator.pushNamed(context, '/service');
+                  context.push( '/service');
                 },
               ),
             )

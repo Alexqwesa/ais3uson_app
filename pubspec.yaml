@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   freezed_annotation: any
   get_it: any
+  go_router:
   google_fonts: any
   hive: any
   hive_flutter: any

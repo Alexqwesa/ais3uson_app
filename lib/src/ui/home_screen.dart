@@ -6,6 +6,7 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -35,8 +36,7 @@ class HomeScreen extends ConsumerWidget {
           ? null
           : FloatingActionButton(
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
+                context.push(
                   '/scan_qr',
                 );
               },
@@ -89,10 +89,8 @@ class HomeScreen extends ConsumerWidget {
                         context,
                         'qr',
                       );
-                      Navigator.pushNamed(
-                        context,
+                      context.push(
                         '/add_department',
-                        arguments: '',
                       );
                     },
                   ),
@@ -104,8 +102,7 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().scanQrCode),
                     onTap: () {
                       Navigator.pop(context, 'qr');
-                      Navigator.pushNamed(
-                        context,
+                      context.push(
                         '/scan_qr',
                       );
                     },
@@ -115,10 +112,8 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().deleteDep),
                     onTap: () {
                       Navigator.pop(context, 'delete_department');
-                      Navigator.pushNamed(
-                        context,
+                      context.push(
                         '/delete_department',
-                        arguments: '',
                       );
                     },
                   ),
@@ -143,10 +138,8 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().settings),
                     onTap: () {
                       Navigator.pop(context, 'settings');
-                      Navigator.pushNamed(
-                        context,
+                      context.push(
                         '/settings',
-                        arguments: '',
                       );
                     },
                   ),
@@ -155,10 +148,8 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().about),
                     onTap: () {
                       Navigator.pop(context, 'dev');
-                      Navigator.pushNamed(
-                        context,
+                      context.push(
                         '/dev',
-                        arguments: '',
                       );
                     },
                   ),

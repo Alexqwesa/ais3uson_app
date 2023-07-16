@@ -3,14 +3,15 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
 
 /// Show screen with client of [WorkerProfile].
 ///
 /// {@category UI WorkerProfiles}
-class ClientScreen extends ConsumerWidget {
-  const ClientScreen({super.key});
+class ListOfClientsScreen extends ConsumerWidget {
+  const ListOfClientsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -112,16 +113,14 @@ class ClientCard extends ConsumerWidget {
         ),
         onLongPress: () {
           ref.read(lastUsed).client = client;
-          Navigator.pushNamed(
-            context,
+          context.push(
             '/client_journal',
           );
         },
         onTap: () {
           ref.read(lastUsed).client = client;
           ref.read(currentSearchText.notifier).state = '';
-          Navigator.pushNamed(
-            context,
+          context.push(
             '/client_services',
           );
         },
