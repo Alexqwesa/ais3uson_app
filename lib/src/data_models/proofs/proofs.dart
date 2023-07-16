@@ -44,7 +44,7 @@ class Proofs {
   final ProviderContainer ref;
 
   /// Future to be awaited(for tests).
-  Future? crawled;
+  Future<void>? crawled;
 
   List<ProofEntry> get proofGroups => ref.read(groupsOfProof(this));
 

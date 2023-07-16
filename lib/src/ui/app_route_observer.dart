@@ -11,7 +11,7 @@ class AppRouteObserver extends RouteObserver {
 
   final WidgetRef ref;
 
-  Future<void> saveLastRoute(Route? lastRoute) async {
+  Future<void> saveLastRoute(Route<dynamic>? lastRoute) async {
     unawaited(ref.read(audioPlayer).stop());
     unawaited(ref.read(proofRecorder).stop());
     final prefs = await SharedPreferences.getInstance();
@@ -20,25 +20,25 @@ class AppRouteObserver extends RouteObserver {
   }
 
   @override
-  void didPop(Route route, Route? previousRoute) {
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPop(route, previousRoute);
     saveLastRoute(previousRoute); // note : take route name in stacks below
   }
 
   @override
-  void didPush(Route route, Route? previousRoute) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
     saveLastRoute(route); // note : take new route name that just pushed
   }
 
   @override
-  void didRemove(Route route, Route? previousRoute) {
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didRemove(route, previousRoute);
     saveLastRoute(route);
   }
 
   @override
-  void didReplace({Route? newRoute, Route? oldRoute}) {
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     saveLastRoute(newRoute);
   }
