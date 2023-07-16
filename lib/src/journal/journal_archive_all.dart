@@ -4,7 +4,7 @@ import 'package:ais3uson_app/journal.dart';
 ///
 /// {@category Journal}
 class JournalArchiveAll extends JournalArchive {
-  JournalArchiveAll(super.wp);
+  JournalArchiveAll(super.workerProfile);
 
   /// If aData null - load all values.
   @override

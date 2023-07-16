@@ -174,7 +174,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PopupMenuButton<dynamic>(
       icon: const Icon(Icons.more_vert),
-      itemBuilder: (context) => <PopupMenuEntry>[
+      itemBuilder: (context) => <PopupMenuEntry<dynamic>>[
         PopupMenuItem<ListTile>(
           child: ListTile(
             leading: const Icon(Icons.grid_3x3),

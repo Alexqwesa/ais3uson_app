@@ -12,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
-  JournalArchive(super.wp);
+  JournalArchive(super.workerProfile);
 
   @override
   DateTime? get aData => ref.read(archiveDate);
