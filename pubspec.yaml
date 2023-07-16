@@ -56,7 +56,9 @@ dependencies:
   provider: any
   qr_code_scanner: any
   quiver: any
-  record: ">=4.2.0-dev.3"
+  record: any
+  riverpod: any
+  riverpod_annotation: any
   share_plus: any
   shared_preferences: any
   speech_to_text: any
@@ -89,6 +91,8 @@ dev_dependencies:
   json_serializable:
   path_provider_platform_interface: any
   plugin_platform_interface: any
+  riverpod_generator: any
+  riverpod_lint:
   surf_lint_rules: any
 
 #  very_good_analysis: any

@@ -5,12 +5,13 @@ import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
-/// Calculate size of [ServiceCard] based on parentSize and [tileType].
+/// Calculate size of [ServiceCard] based on parentSize [tileMagnificationProvider]
+/// and [tileTypeProvider].
 ///
 /// {@category Providers}
 /// {@category UI Settings}
 final tileSize = Provider.family<Size, Tuple2<Size, String>>((ref, tuple) {
-  final magnification = ref.watch(tileMagnification);
+  final magnification = ref.watch(tileMagnificationProvider);
 
   final parentSize = tuple.item1;
   final tileType = tuple.item2;

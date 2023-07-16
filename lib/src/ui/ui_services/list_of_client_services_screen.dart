@@ -181,7 +181,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
             title: Text(tr().detailed),
             onTap: () {
               Navigator.pop(context, '');
-              ref.read(tileType.notifier).state = '';
+              ref.read(tileTypeProvider.notifier).state = '';
             },
           ),
         ),
@@ -191,7 +191,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
             title: Text(tr().list),
             onTap: () {
               Navigator.pop(context, 'tile');
-              ref.read(tileType.notifier).state = 'tile';
+              ref.read(tileTypeProvider.notifier).state = 'tile';
             },
           ),
         ),
@@ -201,7 +201,7 @@ class _AppBarPopupMenu extends ConsumerWidget {
             title: Text(tr().small),
             onTap: () {
               Navigator.pop(context, 'square');
-              ref.read(tileType.notifier).state = 'square';
+              ref.read(tileTypeProvider.notifier).state = 'square';
             },
           ),
         ),

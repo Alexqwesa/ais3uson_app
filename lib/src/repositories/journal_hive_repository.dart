@@ -89,7 +89,7 @@ class JournalHiveRepository {
       final archList = hiveArchive.values.toList()
         ..sort((a, b) => a.provDate.compareTo(b.provDate))
         ..reversed;
-      final archiveLimit = ref.read(hiveArchiveSize);
+      final archiveLimit = ref.read(hiveArchiveSizeProvider);
       if (hiveArchive.length > archiveLimit) {
         //
         // > delete all services after archList[archiveLimit]

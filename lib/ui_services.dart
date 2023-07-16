@@ -8,11 +8,11 @@
 /// Both of them use [ServiceCard] to display [ClientService].
 ///
 /// The [ServiceCard] is display widget for [ClientService].
-/// Based on [tileType] it select one of views:
+/// Based on [tileTypeProvider] it select one of views:
 /// - [ServiceCardView],
 /// - [ServiceCardSquareView],
 /// - [ServiceCardTileView],
-/// each of them get it size from provider [tileSize] (which depend on [tileMagnification]).
+/// each of them get it size from provider [tileSize] (which depend on [tileMagnificationProvider]).
 ///
 /// Each [ServiceCard] view use [ServiceCardState] to display data from [Journal]
 /// (how many services is added, etc...).

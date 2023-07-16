@@ -24,7 +24,7 @@ class ServiceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final parentSize = ref.watch(currentSizeOfParentForListOfServices);
     final service = ref.watch(currentService);
-    final tileView = ref.watch(tileType);
+    final tileView = ref.watch(tileTypeProvider);
     // ignore: no_leading_underscores_for_local_identifiers
     final _ = ref.watch(archiveDate); // in case of date change
     final activeViewOfCard =
@@ -70,7 +70,7 @@ class _ServiceCardViewSelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tileView = ref.watch(tileType);
+    final tileView = ref.watch(tileTypeProvider);
 
     return ClipRect(
       child: Row(

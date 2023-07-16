@@ -32,11 +32,11 @@ class SettingsScreen extends ConsumerWidget {
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]{1,4}$')),
                     ],
                     controller: TextEditingController(
-                      text: ref.read(hiveArchiveSize).toString(),
+                      text: ref.read(hiveArchiveSizeProvider).toString(),
                     ),
                     // hintText:,
                     onChanged: (value) {
-                      ref.read(hiveArchiveSize.notifier).state =
+                      ref.read(hiveArchiveSizeProvider.notifier).state =
                           int.parse(value);
                     },
                   ),
@@ -72,9 +72,9 @@ class SettingServiceSizeWidget extends ConsumerWidget {
       subtitle: Slider(
         min: 60, // 60%
         max: 220, // 220%
-        value: (ref.watch(tileMagnification) * 100).toInt().toDouble(),
+        value: (ref.watch(tileMagnificationProvider) * 100).toInt().toDouble(),
         onChanged: (value) {
-          ref.read(tileMagnification.notifier).state = value / 100;
+          ref.read(tileMagnificationProvider.notifier).state = value / 100;
         },
       ),
     );

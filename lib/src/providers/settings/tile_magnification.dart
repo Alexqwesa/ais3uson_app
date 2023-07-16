@@ -1,8 +1,10 @@
 import 'package:ais3uson_app/main.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Provider of setting - tileMagnification (for tiles in list of services).
+part 'tile_magnification.g.dart';
+
+/// Provider of setting - Magnification of tiles in list of services.
 ///
 /// Read/save from/to SharedPreferences, had default preinitialized value.
 ///
@@ -10,20 +12,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// {@category Providers}
 /// {@category UI Settings}
-final tileMagnification =
-    StateNotifierProvider<_TileMagnification, double>((ref) {
-  return _TileMagnification();
-});
-
-class _TileMagnification extends StateNotifier<double> {
-  _TileMagnification()
-      : super(locator<SharedPreferences>().getDouble(name) ?? 1.0);
-
+// final tileMagnificationProvider =
+//     NotifierProvider<TileMagnification, double>(TileMagnification.new);
+//
+@Riverpod(keepAlive: true)
+class TileMagnification extends Notifier<double> {
   static const name = 'serviceCardMagnifying';
 
   @override
   set state(double value) {
     super.state = value;
     locator<SharedPreferences>().setDouble(name, value);
+  }
+
+  @override
+  double build() {
+    return locator<SharedPreferences>().getDouble(name) ?? 1.0;
   }
 }

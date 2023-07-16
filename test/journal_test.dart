@@ -318,7 +318,7 @@ void main() {
         //
         // > init workerProfile
         //
-        ref.read(hiveArchiveSize.notifier).state = 10;
+        ref.read(hiveArchiveSizeProvider.notifier).state = 10;
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         final wp = ref.read(workerProfiles).first;
         // await AppData.instance
@@ -355,7 +355,7 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(hiveArchiveSize.notifier).state = 10;
+      ref.read(hiveArchiveSizeProvider.notifier).state = 10;
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
@@ -393,7 +393,7 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(hiveArchiveSize.notifier).state = 10;
+      ref.read(hiveArchiveSizeProvider.notifier).state = 10;
       ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
       final wp = ref.read(workerProfiles).first;
       await wp.postInit();
@@ -437,7 +437,7 @@ void main() {
         //
         // > init workerProfile
         //
-        ref.read(hiveArchiveSize.notifier).state = 10;
+        ref.read(hiveArchiveSizeProvider.notifier).state = 10;
         ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
         final wp = ref.read(workerProfiles).first;
         await wp.postInit();
