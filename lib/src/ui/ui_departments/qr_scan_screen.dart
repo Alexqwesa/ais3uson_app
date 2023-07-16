@@ -13,7 +13,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 ///
 /// {@category UI WorkerProfiles}
 class QRScanScreen extends ConsumerStatefulWidget {
-  const QRScanScreen({Key? key}) : super(key: key);
+  const QRScanScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _QRScanScreenState();
@@ -253,8 +253,8 @@ class ShowQrView extends StatelessWidget {
   const ShowQrView({
     required this.qrKey,
     required this.onQRViewCreated,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final GlobalKey qrKey;
   final void Function(QRViewController) onQRViewCreated;

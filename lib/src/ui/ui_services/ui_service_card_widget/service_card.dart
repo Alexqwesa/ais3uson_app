@@ -17,8 +17,8 @@ import 'package:tuple/tuple.dart';
 /// {@category UI Services}
 class ServiceCard extends ConsumerWidget {
   const ServiceCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,9 +66,7 @@ class ServiceCard extends ConsumerWidget {
 }
 
 class _ServiceCardViewSelector extends ConsumerWidget {
-  const _ServiceCardViewSelector({
-    Key? key,
-  }) : super(key: key);
+  const _ServiceCardViewSelector();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

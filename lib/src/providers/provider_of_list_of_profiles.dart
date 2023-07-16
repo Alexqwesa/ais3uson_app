@@ -34,7 +34,7 @@ class _ProviderOfListOfProfiles extends StateNotifier<List<WorkerProfile>> {
     });
   }
 
-  final StateNotifierProviderRef ref;
+  final Ref ref;
 
   /// Get [WorkerKey] by apiKey.
   WorkerKey key(String apiKey) =>

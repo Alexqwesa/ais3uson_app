@@ -14,9 +14,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category UI Services}
 class ServiceCardState extends ConsumerWidget {
   const ServiceCardState({
-    Key? key,
+    super.key,
     this.rightOfText = false,
-  }) : super(key: key);
+  });
 
   //
   // icon data

@@ -8,6 +8,8 @@
 /// - register Hive adapters...
 ///
 
+// ignore_for_file: unreachable_from_main
+
 library main;
 
 import 'dart:async';

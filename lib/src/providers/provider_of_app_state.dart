@@ -43,7 +43,7 @@ final lastUsed = Provider<_ProviderOfAPPState>((ref) {
 class _ProviderOfAPPState {
   _ProviderOfAPPState(this.ref);
 
-  final ProviderRef ref;
+  final Ref ref;
 
   ClientService get service => ref.watch(_lastClientService);
 

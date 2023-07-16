@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category UI WorkerProfiles}
 class AddDepartmentScreen extends ConsumerWidget {
-  const AddDepartmentScreen({Key? key}) : super(key: key);
+  const AddDepartmentScreen({super.key});
 
   static final controller = TextEditingController();
 
@@ -158,7 +158,7 @@ class AddDepartmentScreen extends ConsumerWidget {
                                 children: [
                                   Text(newWorkerKeys[index].name),
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8),
                                     child: Text(newWorkerKeys[index].comment),
                                   ),
                                 ],
@@ -221,7 +221,7 @@ bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
 }
 
 class SimpleTextField extends StatelessWidget {
-  const SimpleTextField({required this.controller, Key? key}) : super(key: key);
+  const SimpleTextField({required this.controller, super.key});
 
   final TextEditingController controller;
 

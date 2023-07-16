@@ -12,7 +12,7 @@ late StateProviderFamily<Future<http.Response>?, bool> _httpFuture;
 
 /// About page + tests
 class DevScreen extends StatelessWidget {
-  const DevScreen({Key? key}) : super(key: key);
+  const DevScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class DevScreen extends StatelessWidget {
 ///
 /// get status data from Web worker
 class CheckWorkerServer extends ConsumerWidget {
-  CheckWorkerServer({Key? key}) : super(key: key) {
+  CheckWorkerServer({super.key}) {
     // ref.read(_httpFuture(false).notifier) = null;
     // ref.read(_httpFuture(true).notifier) = null;
     _httpFuture = StateProvider.family<Future<http.Response>?, bool>(

@@ -24,8 +24,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 class ListOfClientServicesScreen extends ConsumerStatefulWidget {
   /// Show list of services assigned to client, allow input by click.
   const ListOfClientServicesScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   ConsumerState<ListOfClientServicesScreen> createState() =>
@@ -132,9 +132,7 @@ class _ClientServicesListScreen
 }
 
 class _ListOfServices extends ConsumerWidget {
-  const _ListOfServices({
-    Key? key,
-  }) : super(key: key);
+  const _ListOfServices();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -170,9 +168,7 @@ class _ListOfServices extends ConsumerWidget {
 }
 
 class _AppBarPopupMenu extends ConsumerWidget {
-  const _AppBarPopupMenu({
-    Key? key,
-  }) : super(key: key);
+  const _AppBarPopupMenu();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

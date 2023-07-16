@@ -22,8 +22,8 @@ import 'package:tuple/tuple.dart';
 /// {@category UI Proofs}
 class ListOfServiceProofs extends ConsumerWidget {
   const ListOfServiceProofs({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -90,8 +90,8 @@ class ListOfServiceProofs extends ConsumerWidget {
 /// {@category UI Proofs}
 class ProofsBuilder extends ConsumerWidget {
   const ProofsBuilder({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -217,8 +217,7 @@ class _ImageOrButtonAdd extends ConsumerWidget {
   const _ImageOrButtonAdd({
     required this.proofIndex,
     required this.beforeOrAfter,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String beforeOrAfter;
   final int proofIndex;
@@ -279,8 +278,8 @@ class AddProofButton extends StatelessWidget {
     required this.indexInProofs,
     required this.callAddProof,
     required this.beforeOrAfter,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final int indexInProofs;
   final Function(int, XFile?, String) callAddProof;

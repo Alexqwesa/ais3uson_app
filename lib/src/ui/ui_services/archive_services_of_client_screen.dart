@@ -22,8 +22,8 @@ const _tileSize = 500.0;
 /// {@category UI Services}
 class ArchiveServicesOfClientScreen extends ConsumerWidget {
   const ArchiveServicesOfClientScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -85,8 +85,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
   const _TitleWidgetOfServicesGroup({
     required this.service,
     required this.client,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final ServiceOfJournal service;
   final ClientProfile client;
@@ -117,7 +116,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
                 // > Audio Proof Buttons
                 //
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                  padding: const EdgeInsets.only(right: 16),
                   child: Column(
                     children: [
                       AudioProofController(
@@ -152,8 +151,7 @@ class _ServiceOfJournalTile extends ConsumerWidget {
   const _ServiceOfJournalTile({
     required this.serviceOfJournal,
     required this.client,
-    Key? key,
-  }) : super(key: key);
+  });
 
   /// Core variable
   final ServiceOfJournal serviceOfJournal;
@@ -176,7 +174,6 @@ class _ServiceOfJournalTile extends ConsumerWidget {
           id: 0,
           serv_text: tr().errorService,
           short_text: tr().errorService,
-          image: 'not-found.png',
         ),
         planned:
             const ClientPlan(contract_id: 0, serv_id: 0, planned: 0, filled: 0),

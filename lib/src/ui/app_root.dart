@@ -20,7 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// {@category UI Root}
 class AppRoot extends ConsumerWidget {
-  const AppRoot({Key? key}) : super(key: key);
+  const AppRoot({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,8 +35,8 @@ class AppRoot extends ConsumerWidget {
 /// {@category UI Root}
 class ArchiveMaterialApp extends ConsumerWidget {
   const ArchiveMaterialApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// Activate archive mode([isArchive]) only if [initDatesInAllArchives].dates
   /// not empty.
@@ -144,7 +144,7 @@ class ArchiveMaterialApp extends ConsumerWidget {
 ///
 /// {@category UI Root}
 class MainMaterialApp extends ConsumerWidget {
-  const MainMaterialApp({Key? key}) : super(key: key);
+  const MainMaterialApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

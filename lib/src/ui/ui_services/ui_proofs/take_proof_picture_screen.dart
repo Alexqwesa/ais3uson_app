@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 class TakeProofPictureScreen extends StatefulWidget {
   const TakeProofPictureScreen({
     required this.camera,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final CameraDescription camera;
 
@@ -106,8 +106,8 @@ class _TakeProofPictureScreenState extends State<TakeProofPictureScreen> {
 class DisplayPictureScreen extends StatelessWidget {
   const DisplayPictureScreen({
     required this.image,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Image image;
 

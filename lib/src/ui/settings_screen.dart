@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,8 +58,8 @@ class SettingsScreen extends ConsumerWidget {
 class SettingServiceSizeWidget extends ConsumerWidget {
   const SettingServiceSizeWidget({
     this.title,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String? title;
 

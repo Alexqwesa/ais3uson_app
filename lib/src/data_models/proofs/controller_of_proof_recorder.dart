@@ -18,7 +18,7 @@ final proofRecorder = Provider((ref) {
 class _ControllerOfProofRecorder {
   _ControllerOfProofRecorder(this.ref);
 
-  final ProviderRef ref;
+  final Ref ref;
   final _record = Record();
 
   String _audioPath = '';

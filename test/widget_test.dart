@@ -9,16 +9,14 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/setup_and_teardown_helpers.dart';
 
-final locator = GetIt.instance;
-
 void main() {
+  // final locator = GetIt.instance;
   tearDownAll(() async {
     await tearDownTestHive();
   });

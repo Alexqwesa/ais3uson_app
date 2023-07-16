@@ -12,8 +12,8 @@ import 'package:tuple/tuple.dart';
 /// {@category UI Services}
 class ServiceCardView extends ConsumerWidget {
   const ServiceCardView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const tileType = '';
 
@@ -109,8 +109,8 @@ class ServiceCardView extends ConsumerWidget {
 /// {@category UI Services}
 class ServiceCardSquareView extends ConsumerWidget {
   const ServiceCardSquareView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const tileType = 'square';
 
@@ -182,8 +182,8 @@ class ServiceCardSquareView extends ConsumerWidget {
 /// {@category UI Services}
 class ServiceCardTileView extends ConsumerWidget {
   const ServiceCardTileView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const tileType = 'tile';
 

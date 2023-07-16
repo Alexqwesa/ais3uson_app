@@ -12,8 +12,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// {@category UI Services}
 class ClientServiceScreen extends ConsumerWidget {
   const ClientServiceScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -147,8 +147,8 @@ class ClientServiceScreen extends ConsumerWidget {
 class AddButton extends ConsumerWidget {
   const AddButton({
     required this.service,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ClientService service;
 
@@ -178,8 +178,8 @@ class AddButton extends ConsumerWidget {
 class DeleteButton extends ConsumerWidget {
   const DeleteButton({
     required this.service,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ClientService service;
 

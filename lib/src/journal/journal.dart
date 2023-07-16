@@ -44,7 +44,7 @@ import 'package:universal_html/html.dart' as html;
 /// {@category Client-Server API}
 // ignore: prefer_mixin
 class Journal extends BaseJournal {
-  Journal(WorkerProfile workerProfile) : super(workerProfile);
+  Journal(super.workerProfile);
 
   final _lock = Lock();
 

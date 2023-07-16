@@ -20,8 +20,8 @@ class AudioProofController extends ConsumerWidget {
     this.client,
     this.service,
     this.beforeOrAfter = 'after_audio_',
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     if (!(proofs != null || (client != null && service != null))) {
       throw StateError('AudioProofController: wrong parameters!');
     }
@@ -61,7 +61,7 @@ class AudioProofController extends ConsumerWidget {
         // > record button
         //
         Padding(
-          padding: const EdgeInsets.all(2.0),
+          padding: const EdgeInsets.all(2),
           child: FloatingActionButton(
             heroTag: null,
             // tooltip: ,
@@ -92,7 +92,7 @@ class AudioProofController extends ConsumerWidget {
         //
         if (audioProof != null)
           Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(2),
             child: FloatingActionButton(
               heroTag: null,
               // tooltip: ,
@@ -129,7 +129,7 @@ class AudioProofController extends ConsumerWidget {
         //
         if (audioProof != null)
           Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(2),
             child: FloatingActionButton(
               heroTag: null,
               // tooltip: ,

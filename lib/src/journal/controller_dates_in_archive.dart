@@ -27,7 +27,7 @@ class _ControllerDatesInArchive extends StateNotifier<Set<DateTime>> {
 
   late final String hiveName;
   final String apiKey;
-  final StateNotifierProviderRef ref;
+  final Ref ref;
   bool _saved = false;
 
   Future<Set<DateTime>> _initialize() async {
@@ -117,7 +117,6 @@ final datesInAllArchives = Provider<Set<DateTime>>((ref) {
     ...ref
         .watch(workerProfiles)
         .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
-        .expand((list) => list)
-        .toList(),
+        .expand((list) => list),
   };
 });

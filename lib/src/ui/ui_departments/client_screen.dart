@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 ///
 /// {@category UI WorkerProfiles}
 class ClientScreen extends ConsumerWidget {
-  const ClientScreen({Key? key}) : super(key: key);
+  const ClientScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,8 +66,8 @@ class ClientCard extends ConsumerWidget {
   const ClientCard({
     required this.index,
     required this.client,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ClientProfile client;
   final int index;

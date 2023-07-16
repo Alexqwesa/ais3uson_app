@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category UI WorkerProfiles}
 class DeleteDepartmentScreen extends ConsumerWidget {
-  const DeleteDepartmentScreen({Key? key}) : super(key: key);
+  const DeleteDepartmentScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +57,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                           children: [
                             Text(wpKeys[index].name),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8),
                               child: Text(wpKeys[index].comment),
                             ),
                           ],

@@ -1,4 +1,3 @@
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/repositories.dart';
@@ -13,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
-  JournalArchive(WorkerProfile wp) : super(wp);
+  JournalArchive(super.wp);
 
   @override
   DateTime? get aData => ref.read(archiveDate);
