@@ -108,7 +108,7 @@ void main() {
               '/client_services': (context) =>
                   const ListOfClientServicesScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),
-              '/department': /*  */ (context) => const ClientScreen(),
+              '/department': /*  */ (context) => const ListOfClientsScreen(),
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
               '/dev': /*         */ (context) => const DevScreen(),
               '/delete_department': (context) => const DeleteDepartmentScreen(),
@@ -213,7 +213,7 @@ void main() {
               '/client_services': (context) =>
                   const ListOfClientServicesScreen(),
               '/settings': /*    */ (context) => const SettingsScreen(),
-              '/department': /*  */ (context) => const ClientScreen(),
+              '/department': /*  */ (context) => const ListOfClientsScreen(),
               '/scan_qr': /*     */ (context) => const QRScanScreen(),
               '/dev': /*         */ (context) => const DevScreen(),
               '/delete_department': (context) => const DeleteDepartmentScreen(),
@@ -248,7 +248,7 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      const widgetForTesting = ClientScreen();
+      const widgetForTesting = ListOfClientsScreen();
       await tester.pumpWidget(
         ProviderScope(
           parent: ref,
