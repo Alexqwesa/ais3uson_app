@@ -35,6 +35,7 @@ dependencies:
   flutter_intl: any
   flutter_localizations:
     sdk: flutter
+#  flutter_web_plugins: any
   freezed_annotation: any
   get_it: any
   go_router:

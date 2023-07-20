@@ -26,6 +26,8 @@ import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -116,6 +118,8 @@ Future<void> main() async {
   await Hive.initFlutter('Ais3uson');
   final testClient = (jsonDecode(qrData2WithLocalCache)
       as Map<String, dynamic>)['certBase64'] as String;
+
+  usePathUrlStrategy();
   runApp(OverlaySupport.global(
     child: ProviderScope(
       child: const AppRoot(),
