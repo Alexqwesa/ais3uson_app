@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="global_helpers&#47;global_helpers-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">global_helpers</span> library 
  
@@ -226,7 +230,7 @@
 
         <dt id="sqlFormat" class="property">
   <span class="name"><a href="../global_helpers/sqlFormat.html">sqlFormat</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/intl/0.17.0/intl/DateFormat-class.html">DateFormat</a></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/intl/0.18.0/intl/DateFormat-class.html">DateFormat</a></span> 
 
 </dt>
 <dd>
@@ -237,7 +241,7 @@
 
         <dt id="standardFormat" class="property">
   <span class="name"><a href="../global_helpers/standardFormat.html">standardFormat</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/intl/0.17.0/intl/DateFormat-class.html">DateFormat</a></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/intl/0.18.0/intl/DateFormat-class.html">DateFormat</a></span> 
 
 </dt>
 <dd>
@@ -353,15 +357,16 @@
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li class="self-crumb">global_helpers library</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li class="self-crumb">global_helpers library</li>
 </ol>
 
 
@@ -391,40 +396,6 @@
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>global_helpers library</h5>
-    <ol>
-
-      <li class="section-title"><a href="../global_helpers/global_helpers-library.html#extensions">Extensions</a></li>
-        <li><a href="../global_helpers/DateTimeExtensions.html">DateTimeExtensions</a></li>
-
-
-      <li class="section-title"><a href="../global_helpers/global_helpers-library.html#constants">Constants</a></li>
-        <li><a href="../global_helpers/formatSQL-constant.html">formatSQL</a></li>
-        <li><a href="../global_helpers/formatStandard-constant.html">formatStandard</a></li>
-        <li><a href="../global_helpers/hiveProfiles-constant.html">hiveProfiles</a></li>
-        <li><a href="../global_helpers/httpHeaders-constant.html">httpHeaders</a></li>
-        <li><a href="../global_helpers/qrCodes-constant.html">qrCodes</a></li>
-        <li><a href="../global_helpers/qrData2WithLocalCache-constant.html">qrData2WithLocalCache</a></li>
-        <li><a href="../global_helpers/stubJsonWorkerKey-constant.html">stubJsonWorkerKey</a></li>
-        <li><a href="../global_helpers/uuid-constant.html">uuid</a></li>
-
-      <li class="section-title"><a href="../global_helpers/global_helpers-library.html#properties">Properties</a></li>
-        <li><a href="../global_helpers/nullDate.html">nullDate</a></li>
-        <li><a href="../global_helpers/sqlFormat.html">sqlFormat</a></li>
-        <li><a href="../global_helpers/standardFormat.html">standardFormat</a></li>
-
-      <li class="section-title"><a href="../global_helpers/global_helpers-library.html#functions">Functions</a></li>
-        <li><a href="../global_helpers/getSafePath.html">getSafePath</a></li>
-        <li><a href="../global_helpers/mapJsonDecode.html">mapJsonDecode</a></li>
-        <li><a href="../global_helpers/mostRecentMonday.html">mostRecentMonday</a></li>
-        <li><a href="../global_helpers/mostRecentMonth.html">mostRecentMonth</a></li>
-        <li><a href="../global_helpers/safeName.html">safeName</a></li>
-        <li><a href="../global_helpers/showErrorNotification.html">showErrorNotification</a></li>
-        <li><a href="../global_helpers/showNotification.html">showNotification</a></li>
-
-
-
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>
@@ -432,7 +403,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the tileMagnification property from the settings library, for the Dart programming language.">
-  <title>tileMagnification property - settings library - Dart API</title>
+  <meta name="description" content="API docs for the tileMagnificationProvider property from the settings library, for the Dart programming language.">
+  <title>tileMagnificationProvider property - settings library - Dart API</title>
 
 
   
@@ -30,9 +30,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../settings/settings-library.html">settings</a></li>
-    <li class="self-crumb">tileMagnification property</li>
+    <li class="self-crumb">tileMagnificationProvider property</li>
   </ol>
-  <div class="self-name">tileMagnification</div>
+  <div class="self-name">tileMagnificationProvider</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -50,9 +50,13 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="settings&#47;settings-library-sidebar.html"
+      data-below-sidebar="">
       <div>
-<h1><span class="kind-top-level-property">tileMagnification</span> top-level property 
+<h1><span class="kind-top-level-property">tileMagnificationProvider</span> top-level property 
  
     <span class="category providers cp-8" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-12" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
@@ -60,27 +64,40 @@
 
         <section class="multi-line-signature">
           
-          <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_TileMagnification</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span>
-          <span class="name ">tileMagnification</span>
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/ProviderFor-class.html">ProviderFor</a>(TileMagnification)</li>
+    </ol>
+  </div>
+          <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/TileMagnification-class.html">TileMagnification</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span>
+          <span class="name ">tileMagnificationProvider</span>
           <div class="features"><span class="feature">final</span></div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Provider of setting - tileMagnification (for tiles in list of services).</p>
+  <p>Provider of setting - Magnification of tiles in list of services.</p>
 <p>Read/save from/to SharedPreferences, had default preinitialized value.</p>
 <p>Depend on <a href="../main/locator.html">locator</a><sharedpreferences>.</sharedpreferences></p>
 <p>{@category Providers}
 {@category UI Settings}</p>
+<p>Copied from <code>TileMagnification</code>.</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final tileMagnification =
-    StateNotifierProvider&lt;_TileMagnification, double&gt;((ref) {
-  return _TileMagnification();
-});</code></pre>
+  <pre class="language-dart"><code class="language-dart">@ProviderFor(TileMagnification)
+final tileMagnificationProvider =
+    NotifierProvider&lt;TileMagnification, double&gt;.internal(
+  TileMagnification.new,
+  name: r&#39;tileMagnificationProvider&#39;,
+  debugGetCreateSourceHash: const bool.fromEnvironment(&#39;dart.vm.product&#39;)
+      ? null
+      : _$tileMagnificationHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);</code></pre>
 </section>
 
 
@@ -88,36 +105,21 @@
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../settings/settings-library.html">settings</a></li>
-  <li class="self-crumb">tileMagnification property</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../settings/settings-library.html">settings</a></li>
+    <li class="self-crumb">tileMagnificationProvider property</li>
 </ol>
 
 
     <h5>settings library</h5>
-    <ol>
-
-
-
-
-      <li class="section-title"><a href="../settings/settings-library.html#properties">Properties</a></li>
-        <li><a href="../settings/hiveArchiveSize.html">hiveArchiveSize</a></li>
-        <li><a href="../settings/tileMagnification.html">tileMagnification</a></li>
-        <li><a href="../settings/tileSize.html">tileSize</a></li>
-        <li><a href="../settings/tileType.html">tileType</a></li>
-
-
-
-
-</ol>
-
   </div><!--/.sidebar-offcanvas-left-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -128,7 +130,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   

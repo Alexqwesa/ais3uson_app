@@ -50,7 +50,11 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="journal&#47;journal-library-sidebar.html"
+      data-below-sidebar="journal&#47;Journal-class-sidebar.html">
       <div>
 <h1><span class="kind-class">Journal</span> class 
  
@@ -252,7 +256,7 @@ it store old <code>finished</code> and `outDated services.</p>
 
         <dt id="ref" class="property">
   <span class="name"><a href="../journal/Journal/ref.html">ref</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -296,7 +300,7 @@ it store old <code>finished</code> and `outDated services.</p>
 
         <dt id="servicesOf" class="property">
   <span class="name"><a href="../journal/Journal/servicesOf.html">servicesOf</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.2/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -420,7 +424,7 @@ it store old <code>finished</code> and `outDated services.</p>
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
+  Invoked when a nonexistent method or property is accessed.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -460,7 +464,7 @@ it store old <code>finished</code> and `outDated services.</p>
 </dt>
 <dd>
   Mark all finished service as <a href="../journal/ServiceState.html">ServiceState.outDated</a>
-after <code>WorkerProfileLogic.clientsPlanOf</code> synchronized.
+after <a href="../dynamic_data_models/WorkerProfileLogic/clientsPlanOf.html">WorkerProfileLogic.clientsPlanOf</a> synchronized.
   <div class="features"><span class="feature">override</span></div>
 
 </dd>
@@ -496,97 +500,25 @@ after <code>WorkerProfileLogic.clientsPlanOf</code> synchronized.
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">ais3uson_app</a></li>
-  <li><a href="../journal/journal-library.html">journal</a></li>
-  <li class="self-crumb">Journal class</li>
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../journal/journal-library.html">journal</a></li>
+    <li class="self-crumb">Journal class</li>
 </ol>
 
 
-    <h5>journal library</h5>
-    <ol>
-      <li class="section-title"><a href="../journal/journal-library.html#classes">Classes</a></li>
-        <li><a href="../journal/Journal-class.html">Journal</a></li>
-        <li><a href="../journal/JournalArchive-class.html">JournalArchive</a></li>
-        <li><a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a></li>
-        <li><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></li>
-        <li><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></li>
-        <li><a href="../journal/ServiceStateAdapter-class.html">ServiceStateAdapter</a></li>
-
-
-
-
-      <li class="section-title"><a href="../journal/journal-library.html#properties">Properties</a></li>
-        <li><a href="../journal/controllerDatesInArchive.html">controllerDatesInArchive</a></li>
-        <li><a href="../journal/datesInAllArchives.html">datesInAllArchives</a></li>
-        <li><a href="../journal/initDatesInAllArchives.html">initDatesInAllArchives</a></li>
-
-      <li class="section-title"><a href="../journal/journal-library.html#functions">Functions</a></li>
-        <li><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></li>
-
-      <li class="section-title"><a href="../journal/journal-library.html#enums">Enums</a></li>
-        <li><a href="../journal/ServiceState.html">ServiceState</a></li>
-
-
-</ol>
-
+    <!--<h5>journal library</h5>-->
+    <div id="dartdoc-sidebar-left-content"></div>
   </div>
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-    <ol>
-
-        <li class="section-title"><a href="../journal/Journal-class.html#constructors">Constructors</a></li>
-          <li><a href="../journal/Journal/Journal.html">Journal</a></li>
-
-
-        <li class="section-title">
-          <a href="../journal/Journal-class.html#instance-properties">Properties</a>
-        </li>
-          <li class="inherited"><a href="../data_models/BaseJournal/aData.html">aData</a></li>
-          <li><a href="../journal/Journal/added.html">added</a></li>
-          <li><a href="../journal/Journal/all.html">all</a></li>
-          <li class="inherited"><a href="../data_models/BaseJournal/apiKey.html">apiKey</a></li>
-          <li><a href="../journal/Journal/finished.html">finished</a></li>
-          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-          <li><a href="../journal/Journal/hive.html">hive</a></li>
-          <li><a href="../journal/Journal/hiveRepository.html">hiveRepository</a></li>
-          <li><a href="../journal/Journal/httpRepository.html">httpRepository</a></li>
-          <li><a href="../journal/Journal/journalHiveName.html">journalHiveName</a></li>
-          <li><a href="../journal/Journal/outDated.html">outDated</a></li>
-          <li><a href="../journal/Journal/ref.html">ref</a></li>
-          <li><a href="../journal/Journal/rejected.html">rejected</a></li>
-          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-          <li><a href="../journal/Journal/servicesForSync.html">servicesForSync</a></li>
-          <li><a href="../journal/Journal/servicesOf.html">servicesOf</a></li>
-          <li class="inherited"><a href="../data_models/BaseJournal/today.html">today</a></li>
-          <li class="inherited"><a href="../data_models/BaseJournal/workerDepId.html">workerDepId</a></li>
-          <li class="inherited"><a href="../data_models/BaseJournal/workerProfile.html">workerProfile</a></li>
-
-        <li class="section-title"><a href="../journal/Journal-class.html#instance-methods">Methods</a></li>
-          <li><a href="../journal/Journal/archiveOldServices.html">archiveOldServices</a></li>
-          <li><a href="../journal/Journal/commitAll.html">commitAll</a></li>
-          <li><a href="../journal/Journal/delete.html">delete</a></li>
-          <li><a href="../journal/Journal/exportToFile.html">exportToFile</a></li>
-          <li><a href="../journal/Journal/getUuidOfLastService.html">getUuidOfLastService</a></li>
-          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-          <li><a href="../journal/Journal/post.html">post</a></li>
-          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-          <li><a href="../journal/Journal/updateBasedOnNewPlanDate.html">updateBasedOnNewPlanDate</a></li>
-
-        <li class="section-title inherited"><a href="../journal/Journal-class.html#operators">Operators</a></li>
-          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
-
-
-</ol>
-
   </div><!--/.sidebar-offcanvas-->
 
 </main>
@@ -594,7 +526,7 @@ after <code>WorkerProfileLogic.clientsPlanOf</code> synchronized.
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.0.1+23
+      1.2.0
   </span>
 
   
