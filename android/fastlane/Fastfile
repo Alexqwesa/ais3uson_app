@@ -21,6 +21,11 @@ platform :android do
     gradle(task: "test")
   end
 
+    desc "Build release app bundle"
+    lane :build_bundle do
+     gradle(task: "clean bundleRelease")
+    end
+
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "clean assembleRelease")
@@ -32,7 +37,18 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
+    # The build release app bundle lane you created previously.
+    #     gradle(task: "clean assembleRelease")
+    build_bundle
+    supply(
+        track: 'production',
+        skip_upload_metadata: true,
+        skip_upload_images: true,
+        skip_upload_screenshots: true,
+        version_code: 25,
+        version_name: "1.2.0",
+        aab: "../build/app/outputs/bundle/release/app-release.aab"
+    )
     upload_to_play_store
   end
 end
