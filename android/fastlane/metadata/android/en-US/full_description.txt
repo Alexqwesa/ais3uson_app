@@ -1,0 +1,7 @@
+An Open-source mobile App for workers of organisation which allow them to input services for small groups of people. 
+
+It can be used with custom back-end of your organization or with default back-end(witch you still need to install on the server of your organization). 
+
+Project repository: https://github.com/Alexqwesa/ais3uson_app
+API reference: https://alexqwesa.github.io/ais3uson_app/
+Backend: https://github.com/Alexqwesa/AIS-3USON

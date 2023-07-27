@@ -31,6 +31,8 @@ docs/_config.yml
 .pub-cache/
 .pub/
 /build/
+/secrets/
+
 
 # Web related
 lib/src/ui/scan_qr/generated_plugin_registrant.dart
