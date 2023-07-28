@@ -63,8 +63,6 @@ jobs:
 #       - run: bundle exec fastlane ${{ github.event.inputs.lane || 'build_bundle' }}
       - run: |
           ls .
-          ls ..
-          ls ./android
           bundle exec fastlane deploy
         env:
           PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
