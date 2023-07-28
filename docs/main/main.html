@@ -98,6 +98,8 @@
   await Hive.initFlutter(&#39;Ais3uson&#39;);
   final testClient = (jsonDecode(qrData2WithLocalCache)
       as Map&lt;String, dynamic&gt;)[&#39;certBase64&#39;] as String;
+
+  usePathUrlStrategy();
   runApp(OverlaySupport.global(
     child: ProviderScope(
       child: const AppRoot(),
