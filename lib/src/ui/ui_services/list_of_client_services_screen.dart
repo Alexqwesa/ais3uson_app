@@ -15,6 +15,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
         ConsumerWidget,
         ProviderScope,
         WidgetRef;
+import 'package:tuple/tuple.dart';
 
 /// Show list of services assigned to client, allow input by click.
 ///
@@ -37,20 +38,8 @@ class _ClientServicesListScreen
     extends ConsumerState<ListOfClientServicesScreen> {
   _ClientServicesListScreen();
 
-  bool inited = false;
-
   @override
   Widget build(BuildContext context) {
-    if (!inited) {
-      inited = true;
-      Future.delayed(
-        // todo: fix it
-        const Duration(milliseconds: 100),
-        () => ref.read(currentSizeOfParentForListOfServices.notifier).state =
-            MediaQuery.of(context).size,
-      );
-    }
-
     final client = ref.watch(lastUsed).client;
     final servList = ref.watch(filteredServices(client));
     final searchedText = ref.watch(currentSearchText);
@@ -97,37 +86,26 @@ class _ClientServicesListScreen
       //
       // > body
       //
-      body: NotificationListener<SizeChangedLayoutNotification>(
-        onNotification: (size) {
-          Future.delayed(
-            const Duration(milliseconds: 100),
-            () => ref
-                .read(currentSizeOfParentForListOfServices.notifier)
-                .delayedChange(MediaQuery.of(context).size),
-          );
-
-          return true;
-        },
-        child: SizeChangedLayoutNotifier(
-          child: Center(
-            child: ref.watch(client.servicesOf).isNotEmpty
-                ? servList.isNotEmpty
-                    ? const Center(
-                        child: _ListOfServices(),
-                      )
-                    : Text(
-                        '${tr().onRequest} $searchedText  ${tr().servicesNotFound}',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      )
-                : Text(
-                    tr().noServicesForClient,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
+      body: switch (ref.watch(client.servicesOf).isNotEmpty) {
+        true => servList.isNotEmpty
+            ? const Center(
+                child: CustomScrollView(
+                  slivers: [
+                    _ListOfServices(),
+                  ],
+                ),
+              )
+            : Text(
+                '${tr().onRequest} $searchedText  ${tr().servicesNotFound}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+        false => Text(
+            tr().noServicesForClient,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
-        ),
-      ),
+      },
     );
   }
 }
@@ -140,29 +118,36 @@ class _ListOfServices extends ConsumerWidget {
     final client = ref.watch(lastUsed).client;
     final servList = ref.watch(filteredServices(client));
 
-    return SingleChildScrollView(
+    final parentSize = MediaQuery.of(context).size;
+    final tileView = ref.watch(tileTypeProvider);
+    final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
+
+    return SliverAnimatedGrid(
       key: const ValueKey('MainScroll'),
-      child: Wrap(
-        children: servList
-            .map(
-              (element) => InkWell(
-                child: ProviderScope(
-                  overrides: [
-                    currentService.overrideWithValue(element),
-                  ],
-                  child: const ServiceCard(
-                      // key: ObjectKey(element),
-                      ),
+      initialItemCount: servList.length,
+      itemBuilder: (context1, index, Animation<double> animation) {
+        final element = servList[index];
+
+        return InkWell(
+          child: ProviderScope(
+            overrides: [
+              currentService.overrideWithValue(element),
+            ],
+            child: const ServiceCard(
+                // key: ObjectKey(element),
                 ),
-                onLongPress: () {
-                  // set last service
-                  ref.read(lastUsed).service = element;
-                  // open ClientServiceScreen
-                  context.push( '/service');
-                },
-              ),
-            )
-            .toList(),
+          ),
+          onLongPress: () {
+            // set last service
+            ref.read(lastUsed).service = element;
+            // open ClientServiceScreen
+            context.push('/service');
+          },
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: parentSize.width ~/ size.width,
+        childAspectRatio: size.width / size.height,
       ),
     );
   }
