@@ -5,48 +5,51 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:universal_html/html.dart' as html;
 
-/// Global audio record controller.
+part 'recorder.g.dart';
+
+/// Global audio recorder .
 ///
 /// Used to record audio proofs of services.
 /// {@category Providers}
 /// {@category Controllers}
 /// {@category UI Proofs}
-final proofRecorder = Provider((ref) {
-  return _ControllerOfProofRecorder(ref);
-});
-
-class _ControllerOfProofRecorder {
-  _ControllerOfProofRecorder(this.ref) : _record = AudioRecorder();
-
-  final Ref ref;
-  late final AudioRecorder _record;
-
-  String _audioPath = '';
-
-  ProofEntry? _curProof;
-
+@Riverpod(keepAlive: true)
+class Recorder extends _$Recorder {
   ProofEntry? get proof => _curProof;
 
-  RecorderState get state => ref.read(proofRecorderState);
+  @override
+  RecorderState build() {
+    _record = AudioRecorder();
 
-  set state(RecorderState newState) =>
-      ref.read(proofRecorderState.notifier).state = newState;
+    return RecorderState.ready;
+  }
+
+  late final AudioRecorder _record;
+  ProofEntry? _curProof;
+  String _beforeOrAfter = '';
+  String _audioPath = '';
 
   /// Start recording into file.
   Future<RecorderState> start({
-    required String audioPath,
+    required String beforeOrAfter,
     required ProofEntry curProof,
   }) async {
+    // Check file permissions
+    final audioPath = await curProof.audioPath(prefix: beforeOrAfter);
+    if (audioPath == null) {
+      return RecorderState.failed;
+    }
+
     if (state == RecorderState.ready) {
       state = RecorderState.busy;
       // Check and request permission
       if (await _record.hasPermission()) {
         state = RecorderState.recording;
+        _beforeOrAfter = beforeOrAfter;
         _curProof = curProof; // set current recording proof
         _audioPath = audioPath;
         await _record.start(const RecordConfig(), path: audioPath);
@@ -68,7 +71,7 @@ class _ControllerOfProofRecorder {
       _audioPath = await _record.stop() ?? '';
       if (_audioPath != '') {
         if (kIsWeb) {
-          if (_audioPath.startsWith('after_audio_')) {
+          if (_beforeOrAfter.startsWith('after_audio_')) {
             _curProof!.afterAudio = _audioPath;
           } else {
             _curProof!.beforeAudio = _audioPath;
@@ -78,11 +81,13 @@ class _ControllerOfProofRecorder {
             ..setAttribute('download', _audioPath)
             ..click();
         } else if (File(_audioPath).existsSync()) {
-          if (path.basename(_audioPath).startsWith('after_audio_')) {
+          if (_beforeOrAfter.startsWith('after_audio_')) {
             _curProof!.afterAudio = _audioPath;
           } else {
             _curProof!.beforeAudio = _audioPath;
           }
+        } else {
+          showErrorNotification(tr().error);
         }
       }
 
@@ -105,10 +110,3 @@ class _ControllerOfProofRecorder {
     }
   }
 }
-
-/// State of global recorder.
-///
-/// {@category Providers}
-final proofRecorderState = StateProvider<RecorderState>((ref) {
-  return RecorderState.ready;
-});

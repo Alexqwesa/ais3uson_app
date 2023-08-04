@@ -16,7 +16,7 @@ part 'tile_magnification.g.dart';
 //     NotifierProvider<TileMagnification, double>(TileMagnification.new);
 //
 @Riverpod(keepAlive: true)
-class TileMagnification extends Notifier<double> {
+class TileMagnification extends _$TileMagnification {
   static const name = 'serviceCardMagnifying';
 
   @override

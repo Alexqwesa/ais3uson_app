@@ -13,7 +13,7 @@ class AppRouteObserver extends RouteObserver {
 
   Future<void> saveLastRoute(Route<dynamic>? lastRoute) async {
     unawaited(ref.read(audioPlayer).stop());
-    unawaited(ref.read(proofRecorder).stop());
+    unawaited(ref.read(recorderProvider.notifier).stop());
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('last_route', lastRoute?.settings.name ?? '/');
     log.fine('route: ${lastRoute?.settings.name ?? ''}');

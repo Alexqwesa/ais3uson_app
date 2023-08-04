@@ -153,7 +153,7 @@ class ProofsBuilder extends ConsumerWidget {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.all(20),
-                            child: AudioProofController(
+                            child: AudioProofWidget(
                               proofs: proofList,
                               beforeOrAfter: 'before_audio_',
                             ),
@@ -162,7 +162,7 @@ class ProofsBuilder extends ConsumerWidget {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.all(20),
-                            child: AudioProofController(
+                            child: AudioProofWidget(
                               proofs: proofList,
                               // beforeOrAfter: 'after_audio_',
                             ),

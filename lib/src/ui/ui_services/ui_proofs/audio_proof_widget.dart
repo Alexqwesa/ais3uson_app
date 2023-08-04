@@ -15,8 +15,8 @@ import 'package:tuple/tuple.dart';
 /// Widget for record, play and share audio proof.
 ///
 /// {@category UI Proofs}
-class AudioProofController extends ConsumerWidget {
-  AudioProofController({
+class AudioProofWidget extends ConsumerWidget {
+  AudioProofWidget({
     this.proofs,
     this.client,
     this.service,
@@ -40,8 +40,8 @@ class AudioProofController extends ConsumerWidget {
     //
     final player = ref.watch(audioPlayer);
     final playState = ref.watch(proofPlayState);
-    final recorder = ref.watch(proofRecorder);
-    final recorderState = ref.watch(proofRecorderState);
+    final recorder = ref.watch(recorderProvider.notifier);
+    final recorderState = ref.watch(recorderProvider);
     //
     // > get proof
     //
@@ -74,21 +74,16 @@ class AudioProofController extends ConsumerWidget {
             // > onPressed: start/stop
             //
             onPressed: () async {
-              if (ref.read(proofRecorderState) != RecorderState.ready) {
+              if (ref.read(recorderProvider) != RecorderState.ready) {
                 await recorder.stop();
               } else {
                 if (firstProof == null) {
                   proofController.addNewGroup();
                 }
-
-                final audioPath =
-                    await firstProof!.audioPath(prefix: beforeOrAfter);
-                if (audioPath != null) {
-                  await recorder.start(
-                    audioPath: audioPath,
-                    curProof: firstProof,
-                  );
-                }
+                await recorder.start(
+                  beforeOrAfter: beforeOrAfter,
+                  curProof: firstProof!,
+                );
               }
             },
           ),

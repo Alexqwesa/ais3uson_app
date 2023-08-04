@@ -6,7 +6,7 @@ part of 'tile_magnification.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tileMagnificationHash() => r'1e3d90083d9cb095ae726ce5ad4f2a71e220e5d1';
+String _$tileMagnificationHash() => r'd1c56a84372ab397915bd68df8f24cac4419069c';
 
 /// Provider of setting - Magnification of tiles in list of services.
 ///

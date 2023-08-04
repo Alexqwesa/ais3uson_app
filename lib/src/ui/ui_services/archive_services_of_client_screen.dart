@@ -119,7 +119,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 16),
                   child: Column(
                     children: [
-                      AudioProofController(
+                      AudioProofWidget(
                         client: client,
                         service: service,
                         // beforeOrAfter: 'after_audio_',
