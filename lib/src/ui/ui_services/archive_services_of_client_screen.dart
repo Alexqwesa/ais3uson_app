@@ -236,6 +236,5 @@ class _ServiceOfJournalTile extends ConsumerWidget {
         },
       ),
     );
-    service.proofList;
   }
 }

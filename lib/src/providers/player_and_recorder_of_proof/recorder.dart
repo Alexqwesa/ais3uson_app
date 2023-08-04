@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/data_models/proofs/proof_entry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';
@@ -31,16 +31,13 @@ class Recorder extends _$Recorder {
 
   late final AudioRecorder _record;
   ProofEntry? _curProof;
-  String _beforeOrAfter = '';
-  String _audioPath = '';
 
   /// Start recording into file.
   Future<RecorderState> start({
-    required String beforeOrAfter,
     required ProofEntry curProof,
   }) async {
     // Check file permissions
-    final audioPath = await curProof.audioPath(prefix: beforeOrAfter);
+    final audioPath = await curProof.audioPath();
     if (audioPath == null) {
       return RecorderState.failed;
     }
@@ -50,9 +47,7 @@ class Recorder extends _$Recorder {
       // Check and request permission
       if (await _record.hasPermission()) {
         state = RecorderState.recording;
-        _beforeOrAfter = beforeOrAfter;
         _curProof = curProof; // set current recording proof
-        _audioPath = audioPath;
         await _record.start(const RecordConfig(), path: audioPath);
 
         return state;
@@ -69,24 +64,16 @@ class Recorder extends _$Recorder {
 
   Future<RecorderState> stop() async {
     if (state == RecorderState.recording) {
-      _audioPath = await _record.stop() ?? '';
-      if (_audioPath != '') {
+      final audioPath = await _record.stop() ?? '';
+      if (audioPath != '') {
         if (kIsWeb) {
-          if (_beforeOrAfter.startsWith('after_audio_')) {
-            _curProof!.afterAudio = _audioPath;
-          } else {
-            _curProof!.beforeAudio = _audioPath;
-          }
+          _curProof!.audio = audioPath;
 
-          html.AnchorElement(href: _audioPath)
-            ..setAttribute('download', _audioPath)
+          html.AnchorElement(href: audioPath)
+            ..setAttribute('download', audioPath)
             ..click();
-        } else if (File(_audioPath).existsSync()) {
-          if (_beforeOrAfter.startsWith('after_audio_')) {
-            _curProof!.afterAudio = _audioPath;
-          } else {
-            _curProof!.beforeAudio = _audioPath;
-          }
+        } else if (File(audioPath).existsSync()) {
+          _curProof!.audio = audioPath;
         } else {
           showErrorNotification(tr().error);
         }

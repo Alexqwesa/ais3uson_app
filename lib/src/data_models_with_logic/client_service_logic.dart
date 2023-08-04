@@ -24,10 +24,14 @@ extension ClientServiceLogic on ClientService {
   //
   // > proof managing
   //
-  Proofs get proofList => ref.read(servProofAtDate(Tuple2(date, this)));
+  ProofList get proofs {
+    final (_, controller) = ref.read(serviceProofAtDate(this));
+
+    return controller;
+  }
 
   void addProof() {
-    proofList.addNewGroup();
+    proofs.addProof();
   }
 
   /// Add [ServiceOfJournal].

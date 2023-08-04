@@ -47,7 +47,7 @@
 ///
 /// The [ServiceOfJournal]s are stored in [Hive] as objects.
 ///
-/// The [Proofs]s store files in filesystem.
+/// The [ProofList]s store files in filesystem.
 library api_classes;
 
 import 'package:ais3uson_app/access_to_io.dart';

@@ -6,9 +6,9 @@ part of 'recorder.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recorderHash() => r'd5d7bba7a04e31c9381d31d81817eaee59eebbbb';
+String _$recorderHash() => r'3a0b7a562a07e5f48418fef91f24980c5b1e5baa';
 
-/// Global audio record controller.
+/// Global audio recorder .
 ///
 /// Used to record audio proofs of services.
 /// {@category Providers}

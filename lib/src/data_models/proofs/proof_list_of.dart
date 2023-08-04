@@ -8,55 +8,41 @@ import 'package:ais3uson_app/main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
 
-/// Store and manage list of [ProofEntry]s for [ClientService].
+/// Mixin with logic to manage [Proof]s for [ProofList].
 ///
 /// Most important functions:
 /// - load proofs from filesystem with [loadProofsFromFS] function,
-/// - notify **one** [ClientService],
-/// - save new proofs.
+/// - add new proofs.
 ///
 /// If serviceId == null, it create/collect proof for whole day.
 ///
 /// {@category Data Models}
-/// {@category Client-Server API}
-class Proofs {
-  Proofs({
-    required this.workerId,
-    required this.contractId,
-    required this.date,
-    required this.serviceId,
-    required this.ref,
-    this.worker = '',
-    this.client = '',
-    this.service = '',
-  });
+/// {@category Inner API}
+abstract mixin class ProofListOf {
+  Future<void>? loadedFromFS;
 
-  final int workerId;
-  final int contractId;
-  final int? serviceId;
-  final String date;
-  final String client;
-  final String worker;
-  final String service;
-  final ProviderContainer ref;
+  late final int workerId_;
+  late final int contractId_;
+  late final int? serviceId_;
+  late final String date_;
+  late final String client_;
+  late final String worker_;
+  late final String service_;
 
-  /// Future to be awaited(for tests).
-  Future<void>? crawled;
+  List<Proof> get proofs => throw UnimplementedError(); //state
+  void forceUpdate() => throw UnimplementedError();
 
-  List<ProofEntry> get proofGroups => ref.read(groupsOfProof(this));
-
-  /// Crawl through file system to generate [ProofEntry]s.
+  /// Crawl through file system to generate [Proof]s.
   ///
   /// ![Mind map of directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
   Future<void> loadProofsFromFS() async {
     if (kIsWeb) return Future(() => null);
 
-    crawled ??= _loadProofsFromFS();
+    loadedFromFS ??= _loadProofsFromFS();
 
-    return crawled;
+    return loadedFromFS;
   }
 
   Future<void> _loadProofsFromFS() async {
@@ -71,16 +57,16 @@ class Proofs {
     // > start search
     //
     await for (final depWorker in appDocDir.list()) {
-      if (depWorker.baseName.startsWith('${workerId}_') &&
+      if (depWorker.baseName.startsWith('${workerId_}_') &&
           (depWorker is Directory)) {
         await for (final contract in depWorker.list()) {
-          if (contract.baseName.startsWith('${contractId}_') &&
+          if (contract.baseName.startsWith('${contractId_}_') &&
               (contract is Directory)) {
             await for (final dat in contract.list()) {
-              if (dat.baseName.startsWith('${date}_') && (dat is Directory)) {
-                if (serviceId != null) {
+              if (dat.baseName.startsWith('${date_}_') && (dat is Directory)) {
+                if (serviceId_ != null) {
                   await for (final serv in dat.list()) {
-                    if (serv.baseName.startsWith('${serviceId}_') &&
+                    if (serv.baseName.startsWith('${serviceId_}_') &&
                         (serv is Directory)) {
                       await _addGroups(serv);
                     }
@@ -122,7 +108,8 @@ class Proofs {
             afterAudio = file;
           }
         }
-        await addGroup(
+
+        addProofFromFiles(
           beforeImg,
           beforeAudio,
           afterImg,
@@ -132,37 +119,27 @@ class Proofs {
     }
   }
 
-  void addNewGroup() {
-    ref
-        .read(groupsOfProof(this).notifier)
-        .add(ProofEntry.empty(this, (proofGroups.length).toString()));
+  void addProof() {
+    throw UnimplementedError();
   }
 
-  Future<void> addGroup(
+  void addProofFromFiles(
     File? beforeImg,
     File? beforeAudio,
     File? afterImg,
     File? afterAudio,
-  ) async {
-    ref.read(groupsOfProof(this).notifier).add(
-          ProofEntry(
-            proof: this,
-            beforeImg: beforeImg == null ? null : Image.file(beforeImg),
-            beforeAudio: beforeAudio?.path,
-            afterImg: afterImg == null ? null : Image.file(afterImg),
-            afterAudio: afterAudio?.path,
-          ),
-        );
+  ) {
+    throw UnimplementedError();
   }
 
   /// Create directory with proofs.
   Future<Directory?> proofPath(String group) async {
     final safePath = await getSafePath(
       [
-        '${workerId}_$worker',
-        '${contractId}_$client',
-        '${date}_',
-        if (serviceId == null) 'GroupProofs' else '${serviceId}_$service',
+        '${workerId_}_$worker_',
+        '${contractId_}_$client_',
+        '${date_}_',
+        if (serviceId_ == null) 'GroupProofs' else '${serviceId_}_$service_',
         'group_${group}_',
       ],
     );
@@ -196,75 +173,11 @@ class Proofs {
     // > update list
     //
     if (prefix == 'after_') {
-      proofGroups[i].afterImg = Image.file(imgFile);
+      proofs[i].after.image = Image.file(imgFile);
     } else {
-      proofGroups[i].beforeImg = Image.file(imgFile);
+      proofs[i].before.image = Image.file(imgFile);
     }
-    ref.read(groupsOfProof(this).notifier).forceUpdate();
-  }
-}
-
-/// A single entry of proof, contains evidence of states before and after.
-///
-/// {@category Data Models}
-// maybe use freezed?
-class ProofEntry {
-  ProofEntry({
-    required this.proof,
-    this.name,
-    this.beforeImg,
-    this.beforeAudio,
-    this.afterImg,
-    this.afterAudio,
-  });
-
-  dynamic operator [](Object? key) {
-    switch (key) {
-      case 'after_img_':
-        return afterImg;
-      case 'before_img_':
-        return beforeImg;
-      case 'after_audio_':
-        return afterAudio;
-      case 'before_audio_':
-        return beforeAudio;
-      default:
-        throw StateError('Wrong key of ProofEntry');
-    }
-  }
-
-  ProofEntry.empty(this.proof, this.name);
-
-  Proofs proof;
-
-  Image? beforeImg;
-
-  String? beforeAudio;
-
-  Image? afterImg;
-
-  String? afterAudio;
-
-  String? name;
-
-  Future<String?> audioPath({String prefix = 'after_audio_'}) async {
-    if (kIsWeb) {
-      showErrorNotification(tr().saveTheFileInOrderToNotLoseIt);
-
-      return safeName('${prefix}_${proof.client}_${proof.date}.m4a');
-    }
-
-    final dir = await proof.proofPath(name ?? '0');
-    if (dir != null) {
-      return path.join(
-        dir.path,
-        safeName(
-          '${prefix}_${proof.client}_${proof.date}.m4a',
-        ),
-      );
-    }
-
-    return null;
+    forceUpdate();
   }
 }
 

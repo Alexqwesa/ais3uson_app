@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tuple/tuple.dart';
-
 
 /// Widget for record, play and share audio proof.
 ///
@@ -33,7 +31,7 @@ class AudioProofWidget extends ConsumerWidget {
   final String beforeOrAfter;
   final ServiceOfJournal? service;
   final ClientProfile? client;
-  final Proofs? proofs;
+  final (List<Proof>, ProofList)? proofs;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,13 +45,17 @@ class AudioProofWidget extends ConsumerWidget {
     //
     // > get proof
     //
-    final proofController = proofs != null
+    final (proofList, proofController) = proofs != null
         ? proofs!
-        : ref.watch(proofAtDate(Tuple2(service?.provDate.dateOnly(), client!)));
-    final firstProof = ref.watch(groupsOfProof(proofController)).isNotEmpty
-        ? ref.watch(groupsOfProof(proofController)).first
-        : null;
-    final audioProof = firstProof?[beforeOrAfter] as String?;
+        : ref.watch(groupProofAtDate((service?.provDate.dateOnly(), client!)));
+
+    if (proofList.isEmpty) {
+      proofController.addProofSilently();
+    }
+    final firstProof = (beforeOrAfter == 'after_audio_')
+        ? proofList.first.after
+        : proofList.first.before;
+    final audioProof = firstProof.audio;
 
     //
     // > build
@@ -69,9 +71,7 @@ class AudioProofWidget extends ConsumerWidget {
             heroTag: null,
             // tooltip: ,
             child: const Icon(Icons.record_voice_over_sharp),
-            backgroundColor: recorder.colorOf(
-              firstProof,
-            ),
+            backgroundColor: recorder.colorOf(firstProof),
             //
             // > onPressed: start/stop
             //
@@ -80,12 +80,9 @@ class AudioProofWidget extends ConsumerWidget {
                 await recorder.stop();
               } else {
                 if (firstProof == null) {
-                  proofController.addNewGroup();
+                  proofController.addProof();
                 }
-                await recorder.start(
-                  beforeOrAfter: beforeOrAfter,
-                  curProof: firstProof!,
-                );
+                await recorder.start(curProof: firstProof);
               }
             },
           ),

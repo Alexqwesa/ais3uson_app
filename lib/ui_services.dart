@@ -17,7 +17,7 @@
 /// Each [ServiceCard] view use [ServiceCardState] to display data from [Journal]
 /// (how many services is added, etc...).
 ///
-/// [ClientServiceScreen] is also displayed service's [Proofs].
+/// [ClientServiceScreen] is also displayed service's [ProofList].
 library ui_services;
 
 import 'package:ais3uson_app/data_models.dart';

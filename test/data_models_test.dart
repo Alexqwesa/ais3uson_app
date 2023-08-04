@@ -256,13 +256,13 @@ void main() {
       final srcFileLength = await file.length();
       expect(srcFileLength > 0, true);
       final serv = wp.clients.first.services.first;
-      serv.proofList.addNewGroup(); // serv.addProof();
-      await serv.proofList.addImage(0, file, 'before_');
+      serv.proofs.addProof(); // serv.addProof();
+      await serv.proofs.addImage(0, file, 'before_');
       //
       // > check: image created
       //
       expect(
-        serv.proofList.proofGroups.first.beforeImg?.toStringShort(),
+        serv.proofs.proofs.first.before.image?.toStringShort(),
         'Image',
       );
       //
@@ -345,15 +345,15 @@ void main() {
         path.join(dst.path, 'before_img_auth_qr_test.png'),
       );
       final serv2 = wp.clients.first.services.first;
-      expect(serv2.proofList.proofGroups.length, 0); // can be raced?
+      expect(serv2.proofs.proofs.length, 0); // can be raced?
       // await serv2.proofList.crawler();
-      await serv2.proofList.crawled;
-      expect(serv2.proofList.proofGroups.length, 1);
+      await serv2.proofs.loadedFromFS;
+      expect(serv2.proofs.proofs.length, 1);
       // Image is founded
-      expect(serv2.proofList.proofGroups.isNotEmpty, true);
+      expect(serv2.proofs.proofs.isNotEmpty, true);
       // await serv2.proofList.crawled;
       expect(
-        serv2.proofList.proofGroups.first.beforeImg?.toStringShort(),
+        serv2.proofs.proofs.first.before.image?.toStringShort(),
         'Image',
       );
       file.deleteSync();

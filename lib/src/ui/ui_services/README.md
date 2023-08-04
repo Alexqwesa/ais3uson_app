@@ -17,4 +17,4 @@ Based on [tileTypeProvider] it select one of views:
 Each [ServiceCard] view use [ServiceCardState] to display data from [Journal]
 (how many services is added, etc...).
 
-[ClientServicesScreen] is also displayed service's [Proofs].
+[ClientServicesScreen] is also displayed service's [Proof]s.

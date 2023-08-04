@@ -23,7 +23,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tuple/tuple.dart';
 
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
@@ -146,16 +145,16 @@ void main() {
       final file = XFile('${Directory.systemTemp.path}/auth_qr_test.png');
       // final srcFileLength = await file.length();
       // expect(srcFileLength > 0, true);
-      service.proofList.addNewGroup(); // serv.addProof();
+      service.proofs.addProof(); // serv.addProof();
       await tester.runAsync<void>(() async {
-        await service.proofList.addImage(0, file, 'before_');
+        await service.proofs.addImage(0, file, 'before_');
       });
 
       //
       // > check: image created
       //
       expect(
-        service.proofList.proofGroups.first.beforeImg?.toStringShort(),
+        service.proofs.proofs.first.before.image?.toStringShort(),
         'Image',
       );
       //
@@ -172,10 +171,7 @@ void main() {
             .replaceAll('/', Platform.pathSeparator)
             .replaceAll(' ', ''),
       );
-      expect(service.proofList.proofGroups.length, 1);
-      final proofList =
-          ref.read(servProofAtDate(Tuple2(DateTime.now().dateOnly(), service)));
-      expect(proofList.proofGroups.length, 1);
+      expect(service.proofs.proofs.length, 1);
       //
       // > check ClientServiceScreen
       //
@@ -185,7 +181,8 @@ void main() {
         date: DateTimeExtensions.today(), //instead of null,
       );
       await tester.runAsync<void>(() async {
-        await newService.proofList.loadProofsFromFS(); // didn't work, without runAsync
+        await newService.proofs
+            .loadProofsFromFS(); // didn't work, without runAsync
       });
       final widgetForTesting = ProviderScope(
         child: const ClientServiceScreen(),
@@ -205,7 +202,7 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text(service.servTextAdd), findsOneWidget);
-      final proof = service.proofList.proofGroups.first;
+      final proof = service.proofs.proofs.first;
       expect(
         find.byKey(ValueKey(
           '${proof.name}___before_',

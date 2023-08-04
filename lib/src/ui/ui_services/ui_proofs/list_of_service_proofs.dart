@@ -5,14 +5,12 @@ import 'dart:async';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tuple/tuple.dart';
 
 /// Display list of proofs assigned to [ClientService].
 ///
@@ -28,12 +26,7 @@ class ListOfServiceProofs extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final clientService = ref.watch(currentService);
-    final proofList = ref.watch(servProofAtDate(Tuple2(
-      clientService.date ??
-          ref.watch(archiveDate) ??
-          DateTimeExtensions.today(),
-      clientService,
-    )));
+    final (_, proofController) = ref.watch(serviceProofAtDate(clientService));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -76,7 +69,7 @@ class ListOfServiceProofs extends ConsumerWidget {
         // > add new record(proof row) button
         //
         FloatingActionButton(
-          onPressed: proofList.addNewGroup,
+          onPressed: proofController.addProof,
           child: const Icon(Icons.add),
         ),
       ],
@@ -96,13 +89,7 @@ class ProofsBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final clientService = ref.watch(currentService);
-    final proofList = ref.watch(servProofAtDate(Tuple2(
-      clientService.date ??
-          ref.watch(archiveDate) ??
-          DateTimeExtensions.today(),
-      clientService,
-    )));
-    final proofGroups = ref.watch(groupsOfProof(proofList));
+    final (proofs, proofController) = ref.watch(serviceProofAtDate(clientService));
 
     return Column(
       children: [
@@ -112,7 +99,7 @@ class ProofsBuilder extends ConsumerWidget {
             //
             // > column's titles
             //
-            if (proofGroups.isNotEmpty)
+            if (proofs.isNotEmpty)
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,14 +126,14 @@ class ProofsBuilder extends ConsumerWidget {
             // > main columns
             //
 
-            if (proofGroups.isNotEmpty)
+            if (proofs.isNotEmpty)
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   //
                   // > audio proofs
                   //
-                  if (proofGroups.isNotEmpty)
+                  if (proofs.isNotEmpty)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -154,7 +141,7 @@ class ProofsBuilder extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: AudioProofWidget(
-                              proofs: proofList,
+                              proofs: (proofs, proofController),
                               beforeOrAfter: 'before_audio_',
                             ),
                           ),
@@ -163,7 +150,7 @@ class ProofsBuilder extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: AudioProofWidget(
-                              proofs: proofList,
+                              proofs: (proofs, proofController),
                               // beforeOrAfter: 'after_audio_',
                             ),
                           ),
@@ -173,7 +160,7 @@ class ProofsBuilder extends ConsumerWidget {
                   //
                   // > photo proofs
                   //
-                  for (int i = 0; i < proofGroups.length; i++)
+                  for (int i = 0; i < proofs.length; i++)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -225,18 +212,12 @@ class _ImageOrButtonAdd extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final clientService = ref.watch(currentService);
-    final proofList = ref.watch(servProofAtDate(Tuple2(
-      clientService.date ??
-          ref.watch(archiveDate) ??
-          DateTimeExtensions.today(),
-      clientService,
-    )));
-    final proofGroups = ref.watch(groupsOfProof(proofList));
+    final (proofs, proofController) = ref.watch(serviceProofAtDate(clientService));
 
     final valueKey = ValueKey(
       '${proofIndex}___$beforeOrAfter',
     );
-    final image = proofGroups[proofIndex]['${beforeOrAfter}img_'] as Image?;
+    final image = proofs[proofIndex]['${beforeOrAfter}img_'] as Image?;
 
     return Center(
       child: (image != null)
@@ -262,7 +243,7 @@ class _ImageOrButtonAdd extends ConsumerWidget {
           : Center(
               child: AddProofButton(
                 indexInProofs: proofIndex,
-                callAddProof: proofList.addImage,
+                callAddProof: proofController.addImage,
                 beforeOrAfter: beforeOrAfter,
               ),
             ),
@@ -299,9 +280,7 @@ class AddProofButton extends StatelessWidget {
           try {
             cameras = await availableCameras();
           } on MissingPluginException {
-            showErrorNotification(
-              'Ошибка: нет доступа к камере!',
-            );
+            showErrorNotification(tr().cameraAccessDenied);
 
             return;
           }
