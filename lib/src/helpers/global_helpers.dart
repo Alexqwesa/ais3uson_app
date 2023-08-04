@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -87,7 +88,10 @@ void showNotification(String text, {Duration? duration}) {
 /// It join all subFolders into path string and make safety checks.
 /// If file plugin or DocumentsDirectory didn't exist - return null.
 Future<String?> getSafePath(List<String> subFolders) async {
-  // TODO: use getApplicationSupportDirectory for some files and as fallback
+  if (kIsWeb){
+    return '';
+  }
+
   Directory? appDocDir;
   try {
     appDocDir = Directory(path.join(

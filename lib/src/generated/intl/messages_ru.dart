@@ -99,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Сделайте снимки или аудиозаписи подтверждающие оказание услуги:"),
         "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
             "Максимальное количество услуг в архиве:"),
+        "microphoneAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "Нет доступа, разрешите приложению доступ к микрофону"),
         "noServicesForClient": MessageLookupByLibrary.simpleMessage(
             "Список положенных услуг пуст, \n\n возможно заведующий отделением уже закрыл договор,\n\n либо обновите список!"),
         "onRequest": MessageLookupByLibrary.simpleMessage("По запросу: \n\n"),
@@ -114,6 +116,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
             "Вставьте текст qr-кода отделения здесь, это резервный способ добавления отделения, например для тех у кого не работает камера на телефоне... \n рекомендуемый способ - сканировать QR код!"),
         "repeatSearch": MessageLookupByLibrary.simpleMessage("Повторить поиск"),
+        "saveTheFileInOrderToNotLoseIt": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста сохраните файл (web-приложение не будет его хранить)"),
         "scanQrCode": MessageLookupByLibrary.simpleMessage(
             "Сканировать QR код отделения"),
         "search": MessageLookupByLibrary.simpleMessage("Поиск"),

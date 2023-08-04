@@ -98,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Make photo or audio record as a proof:"),
         "maxServicesToStoreInArchive": MessageLookupByLibrary.simpleMessage(
             "The maximum number of services stored in the archive:"),
+        "microphoneAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "Access denied: Please, allow app access to microphone"),
         "noServicesForClient": MessageLookupByLibrary.simpleMessage(
             "List of client\'s services is empty, \n\n maybe manager already close the contract,\n\n or you can try to refresh the list!"),
         "onRequest": MessageLookupByLibrary.simpleMessage("On search: \n\n"),
@@ -113,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "putDepTextFieldHint": MessageLookupByLibrary.simpleMessage(
             "Put department code here (this is redundant mode of department addition), it useful in case of broken or absent camera... \n the recommended way is: scan QR-code!"),
         "repeatSearch": MessageLookupByLibrary.simpleMessage("Repeat search"),
+        "saveTheFileInOrderToNotLoseIt": MessageLookupByLibrary.simpleMessage(
+            "Please save the file to not lose it (app will not save it)"),
         "scanQrCode":
             MessageLookupByLibrary.simpleMessage("Add department from QR code"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),

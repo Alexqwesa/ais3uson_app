@@ -759,6 +759,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Нет доступа, разрешите приложению доступ к микрофону`
+  String get microphoneAccessDenied {
+    return Intl.message(
+      'Нет доступа, разрешите приложению доступ к микрофону',
+      name: 'microphoneAccessDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пожалуйста сохраните файл (web-приложение не будет его хранить)`
+  String get saveTheFileInOrderToNotLoseIt {
+    return Intl.message(
+      'Пожалуйста сохраните файл (web-приложение не будет его хранить)',
+      name: 'saveTheFileInOrderToNotLoseIt',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

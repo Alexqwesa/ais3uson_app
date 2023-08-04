@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
@@ -52,6 +52,8 @@ class Proofs {
   ///
   /// ![Mind map of directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
   Future<void> crawler() async {
+    if (kIsWeb) return Future(() => null);
+
     crawled ??= _crawler();
 
     return crawled;
@@ -244,6 +246,26 @@ class ProofEntry {
   String? afterAudio;
 
   String? name;
+
+  Future<String?> audioPath({String prefix = 'after_audio_'}) async {
+    if (kIsWeb) {
+      showErrorNotification(tr().saveTheFileInOrderToNotLoseIt);
+
+      return safeName('${prefix}_${proof.client}_${proof.date}.m4a');
+    }
+
+    final dir = await proof.proofPath(name ?? '0');
+    if (dir != null) {
+      return path.join(
+        dir.path,
+        safeName(
+          '${prefix}_${proof.client}_${proof.date}.m4a',
+        ),
+      );
+    }
+
+    return null;
+  }
 }
 
 extension _BaseNameForFileSystemEntity on FileSystemEntity {

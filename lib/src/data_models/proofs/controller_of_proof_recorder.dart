@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
+import 'package:ais3uson_app/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
+import 'package:universal_html/html.dart' as html;
 
 /// Global audio record controller.
 ///
@@ -16,63 +21,43 @@ final proofRecorder = Provider((ref) {
 });
 
 class _ControllerOfProofRecorder {
-  _ControllerOfProofRecorder(this.ref);
+  _ControllerOfProofRecorder(this.ref) : _record = AudioRecorder();
 
   final Ref ref;
-  final _record = AudioRecorder();
+  late final AudioRecorder _record;
 
   String _audioPath = '';
 
-  ProofEntry? _proof;
+  ProofEntry? _curProof;
 
-  ProofEntry? get proof => _proof;
+  ProofEntry? get proof => _curProof;
 
   RecorderState get state => ref.read(proofRecorderState);
 
   set state(RecorderState newState) =>
       ref.read(proofRecorderState.notifier).state = newState;
 
-  bool setProof(ProofEntry? value) {
-    if (state == RecorderState.ready) {
-      // if (!(await _record.isRecording()) || !(await _record.isPaused())) {
-      _proof = value;
-
-      return true;
-      // }
-    }
-
-    return false;
-  }
-
-  Future<RecorderState> start(
-    ProofEntry newProof, {
-    String prefix = 'after_audio_',
+  /// Start recording into file.
+  Future<RecorderState> start({
+    required String audioPath,
+    required ProofEntry curProof,
   }) async {
     if (state == RecorderState.ready) {
       state = RecorderState.busy;
-      _proof = newProof;
-      // if (setProof(newProof)) {
-      state = RecorderState.recording;
-      final dir = await newProof.proof.proofPath(newProof.name ?? '0');
-      if (dir != null) {
-        _audioPath = path.join(
-          dir.path,
-          safeName(
-            '${prefix}_${newProof.proof.client}_${newProof.proof.date}.m4a',
-          ),
-        );
-        // Check and request permission
-        if (await _record.hasPermission()) {
-          await _record.start(const RecordConfig(), path: _audioPath);
+      // Check and request permission
+      if (await _record.hasPermission()) {
+        state = RecorderState.recording;
+        _curProof = curProof; // set current recording proof
+        _audioPath = audioPath;
+        await _record.start(const RecordConfig(), path: audioPath);
 
-          return state;
-        } else {
-          state = RecorderState.ready;
+        return state;
+      } else {
+        showErrorNotification(tr().microphoneAccessDenied);
+        state = RecorderState.ready;
 
-          return RecorderState.failed;
-        }
+        return RecorderState.failed;
       }
-      // }
     }
 
     return state;
@@ -80,11 +65,25 @@ class _ControllerOfProofRecorder {
 
   Future<RecorderState> stop() async {
     if (state == RecorderState.recording) {
-      await _record.stop();
-      if (path.basename(_audioPath).startsWith('after_audio_')) {
-        _proof!.afterAudio = _audioPath;
-      } else {
-        _proof!.beforeAudio = _audioPath;
+      _audioPath = await _record.stop() ?? '';
+      if (_audioPath != '') {
+        if (kIsWeb) {
+          if (_audioPath.startsWith('after_audio_')) {
+            _curProof!.afterAudio = _audioPath;
+          } else {
+            _curProof!.beforeAudio = _audioPath;
+          }
+
+          html.AnchorElement(href: _audioPath)
+            ..setAttribute('download', _audioPath)
+            ..click();
+        } else if (File(_audioPath).existsSync()) {
+          if (path.basename(_audioPath).startsWith('after_audio_')) {
+            _curProof!.afterAudio = _audioPath;
+          } else {
+            _curProof!.beforeAudio = _audioPath;
+          }
+        }
       }
 
       state = RecorderState.ready;
@@ -100,7 +99,7 @@ class _ControllerOfProofRecorder {
     if (state == RecorderState.ready) {
       return null;
     } else if (state == RecorderState.recording) {
-      return (newProof == _proof) ? Colors.red : Colors.grey;
+      return (newProof == _curProof) ? Colors.red : Colors.grey;
     } else {
       return Colors.grey;
     }

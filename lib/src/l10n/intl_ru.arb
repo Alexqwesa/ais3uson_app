@@ -70,6 +70,8 @@
   "before": "До:",
   "after": "После:",
   "repeatSearch": "Повторить поиск",
-  "search": "Поиск"
+  "search": "Поиск",
+  "microphoneAccessDenied": "Нет доступа, разрешите приложению доступ к микрофону",
+  "saveTheFileInOrderToNotLoseIt": "Пожалуйста сохраните файл (web-приложение не будет его хранить)"
 
 }

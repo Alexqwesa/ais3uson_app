@@ -70,5 +70,7 @@
   "before": "Before:",
   "after": "After:",
   "repeatSearch": "Repeat search",
-  "search": "Search"
+  "search": "Search",
+  "microphoneAccessDenied": "Access denied: Please, allow app access to microphone",
+  "saveTheFileInOrderToNotLoseIt": "Please save the file to not lose it (app will not save it)"
 }

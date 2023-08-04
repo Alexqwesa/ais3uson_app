@@ -5,6 +5,7 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -79,10 +80,15 @@ class AudioProofController extends ConsumerWidget {
                 if (firstProof == null) {
                   proofController.addNewGroup();
                 }
-                await recorder.start(
-                  ref.read(groupsOfProof(proofController)).first,
-                  prefix: beforeOrAfter,
-                );
+
+                final audioPath =
+                    await firstProof!.audioPath(prefix: beforeOrAfter);
+                if (audioPath != null) {
+                  await recorder.start(
+                    audioPath: audioPath,
+                    curProof: firstProof,
+                  );
+                }
               }
             },
           ),
@@ -116,7 +122,9 @@ class AudioProofController extends ConsumerWidget {
                     ref.watch(proofPlayState.notifier).state =
                         PlayerState.playing;
                     await player.play(
-                      DeviceFileSource(audioProof),
+                      kIsWeb
+                          ? UrlSource(audioProof)
+                          : DeviceFileSource(audioProof),
                       // mode: PlayerMode.lowLatency,
                     );
                   }
