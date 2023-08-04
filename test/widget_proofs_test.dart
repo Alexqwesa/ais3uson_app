@@ -185,7 +185,7 @@ void main() {
         date: DateTimeExtensions.today(), //instead of null,
       );
       await tester.runAsync<void>(() async {
-        await newService.proofList.crawler(); // didn't work, without runAsync
+        await newService.proofList.loadProofsFromFS(); // didn't work, without runAsync
       });
       final widgetForTesting = ProviderScope(
         child: const ClientServiceScreen(),

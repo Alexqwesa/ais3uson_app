@@ -14,7 +14,7 @@ import 'package:path/path.dart' as path;
 /// Store and manage list of [ProofEntry]s for [ClientService].
 ///
 /// Most important functions:
-/// - load proofs from filesystem with [crawler] function,
+/// - load proofs from filesystem with [loadProofsFromFS] function,
 /// - notify **one** [ClientService],
 /// - save new proofs.
 ///
@@ -51,15 +51,15 @@ class Proofs {
   /// Crawl through file system to generate [ProofEntry]s.
   ///
   /// ![Mind map of directories tree](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/source/data_models/proof_list.png)
-  Future<void> crawler() async {
+  Future<void> loadProofsFromFS() async {
     if (kIsWeb) return Future(() => null);
 
-    crawled ??= _crawler();
+    crawled ??= _loadProofsFromFS();
 
     return crawled;
   }
 
-  Future<void> _crawler() async {
+  Future<void> _loadProofsFromFS() async {
     final appDocDirPath = await getSafePath([]);
     if (appDocDirPath == null) {
       showErrorNotification(tr().errorFS);

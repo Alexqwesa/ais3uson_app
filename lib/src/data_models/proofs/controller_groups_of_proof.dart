@@ -77,7 +77,7 @@ final _servProofAtDate =
 final groupsOfProof = StateNotifierProvider.family<_ControllerGroupsOfProof,
     List<ProofEntry>, Proofs>(
   (ref, proofList) {
-    proofList.crawler();
+    proofList.loadProofsFromFS();
 
     return _ControllerGroupsOfProof();
   },
