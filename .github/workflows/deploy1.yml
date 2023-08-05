@@ -38,7 +38,6 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-#          working-directory: android
 
 #           - name: Run tests
 #             run: bundle exec fastlane android test
@@ -82,19 +81,19 @@ jobs:
           flutter build appbundle
 
 
-      - name: Define version code with offset
-        env:
-          RUN_NUMBER: ${{ github.run_number }}
-          INITIAL_VERSION_CODE: 27
-        run: |
-          VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
-          echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
-
-      - name: Update version code
-        uses: chkfung/android-version-actions@v1.1
-        with:
-          gradlePath: android/app/build.gradle
-          versionCode: ${{ env.version_code }}
+#      - name: Define version code with offset
+#        env:
+#          RUN_NUMBER: ${{ github.run_number }}
+#          INITIAL_VERSION_CODE: 27
+#        run: |
+#          VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
+#          echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
+#
+#      - name: Update version code
+#        uses: chkfung/android-version-actions@v1.1
+#        with:
+#          gradlePath: android/app/build.gradle
+#          versionCode: ${{ env.version_code }}
 
       - name: Build & deploy Android release
         run: |
