@@ -52,6 +52,9 @@ jobs:
           fileName: "android_keystore.keystore"
           encodedString: ${{ secrets.KEYSTORE_FILE }}
 
+      - name: flutter build appbundle (to create gradlew)
+        run: flutter build appbundle || true
+
       - name: Define version code with offset
         env:
           RUN_NUMBER: ${{ github.run_number }}
