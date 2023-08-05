@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Test+Deploy
+name: Test + Deploy Web App
 
 on:
   push:

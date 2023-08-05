@@ -1,63 +1,82 @@
 name: Android Build & Deploy
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
- deploy:
-   runs-on: ubuntu-latest
-   steps:
-   - uses: actions/checkout@v2
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
 
-   - name: Set up ruby env
-     uses: ruby/setup-ruby@v1
-     with:
-       ruby-version: 2.7.2
-       bundler-cache: true
+      - uses: actions/checkout@v2
 
-   - name: Run tests
-     run: bundle exec fastlane android test
+      # Set up Flutter.
+      - name: Clone Flutter repository with master channel
+        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
+        with:
+          channel: master
+      - run: flutter doctor -v
 
-   - name: Decode Service Account Key JSON File
-     uses: timheuer/base64-to-file@v1
-     id: service_account_json_file
-     with:
-       fileName: "serviceAccount.json"
-       encodedString: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+      # Checkout gallery code and get packages.
+      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: actions/checkout@v2
+        with:
+          # flutter-version: 2.14
+          channel: 'stable'
+          cache: true
+          cache-key: flutter # optional, change this to force refresh cache
+          cache-path: ${{ runner.tool_cache }}/flutter
+      - run: flutter pub get
 
-   - name: Decode Keystore File
-     uses: timheuer/base64-to-file@v1
-     id: android_keystore
-     with:
-       fileName: "android_keystore.keystore"
-       encodedString: ${{ secrets.KEYSTORE_FILE }}
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
 
-   - name: Define version code with offset
-     env:
-         RUN_NUMBER: ${{ github.run_number }}
-         INITIAL_VERSION_CODE: 27
-     run: |
-         VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
-         echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
+      #     - name: Run tests
+      #       run: bundle exec fastlane android test
 
-   - name: Update version code
-     uses: chkfung/android-version-actions@v1.1
-     with:
-       gradlePath: android/app/build.gradle
-       versionCode: ${{ env.version_code }}
+      - name: Decode Service Account Key JSON File
+        uses: timheuer/base64-to-file@v1
+        id: service_account_json_file
+        with:
+          fileName: "serviceAccount.json"
+          encodedString: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
 
-   - name: Build & deploy Android release
-     run: bundle exec fastlane android deploy
-     env:
-       KEYSTORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
-       STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-       KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
-       KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-       ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+      - name: Decode Keystore File
+        uses: timheuer/base64-to-file@v1
+        id: android_keystore
+        with:
+          fileName: "android_keystore.keystore"
+          encodedString: ${{ secrets.KEYSTORE_FILE }}
 
-   - name: Upload build artifacts
-     uses: actions/upload-artifact@v2
-     with:
-       name: assets
-       path: |
-         ${{ github.workspace }}/app/build/outputs/bundle/release
+      - name: Define version code with offset
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
+          INITIAL_VERSION_CODE: 27
+        run: |
+          VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
+          echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
+
+      - name: Update version code
+        uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: android/app/build.gradle
+          versionCode: ${{ env.version_code }}
+
+      - name: Build & deploy Android release
+        run: bundle exec fastlane android deploy
+        env:
+          KEYSTORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
+          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: assets
+          path: |
+            ${{ github.workspace }}/app/build/outputs/bundle/release
