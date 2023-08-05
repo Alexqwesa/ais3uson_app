@@ -39,13 +39,13 @@ platform :android do
   lane :deploy do
     # The build release app bundle lane you created previously.
     #     gradle(task: "clean assembleRelease")
-    build_bundle
+    # build_bundle
     supply(
         track: 'production',
         skip_upload_metadata: true,
         skip_upload_images: true,
         skip_upload_screenshots: true,
-        version_code: 26,
+        version_code: 28,
         version_name: "1.2.0",
         aab: "../build/app/outputs/bundle/release/app-release.aab"
     )
