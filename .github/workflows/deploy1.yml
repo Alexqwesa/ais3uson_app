@@ -72,6 +72,8 @@ jobs:
           cp "${{ steps.key_properties.outputs.filePath }}" android/
           cp "${{ steps.key_properties.outputs.filePath }}" android/app/
           ls -l android
+          echo "flutter.versionName=1.2.0" >> android/local.properties
+          echo "flutter.versionCode=27" >> android/local.properties
           
       - name: flutter build appbundle (to create gradlew)
         run: |
