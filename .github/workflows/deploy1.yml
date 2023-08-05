@@ -33,9 +33,10 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
+#          working-directory: android
 
-      #     - name: Run tests
-      #       run: bundle exec fastlane android test
+#           - name: Run tests
+#             run: bundle exec fastlane android test
 
       - name: Decode Service Account Key JSON File
         uses: timheuer/base64-to-file@v1
@@ -66,7 +67,10 @@ jobs:
           versionCode: ${{ env.version_code }}
 
       - name: Build & deploy Android release
-        run: bundle exec fastlane android deploy
+        run: |
+          cd android
+          bundle exec fastlane android deploy
+          cd ..
         env:
           KEYSTORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
           STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
