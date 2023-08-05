@@ -34,45 +34,54 @@ class ListOfServiceProofs extends ConsumerWidget {
         //
         // > header
         //
-        Center(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: Divider(),
-              ),
-              Text(
-                tr().optional,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              Text(
-                tr().proofOfService,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  tr().makeProofOfService,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ),
+        const _ProofsHeaderText(),
         //
-        // > Display list of proofs in columns
+        // > display list of proofs in columns
         //
         const ProofsBuilder(),
         //
-        // > add new record(proof row) button
+        // > button to add new proof (new row)
         //
         FloatingActionButton(
           onPressed: proofController.addProof,
           child: const Icon(Icons.add),
         ),
       ],
+    );
+  }
+}
+
+class _ProofsHeaderText extends StatelessWidget {
+  const _ProofsHeaderText();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8),
+            child: Divider(),
+          ),
+          Text(
+            tr().optional,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Text(
+            tr().proofOfService,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              tr().makeProofOfService,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
