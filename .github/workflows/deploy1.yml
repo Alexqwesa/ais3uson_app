@@ -74,6 +74,8 @@ jobs:
           ls -l android
           echo "flutter.versionName=1.2.0" >> android/local.properties
           echo "flutter.versionCode=27" >> android/local.properties
+          mkdir secrets
+          cp ${{ steps.android_keystore.outputs.filePath }} secrets/pc-api.json
           
       - name: flutter build appbundle (to create gradlew)
         run: |
@@ -101,7 +103,7 @@ jobs:
           cd ..
         env:
           KEYSTORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
-          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+#          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
