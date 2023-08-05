@@ -82,7 +82,10 @@ If file plugin or DocumentsDirectory didn't exist - return null.</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;String?&gt; getSafePath(List&lt;String&gt; subFolders) async {
-  &#47;&#47; TODO: use getApplicationSupportDirectory for some files and as fallback
+  if (kIsWeb){
+    return &#39;&#39;;
+  }
+
   Directory? appDocDir;
   try {
     appDocDir = Directory(path.join(
@@ -138,7 +141,7 @@ If file plugin or DocumentsDirectory didn't exist - return null.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

@@ -119,44 +119,44 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final parentSize = ref.watch(currentSizeOfParentForListOfServices);
   final service = ref.watch(currentService);
-  final tileView = ref.watch(tileTypeProvider);
   &#47;&#47; ignore: no_leading_underscores_for_local_identifiers
   final _ = ref.watch(archiveDate); &#47;&#47; in case of date change
   final activeViewOfCard =
       ref.watch(service.addAllowedOf) || ref.watch(isArchive);
-  final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
+
+  final cardView = switch ( ref.watch(tileTypeProvider)) {
+    &#39;tile&#39; =&gt; const ServiceCardTileView(),
+    &#39;square&#39; =&gt; const ServiceCardSquareView(),
+    _ =&gt; const ServiceCardView(),
+  };
 
   return AnimatedSize(
     &#47;&#47; todo: don&#39;t show border during animation
     duration: const Duration(seconds: 1),
     curve: Curves.fastOutSlowIn,
-    child: SizedBox.fromSize(
-      size: size,
-      child: Stack(
-        children: [
-          if (!activeViewOfCard)
-            const ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                Colors.grey,
-                BlendMode.multiply,
-              ),
-              child: _ServiceCardViewSelector(),
+    child: Stack(
+      children: [
+        if (!activeViewOfCard)
+           ColorFiltered(
+            colorFilter: const ColorFilter.mode(
+              Colors.grey,
+              BlendMode.multiply,
             ),
-          if (activeViewOfCard) const _ServiceCardViewSelector(),
-          &#47;&#47;
-          &#47;&#47; InkWell animation and handler
-          &#47;&#47;
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: service.add,
-              child: Container(),
-            ),
+            child: SizedBox.expand(child: cardView),
           ),
-        ],
-      ),
+        if (activeViewOfCard)  SizedBox.expand(child: cardView),
+        &#47;&#47;
+        &#47;&#47; InkWell animation and handler
+        &#47;&#47;
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: service.add,
+            child: Container(),
+          ),
+        ),
+      ],
     ),
   );
 }</code></pre>
@@ -192,7 +192,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

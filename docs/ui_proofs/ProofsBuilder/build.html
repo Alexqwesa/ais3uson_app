@@ -120,13 +120,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final clientService = ref.watch(currentService);
-  final proofList = ref.watch(servProofAtDate(Tuple2(
-    clientService.date ??
-        ref.watch(archiveDate) ??
-        DateTimeExtensions.today(),
-    clientService,
-  )));
-  final proofGroups = ref.watch(groupsOfProof(proofList));
+  final (proofs, proofController) = ref.watch(serviceProofAtDate(clientService));
 
   return Column(
     children: [
@@ -136,7 +130,7 @@ Widget build(BuildContext context, WidgetRef ref) {
           &#47;&#47;
           &#47;&#47; &gt; column&#39;s titles
           &#47;&#47;
-          if (proofGroups.isNotEmpty)
+          if (proofs.isNotEmpty)
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -163,22 +157,22 @@ Widget build(BuildContext context, WidgetRef ref) {
           &#47;&#47; &gt; main columns
           &#47;&#47;
 
-          if (proofGroups.isNotEmpty)
+          if (proofs.isNotEmpty)
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 &#47;&#47;
                 &#47;&#47; &gt; audio proofs
                 &#47;&#47;
-                if (proofGroups.isNotEmpty)
+                if (proofs.isNotEmpty)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(20),
-                          child: AudioProofController(
-                            proofs: proofList,
+                          child: AudioProofWidget(
+                            proofs: (proofs, proofController),
                             beforeOrAfter: &#39;before_audio_&#39;,
                           ),
                         ),
@@ -186,8 +180,8 @@ Widget build(BuildContext context, WidgetRef ref) {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(20),
-                          child: AudioProofController(
-                            proofs: proofList,
+                          child: AudioProofWidget(
+                            proofs: (proofs, proofController),
                             &#47;&#47; beforeOrAfter: &#39;after_audio_&#39;,
                           ),
                         ),
@@ -197,7 +191,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 &#47;&#47;
                 &#47;&#47; &gt; photo proofs
                 &#47;&#47;
-                for (int i = 0; i &lt; proofGroups.length; i++)
+                for (int i = 0; i &lt; proofs.length; i++)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -264,7 +258,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   
