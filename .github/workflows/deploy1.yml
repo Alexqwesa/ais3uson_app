@@ -69,7 +69,9 @@ jobs:
           ls -l .
           ls "${{ steps.key_properties.outputs.filePath }}"
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" >> "${{ steps.key_properties.outputs.filePath }}"
-          mv "${{ steps.key_properties.outputs.filePath }}" android/
+          cp "${{ steps.key_properties.outputs.filePath }}" android/
+          cp "${{ steps.key_properties.outputs.filePath }}" android/app/
+          ls -l android
           
       - name: flutter build appbundle (to create gradlew)
         run: |
