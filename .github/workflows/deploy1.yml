@@ -61,6 +61,7 @@ jobs:
 
       - name: flutter build appbundle (to create gradlew)
         run: |
+          ls "${{ steps.key_properties.outputs.filePath }}"
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" >> "${{ steps.key_properties.outputs.filePath }}"
           flutter build appbundle
 
