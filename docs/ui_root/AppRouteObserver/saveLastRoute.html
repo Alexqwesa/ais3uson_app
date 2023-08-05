@@ -78,10 +78,10 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; saveLastRoute(Route&lt;dynamic&gt;? lastRoute) async {
   unawaited(ref.read(audioPlayer).stop());
-  unawaited(ref.read(proofRecorder).stop());
+  unawaited(ref.read(recorderProvider.notifier).stop());
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString(&#39;last_route&#39;, lastRoute?.settings.name ?? &#39;&#47;&#39;);
-  log.fine(&#39;route: ${lastRoute?.settings.name ?? &#39;&#39;}&#39;);
+  log.fine(&#39;last saved route: ${lastRoute?.settings.name ?? &#39;&#39;}&#39;);
 }</code></pre>
 </section>
 
@@ -115,7 +115,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

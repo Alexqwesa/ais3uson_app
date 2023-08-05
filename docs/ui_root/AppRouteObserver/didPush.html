@@ -90,6 +90,15 @@ route, is <code>previousRoute</code>.</p>
   <pre class="language-dart"><code class="language-dart">@override
 void didPush(Route&lt;dynamic&gt; route, Route&lt;dynamic&gt;? previousRoute) {
   super.didPush(route, previousRoute);
+  &#47;&#47;Todo:
+  &#47;&#47; if (previousRoute == null &amp;&amp; firstStart) {
+  &#47;&#47;   final last_route =
+  &#47;&#47;       locator&lt;SharedPreferences&gt;().getString(&#39;last_route&#39;) ?? &#39;&#47;&#39;;
+  &#47;&#47;   if (route.settings.name == &#39;&#47;&#39; &amp;&amp; last_route != &#39;&#47;&#39;) {
+  &#47;&#47;     super.didPush(GoRoute(path: last_route), route);
+  &#47;&#47;   }
+  &#47;&#47;   firstStart = false;
+  &#47;&#47; }
   saveLastRoute(route); &#47;&#47; note : take new route name that just pushed
 }</code></pre>
 </section>
@@ -124,7 +133,7 @@ void didPush(Route&lt;dynamic&gt; route, Route&lt;dynamic&gt;? previousRoute) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

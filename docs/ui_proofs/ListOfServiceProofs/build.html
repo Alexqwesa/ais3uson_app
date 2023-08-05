@@ -120,12 +120,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final clientService = ref.watch(currentService);
-  final proofList = ref.watch(servProofAtDate(Tuple2(
-    clientService.date ??
-        ref.watch(archiveDate) ??
-        DateTimeExtensions.today(),
-    clientService,
-  )));
+  final (_, proofController) = ref.watch(serviceProofAtDate(clientService));
 
   return Column(
     mainAxisSize: MainAxisSize.min,
@@ -133,42 +128,16 @@ Widget build(BuildContext context, WidgetRef ref) {
       &#47;&#47;
       &#47;&#47; &gt; header
       &#47;&#47;
-      Center(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: Divider(),
-            ),
-            Text(
-              tr().optional,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Text(
-              tr().proofOfService,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                tr().makeProofOfService,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      ),
+      const _ProofsHeaderText(),
       &#47;&#47;
-      &#47;&#47; &gt; Display list of proofs in columns
+      &#47;&#47; &gt; display list of proofs in columns
       &#47;&#47;
       const ProofsBuilder(),
       &#47;&#47;
-      &#47;&#47; &gt; add new record(proof row) button
+      &#47;&#47; &gt; button to add new proof (new row)
       &#47;&#47;
       FloatingActionButton(
-        onPressed: proofList.addNewGroup,
+        onPressed: proofController.addProof,
         child: const Icon(Icons.add),
       ),
     ],
@@ -206,7 +175,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

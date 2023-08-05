@@ -119,61 +119,57 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final parentSize = ref.watch(currentSizeOfParentForListOfServices);
   final service = ref.watch(currentService);
 
-  return SizedBox.fromSize(
-    size: ref.watch(tileSize(Tuple2(parentSize, tileType))),
-    child: FittedBox(
-      child: SizedBox(
-        width: 150,
-        height: 150,
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
-              child: Card(
-                elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
-                child: Column(
-                  children: &lt;Widget&gt;[
-                    Hero(
-                      tag: service.servId,
-                      child: SizedBox(
-                        height: 90,
-                        width: 90,
-                        child: ref.watch(image(service.image)),
-                      ),
+  return FittedBox(
+    child: SizedBox(
+      width: 150,
+      height: 150,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
+            child: Card(
+              elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
+              child: Column(
+                children: &lt;Widget&gt;[
+                  Hero(
+                    tag: service.servId,
+                    child: SizedBox(
+                      height: 90,
+                      width: 90,
+                      child: ref.watch(image(service.image)),
                     ),
-                    const Divider(
-                      height: 3,
+                  ),
+                  const Divider(
+                    height: 3,
+                  ),
+                  &#47;&#47;
+                  &#47;&#47; &gt; service text
+                  &#47;&#47;
+                  Center(
+                    child: Text(
+                      service.shortText,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontSize: 12),
                     ),
-                    &#47;&#47;
-                    &#47;&#47; &gt; service text
-                    &#47;&#47;
-                    Center(
-                      child: Text(
-                        service.shortText,
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 50,
-              child: ServiceCardState(
-                rightOfText: true,
-              ),
-              &#47;&#47; ),
+          ),
+          const SizedBox(
+            height: 50,
+            child: ServiceCardState(
+              rightOfText: true,
             ),
-          ],
-        ),
+            &#47;&#47; ),
+          ),
+        ],
       ),
     ),
   );
@@ -210,7 +206,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

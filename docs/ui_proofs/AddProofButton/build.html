@@ -128,9 +128,7 @@ Widget build(BuildContext context) {
         try {
           cameras = await availableCameras();
         } on MissingPluginException {
-          showErrorNotification(
-            &#39;Ошибка: нет доступа к камере!&#39;,
-          );
+          showErrorNotification(tr().cameraAccessDenied);
 
           return;
         }
@@ -185,7 +183,7 @@ Widget build(BuildContext context) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   

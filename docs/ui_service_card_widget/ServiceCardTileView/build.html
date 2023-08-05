@@ -119,81 +119,79 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final parentSize = ref.watch(currentSizeOfParentForListOfServices);
   final service = ref.watch(currentService);
 
-  return SizedBox.fromSize(
-    size: ref.watch(tileSize(Tuple2(parentSize, tileType))),
-    child: FittedBox(
-      fit: BoxFit.fill,
-      child: SizedBox(
-        height: 100,
-        width: 400,
-        child: Padding(
-          padding: const EdgeInsets.all(2),
-          child: Card(
-            elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
-            child: Stack(
-              children: [
-                Row(
-                  children: &lt;Widget&gt;[
-                    SizedBox(
-                      height: 90,
-                      width: 90,
-                      child: Hero(
-                        tag: service.servId,
-                        child: ref.watch(image(service.image)),
-                      ),
-                    ),
-                    &#47;&#47;
-                    &#47;&#47; &gt; service text
-                    &#47;&#47;
-                    SizedBox(
-                      height: 100,
-                      width: 288,
-                      child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Text(
-                                service.shortText,
-                                textScaleFactor: 1.1,
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                              child: Text(
-                                service.servTextAdd,
-                                textAlign: TextAlign.left,
-                                softWrap: true,
-                                &#47;&#47; overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                &#47;&#47;
-                &#47;&#47; &gt; service state
-                &#47;&#47;
-                const Align(
-                  alignment: Alignment.topRight,
-                  child: SizedBox(
-                    width: 50,
-                    height: 88,
-                    child: ServiceCardState(
-                      rightOfText: true,
+  return FittedBox(
+    fit: BoxFit.fill,
+    child: SizedBox(
+      height: 100,
+      width: 400,
+      child: Padding(
+        padding: const EdgeInsets.all(2),
+        child: Card(
+          elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
+          child: Stack(
+            children: [
+              Row(
+                children: &lt;Widget&gt;[
+                  SizedBox(
+                    height: 90,
+                    width: 90,
+                    child: Hero(
+                      tag: service.servId,
+                      child: ref.watch(image(service.image)),
                     ),
                   ),
+                  &#47;&#47;
+                  &#47;&#47; &gt; service text
+                  &#47;&#47;
+                  SizedBox(
+                    height: 100,
+                    width: 288,
+                    child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Text(
+                              service.shortText,
+                              textScaleFactor: 1.1,
+                              textAlign: TextAlign.left,
+                              style:
+                                  Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                            child: Text(
+                              service.servTextAdd,
+                              textAlign: TextAlign.left,
+                              softWrap: true,
+                              &#47;&#47; overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              &#47;&#47;
+              &#47;&#47; &gt; service state
+              &#47;&#47;
+              const Align(
+                alignment: Alignment.topRight,
+                child: SizedBox(
+                  width: 50,
+                  height: 88,
+                  child: ServiceCardState(
+                    rightOfText: true,
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -232,7 +230,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+26
+      1.2.0+27
   </span>
 
   
