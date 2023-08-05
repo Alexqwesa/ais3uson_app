@@ -64,7 +64,7 @@ jobs:
           fileName: "key.properties"
           encodedString: ${{ secrets.KEY_PROPERTIES }}
 
-      - name: Get directories
+      - name: Finish and move "key.properties" file
         run: |
           ls -l .
           ls "${{ steps.key_properties.outputs.filePath }}"
