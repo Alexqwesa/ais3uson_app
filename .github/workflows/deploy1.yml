@@ -61,13 +61,18 @@ jobs:
         uses: timheuer/base64-to-file@v1
         id: key_properties
         with:
-          fileName: "android/key.properties"
+          fileName: "key.properties"
           encodedString: ${{ secrets.KEY_PROPERTIES }}
 
-      - name: flutter build appbundle (to create gradlew)
+      - name: Get directories
         run: |
+          ls -l .
           ls "${{ steps.key_properties.outputs.filePath }}"
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" >> "${{ steps.key_properties.outputs.filePath }}"
+          mv "${{ steps.key_properties.outputs.filePath }}" android/
+          
+      - name: flutter build appbundle (to create gradlew)
+        run: |
           flutter build appbundle
 
 
