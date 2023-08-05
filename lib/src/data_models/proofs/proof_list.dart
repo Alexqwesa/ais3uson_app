@@ -62,10 +62,11 @@ final serviceProofAtDate =
 
 /// Notifier that store and manage list of [ProofEntry].
 ///
-/// Most important functions:
+/// It does:
 /// - load proofs from filesystem with [loadProofsFromFS] function,
 /// - it is a Notifier,
-/// - add new proofs.
+/// - add new proofs,
+/// - ...
 ///
 /// If serviceId == null, it create/collect proof for whole day.
 ///

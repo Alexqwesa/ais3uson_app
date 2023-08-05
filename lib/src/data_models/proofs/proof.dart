@@ -1,5 +1,12 @@
 import 'package:ais3uson_app/data_models.dart';
 
+/// Just a union class for [ProofEntry]s [after] and [before].
+///
+/// It does:
+/// - auto-create both [after] and [before] on init,
+/// - or if [ProofEntry]s provided - link them to itself,
+/// - store link to [ProofList],
+/// - store [name] (of a directory with proof).
 class Proof {
   Proof(this.proofList, {this.name, ProofEntry? before, ProofEntry? after})
       : after = after ?? ProofEntry(),

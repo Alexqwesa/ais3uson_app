@@ -145,8 +145,8 @@ void main() {
       final file = XFile('${Directory.systemTemp.path}/auth_qr_test.png');
       // final srcFileLength = await file.length();
       // expect(srcFileLength > 0, true);
-      service.proofs.addProof(); // serv.addProof();
       await tester.runAsync<void>(() async {
+        service.proofs.addProof(); // serv.addProof();
         await service.proofs.addImage(0, file, 'before_');
       });
 
