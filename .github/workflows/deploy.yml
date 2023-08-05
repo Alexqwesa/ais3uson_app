@@ -60,7 +60,12 @@ jobs:
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
         working-directory: android
 
-      - run: bundle exec fastlane ${{ github.event.inputs.lane || 'production' }}
+      - name: flutter build appbundle (to create gradlew)
+        run: flutter build appbundle || true
+#       - run: bundle exec fastlane ${{ github.event.inputs.lane || 'build_bundle' }}
+      - run: |
+          ls .
+          bundle exec fastlane deploy
         env:
           PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
         working-directory: android
