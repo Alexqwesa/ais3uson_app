@@ -188,25 +188,20 @@ class Journal extends BaseJournal {
             state = ret.item1;
             error = ret.item2;
             switch (state) {
-              case ServiceState.added:
+              case ServiceState.added: // no changes - do nothing
                 log.info('stale service $serv');
-                break; // no changes - do nothing
               case ServiceState.finished:
                 log.finest('finished service $serv');
                 _toFinished(serv);
-                break;
               case ServiceState.rejected:
                 log.warning('rejected service $serv');
                 _toRejected(serv);
-                break;
               case ServiceState.outDated:
                 throw StateError('commit can not make service outDated');
               case null:
                 log.fine('commit stub');
-                break;
               case ServiceState.removed:
                 log.fine('removed service $serv');
-                break;
             }
             // ignore: avoid_catches_without_on_clauses
           } catch (e) {

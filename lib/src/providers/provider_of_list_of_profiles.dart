@@ -30,7 +30,7 @@ class _ProviderOfListOfProfiles extends StateNotifier<List<WorkerProfile>> {
       : super(<WorkerProfile>[]) {
     sync(ref.read(_workerKeys));
     ref.listen(_workerKeys, (previous, next) {
-      sync((next ?? <WorkerKey>[]) as List<WorkerKey>);
+      sync(next);
     });
   }
 

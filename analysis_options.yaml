@@ -40,7 +40,8 @@ linter:
 
 analyzer:
   plugins:
-    - dart_code_metrics
+#    - dart_code_metrics
+    - custom_lint
   exclude:
     - lib/src/generated/**
     - lib/src/generated/**/**

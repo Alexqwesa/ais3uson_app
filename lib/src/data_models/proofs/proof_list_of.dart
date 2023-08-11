@@ -20,7 +20,7 @@ import 'package:path/path.dart' as path;
 ///
 /// {@category Data Models}
 /// {@category Inner API}
-abstract mixin class ProofListOf {
+mixin  ProofListOf {
   Future<void>? loadedFromFS;
 
   late final int workerId_;

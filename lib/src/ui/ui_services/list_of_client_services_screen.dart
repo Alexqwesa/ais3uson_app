@@ -125,7 +125,7 @@ class _ListOfServices extends ConsumerWidget {
     return SliverAnimatedGrid(
       key: const ValueKey('MainScroll'),
       initialItemCount: servList.length,
-      itemBuilder: (context1, index, Animation<double> animation) {
+      itemBuilder: (context1, index, animation) {
         final element = servList[index];
 
         return InkWell(
