@@ -15,7 +15,8 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_test/hive_test.dart';
+
+// import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as path;
@@ -25,6 +26,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_data.dart';
 import 'helpers/fake_path_provider_platform.dart';
+import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
@@ -78,13 +80,13 @@ void main() {
   group('Data Models', () {
     test('it create WorkerProfiles', () async {
       final ref = ProviderContainer();
-      ref.read(workerProfiles.notifier).addProfileFromKey(
+      ref.read(departmentsProvider.notifier).addProfileFromKey(
             WorkerKey.fromJson(
               jsonDecode(qrDataShortKey) as Map<String, dynamic>,
             ),
           );
       expect(
-        ref.read(workerProfiles).first,
+        ref.read(departmentsProvider).first,
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
@@ -92,17 +94,17 @@ void main() {
 
     test('it create WorkerProfile from short key', () async {
       final ref = ProviderContainer();
-      ref.read(workerProfiles.notifier).addProfileFromKey(
+      ref.read(departmentsProvider.notifier).addProfileFromKey(
             WorkerKey.fromJson(
               jsonDecode(qrDataShortKey) as Map<String, dynamic>,
             ),
           );
       expect(
-        ref.read(workerProfiles).first,
+        ref.read(departmentsProvider).first,
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
-      expect(ref.read(workerProfiles).length, 1);
+      expect(ref.read(departmentsProvider).length, 1);
       ref.dispose();
     });
 
@@ -113,19 +115,18 @@ void main() {
       await ref.pump();
       await ref.pump();
 
-      ref.refresh(workerProfiles);
-      ref.read(workerProfiles.notifier).sync([]);
+      ref.refresh(departmentsProvider);
       await ref.pump();
       // ref.refresh(workerKeys);
-      expect(ref.read(workerProfiles).length, 0);
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      expect(ref.read(workerProfiles).length, 1);
+      expect(ref.read(departmentsProvider).length, 0);
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
+      expect(ref.read(departmentsProvider).length, 1);
       expect(
-        ref.read(workerProfiles).first,
+        ref.read(departmentsProvider).first,
         isA<WorkerProfile>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
-      expect(ref.read(workerProfiles).length, 1);
+      expect(ref.read(departmentsProvider).length, 1);
     });
 
     test('it check date of last sync before sync on load', () async {
@@ -142,8 +143,8 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       // await ref.pump();
       expect(wp.clients.length, 10);
@@ -170,8 +171,8 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref.read(departmentsProvider).first;
       final httpClient =
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       await wp.postInit();
@@ -202,8 +203,8 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref.read(departmentsProvider).first;
       final httpClient =
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       await wp.postInit();
@@ -236,9 +237,9 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
 
-      final wp = ref.read(workerProfiles).first;
+      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       //
       // > add proof
@@ -310,8 +311,8 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
+      final wp = ref.read(departmentsProvider).first;
       ref.read(archiveDate.notifier).state = DateTime(2022, 3);
       await wp.postInit();
 

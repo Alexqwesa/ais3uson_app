@@ -9,7 +9,6 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,13 +34,14 @@ void main() {
   });
   testWidgets('listOfProfiles shows empty message', (tester) async {
     // Init , WidgetTester tester
-    const listOfProfiles = ListOfProfiles(
+    const widget = ListOfDepartments(
       key: ValueKey(111),
     );
     await tester.pumpWidget(
       ProviderScope(
         child: localizedMaterialApp(
-          listOfProfiles,
+          widget,
+          ProviderContainer(),
         ),
       ),
     );

@@ -9,12 +9,12 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
+import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
@@ -45,9 +45,9 @@ void main() {
     //
     // > it create workerProfiles
     //
-    ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+    ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
     // ref.read(workerKeys.notifier).addKey(wKey);
-    final wp = ref.read(workerProfiles).first;
+    final wp = ref.read(departmentsProvider).first;
     expect(ref.read(hiveBox(hiveProfiles)).value?.isOpen, null);
     expect(wp.clients.length, 0);
     //

@@ -15,7 +15,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
@@ -68,8 +67,8 @@ void main() {
           ],
         );
         // add Profile
-        ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-        final wp = ref.read(workerProfiles).first;
+        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+        final wp = ref.read(departmentsProvider).first;
         await tester.runAsync<void>(() async {
           await wp.postInit();
         });
@@ -79,7 +78,7 @@ void main() {
         when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 2}', 200));
         final service =
-            ref.read(workerProfiles).first.clients.first.services.first;
+            ref.read(departmentsProvider).first.clients.first.services.first;
         await tester.runAsync<void>(() async {
           await service.add();
           await service.add();
@@ -90,7 +89,7 @@ void main() {
           ProviderScope(
             parent: ref,
             child: localizedMaterialApp(
-              widgetForTesting,
+              widgetForTesting,ref,
             ),
           ),
         );
@@ -98,7 +97,7 @@ void main() {
         expect(find.textContaining(service.shortText), findsWidgets);
         expect(
           find.textContaining(ref
-              .read(workerProfiles)
+              .read(departmentsProvider)
               .first
               .clients
               .first
@@ -120,8 +119,8 @@ void main() {
         ],
       );
       // add Profile
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
@@ -130,7 +129,7 @@ void main() {
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
-      final service = ref.read(workerProfiles).first.clients.first.services[3];
+      final service = ref.read(departmentsProvider).first.clients.first.services[3];
       await tester.runAsync<void>(() async {
         await service.add();
         // await service.add();
@@ -185,18 +184,18 @@ void main() {
             .loadProofsFromFS(); // didn't work, without runAsync
       });
       final widgetForTesting = ProviderScope(
-        child: const ClientServiceScreen(),
         overrides: [
           currentService.overrideWithValue(
             newService,
           ),
         ],
+        child: const ClientServiceScreen(),
       );
       await tester.pumpWidget(
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
-            widgetForTesting,
+            widgetForTesting,ref,
           ),
         ),
       );

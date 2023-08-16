@@ -12,7 +12,6 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
@@ -20,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
 import 'helpers/journal_test_extensions.dart';
+import 'helpers/real_hive_helpler.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
@@ -27,7 +27,7 @@ void main() {
   // > Setup
   //
   tearDownAll(() async {
-    await tearDownTestHive();
+    await tearDownRealHive();
   });
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
@@ -38,10 +38,10 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     locator.pushNewScope();
     // Hive setup
-    await setUpTestHive();
+    await setUpRealHive();
   });
   tearDown(() async {
-    await tearDownTestHive();
+    await tearDownRealHive();
   });
 
   //
@@ -69,9 +69,9 @@ void main() {
       //
       // > start test
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       final wp = ref
-          .read(workerProfiles)
+          .read(departmentsProvider)
           .firstWhere((element) => element.apiKey == wKey.apiKey);
       await wp.postInit();
       expect(
@@ -172,9 +172,9 @@ void main() {
       //
       // > init WorkerProfile and mock http
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       final wp = ref
-          .read(workerProfiles)
+          .read(departmentsProvider)
           .firstWhere((element) => element.apiKey == wKey.apiKey);
       // delayed init, should look like values were loaded from hive
       when(MockServer(httpClient).testReqPostAdd)
@@ -239,8 +239,8 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       //
       // > test what yesterday services are in archive
@@ -319,8 +319,8 @@ void main() {
         // > init workerProfile
         //
         ref.read(hiveArchiveSizeProvider.notifier).state = 10;
-        ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-        final wp = ref.read(workerProfiles).first;
+        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+        final wp = ref.read(departmentsProvider).first;
         // await AppData.instance
         //
         // > test that yesterday services are in archive
@@ -356,8 +356,8 @@ void main() {
       // > init workerProfile
       //
       ref.read(hiveArchiveSizeProvider.notifier).state = 10;
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       // check worker profile
       expect(wKey, isA<WorkerKey>());
@@ -394,8 +394,8 @@ void main() {
       // > init workerProfile
       //
       ref.read(hiveArchiveSizeProvider.notifier).state = 10;
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       // check worker profile
       expect(wKey, isA<WorkerKey>());
@@ -438,8 +438,8 @@ void main() {
         // > init workerProfile
         //
         ref.read(hiveArchiveSizeProvider.notifier).state = 10;
-        ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-        final wp = ref.read(workerProfiles).first;
+        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+        final wp = ref.read(departmentsProvider).first;
         await wp.postInit();
         // add services
         final client = wp.clients.first;

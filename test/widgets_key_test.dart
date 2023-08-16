@@ -19,7 +19,6 @@ import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,18 +57,19 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      const widgetForTesting = ListOfProfiles();
+      const widgetForTesting = ListOfDepartments();
       await tester.pumpWidget(
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
             widgetForTesting,
+            ref,
           ),
         ),
       );
       // Add Profile
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
@@ -96,24 +96,11 @@ void main() {
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
-            const AddDepartmentScreen(),
+            null, ref,
             //
             // > routes
             //
             initialRoute: '/add_department',
-            routes: {
-              '/client_journal': (context) =>
-                  const ArchiveServicesOfClientScreen(),
-              '/add_department': (context) => const AddDepartmentScreen(),
-              '/client_services': (context) =>
-                  const ListOfClientServicesScreen(),
-              '/settings': /*    */ (context) => const SettingsScreen(),
-              '/department': /*  */ (context) => const ListOfClientsScreen(),
-              '/scan_qr': /*     */ (context) => const QRScanScreen(),
-              '/dev': /*         */ (context) => const DevScreen(),
-              '/delete_department': (context) => const DeleteDepartmentScreen(),
-              '/': /*            */ (context) => const HomeScreen(),
-            },
           ),
         ),
       );
@@ -127,8 +114,8 @@ void main() {
       // > check home screen
       //
       await tester.pumpAndSettle();
-      expect(ref.read(workerProfiles).length, 1);
-      final wp = ref.read(workerProfiles).first;
+      expect(ref.read(departmentsProvider).length, 1);
+      final wp = ref.read(departmentsProvider).first;
       try {
         await tester.pumpWidget(
           Builder(
@@ -137,6 +124,7 @@ void main() {
                 parent: ref,
                 child: localizedMaterialApp(
                   const HomeScreen(),
+                  ref,
                 ),
               );
             },
@@ -165,6 +153,7 @@ void main() {
           parent: ref,
           child: localizedMaterialApp(
             const HomeScreen(),
+            ref,
           ),
         ),
       );
@@ -190,57 +179,42 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       expect(wp.apiKey, wKey.apiKey);
+      expect(ref.read(departmentsProvider).length, 1);
       //
       // > delete department screen
       //
-      Widget screen(Key uniqueKey) {
-        return ProviderScope(
-          key: uniqueKey,
-          parent: ref,
-          child: localizedMaterialApp(
-            const DeleteDepartmentScreen(),
-            //
-            // > routes
-            //
-            initialRoute: '/add_department',
-            routes: {
-              '/client_journal': (context) =>
-                  const ArchiveServicesOfClientScreen(),
-              '/add_department': (context) => const AddDepartmentScreen(),
-              '/client_services': (context) =>
-                  const ListOfClientServicesScreen(),
-              '/settings': /*    */ (context) => const SettingsScreen(),
-              '/department': /*  */ (context) => const ListOfClientsScreen(),
-              '/scan_qr': /*     */ (context) => const QRScanScreen(),
-              '/dev': /*         */ (context) => const DevScreen(),
-              '/delete_department': (context) => const DeleteDepartmentScreen(),
-              '/': /*            */ (context) => const HomeScreen(),
-            },
-          ),
-        );
-      }
 
-      await tester.pumpWidget(screen(UniqueKey()));
-      await tester.pump();
+      await tester.pumpRealRouterApp(
+          '/delete_department',
+          (child) => ProviderScope(
+                child: child,
+                parent: ref,
+              ),
+          ref: ref);
+      await tester.pump(Duration(seconds: 1));
       //
       // > dep exist
       //
+      expect(find.byType(DeleteDepartmentScreen), findsOneWidget);
       expect(find.byType(ListTile), findsOneWidget);
       await tester.tap(find.byType(ListTile));
-      await tester.pump();
-      await tester.pumpWidget(screen(UniqueKey()));
-      await tester.pump();
+      // await tester.pump();
+      // await tester.pumpWidget(screen(UniqueKey()));
+      await tester.pumpAndSettle();
       await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
-      await tester.pumpWidget(screen(UniqueKey()));
-      await ref.pump();
-      // expect(ref.read(workerProfiles).length, 0); // todo
+      await tester.pumpAndSettle();
+      // await tester.pumpWidget(screen(UniqueKey()));
+      // await ref.pump();
+      expect(ref.read(departmentsProvider).length, 0);
     });
 
     testWidgets("it show list of worker's clients", (tester) async {
+      //
+      // > setup
+      //
       final wKey = wKeysData2();
       final ref = ProviderContainer(
         overrides: [
@@ -248,34 +222,31 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      const widgetForTesting = ListOfClientsScreen();
-      await tester.pumpWidget(
-        ProviderScope(
-          parent: ref,
-          child: localizedMaterialApp(
-            widgetForTesting,
-          ),
-        ),
-      );
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      // ref.read(workerKeys.notifier).addKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       await tester.runAsync<void>(() async {
-        await wp.postInit();
+        final wp = ref.read(departmentsProvider).first;
         await ref.read(hiveBox(hiveProfiles).future);
+        // await wp.postInit();
         await wp.syncClients();
       });
-      ref.read(lastUsed).worker = wp;
+      expect(ref.read(departmentsProvider).first.shortName, '8717825');
+      //
+      // > set widget
+      //
+      await tester.pumpRealRouterApp(
+        '/department/${ref.read(departmentsProvider).first.shortName}',
+        (child) => ProviderScope(parent: ref, child: child),
+        ref: ref,
+      );
+      //
+      // > check widget
+      //
       await tester.pumpAndSettle();
-      // Check
-      expect(
-        find.text(wp.clients.first.contract),
-        findsOneWidget,
-      );
-      expect(
-        find.textContaining(tr().emptyListOfPeople),
-        findsNothing,
-      );
+      // await tester.pump(Duration(seconds: 1));
+      expect(find.byType(ListOfClientsScreen), findsOneWidget);
+      final wp = ref.read(departmentsProvider).first;
+      expect(find.text(wp.clients.first.contract), findsOneWidget);
+      expect(find.textContaining(tr().emptyListOfPeople), findsNothing);
     });
 
     testWidgets('it show list of services ', (tester) async {
@@ -286,23 +257,30 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      const widgetForTesting = ListOfClientServicesScreen();
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
+      await tester.runAsync<void>(() async {
+        await wp.postInit();
+      });
+      //
+      // > set widget
+      //
+      final widgetForTesting = ProviderScope(overrides: [
+        currentClient.overrideWithValue(
+            ref.read(departmentsProvider).first.clients.first)
+      ], child: const ListOfClientServicesScreen());
       await tester.pumpWidget(
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
             widgetForTesting,
+            ref,
           ),
         ),
       );
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
-      await tester.runAsync<void>(() async {
-        await wp.postInit();
-      });
-      ref.read(lastUsed).worker = wp;
-      ref.read(lastUsed).client = wp.clients.first;
+
       await tester.pumpAndSettle();
+      // await tester.pump(const Duration(seconds: 1));
       // Scroll until the item to be found appears.
       // final listFinder = find.byKey(const ValueKey('MainScroll'));
       // await tester.scrollUntilVisible(
@@ -326,15 +304,18 @@ void main() {
               .overrideWithValue(getMockHttpClient()),
         ],
       );
-      ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(workerProfiles).first;
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      final wp = ref.read(departmentsProvider).first;
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
       ref.read(lastUsed).client = wp.clients[1];
       // wp.clients[1].services.clear();
       expect(wp.clients[1].services.isEmpty, false);
-      const widgetForTesting = ListOfClientServicesScreen();
+      final widgetForTesting = ProviderScope(overrides: [
+        currentClient.overrideWithValue(
+            ref.read(departmentsProvider).first.clients.first)
+      ], child: const ListOfClientServicesScreen());
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -345,10 +326,13 @@ void main() {
           parent: ref,
           child: localizedMaterialApp(
             widgetForTesting,
+            ref,
           ),
         ),
       );
       expect(wp.clients[1].services.isEmpty, false);
+
+      await tester.pump(Duration(seconds: 1));
       await tester.pumpAndSettle(const Duration(seconds: 5));
       final listFinder = find.byKey(const ValueKey('MainScroll'));
       expect(listFinder, findsNothing);

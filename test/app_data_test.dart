@@ -6,12 +6,13 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive_test/hive_test.dart';
+// import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_models_test.dart';
 import 'helpers/journal_test_extensions.dart';
+import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
@@ -68,7 +69,7 @@ void main() {
       // > crete ref
       //
       ref.listen(
-        workerProfiles,
+        departmentsProvider,
         (previous, next) {
           return;
         },
@@ -77,13 +78,13 @@ void main() {
       //
       // > check provider
       //
-      expect(ref.read(workerProfiles).length, 1);
+      expect(ref.read(departmentsProvider).length, 1);
       expect(
-        ref.read(workerProfiles).first.apiKey,
+        ref.read(departmentsProvider).first.apiKey,
         '3.01567984187',
       );
-      await ref.read(workerProfiles).first.journal.postInit();
-      expect(ref.read(ref.read(workerProfiles).first.journal.servicesOf), []);
+      await ref.read(departmentsProvider).first.journal.postInit();
+      expect(ref.read(ref.read(departmentsProvider).first.journal.servicesOf), []);
       // expect( ref.read(workerProfiles).first.ref.toString() ,"" );
     });
 
@@ -131,7 +132,7 @@ void main() {
         // > crete ref
         //
         ref.listen(
-          workerProfiles,
+          departmentsProvider,
           (previous, next) {
             return;
           },
@@ -140,22 +141,22 @@ void main() {
         //
         // > check provider
         //
-        expect(ref.read(workerProfiles).length, 0);
-        ref.read(workerProfiles.notifier).addProfileFromKey(wKey);
+        expect(ref.read(departmentsProvider).length, 0);
+        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
         expect(
-          ref.read(workerProfiles).first.apiKey,
+          ref.read(departmentsProvider).first.apiKey,
           '3.01567984187',
         );
-        await ref.read(workerProfiles).first.journal.postInit(); // init journal
+        await ref.read(departmentsProvider).first.journal.postInit(); // init journal
         //
         // > test that services are in archive
         //
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
-          'journal_archive_${ref.read(workerProfiles).first.apiKey}',
+          'journal_archive_${ref.read(departmentsProvider).first.apiKey}',
         );
         expect(hiveArchive.length, 40);
         expect(
-          ref.read(workerProfiles).first.hiveRepository.hive.values.length,
+          ref.read(departmentsProvider).first.hiveRepository.hive.values.length,
           0,
         );
         //
@@ -180,7 +181,7 @@ void main() {
               .containsAll([roundYesterday, roundBeforeYesterday]),
           true,
         );
-        await Future.wait(ref.read(workerProfiles).map(
+        await Future.wait(ref.read(departmentsProvider).map(
               (e) =>
                   ref.read(controllerDatesInArchive(e.apiKey).notifier).save(),
             ));
