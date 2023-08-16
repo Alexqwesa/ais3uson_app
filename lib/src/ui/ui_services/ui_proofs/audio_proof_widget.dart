@@ -69,8 +69,6 @@ class AudioProofWidget extends ConsumerWidget {
           padding: const EdgeInsets.all(2),
           child: FloatingActionButton(
             heroTag: null,
-            // tooltip: ,
-            child: const Icon(Icons.record_voice_over_sharp),
             backgroundColor: recorder.colorOf(firstProof),
             //
             // > onPressed: start/stop
@@ -85,6 +83,8 @@ class AudioProofWidget extends ConsumerWidget {
                 await recorder.start(curProof: firstProof);
               }
             },
+            // tooltip: ,
+            child: const Icon(Icons.record_voice_over_sharp),
           ),
         ),
         //

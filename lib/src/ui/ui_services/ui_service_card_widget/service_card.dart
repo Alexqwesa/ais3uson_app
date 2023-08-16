@@ -2,7 +2,6 @@ import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
@@ -27,7 +26,7 @@ class ServiceCard extends ConsumerWidget {
     final activeViewOfCard =
         ref.watch(service.addAllowedOf) || ref.watch(isArchive);
 
-    final cardView = switch ( ref.watch(tileTypeProvider)) {
+    final cardView = switch (ref.watch(tileTypeProvider)) {
       'tile' => const ServiceCardTileView(),
       'square' => const ServiceCardSquareView(),
       _ => const ServiceCardView(),
@@ -40,14 +39,14 @@ class ServiceCard extends ConsumerWidget {
       child: Stack(
         children: [
           if (!activeViewOfCard)
-             ColorFiltered(
+            ColorFiltered(
               colorFilter: const ColorFilter.mode(
                 Colors.grey,
                 BlendMode.multiply,
               ),
               child: SizedBox.expand(child: cardView),
             ),
-          if (activeViewOfCard)  SizedBox.expand(child: cardView),
+          if (activeViewOfCard) SizedBox.expand(child: cardView),
           //
           // InkWell animation and handler
           //

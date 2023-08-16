@@ -5,7 +5,7 @@
 ///
 /// Dependency hierarchy:
 ///
-/// - provider [workerProfiles] store list of:
+/// - provider [departmentsProvider] store list of:
 ///   - [WorkerProfile]s with different:
 ///     - [ClientProfile]s with different:
 ///       - [ClientService]s with different:
@@ -27,7 +27,6 @@ library dynamic_data_models;
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/data_models/proofs/proof.dart';
 
 export 'package:ais3uson_app/data_models.dart';
 export 'package:ais3uson_app/src/data_models_with_logic/client_profile_logic.dart';

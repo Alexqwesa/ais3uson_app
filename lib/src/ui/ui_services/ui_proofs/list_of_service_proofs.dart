@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -98,7 +98,8 @@ class ProofsBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final clientService = ref.watch(currentService);
-    final (proofs, proofController) = ref.watch(serviceProofAtDate(clientService));
+    final (proofs, proofController) =
+        ref.watch(serviceProofAtDate(clientService));
 
     return Column(
       children: [
@@ -221,7 +222,8 @@ class _ImageOrButtonAdd extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final clientService = ref.watch(currentService);
-    final (proofs, proofController) = ref.watch(serviceProofAtDate(clientService));
+    final (proofs, proofController) =
+        ref.watch(serviceProofAtDate(clientService));
 
     final valueKey = ValueKey(
       '${proofIndex}___$beforeOrAfter',

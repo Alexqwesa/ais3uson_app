@@ -29,6 +29,8 @@ class WorkerProfile {
 
   Provider<Journal> get journalAllOf => journalProvider.journalAllOf;
 
+  String get shortName => ref.read(departmentsProvider.notifier).getShortNameByApi(apiKey);
+
   Provider<Journal> journalAtDateOf(DateTime date) =>
       journalProvider.journalAtDateOf(date);
 

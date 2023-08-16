@@ -6,7 +6,7 @@ part of 'proof_list.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$proofListHash() => r'f885bdede6277674a60dabdb9d4437f63b39cf97';
+String _$proofListHash() => r'be129e9b56d002599d0b9181f69b8739cc61a6f6';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -49,16 +49,68 @@ abstract class _$ProofList extends BuildlessNotifier<List<Proof>> {
   });
 }
 
-/// See also [ProofList].
+/// Notifier that store and manage list of [ProofEntry].
+///
+/// It does:
+/// - load proofs from filesystem with [loadProofsFromFS] function,
+/// - it is a Notifier,
+/// - add new proofs,
+/// - ...
+///
+/// If serviceId == null, it create/collect proof for whole day.
+///
+/// {@category Inner API}
+/// {@category Providers}
+///
+/// Copied from [ProofList].
 @ProviderFor(ProofList)
 const proofListProvider = ProofListFamily();
 
-/// See also [ProofList].
+/// Notifier that store and manage list of [ProofEntry].
+///
+/// It does:
+/// - load proofs from filesystem with [loadProofsFromFS] function,
+/// - it is a Notifier,
+/// - add new proofs,
+/// - ...
+///
+/// If serviceId == null, it create/collect proof for whole day.
+///
+/// {@category Inner API}
+/// {@category Providers}
+///
+/// Copied from [ProofList].
 class ProofListFamily extends Family<List<Proof>> {
-  /// See also [ProofList].
+  /// Notifier that store and manage list of [ProofEntry].
+  ///
+  /// It does:
+  /// - load proofs from filesystem with [loadProofsFromFS] function,
+  /// - it is a Notifier,
+  /// - add new proofs,
+  /// - ...
+  ///
+  /// If serviceId == null, it create/collect proof for whole day.
+  ///
+  /// {@category Inner API}
+  /// {@category Providers}
+  ///
+  /// Copied from [ProofList].
   const ProofListFamily();
 
-  /// See also [ProofList].
+  /// Notifier that store and manage list of [ProofEntry].
+  ///
+  /// It does:
+  /// - load proofs from filesystem with [loadProofsFromFS] function,
+  /// - it is a Notifier,
+  /// - add new proofs,
+  /// - ...
+  ///
+  /// If serviceId == null, it create/collect proof for whole day.
+  ///
+  /// {@category Inner API}
+  /// {@category Providers}
+  ///
+  /// Copied from [ProofList].
   ProofListProvider call({
     required int workerId,
     required int contractId,
@@ -109,9 +161,35 @@ class ProofListFamily extends Family<List<Proof>> {
   String? get name => r'proofListProvider';
 }
 
-/// See also [ProofList].
+/// Notifier that store and manage list of [ProofEntry].
+///
+/// It does:
+/// - load proofs from filesystem with [loadProofsFromFS] function,
+/// - it is a Notifier,
+/// - add new proofs,
+/// - ...
+///
+/// If serviceId == null, it create/collect proof for whole day.
+///
+/// {@category Inner API}
+/// {@category Providers}
+///
+/// Copied from [ProofList].
 class ProofListProvider extends NotifierProviderImpl<ProofList, List<Proof>> {
-  /// See also [ProofList].
+  /// Notifier that store and manage list of [ProofEntry].
+  ///
+  /// It does:
+  /// - load proofs from filesystem with [loadProofsFromFS] function,
+  /// - it is a Notifier,
+  /// - add new proofs,
+  /// - ...
+  ///
+  /// If serviceId == null, it create/collect proof for whole day.
+  ///
+  /// {@category Inner API}
+  /// {@category Providers}
+  ///
+  /// Copied from [ProofList].
   ProofListProvider({
     required this.workerId,
     required this.contractId,

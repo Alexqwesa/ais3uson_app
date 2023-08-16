@@ -20,15 +20,18 @@ import 'dart:io';
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -120,12 +123,14 @@ Future<void> main() async {
       as Map<String, dynamic>)['certBase64'] as String;
 
   usePathUrlStrategy();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(OverlaySupport.global(
     child: ProviderScope(
-      child: const AppRoot(),
+      observers: [AppProviderObserver()],
       overrides: [
         httpClientProvider(testClient).overrideWithValue(getMockHttpClient()),
       ],
+      child: const AppRoot(),
     ),
   ));
 }

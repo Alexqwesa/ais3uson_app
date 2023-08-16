@@ -11,11 +11,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 ///
 /// {@category UI WorkerProfiles}
 class ListOfClientsScreen extends ConsumerWidget {
-  const ListOfClientsScreen({super.key});
+  final WorkerProfile workerProfile;
+
+  const ListOfClientsScreen({required this.workerProfile, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final workerProfile = ref.watch(lastUsed).worker;
     final clientList = ref.watch(workerProfile.clientsOf);
 
     return Scaffold(
@@ -45,6 +46,7 @@ class ListOfClientsScreen extends ConsumerWidget {
                   child: SizedBox(
                     width: 550,
                     child: ClientCard(
+                      department: workerProfile,
                       index: index,
                       client: clientList[index],
                     ),
@@ -65,11 +67,13 @@ class ListOfClientsScreen extends ConsumerWidget {
 
 class ClientCard extends ConsumerWidget {
   const ClientCard({
+    required this.department,
     required this.index,
     required this.client,
     super.key,
   });
 
+  final WorkerProfile department;
   final ClientProfile client;
   final int index;
 
@@ -114,14 +118,14 @@ class ClientCard extends ConsumerWidget {
         onLongPress: () {
           ref.read(lastUsed).client = client;
           context.push(
-            '/client_journal',
+            '/department/${department.shortName}/client/${client.contractId}/journal',
           );
         },
         onTap: () {
           ref.read(lastUsed).client = client;
           ref.read(currentSearchText.notifier).state = '';
           context.push(
-            '/client_services',
+            '/department/${department.shortName}/client/${client.contractId}',
           );
         },
       ),

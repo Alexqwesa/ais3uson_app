@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import
+// ignore_for_file: unnecessary_import, sort_child_properties_last
 
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';

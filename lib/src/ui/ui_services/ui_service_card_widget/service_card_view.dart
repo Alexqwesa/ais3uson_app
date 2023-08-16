@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -67,13 +67,11 @@ class ServiceCardView extends ConsumerWidget {
                                   service.shortText,
                                   textScaleFactor: 1.1,
                                   textAlign: TextAlign.center,
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge,
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                                 child: Text(
                                   service.servTextAdd,
                                   softWrap: true,
@@ -218,13 +216,11 @@ class ServiceCardTileView extends ConsumerWidget {
                                 service.shortText,
                                 textScaleFactor: 1.1,
                                 textAlign: TextAlign.left,
-                                style:
-                                    Theme.of(context).textTheme.bodyLarge,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
                               child: Text(
                                 service.servTextAdd,
                                 textAlign: TextAlign.left,

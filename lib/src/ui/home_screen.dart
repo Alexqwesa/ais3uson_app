@@ -28,7 +28,7 @@ class HomeScreen extends ConsumerWidget {
       //
       // > body
       //
-      body: const ListOfProfiles(),
+      body: const ListOfDepartments(),
       //
       // > scan qr button
       //
@@ -36,9 +36,7 @@ class HomeScreen extends ConsumerWidget {
           ? null
           : FloatingActionButton(
               onPressed: () {
-                context.push(
-                  '/scan_qr',
-                );
+                context.push('/scan_qr');
               },
               tooltip: tr().scanQrCode,
               child: const Icon(Icons.add),
@@ -89,9 +87,7 @@ class HomeScreen extends ConsumerWidget {
                         context,
                         'qr',
                       );
-                      context.push(
-                        '/add_department',
-                      );
+                      context.push('/add_department');
                     },
                   ),
                   ListTile(
@@ -102,9 +98,7 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().scanQrCode),
                     onTap: () {
                       Navigator.pop(context, 'qr');
-                      context.push(
-                        '/scan_qr',
-                      );
+                      context.push('/scan_qr');
                     },
                   ),
                   ListTile(
@@ -112,9 +106,7 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().deleteDep),
                     onTap: () {
                       Navigator.pop(context, 'delete_department');
-                      context.push(
-                        '/delete_department',
-                      );
+                      context.push('/delete_department');
                     },
                   ),
                   const Divider(),
@@ -124,6 +116,8 @@ class HomeScreen extends ConsumerWidget {
                     onTap: () {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
+                        ref.read(isArchive.notifier).state = true;
+                        context.push('/archive');
                         ArchiveMaterialApp.setArchiveOnWithDatePicker(
                           context,
                           ref,
@@ -138,9 +132,7 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().settings),
                     onTap: () {
                       Navigator.pop(context, 'settings');
-                      context.push(
-                        '/settings',
-                      );
+                      context.push('/settings');
                     },
                   ),
                   ListTile(
@@ -148,9 +140,7 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().about),
                     onTap: () {
                       Navigator.pop(context, 'dev');
-                      context.push(
-                        '/dev',
-                      );
+                      context.push('/dev');
                     },
                   ),
                   const Divider(),

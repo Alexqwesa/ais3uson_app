@@ -7,6 +7,7 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Show screen where user can add [WorkerProfile] from text string.
@@ -36,7 +37,8 @@ class AddDepartmentScreen extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context, 'canceled');
+              context.push('/');
+              // Navigator.pop(context, 'canceled');
             },
             icon: const Icon(Icons.cancel),
           ),
@@ -90,13 +92,14 @@ class AddDepartmentScreen extends ConsumerWidget {
                                   // > add Dep
                                   //
                                   onPressed: () {
-                                    Navigator.pop(context, 'added');
+                                    // Navigator.pop(context, 'added');
                                     addNewWProfile(
                                       context,
                                       ref,
                                       controller.value.text
                                           .replaceAll('\n', ''),
                                     );
+                                    context.push('/');
                                   },
                                 ),
                               ],
@@ -168,12 +171,13 @@ class AddDepartmentScreen extends ConsumerWidget {
                               // > add Dep
                               //
                               onTap: () {
-                                Navigator.pop(context, 'added');
+                                // Navigator.pop(context, 'added');
                                 addNewWProfile(
                                   context,
                                   ref,
                                   qrCodes[index],
                                 );
+                                context.push('/');
                               },
                             ),
                           ),
@@ -193,7 +197,7 @@ class AddDepartmentScreen extends ConsumerWidget {
 
 bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
   try {
-    final res = ref.read(workerProfiles.notifier).addProfileFromKey(
+    final res = ref.read(departmentsProvider.notifier).addProfileFromKey(
           WorkerKey.fromJson(
             jsonDecode(text) as Map<String, dynamic>,
           ),

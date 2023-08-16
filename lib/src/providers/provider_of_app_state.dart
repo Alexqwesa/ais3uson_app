@@ -8,6 +8,16 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Stub provider of current service. Separate from [lastUsed] for overriding.
+final currentService = Provider<ClientService>(
+  (ref) => stubClient.services.first, // TODO: maybe just throw
+);
+
+/// Stub provider of current service. Separate from [lastUsed] for overriding.
+final currentClient = Provider<ClientProfile>(
+  (ref) => stubClient, // TODO: maybe just throw
+);
+
 final _stubKey = WorkerKey.fromJson(
   jsonDecode(stubJsonWorkerKey) as Map<String, dynamic>,
 );
@@ -171,13 +181,13 @@ final _lastClient = Provider<ClientProfile>((ref) {
 final _lastWorkerProfile = Provider((ref) {
   try {
     return ref
-        .watch(workerProfiles)
+        .watch(departmentsProvider)
         .firstWhere((element) => element.apiKey == ref.watch(_lastApiKey));
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
     log.severe('lastWorkerProfile requested but provider failed');
     try {
-      return ref.watch(workerProfiles).first;
+      return ref.watch(departmentsProvider).first;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       log.severe('lastWorkerProfile requested but it did not exist');

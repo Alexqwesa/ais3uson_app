@@ -20,7 +20,7 @@ import 'package:tuple/tuple.dart';
 /// Show list of services assigned to client, allow input by click.
 ///
 /// Create [ServiceCard] widget for each [ClientService].
-/// Support: resync button and change of view of the list.
+/// Support: sync button and change of view of the list.
 ///
 /// {@category UI Services}
 class ListOfClientServicesScreen extends ConsumerStatefulWidget {
@@ -40,7 +40,7 @@ class _ClientServicesListScreen
 
   @override
   Widget build(BuildContext context) {
-    final client = ref.watch(lastUsed).client;
+    final client = ref.watch(currentClient);
     final servList = ref.watch(filteredServices(client));
     final searchedText = ref.watch(currentSearchText);
     final workerProfile = client.workerProfile;
@@ -88,7 +88,7 @@ class _ClientServicesListScreen
       //
       body: switch (ref.watch(client.servicesOf).isNotEmpty) {
         true => servList.isNotEmpty
-            ? const Center(
+            ?  Center(
                 child: CustomScrollView(
                   slivers: [
                     _ListOfServices(),
@@ -111,11 +111,9 @@ class _ClientServicesListScreen
 }
 
 class _ListOfServices extends ConsumerWidget {
-  const _ListOfServices();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final client = ref.watch(lastUsed).client;
+    final client = ref.watch(currentClient);
     final servList = ref.watch(filteredServices(client));
 
     final parentSize = MediaQuery.of(context).size;
@@ -125,23 +123,23 @@ class _ListOfServices extends ConsumerWidget {
     return SliverAnimatedGrid(
       key: const ValueKey('MainScroll'),
       initialItemCount: servList.length,
-      itemBuilder: (context1, index, animation) {
-        final element = servList[index];
+      itemBuilder: (context, index, animation) {
+        final service = servList[index];
 
         return InkWell(
           child: ProviderScope(
             overrides: [
-              currentService.overrideWithValue(element),
+              currentService.overrideWithValue(service),
             ],
             child: const ServiceCard(
                 // key: ObjectKey(element),
                 ),
           ),
           onLongPress: () {
-            // set last service
-            ref.read(lastUsed).service = element;
             // open ClientServiceScreen
-            context.push('/service');
+            context.push(
+              '/department/${service.workerProfile.shortName}/client/${service.contractId}/service/${service.servId}',
+            );
           },
         );
       },

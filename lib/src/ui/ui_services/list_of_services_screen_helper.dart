@@ -1,13 +1,7 @@
 // ignore_for_file: unnecessary_import
 
 import 'package:ais3uson_app/dynamic_data_models.dart';
-import 'package:ais3uson_app/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-/// Stub provider of current service. Separate from [lastUsed] for overriding.
-final currentService = Provider<ClientService>(
-  (ref) => ref.watch(lastUsed).service,
-);
 
 /// Last searched text by user.
 ///

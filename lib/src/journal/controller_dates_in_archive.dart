@@ -92,13 +92,13 @@ class _ControllerDatesInArchive extends StateNotifier<Set<DateTime>> {
 final initDatesInAllArchives = FutureProvider((ref) async {
   Future<void> initControllers() async {
     await Future.wait([
-      ...ref.watch(workerProfiles).map((e) async =>
+      ...ref.watch(departmentsProvider).map((e) async =>
           ref.watch(controllerDatesInArchive(e.apiKey).notifier)._initialize()),
     ]);
   }
 
   if (ref.watch(datesInAllArchives).isEmpty) {
-    await Future.wait(ref.read(workerProfiles).map((e) async =>
+    await Future.wait(ref.read(departmentsProvider).map((e) async =>
         ref.read(e.journalOf).hiveRepository.updateDatesInArchiveOfProfile()));
     await initControllers();
   }
@@ -115,7 +115,7 @@ final initDatesInAllArchives = FutureProvider((ref) async {
 final datesInAllArchives = Provider<Set<DateTime>>((ref) {
   return <DateTime>{
     ...ref
-        .watch(workerProfiles)
+        .watch(departmentsProvider)
         .map((e) => ref.watch(controllerDatesInArchive(e.apiKey)))
         .expand((list) => list),
   };

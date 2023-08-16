@@ -10,12 +10,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// Helper for HomeScreen, this widget: show list of [WorkerProfile].
 ///
 /// {@category UI WorkerProfiles}
-class ListOfProfiles extends ConsumerWidget {
-  const ListOfProfiles({super.key});
+class ListOfDepartments extends ConsumerWidget {
+  const ListOfDepartments({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wps = ref.watch(workerProfiles);
+    final wps = ref.watch(departmentsProvider);
 
     return Center(
       child: wps.isNotEmpty
@@ -94,8 +94,9 @@ class ListOfProfiles extends ConsumerWidget {
                             // > onTap call
                             //
                             onTap: () {
-                              ref.read(lastUsed).worker = wps[index];
-                              context.push('/department');
+                              context.push(
+                                '/department/${wps[index].shortName}',
+                              );
                             },
                             subtitle: Align(
                               alignment: Alignment.topLeft,

@@ -98,12 +98,12 @@ class CheckWorkerServer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (ref.read(workerProfiles).isEmpty) {
+    if (ref.read(departmentsProvider).isEmpty) {
       return const Text('Please add Department or test Department!');
     }
 
-    final host = ref.read(workerProfiles).first.key.activeHost;
-    final port = ref.read(workerProfiles).first.key.activePort;
+    final host = ref.read(departmentsProvider).first.key.activeHost;
+    final port = ref.read(departmentsProvider).first.key.activePort;
 
     return Column(
       children: <Widget>[
@@ -143,8 +143,8 @@ class CheckWorkerServer extends ConsumerWidget {
       //
       // > http
       //
-      final host = ref.read(workerProfiles).first.key.activeHost;
-      final port = ref.read(workerProfiles).first.key.activePort;
+      final host = ref.read(departmentsProvider).first.key.activeHost;
+      final port = ref.read(departmentsProvider).first.key.activePort;
       var url = Uri.parse(
         'http://$host:$port/stat',
       );

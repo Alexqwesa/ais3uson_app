@@ -1,8 +1,8 @@
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_proofs.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

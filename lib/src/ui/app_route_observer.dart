@@ -9,14 +9,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppRouteObserver extends RouteObserver {
   AppRouteObserver(this.ref);
 
-  final WidgetRef ref;
-  bool firstStart = true;
+  final Ref ref;
+
+  static const name = 'last_route';
+
+  // final _provider = appRouteProvider.notifier;
 
   Future<void> saveLastRoute(Route<dynamic>? lastRoute) async {
+    // stop media on route change
     unawaited(ref.read(audioPlayer).stop());
     unawaited(ref.read(recorderProvider.notifier).stop());
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('last_route', lastRoute?.settings.name ?? '/');
+    // save
+    // ref.watch(_provider).state = lastRoute?.settings.name ?? '/';
+    locator<SharedPreferences>().setString(
+      name,
+      lastRoute?.settings.name ?? '/',
+    );
     log.fine('last saved route: ${lastRoute?.settings.name ?? ''}');
   }
 
@@ -29,15 +37,7 @@ class AppRouteObserver extends RouteObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
-    //Todo:
-    // if (previousRoute == null && firstStart) {
-    //   final last_route =
-    //       locator<SharedPreferences>().getString('last_route') ?? '/';
-    //   if (route.settings.name == '/' && last_route != '/') {
-    //     super.didPush(GoRoute(path: last_route), route);
-    //   }
-    //   firstStart = false;
-    // }
+
     saveLastRoute(route); // note : take new route name that just pushed
   }
 
@@ -50,6 +50,9 @@ class AppRouteObserver extends RouteObserver {
   @override
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
-    saveLastRoute(newRoute);
+    if (newRoute?.settings.name != oldRoute?.settings.name ||
+        newRoute?.settings.arguments != oldRoute?.settings.arguments) {
+      saveLastRoute(newRoute);
+    }
   }
 }
