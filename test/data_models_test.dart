@@ -12,6 +12,7 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
+import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,18 +25,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/fake_data.dart';
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
-
-/// [WorkerKey] modified for tests (ssl='no')
-WorkerKey wKeysData2() {
-  final json = jsonDecode(qrData2WithAutossl) as Map<String, dynamic>;
-  // json['ssl'] = 'no';
-
-  return WorkerKey.fromJson(json);
-}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

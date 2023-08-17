@@ -4,13 +4,14 @@ import 'dart:developer' as dev;
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 // import 'package:hive_test/hive_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_models_test.dart';
 import 'helpers/journal_test_extensions.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
@@ -19,13 +20,18 @@ void main() {
   //
   // > Setup
   //
+  setUpAll(() async {
+    // set SharedPreferences values
+    SharedPreferences.setMockInitialValues({});
+    await init();
+  });
   tearDownAll(() async {
     await tearDownTestHive();
   });
   setUp(() async {
-    // set SharedPreferences values
-    SharedPreferences.setMockInitialValues({});
+    // SharedPreferences.setMockInitialValues({});
     locator.pushNewScope();
+    await locator<SharedPreferences>().clear();
     // Hive setup
     await setUpTestHive();
     // always register hive adapters
@@ -47,11 +53,10 @@ void main() {
   //
   group('Tests for Providers', () {
     test('it create WorkerProfiles from SharedPreferences', () async {
-      SharedPreferences.setMockInitialValues({
-        'WorkerKeys2':
-            '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
-      });
-      await init();
+      await locator<SharedPreferences>().setString(
+        Departments.name,
+        '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
+      );
       final ref = ProviderContainer();
       addTearDown(ref.dispose);
       //
@@ -60,7 +65,7 @@ void main() {
       expect(
         // ignore: avoid_dynamic_calls
         (jsonDecode(
-          locator<SharedPreferences>().getString('WorkerKeys2') ?? '[]',
+          locator<SharedPreferences>().getString(Departments.name) ?? '[]',
         ) as List<dynamic>)
             .first['app'],
         'AIS3USON web',
@@ -84,7 +89,8 @@ void main() {
         '3.01567984187',
       );
       await ref.read(departmentsProvider).first.journal.postInit();
-      expect(ref.read(ref.read(departmentsProvider).first.journal.servicesOf), []);
+      expect(
+          ref.read(ref.read(departmentsProvider).first.journal.servicesOf), []);
       // expect( ref.read(workerProfiles).first.ref.toString() ,"" );
     });
 
@@ -99,7 +105,7 @@ void main() {
         //
         // > put to hive
         //
-        final wKey = wKeysData2();
+        final wKey = testWorkerKey();
         final hive =
             await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
         for (var i = 0; i < 20; i++) {
@@ -125,12 +131,15 @@ void main() {
         //
         // > ProviderContainer and init
         //
+        // await locator<SharedPreferences>().setString(Departments.name, '[]');
         final ref = ProviderContainer();
         addTearDown(ref.dispose);
-        await init();
+        // await init();
         //
         // > crete ref
         //
+
+        expect(ref.read(departmentsProvider).length, 0);
         ref.listen(
           departmentsProvider,
           (previous, next) {
@@ -147,7 +156,11 @@ void main() {
           ref.read(departmentsProvider).first.apiKey,
           '3.01567984187',
         );
-        await ref.read(departmentsProvider).first.journal.postInit(); // init journal
+        await ref
+            .read(departmentsProvider)
+            .first
+            .journal
+            .postInit(); // init journal
         //
         // > test that services are in archive
         //

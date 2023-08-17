@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppProviderObserver extends ProviderObserver {
-  var firstTime = true;
+  bool firstTime = true;
 
   @override
   void didAddProvider(ProviderBase<Object?> provider, Object? value,

@@ -1,5 +1,19 @@
 // ignore_for_file: constant_identifier_names, lines_longer_than_80_chars
 
+import 'dart:convert';
+
+import 'package:ais3uson_app/api_classes.dart';
+
+import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+
+/// [WorkerKey] modified for tests (ssl='no')
+WorkerKey testWorkerKey() {
+  final json = jsonDecode(qrData2WithLocalCache) as Map<String, dynamic>;
+  // json['ssl'] = 'no';
+
+  return WorkerKey.fromJson(json);
+}
+
 const SERVER_DATA_CLIENTS =
     r'[{"contract_id": 1, "dep_id": 1, "client_id": 1, "contract": "661/2021/t/2001", "client": "\u0422\u0435\u0441. *. \u0447-\u0435\u043a", "dhw_id": 1}, '
     r'{"contract_id": 2, "dep_id": 1, "client_id": 1, "contract": "1/2022/t/2020", "client": "\u0422\u0435\u0441. *. \u0447-\u0435\u043a", "dhw_id": 1}, '

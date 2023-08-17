@@ -7,6 +7,7 @@ import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
@@ -59,7 +60,7 @@ void main() {
       'it show one service in AllServicesOfClientScreen',
       (tester) async {
         // init ref
-        final wKey = wKeysData2();
+        final wKey = testWorkerKey();
         final ref = ProviderContainer(
           overrides: [
             httpClientProvider(wKey.certBase64)
@@ -89,7 +90,8 @@ void main() {
           ProviderScope(
             parent: ref,
             child: localizedMaterialApp(
-              widgetForTesting,ref,
+              widgetForTesting,
+              ref,
             ),
           ),
         );
@@ -111,7 +113,7 @@ void main() {
 
     testWidgets('it show proof at date', (tester) async {
       // init ref
-      final wKey = wKeysData2();
+      final wKey = testWorkerKey();
       final ref = ProviderContainer(
         overrides: [
           httpClientProvider(wKey.certBase64)
@@ -129,7 +131,8 @@ void main() {
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
-      final service = ref.read(departmentsProvider).first.clients.first.services[3];
+      final service =
+          ref.read(departmentsProvider).first.clients.first.services[3];
       await tester.runAsync<void>(() async {
         await service.add();
         // await service.add();
@@ -195,7 +198,8 @@ void main() {
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
-            widgetForTesting,ref,
+            widgetForTesting,
+            ref,
           ),
         ),
       );

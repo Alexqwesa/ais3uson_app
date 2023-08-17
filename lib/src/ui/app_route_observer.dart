@@ -21,7 +21,7 @@ class AppRouteObserver extends RouteObserver {
     unawaited(ref.read(recorderProvider.notifier).stop());
     // save
     // ref.watch(_provider).state = lastRoute?.settings.name ?? '/';
-    locator<SharedPreferences>().setString(
+    await locator<SharedPreferences>().setString(
       name,
       lastRoute?.settings.name ?? '/',
     );

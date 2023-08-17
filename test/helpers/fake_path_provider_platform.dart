@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/api_classes.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'fake_data.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
 WorkerKey wKeysData2() {

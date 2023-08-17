@@ -1,44 +1,90 @@
-import 'package:ais3uson_app/main.dart' as app;
+import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../test/helpers/setup_and_teardown_helpers.dart';
+import 'helpers.dart';
 
 Future<void> main() async {
   // enableFlutterDriverExtension();
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter('Ais3uson');
-  app.locator.registerLazySingleton<S>(S.new);
 
-  testWidgets('Main window', (tester) async {
-    await app.main();
+  setUpAll(() async {
+    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  });
+  setUp(() async {
+    // set SharedPreferences values
+    SharedPreferences.setMockInitialValues({});
+    // SharedPreferences.setMockInitialValues({Departments.name: '[$qrData2WithAutossl]'});
+    //
+    // > locator
+    //
+    await locator.reset();
+    final sharedPreferences = await SharedPreferences.getInstance();
+    locator
+      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+    // Hive setup
+    await setUpTestHive();
+  });
+  tearDown(() async {
+    await tearDownTestHive();
+  });
+
+  testWidgets('it open Main window', (tester) async {
+    final wKey = testWorkerKey();
+    await runMain();
     await tester.pumpAndSettle();
     // Verify start screen.
-    expect(find.text('Тестовое отделение 2'), findsNothing);
-    expect(find.text('Тестовое отделение'), findsNothing);
-    expect(find.text(app.tr().authorizePlease), findsOneWidget);
+    expect(find.text(wKey.dep), findsNothing);
+    expect(find.text(tr().authorizePlease), findsOneWidget);
   });
-  testWidgets('Main: add test department', (tester) async {
-    await app.main();
+
+  testWidgets('it load department from SharedPreferences', (tester) async {
+    final wKey = testWorkerKey();
+    // SharedPreferences.setMockInitialValues({Departments.name: '[$qrData2WithAutossl]'});
+    // await setupSomePreferences(Departments.name, '[$qrData2WithAutossl]');
+    await locator<SharedPreferences>()
+        .setString(Departments.name, '[$qrData2WithLocalCache]');
+    await runMain();
     await tester.pumpAndSettle();
-    // Verify start screen
-    expect(find.text(app.tr().authorizePlease), findsOneWidget);
-    final appBarIcon = find.descendant(
+    // Verify start screen.
+    expect(find.text(wKey.dep), findsOneWidget);
+    expect(find.text(tr().authorizePlease), findsNothing);
+  });
+
+  testWidgets('it add test Department', (tester) async {
+    await openAndAddDepartment(tester);
+  });
+
+  testWidgets('it delete test Department', (tester) async {
+    final wKey = await openAndAddDepartment(tester);
+    // open drawer
+    final appBarMenuIcon = find.descendant(
       of: find.byType(AppBar),
-      matching: find.byType(Padding),
+      matching: find.widgetWithIcon(IconButton, Icons.menu),
     );
-    await tester.tap(appBarIcon);
-    final addDep = find.text(app.tr().addDepFromText);
-    expect(addDep, findsOneWidget);
-    await tester.tap(addDep);
-
-    final addDepButton = find.text(app.tr().addDep);
-
-    await tester.tap(addDepButton);
-
-    expect(find.text(app.tr().authorizePlease), findsNothing);
-    expect(find.text('Тестовое отделение 2'), findsNothing);
-    expect(find.text('Тестовое отделение'), findsOneWidget);
+    await tester.tap(appBarMenuIcon);
+    await tester.pumpAndSettle();
+    // click add department
+    final delDep = find.text(tr().deleteDep);
+    expect(delDep, findsOneWidget);
+    await tester.tap(delDep);
+    await tester.pumpAndSettle();
+    // delete department screen here
+    final depButton = find.text(wKey.dep);
+    await tester.tap(depButton);
+    await tester.pumpAndSettle();
+    final confirm = find.byType(ElevatedButton);
+    await tester.tap(confirm);
+    await tester.pumpAndSettle();
+    // return to main screen
+    expect(find.text(tr().authorizePlease), findsOneWidget);
+    expect(find.text(wKey.dep), findsNothing);
   });
 }

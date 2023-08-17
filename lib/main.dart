@@ -13,15 +13,14 @@
 library main;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/foundation.dart';
@@ -59,7 +58,7 @@ final log = Logger('ais3uson');
 ///
 /// {@category UI Root}
 Future<void> init() async {
-  // if (kDebugMode){
+  WidgetsFlutterBinding.ensureInitialized();
   //
   // > logger
   //
@@ -105,22 +104,34 @@ Future<void> init() async {
 /// {@category UI Root}
 /// {@category About}
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await initReal();
+  // run
+  await runMain();
+}
 
+Future<void> initReal() async {
+  //
+  // > init for tests
+  //
+  await init();
+  // 
+  // > add certificate 
+  // 
   if (!kIsWeb) {
     final data =
         await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
     SecurityContext.defaultContext
         .setTrustedCertificatesBytes(data.buffer.asUint8List());
   }
-  // setPathUrlStrategy();
-  await init();
+
+}
+
+Future<void> runMain() async {
   //
   // > hive init
   //
   await Hive.initFlutter('Ais3uson');
-  final testClient = (jsonDecode(qrData2WithLocalCache)
-      as Map<String, dynamic>)['certBase64'] as String;
+  final testClient = testWorkerKey().certBase64;
 
   usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;

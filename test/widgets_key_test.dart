@@ -22,7 +22,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_models_test.dart';
+import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
@@ -194,7 +194,7 @@ void main() {
                 parent: ref,
               ),
           ref: ref);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
       //
       // > dep exist
       //
@@ -332,7 +332,7 @@ void main() {
       );
       expect(wp.clients[1].services.isEmpty, false);
 
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle(const Duration(seconds: 5));
       final listFinder = find.byKey(const ValueKey('MainScroll'));
       expect(listFinder, findsNothing);

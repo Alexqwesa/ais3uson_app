@@ -25,19 +25,6 @@ final sqlFormat = DateFormat(formatSQL);
 final standardFormat = DateFormat(formatStandard);
 final nullDate = DateTime(1900);
 
-/// Stub data for Error Worker.
-const stubJsonWorkerKey = '''{"app": "AIS3USON web", "name": "stub", '''
-    '''"worker_dep_id": 0, "api_key": "none", "dep": "none", '''
-    '''"db": "none", "servers": "none", "comment": "stub", "certBase64": ""}''';
-
-/// Stub data for Example department that works without internet connection.
-const qrData2WithLocalCache =
-    '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №1", '''
-    '''"worker_dep_id": 1, "api_key": "3.01567984187", "dep": "Тестовое отделение https://alexqwesa.fvds.ru:48082", '''
-    '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "With local cache", "certBase64": "VGVzdCBwcm9maWxlIHdpdGggY2FjaGU="}'''; //Base64Encoder().convert('Test profile with cache'.codeUnits));
-
-/// Test worker's keys in json format
-const qrCodes = [qrData2WithLocalCache];
 
 /// Helper, convert String to List of Map<String, dynamic>
 List<Map<String, dynamic>> mapJsonDecode(List<String> list) {

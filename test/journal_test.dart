@@ -17,7 +17,7 @@ import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_models_test.dart';
+import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/journal_test_extensions.dart';
 import 'helpers/real_hive_helpler.dart';
 import 'helpers/worker_profile_test_extensions.dart';
