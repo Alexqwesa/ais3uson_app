@@ -85,13 +85,13 @@ underlying lists by calling <a href="../repositories/JournalHiveRepository/updat
   <pre class="language-dart"><code class="language-dart">final initDatesInAllArchives = FutureProvider((ref) async {
   Future&lt;void&gt; initControllers() async {
     await Future.wait([
-      ...ref.watch(workerProfiles).map((e) async =&gt;
+      ...ref.watch(departmentsProvider).map((e) async =&gt;
           ref.watch(controllerDatesInArchive(e.apiKey).notifier)._initialize()),
     ]);
   }
 
   if (ref.watch(datesInAllArchives).isEmpty) {
-    await Future.wait(ref.read(workerProfiles).map((e) async =&gt;
+    await Future.wait(ref.read(departmentsProvider).map((e) async =&gt;
         ref.read(e.journalOf).hiveRepository.updateDatesInArchiveOfProfile()));
     await initControllers();
   }

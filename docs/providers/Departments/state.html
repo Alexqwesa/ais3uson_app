@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the state property from the Departments class, for the Dart programming language.">
+  <title>state property - Departments class - providers library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../providers/providers-library.html">providers</a></li>
+    <li><a href="../../providers/Departments-class.html">Departments</a></li>
+    <li class="self-crumb">state property</li>
+  </ol>
+  <div class="self-name">state</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="providers&#47;Departments-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-property">state</span> property 
+</h1></div>
+
+
+        
+<section id="getter">
+
+<section class="multi-line-signature">
+  
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://pub.dev/documentation/meta/1.9.1/meta/protected-constant.html">protected</a></li>
+    </ol>
+  </div>
+  <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>
+  <span class="name ">state</span>
+  <div class="features"><span class="feature">inherited</span></div>
+
+</section>
+
+
+<section class="desc markdown">
+  <p>The value currently exposed by this <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>.</p>
+<p>Invoking the setter will notify listeners if <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/BuildlessNotifier/updateShouldNotify.html">updateShouldNotify</a> returns true.
+By default, this will compare the previous and new value using <a href="https://api.flutter.dev/flutter/dart-core/identical.html">identical</a>.</p>
+<p>Reading <a href="../../providers/Departments/state.html">state</a> if the provider is out of date (such as if one of its
+dependency has changed) will trigger <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier/build.html">Notifier.build</a> to be re-executed.</p>
+<p>If <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier/build.html">Notifier.build</a> threw, reading <a href="../../providers/Departments/state.html">state</a> will rethow the exception.</p>
+</section>
+
+
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@protected
+State get state {
+  _element.flush();
+  &#47;&#47; ignore: invalid_use_of_protected_member
+  return _element.requireState;
+}</code></pre>
+</section>
+
+</section>
+
+
+        
+<section id="setter">
+
+<section class="multi-line-signature">
+  
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+  <span class="returntype">void</span>
+  <span class="name ">state=</span><span class="signature">(<wbr><span class="parameter" id="state=-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> <span class="parameter-name">value</span></span>)</span>
+  
+
+</section>
+
+
+
+
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+set state(List&lt;WorkerProfile&gt; value) {
+  super.state = value;
+  _updateShortNames();
+  &#47;&#47;
+  &#47;&#47; &gt; save
+  &#47;&#47;
+  locator&lt;SharedPreferences&gt;()
+      .setString(name, jsonEncode(value.map((e) =&gt; e.key.toJson()).toList()))
+      .onError((error, stackTrace) =&gt; false)
+      .then((res) {
+    if (!res) {
+      showErrorNotification(
+        tr().errorDepSave,
+      );
+    }
+  });
+}</code></pre>
+</section>
+
+</section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../providers/providers-library.html">providers</a></li>
+    <li><a href="../../providers/Departments-class.html">Departments</a></li>
+    <li class="self-crumb">state property</li>
+</ol>
+
+
+    <h5>Departments class</h5>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.2.0+27
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

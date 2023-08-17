@@ -64,15 +64,8 @@
 <section class="desc markdown">
   <h1 id="providers-of-app">Providers of App</h1>
 <p>Top level providers of the application, they provide the entry points for UI components.</p>
-<p><a href="../providers/workerProfiles.html">workerProfiles</a> - Store List of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>s</p>
+<p><a href="../providers/departmentsProvider.html">departmentsProvider</a> - Store List of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>s</p>
 <p><a href="../providers/isArchive.html">isArchive</a> - Show archive date or today's data(helper <a href="../providers/archiveDate.html">archiveDate</a> let select the date).</p>
-<p><a href="../providers/lastUsed.html">lastUsed</a> - Store last used instance of classes:</p>
-<ul>
-<li>worker - <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>,</li>
-<li>client - <a href="../data_models/ClientProfile-class.html">ClientProfile</a>,</li>
-<li>service - <a href="../data_models/ClientService-class.html">ClientService</a>.</li>
-</ul>
-<p><a href="../providers/lastUsed.html">lastUsed</a> - is essential for navigation between screens.</p>
 </section>
 
 
@@ -80,6 +73,24 @@
       <h2>Classes</h2>
 
       <dl>
+        <dt id="AppProviderObserver">
+  <span class="name "><a href="../providers/AppProviderObserver-class.html">AppProviderObserver</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+        <dt id="Departments">
+  <span class="name "><a href="../providers/Departments-class.html">Departments</a></span> 
+    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
+    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider and controller of List&lt;<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>&gt;.
+</dd>
+
         <dt id="ProviderOfJournal">
   <span class="name "><a href="../providers/ProviderOfJournal-class.html">ProviderOfJournal</a></span> 
 
@@ -124,13 +135,48 @@
 
         <dt id="audioPlayer" class="property">
   <span class="name"><a href="../providers/audioPlayer.html">audioPlayer</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers/5.0.0/audioplayers/AudioPlayer-class.html">AudioPlayer</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/audioplayers/5.1.0/audioplayers/AudioPlayer-class.html">AudioPlayer</a></span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-proofs cp-10" title="This is part of the UI Proofs topic.">UI&nbsp;Proofs</span>
 
 </dt>
 <dd>
   Global audioPlayer.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="currentClient" class="property">
+  <span class="name"><a href="../providers/currentClient.html">currentClient</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Stub provider of current service.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="currentService" class="property">
+  <span class="name"><a href="../providers/currentService.html">currentService</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Stub provider of current service.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="departmentsProvider" class="property">
+  <span class="name"><a href="../providers/departmentsProvider.html">departmentsProvider</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Departments-class.html">Departments</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span></span> 
+    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
+    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider and controller of List&lt;<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>&gt;.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -144,19 +190,6 @@
 </dt>
 <dd>
   Archive view or usual view of App.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="lastUsed" class="property">
-  <span class="name"><a href="../providers/lastUsed.html">lastUsed</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ProviderOfAPPState</span>&gt;</span></span> 
-    <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Controller of App states, last used:
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -198,9 +231,9 @@
 
 </dd>
 
-        <dt id="stubWorker" class="property">
-  <span class="name"><a href="../providers/stubWorker.html">stubWorker</a></span>
-  <span class="signature">&#8594; <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> 
+        <dt id="stubClientService" class="property">
+  <span class="name"><a href="../providers/stubClientService.html">stubClientService</a></span>
+  <span class="signature">&#8594; <a href="../data_models/ClientService-class.html">ClientService</a></span> 
 
 </dt>
 <dd>
@@ -209,15 +242,13 @@
 
 </dd>
 
-        <dt id="workerProfiles" class="property">
-  <span class="name"><a href="../providers/workerProfiles.html">workerProfiles</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/StateNotifierProvider-class.html">StateNotifierProvider</a><span class="signature">&lt;<wbr><span class="type-parameter">_ProviderOfListOfProfiles</span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span></span> 
-    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
+        <dt id="stubWorker" class="property">
+  <span class="name"><a href="../providers/stubWorker.html">stubWorker</a></span>
+  <span class="signature">&#8594; <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> 
 
 </dt>
 <dd>
-  Provider and controller of List&lt;<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>&gt;.
+  
   <div class="features"><span class="feature">final</span></div>
 
 </dd>

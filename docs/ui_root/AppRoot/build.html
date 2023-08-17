@@ -119,9 +119,32 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  return ref.watch(isArchive)
-      ? const ArchiveMaterialApp()
-      : const MainMaterialApp();
+  return MaterialApp.router(
+    &#47;&#47; onGenerateInitialRoutes: defaultGenerateInitialRoutes,
+
+    routerConfig: ref.watch(routerProvider(null)),
+
+    &#47;&#47; routerDelegate: RouterDelegate(),
+    &#47;&#47;
+    &#47;&#47; &gt; l10n
+    &#47;&#47;
+    localizationsDelegates: const [
+      S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: S.delegate.supportedLocales,
+    title: &#39;AIS 3USON App&#39;,
+    &#47;&#47;
+    &#47;&#47; &gt; theme
+    &#47;&#47;
+    theme: ThemesData.light(),
+    darkTheme: ThemesData.dark(),
+    themeMode: ref.watch(standardTheme),
+
+    debugShowCheckedModeBanner: false,
+  );
 }</code></pre>
 </section>
 

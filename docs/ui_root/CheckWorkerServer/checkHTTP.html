@@ -84,8 +84,8 @@
     &#47;&#47;
     &#47;&#47; &gt; http
     &#47;&#47;
-    final host = ref.read(workerProfiles).first.key.activeHost;
-    final port = ref.read(workerProfiles).first.key.activePort;
+    final host = ref.read(departmentsProvider).first.key.activeHost;
+    final port = ref.read(departmentsProvider).first.key.activePort;
     var url = Uri.parse(
       &#39;http:&#47;&#47;$host:$port&#47;stat&#39;,
     );

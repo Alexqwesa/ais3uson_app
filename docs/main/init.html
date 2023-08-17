@@ -81,7 +81,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; init() async {
-  &#47;&#47; if (kDebugMode){
+  WidgetsFlutterBinding.ensureInitialized();
   &#47;&#47;
   &#47;&#47; &gt; logger
   &#47;&#47;
