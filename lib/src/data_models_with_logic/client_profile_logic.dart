@@ -13,13 +13,13 @@ extension ClientProfileLogic on ClientProfile {
   Provider<List<ServiceOfJournal>> get allServicesOf =>
       allServicesOfClient(this);
 
-  Provider<List<ClientService>> get servicesOf => _servicesOfClient(this);
+  Provider<List<ClientService>> get servicesOf => servicesOfClient(this);
 }
 
 /// Provider of list of [ClientService]s for client.
 ///
 /// {@category Providers}
-final _servicesOfClient =
+final servicesOfClient =
     Provider.family<List<ClientService>, ClientProfile>((ref, client) {
   final listServices = ref
       .watch(client.workerProfile.clientsPlanOf)

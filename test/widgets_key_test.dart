@@ -20,6 +20,7 @@ import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod/src/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_path_provider_platform.dart';
@@ -309,18 +310,17 @@ void main() {
         await wp.postInit();
       });
       // wp.clients[1].services.clear();
-      expect(wp.clients[1].services.isEmpty, false);
+      expect(wp.clients[1].services.isEmpty, true);
+      expect(wp.clients[0].services.isEmpty, false);
       final widgetForTesting = ProviderScope(overrides: [
         currentClient.overrideWithValue(
-            ref.read(departmentsProvider).first.clients.first)
+            ref.read(departmentsProvider).first.clients[1])
       ], child: const ListOfClientServicesScreen());
       await tester.pumpWidget(
         ProviderScope(
-          overrides: [
-            filteredServices.overrideWithProvider(
-              (argument) => Provider((ref) => <ClientService>[]),
-            ),
-          ],
+          // overrides: [
+          //   servicesOfClient(ref.read(currentClient)).overrideWithValue(<ClientService>[]),
+          // ],
           parent: ref,
           child: localizedMaterialApp(
             widgetForTesting,
@@ -328,7 +328,6 @@ void main() {
           ),
         ),
       );
-      expect(wp.clients[1].services.isEmpty, false);
 
       await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle(const Duration(seconds: 5));

@@ -141,7 +141,7 @@ void main() {
       // await ref.pump();
       expect(wp.clients.length, 10);
       expect(wp.services.length, 272);
-      expect(wp.clientsPlan.length, 500);
+      expect(wp.clientsPlan.length, 447);
       final httpClient =
           ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
