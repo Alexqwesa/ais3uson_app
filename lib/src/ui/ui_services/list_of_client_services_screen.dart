@@ -4,17 +4,11 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
-    show
-        ConsumerState,
-        ConsumerStatefulWidget,
-        ConsumerWidget,
-        ProviderScope,
-        WidgetRef;
+    show ConsumerWidget, ProviderScope, WidgetRef;
 import 'package:tuple/tuple.dart';
 
 /// Show list of services assigned to client, allow input by click.
@@ -23,26 +17,37 @@ import 'package:tuple/tuple.dart';
 /// Support: sync button and change of view of the list.
 ///
 /// {@category UI Services}
-class ListOfClientServicesScreen extends ConsumerStatefulWidget {
+class ListOfClientServicesScreen extends ConsumerWidget {
   /// Show list of services assigned to client, allow input by click.
-  const ListOfClientServicesScreen({
-    super.key,
-  });
+
+  static late final ValueNotifier<String> _textNotifier;
+
+  ValueNotifier<String> get textNotifier {
+    try {
+      return _textNotifier;
+    } catch (e) {
+      //on LateError  LateInitializationError
+      _textNotifier = ValueNotifier<String>('');
+      return _textNotifier;
+    }
+  }
+
+  static late final TextEditingController _textController;
+
+  TextEditingController get textController {
+    try {
+      return _textController;
+    } catch (e) {
+      _textController = TextEditingController();
+      return _textController;
+    }
+  }
+
+  const ListOfClientServicesScreen({super.key});
 
   @override
-  ConsumerState<ListOfClientServicesScreen> createState() =>
-      _ClientServicesListScreen();
-}
-
-class _ClientServicesListScreen
-    extends ConsumerState<ListOfClientServicesScreen> {
-  _ClientServicesListScreen();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(currentClient);
-    final servList = ref.watch(filteredServices(client));
-    final searchedText = ref.watch(currentSearchText);
     final workerProfile = client.workerProfile;
 
     return Scaffold(
@@ -50,6 +55,10 @@ class _ClientServicesListScreen
       // > appBar
       //
       appBar: AppBarWithSearchSwitch(
+        animation: AppBarAnimationSlideLeft.call,
+        customTextNotifier: textNotifier,
+        customTextEditingController: textController,
+        // customSubmitNotifier: ValueNotifier<String>(''),
         appBarBuilder: (context) {
           return AppBar(
             title: Text(
@@ -80,74 +89,106 @@ class _ClientServicesListScreen
             ],
           );
         },
-        onChanged: (text) => ref.read(currentSearchText.notifier).state = text,
       ),
 
       //
       // > body
       //
-      body: switch (ref.watch(client.servicesOf).isNotEmpty) {
-        true => servList.isNotEmpty
-            ?  Center(
-                child: CustomScrollView(
-                  slivers: [
-                    _ListOfServices(),
-                  ],
-                ),
-              )
-            : Text(
-                '${tr().onRequest} $searchedText  ${tr().servicesNotFound}',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-        false => Text(
-            tr().noServicesForClient,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-      },
+      body: Center(
+        child: switch (ref.watch(client.servicesOf).isNotEmpty) {
+          true => CustomScrollView(
+              slivers: [
+                _ListOfServices(textNotifier),
+              ],
+            ),
+          false => Text(
+              tr().noServicesForClient,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+        },
+      ),
     );
   }
 }
 
 class _ListOfServices extends ConsumerWidget {
+  final ValueNotifier<String> textNotifier;
+
+  const _ListOfServices(this.textNotifier);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final client = ref.watch(currentClient);
-    final servList = ref.watch(filteredServices(client));
 
     final parentSize = MediaQuery.of(context).size;
     final tileView = ref.watch(tileTypeProvider);
     final size = ref.watch(tileSize(Tuple2(parentSize, tileView)));
 
-    return SliverAnimatedGrid(
-      key: const ValueKey('MainScroll'),
-      initialItemCount: servList.length,
-      itemBuilder: (context, index, animation) {
-        final service = servList[index];
+    return (context) {
+      return ValueListenableBuilder(
+        valueListenable: textNotifier, // search text in AppBar
+        builder: (context, search, child) {
+          List<ClientService> servList;
+          if (search.isEmpty) {
+            servList = ref.watch(client.servicesOf);
+          } else {
+            servList = ref
+                .watch(client.servicesOf)
+                .where((element) =>
+                    element.servText.toLowerCase().contains(search))
+                .toList();
+          }
 
-        return InkWell(
-          child: ProviderScope(
-            overrides: [
-              currentService.overrideWithValue(service),
-            ],
-            child: const ServiceCard(
-                // key: ObjectKey(element),
+          if (servList.isEmpty) {
+            return SliverToBoxAdapter(
+              child: Center(
+                child: Text(
+                  '${tr().onRequest} $search ${tr().servicesNotFound}',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
-          ),
-          onLongPress: () {
-            // open ClientServiceScreen
-            context.push(
-              '/department/${service.workerProfile.shortName}/client/${service.contractId}/service/${service.servId}',
+              ),
             );
-          },
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: parentSize.width ~/ size.width,
-        childAspectRatio: size.width / size.height,
-      ),
-    );
+          }
+
+          return SliverAnimatedGrid(
+            key: const ValueKey('MainScroll'),
+            initialItemCount: ref
+                .watch(client.servicesOf)
+                .length, // why not just servList.length,
+            itemBuilder: (context, index, animation) {
+              if (index >= servList.length) {
+                return const SizedBox();
+              }
+
+              final service = servList[index];
+
+              return InkWell(
+                child: ProviderScope(
+                  overrides: [
+                    currentService.overrideWithValue(service),
+                  ],
+                  child: const ServiceCard(
+                      // key: ObjectKey(element),
+                      ),
+                ),
+                onLongPress: () {
+                  // open ClientServiceScreen
+                  context.push(
+                    '/department/${service.workerProfile.shortName}/client/${service.contractId}/service/${service.servId}',
+                  );
+                },
+              );
+            },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: parentSize.width ~/ size.width,
+              childAspectRatio: size.width / size.height,
+            ),
+          );
+        },
+      );
+    }(context);
   }
 }
 

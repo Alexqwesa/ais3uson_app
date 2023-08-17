@@ -29,4 +29,3 @@ import 'package:ais3uson_app/ui_services.dart';
 export 'package:ais3uson_app/src/ui/ui_services/archive_services_of_client_screen.dart';
 export 'package:ais3uson_app/src/ui/ui_services/client_service_screen.dart';
 export 'package:ais3uson_app/src/ui/ui_services/list_of_client_services_screen.dart';
-export 'package:ais3uson_app/src/ui/ui_services/list_of_services_screen_helper.dart';

@@ -1,6 +1,5 @@
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -120,7 +119,6 @@ class ClientCard extends ConsumerWidget {
           );
         },
         onTap: () {
-          ref.read(currentSearchText.notifier).state = '';
           context.push(
             '/department/${department.shortName}/client/${client.contractId}',
           );
