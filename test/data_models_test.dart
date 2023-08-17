@@ -220,7 +220,7 @@ void main() {
       // > prepare ProviderContainer + httpClient
       //
       final wKey = wKeysData2();
-      final ref = ProviderContainer(
+      var ref = ProviderContainer(
         overrides: [
           httpClientProvider(wKey.certBase64)
               .overrideWithValue(getMockHttpClient()),
@@ -236,26 +236,31 @@ void main() {
       //
       // > add proof
       //
-      File(path.join(
+      final tmpFile = File(path.join(
         Directory.current.path,
         'test',
         'helpers',
         'auth_qr_test.png',
       )).copySync(
-        path.join(Directory.systemTemp.path, 'auth_qr_test.png'),
+        path.join(Directory.systemTemp.path, 'auth_qr_test1.png'),
       );
-      final file =
-          XFile(path.join(Directory.systemTemp.path, 'auth_qr_test.png'));
+      final file = XFile(tmpFile.path);
       final srcFileLength = await file.length();
       expect(srcFileLength > 0, true);
-      final serv = wp.clients.first.services.first;
-      serv.proofs.addProof(); // serv.addProof();
-      await serv.proofs.addImage(0, file, 'before_');
+      //
+      // > set currentClient
+      //
+      ref = ProviderContainer(
+          parent: ref, overrides: [currentClient.overrideWithValue(ref.read(wp.clientsOf).first)]);
+      final serv = ref.read(ref.read(currentClient).servicesOf).first;
+      final (_, proofController) = ref.read(serviceProofAtDate(serv));
+      proofController.addProof(); // serv.addProof();
+      await proofController.addImage(0, file, 'before_');
       //
       // > check: image created
       //
       expect(
-        serv.proofs.proofs.first.before.image?.toStringShort(),
+        proofController.proofs.first.before.image?.toStringShort(),
         'Image',
       );
       //
@@ -267,14 +272,17 @@ void main() {
           'Ais3uson',
         ),
       );
+      expect(ref.read(currentClient).name, 'Тес. *. ч-ек');
+      expect(proofController.client, 'Тес. *. ч-ек');
       final dstFile = File(
         // ignore: prefer_interpolation_to_compose_strings
         ('${appDocDir.path}/1_Работник Тестового Отделения 2/1_Тес. . чек/' +
                 standardFormat.format(DateTime.now()) +
-                '_/828_Итого/group_0_/before_img_auth_qr_test.png')
+                '_/828_Итого/group_0_/before_img_auth_qr_test1.png')
             .replaceAll('/', Platform.pathSeparator)
             .replaceAll(' ', ''),
       );
+
       expect(
         await dstFile.length(),
         srcFileLength,
@@ -335,7 +343,7 @@ void main() {
         'helpers',
         'auth_qr_test.png',
       )).copySync(
-        path.join(dst.path, 'before_img_auth_qr_test.png'),
+        path.join(dst.path, 'before_img_auth_qr_test3.png'),
       );
       final serv2 = wp.clients.first.services.first;
       expect(serv2.proofs.proofs.length, 0); // can be raced?

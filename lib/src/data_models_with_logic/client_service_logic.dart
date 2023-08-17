@@ -24,6 +24,8 @@ extension ClientServiceLogic on ClientService {
   //
   // > proof managing
   //
+  Provider<(List<Proof>, ProofList)> get proofsOf => serviceProofAtDate(this);
+
   ProofList get proofs {
     final (_, controller) = ref.read(serviceProofAtDate(this));
 
