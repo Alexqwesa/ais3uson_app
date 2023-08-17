@@ -177,8 +177,6 @@ void main() {
       //
       // > check ClientServiceScreen
       //
-      ref.read(lastUsed).service = service;
-
       final newService = service.copyWith(
         date: DateTimeExtensions.today(), //instead of null,
       );

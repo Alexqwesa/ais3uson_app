@@ -162,7 +162,6 @@ void main() {
       expect(find.text(wp.key.comment), findsOneWidget);
       expect(find.text(wp.key.name), findsOneWidget);
       expect(find.text(wp.key.dep), findsOneWidget);
-      ref.read(lastUsed).worker = wp;
       await tester.pumpAndSettle();
       // Check
       expect(
@@ -309,7 +308,6 @@ void main() {
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
-      ref.read(lastUsed).client = wp.clients[1];
       // wp.clients[1].services.clear();
       expect(wp.clients[1].services.isEmpty, false);
       final widgetForTesting = ProviderScope(overrides: [

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -48,10 +47,10 @@ final serviceProofAtDate =
       ),
       serviceId: service.servId,
       client: ref
-              .watch(service.workerProfile.clientsOf)
-              .firstWhereOrNull((e) => e.contractId == service.contractId)
-              ?.name ??
-          ref.watch(lastUsed).client.name,
+          .watch(service.workerProfile.clientsOf)
+          .where((element) => element.contractId == service.contractId)
+          .first
+          .name,
       worker: service.workerProfile.name,
       service: service.shortText,
     );
@@ -121,7 +120,7 @@ class ProofList extends _$ProofList with ProofListOf {
 
   /// Add new proof without notifying anyone.
   void addProofSilently() {
-    state.add( Proof(this, name: (proofs.length).toString()));
+    state.add(Proof(this, name: (proofs.length).toString()));
   }
 
   @override

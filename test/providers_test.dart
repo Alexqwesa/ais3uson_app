@@ -76,17 +76,6 @@ void main() {
       '661/2021/t/2001',
     );
     //
-    // > it read lastClient
-    //
-    ref.read(lastUsed).client = wp.clients[3];
-    expect(ref.read(lastUsed).client.contract, '701/2021/t/2017');
-    //
-    // > it read last service
-    //
-    final service = ref.read(lastUsed).client.services[3];
-    ref.read(lastUsed).service = service;
-    expect(ref.read(lastUsed).service, service);
-    //
     // > archive state
     //
     // ref.read(archiveDate.notifier).state = DateTime(2022, 3);

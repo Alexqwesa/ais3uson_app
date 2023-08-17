@@ -6,13 +6,6 @@
 ///
 /// [isArchive] - Show archive date or today's data(helper [archiveDate] let select the date).
 ///
-/// [lastUsed] - Store last used instance of classes:
-///  - worker - [WorkerProfile],
-///  - client - [ClientProfile],
-///  - service - [ClientService].
-///
-/// [lastUsed] - is essential for navigation between screens.
-///
 library providers;
 
 import 'package:ais3uson_app/data_models.dart';

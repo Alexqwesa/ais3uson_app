@@ -27,7 +27,7 @@ class ArchiveServicesOfClientScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final client = ref.watch(lastUsed).client;
+    final client = ref.watch(currentClient);
     final all = ref.watch(client.allServicesOf);
     final allByGroups = groupBy<ServiceOfJournal, int>(
       all,

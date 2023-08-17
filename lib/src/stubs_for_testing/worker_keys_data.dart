@@ -8,9 +8,9 @@ const qrData2WithAutossl =
     '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "защищенный SSL"}''';
 
 /// Stub data for Error Worker.
-const stubJsonWorkerKey = '''{"app": "AIS3USON web", "name": "stub", '''
-    '''"worker_dep_id": 0, "api_key": "none", "dep": "none", '''
-    '''"db": "none", "servers": "none", "comment": "stub", "certBase64": ""}''';
+const stubJsonWorkerKey = '''{"app": "AIS3USON web", "name": "Error: Department not found", '''
+    '''"worker_dep_id": 0, "api_key": "none", "dep": "Error: Department not found", '''
+    '''"db": "none", "servers": "none", "comment": "Error: Department not found", "certBase64": ""}''';
 
 /// Stub data for Example department that works without internet connection.
 const qrData2WithLocalCache =
