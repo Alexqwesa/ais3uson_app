@@ -165,6 +165,7 @@ class _ListOfServices extends ConsumerWidget {
               final service = servList[index];
 
               return InkWell(
+                key: ValueKey(service.servId),
                 child: ProviderScope(
                   overrides: [
                     currentService.overrideWithValue(service),

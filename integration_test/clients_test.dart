@@ -5,19 +5,21 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
-import 'package:ais3uson_app/src/ui/ui_services/ui_service_card_widget/service_card.dart';
+import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../test/helpers/setup_and_teardown_helpers.dart';
+import 'helpers.dart';
 
 Future<void> main() async {
   // enableFlutterDriverExtension();
 
   setUpAll(() async {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+    await initReal();
   });
   setUp(() async {
     // set SharedPreferences values
@@ -39,13 +41,8 @@ Future<void> main() async {
   });
 
   testWidgets('it open Clients', (tester) async {
-    final wKey = testWorkerKey();
-    await runMain();
-    await tester.pumpAndSettle();
-    // open clients
-    final depButton = find.text(wKey.dep);
-    await tester.tap(depButton);
-    await tester.pumpAndSettle();
+    // final wKey =
+    await openDepartment(tester);
 
     final clientsData = (jsonDecode(SERVER_DATA_CLIENTS) as List)
         .whereType<Map<String, dynamic>>();
@@ -59,29 +56,8 @@ Future<void> main() async {
   });
 
   testWidgets('it open Services of Client', (tester) async {
-    final wKey = testWorkerKey();
-    await runMain();
-    await tester.pumpAndSettle();
-    // open clients
-    final depButton = find.text(wKey.dep);
-    await tester.tap(depButton);
-    await tester.pumpAndSettle();
-
-    final clientsData = (jsonDecode(SERVER_DATA_CLIENTS) as List)
-        .whereType<Map<String, dynamic>>()
-        .toList();
-
-    final servicesData = (jsonDecode(SERVER_DATA_SERVICES) as List)
-        .whereType<Map<String, dynamic>>()
-        .toList();
-    // before load
-    // expect(find.text(tr().emptyListOfPeople), findsOneWidget);
-    // await tester.pump(const Duration(seconds: 1));
-    final secondClient = find.text(clientsData[1]['contract']! as String);
-    expect(secondClient, findsOneWidget);
-    await tester.tap(secondClient);
-    await tester.pumpAndSettle();
-    expect(find.text(tr().noServicesForClient), findsOneWidget);
+    final (_, clientsData, _) =
+        await openServicesOfFirstClient(tester);
     //
     // > go back
     //
@@ -92,17 +68,13 @@ Future<void> main() async {
     await tester.tap(appBarMenuIcon);
     await tester.pumpAndSettle();
     //
-    // > open first
+    // > open Second Client
     //
-    final firstClient = find.text(clientsData[0]['contract']! as String);
-    expect(firstClient, findsOneWidget);
-    await tester.tap(firstClient);
+    final secondClient = find.text(clientsData[1]['contract']! as String);
+    expect(secondClient, findsOneWidget);
+    await tester.tap(secondClient);
     await tester.pumpAndSettle();
-    //
-    // > it contains services
-    //
-    expect(find.text('Итого:'), findsOneWidget);
-    expect(find.byType(ServiceCard), findsWidgets);
+    expect(find.text(tr().noServicesForClient), findsOneWidget);
     //
     // > scroll to last element
     //
@@ -115,6 +87,32 @@ Future<void> main() async {
     //         (lastService['serv_text'] as String).substring(0, 18))),
     //     70.0);
     // expect(find.byType(ServiceCard), findsNWidgets(39));
+
+    expect(find.text(tr().noServicesForClient), findsOneWidget);
+  });
+
+  testWidgets('it add Services', (tester) async {
+    // final (wKey, clientsData, servicesData) =
+        await openServicesOfFirstClient(tester);
+
+    final serviceText = find.text('Итого:');
+    //
+    // > add service
+    //
+    final service =
+        find.ancestor(of: serviceText, matching: find.byType(ServiceCard));
+    final state =
+        find.descendant(of: service, matching: find.byType(ServiceCardState));
+    expect(
+      find.descendant(of: state, matching: find.text('1')),
+      findsNothing,
+    );
+    await tester.tap(serviceText); //warnIfMissed
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(of: state, matching: find.text('1')),
+      findsOneWidget,
+    );
 
     expect(find.text(tr().noServicesForClient), findsNothing);
   });
