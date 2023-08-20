@@ -133,7 +133,8 @@ Widget build(BuildContext context, WidgetRef ref) {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.pop(context, &#39;canceled&#39;);
+            context.push(&#39;&#47;&#39;);
+            &#47;&#47; Navigator.pop(context, &#39;canceled&#39;);
           },
           icon: const Icon(Icons.cancel),
         ),
@@ -187,13 +188,14 @@ Widget build(BuildContext context, WidgetRef ref) {
                                 &#47;&#47; &gt; add Dep
                                 &#47;&#47;
                                 onPressed: () {
-                                  Navigator.pop(context, &#39;added&#39;);
+                                  &#47;&#47; Navigator.pop(context, &#39;added&#39;);
                                   addNewWProfile(
                                     context,
                                     ref,
                                     controller.value.text
                                         .replaceAll(&#39;\n&#39;, &#39;&#39;),
                                   );
+                                  context.push(&#39;&#47;&#39;);
                                 },
                               ),
                             ],
@@ -265,12 +267,13 @@ Widget build(BuildContext context, WidgetRef ref) {
                             &#47;&#47; &gt; add Dep
                             &#47;&#47;
                             onTap: () {
-                              Navigator.pop(context, &#39;added&#39;);
+                              &#47;&#47; Navigator.pop(context, &#39;added&#39;);
                               addNewWProfile(
                                 context,
                                 ref,
                                 qrCodes[index],
                               );
+                              context.push(&#39;&#47;&#39;);
                             },
                           ),
                         ),

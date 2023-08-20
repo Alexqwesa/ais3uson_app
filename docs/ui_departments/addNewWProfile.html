@@ -80,7 +80,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
   try {
-    final res = ref.read(workerProfiles.notifier).addProfileFromKey(
+    final res = ref.read(departmentsProvider.notifier).addProfileFromKey(
           WorkerKey.fromJson(
             jsonDecode(text) as Map&lt;String, dynamic&gt;,
           ),

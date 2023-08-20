@@ -58,11 +58,22 @@
       <div>
 <h1><span class="kind-class">ProofListProvider</span> class 
  
+    <span class="category inner-api cp-7" title="This is part of the Inner API topic.">Inner&nbsp;API</span>
+    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 </h1></div>
 
     
 <section class="desc markdown">
-  <p>See also <a href="../data_models/ProofList-class.html">ProofList</a>.</p>
+  <p>Notifier that store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>.</p>
+<p>It does:</p>
+<ul>
+<li>load proofs from filesystem with <code>loadProofsFromFS</code> function,</li>
+<li>it is a Notifier,</li>
+<li>add new proofs,</li>
+<li>...</li>
+</ul>
+<p>If serviceId == null, it create/collect proof for whole day.</p>
+<p>Copied from <a href="../data_models/ProofList-class.html">ProofList</a>.</p>
 </section>
 
 
@@ -104,7 +115,7 @@
           <span class="name"><a href="../data_models/ProofListProvider/ProofListProvider.html">ProofListProvider</a></span><span class="signature">(<span class="parameter" id="-param-workerId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span><span class="parameter" id="-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span><span class="parameter" id="-param-date"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="-param-serviceId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">serviceId</span>, </span><span class="parameter" id="-param-worker"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">worker</span> = <span class="default-value">&#39;&#39;</span>, </span><span class="parameter" id="-param-client"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">client</span> = <span class="default-value">&#39;&#39;</span>, </span><span class="parameter" id="-param-service"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">service</span> = <span class="default-value">&#39;&#39;</span>}</span>)</span>
         </dt>
         <dd>
-          See also <a href="../data_models/ProofList-class.html">ProofList</a>.
+          Notifier that store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>.
         </dd>
     </dl>
   </section>

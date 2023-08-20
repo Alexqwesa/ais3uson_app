@@ -73,7 +73,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Init application, init <a href="https://pub.dev/documentation/hive/2.2.3/hive/Hive.html">Hive</a>.</p>
+  <p>Init application, init <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a>.</p>
 <p>Create <a href="https://pub.dev/documentation/overlay_support/2.1.0/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../ui_root/AppRoot-class.html">AppRoot</a>.</p>
 </section>
 
@@ -82,32 +82,9 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  if (!kIsWeb) {
-    final data =
-        await PlatformAssetBundle().load(&#39;assets&#47;ca&#47;lets-encrypt-r3.pem&#39;);
-    SecurityContext.defaultContext
-        .setTrustedCertificatesBytes(data.buffer.asUint8List());
-  }
-  &#47;&#47; setPathUrlStrategy();
-  await init();
-  &#47;&#47;
-  &#47;&#47; &gt; hive init
-  &#47;&#47;
-  await Hive.initFlutter(&#39;Ais3uson&#39;);
-  final testClient = (jsonDecode(qrData2WithLocalCache)
-      as Map&lt;String, dynamic&gt;)[&#39;certBase64&#39;] as String;
-
-  usePathUrlStrategy();
-  runApp(OverlaySupport.global(
-    child: ProviderScope(
-      child: const AppRoot(),
-      overrides: [
-        httpClientProvider(testClient).overrideWithValue(getMockHttpClient()),
-      ],
-    ),
-  ));
+  await initReal();
+  &#47;&#47; run
+  await runMain();
 }</code></pre>
 </section>
 

@@ -119,12 +119,12 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  if (ref.read(workerProfiles).isEmpty) {
+  if (ref.read(departmentsProvider).isEmpty) {
     return const Text(&#39;Please add Department or test Department!&#39;);
   }
 
-  final host = ref.read(workerProfiles).first.key.activeHost;
-  final port = ref.read(workerProfiles).first.key.activePort;
+  final host = ref.read(departmentsProvider).first.key.activeHost;
+  final port = ref.read(departmentsProvider).first.key.activePort;
 
   return Column(
     children: &lt;Widget&gt;[

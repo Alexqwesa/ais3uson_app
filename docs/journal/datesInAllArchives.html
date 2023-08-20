@@ -82,7 +82,7 @@
   <pre class="language-dart"><code class="language-dart">final datesInAllArchives = Provider&lt;Set&lt;DateTime&gt;&gt;((ref) {
   return &lt;DateTime&gt;{
     ...ref
-        .watch(workerProfiles)
+        .watch(departmentsProvider)
         .map((e) =&gt; ref.watch(controllerDatesInArchive(e.apiKey)))
         .expand((list) =&gt; list),
   };

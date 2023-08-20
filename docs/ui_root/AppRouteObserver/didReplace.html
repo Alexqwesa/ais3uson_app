@@ -88,7 +88,10 @@
   <pre class="language-dart"><code class="language-dart">@override
 void didReplace({Route&lt;dynamic&gt;? newRoute, Route&lt;dynamic&gt;? oldRoute}) {
   super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
-  saveLastRoute(newRoute);
+  if (newRoute?.settings.name != oldRoute?.settings.name ||
+      newRoute?.settings.arguments != oldRoute?.settings.arguments) {
+    saveLastRoute(newRoute);
+  }
 }</code></pre>
 </section>
 

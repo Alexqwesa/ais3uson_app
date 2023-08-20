@@ -129,7 +129,7 @@ Widget build(BuildContext context, WidgetRef ref) {
     &#47;&#47;
     &#47;&#47; &gt; body
     &#47;&#47;
-    body: const ListOfProfiles(),
+    body: const ListOfDepartments(),
     &#47;&#47;
     &#47;&#47; &gt; scan qr button
     &#47;&#47;
@@ -137,9 +137,7 @@ Widget build(BuildContext context, WidgetRef ref) {
         ? null
         : FloatingActionButton(
             onPressed: () {
-              context.push(
-                &#39;&#47;scan_qr&#39;,
-              );
+              context.push(&#39;&#47;scan_qr&#39;);
             },
             tooltip: tr().scanQrCode,
             child: const Icon(Icons.add),
@@ -190,9 +188,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       context,
                       &#39;qr&#39;,
                     );
-                    context.push(
-                      &#39;&#47;add_department&#39;,
-                    );
+                    context.push(&#39;&#47;add_department&#39;);
                   },
                 ),
                 ListTile(
@@ -203,9 +199,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   title: Text(tr().scanQrCode),
                   onTap: () {
                     Navigator.pop(context, &#39;qr&#39;);
-                    context.push(
-                      &#39;&#47;scan_qr&#39;,
-                    );
+                    context.push(&#39;&#47;scan_qr&#39;);
                   },
                 ),
                 ListTile(
@@ -213,9 +207,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   title: Text(tr().deleteDep),
                   onTap: () {
                     Navigator.pop(context, &#39;delete_department&#39;);
-                    context.push(
-                      &#39;&#47;delete_department&#39;,
-                    );
+                    context.push(&#39;&#47;delete_department&#39;);
                   },
                 ),
                 const Divider(),
@@ -225,6 +217,8 @@ Widget build(BuildContext context, WidgetRef ref) {
                   onTap: () {
                     Navigator.pop(context, &#39;archive&#39;);
                     if (ref.read(archiveDate) == null) {
+                      ref.read(isArchive.notifier).state = true;
+                      context.push(&#39;&#47;archive&#39;);
                       ArchiveMaterialApp.setArchiveOnWithDatePicker(
                         context,
                         ref,
@@ -239,9 +233,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   title: Text(tr().settings),
                   onTap: () {
                     Navigator.pop(context, &#39;settings&#39;);
-                    context.push(
-                      &#39;&#47;settings&#39;,
-                    );
+                    context.push(&#39;&#47;settings&#39;);
                   },
                 ),
                 ListTile(
@@ -249,9 +241,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                   title: Text(tr().about),
                   onTap: () {
                     Navigator.pop(context, &#39;dev&#39;);
-                    context.push(
-                      &#39;&#47;dev&#39;,
-                    );
+                    context.push(&#39;&#47;dev&#39;);
                   },
                 ),
                 const Divider(),

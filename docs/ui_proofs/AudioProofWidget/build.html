@@ -153,8 +153,6 @@ Widget build(BuildContext context, WidgetRef ref) {
         padding: const EdgeInsets.all(2),
         child: FloatingActionButton(
           heroTag: null,
-          &#47;&#47; tooltip: ,
-          child: const Icon(Icons.record_voice_over_sharp),
           backgroundColor: recorder.colorOf(firstProof),
           &#47;&#47;
           &#47;&#47; &gt; onPressed: start&#47;stop
@@ -169,6 +167,8 @@ Widget build(BuildContext context, WidgetRef ref) {
               await recorder.start(curProof: firstProof);
             }
           },
+          &#47;&#47; tooltip: ,
+          child: const Icon(Icons.record_voice_over_sharp),
         ),
       ),
       &#47;&#47;

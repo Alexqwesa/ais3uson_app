@@ -156,16 +156,13 @@ Widget build(BuildContext context, WidgetRef ref) {
         ),
       ),
       onLongPress: () {
-        ref.read(lastUsed).client = client;
         context.push(
-          &#39;&#47;client_journal&#39;,
+          &#39;&#47;department&#47;${department.shortName}&#47;client&#47;${client.contractId}&#47;journal&#39;,
         );
       },
       onTap: () {
-        ref.read(lastUsed).client = client;
-        ref.read(currentSearchText.notifier).state = &#39;&#39;;
         context.push(
-          &#39;&#47;client_services&#39;,
+          &#39;&#47;department&#47;${department.shortName}&#47;client&#47;${client.contractId}&#39;,
         );
       },
     ),
