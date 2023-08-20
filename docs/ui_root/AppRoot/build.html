@@ -120,11 +120,12 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   return MaterialApp.router(
-    &#47;&#47; onGenerateInitialRoutes: defaultGenerateInitialRoutes,
+    routerConfig: ref.watch(
+      routerProvider(
+          locator&lt;SharedPreferences&gt;().getString(AppRouteObserver.name) ??
+              &#39;&#47;&#39;),
+    ),
 
-    routerConfig: ref.watch(routerProvider(null)),
-
-    &#47;&#47; routerDelegate: RouterDelegate(),
     &#47;&#47;
     &#47;&#47; &gt; l10n
     &#47;&#47;

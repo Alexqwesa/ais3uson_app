@@ -122,6 +122,9 @@ Widget build(BuildContext context, WidgetRef ref) {
   return Scaffold(
     resizeToAvoidBottomInset: false,
     appBar: AppBar(
+      automaticallyImplyLeading: false,
+      &#47;&#47; right now we can only close by changing isArchive provider
+
       title: Row(
         children: [
           IconButton(

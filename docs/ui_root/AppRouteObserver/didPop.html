@@ -90,7 +90,8 @@ route, is <code>previousRoute</code>.</p>
   <pre class="language-dart"><code class="language-dart">@override
 void didPop(Route&lt;dynamic&gt; route, Route&lt;dynamic&gt;? previousRoute) {
   super.didPop(route, previousRoute);
-  saveLastRoute(previousRoute); &#47;&#47; note : take route name in stacks below
+  cleanupOnRouteChange(
+      previousRoute); &#47;&#47; note : take route name in stacks below
 }</code></pre>
 </section>
 

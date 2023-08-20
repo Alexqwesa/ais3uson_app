@@ -90,7 +90,7 @@ void didReplace({Route&lt;dynamic&gt;? newRoute, Route&lt;dynamic&gt;? oldRoute}
   super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   if (newRoute?.settings.name != oldRoute?.settings.name ||
       newRoute?.settings.arguments != oldRoute?.settings.arguments) {
-    saveLastRoute(newRoute);
+    cleanupOnRouteChange(newRoute);
   }
 }</code></pre>
 </section>

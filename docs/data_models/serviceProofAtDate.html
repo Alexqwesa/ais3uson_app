@@ -90,8 +90,10 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
       serviceId: service.servId,
       client: ref
           .watch(service.workerProfile.clientsOf)
-          .where((element) =&gt; element.contractId == service.contractId)
-          .first
+          .firstWhere(
+            (element) =&gt; element.contractId == service.contractId,
+            orElse: () =&gt; stubClient,
+          )
           .name,
       worker: service.workerProfile.name,
       service: service.shortText,

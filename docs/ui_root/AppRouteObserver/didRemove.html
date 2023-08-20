@@ -94,7 +94,7 @@ to the bottommost route.</p>
   <pre class="language-dart"><code class="language-dart">@override
 void didRemove(Route&lt;dynamic&gt; route, Route&lt;dynamic&gt;? previousRoute) {
   super.didRemove(route, previousRoute);
-  saveLastRoute(route);
+  cleanupOnRouteChange(route);
 }</code></pre>
 </section>
 
