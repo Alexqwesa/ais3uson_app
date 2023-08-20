@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the state property from the ThemesData class, for the Dart programming language.">
-  <title>state property - ThemesData class - ui_root library - Dart API</title>
+  <meta name="description" content="API docs for the state property from the AppTheme class, for the Dart programming language.">
+  <title>state property - AppTheme class - ui_root library - Dart API</title>
 
 
   
@@ -30,7 +30,7 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../ui_root/ui_root-library.html">ui_root</a></li>
-    <li><a href="../../ui_root/ThemesData-class.html">ThemesData</a></li>
+    <li><a href="../../ui_root/AppTheme-class.html">AppTheme</a></li>
     <li class="self-crumb">state property</li>
   </ol>
   <div class="self-name">state</div>
@@ -54,7 +54,7 @@
   <div
       id="dartdoc-main-content"
       class="main-content"
-      data-above-sidebar="ui_root&#47;ThemesData-class-sidebar.html"
+      data-above-sidebar="ui_root&#47;AppTheme-class-sidebar.html"
       data-below-sidebar="">
       <div>
 <h1><span class="kind-property">state</span> property 
@@ -79,19 +79,22 @@
 
 
 <section class="desc markdown">
-  <p>The current "state" of this <a href="https://pub.dev/documentation/state_notifier/0.7.2+1/state_notifier/StateNotifier-class.html">StateNotifier</a>.</p>
-<p>Updating this variable will synchronously call all the listeners.
-Notifying the listeners is O(N) with N the number of listeners.</p>
-<p>Updating the state will throw if at least one listener throws.</p>
+  <p>The value currently exposed by this <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>.</p>
+<p>Invoking the setter will notify listeners if <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/BuildlessNotifier/updateShouldNotify.html">updateShouldNotify</a> returns true.
+By default, this will compare the previous and new value using <a href="https://api.flutter.dev/flutter/dart-core/identical.html">identical</a>.</p>
+<p>Reading <a href="../../ui_root/AppTheme/state.html">state</a> if the provider is out of date (such as if one of its
+dependency has changed) will trigger <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier/build.html">Notifier.build</a> to be re-executed.</p>
+<p>If <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier/build.html">Notifier.build</a> threw, reading <a href="../../ui_root/AppTheme/state.html">state</a> will rethow the exception.</p>
 </section>
 
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@protected
-T get state {
-  assert(_debugIsMounted(), &#39;&#39;);
-  return _state;
+State get state {
+  _element.flush();
+  &#47;&#47; ignore: invalid_use_of_protected_member
+  return _element.requireState;
 }</code></pre>
 </section>
 
@@ -110,7 +113,7 @@ T get state {
   </div>
   <span class="returntype">void</span>
   <span class="name ">state=</span><span class="signature">(<wbr><span class="parameter" id="state=-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/material/ThemeMode.html">ThemeMode</a></span> <span class="parameter-name">value</span></span>)</span>
-  <div class="features"><span class="feature">override</span></div>
+  
 
 </section>
 
@@ -141,12 +144,12 @@ set state(ThemeMode value) {
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../ui_root/ui_root-library.html">ui_root</a></li>
-    <li><a href="../../ui_root/ThemesData-class.html">ThemesData</a></li>
+    <li><a href="../../ui_root/AppTheme-class.html">AppTheme</a></li>
     <li class="self-crumb">state property</li>
 </ol>
 
 
-    <h5>ThemesData class</h5>
+    <h5>AppTheme class</h5>
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
