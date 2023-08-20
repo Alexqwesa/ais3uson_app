@@ -8,7 +8,8 @@ const qrData2WithAutossl =
     '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "защищенный SSL"}''';
 
 /// Stub data for Error Worker.
-const stubJsonWorkerKey = '''{"app": "AIS3USON web", "name": "Error: Department not found", '''
+const stubJsonWorkerKey =
+    '''{"app": "AIS3USON web", "name": "Error: Department not found", '''
     '''"worker_dep_id": 0, "api_key": "none", "dep": "Error: Department not found", '''
     '''"db": "none", "servers": "none", "comment": "Error: Department not found", "certBase64": ""}''';
 
@@ -17,6 +18,12 @@ const qrData2WithLocalCache =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №1", '''
     '''"worker_dep_id": 1, "api_key": "3.01567984187", "dep": "Тестовое отделение https://alexqwesa.fvds.ru:48082", '''
     '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "With local cache", "certBase64": "VGVzdCBwcm9maWxlIHdpdGggY2FjaGU="}'''; //Base64Encoder().convert('Test profile with cache'.codeUnits));
+
+const qrDataRealTestServer = '''
+{"app": "AIS3USON web", "name": "Worker of test department (Real DBMS)", 
+"worker_dep_id": 1, "api_key": "3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c", "dep": "Test Department", 
+"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48080", "comment": "remote DB: https://alexqwesa.fvds.ru:48080", "certBase64": ""}
+'''; //Base64Encoder().convert('Test profile with cache'.codeUnits));
 
 /// Test worker's keys in json format
 const qrCodes = [qrData2WithLocalCache];

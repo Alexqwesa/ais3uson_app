@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// This is main MaterialApp widget.
 ///
@@ -21,11 +22,12 @@ class AppRoot extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      // onGenerateInitialRoutes: defaultGenerateInitialRoutes,
+      routerConfig: ref.watch(
+        routerProvider(
+            locator<SharedPreferences>().getString(AppRouteObserver.name) ??
+                '/'),
+      ),
 
-      routerConfig: ref.watch(routerProvider(null)),
-
-      // routerDelegate: RouterDelegate(),
       //
       // > l10n
       //
@@ -94,6 +96,9 @@ class ArchiveMaterialApp extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        // right now we can only close by changing isArchive provider
+
         title: Row(
           children: [
             IconButton(

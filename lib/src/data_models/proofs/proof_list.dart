@@ -48,8 +48,10 @@ final serviceProofAtDate =
       serviceId: service.servId,
       client: ref
           .watch(service.workerProfile.clientsOf)
-          .where((element) => element.contractId == service.contractId)
-          .first
+          .firstWhere(
+            (element) => element.contractId == service.contractId,
+            orElse: () => stubClient,
+          )
           .name,
       worker: service.workerProfile.name,
       service: service.shortText,

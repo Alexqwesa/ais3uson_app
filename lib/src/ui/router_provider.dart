@@ -1,5 +1,7 @@
 import 'package:ais3uson_app/dynamic_data_models.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/helpers/global_helpers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
@@ -7,25 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'router_provider.g.dart';
 
 // final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _archiveNavigatorKey = GlobalKey<NavigatorState>();
-
-final routeInformationProvider =
-    ChangeNotifierProvider<GoRouteInformationProvider>((ref) {
-  return ref.watch(routerProvider(null)).routeInformationProvider;
-});
-
-final currentRouteProvider = Provider((ref) {
-  final location = ref.watch(routeInformationProvider).value.location;
-
-  // ref.watch(appRouteProvider.notifier).state = location ?? '/';
-  // ref.watch(appRouteProvider);
-
-  return location;
-});
 
 @riverpod
 GoRouter route(Ref ref) {
@@ -46,45 +35,77 @@ GoRouter router(Ref ref, String? initialLocation) {
       AppRouteObserver(ref),
     ],
     redirect: (context, state) {
+      Future(
+        () => locator<SharedPreferences>().setString(
+          AppRouteObserver.name,
+          state.matchedLocation,
+        ),
+      );
+
       if (archive) {
-        return '/archive${state.matchedLocation.replaceFirst('/archive', '')}';
+        if (!state.matchedLocation.startsWith('/archive')) {
+          final date = ref.watch(archiveDate) == null
+              ? 'null'
+              : standardFormat.format(ref.watch(archiveDate)!);
+          final path = '/archive/$date/${state.matchedLocation.substring(1)}';
+          return path;
+        }
+        return null;
       }
       return null; // issue https://github.com/flutter/flutter/issues/123973
     },
     routes: [
-      ..._routes(ref),
-      ShellRoute(
-        navigatorKey: _archiveNavigatorKey,
-        builder: (context, state, child) {
-          return ArchiveMaterialApp(child: child);
-        },
-        routes: _routes(ref, prefix: '/archive'),
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const HomeScreen(),
+        routes: [
+          ..._routes(ref),
+          ShellRoute(
+            navigatorKey: _archiveNavigatorKey,
+            builder: (context, state, child) {
+              return ArchiveMaterialApp(child: child);
+            },
+            routes: [
+              GoRoute(
+                path: 'archive',
+                builder: (context, state) => const HomeScreen(),
+              ),
+              // GoRoute(
+              //   path: 'archive/null',
+              //   builder: (context, state) => const HomeScreen(),
+              // ),
+              GoRoute(
+                path: 'archive/:date',
+                builder: (context, state) => const HomeScreen(),
+                routes: [
+                  ..._routes(ref),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );
 }
 
-List<GoRoute> _routes(Ref ref, {prefix = ''}) {
+List<GoRoute> _routes(Ref ref) {
   return [
     GoRoute(
-      path: prefix != '' ? '$prefix' : '/',
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '$prefix/delete_department',
+      path: 'delete_department',
       builder: (context, state) => const DeleteDepartmentScreen(),
     ),
     GoRoute(
-      path: '$prefix/dev',
+      path: 'dev',
       builder: (context, state) => const DevScreen(),
     ),
     GoRoute(
-      path: '$prefix/scan_qr',
+      path: 'scan_qr',
       builder: (context, state) => const QRScanScreen(),
     ),
     GoRoute(
-      // name: '$prefix/department',
-      path: '$prefix/department/:shortName',
+      // name: 'department',
+      path: 'department/:shortName',
       builder: (context, state) {
         final depName = state.pathParameters['shortName'];
         final wp = ref.watch(departmentsProvider.notifier)[depName];
@@ -94,15 +115,8 @@ List<GoRoute> _routes(Ref ref, {prefix = ''}) {
         GoRoute(
             path: 'client/:contractId',
             builder: (context, state) {
-              final depName = state.pathParameters['shortName'];
-              final contractId =
-                  int.tryParse(state.pathParameters['contractId'] ?? '0') ?? 0;
-              final wp = ref.watch(departmentsProvider.notifier)[depName];
-              final client = ref
-                  .watch(wp.clientsOf)
-                  .firstWhere((element) => element.contractId == contractId);
               return ProviderScope(
-                overrides: [currentClient.overrideWithValue(client)],
+                overrides: getOverrides(ref, state),
                 child: const ListOfClientServicesScreen(),
               );
             },
@@ -110,15 +124,8 @@ List<GoRoute> _routes(Ref ref, {prefix = ''}) {
               GoRoute(
                 path: 'journal',
                 builder: (context, state) {
-                  final depName = state.pathParameters['shortName'];
-                  final contractId =
-                      int.tryParse(state.pathParameters['contractId'] ?? '0') ??
-                          0;
-                  final wp = ref.watch(departmentsProvider.notifier)[depName];
-                  final client = ref.watch(wp.clientsOf).firstWhere(
-                      (element) => element.contractId == contractId);
                   return ProviderScope(
-                    overrides: [currentClient.overrideWithValue(client)],
+                    overrides: getOverrides(ref, state),
                     child: const ArchiveServicesOfClientScreen(),
                   );
                 },
@@ -126,21 +133,8 @@ List<GoRoute> _routes(Ref ref, {prefix = ''}) {
               GoRoute(
                 path: 'service/:serviceId',
                 builder: (context, state) {
-                  final depName = state.pathParameters['shortName'];
-                  final contractId =
-                      int.tryParse(state.pathParameters['contractId'] ?? '0') ??
-                          0;
-                  final serviceId =
-                      int.tryParse(state.pathParameters['serviceId'] ?? '0') ??
-                          0;
-                  final wp = ref.watch(departmentsProvider.notifier)[depName];
-                  final client = ref.watch(wp.clientsOf).firstWhere(
-                      (element) => element.contractId == contractId);
-                  final service = ref
-                      .watch(client.servicesOf)
-                      .firstWhere((element) => element.servId == serviceId);
                   return ProviderScope(
-                    overrides: [currentService.overrideWithValue(service)],
+                    overrides: getOverrides(ref, state),
                     child: const ClientServiceScreen(),
                   );
                 },
@@ -149,12 +143,46 @@ List<GoRoute> _routes(Ref ref, {prefix = ''}) {
       ],
     ),
     GoRoute(
-      path: '$prefix/settings',
+      path: 'settings',
       builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
-      path: '$prefix/add_department',
+      path: 'add_department',
       builder: (context, state) => const AddDepartmentScreen(),
     ),
+  ];
+}
+
+/// Create List of overrides from [GoRouterState].
+///
+/// Currently override:
+/// - [currentClient],
+/// - [currentService].
+List<Override> getOverrides(Ref ref, GoRouterState state) {
+  final depName = state.pathParameters['shortName'];
+  final serviceId =
+      int.tryParse(state.pathParameters['serviceId'] ?? '-1') ?? -1;
+
+  final contractId =
+      int.tryParse(state.pathParameters['contractId'] ?? '-1') ?? -1;
+
+  return [
+    currentService.overrideWith((ref) {
+      final wp = ref.watch(departmentsProvider.notifier)[depName];
+      final client = ref.watch(wp.clientsOf).firstWhere(
+          (element) => element.contractId == contractId,
+          orElse: () => stubClient);
+      final service = ref.watch(client.servicesOf).firstWhere(
+          (element) => element.servId == serviceId,
+          orElse: () => stubClientService);
+      return service;
+    }),
+    currentClient.overrideWith((ref) {
+      final wp = ref.watch(departmentsProvider.notifier)[depName];
+      final client = ref.watch(wp.clientsOf).firstWhere(
+          (element) => element.contractId == contractId,
+          orElse: () => stubClient);
+      return client;
+    })
   ];
 }

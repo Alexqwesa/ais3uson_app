@@ -24,12 +24,17 @@ class WorkerProfile {
   late final JournalHttpRepository httpRepository;
   late final ProviderOfJournal journalProvider;
 
-  Ref get ref => _ref ?? ProviderContainer() as Ref;
+  Ref get ref {
+    if (_ref == null) UnimplementedError('Unimplemented stubDepartment');
+    return _ref!;
+  }
+
   Provider<Journal> get journalOf => journalProvider.journalOf;
 
   Provider<Journal> get journalAllOf => journalProvider.journalAllOf;
 
-  String get shortName => ref.read(departmentsProvider.notifier).getShortNameByApi(apiKey);
+  String get shortName =>
+      ref.read(departmentsProvider.notifier).getShortNameByApi(apiKey);
 
   Provider<Journal> journalAtDateOf(DateTime date) =>
       journalProvider.journalAtDateOf(date);

@@ -334,7 +334,7 @@ void main() {
       final listFinder = find.byKey(const ValueKey('MainScroll'));
       expect(listFinder, findsNothing);
       expect(
-        find.textContaining(tr().servicesNotFound),
+        find.textContaining(tr().noServicesForClient),
         findsOneWidget,
       );
     });
