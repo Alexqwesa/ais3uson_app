@@ -77,7 +77,10 @@
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Ref get ref =&gt; _ref ?? ProviderContainer() as Ref;</code></pre>
+  <pre class="language-dart"><code class="language-dart">Ref get ref {
+  if (_ref == null) UnimplementedError(&#39;Unimplemented stubDepartment&#39;);
+  return _ref!;
+}</code></pre>
 </section>
 
 </section>

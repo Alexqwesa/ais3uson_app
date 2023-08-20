@@ -91,7 +91,7 @@ route, is <code>previousRoute</code>.</p>
 void didPush(Route&lt;dynamic&gt; route, Route&lt;dynamic&gt;? previousRoute) {
   super.didPush(route, previousRoute);
 
-  saveLastRoute(route); &#47;&#47; note : take new route name that just pushed
+  cleanupOnRouteChange(route); &#47;&#47; note : take new route name that just pushed
 }</code></pre>
 </section>
 
