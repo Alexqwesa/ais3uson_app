@@ -20,7 +20,7 @@ final routeProvider = AutoDisposeProvider<GoRouter>.internal(
 );
 
 typedef RouteRef = AutoDisposeProviderRef<GoRouter>;
-String _$routerHash() => r'cf4bc2005bb0a35cf8770f13dc7ee75aa5638149';
+String _$routerHash() => r'7f41a001043bfb520ea6e7f157a6e945097c58b9';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -4,7 +4,7 @@
 ///
 /// - Root Widget of app [AppRoot], which provides:
 /// - Switch between archive and normal views.
-/// - Routes, themes(via provider [standardTheme]), translations (`tr()`).
+/// - Routes, themes(via provider [appThemeProvider]), translations (`tr()`).
 /// - [HomeScreen] screen for displaying main menu and [ListOfDepartments]. It is initial route of app.
 /// - [SettingsScreen],
 /// - [DevScreen] - about developers + tests.
@@ -16,11 +16,12 @@ import 'package:ais3uson_app/ui_root.dart';
 
 export 'package:ais3uson_app/src/ui/app_root.dart';
 export 'package:ais3uson_app/src/ui/app_route_observer.dart';
+export 'package:ais3uson_app/src/ui/app_theme_provider.dart';
+export 'package:ais3uson_app/src/ui/archive_shell_route.dart';
 export 'package:ais3uson_app/src/ui/dev_screen.dart';
 export 'package:ais3uson_app/src/ui/home_screen.dart';
 export 'package:ais3uson_app/src/ui/router_provider.dart'
     show routeProvider, routerProvider;
 export 'package:ais3uson_app/src/ui/settings_screen.dart';
-export 'package:ais3uson_app/src/ui/themes_data.dart';
 
 // export 'ui_departments/list_of_departments.dart';

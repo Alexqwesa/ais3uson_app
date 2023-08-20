@@ -118,11 +118,12 @@ class HomeScreen extends ConsumerWidget {
                       if (ref.read(archiveDate) == null) {
                         ref.read(isArchive.notifier).state = true;
                         context.push('/archive');
-                        ArchiveMaterialApp.setArchiveOnWithDatePicker(
+                        ArchiveShellRoute.setArchiveOnWithDatePicker(
                           context,
                           ref,
                         );
                       } else {
+                        context.push('/');
                         ref.read(isArchive.notifier).state = false;
                       }
                     },
@@ -165,12 +166,12 @@ class HomeScreen extends ConsumerWidget {
                         inactiveBgColor: const Color(0xffECEFF1),
                         inactiveFgColor: Colors.black,
                         initialLabelIndex: [ThemeMode.light, ThemeMode.dark]
-                            .indexOf(ref.watch(standardTheme)),
+                            .indexOf(ref.watch(appThemeProvider)),
                         totalSwitches: 2,
                         labels: [tr().light, tr().dark],
                         radiusStyle: true,
                         onToggle: (index) {
-                          ref.read(standardTheme.notifier).state = [
+                          ref.read(appThemeProvider.notifier).state = [
                             ThemeMode.light,
                             ThemeMode.dark,
                           ].elementAt(index ?? 0);

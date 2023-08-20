@@ -1,8 +1,10 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'app_theme_provider.g.dart';
 
 /// Theme Provider with support switching dark/light.
 ///
@@ -10,16 +12,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Depend on [locator]<SharedPreferences>.
 ///
 /// {@category UI Root}
-final standardTheme = StateNotifierProvider<ThemesData, ThemeMode>((ref) {
-  return ThemesData();
-});
-
-class ThemesData extends StateNotifier<ThemeMode> {
-  ThemesData()
-      : super(
-          [ThemeMode.light, ThemeMode.dark]
-              .elementAt(locator<SharedPreferences>().getInt(name) ?? 0),
-        );
+@Riverpod(keepAlive: true)
+class AppTheme extends _$AppTheme {
+  @override
+  ThemeMode build() {
+    return [ThemeMode.light, ThemeMode.dark]
+        .elementAt(locator<SharedPreferences>().getInt(name) ?? 0);
+  }
 
   static const name = 'themeIndex';
 

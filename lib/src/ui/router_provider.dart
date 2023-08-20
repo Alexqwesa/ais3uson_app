@@ -63,7 +63,7 @@ GoRouter router(Ref ref, String? initialLocation) {
           ShellRoute(
             navigatorKey: _archiveNavigatorKey,
             builder: (context, state, child) {
-              return ArchiveMaterialApp(child: child);
+              return ArchiveShellRoute(child: child);
             },
             routes: [
               GoRoute(
