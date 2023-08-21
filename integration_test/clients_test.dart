@@ -19,7 +19,7 @@ Future<void> main() async {
 
   setUpAll(() async {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-    await initReal();
+    await initAndSetCertificate();
   });
   setUp(() async {
     // set SharedPreferences values

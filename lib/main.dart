@@ -97,19 +97,14 @@ Future<void> init() async {
   }
 }
 
-/// Init application, init [Hive].
-///
-/// Create [OverlaySupport] and call [AppRoot].
-///
-/// {@category UI Root}
-/// {@category About}
+
 Future<void> main() async {
-  await initReal();
-  // run
+  await initAndSetCertificate();
   await runMain();
 }
 
-Future<void> initReal() async {
+/// Should only called once, call [init] inside, and set certificate.
+Future<void> initAndSetCertificate() async {
   //
   // > init for tests
   //
@@ -126,12 +121,17 @@ Future<void> initReal() async {
 
 }
 
+/// Run application, init [Hive], set urlStrategy, and demo data.
+///
+/// Create [OverlaySupport] and call [AppRoot].
+///
+/// {@category UI Root}
+/// {@category About}
 Future<void> runMain() async {
   //
   // > hive init
   //
   await Hive.initFlutter('Ais3uson');
-  final testClient = testWorkerKey().certBase64;
 
   usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
@@ -139,7 +139,8 @@ Future<void> runMain() async {
     child: ProviderScope(
       observers: [AppProviderObserver()],
       overrides: [
-        httpClientProvider(testClient).overrideWithValue(getMockHttpClient()),
+        // stub data for demo mode and testing
+        httpClientProvider(testWorkerKey().certBase64).overrideWithValue(getMockHttpClient()),
       ],
       child: const AppRoot(),
     ),
