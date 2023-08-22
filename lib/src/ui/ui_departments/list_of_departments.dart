@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Helper for HomeScreen, this widget: show list of [WorkerProfile].
+/// Helper for HomeScreen, this widget: show list of [Worker].
 ///
-/// {@category UI WorkerProfiles}
+/// {@category UI Workers}
 class ListOfDepartments extends ConsumerWidget {
   const ListOfDepartments({super.key});
 

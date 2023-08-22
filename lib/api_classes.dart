@@ -13,7 +13,7 @@
 ///
 /// First [repositoryHttp] get data from server and store it into hive
 /// then it is converted to Json. Then it is converted to classes and assigned to providers of
-/// [WorkerProfile].
+/// [Worker].
 ///
 /// Detailed API online at [https://alexqwesa.fvds.ru:48080/docs](https://alexqwesa.fvds.ru:48080/docs)
 ///  (usually it online `from 02:00 to 16:00 GMT` - didn't send it to cloud yet...) ,
@@ -52,7 +52,7 @@ library api_classes;
 
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';

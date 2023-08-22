@@ -10,9 +10,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-/// Show screen with main menu and with list of [WorkerProfile].
+/// Show screen with main menu and with list of [Worker].
 ///
-/// {@category UI WorkerProfiles}
+/// {@category UI Workers}
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 

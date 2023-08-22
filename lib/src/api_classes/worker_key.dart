@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'worker_key.freezed.dart';
@@ -9,7 +9,7 @@ part 'worker_key.g.dart';
 
 /// Immutable class to create [WorkerKey] from/to JSON strings.
 ///
-/// api_key - should be unique for each [WorkerProfile].
+/// api_key - should be unique for each [Worker].
 ///
 /// And few parsing methods[].
 /// TODO: implement active server switch.

@@ -6,11 +6,11 @@ part of 'departments.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$departmentsHash() => r'64c894188ca0343f2c1fe503ab1266dcbbf32ce3';
+String _$departmentsHash() => r'e3b02c7cab6c64b5059543cf0de8438630f93ac6';
 
-/// Provider and controller of List<[WorkerProfile]>.
+/// Provider and controller of List<[Worker]>.
 ///
-/// Add, save, delete and load [WorkerProfile].
+/// Add, save, delete and load [Worker].
 /// which are saved by [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
@@ -19,7 +19,7 @@ String _$departmentsHash() => r'64c894188ca0343f2c1fe503ab1266dcbbf32ce3';
 /// Copied from [Departments].
 @ProviderFor(Departments)
 final departmentsProvider =
-    NotifierProvider<Departments, List<WorkerProfile>>.internal(
+    NotifierProvider<Departments, List<Worker>>.internal(
   Departments.new,
   name: r'departmentsProvider',
   debugGetCreateSourceHash:
@@ -28,6 +28,6 @@ final departmentsProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Departments = Notifier<List<WorkerProfile>>;
+typedef _$Departments = Notifier<List<Worker>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

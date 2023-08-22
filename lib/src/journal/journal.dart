@@ -16,7 +16,7 @@ import 'package:universal_html/html.dart' as html;
 
 /// Journal of services.
 ///
-/// The [Journal] class is a member of [WorkerProfile],
+/// The [Journal] class is a member of [Worker],
 /// it manage worker's input([ServiceOfJournal]),
 /// and provides access to them via lists of services [ServiceOfJournal].
 ///
@@ -31,10 +31,10 @@ import 'package:universal_html/html.dart' as html;
 /// The [JournalArchive] class is a cut version of [Journal],
 /// it store old `finished` and `outDated services.
 ///
-/// Each instance of [WorkerProfile] can access [Journal] classes via providers:
+/// Each instance of [Worker] can access [Journal] classes via providers:
 ///
-/// - [WorkerProfile.journalOf],
-/// - [WorkerProfile.journalAtDateOf].
+/// - [Worker.journalOf],
+/// - [Worker.journalAtDateOf].
 ///
 /// [ClientProfile] can access both `Journal` classes at once via [allServicesOfClient].
 ///
@@ -48,15 +48,15 @@ class Journal extends BaseJournal {
 
   final _lock = Lock();
 
-  Box<ServiceOfJournal> get hive => hiveRepository.hive; // only for test
+  Box<ServiceOfJournal> get hive => hiveRepository.openHive.requireValue; // only for test
 
   Ref get ref => workerProfile.ref;
 
-  JournalHiveRepository get hiveRepository => workerProfile.hiveRepository;
+HiveRepository get hiveRepository => workerProfile.hiveRepository;
 
   JournalHttpRepository get httpRepository => workerProfile.httpRepository;
 
-  Provider<List<ServiceOfJournal>> get servicesOf => hiveRepository.servicesOf;
+  HiveRepositoryProvider get servicesOf => hiveRepositoryProvider(apiKey);
 
   //
   // > main list of services
@@ -143,7 +143,7 @@ class Journal extends BaseJournal {
   Future<void> archiveOldServices() async {
     final forDelete = _forArchive.toList();
     if (forDelete.isNotEmpty) {
-      final res = await hiveRepository.archiveOldServices(forDelete: forDelete);
+      final res = await hiveRepository.archiveOldServices(forDelete);
       //
       // > delete finished old services and save hive
       //
@@ -291,7 +291,7 @@ class Journal extends BaseJournal {
   }
 
   /// Mark all finished service as [ServiceState.outDated]
-  /// after [WorkerProfileLogic.clientsPlanOf] synchronized.
+  /// after [Worker.clientsPlanOf] synchronized.
   // TODO: delete it
   @override
   Future<void> updateBasedOnNewPlanDate() async {

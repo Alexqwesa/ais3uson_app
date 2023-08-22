@@ -9,7 +9,7 @@ import 'package:tuple/tuple.dart';
 class ProviderOfJournal {
   const ProviderOfJournal(this.workerProfile);
 
-  final WorkerProfile workerProfile;
+  final Worker workerProfile;
 
   Provider<Journal> get realJournalOf => __journalOfWorker(workerProfile);
 
@@ -22,14 +22,14 @@ class ProviderOfJournal {
       _journalOfWorkerAtDate(Tuple2(workerProfile, date));
 }
 
-/// Provider of [Journal] for [WorkerProfile].
+/// Provider of [Journal] for [Worker].
 ///
 /// It check is update needed, and auto update list.
 /// Return List<[ClientPlan]>.
 ///
 /// {@category Providers}
 /// {@category Journal}
-final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
+final _journalOfWorker = Provider.family<Journal, Worker>((ref, wp) {
   ref.watch(isArchive);
 
   return ref.watch(archiveDate) != null
@@ -37,12 +37,12 @@ final _journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
       : ref.watch(__journalOfWorker(wp));
 });
 
-/// Provider of [Journal] for [WorkerProfile] at specific date.
+/// Provider of [Journal] for [Worker] at specific date.
 ///
 /// {@category Providers}
 /// {@category Journal}
 final _journalOfWorkerAtDate =
-    Provider.family<Journal, Tuple2<WorkerProfile, DateTime?>>((ref, tuple) {
+    Provider.family<Journal, Tuple2<Worker, DateTime?>>((ref, tuple) {
   final wp = tuple.item1;
   final date = tuple.item2;
 
@@ -52,13 +52,13 @@ final _journalOfWorkerAtDate =
 });
 
 /// This Journal, is the only one who can write new services to Hive.
-final __journalOfWorker = Provider.family<Journal, WorkerProfile>((ref, wp) {
+final __journalOfWorker = Provider.family<Journal, Worker>((ref, wp) {
   return Journal(wp);
 });
 
 /// Archived version of Journal at date, depend on archiveDate.
 final _journalArchiveOfWorker =
-    Provider.family<Journal, WorkerProfile>((ref, wp) {
+    Provider.family<Journal, Worker>((ref, wp) {
   ref.watch(archiveDate);
 
   return JournalArchive(wp);
@@ -68,6 +68,6 @@ final _journalArchiveOfWorker =
 ///
 /// Exist just for caching results.
 final _journalArchiveAllOfWorker =
-    Provider.family<Journal, WorkerProfile>((ref, wp) {
+    Provider.family<Journal, Worker>((ref, wp) {
   return JournalArchiveAll(wp);
 });

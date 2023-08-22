@@ -2,65 +2,67 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:collection/collection.dart';
 import 'package:hive/hive.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:synchronized/synchronized.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/// This class load/save List of [ServiceOfJournal] of [Journal].
+part 'journal_hive_repository.g.dart';
+
+/// This class load/save List of [ServiceOfJournal] for [Journal].
 ///
-/// and export it into json format.
-class JournalHiveRepository {
-  JournalHiveRepository(this.workerProfile);
-
-  final WorkerProfile workerProfile;
-
-  late Box<ServiceOfJournal> hive; // only for test
-  late final Box<ServiceOfJournal> hiveArchive; // todo: use provider
-
-  Ref get ref => workerProfile.ref;
+/// It also:
+///
+/// - post new service,
+/// - delete service,
+/// - read services from hive(async) but provide sync values,
+/// - and export it into json format.
+///
+/// {@category Providers}
+/// {@category Journal}
+@Riverpod(keepAlive: true)
+class HiveRepository extends _$HiveRepository {
+  bool init = false;
+  // final preinit = <ServiceOfJournal>[];
 
   String get journalHiveName => 'journal_$apiKey';
 
-  String get apiKey => workerProfile.apiKey;
+  String get archiveHiveName => 'journal_archive_$apiKey';
 
-  Provider<List<ServiceOfJournal>> get servicesOf => Provider((ref) =>
-      ref.watch(_controllerOf(ref.watch(workerProfile.journalOf))) ?? []);
+  AsyncValue<Box<ServiceOfJournal>> get openHive =>
+      ref.watch(hiveJournalBox(journalHiveName));
 
-  Future<Box<ServiceOfJournal>> get openHive async {
-    return Hive.openBox<ServiceOfJournal>(journalHiveName);
+  AsyncValue<Box<ServiceOfJournal>> get openArchiveHive =>
+      ref.watch(hiveJournalBox(archiveHiveName));
+
+  @override
+  List<ServiceOfJournal> build(String apiKey) {
+    return openHive.when(
+      data: (hive) {
+        //
+        // > archive old services
+        //
+        final data = hive.values;
+        Future(() => archiveOldServices(data));
+        final toDay = DateTime.now().dateOnly();
+        init = true;
+        return [
+          ...data.where((element) => element.provDate.dateOnly() == toDay),
+          // ...preinit
+        ];
+      },
+      error: (o, stack) {
+        log.severe('Error loading Hive');
+        return [];
+      },
+      loading: () => [], // stub?
+    );
   }
 
-  /// Return json String with [ServiceOfJournal] between dates [start] and [end]
-  ///
-  /// It gets values from both hive and hiveArchive.
-  /// The [end] date is not included,
-  ///  the dates [DateTime] should be rounded to zero time.
-  Future<String> export(DateTime start, DateTime end) async {
-    // await save();
-    hive = await openHive;
-    hiveArchive =
-        await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
-
-    return jsonEncode({
-      'api_key': workerProfile.apiKey,
-      'services': [
-        ...hive.values
-            .where((s) => s.provDate.isAfter(start) && s.provDate.isBefore(end))
-            .map((e) => e.toJson()),
-        ...hiveArchive.values
-            .where((s) => s.provDate.isAfter(start) && s.provDate.isBefore(end))
-            .map((e) => e.toJson()),
-      ],
-    });
-  }
-
-  /// This function move old finished(and outDated) services to [hiveArchive].
+  /// This function move old finished(and outDated) services to Hive box with name [archiveHiveName].
   ///
   /// There are two reason to archive services,
   /// first - we want active hiveBox small and fast on all devices,
@@ -70,163 +72,95 @@ class JournalHiveRepository {
   /// Archive is only for committed services.
   /// Only hiveArchiveLimit number of services could be stored in archive,
   /// the oldest services will be deleted first.
-  Future<void> archiveOldServices({
-    required List<ServiceOfJournal> forDelete,
-  }) async {
+  Future<void> archiveOldServices(
+      Iterable<ServiceOfJournal> currentState) async {
     //
     // > open hive archive and add old services
     //
-    await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
-    hiveArchive = ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-    final forArchive = forDelete.map((e) => e.copyWith());
-    if (forArchive.isNotEmpty) {
-      await hiveArchive.addAll(forArchive); // check duplicates error
-      //
-      // > keep only [archiveLimit] number of services, delete oldest and close
-      //
-      // todo: check if hiveArch always place new services last,
-      //  in that case we can just use deleteAt()
-      final archList = hiveArchive.values.toList()
-        ..sort((a, b) => a.provDate.compareTo(b.provDate))
-        ..reversed;
-      final archiveLimit = ref.read(hiveArchiveSizeProvider);
-      if (hiveArchive.length > archiveLimit) {
+    openArchiveHive.whenData((hiveArchive) async {
+      final toDay = DateTime.now().dateOnly();
+      final forDelete = currentState
+          .whereNot((element) => element.provDate.dateOnly() == toDay);
+      final forArchive = forDelete.map((e) => e.copyWith());
+      if (forArchive.isNotEmpty) {
+        await hiveArchive.addAll(forArchive); // check duplicates error
         //
-        // > delete all services after archList[archiveLimit]
+        // > keep only [archiveLimit] number of services, delete oldest and close
         //
-        await hiveArchive.deleteAll(
-          archList.slice(archiveLimit).map<dynamic>((e) => e.key),
-        );
-      }
-      await hiveArchive.compact();
-      //
-      // > update datesInArchive
-      //
-      await updateDatesInArchiveOfProfile();
-    }
-  }
-
-  Future<void> updateDatesInArchiveOfProfile() async {
-    await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
-    final hiveArchive =
-        ref.read(hiveJournalBox('journal_archive_$apiKey')).value!;
-
-    await ref
-        .read(controllerDatesInArchive(apiKey).notifier)
-        .updateFrom(hiveArchive.values);
-  }
-
-  Future<void> delete(ServiceOfJournal service) async {
-    await ref
-        .read(_controllerOf(ref.read(workerProfile.journalOf)).notifier)
-        .delete(service);
-  }
-
-  Future<void> post(ServiceOfJournal service) async {
-    await ref
-        .read(_controllerOf(ref.read(workerProfile.journalOf)).notifier)
-        .post(service);
-  }
-
-  Future<void> initAsync() async {
-    await ref
-        .read(_controllerOf(ref.read(workerProfile.journalOf)).notifier)
-        .initAsync();
-  }
-
-  // List<ServiceOfJournal> get _listOfServices {
-  //   return ref.watch(_controllerOf(ref.watch(workerProfile.journalOf))) ?? [];
-  // }
-}
-
-/// Controller of List<[ServiceOfJournal]> for [Journal] class.
-///
-/// See [_ControllerOfJournal] for more information.
-///
-/// {@category Providers}
-/// {@category Journal}
-final _controllerOf = StateNotifierProvider.family<_ControllerOfJournal,
-    List<ServiceOfJournal>?, Journal>((ref, journal) {
-  ref.watch(archiveDate);
-  final state = _ControllerOfJournal(journal);
-  () async {
-    await state.initAsync();
-  }();
-
-  return state;
-});
-
-final _hiveLockProvider = Provider((ref) => Lock());
-
-/// Controller of List<[ServiceOfJournal]> for [Journal] class, it:
-///
-/// - post new service,
-/// - delete service,
-/// - read services from hive(async),
-/// - call [Journal.archiveOldServices].
-/// Based on [Journal.aData] it filter list by date, or accept all if null.
-///
-/// {@category Providers}
-/// {@category Journal}
-class _ControllerOfJournal extends StateNotifier<List<ServiceOfJournal>?> {
-  _ControllerOfJournal(this.journal) : super(null);
-
-  final Journal journal;
-
-  Ref get ref => journal.workerProfile.ref;
-
-  Future<void> initAsync() async {
-    //
-    // > if first load
-    //
-    await ref.read(_hiveLockProvider).synchronized(() async {
-      if (super.state == null) {
-        // open hiveBox
-        await ref.read(hiveJournalBox(journal.journalHiveName).future);
-        super.state = [
-          ...state,
+        // todo: check if hiveArch always place new services last,
+        //  in that case we can just use deleteAt()
+        final archList = hiveArchive.values.toList()
+          ..sort((a, b) => a.provDate.compareTo(b.provDate))
+          ..reversed;
+        final archiveLimit = ref.read(hiveArchiveSizeProvider);
+        if (hiveArchive.length > archiveLimit) {
           //
-          // > read or read filter from hive
+          // > delete all services after archList[archiveLimit]
           //
-          if (journal.aData == null)
-            ...ref.read(hiveJournalBox(journal.journalHiveName)).value!.values
-          else
-            ...ref
-                .read(hiveJournalBox(journal.journalHiveName))
-                .value!
-                .values
-                .where((element) =>
-                    element.provDate.daysSinceEpoch ==
-                    journal.aData!.daysSinceEpoch),
-        ];
+          await hiveArchive.deleteAll(
+            archList.slice(archiveLimit).map<dynamic>((e) => e.key),
+          );
+        }
+        await hiveArchive.compact();
         //
-        // > archive old services
+        // > update datesInArchive
         //
-        await journal.archiveOldServices();
+        await updateArchiveDatesCache();
       }
     });
   }
 
-  Future<int> post(ServiceOfJournal s) async {
-    state = [...state, s];
-    await ref.read(hiveJournalBox(journal.journalHiveName).future);
-    final hive = ref.read(hiveJournalBox(journal.journalHiveName)).value;
-
-    return await hive?.add(s) ?? -1;
+  Future<void> updateArchiveDatesCache() async {
+    openArchiveHive.whenData((hiveArchive) async {
+      await ref
+          .read(controllerDatesInArchive(apiKey).notifier)
+          .updateFrom(hiveArchive.values);
+    });
   }
 
-  @override
-  List<ServiceOfJournal> get state {
-    return super.state ?? <ServiceOfJournal>[];
+  /// Return json String with [ServiceOfJournal] between dates [start] and [end]
+  ///
+  /// It gets values from both hive and hiveArchive.
+  /// The [end] date is not included,
+  ///  the dates [DateTime] should be rounded to zero time.
+  Future<String> export(DateTime start, DateTime end) async {
+    Iterable<ServiceOfJournal> curState = state;
+    if (openHive.isLoading) {
+      await ref.read(hiveJournalBox(journalHiveName).future);
+      curState = openHive.requireValue.values;
+    }
+
+    await ref.read(hiveJournalBox(archiveHiveName).future);
+    final hiveArchive = openArchiveHive.requireValue.values;
+
+    return jsonEncode({
+      'api_key': apiKey,
+      'services': [
+        ...curState
+            .where((s) => s.provDate.isAfter(start) && s.provDate.isBefore(end))
+            .map((e) => e.toJson()),
+        ...hiveArchive
+            .where((s) => s.provDate.isAfter(start) && s.provDate.isBefore(end))
+            .map((e) => e.toJson()),
+      ],
+    });
+  }
+
+  Future<int> post(ServiceOfJournal s) async {
+    if (!init) return -1;
+    // await ref.read(hiveJournalBox(journalHiveName).future);
+
+    state = [...state, s];
+
+    return await openHive.value?.add(s) ?? -1;
   }
 
   Future<void> delete(ServiceOfJournal s) async {
-    state = state.whereNot((element) => element.uid == s.uid).toList(
-          growable: false,
-        );
-    await ref.read(hiveJournalBox(journal.journalHiveName).future);
-    final hive = ref.read(hiveJournalBox(journal.journalHiveName)).value;
+    if (!init) return;
 
-    await hive?.delete(s.key);
+    openHive.whenData((hive) {
+      state = state.whereNot((element) => element.uid == s.uid).toList();
+      hive.delete(s.key);
+    });
   }
 }

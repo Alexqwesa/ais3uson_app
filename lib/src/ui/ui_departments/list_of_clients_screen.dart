@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ConsumerWidget, WidgetRef;
 
-/// Show screen with client of [WorkerProfile].
+/// Show screen with client of [Worker].
 ///
-/// {@category UI WorkerProfiles}
+/// {@category UI Workers}
 class ListOfClientsScreen extends ConsumerWidget {
-  final WorkerProfile workerProfile;
+  final Worker workerProfile;
 
   const ListOfClientsScreen({required this.workerProfile, super.key});
 
@@ -71,7 +71,7 @@ class ClientCard extends ConsumerWidget {
     super.key,
   });
 
-  final WorkerProfile department;
+  final Worker department;
   final ClientProfile client;
   final int index;
 

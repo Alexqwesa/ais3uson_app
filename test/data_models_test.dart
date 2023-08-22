@@ -79,7 +79,7 @@ void main() {
           );
       expect(
         ref.read(departmentsProvider).first,
-        isA<WorkerProfile>(),
+        isA<Worker>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
     });
@@ -93,7 +93,7 @@ void main() {
           );
       expect(
         ref.read(departmentsProvider).first,
-        isA<WorkerProfile>(),
+        isA<Worker>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
       expect(ref.read(departmentsProvider).length, 1);
@@ -115,7 +115,7 @@ void main() {
       expect(ref.read(departmentsProvider).length, 1);
       expect(
         ref.read(departmentsProvider).first,
-        isA<WorkerProfile>(),
+        isA<Worker>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
       expect(ref.read(departmentsProvider).length, 1);

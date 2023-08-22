@@ -6,11 +6,11 @@
 ///  - it archive old services,
 ///  - it send delete requests.
 ///
-/// Each instance of [WorkerProfile] let access to [Journal] classes via providers:
+/// Each instance of [Worker] let access to [Journal] classes via providers:
 ///
-/// - [WorkerProfile.journalOf],
-/// - [WorkerProfile.journalAtDateOf],  // archived services at date
-/// - [WorkerProfile.journalAllOf].     // all archived services
+/// - [Worker.journalOf],
+/// - [Worker.journalAtDateOf],  // archived services at date
+/// - [Worker.journalAllOf].     // all archived services
 ///
 /// These providers point to a three classes [Journal], [JournalArchive] and [JournalArchiveAll].
 ///
@@ -22,8 +22,8 @@
 ///
 library journal;
 
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/src/data_models_with_logic/worker_profile_logic.dart';
 
 export 'package:ais3uson_app/src/api_classes/inner/service_of_journal.dart';
 export 'package:ais3uson_app/src/api_classes/inner/service_state.dart';

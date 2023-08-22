@@ -52,7 +52,7 @@ void main() {
   // > Tests start
   //
   group('Tests for Providers', () {
-    test('it create WorkerProfiles from SharedPreferences', () async {
+    test('it create Workers from SharedPreferences', () async {
       await locator<SharedPreferences>().setString(
         Departments.name,
         '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
@@ -88,7 +88,12 @@ void main() {
         ref.read(departmentsProvider).first.apiKey,
         '3.01567984187',
       );
+
+      // await Hive.openBox<ServiceOfJournal>(ref.read(departmentsProvider).first.journal.journalHiveName);
       await ref.read(departmentsProvider).first.journal.postInit();
+      ref.refresh(departmentsProvider);
+      await ref.pump();
+
       expect(
           ref.read(ref.read(departmentsProvider).first.journal.servicesOf), []);
       // expect( ref.read(workerProfiles).first.ref.toString() ,"" );
@@ -161,15 +166,29 @@ void main() {
             .first
             .journal
             .postInit(); // init journal
+
         //
         // > test that services are in archive
         //
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
           'journal_archive_${ref.read(departmentsProvider).first.apiKey}',
         );
+        // expect(ref
+        //       .read(hiveRepositoryProvider(wKey.apiKey).notifier).init, true);
+        //
+        //
+        // ref.refresh(hiveRepositoryProvider(wKey.apiKey));
+        // await ref.pump();
+
         expect(hiveArchive.length, 40);
         expect(
-          ref.read(departmentsProvider).first.hiveRepository.hive.values.length,
+          ref
+              .read(departmentsProvider)
+              .first
+              .hiveRepository
+              .openHive
+              .requireValue
+              .length,
           0,
         );
         //

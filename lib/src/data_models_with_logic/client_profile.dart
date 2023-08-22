@@ -1,14 +1,34 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ais3uson_app/providers.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'client_profile.g.dart';
 
 /// Extension of [ClientProfile] with providers:
 /// [servicesOf] - provider of list of [ClientService].
 ///
 /// {@category Data Models Logic}
-extension ClientProfileLogic on ClientProfile {
-  List<ClientService> get services => workerProfile.ref.read(servicesOf);
+@Riverpod(keepAlive: true)
+class ClientProfile extends _$ClientProfile {
+  @override
+  ClientEntry build({required String apiKey, required ClientEntry entry}) {
+    return entry;
+  }
+
+  // get workerProfile => ref.watch(state.);
+  // ClientEntry get ClientEntry => state;
+
+  int get contractId => state.contractId;
+
+  String get name => state.client;
+
+  String get contract => state.contract;
+
+  Worker get workerProfile => ref.watch(departmentsProvider.notifier).byApi(apiKey);
+
+  List<ClientService> get services => ref.watch(servicesOfClient(this));
 
   Provider<List<ServiceOfJournal>> get allServicesOf =>
       allServicesOfClient(this);

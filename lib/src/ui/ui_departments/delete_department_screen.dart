@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Show screen where user can delete [WorkerProfile].
+/// Show screen where user can delete [Worker].
 ///
-/// {@category UI WorkerProfiles}
+/// {@category UI Workers}
 class DeleteDepartmentScreen extends ConsumerWidget {
   const DeleteDepartmentScreen({super.key});
 

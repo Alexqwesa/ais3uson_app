@@ -2,14 +2,14 @@
 ///
 /// Top level providers of the application, they provide the entry points for UI components.
 ///
-/// [departmentsProvider] - Store List of [WorkerProfile]s
+/// [departmentsProvider] - Store List of [Worker]s
 ///
 /// [isArchive] - Show archive date or today's data(helper [archiveDate] let select the date).
 ///
 library providers;
 
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/data_models_with_logic/worker_profile_logic.dart';
 
 export 'package:ais3uson_app/src/providers/app_provider_observer.dart';
 export 'package:ais3uson_app/src/providers/departments.dart';

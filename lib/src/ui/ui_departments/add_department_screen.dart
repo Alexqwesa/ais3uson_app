@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -11,12 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Show screen where user can add [WorkerProfile] from text string.
+/// Show screen where user can add [Worker] from text string.
 ///
 /// Used in case of devices without camera...
 /// Also used to add test department.
 ///
-/// {@category UI WorkerProfiles}
+/// {@category UI Workers}
 class AddDepartmentScreen extends ConsumerWidget {
   const AddDepartmentScreen({super.key});
 

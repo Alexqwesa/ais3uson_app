@@ -1,5 +1,5 @@
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,8 +17,8 @@ part 'client_service.freezed.dart';
 @freezed
 class ClientService with _$ClientService {
   const factory ClientService({
-    /// Reference to existing [WorkerProfile].
-    required WorkerProfile workerProfile,
+    /// Reference to existing [Worker].
+    required Worker workerProfile,
 
     /// Reference to existing [ServiceEntry].
     required ServiceEntry service,

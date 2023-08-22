@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ClientService {
-  /// Reference to existing [WorkerProfile].
-  WorkerProfile get workerProfile => throw _privateConstructorUsedError;
+  /// Reference to existing [Worker].
+  Worker get workerProfile => throw _privateConstructorUsedError;
 
   /// Reference to existing [ServiceEntry].
   ServiceEntry get service => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $ClientServiceCopyWith<$Res> {
       _$ClientServiceCopyWithImpl<$Res, ClientService>;
   @useResult
   $Res call(
-      {WorkerProfile workerProfile,
+      {Worker workerProfile,
       ServiceEntry service,
       ClientPlan planned,
       DateTime? date});
@@ -71,7 +71,7 @@ class _$ClientServiceCopyWithImpl<$Res, $Val extends ClientService>
       workerProfile: null == workerProfile
           ? _value.workerProfile
           : workerProfile // ignore: cast_nullable_to_non_nullable
-              as WorkerProfile,
+              as Worker,
       service: null == service
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ abstract class _$$_ClientServiceCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {WorkerProfile workerProfile,
+      {Worker workerProfile,
       ServiceEntry service,
       ClientPlan planned,
       DateTime? date});
@@ -144,7 +144,7 @@ class __$$_ClientServiceCopyWithImpl<$Res>
       workerProfile: null == workerProfile
           ? _value.workerProfile
           : workerProfile // ignore: cast_nullable_to_non_nullable
-              as WorkerProfile,
+              as Worker,
       service: null == service
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
@@ -171,9 +171,9 @@ class _$_ClientService extends _ClientService {
       this.date = null})
       : super._();
 
-  /// Reference to existing [WorkerProfile].
+  /// Reference to existing [Worker].
   @override
-  final WorkerProfile workerProfile;
+  final Worker workerProfile;
 
   /// Reference to existing [ServiceEntry].
   @override
@@ -218,7 +218,7 @@ class _$_ClientService extends _ClientService {
 
 abstract class _ClientService extends ClientService {
   const factory _ClientService(
-      {required final WorkerProfile workerProfile,
+      {required final Worker workerProfile,
       required final ServiceEntry service,
       required final ClientPlan planned,
       final DateTime? date}) = _$_ClientService;
@@ -226,8 +226,8 @@ abstract class _ClientService extends ClientService {
 
   @override
 
-  /// Reference to existing [WorkerProfile].
-  WorkerProfile get workerProfile;
+  /// Reference to existing [Worker].
+  Worker get workerProfile;
   @override
 
   /// Reference to existing [ServiceEntry].

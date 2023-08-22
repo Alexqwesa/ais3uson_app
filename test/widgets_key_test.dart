@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 // ignore_for_file: unnecessary_import
 
@@ -313,8 +312,8 @@ void main() {
       expect(wp.clients[1].services.isEmpty, true);
       expect(wp.clients[0].services.isEmpty, false);
       final widgetForTesting = ProviderScope(overrides: [
-        currentClient.overrideWithValue(
-            ref.read(departmentsProvider).first.clients[1])
+        currentClient
+            .overrideWithValue(ref.read(departmentsProvider).first.clients[1])
       ], child: const ListOfClientServicesScreen());
       await tester.pumpWidget(
         ProviderScope(

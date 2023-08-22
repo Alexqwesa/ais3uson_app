@@ -1,4 +1,3 @@
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/helpers/global_helpers.dart';
@@ -171,17 +170,17 @@ List<Override> getOverrides(Ref ref, GoRouterState state) {
       final wp = ref.watch(departmentsProvider.notifier)[depName];
       final client = ref.watch(wp.clientsOf).firstWhere(
           (element) => element.contractId == contractId,
-          orElse: () => stubClient);
+          orElse: () => ref.read(stubClientProvider));
       final service = ref.watch(client.servicesOf).firstWhere(
           (element) => element.servId == serviceId,
-          orElse: () => stubClientService);
+          orElse: () => ref.read(stubClientServiceProvider));
       return service;
     }),
     currentClient.overrideWith((ref) {
       final wp = ref.watch(departmentsProvider.notifier)[depName];
       final client = ref.watch(wp.clientsOf).firstWhere(
           (element) => element.contractId == contractId,
-          orElse: () => stubClient);
+          orElse: () => ref.read(stubClientProvider));
       return client;
     })
   ];

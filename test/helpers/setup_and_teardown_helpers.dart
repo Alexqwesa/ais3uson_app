@@ -6,10 +6,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'real_hive_helpler.dart';
+
 /// Hive in memory
 Future<void> setUpTestHive() async {
-  // final tempDir = await getTempDir();
-  Hive.init(null, backendPreference: HiveStorageBackendPreference.memory);
+  final tempDir = await getTempDir();
+  Hive.init(
+    tempDir.path,
+  ); //backendPreference: HiveStorageBackendPreference.memory);
 }
 
 /// Deletes the temporary [Hive].

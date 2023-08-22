@@ -40,7 +40,8 @@ dependencies:
   get_it: any
   go_router:
   google_fonts: any
-  hive: 3.0.0-dev
+#  hive: 3.0.0-dev
+  hive:
   hive_flutter: any
   hooks_riverpod: any
   http: any
@@ -86,7 +87,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed:
-#  hive_generator: ^2.0.1
+  hive_generator: ^2.0.1
 #  hive_test: any
   #  http_certificate_pinning: any
   integration_test:

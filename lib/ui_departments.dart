@@ -1,4 +1,4 @@
-/// # Classes to display and manage [WorkerProfile]s.
+/// # Classes to display and manage [Worker]s.
 ///
 /// These classes provide gui for actions:
 ///
@@ -12,7 +12,7 @@
 /// of app.
 library ui_departments;
 
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 

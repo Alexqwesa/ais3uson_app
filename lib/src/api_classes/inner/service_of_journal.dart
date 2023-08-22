@@ -17,7 +17,7 @@ part 'service_of_journal.g.dart';
 /// (copyWith state [ServiceState.finished] or [ServiceState.rejected] ).
 ///
 /// Services in state [ServiceState.finished] or [ServiceState.outDated] send to
-/// [JournalHiveRepository.hiveArchive] on next day.
+/// Hive Box [HiveRepository.archiveHiveName] on next day.
 ///
 ///
 /// Usual life of [ServiceOfJournal] and it's states are:

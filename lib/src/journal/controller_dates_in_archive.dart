@@ -6,7 +6,7 @@ import 'package:ais3uson_app/repositories.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// Dates at which where exist archived services in [WorkerProfile].
+/// Dates at which where exist archived services in [Worker].
 /// Depend on [hiveDateTimeBox] ('allArchiveDates').
 ///
 /// {@category Providers}
@@ -82,8 +82,8 @@ class _ControllerDatesInArchive extends StateNotifier<Set<DateTime>> {
 }
 
 /// Provider of list of dates at which there are exist archived services
-/// in all [WorkerProfile]s, if list is empty, it will try to reinitialize all
-/// underlying lists by calling [JournalHiveRepository.updateDatesInArchiveOfProfile] for each.
+/// in all [Worker]s, if list is empty, it will try to reinitialize all
+/// underlying lists by calling [HiveRepository.updateArchiveDatesCache] for each.
 ///
 /// (aggregate from [controllerDatesInArchive]).
 ///
@@ -99,7 +99,7 @@ final initDatesInAllArchives = FutureProvider((ref) async {
 
   if (ref.watch(datesInAllArchives).isEmpty) {
     await Future.wait(ref.read(departmentsProvider).map((e) async =>
-        ref.read(e.journalOf).hiveRepository.updateDatesInArchiveOfProfile()));
+        ref.read(e.journalOf).hiveRepository.updateArchiveDatesCache()));
     await initControllers();
   }
 

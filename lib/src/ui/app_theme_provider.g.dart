@@ -6,7 +6,7 @@ part of 'app_theme_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appThemeHash() => r'7c871590fcc774a313e6f263e66120eb8311e577';
+String _$appThemeHash() => r'3bd527e4ec9d3a937236fe7e765bb681b1c897a4';
 
 /// Theme Provider with support switching dark/light.
 ///

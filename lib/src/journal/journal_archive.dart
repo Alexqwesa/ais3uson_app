@@ -21,20 +21,21 @@ class JournalArchive extends Journal {
   String get journalHiveName => 'journal_archive_$apiKey';
 
   @override
-  Box<ServiceOfJournal> get hive => hiveRepository.hive; // only for test
+  // todo: rework it
+  Box<ServiceOfJournal> get hive => hiveRepository.openHive.requireValue; // only for test
 
   @override
   Ref get ref => workerProfile.ref;
 
   @override
-  JournalHiveRepository get hiveRepository => workerProfile.hiveRepository;
+   HiveRepository get hiveRepository => workerProfile.hiveRepository;
 
   @override
   JournalHttpRepository get httpRepository => workerProfile.httpRepository;
 
   // @override
   @override
-  Provider<List<ServiceOfJournal>> get servicesOf => hiveRepository.servicesOf;
+ HiveRepositoryProvider get servicesOf => hiveRepositoryProvider(apiKey);
 
   /// This method of base class is stubbed.
   @override

@@ -50,7 +50,7 @@ final serviceProofAtDate =
           .watch(service.workerProfile.clientsOf)
           .firstWhere(
             (element) => element.contractId == service.contractId,
-            orElse: () => stubClient,
+            orElse: () => ref.read(stubClientProvider),
           )
           .name,
       worker: service.workerProfile.name,

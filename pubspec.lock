@@ -337,14 +337,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  cryptography:
-    dependency: transitive
-    description:
-      name: cryptography
-      sha256: df156c5109286340817d21fa7b62f9140f17915077127dd70f8bd7a2a0997a35
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.5.0"
   csslib:
     dependency: transitive
     description:
@@ -603,18 +595,26 @@ packages:
     dependency: "direct main"
     description:
       name: hive
-      sha256: "00806ba9fd0e725804c7c524e79a0f979bf562e71ada0d69ba7299d0d34d1a37"
+      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0-dev"
+    version: "2.2.3"
   hive_flutter:
     dependency: "direct main"
     description:
       name: hive_flutter
-      sha256: a9f07cabf8fa205cde01cc782f56804987bbd164dc02b07fd9b30ed0426267da
+      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0-dev"
+    version: "1.1.0"
+  hive_generator:
+    dependency: "direct dev"
+    description:
+      name: hive_generator
+      sha256: "06cb8f58ace74de61f63500564931f9505368f45f98958bd7a6c35ba24159db4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   hooks_riverpod:
     dependency: "direct main"
     description:

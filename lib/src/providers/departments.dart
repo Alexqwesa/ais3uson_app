@@ -3,19 +3,19 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'departments.g.dart';
 
-/// Provider and controller of List<[WorkerProfile]>.
+/// Provider and controller of List<[Worker]>.
 ///
-/// Add, save, delete and load [WorkerProfile].
+/// Add, save, delete and load [Worker].
 /// which are saved by [locator]<SharedPreferences>.
 ///
 /// {@category Providers}
@@ -24,26 +24,23 @@ part 'departments.g.dart';
 class Departments extends _$Departments {
   static const name = 'WorkerKeys2';
 
-  final _stubWorker = WorkerProfile(
-      WorkerKey.fromJson(
-        jsonDecode(stubJsonWorkerKey) as Map<String, dynamic>,
-      ),
-      null);
+  Worker get _stubWorker => ref.read(stubWorkerProvider);
 
-  /// Just keys of [WorkerProfile]s
+  /// Just keys of [Worker]s
   Iterable<WorkerKey> get keys => state.map((e) => e.key);
 
   List<String> _shortNames = [];
 
   @override
-  List<WorkerProfile> build() {
+  List<Worker> build() {
     final json = jsonDecode(
       locator<SharedPreferences>().getString(name) ?? '[]',
     );
     if (json is List) {
       final keys =
           json.whereType<Map<String, dynamic>>().map(WorkerKey.fromJson);
-      super.state = keys.map((key) => WorkerProfile(key, ref)).toList();
+      super.state =
+          keys.map((key) => ref.watch(workerProvider(key).notifier)).toList();
       _updateShortNames();
       return super.state;
     }
@@ -59,7 +56,7 @@ class Departments extends _$Departments {
     }
   }
 
-  /// Each [WorkerProfile] identified by its apiKey,
+  /// Each [Worker] identified by its apiKey,
   /// but it should be keep secure, and it can be long.
   /// [shortNames] generated from apiKey, for navigation purposes.
   List<String> get shortNames {
@@ -67,8 +64,8 @@ class Departments extends _$Departments {
     return _shortNames;
   }
 
-  /// Get [WorkerProfile] by shortName
-  WorkerProfile operator [](String? name) {
+  /// Get [Worker] by shortName
+  Worker operator [](String? name) {
     if (name == null) {
       return _stubWorker;
     }
@@ -83,8 +80,15 @@ class Departments extends _$Departments {
     return state[index];
   }
 
+  /// Get [Worker] by apiKey
+  Worker byApi(String? api) {
+    if (api == null) return _stubWorker;
+
+    return state.firstWhere((e) => e.apiKey == api, orElse: () => _stubWorker);
+  }
+
   @override
-  set state(List<WorkerProfile> value) {
+  set state(List<Worker> value) {
     super.state = value;
     _updateShortNames();
     //
@@ -108,19 +112,19 @@ class Departments extends _$Departments {
 
   bool addProfileFromKey(WorkerKey key) {
     if (!keys.contains(key)) {
-      state = [...state, WorkerProfile(key, ref)];
+      state = [...state, ref.watch(workerProvider(key).notifier)];
       return true;
     }
 
     return false;
   }
 
-  /// Delete [WorkerProfile].
+  /// Delete [Worker].
   void profileDelete(WorkerKey key) {
     state = state.whereNot((e) => e.apiKey == key.apiKey).toList();
   }
 
-  /// Each [WorkerProfile] identified by its apiKey,
+  /// Each [Worker] identified by its apiKey,
   /// but it should be keep secure, and it can be long.
   /// [shortNames] generated from apiKey, for navigation purposes.
   String getShortNameByApi(String apiKey) {

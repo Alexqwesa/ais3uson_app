@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 import 'dart:io';
 
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/foundation.dart';
@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-/// Show screen where user scan QR code to add [WorkerProfile] from QR code.
+/// Show screen where user scan QR code to add [Worker] from QR code.
 ///
-/// {@category UI WorkerProfiles}
+/// {@category UI Workers}
 class QRScanScreen extends ConsumerStatefulWidget {
   const QRScanScreen({super.key});
 

@@ -73,7 +73,10 @@ void main() {
       final wp = ref
           .read(departmentsProvider)
           .firstWhere((element) => element.apiKey == wKey.apiKey);
+
       await wp.postInit();
+      // ref.refresh(hiveRepositoryProvider(wp.apiKey));
+      await ref.pump();
       expect(
         ref.read(wp.clients[0].services[0].deleteAllowedOf),
         false,
@@ -170,7 +173,7 @@ void main() {
       expect(hive.values.length, 4);
       expect(errorService.state, ServiceState.rejected);
       //
-      // > init WorkerProfile and mock http
+      // > init Worker and mock http
       //
       ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       final wp = ref
@@ -183,7 +186,8 @@ void main() {
       //
       // > start journal test
       //
-      expect(wp.hiveRepository.hive.values.last.state, ServiceState.rejected);
+      expect(wp.hiveRepository.openHive.requireValue.values.last.state,
+          ServiceState.rejected);
       expect(ref.read(wp.clients[0].services[1].fullStateOf), [0, 1, 1]);
       expect(ref.read(wp.clients[0].services[0].fullStateOf), [0, 1, 1]);
       expect(ref.read(wp.clients[0].services[0].deleteAllowedOf), true);
@@ -252,7 +256,7 @@ void main() {
       final hiveArchive = await Hive.openBox<ServiceOfJournal>(
         'journal_archive_${wp.apiKey}',
       );
-      expect(wp.hiveRepository.hive.values.length, 1);
+      expect(wp.hiveRepository.openHive.requireValue.length, 1);
       expect(hiveArchive.length, 1);
     });
 
@@ -329,7 +333,7 @@ void main() {
 
         await wp.journal.postInit();
         expect(
-          hiveOfJournal.values.length,
+          hiveOfJournal.requireValue.length,
           20,
         );
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(

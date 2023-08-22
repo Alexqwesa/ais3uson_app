@@ -5,7 +5,7 @@ import 'package:ais3uson_app/journal.dart';
 
 import 'journal_test_extensions.dart';
 
-extension WorkerProfileTestExtensions on WorkerProfile {
+extension WorkerTestExtensions on Worker {
   /// Only for tests! Don't use in real code.
   ///
   /// Async init actions such as:
