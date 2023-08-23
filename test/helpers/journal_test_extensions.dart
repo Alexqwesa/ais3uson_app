@@ -12,7 +12,7 @@ extension JournalTestExtensions on Journal {
     await Hive.openBox<ServiceOfJournal>(journalHiveName);
     // await Hive.openBox<ServiceOfJournal>(hiveRepository.archiveHiveName);
     ref.read(hiveRepositoryProvider(apiKey));
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     expect(ref.read(hiveRepositoryProvider(apiKey).notifier).init, true);
 
     //   //

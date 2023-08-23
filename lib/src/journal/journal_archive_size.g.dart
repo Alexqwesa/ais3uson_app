@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'hive_archive_size.dart';
+part of 'journal_archive_size.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hiveArchiveSizeHash() => r'2afb78c596388694d4cf7966d045ae2652043e8d';
+String _$journalArchiveSizeHash() =>
+    r'd5479088af42e7076754dfdbf3ae05240a59fcb6';
 
 /// Provider of setting - max amount of entries stored in [Journal].
 ///
@@ -18,19 +19,19 @@ String _$hiveArchiveSizeHash() => r'2afb78c596388694d4cf7966d045ae2652043e8d';
 /// {@category UI Settings}
 /// {@category Journal}
 ///
-/// Copied from [HiveArchiveSize].
-@ProviderFor(HiveArchiveSize)
-final hiveArchiveSizeProvider =
-    AutoDisposeNotifierProvider<HiveArchiveSize, int>.internal(
-  HiveArchiveSize.new,
-  name: r'hiveArchiveSizeProvider',
+/// Copied from [JournalArchiveSize].
+@ProviderFor(JournalArchiveSize)
+final journalArchiveSizeProvider =
+    AutoDisposeNotifierProvider<JournalArchiveSize, int>.internal(
+  JournalArchiveSize.new,
+  name: r'journalArchiveSizeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$hiveArchiveSizeHash,
+      : _$journalArchiveSizeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HiveArchiveSize = AutoDisposeNotifier<int>;
+typedef _$JournalArchiveSize = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

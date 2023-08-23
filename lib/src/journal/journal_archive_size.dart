@@ -3,7 +3,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'hive_archive_size.g.dart';
+part 'journal_archive_size.g.dart';
 
 /// Provider of setting - max amount of entries stored in [Journal].
 ///
@@ -15,7 +15,7 @@ part 'hive_archive_size.g.dart';
 /// {@category UI Settings}
 /// {@category Journal}
 @riverpod
-class HiveArchiveSize extends _$HiveArchiveSize {
+class JournalArchiveSize extends _$JournalArchiveSize {
   static const name = 'HiveArchiveLimitState';
 
   @override

@@ -4,37 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppProviderObserver extends ProviderObserver {
-  bool firstTime = true;
-
   @override
   void didAddProvider(ProviderBase<Object?> provider, Object? value,
-      ProviderContainer container) {
-    if (provider.name == 'routeProvider' && firstTime) {
-      firstTime = false;
-      // final controller = container.read(appRouteProvider.notifier);
-      // container
-      //     .read(routeProvider)
-      //     .routeInformationProvider
-      //     .removeListener(controller.update);
-      // Future.microtask(() =>
-      //     container
-      //         .read(routeProvider)
-      //         .routeInformationProvider
-      //         .addListener(controller.update));
-    }
-  }
+      ProviderContainer container) {}
 
   @override
   void didDisposeProvider(
-      ProviderBase<Object?> provider, ProviderContainer container) {
-    // if (provider.name == 'routeProvider') {
-    //   final controller = container.read(appRouteProvider.notifier);
-    //   Future.microtask(() => container
-    //       .read(routeProvider)
-    //       .routeInformationProvider
-    //       .removeListener(controller.update));
-    // }
-  }
+      ProviderBase<Object?> provider, ProviderContainer container) {}
 
   @override
   void didUpdateProvider(

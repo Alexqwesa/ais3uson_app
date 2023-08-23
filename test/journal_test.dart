@@ -5,7 +5,6 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
@@ -322,14 +321,14 @@ void main() {
         //
         // > init workerProfile
         //
-        ref.read(hiveArchiveSizeProvider.notifier).state = 10;
+        ref.read(journalArchiveSizeProvider.notifier).state = 10;
         ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
         final wp = ref.read(departmentsProvider).first;
         // await AppData.instance
         //
         // > test that yesterday services are in archive
         //
-        final hiveOfJournal = await wp.journal.hiveRepository.openHive;
+        final hiveOfJournal = wp.journal.hiveRepository.openHive;
 
         await wp.journal.postInit();
         expect(
@@ -359,7 +358,7 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(hiveArchiveSizeProvider.notifier).state = 10;
+      ref.read(journalArchiveSizeProvider.notifier).state = 10;
       ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
@@ -397,7 +396,7 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(hiveArchiveSizeProvider.notifier).state = 10;
+      ref.read(journalArchiveSizeProvider.notifier).state = 10;
       ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
@@ -441,7 +440,7 @@ void main() {
         //
         // > init workerProfile
         //
-        ref.read(hiveArchiveSizeProvider.notifier).state = 10;
+        ref.read(journalArchiveSizeProvider.notifier).state = 10;
         ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
         final wp = ref.read(departmentsProvider).first;
         await wp.postInit();

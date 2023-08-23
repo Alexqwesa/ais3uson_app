@@ -17,7 +17,7 @@ class ArchiveShellRoute extends ConsumerWidget {
     super.key,
   });
 
-  /// Activate archive mode([isArchive]) only if [initDatesInAllArchives].dates
+  /// Activate archive mode([isArchive]) only if [allDaysWithServicesInited].dates
   /// not empty.
   ///
   /// It also show date picker to set [archiveDate].
@@ -25,9 +25,9 @@ class ArchiveShellRoute extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) async {
-    await ref.read(initDatesInAllArchives.future);
+    await ref.read(allDaysWithServicesInited.future);
     final archiveDates =
-        ref.read(initDatesInAllArchives).asData?.value ?? <DateTime>{};
+        ref.read(allDaysWithServicesInited).asData?.value ?? <DateTime>{};
 
     if (archiveDates.isEmpty) {
       ref.read(isArchive.notifier).state = false;

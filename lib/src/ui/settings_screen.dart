@@ -32,11 +32,11 @@ class SettingsScreen extends ConsumerWidget {
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]{1,4}$')),
                     ],
                     controller: TextEditingController(
-                      text: ref.read(hiveArchiveSizeProvider).toString(),
+                      text: ref.read(journalArchiveSizeProvider).toString(),
                     ),
                     // hintText:,
                     onChanged: (value) {
-                      ref.read(hiveArchiveSizeProvider.notifier).state =
+                      ref.read(journalArchiveSizeProvider.notifier).state =
                           int.parse(value);
                     },
                   ),

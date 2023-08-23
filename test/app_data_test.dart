@@ -204,18 +204,18 @@ void main() {
         // expect(ref.read(archiveDate), roundYesterday);
         // await ref.pump();
         expect(
-          ref.read(datesInAllArchives).length,
+          ref.read(allDaysWithServicesProvider).length,
           2,
         );
         expect(
           ref
-              .read(datesInAllArchives)
+              .read(allDaysWithServicesProvider)
               .containsAll([roundYesterday, roundBeforeYesterday]),
           true,
         );
         await Future.wait(ref.read(departmentsProvider).map(
               (e) =>
-                  ref.read(controllerDatesInArchive(e.apiKey).notifier).save(),
+                  ref.read(daysWithServicesProvider(e.apiKey).notifier).save(),
             ));
       },
     );

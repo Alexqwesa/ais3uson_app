@@ -5,7 +5,6 @@ import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/settings.dart';
 import 'package:collection/collection.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -26,7 +25,13 @@ part 'journal_hive_repository.g.dart';
 @Riverpod(keepAlive: true)
 class HiveRepository extends _$HiveRepository {
   bool init = false;
+
   // final preinit = <ServiceOfJournal>[];
+
+  // maybe also wait for [archiveOldServices]?
+  Future<Box<ServiceOfJournal>> future() async {
+    return await ref.watch(hiveJournalBox(journalHiveName).future);
+  }
 
   String get journalHiveName => 'journal_$apiKey';
 
@@ -92,7 +97,7 @@ class HiveRepository extends _$HiveRepository {
         final archList = hiveArchive.values.toList()
           ..sort((a, b) => a.provDate.compareTo(b.provDate))
           ..reversed;
-        final archiveLimit = ref.read(hiveArchiveSizeProvider);
+        final archiveLimit = ref.read(journalArchiveSizeProvider);
         if (hiveArchive.length > archiveLimit) {
           //
           // > delete all services after archList[archiveLimit]
@@ -111,10 +116,12 @@ class HiveRepository extends _$HiveRepository {
   }
 
   Future<void> updateArchiveDatesCache() async {
-    openArchiveHive.whenData((hiveArchive) async {
-      await ref
-          .read(controllerDatesInArchive(apiKey).notifier)
-          .updateFrom(hiveArchive.values);
+    openArchiveHive.whenData((hiveArchive) {
+      ref.read(daysWithServicesProvider(apiKey).notifier).state = hiveArchive
+          .values
+          .map((element) => element.provDate)
+          .map((e) => e.dateOnly())
+          .toSet();
     });
   }
 

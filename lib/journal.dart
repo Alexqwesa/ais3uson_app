@@ -27,7 +27,8 @@ import 'package:ais3uson_app/src/data_models_with_logic/worker_profile_logic.dar
 
 export 'package:ais3uson_app/src/api_classes/inner/service_of_journal.dart';
 export 'package:ais3uson_app/src/api_classes/inner/service_state.dart';
-export 'package:ais3uson_app/src/journal/controller_dates_in_archive.dart';
+export 'package:ais3uson_app/src/journal/days_with_services.dart';
 export 'package:ais3uson_app/src/journal/journal.dart';
 export 'package:ais3uson_app/src/journal/journal_archive.dart';
 export 'package:ais3uson_app/src/journal/journal_archive_all.dart';
+export 'package:ais3uson_app/src/journal/journal_archive_size.dart';
