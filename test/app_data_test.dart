@@ -4,6 +4,7 @@ import 'dart:developer' as dev;
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -170,27 +171,22 @@ void main() {
         //
         // > test that services are in archive
         //
+        expect(ref
+              .read(hiveRepositoryProvider(wKey.apiKey).notifier).init, true);
+        // await ref.read(departmentsProvider).first.hiveRepository.future();
+        expect(
+            ref
+                .read(departmentsProvider)
+                .first
+                .hiveRepository
+                .openHive
+                .requireValue
+                .length,
+            0);
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
           'journal_archive_${ref.read(departmentsProvider).first.apiKey}',
         );
-        // expect(ref
-        //       .read(hiveRepositoryProvider(wKey.apiKey).notifier).init, true);
-        //
-        //
-        // ref.refresh(hiveRepositoryProvider(wKey.apiKey));
-        // await ref.pump();
-
         expect(hiveArchive.length, 40);
-        expect(
-          ref
-              .read(departmentsProvider)
-              .first
-              .hiveRepository
-              .openHive
-              .requireValue
-              .length,
-          0,
-        );
         //
         // > test archive dates
         //

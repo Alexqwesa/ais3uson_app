@@ -6,7 +6,7 @@ part of 'journal_hive_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hiveRepositoryHash() => r'b70ec398a64def83239e0a605ae75ce672a5b9bd';
+String _$hiveRepositoryHash() => r'f07543aa50884827333dca3317e0afbbfff05fe8';
 
 /// Copied from Dart SDK
 class _SystemHash {

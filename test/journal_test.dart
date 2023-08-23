@@ -255,8 +255,8 @@ void main() {
       final hiveArchive = await Hive.openBox<ServiceOfJournal>(
         'journal_archive_${wp.apiKey}',
       );
-      expect(wp.hiveRepository.openHive.requireValue.length, 1);
       expect(hiveArchive.length, 1);
+      expect(wp.hiveRepository.openHive.requireValue.length, 1); // only today
     });
 
     test('it write objects into hive', () async {
@@ -328,9 +328,9 @@ void main() {
         //
         // > test that yesterday services are in archive
         //
-        final hiveOfJournal = wp.journal.hiveRepository.openHive;
-
+        await wp.journal.hiveRepository.future();
         await wp.journal.postInit();
+        final hiveOfJournal = wp.journal.hiveRepository.openHive;
         expect(
           hiveOfJournal.requireValue.length,
           20,

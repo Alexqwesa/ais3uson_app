@@ -110,18 +110,21 @@ class HiveRepository extends _$HiveRepository {
         //
         // > update datesInArchive
         //
-        await updateArchiveDatesCache();
+        openArchiveHive.whenData((hiveArchive) {
+          ref.read(daysWithServicesProvider(apiKey).notifier).state =
+              hiveArchive.values
+                  .map((element) => element.provDate)
+                  .map((e) => e.dateOnly())
+                  .toSet();
+        });
+        //
+        // > update hive
+        //
+        openHive.whenData((hive) async {
+          await hive.clear();
+          await hive.addAll(state);
+        });
       }
-    });
-  }
-
-  Future<void> updateArchiveDatesCache() async {
-    openArchiveHive.whenData((hiveArchive) {
-      ref.read(daysWithServicesProvider(apiKey).notifier).state = hiveArchive
-          .values
-          .map((element) => element.provDate)
-          .map((e) => e.dateOnly())
-          .toSet();
     });
   }
 
