@@ -48,11 +48,12 @@ class Journal extends BaseJournal {
 
   final _lock = Lock();
 
-  Box<ServiceOfJournal> get hive => hiveRepository.openHive.requireValue; // only for test
+  Box<ServiceOfJournal> get hive =>
+      hiveRepository.openHive.requireValue; // only for test
 
   Ref get ref => workerProfile.ref;
 
-HiveRepository get hiveRepository => workerProfile.hiveRepository;
+  HiveRepository get hiveRepository => workerProfile.hiveRepository;
 
   JournalHttpRepository get httpRepository => workerProfile.httpRepository;
 

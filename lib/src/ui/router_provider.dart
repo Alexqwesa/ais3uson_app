@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/src/helpers/global_helpers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';

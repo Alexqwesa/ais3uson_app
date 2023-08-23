@@ -4,7 +4,6 @@ import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
-import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
