@@ -11,10 +11,10 @@ library providers;
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/data_models_with_logic/worker_profile_logic.dart';
 
+export 'package:ais3uson_app/src/journal/journals_provider.dart';
 export 'package:ais3uson_app/src/providers/app_provider_observer.dart';
 export 'package:ais3uson_app/src/providers/departments.dart';
 export 'package:ais3uson_app/src/providers/player_and_recorder_of_proof/audioplayer.dart';
 export 'package:ais3uson_app/src/providers/player_and_recorder_of_proof/recorder.dart';
 export 'package:ais3uson_app/src/providers/player_and_recorder_of_proof/recorder_state.dart';
 export 'package:ais3uson_app/src/providers/provider_of_app_state.dart';
-export 'package:ais3uson_app/src/providers/provider_of_journal.dart';

@@ -4,7 +4,6 @@ import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/repositories.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +22,7 @@ import 'package:universal_html/html.dart' as html;
 /// The purpose of the [Journal] class is to:
 ///
 /// - store services in Hive(via [hiveRepository]),
-/// - make network requests(add/delete via [httpRepository]),
+/// - make network requests(add/delete via [httpInterface]),
 /// - change state of [ServiceOfJournal],
 /// - move old `finished` and `outDated` services into [JournalArchive],
 /// - export services into file.ais_json.
@@ -55,7 +54,7 @@ class Journal extends BaseJournal {
 
   HiveRepository get hiveRepository => workerProfile.hiveRepository;
 
-  JournalHttpRepository get httpRepository => workerProfile.httpRepository;
+  JournalHttpInterface get httpInterface => workerProfile.http;
 
   HiveRepositoryProvider get servicesOf => hiveRepositoryProvider(apiKey);
 
@@ -158,7 +157,7 @@ class Journal extends BaseJournal {
   @override
   Future<bool> post(ServiceOfJournal se) async {
     try {
-      await hiveRepository.post(se);
+      await hiveRepository.add(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(tr().errorSave);
@@ -185,9 +184,7 @@ class Journal extends BaseJournal {
           ServiceState? state;
           var error = '';
           try {
-            final ret = await httpRepository.commitAdd(serv);
-            state = ret.item1;
-            error = ret.item2;
+            (state, error) = await httpInterface.sendAdd(serv);
             switch (state) {
               case ServiceState.added: // no changes - do nothing
                 log.info('stale service $serv');
@@ -220,7 +217,7 @@ class Journal extends BaseJournal {
   /// Note: since services are deleted by uuid double deletes is not a problem.
   /// (Async lock is not needed.)
   @override
-  Future<void> delete({ServiceOfJournal? serv, String? uuid}) async {
+  Future<bool> delete({ServiceOfJournal? serv, String? uuid}) async {
     //
     // find service
     //
@@ -228,26 +225,32 @@ class Journal extends BaseJournal {
     if (serv == null) {
       log.severe('Error: delete: not found by uuid');
 
-      return;
+      return false;
     }
     //
     // delete from DB if needed
     //
-    if ([
-      ServiceState.finished,
-      ServiceState.outDated,
-    ].contains(serv.state)) {
-      await httpRepository.commitDel(serv);
+    var allowDelete = false;
+    if ([ServiceState.finished, ServiceState.outDated].contains(serv.state)) {
+      final (state, _) = await httpInterface.sendDelete(serv);
+      if (state == ServiceState.removed) {
+        allowDelete = true;
+      }
+    } else {
+      allowDelete = true;
     }
     //
     // delete
     //
-    try {
-      await hiveRepository.delete(serv);
-      // ignore: avoid_catching_errors
-    } on RangeError {
-      log.info('RangeError double delete of service');
+    if (allowDelete) {
+      try {
+        await hiveRepository.delete(serv);
+        // ignore: avoid_catching_errors
+      } on RangeError {
+        log.info('RangeError double delete of service');
+      }
     }
+    return allowDelete;
   }
 
   /// Helper, only used in [ClientService], it delete last [ServiceOfJournal].
@@ -344,7 +347,7 @@ class Journal extends BaseJournal {
     // > add
     //
     final newService = service.copyWith(state: newState);
-    hiveRepository.post(newService);
+    hiveRepository.add(newService);
 
     return newService;
   }

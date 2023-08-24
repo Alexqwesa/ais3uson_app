@@ -1,5 +1,4 @@
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/repositories.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 

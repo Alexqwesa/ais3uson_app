@@ -12,7 +12,7 @@ extension WorkerTestExtensions on Worker {
   /// - postInit of [Journal] class,
   /// - read `clients`, `clientPlan` and `services` from repository.
   Future<void> postInit() async {
-    await ref.read(journalOf).postInit();
+    await journalOf.postInit();
     await ref.read(repositoryHttp(apiUrlClients).notifier).syncHiveHttp();
     await ref.read(repositoryHttp(apiUrlServices).notifier).syncHiveHttp();
     await ref.read(repositoryHttp(apiUrlPlan).notifier).syncHiveHttp();
@@ -20,9 +20,6 @@ extension WorkerTestExtensions on Worker {
 
   /// List of assigned clients.
   List<ClientProfile> get clients => ref.read(clientsOf);
-
-  /// For tests only.
-  Journal get journal => ref.read(journalOf);
 
   /// List of services.
   ///

@@ -5,7 +5,6 @@ import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/repositories.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tuple/tuple.dart';
@@ -22,8 +21,28 @@ Worker workerByApi(Ref ref, String apiKey) =>
 /// {@category Data Models}
 @Riverpod(keepAlive: true)
 class Worker extends _$Worker {
-  late final JournalHttpRepository httpRepository;
-  late final ProviderOfJournal journalProvider;
+  late final JournalHttpInterface http;
+  // late final Journal _journal;
+  // late final Journal _journalAt;
+  // late final Journal _journalAll;
+
+  @override
+  WorkerKey build(WorkerKey key) {
+
+    http = JournalHttpInterface(this);
+    // journal = ProviderOfJournal(this);
+    return key;
+  }
+
+  Journal get journal => ref.read(journalsProvider(apiKey));
+
+  Journal get journalOf => ref.read(journalsProvider(apiKey).notifier).journalOf;
+
+  Journal get journalAllOf => ref.read(journalsProvider(apiKey).notifier).journalAllDates;
+
+  Journal journalAtDateOf(DateTime date) => ref
+      .read(journalsProvider(apiKey).notifier)
+      .journalAtDateOf(date);
 
   HiveRepository get hiveRepository =>
       ref.watch(hiveRepositoryProvider(apiKey).notifier);
@@ -33,11 +52,7 @@ class Worker extends _$Worker {
   String get shortName =>
       ref.watch(departmentsProvider.notifier).getShortNameByApi(apiKey);
 
-  Provider<Journal> get journalOf => journalProvider.journalOf;
-
   // get journal => ref.watch(journalProvider());
-
-  Provider<Journal> get journalAllOf => journalProvider.journalAllOf;
 
   String get apiKey => key.apiKey;
 
@@ -56,16 +71,6 @@ class Worker extends _$Worker {
   Tuple2<WorkerKey, String> get apiUrlPlan => Tuple2(key, urlPlan);
 
   Tuple2<WorkerKey, String> get apiUrlServices => Tuple2(key, urlServices);
-
-  Provider<Journal> journalAtDateOf(DateTime date) =>
-      journalProvider.journalAtDateOf(date);
-
-  @override
-  WorkerKey build(WorkerKey key) {
-    httpRepository = JournalHttpRepository(this);
-    journalProvider = ProviderOfJournal(this);
-    return key;
-  }
 
   /// List of services for client.
   ///

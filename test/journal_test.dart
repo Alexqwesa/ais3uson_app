@@ -347,6 +347,8 @@ void main() {
       // > prepare ProviderContainer + httpClient
       //
       final wKey = wKeysData2();
+      // check worker profile
+      expect(wKey, isA<WorkerKey>());
       final ref = ProviderContainer(
         overrides: [
           httpClientProvider(wKey.certBase64)
@@ -362,12 +364,14 @@ void main() {
       ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
-      // check worker profile
-      expect(wKey, isA<WorkerKey>());
+      expect(ref.read(workerByApiProvider(wKey.apiKey)).name, wKey.name);
       // add services
       final client = wp.clients.first;
+      expect(client.workerProfile.name, wKey.name);
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
+      expect(service3.apiKey, wKey.apiKey);
+      await ref.pump();
       await service3.add();
       await service3.add();
       await service3.add();
@@ -444,6 +448,7 @@ void main() {
         ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
         final wp = ref.read(departmentsProvider).first;
         await wp.postInit();
+        await wp.journal.hiveRepository.future();
         // add services
         final client = wp.clients.first;
         final service3 = client.services[3];
@@ -525,16 +530,24 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
+
+
+
+
         expect(ref.read(service3.fullStateOf), [10, 0, 0]);
-        expect(
-          ref.read(client.workerProfile.journalOf).outDated.length,
-          10,
-        );
+        expect(client.workerProfile.journalOf.outDated.length, 10);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
         expect(ref.read(service3.fullStateOf), [0, 0, 0]);
         expect(verify(MockServer(httpClient).testReqDelete).callCount, 20);
+
+
+
+
+        // await service3.add();
+        // expect(ref.read(service3.fullStateOf), [10, 1, 0]);
+        // expect(verify(MockServer(httpClient).testReqDelete).callCount, 10);
       },
     );
   });

@@ -156,7 +156,7 @@ class HiveRepository extends _$HiveRepository {
     });
   }
 
-  Future<int> post(ServiceOfJournal s) async {
+  Future<int> add(ServiceOfJournal s) async {
     if (!init) return -1;
     // await ref.read(hiveJournalBox(journalHiveName).future);
 

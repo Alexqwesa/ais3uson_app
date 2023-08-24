@@ -110,7 +110,7 @@ class WorkerByApiProvider extends AutoDisposeProvider<Worker> {
   }
 }
 
-String _$workerHash() => r'ea56bea20456891095aa5ec74a5289884397be8f';
+String _$workerHash() => r'7fc70800e77ce15ae00f3faa0b082dca07e4a4e0';
 
 abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
   late final WorkerKey key;

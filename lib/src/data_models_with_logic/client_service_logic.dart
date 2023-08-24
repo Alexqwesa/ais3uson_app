@@ -19,7 +19,7 @@ extension ClientServiceLogic on ClientService {
 
   // Provider<Journal> get journalOf => workerProfile.journalOf;
 
-  Journal get _journal => ref.read(workerProfile.journalOf);
+  Journal get _journal => workerProfile.journalOf;
 
   //
   // > proof managing
@@ -52,15 +52,16 @@ extension ClientServiceLogic on ClientService {
   }
 
   /// Delete [ServiceOfJournal].
-  Future<void> delete() async {
+  Future<bool> delete() async {
     if (ref.read(deleteAllowedOf)) {
-      await _journal.delete(
+      return _journal.delete(
         uuid: _journal.getUuidOfLastService(
           servId: planned.servId,
           contractId: planned.contractId,
         ),
       );
     }
+    return false;
   }
 
   Provider<bool> get deleteAllowedOf => _deleteAllowedOfService(this);
@@ -154,8 +155,8 @@ final _groupsOfService =
   (ref, clientService) {
     final wp = clientService.workerProfile;
     final journal = clientService.date == null
-        ? ref.watch(wp.journalAllOf)
-        : ref.watch(wp.journalAtDateOf(clientService.date!));
+        ? wp.journalAllOf
+        : wp.journalAtDateOf(clientService.date!);
     final groups = ref.watch(_groupsOfJournalAtDate(Tuple2(
       journal,
       clientService.date,

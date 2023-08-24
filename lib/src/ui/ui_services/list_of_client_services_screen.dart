@@ -78,8 +78,8 @@ class ListOfClientServicesScreen extends ConsumerWidget {
               IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () async {
-                  await ref.read(workerProfile.journalOf).archiveOldServices();
-                  await ref.read(workerProfile.journalOf).commitAll();
+                  await workerProfile.journalOf.archiveOldServices();
+                  await workerProfile.journalOf.commitAll();
                   await workerProfile.syncPlanned();
                 },
               ),

@@ -8,19 +8,22 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:http/http.dart';
-import 'package:tuple/tuple.dart';
 
 /// This class send add/delete request of [ServiceOfJournal] to server.
 ///
-class JournalHttpRepository {
-  JournalHttpRepository(this.workerProfile);
+/// It used: [DeleteClientServiceRequest], [AddClientServiceRequest] and [httpClientProvider].
+///
+/// Getting services from server is not yet supported, and probably will not.
+/// Maybe only allow to get today services? (not really useful and add security risks...)
+interface class JournalHttpInterface {
+  const JournalHttpInterface(this.workerProfile);
 
-  Worker workerProfile;
+  final Worker workerProfile;
 
   /// Delete service from remote DB.
   ///
   /// Create request body and call [_commitUrl].
-  Future<Tuple2<ServiceState?, String>> commitDel(ServiceOfJournal serv) async {
+  Future<(ServiceState?, String)> sendDelete(ServiceOfJournal serv) async {
     //
     // > create body of post request
     //
@@ -42,7 +45,7 @@ class JournalHttpRepository {
   /// Add service to remote DB.
   ///
   /// Create request body and call [_commitUrl].
-  Future<Tuple2<ServiceState?, String>> commitAdd(
+  Future<(ServiceState?, String)> sendAdd(
     ServiceOfJournal serv, {
     String? body,
   }) async {
@@ -62,7 +65,7 @@ class JournalHttpRepository {
     // > check: is it in right state (not finished etc...)
     //
     if (ServiceState.added != serv.state) {
-      return Tuple2(serv.state, '');
+      return (serv.state, '');
     }
     //
     // > send Post
@@ -78,7 +81,7 @@ class JournalHttpRepository {
   /// Return error text and new state, didn't change service state itself.
   ///
   /// {@category Client-Server API}
-  Future<Tuple2<ServiceState, String>> _commitUrl(
+  Future<(ServiceState?, String)> _commitUrl(
     String urlAddress, {
     String? body,
   }) async {
@@ -86,8 +89,8 @@ class JournalHttpRepository {
     final http = workerProfile.ref
         .read(httpClientProvider(workerProfile.key.certBase64));
     var ret = ServiceState.added;
-    final fullHeaders = {'api-key': workerProfile.apiKey}..addAll(httpHeaders);
     var error = '';
+    final fullHeaders = {'api-key': workerProfile.apiKey}..addAll(httpHeaders);
     try {
       Response response;
 
@@ -110,6 +113,7 @@ class JournalHttpRepository {
         }
       } else if (urlAddress.endsWith('/delete')) {
         response = await http.delete(url, headers: fullHeaders, body: body);
+        if (response.statusCode == 200) ret = ServiceState.removed;
       } else {
         response = await http.get(url, headers: fullHeaders);
       }
@@ -135,6 +139,6 @@ class JournalHttpRepository {
       log.fine('sync ended $url ');
     }
 
-    return Tuple2(ret, error);
+    return (ret, error);
   }
 }

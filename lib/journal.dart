@@ -32,3 +32,5 @@ export 'package:ais3uson_app/src/journal/journal.dart';
 export 'package:ais3uson_app/src/journal/journal_archive.dart';
 export 'package:ais3uson_app/src/journal/journal_archive_all.dart';
 export 'package:ais3uson_app/src/journal/journal_archive_size.dart';
+export 'package:ais3uson_app/src/journal/repositories/journal_hive_repository.dart';
+export 'package:ais3uson_app/src/journal/repositories/journal_http_interface.dart';

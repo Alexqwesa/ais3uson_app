@@ -66,8 +66,7 @@ final servicesOfClient =
 /// {@category Providers}
 final allServicesOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
-  final journalProvider = client.workerProfile.journalProvider;
-  final journal = ref.watch(journalProvider.realJournalOf);
+  final journal = client.workerProfile.journal;
   // ref.watch(
   //   groupsOfJournal(journal),
   // );
@@ -85,7 +84,7 @@ final _archiveOfClient =
     Provider.family<List<ServiceOfJournal>, ClientProfile>((ref, client) {
   ref.watch(hiveJournalBox(client.workerProfile.hiveName));
   final wp = client.workerProfile;
-  final services = ref.watch(ref.watch(wp.journalAllOf).servicesOf);
+  final services = ref.watch(wp.journalAllOf.servicesOf);
 
   return services
       .where((element) => element.contractId == client.contractId)

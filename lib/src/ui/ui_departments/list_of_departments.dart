@@ -37,8 +37,7 @@ class ListOfDepartments extends ConsumerWidget {
                           buttonConfigs: [
                             ContextMenuButtonConfig(
                               tr().exportThisWeek,
-                              onPressed: () => ref
-                                  .read(workerProfile.journalAllOf)
+                              onPressed: () => workerProfile.journalAllOf
                                   .exportToFile(
                                     mostRecentMonday(),
                                     mostRecentMonday(addDays: 7),
@@ -46,8 +45,7 @@ class ListOfDepartments extends ConsumerWidget {
                             ),
                             ContextMenuButtonConfig(
                               tr().exportLastWeek,
-                              onPressed: () => ref
-                                  .read(workerProfile.journalAllOf)
+                              onPressed: () => workerProfile.journalAllOf
                                   .exportToFile(
                                     mostRecentMonday(addDays: -7),
                                     mostRecentMonday(),
@@ -55,8 +53,7 @@ class ListOfDepartments extends ConsumerWidget {
                             ),
                             ContextMenuButtonConfig(
                               tr().exportThisMonth,
-                              onPressed: () => ref
-                                  .read(workerProfile.journalAllOf)
+                              onPressed: () => workerProfile.journalAllOf
                                   .exportToFile(
                                     mostRecentMonth(),
                                     mostRecentMonth(addMonths: 1),
@@ -64,8 +61,7 @@ class ListOfDepartments extends ConsumerWidget {
                             ),
                             ContextMenuButtonConfig(
                               tr().exportLastMonth,
-                              onPressed: () => ref
-                                  .read(workerProfile.journalAllOf)
+                              onPressed: () => workerProfile.journalAllOf
                                   .exportToFile(
                                     mostRecentMonth(addMonths: -1),
                                     mostRecentMonth(),

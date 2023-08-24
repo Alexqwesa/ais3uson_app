@@ -4,7 +4,6 @@ import 'dart:developer' as dev;
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/repositories.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -15,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/journal_test_extensions.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   //
@@ -171,8 +169,8 @@ void main() {
         //
         // > test that services are in archive
         //
-        expect(ref
-              .read(hiveRepositoryProvider(wKey.apiKey).notifier).init, true);
+        expect(
+            ref.read(hiveRepositoryProvider(wKey.apiKey).notifier).init, true);
         // await ref.read(departmentsProvider).first.hiveRepository.future();
         expect(
             ref

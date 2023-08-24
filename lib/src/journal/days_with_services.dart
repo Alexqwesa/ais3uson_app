@@ -78,7 +78,7 @@ class AllDaysWithServices extends _$AllDaysWithServices {
     await Future.wait([
       ...ref
           .watch(departmentsProvider)
-          .map((e) async => ref.read(e.journalOf).hiveRepository.future()),
+          .map((e) async => e.journalOf.hiveRepository.future()),
     ]);
     return Future.wait([
       ...ref.watch(departmentsProvider).map((e) async =>

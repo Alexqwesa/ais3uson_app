@@ -1,6 +1,5 @@
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/repositories.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -31,7 +30,7 @@ class JournalArchive extends Journal {
    HiveRepository get hiveRepository => workerProfile.hiveRepository;
 
   @override
-  JournalHttpRepository get httpRepository => workerProfile.httpRepository;
+  JournalHttpInterface get httpInterface => workerProfile.http;
 
   // @override
   @override
@@ -45,8 +44,8 @@ class JournalArchive extends Journal {
 
   /// This method of base class is stubbed.
   @override
-  Future<void> delete({ServiceOfJournal? serv, String? uuid}) async {
-    return; // stub
+  Future<bool> delete({ServiceOfJournal? serv, String? uuid}) async {
+    return false; // stub
   }
 
   /// This method of base class is stubbed.
@@ -67,22 +66,4 @@ class JournalArchive extends Journal {
     return; // stub
   }
 
-// /// This method of base class is stubbed.
-// @override
-// Future<ServiceState?> _commitDel(ServiceOfJournal serv) async {
-//   return null; // stub
-// }
-//
-// /// This method of base class is stubbed.
-// @override
-// Future<ServiceState?> _commitAdd(ServiceOfJournal serv,
-//     {String? body}) async {
-//   return null; // stub
-// }
-//
-// /// This method of base class is stubbed.
-// @override
-// Future<ServiceState?> _commitUrl(String urlAddress, {String? body}) async {
-//   return null; // stub
-// }
 }

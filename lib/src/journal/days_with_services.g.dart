@@ -154,7 +154,7 @@ class DaysWithServicesProvider
 }
 
 String _$allDaysWithServicesHash() =>
-    r'c56f0ba24552eb754667d25e10600e8e1ad879d9';
+    r'819ebd6321f3d33c1dc7b862d0a88bf516a5f61b';
 
 /// Dates at which there are exist archived services (aggregate from
 /// [daysWithServicesProvider]) for each [Worker].
