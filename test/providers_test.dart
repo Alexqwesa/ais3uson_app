@@ -1,18 +1,11 @@
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show MockServer, getMockHttpClient;
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
-    as mock;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+    show MockServer;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
@@ -34,36 +27,24 @@ void main() {
   });
 
   test('it state providers work', () async {
-    final wKey = wKeysData2();
-    final ref = ProviderContainer(
-      overrides: [
-        httpClientProvider(wKey.certBase64)
-            .overrideWithValue(getMockHttpClient()),
-      ],
-    );
-    //
-    // > it create workerProfiles
-    //
-    ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-    // ref.read(workerKeys.notifier).addKey(wKey);
-    final wp = ref.read(departmentsProvider).first;
-    expect(ref.read(hiveBox(hiveProfiles)).value?.isOpen, null);
+    // > prepare ProviderContainer + httpClient + worker
+    final (ref, _, wp, httpClient) = await openRefContainer();
+    // ----
+    expect(ref.read(hiveBox(hiveHttpCache)).value?.isOpen, true); // preOpen
     expect(wp.clients.length, 0);
     //
     // > it open hiveBox
     //
     await wp.postInit(); // or await ref.read(hiveBox(hiveProfiles).future);
-    expect(ref.read(hiveBox(hiveProfiles)).value?.isOpen, true);
+    expect(ref.read(hiveBox(hiveHttpCache)).value?.isOpen, true);
     //
     // > it sync clients list
     //
-    final httpClient =
-        ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
     await wp.syncClients(); // second call of testReqGetClients
     await wp.postInit(); // it didn't make initial sync twice
     expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
     expect(
-      ref.read(repositoryHttp(wp.apiUrlClients)).length,
+      ref.read(httpProvider(wp.apiKey, wp.urlClients)).length,
       10,
     );
     expect(wp.clients.length, 10);

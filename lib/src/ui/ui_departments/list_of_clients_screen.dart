@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +28,9 @@ class ListOfClientsScreen extends ConsumerWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.refresh),
-              // ignore: avoid-passing-async-when-sync-expected
-              onPressed: () async {
-                await workerProfile.syncClients();
-              },
-            ),
+                icon: const Icon(Icons.refresh),
+                // ignore: avoid-passing-async-when-sync-expected
+                onPressed: () => unawaited(workerProfile.syncClients())),
           ],
         ),
       ),

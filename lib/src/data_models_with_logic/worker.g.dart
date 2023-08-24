@@ -6,7 +6,7 @@ part of 'worker.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$workerByApiHash() => r'211bd839c7e2b1a900234a37cca68e2beb4682d8';
+String _$workerByApiHash() => r'db9aff819bfe87c6556c8a948b6a8662fa28845b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-typedef WorkerByApiRef = AutoDisposeProviderRef<Worker>;
+typedef WorkerByApiRef = ProviderRef<Worker>;
 
 /// See also [workerByApi].
 @ProviderFor(workerByApi)
@@ -74,7 +74,7 @@ class WorkerByApiFamily extends Family<Worker> {
 }
 
 /// See also [workerByApi].
-class WorkerByApiProvider extends AutoDisposeProvider<Worker> {
+class WorkerByApiProvider extends Provider<Worker> {
   /// See also [workerByApi].
   WorkerByApiProvider(
     this.apiKey,
@@ -110,7 +110,7 @@ class WorkerByApiProvider extends AutoDisposeProvider<Worker> {
   }
 }
 
-String _$workerHash() => r'7fc70800e77ce15ae00f3faa0b082dca07e4a4e0';
+String _$workerHash() => r'2b6c0939fe04a3b25dad723096ae5d4291881fe3';
 
 abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
   late final WorkerKey key;

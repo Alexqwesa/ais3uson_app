@@ -1,3 +1,4 @@
+import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ Future<void> setUpTestHive() async {
   Hive.init(
     tempDir.path,
   ); //backendPreference: HiveStorageBackendPreference.memory);
+  await Hive.openBox(hiveHttpCache);
 }
 
 /// Deletes the temporary [Hive].

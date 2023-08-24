@@ -7,11 +7,10 @@ import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tuple/tuple.dart';
 
 part 'worker.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Worker workerByApi(Ref ref, String apiKey) =>
     ref.watch(departmentsProvider.notifier).byApi(apiKey);
 
@@ -22,13 +21,13 @@ Worker workerByApi(Ref ref, String apiKey) =>
 @Riverpod(keepAlive: true)
 class Worker extends _$Worker {
   late final JournalHttpInterface http;
+
   // late final Journal _journal;
   // late final Journal _journalAt;
   // late final Journal _journalAll;
 
   @override
   WorkerKey build(WorkerKey key) {
-
     http = JournalHttpInterface(this);
     // journal = ProviderOfJournal(this);
     return key;
@@ -36,13 +35,14 @@ class Worker extends _$Worker {
 
   Journal get journal => ref.read(journalsProvider(apiKey));
 
-  Journal get journalOf => ref.read(journalsProvider(apiKey).notifier).journalOf;
+  Journal get journalOf =>
+      ref.read(journalsProvider(apiKey).notifier).journalOf;
 
-  Journal get journalAllOf => ref.read(journalsProvider(apiKey).notifier).journalAllDates;
+  Journal get journalAllOf =>
+      ref.read(journalsProvider(apiKey).notifier).journalAllDates;
 
-  Journal journalAtDateOf(DateTime date) => ref
-      .read(journalsProvider(apiKey).notifier)
-      .journalAtDateOf(date);
+  Journal journalAtDateOf(DateTime date) =>
+      ref.read(journalsProvider(apiKey).notifier).journalAtDateOf(date);
 
   HiveRepository get hiveRepository =>
       ref.watch(hiveRepositoryProvider(apiKey).notifier);
@@ -60,17 +60,17 @@ class Worker extends _$Worker {
 
   String get hiveName => 'journal_$apiKey';
 
-  String get urlClients => '${key.activeServer}/clients';
+  String get urlClients => '/clients';
 
-  String get urlPlan => '${key.activeServer}/planned';
+  String get urlPlan => '/planned';
 
-  String get urlServices => '${key.activeServer}/services';
+  String get urlServices => '/services';
 
-  Tuple2<WorkerKey, String> get apiUrlClients => Tuple2(key, urlClients);
-
-  Tuple2<WorkerKey, String> get apiUrlPlan => Tuple2(key, urlPlan);
-
-  Tuple2<WorkerKey, String> get apiUrlServices => Tuple2(key, urlServices);
+  // (String, String) get apiUrlClients => (apiKey, urlClients);
+  //
+  // (String, String) get apiUrlPlan => (apiKey, urlPlan);
+  //
+  // (String, String) get apiUrlServices => (apiKey, urlServices);
 
   /// List of services for client.
   ///
@@ -85,10 +85,10 @@ class Worker extends _$Worker {
   /// List of assigned clients.
   Provider<List<ClientPlan>> get clientsPlanOf => _planOfWorker(this);
 
-  Provider<DateTime> get planSyncDateOf => _planOfWorkerSyncDate(this);
+  DateTime get planSyncDateOf =>
+      ref.read(httpProvider(apiKey, urlPlan).notifier).updatedAt;
 
-  DateTime get servicesSyncDate =>
-      ref.read(_servicesOfWorkerSyncDate(this)); // TODO:
+  // DateTime get servicesSyncDate => ref.read(httpProvider(apiKey, urlServices).notifier).updatedAt;
 
   /// Synchronize List<[ServiceEntry]> of worker.
   ///
@@ -99,15 +99,15 @@ class Worker extends _$Worker {
   /// This function also called from [checkAllServicesExist], if there is a
   /// [clientsPlanOf] with wrong [ClientPlan.servId].
   Future<void> syncServices() async {
-    await ref.read(repositoryHttp(apiUrlServices).notifier).getHttpData();
+    await ref.read(httpProvider(apiKey, urlServices).notifier).getHttpData();
   }
 
   Future<void> syncClients() async {
-    await ref.read(repositoryHttp(apiUrlClients).notifier).getHttpData();
+    await ref.read(httpProvider(apiKey, urlClients).notifier).getHttpData();
   }
 
   Future<void> syncPlanned() async {
-    await ref.read(repositoryHttp(apiUrlPlan).notifier).getHttpData();
+    await ref.read(httpProvider(apiKey, urlPlan).notifier).getHttpData();
   }
 
   /// This should only be called if there is inconsistency:
@@ -129,20 +129,6 @@ class Worker extends _$Worker {
   }
 }
 
-/// DateTime of last update of [Worker.clientsPlanOf].
-///
-/// {@category Providers}
-final _planOfWorkerSyncDate = Provider.family<DateTime, Worker>((ref, wp) {
-  return ref.watch(lastHttpUpdate(wp.apiKey + wp.urlPlan));
-});
-
-/// DateTime of last update of [Worker.servicesOf].
-///
-/// {@category Providers}
-final _servicesOfWorkerSyncDate = Provider.family<DateTime, Worker>((ref, wp) {
-  return ref.watch(lastHttpUpdate(wp.apiKey + wp.urlServices));
-});
-
 /// Provider of clients for [Worker].
 ///
 /// It check is update needed, and auto update list.
@@ -151,10 +137,10 @@ final _servicesOfWorkerSyncDate = Provider.family<DateTime, Worker>((ref, wp) {
 /// {@category Providers}
 final _clientsOfWorker = Provider.family<List<ClientProfile>, Worker>(
   (ref, wp) {
-    ref.watch(repositoryHttp(wp.apiUrlClients).notifier).syncHiveHttp();
+    // ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).syncHiveHttp();
 
     return ref
-        .watch(repositoryHttp(wp.apiUrlClients))
+        .read(httpProvider(wp.apiKey, wp.urlClients))
         .map<ClientEntry>(ClientEntry.fromJson)
         .map((el) => ref.watch(
             clientProfileProvider(apiKey: wp.apiKey, entry: el).notifier))
@@ -170,10 +156,10 @@ final _clientsOfWorker = Provider.family<List<ClientProfile>, Worker>(
 /// {@category Providers}
 final _servicesOfWorker =
     Provider.family<List<ServiceEntry>, Worker>((ref, wp) {
-  ref.watch(repositoryHttp(wp.apiUrlServices).notifier).syncHiveHttp();
+  // ref.watch(httpProvider(wp.apiKey, wp.urlServices).notifier).syncHiveHttp();
 
   return ref
-      .watch(repositoryHttp(wp.apiUrlServices))
+      .read(httpProvider(wp.apiKey, wp.urlServices))
       .map<ServiceEntry>(ServiceEntry.fromJson)
       .toList(growable: false);
 });
@@ -185,10 +171,10 @@ final _servicesOfWorker =
 ///
 /// {@category Providers}
 final _planOfWorker = Provider.family<List<ClientPlan>, Worker>((ref, wp) {
-  ref.watch(repositoryHttp(wp.apiUrlPlan).notifier).syncHiveHttp();
+  // ref.watch(httpProvider(wp.apiKey, wp.urlPlan).notifier).syncHiveHttp();
 
   return ref
-      .watch(repositoryHttp(wp.apiUrlPlan))
+      .read(httpProvider(wp.apiKey, wp.urlPlan))
       .map<ClientPlan>(ClientPlan.fromJson)
       .toList(growable: false);
 });

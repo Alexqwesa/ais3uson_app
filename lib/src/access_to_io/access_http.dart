@@ -1,29 +1,35 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/api_classes.dart' show WorkerKey;
+import 'package:ais3uson_app/api_classes.dart';
+import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tuple/tuple.dart';
+
+part 'access_http.g.dart';
+
+/// Name of hiveBox with worker profiles
+const hiveHttpCache = 'http_cache';
 
 /// Provider of httpData, create families by apiKey and url.
 ///
 /// {@category Providers}
-final repositoryHttp = StateNotifierProvider.family<_AccessHttp,
-    List<Map<String, dynamic>>, Tuple2<WorkerKey, String>>((ref, apiUrl) {
-  final notifier = _AccessHttp(
-    ref: ref,
-    workerKey: apiUrl.item1,
-    urlAddress: apiUrl.item2,
-  );
-
-  return notifier;
-});
+//Todo: delete it
+@riverpod
+Http repositoryHttp(Ref ref, Tuple2<WorkerKey, String> apiUrl) {
+  return ref.read(httpProvider(
+    apiUrl.item1.apiKey,
+    apiUrl.item2.substring(apiUrl.item2.indexOf('/')),
+  ).notifier);
+}
 
 /// Repository for families of providers [repositoryHttp].
 ///
@@ -33,39 +39,58 @@ final repositoryHttp = StateNotifierProvider.family<_AccessHttp,
 /// Public methods [getHttpData] and [syncHiveHttp].
 ///
 /// {@category Providers}
-class _AccessHttp extends StateNotifier<List<Map<String, dynamic>>> {
-  _AccessHttp({
-    required this.workerKey,
-    required this.urlAddress,
-    required this.ref,
-  }) : super([]) {
-    log.severe('HttpDataState recreated $urlAddress');
-    apiKey = workerKey.apiKey;
+@Riverpod(keepAlive: false)
+class Http extends _$Http {
+  static String hiveName = hiveHttpCache;
+
+  DateTime get updatedAt {
+    return ref.watch(hiveBox(hiveName)).when(
+        data: (hive) {
+          return hive.get('sync_date_$apiKey$urlAddress') as DateTime? ??
+              nullDate;
+        },
+        error: (o, e) => nullDate,
+        loading: () => nullDate);
   }
 
-  final String urlAddress;
-  final WorkerKey workerKey;
-  late final String apiKey;
-  final Ref ref;
+  @override
+  List<Map<String, dynamic>> build(String apiKey, String path) {
+    log.fine('HttpDataState recreated $urlAddress');
+    // unawaited(syncHiveHttp());
+
+    return ref.watch(hiveBox(hiveName)).when(
+        data: (hive) {
+          final hiveKey = apiKey + urlAddress;
+          final data = jsonDecode(hive.get(hiveKey) as String? ?? '[]') as List;
+          return data.whereType<Map<String, dynamic>>().toList();
+        },
+        error: (o, e) => [],
+        loading: () => []);
+  }
+
+  // ignore: strict_raw_type
+  Future<Box> future() async => ref.watch(hiveBox(hiveName).future);
+
+  Worker get worker => ref.read(workerByApiProvider(apiKey));
+
+  String get urlAddress => worker.key.activeServer + path;
 
   Map<String, String> get headers => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'api-key': workerKey.apiKey,
+        'api-key': apiKey,
       };
 
   /// Force get new data from http.
   Future<void> getHttpData() async {
-    final prevLastUpdate = ref.read(lastHttpUpdate(apiKey + urlAddress));
-    ref.read(lastHttpUpdate('$apiKey$urlAddress').notifier).state =
-        DateTime.now();
+    // await future();
     final url = Uri.parse(urlAddress);
     try {
       //
       // > main - call server
       //
       final client = ref.read<http.Client>(
-        httpClientProvider(workerKey.certBase64),
+        httpClientProvider(worker.key.certBase64),
       );
       final response = await client.get(url, headers: headers);
       //
@@ -76,18 +101,12 @@ class _AccessHttp extends StateNotifier<List<Map<String, dynamic>>> {
         // ignore: avoid_dynamic_calls
         final dynamic js = jsonDecode(response.body);
         if (js is List && js.isNotEmpty) {
+          await _writeHive(response.body); // filter out empty data
           state = js
               .whereType<Map<String, dynamic>>()
               .where((e) => e.isNotEmpty)
               .toList(growable: false);
-          await _writeHive(jsonEncode(state)); // filter out empty data
         }
-      } else {
-        //
-        // > on fail: rollback update date
-        //
-        ref.read(lastHttpUpdate(apiKey + urlAddress).notifier).state =
-            prevLastUpdate; // = lastUpdate.add(Duration(hours: 1.9))
       }
       //
       // > just error handling
@@ -113,39 +132,25 @@ class _AccessHttp extends StateNotifier<List<Map<String, dynamic>>> {
   }
 
   Future<void> _writeHive(String data) async {
-    await ref.read(hiveBox(hiveProfiles).future);
-    final hive = ref.read(hiveBox(hiveProfiles)).value!;
-    // for getting new test data
-    // print("=== " + apiKey + url);
-    // print("=== " + response.body);
-    await hive.put(apiKey + urlAddress, data);
-    await hive.put(
-      'sync_date_$apiKey$urlAddress',
-      ref.read(lastHttpUpdate('$apiKey$urlAddress')),
-    );
+    final hive = await future();
+    // ref.watch(hiveBox(hiveName)).whenData((hive) async { // didn't work in tests
+      // for getting new test data
+      // print("=== " + apiKey + url);
+      // print("=== " + response.body);
+      await hive.put(apiKey + urlAddress, data);
+      await hive.put('sync_date_$apiKey$urlAddress', DateTime.now());
+    // });
   }
 
   Future<String> syncHiveHttp() async {
     if (apiKey == 'none') {
-      log.fine('Skip none apiKey sync');
-
-      return 'None';
+      log.severe('None apiKey sync');
+      return 'error';
     }
-    final hive = await ref.read(hiveBox(hiveProfiles).future);
     //
     // > check hive update needed
     //
-    if (ref.read(lastHttpUpdate('$apiKey$urlAddress')) == nullDate) {
-      state = ref.read(_loadMapFromHiveKeyProvider(apiKey + urlAddress));
-      ref.read(lastHttpUpdate('$apiKey$urlAddress').notifier).state =
-          hive.get('sync_date_$apiKey$urlAddress') as DateTime? ??
-              nullDate.add(const Duration(days: 1));
-    }
-
-    if (ref
-        .read(lastHttpUpdate('$apiKey$urlAddress'))
-        .add(const Duration(hours: 2))
-        .isBefore(DateTime.now())) {
+    if (updatedAt.isBefore(DateTime.now().add(const Duration(hours: -2)))) {
       await getHttpData();
 
       return 'updated';
@@ -154,11 +159,6 @@ class _AccessHttp extends StateNotifier<List<Map<String, dynamic>>> {
     return 'loaded';
   }
 }
-
-/// Provider of DateTime of last update for [repositoryHttp], create families by apiKey and url.
-final lastHttpUpdate = StateProvider.family<DateTime, String>((ref, apiUrl) {
-  return nullDate;
-});
 
 /// Provider of httpClient (with certificate if not null).
 ///
@@ -192,13 +192,4 @@ final httpClientProvider =
   }
 
   return client;
-});
-
-/// Helper, convert String to List of Map<String, dynamic>
-final _loadMapFromHiveKeyProvider =
-    Provider.family<List<Map<String, dynamic>>, String>((ref, hiveKey) {
-  // ignore: avoid_dynamic_calls
-  return jsonDecode(
-    ref.watch(hiveBox(hiveProfiles)).value?.get(hiveKey) as String? ?? '[]',
-  ).whereType<Map<String, dynamic>>().toList() as List<Map<String, dynamic>>;
 });

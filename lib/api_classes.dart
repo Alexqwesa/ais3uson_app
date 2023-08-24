@@ -11,7 +11,7 @@
 /// are used to convert server responses from Json strings to dart classes.
 /// Mostly freezed.
 ///
-/// First [repositoryHttp] get data from server and store it into hive
+/// First [httpProvider] get data from server and store it into hive
 /// then it is converted to Json. Then it is converted to classes and assigned to providers of
 /// [Worker].
 ///

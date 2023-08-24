@@ -131,12 +131,14 @@ Future<void> runMain() async {
   //
   await Hive.initFlutter('Ais3uson');
 
+  final openHttpBox = await Hive.openBox(hiveHttpCache);
   usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(OverlaySupport.global(
     child: ProviderScope(
       observers: [AppProviderObserver()],
       overrides: [
+        hiveBox(hiveHttpCache).overrideWith((ref) =>  openHttpBox),
         // stub data for demo mode and testing
         httpClientProvider(testWorkerKey().certBase64)
             .overrideWithValue(getMockHttpClient()),

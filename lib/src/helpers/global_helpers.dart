@@ -15,8 +15,6 @@ import 'package:uuid/uuid.dart';
 //
 // > global constants
 //
-/// Name of hiveBox with worker profiles
-const hiveProfiles = 'profiles';
 
 const uuid = Uuid();
 const formatSQL = 'yyyy-MM-dd';

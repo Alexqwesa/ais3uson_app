@@ -10,9 +10,9 @@ extension JournalTestExtensions on Journal {
     // await ref_test.pump();
     await Hive.openBox<ServiceOfJournal>(journalHiveName);
     // await Hive.openBox<ServiceOfJournal>(hiveRepository.archiveHiveName);
-    ref.read(hiveRepositoryProvider(apiKey));
+    ref.watch(hiveRepositoryProvider(apiKey));
     await Future.delayed(const Duration(seconds: 1));
-    expect(ref.read(hiveRepositoryProvider(apiKey).notifier).init, true);
+    expect(ref.watch(hiveRepositoryProvider(apiKey).notifier).init, true);
 
     //   //
     //   // > read hive at date or all

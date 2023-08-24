@@ -304,7 +304,7 @@ class Journal extends BaseJournal {
       finished.toList().forEach(
         (element) {
           if (element.provDate.isBefore(
-            ref.read(workerProfile.planSyncDateOf),
+            workerProfile.planSyncDateOf,
           )) {
             _toOutDated(element);
           }

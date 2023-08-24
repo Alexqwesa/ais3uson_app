@@ -449,6 +449,7 @@ void main() {
         final wp = ref.read(departmentsProvider).first;
         await wp.postInit();
         await wp.journal.hiveRepository.future();
+        await ref.pump();
         // add services
         final client = wp.clients.first;
         final service3 = client.services[3];

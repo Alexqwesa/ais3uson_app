@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:ais3uson_app/access_to_io.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 
@@ -15,7 +16,7 @@ Future<Directory> getTempDir() async {
 
   if (dir.existsSync()) await dir.delete(recursive: true);
 
-  await dir.create(recursive: true);
+  dir.createSync(recursive: true);
   return dir;
 }
 
@@ -23,6 +24,8 @@ Future<Directory> getTempDir() async {
 Future<void> setUpRealHive() async {
   final tempDir = await getTempDir();
   Hive.init(tempDir.path);
+
+  await Hive.openBox(hiveHttpCache);
 }
 
 /// Deletes the temporary [Hive].

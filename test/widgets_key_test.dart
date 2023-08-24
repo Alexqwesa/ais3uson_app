@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/global_helpers.dart';
 // ignore_for_file: unnecessary_import
 
 import 'package:ais3uson_app/main.dart';
@@ -50,13 +49,9 @@ void main() {
   });
   group('Widget tests', () {
     testWidgets('it show list of worker profiles', (tester) async {
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
+
+      // Add Profile
+      final (ref, _, wp, _) = await openRefContainer();
       const widgetForTesting = ListOfDepartments();
       await tester.pumpWidget(
         ProviderScope(
@@ -67,9 +62,7 @@ void main() {
           ),
         ),
       );
-      // Add Profile
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
+
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
@@ -224,7 +217,7 @@ void main() {
       ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       await tester.runAsync<void>(() async {
         final wp = ref.read(departmentsProvider).first;
-        await ref.read(hiveBox(hiveProfiles).future);
+        await ref.read(hiveBox(hiveHttpCache).future);
         // await wp.postInit();
         await wp.syncClients();
       });
