@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/journal.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Base provider of hive [Box], type [dynamic].
 ///

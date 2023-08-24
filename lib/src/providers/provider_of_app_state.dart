@@ -4,7 +4,7 @@ import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/src/providers/departments.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'provider_of_app_state.g.dart';
@@ -58,19 +58,15 @@ final archiveDate = StateProvider<DateTime?>((ref) {
 
 /// Archive view or usual view of App.
 ///
-/// Provider of setting - isArchive. Inited with false, doesn't save its value.
-///
 /// {@category Providers}
 /// {@category App State}
 // Todo: only use archiveDate?
-final isArchive = StateNotifierProvider<_ArchiveState, bool>((ref) {
-  return _ArchiveState(ref);
-});
-
-class _ArchiveState extends StateNotifier<bool> {
-  _ArchiveState(this.ref) : super(false);
-
-  final Ref ref;
+@Riverpod(keepAlive: true)
+class IsArchive extends _$IsArchive {
+  @override
+  bool build() {
+    return false;
+  }
 
   @override
   set state(bool value) {

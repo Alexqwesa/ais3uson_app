@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// This class is for showing archived services at date [archiveDate].
 ///
@@ -21,20 +21,21 @@ class JournalArchive extends Journal {
 
   @override
   // todo: rework it
-  Box<ServiceOfJournal> get hive => hiveRepository.openHive.requireValue; // only for test
+  Box<ServiceOfJournal> get hive =>
+      hiveRepository.openHive.requireValue; // only for test
 
   @override
   Ref get ref => workerProfile.ref;
 
   @override
-   HiveRepository get hiveRepository => workerProfile.hiveRepository;
+  HiveRepository get hiveRepository => workerProfile.hiveRepository;
 
   @override
   JournalHttpInterface get httpInterface => workerProfile.http;
 
   // @override
   @override
- HiveRepositoryProvider get servicesOf => hiveRepositoryProvider(apiKey);
+  HiveRepositoryProvider get servicesOf => hiveRepositoryProvider(apiKey);
 
   /// This method of base class is stubbed.
   @override
@@ -65,5 +66,4 @@ class JournalArchive extends Journal {
   Future<void> commitAll() async {
     return; // stub
   }
-
 }

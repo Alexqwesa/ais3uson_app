@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'worker_profile_logic.dart';
+part of 'worker.dart';
 
 // **************************************************************************
 // RiverpodGenerator

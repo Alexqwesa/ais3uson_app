@@ -8,8 +8,8 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Show screen where user can add [Worker] from text string.
 ///

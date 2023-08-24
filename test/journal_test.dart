@@ -9,9 +9,9 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -531,9 +531,6 @@ void main() {
           await service3.delete();
         }
 
-
-
-
         expect(ref.read(service3.fullStateOf), [10, 0, 0]);
         expect(client.workerProfile.journalOf.outDated.length, 10);
         for (var i = 0; i < servNum; i++) {
@@ -541,9 +538,6 @@ void main() {
         }
         expect(ref.read(service3.fullStateOf), [0, 0, 0]);
         expect(verify(MockServer(httpClient).testReqDelete).callCount, 20);
-
-
-
 
         // await service3.add();
         // expect(ref.read(service3.fullStateOf), [10, 1, 0]);

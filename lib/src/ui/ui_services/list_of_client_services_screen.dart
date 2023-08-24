@@ -7,9 +7,8 @@ import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart'
-    show ConsumerWidget, ProviderScope, WidgetRef;
 import 'package:tuple/tuple.dart';
 
 /// Show list of services assigned to client, allow input by click.

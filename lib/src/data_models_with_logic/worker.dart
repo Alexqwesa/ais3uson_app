@@ -9,7 +9,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tuple/tuple.dart';
 
-part 'worker_profile_logic.g.dart';
+part 'worker.g.dart';
 
 @riverpod
 Worker workerByApi(Ref ref, String apiKey) =>

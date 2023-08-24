@@ -6,8 +6,8 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 /// Show screen with main menu and with list of [Worker].
@@ -32,7 +32,7 @@ class HomeScreen extends ConsumerWidget {
       //
       // > scan qr button
       //
-      floatingActionButton: ref.watch(isArchive)
+      floatingActionButton: ref.watch(isArchiveProvider)
           ? null
           : FloatingActionButton(
               onPressed: () {
@@ -44,7 +44,7 @@ class HomeScreen extends ConsumerWidget {
       //
       // > drawer
       //
-      drawer: ref.watch(isArchive)
+      drawer: ref.watch(isArchiveProvider)
           ? null
           : Drawer(
               child: ListView(
@@ -116,7 +116,7 @@ class HomeScreen extends ConsumerWidget {
                     onTap: () {
                       Navigator.pop(context, 'archive');
                       if (ref.read(archiveDate) == null) {
-                        ref.read(isArchive.notifier).state = true;
+                        ref.read(isArchiveProvider.notifier).state = true;
                         context.push('/archive');
                         ArchiveShellRoute.setArchiveOnWithDatePicker(
                           context,
@@ -124,7 +124,7 @@ class HomeScreen extends ConsumerWidget {
                         );
                       } else {
                         context.push('/');
-                        ref.read(isArchive.notifier).state = false;
+                        ref.read(isArchiveProvider.notifier).state = false;
                       }
                     },
                   ),

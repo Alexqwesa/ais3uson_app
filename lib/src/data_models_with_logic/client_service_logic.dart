@@ -5,7 +5,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:collection/collection.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
 /// Model for [ServiceCard] and other widget.
@@ -215,7 +215,7 @@ final _leftOfService = Provider.family<int, ClientService>((ref, cs) {
 ///
 /// {@category Providers}
 final _isTodayOfService = Provider.family<bool, ClientService>((ref, cs) {
-  final archive = ref.watch(isArchive);
+  final archive = ref.watch(isArchiveProvider);
 
   return !(cs.date != null &&
       (archive && (cs.date != ref.watch(archiveDate)) ||

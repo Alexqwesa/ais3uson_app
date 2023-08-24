@@ -3,7 +3,7 @@ import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// This is main MaterialApp widget.

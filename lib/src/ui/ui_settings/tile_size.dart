@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tuple/tuple.dart';
 
 /// Calculate size of [ServiceCard] based on parentSize [tileMagnificationProvider]

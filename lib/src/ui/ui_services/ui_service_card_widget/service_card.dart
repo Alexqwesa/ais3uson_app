@@ -3,8 +3,7 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart'
-    show ConsumerWidget, WidgetRef;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Displays one [ClientService].
 ///
@@ -24,7 +23,7 @@ class ServiceCard extends ConsumerWidget {
     // ignore: no_leading_underscores_for_local_identifiers
     final _ = ref.watch(archiveDate); // in case of date change
     final activeViewOfCard =
-        ref.watch(service.addAllowedOf) || ref.watch(isArchive);
+        ref.watch(service.addAllowedOf) || ref.watch(isArchiveProvider);
 
     final cardView = switch (ref.watch(tileTypeProvider)) {
       'tile' => const ServiceCardTileView(),

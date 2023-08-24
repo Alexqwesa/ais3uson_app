@@ -15,10 +15,10 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 // import 'package:hive_test/hive_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -250,8 +250,9 @@ void main() {
       //
       // > set currentClient
       //
-      ref = ProviderContainer(
-          parent: ref, overrides: [currentClient.overrideWithValue(ref.read(wp.clientsOf).first)]);
+      ref = ProviderContainer(parent: ref, overrides: [
+        currentClient.overrideWithValue(ref.read(wp.clientsOf).first)
+      ]);
       final serv = ref.read(ref.read(currentClient).servicesOf).first;
       final (_, proofController) = ref.read(serviceProofAtDate(serv));
       proofController.addProof(); // serv.addProof();

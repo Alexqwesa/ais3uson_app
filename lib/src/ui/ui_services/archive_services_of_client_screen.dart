@@ -10,8 +10,7 @@ import 'package:ais3uson_app/ui_proofs.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart'
-    show ConsumerWidget, ProviderScope, WidgetRef;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const _tileSize = 500.0;
 

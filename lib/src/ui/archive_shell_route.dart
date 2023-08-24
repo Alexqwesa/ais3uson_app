@@ -3,8 +3,8 @@ import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Show Archive AppBar then app in archive mode.
 ///
@@ -17,7 +17,7 @@ class ArchiveShellRoute extends ConsumerWidget {
     super.key,
   });
 
-  /// Activate archive mode([isArchive]) only if [allDaysWithServicesInited].dates
+  /// Activate archive mode([isArchiveProvider]) only if [allDaysWithServicesInited].dates
   /// not empty.
   ///
   /// It also show date picker to set [archiveDate].
@@ -30,7 +30,7 @@ class ArchiveShellRoute extends ConsumerWidget {
         ref.read(allDaysWithServicesInited).asData?.value ?? <DateTime>{};
 
     if (archiveDates.isEmpty) {
-      ref.read(isArchive.notifier).state = false;
+      ref.read(isArchiveProvider.notifier).state = false;
 
       return;
     }
@@ -43,7 +43,7 @@ class ArchiveShellRoute extends ConsumerWidget {
         firstDate: archiveDates.first,
       );
     }
-    ref.read(isArchive.notifier).state = true;
+    ref.read(isArchiveProvider.notifier).state = true;
   }
 
   @override
@@ -58,7 +58,7 @@ class ArchiveShellRoute extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                ref.read(isArchive.notifier).state = false;
+                ref.read(isArchiveProvider.notifier).state = false;
                 context.push('/');
               },
               icon: const Icon(Icons.cancel_outlined),

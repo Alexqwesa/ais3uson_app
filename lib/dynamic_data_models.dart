@@ -31,4 +31,4 @@ import 'package:ais3uson_app/providers.dart';
 export 'package:ais3uson_app/data_models.dart';
 export 'package:ais3uson_app/src/data_models_with_logic/client_profile.dart';
 export 'package:ais3uson_app/src/data_models_with_logic/client_service_logic.dart';
-export 'package:ais3uson_app/src/data_models_with_logic/worker_profile_logic.dart';
+export 'package:ais3uson_app/src/data_models_with_logic/worker.dart';

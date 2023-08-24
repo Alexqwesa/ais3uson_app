@@ -22,7 +22,7 @@ class Journals extends _$Journals {
   late final Worker worker;
 
   Journal get journalOf {
-    return ref.watch(isArchive)
+    return ref.watch(isArchiveProvider)
         ? (ref.watch(archiveDate) != null ? journalAtDate : journalAllDates)
         : state;
   }

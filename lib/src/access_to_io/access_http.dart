@@ -6,8 +6,8 @@ import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart' show WorkerKey;
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
 

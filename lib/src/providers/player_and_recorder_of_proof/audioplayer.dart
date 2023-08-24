@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// State of [audioPlayer].
 ///

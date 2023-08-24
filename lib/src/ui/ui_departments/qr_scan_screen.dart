@@ -6,7 +6,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 /// Show screen where user scan QR code to add [Worker] from QR code.

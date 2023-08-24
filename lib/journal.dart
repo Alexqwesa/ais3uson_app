@@ -23,7 +23,7 @@
 library journal;
 
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/src/data_models_with_logic/worker_profile_logic.dart';
+import 'package:ais3uson_app/src/data_models_with_logic/worker.dart';
 
 export 'package:ais3uson_app/src/api_classes/inner/service_of_journal.dart';
 export 'package:ais3uson_app/src/api_classes/inner/service_state.dart';

@@ -1,7 +1,6 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
-import 'package:ais3uson_app/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'client_profile.g.dart';
@@ -26,7 +25,7 @@ class ClientProfile extends _$ClientProfile {
 
   String get contract => state.contract;
 
-  Worker get workerProfile => ref.watch(departmentsProvider.notifier).byApi(apiKey);
+  Worker get workerProfile => ref.read(workerByApiProvider(apiKey));
 
   List<ClientService> get services => ref.watch(servicesOfClient(this));
 

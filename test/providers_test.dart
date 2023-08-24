@@ -7,8 +7,8 @@ import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer, getMockHttpClient;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -26,13 +26,13 @@ import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,7 +97,6 @@ Future<void> init() async {
   }
 }
 
-
 Future<void> main() async {
   await initAndSetCertificate();
   await runMain();
@@ -109,16 +108,15 @@ Future<void> initAndSetCertificate() async {
   // > init for tests
   //
   await init();
-  // 
+  //
   // > add certificate
-  // 
+  //
   if (!kIsWeb) {
     final data =
         await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
     SecurityContext.defaultContext
         .setTrustedCertificatesBytes(data.buffer.asUint8List());
   }
-
 }
 
 /// Run application, init [Hive], set urlStrategy, and demo data.
@@ -140,7 +138,8 @@ Future<void> runMain() async {
       observers: [AppProviderObserver()],
       overrides: [
         // stub data for demo mode and testing
-        httpClientProvider(testWorkerKey().certBase64).overrideWithValue(getMockHttpClient()),
+        httpClientProvider(testWorkerKey().certBase64)
+            .overrideWithValue(getMockHttpClient()),
       ],
       child: const AppRoot(),
     ),

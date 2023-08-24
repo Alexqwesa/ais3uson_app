@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///

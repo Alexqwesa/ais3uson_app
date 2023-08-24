@@ -4,8 +4,8 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Helper for HomeScreen, this widget: show list of [Worker].
 ///
@@ -37,35 +37,35 @@ class ListOfDepartments extends ConsumerWidget {
                           buttonConfigs: [
                             ContextMenuButtonConfig(
                               tr().exportThisWeek,
-                              onPressed: () => workerProfile.journalAllOf
-                                  .exportToFile(
-                                    mostRecentMonday(),
-                                    mostRecentMonday(addDays: 7),
-                                  ),
+                              onPressed: () =>
+                                  workerProfile.journalAllOf.exportToFile(
+                                mostRecentMonday(),
+                                mostRecentMonday(addDays: 7),
+                              ),
                             ),
                             ContextMenuButtonConfig(
                               tr().exportLastWeek,
-                              onPressed: () => workerProfile.journalAllOf
-                                  .exportToFile(
-                                    mostRecentMonday(addDays: -7),
-                                    mostRecentMonday(),
-                                  ),
+                              onPressed: () =>
+                                  workerProfile.journalAllOf.exportToFile(
+                                mostRecentMonday(addDays: -7),
+                                mostRecentMonday(),
+                              ),
                             ),
                             ContextMenuButtonConfig(
                               tr().exportThisMonth,
-                              onPressed: () => workerProfile.journalAllOf
-                                  .exportToFile(
-                                    mostRecentMonth(),
-                                    mostRecentMonth(addMonths: 1),
-                                  ),
+                              onPressed: () =>
+                                  workerProfile.journalAllOf.exportToFile(
+                                mostRecentMonth(),
+                                mostRecentMonth(addMonths: 1),
+                              ),
                             ),
                             ContextMenuButtonConfig(
                               tr().exportLastMonth,
-                              onPressed: () => workerProfile.journalAllOf
-                                  .exportToFile(
-                                    mostRecentMonth(addMonths: -1),
-                                    mostRecentMonth(),
-                                  ),
+                              onPressed: () =>
+                                  workerProfile.journalAllOf.exportToFile(
+                                mostRecentMonth(addMonths: -1),
+                                mostRecentMonth(),
+                              ),
                             ),
                           ],
                         ),

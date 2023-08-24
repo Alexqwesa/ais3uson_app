@@ -6,8 +6,8 @@ import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +25,7 @@ GoRouter route(Ref ref) {
 GoRouter router(Ref ref, String? initialLocation) {
   // final route = ref.watch(appRouteProvider);
   // final controller = ref.watch(appRouteProvider.notifier);
-  final archive = ref.watch(isArchive);
+  final archive = ref.watch(isArchiveProvider);
 
   return GoRouter(
     // navigatorKey: _rootNavigatorKey,
