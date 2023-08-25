@@ -17,4 +17,5 @@ export 'package:ais3uson_app/src/providers/departments.dart';
 export 'package:ais3uson_app/src/providers/player_and_recorder_of_proof/audioplayer.dart';
 export 'package:ais3uson_app/src/providers/player_and_recorder_of_proof/recorder.dart';
 export 'package:ais3uson_app/src/providers/player_and_recorder_of_proof/recorder_state.dart';
-export 'package:ais3uson_app/src/providers/provider_of_app_state.dart';
+export 'package:ais3uson_app/src/providers/is_archive_provider.dart';
+export 'package:ais3uson_app/src/providers/stub_providers.dart';
