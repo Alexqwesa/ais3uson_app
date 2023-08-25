@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-final httpTestHeader = {
+Map<String, String> httpTestHeader = {
   'Content-type': 'application/json',
   'Accept': 'application/json',
   'api-key': '3.01567984187',

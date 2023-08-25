@@ -56,8 +56,7 @@ Future<void> main() async {
   });
 
   testWidgets('it open Services of Client', (tester) async {
-    final (_, clientsData, _) =
-        await openServicesOfFirstClient(tester);
+    final (_, clientsData, _) = await openServicesOfFirstClient(tester);
     //
     // > go back
     //
@@ -93,7 +92,7 @@ Future<void> main() async {
 
   testWidgets('it add Services', (tester) async {
     // final (wKey, clientsData, servicesData) =
-        await openServicesOfFirstClient(tester);
+    await openServicesOfFirstClient(tester);
 
     final serviceText = find.text('Итого:');
     //

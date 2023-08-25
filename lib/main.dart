@@ -126,6 +126,11 @@ Future<void> initAndSetCertificate() async {
 /// {@category UI Root}
 /// {@category About}
 Future<void> runMain() async {
+  httpTestHeader = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'api-key': '3.01567984187____',
+  };
   //
   // > hive init
   //
@@ -138,7 +143,7 @@ Future<void> runMain() async {
     child: ProviderScope(
       observers: [AppProviderObserver()],
       overrides: [
-        hiveBox(hiveHttpCache).overrideWith((ref) =>  openHttpBox),
+        hiveBox(hiveHttpCache).overrideWith((ref) => openHttpBox),
         // stub data for demo mode and testing
         httpClientProvider(testWorkerKey().certBase64)
             .overrideWithValue(getMockHttpClient()),
