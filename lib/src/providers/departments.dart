@@ -1,6 +1,7 @@
 // ignore_for_file: sort_constructors_first
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
@@ -29,6 +30,8 @@ class Departments extends _$Departments {
   /// Just keys of [Worker]s
   Iterable<WorkerKey> get keys => state.map((e) => e.key);
 
+  Iterable<String> get apiKeys => state.map((e) => e.key.apiKey);
+
   List<String> _shortNames = [];
 
   @override
@@ -49,9 +52,16 @@ class Departments extends _$Departments {
 
   void _updateShortNames({int length = 7}) {
     _shortNames = [
-      for (final wk in keys) wk.apiKey.hashCode.toString().substring(0, length)
+      for (final wk in keys)
+        wk.apiKey.hashCode
+            .toString()
+            .substring(0, min(length, wk.apiKey.hashCode.toString().length))
     ];
     if (_shortNames.length != _shortNames.toSet().length) {
+      if (length > 9) {
+        _shortNames = [for (final wk in keys) wk.apiKey];
+        return;
+      }
       _updateShortNames(length: length + 2);
     }
   }
@@ -111,7 +121,7 @@ class Departments extends _$Departments {
   //     state.firstWhere((e) => e.apiKey == apiKey).key;
 
   bool addProfileFromKey(WorkerKey key) {
-    if (!keys.contains(key)) {
+    if (!apiKeys.contains(key.apiKey)) {
       state = [...state, ref.watch(workerProvider(key).notifier)];
       return true;
     }

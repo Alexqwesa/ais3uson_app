@@ -6,7 +6,7 @@ part of 'departments.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$departmentsHash() => r'e3b02c7cab6c64b5059543cf0de8438630f93ac6';
+String _$departmentsHash() => r'd14852bf2b62226175189ccdc3af64b4f39af1fb';
 
 /// Provider and controller of List<[Worker]>.
 ///
