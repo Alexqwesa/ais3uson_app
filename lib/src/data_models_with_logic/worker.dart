@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
 import 'package:ais3uson_app/access_to_io.dart';
@@ -22,10 +24,6 @@ Worker workerByApi(Ref ref, String apiKey) =>
 class Worker extends _$Worker {
   late final JournalHttpInterface http;
 
-  // late final Journal _journal;
-  // late final Journal _journalAt;
-  // late final Journal _journalAll;
-
   @override
   WorkerKey build(WorkerKey key) {
     http = JournalHttpInterface(this);
@@ -35,14 +33,14 @@ class Worker extends _$Worker {
 
   Journal get journal => ref.read(journalsProvider(apiKey));
 
-  Journal get journalOf =>
-      ref.read(journalsProvider(apiKey).notifier).journalOf;
+  Journals get _journalNotifier => ref.read(journalsProvider(apiKey).notifier);
 
-  Journal get journalAllOf =>
-      ref.read(journalsProvider(apiKey).notifier).journalAllDates;
+  Journal get journalOf => _journalNotifier.journalOf;
+
+  Journal get journalAllOf => _journalNotifier.journalAllDates;
 
   Journal journalAtDateOf(DateTime date) =>
-      ref.read(journalsProvider(apiKey).notifier).journalAtDateOf(date);
+      _journalNotifier.journalAtDateOf(date);
 
   HiveRepository get hiveRepository =>
       ref.watch(hiveRepositoryProvider(apiKey).notifier);
@@ -66,24 +64,18 @@ class Worker extends _$Worker {
 
   String get urlServices => '/services';
 
-  // (String, String) get apiUrlClients => (apiKey, urlClients);
-  //
-  // (String, String) get apiUrlPlan => (apiKey, urlPlan);
-  //
-  // (String, String) get apiUrlServices => (apiKey, urlServices);
-
-  /// List of services for client.
+  /// List of services(it names), one for all clients.
   ///
   /// Since workers could potentially work
   /// on two different organizations (half rate in each),
   /// with different service list, store services in worker profile.
-  Provider<List<ServiceEntry>> get servicesOf => _servicesOfWorker(this);
+  ServicesOfWorkerProvider get servicesOf => servicesOfWorkerProvider(this);
 
   /// List of assigned clients.
-  Provider<List<ClientProfile>> get clientsOf => _clientsOfWorker(this);
+  ClientsOfWorkerProvider get clientsOf => clientsOfWorkerProvider(this);
 
-  /// List of assigned clients.
-  Provider<List<ClientPlan>> get clientsPlanOf => _planOfWorker(this);
+  /// List plans of assigned clients.
+  PlanOfWorkerProvider get clientsPlanOf => planOfWorkerProvider(this);
 
   DateTime get planSyncDateOf =>
       ref.watch(httpProvider(apiKey, urlPlan).notifier).updatedAt;
@@ -129,52 +121,43 @@ class Worker extends _$Worker {
   }
 }
 
-/// Provider of clients for [Worker].
-///
-/// It check is update needed, and auto update list.
-/// Return List<[ClientProfile]>.
+/// Provider of clients for a [Worker].
 ///
 /// {@category Providers}
-final _clientsOfWorker = Provider.family<List<ClientProfile>, Worker>(
-  (ref, wp) {
-    // ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).syncHiveHttp();
+@Riverpod(keepAlive: true)
+List<ClientProfile> ClientsOfWorker(Ref ref, Worker wp) {
+  // ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).syncHiveHttp();
 
-    return ref
-        .watch(httpProvider(wp.apiKey, wp.urlClients))
-        .map<ClientEntry>(ClientEntry.fromJson)
-        .map((el) => ref.watch(
-            clientProfileProvider(apiKey: wp.apiKey, entry: el).notifier))
-        .toList(growable: false);
-  },
-);
+  return ref
+      .watch(httpProvider(wp.apiKey, wp.urlClients))
+      .map<ClientEntry>(ClientEntry.fromJson)
+      .map((el) => ref
+          .watch(clientProfileProvider(apiKey: wp.apiKey, entry: el).notifier))
+      .toList(growable: false);
+}
 
-/// Provider of services for [Worker].
-///
-/// It check is update needed, and auto update list.
-/// Return List<[ServiceEntry]>.
+/// Provider of services for a [Worker].
 ///
 /// {@category Providers}
-final _servicesOfWorker =
-    Provider.family<List<ServiceEntry>, Worker>((ref, wp) {
+@Riverpod(keepAlive: true)
+List<ServiceEntry> ServicesOfWorker(Ref ref, Worker wp) {
   // ref.watch(httpProvider(wp.apiKey, wp.urlServices).notifier).syncHiveHttp();
 
   return ref
       .watch(httpProvider(wp.apiKey, wp.urlServices))
       .map<ServiceEntry>(ServiceEntry.fromJson)
       .toList(growable: false);
-});
+}
 
-/// Provider of planned services for [Worker].
-///
-/// It check is update needed, and auto update list.
-/// Return List<[ClientPlan]>.
+/// Provider of planned services for a [Worker].
 ///
 /// {@category Providers}
-final _planOfWorker = Provider.family<List<ClientPlan>, Worker>((ref, wp) {
+@Riverpod(keepAlive: true)
+List<ClientPlan> PlanOfWorker(Ref ref, Worker wp) {
   // ref.watch(httpProvider(wp.apiKey, wp.urlPlan).notifier).syncHiveHttp();
 
   return ref
       .watch(httpProvider(wp.apiKey, wp.urlPlan))
       .map<ClientPlan>(ClientPlan.fromJson)
       .toList(growable: false);
-});
+}

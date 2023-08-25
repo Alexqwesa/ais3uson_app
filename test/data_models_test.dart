@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
@@ -99,33 +100,27 @@ void main() {
 
     test('it create only one WorkerProfiles', () async {
       final ref = ProviderContainer();
-      await ref.pump();
-      await ref.pump();
-      await ref.pump();
-      await ref.pump();
-
-      ref.refresh(departmentsProvider);
-      await ref.pump();
-      // ref.refresh(workerKeys);
+      final wKey = wKeysData2();
       expect(ref.read(departmentsProvider).length, 0);
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
+      expect(wKey, isA<WorkerKey>());
+      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
       expect(ref.read(departmentsProvider).length, 1);
+      expect(ref.read(departmentsProvider).first, isA<Worker>());
       expect(
-        ref.read(departmentsProvider).first,
-        isA<Worker>(),
+        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey),
+        false,
       );
-      expect(wKeysData2(), isA<WorkerKey>());
       expect(ref.read(departmentsProvider).length, 1);
     });
 
     test('it check date of last sync before sync on load', () async {
       // > prepare ProviderContainer + httpClient + worker
-      final (_, _, wp, httpClient) = await openRefContainer();
+      final (ref, _, wp, httpClient) = await openRefContainer();
       // ----
 
       // await ref.pump();
-      // expect(ref.read(httpProvider(wp.apiKey, wp.urlClients)).length, 0); // ?
-      // expect(ref.read(wp.clientsOf).length, 0); // ?
+      expect(ref.read(httpProvider(wp.apiKey, wp.urlClients)).length, 0); // ?
+      expect(ref.read(wp.clientsOf).length, 0); // ?
       // expect(wp.clients.length, 0);
       // await ref.refresh(wp.clientsOf);
       // expect(wp.clients.length, 0);

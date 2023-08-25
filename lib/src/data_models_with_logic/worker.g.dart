@@ -110,7 +110,325 @@ class WorkerByApiProvider extends Provider<Worker> {
   }
 }
 
-String _$workerHash() => r'e74337301f0c5d4bde158775769af30fe9d5fa26';
+String _$clientsOfWorkerHash() => r'8cc7f0d7fe8681d950ee9c5c3c00c74c6e0096c1';
+typedef ClientsOfWorkerRef = ProviderRef<List<ClientProfile>>;
+
+/// Provider of clients for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [ClientsOfWorker].
+@ProviderFor(ClientsOfWorker)
+const clientsOfWorkerProvider = ClientsOfWorkerFamily();
+
+/// Provider of clients for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [ClientsOfWorker].
+class ClientsOfWorkerFamily extends Family<List<ClientProfile>> {
+  /// Provider of clients for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [ClientsOfWorker].
+  const ClientsOfWorkerFamily();
+
+  /// Provider of clients for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [ClientsOfWorker].
+  ClientsOfWorkerProvider call(
+    Worker wp,
+  ) {
+    return ClientsOfWorkerProvider(
+      wp,
+    );
+  }
+
+  @override
+  ClientsOfWorkerProvider getProviderOverride(
+    covariant ClientsOfWorkerProvider provider,
+  ) {
+    return call(
+      provider.wp,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'clientsOfWorkerProvider';
+}
+
+/// Provider of clients for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [ClientsOfWorker].
+class ClientsOfWorkerProvider extends Provider<List<ClientProfile>> {
+  /// Provider of clients for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [ClientsOfWorker].
+  ClientsOfWorkerProvider(
+    this.wp,
+  ) : super.internal(
+          (ref) => ClientsOfWorker(
+            ref,
+            wp,
+          ),
+          from: clientsOfWorkerProvider,
+          name: r'clientsOfWorkerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$clientsOfWorkerHash,
+          dependencies: ClientsOfWorkerFamily._dependencies,
+          allTransitiveDependencies:
+              ClientsOfWorkerFamily._allTransitiveDependencies,
+        );
+
+  final Worker wp;
+
+  @override
+  bool operator ==(Object other) {
+    return other is ClientsOfWorkerProvider && other.wp == wp;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, wp.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$servicesOfWorkerHash() => r'8ada54238b63e4afc17f17b0032152f8836bf704';
+typedef ServicesOfWorkerRef = ProviderRef<List<ServiceEntry>>;
+
+/// Provider of services for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [ServicesOfWorker].
+@ProviderFor(ServicesOfWorker)
+const servicesOfWorkerProvider = ServicesOfWorkerFamily();
+
+/// Provider of services for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [ServicesOfWorker].
+class ServicesOfWorkerFamily extends Family<List<ServiceEntry>> {
+  /// Provider of services for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [ServicesOfWorker].
+  const ServicesOfWorkerFamily();
+
+  /// Provider of services for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [ServicesOfWorker].
+  ServicesOfWorkerProvider call(
+    Worker wp,
+  ) {
+    return ServicesOfWorkerProvider(
+      wp,
+    );
+  }
+
+  @override
+  ServicesOfWorkerProvider getProviderOverride(
+    covariant ServicesOfWorkerProvider provider,
+  ) {
+    return call(
+      provider.wp,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'servicesOfWorkerProvider';
+}
+
+/// Provider of services for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [ServicesOfWorker].
+class ServicesOfWorkerProvider extends Provider<List<ServiceEntry>> {
+  /// Provider of services for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [ServicesOfWorker].
+  ServicesOfWorkerProvider(
+    this.wp,
+  ) : super.internal(
+          (ref) => ServicesOfWorker(
+            ref,
+            wp,
+          ),
+          from: servicesOfWorkerProvider,
+          name: r'servicesOfWorkerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$servicesOfWorkerHash,
+          dependencies: ServicesOfWorkerFamily._dependencies,
+          allTransitiveDependencies:
+              ServicesOfWorkerFamily._allTransitiveDependencies,
+        );
+
+  final Worker wp;
+
+  @override
+  bool operator ==(Object other) {
+    return other is ServicesOfWorkerProvider && other.wp == wp;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, wp.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$planOfWorkerHash() => r'7651608e228095c0e3b6a9ec19a296e7ef2666d2';
+typedef PlanOfWorkerRef = ProviderRef<List<ClientPlan>>;
+
+/// Provider of planned services for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [PlanOfWorker].
+@ProviderFor(PlanOfWorker)
+const planOfWorkerProvider = PlanOfWorkerFamily();
+
+/// Provider of planned services for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [PlanOfWorker].
+class PlanOfWorkerFamily extends Family<List<ClientPlan>> {
+  /// Provider of planned services for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [PlanOfWorker].
+  const PlanOfWorkerFamily();
+
+  /// Provider of planned services for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [PlanOfWorker].
+  PlanOfWorkerProvider call(
+    Worker wp,
+  ) {
+    return PlanOfWorkerProvider(
+      wp,
+    );
+  }
+
+  @override
+  PlanOfWorkerProvider getProviderOverride(
+    covariant PlanOfWorkerProvider provider,
+  ) {
+    return call(
+      provider.wp,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'planOfWorkerProvider';
+}
+
+/// Provider of planned services for a [Worker].
+///
+/// {@category Providers}
+///
+/// Copied from [PlanOfWorker].
+class PlanOfWorkerProvider extends Provider<List<ClientPlan>> {
+  /// Provider of planned services for a [Worker].
+  ///
+  /// {@category Providers}
+  ///
+  /// Copied from [PlanOfWorker].
+  PlanOfWorkerProvider(
+    this.wp,
+  ) : super.internal(
+          (ref) => PlanOfWorker(
+            ref,
+            wp,
+          ),
+          from: planOfWorkerProvider,
+          name: r'planOfWorkerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$planOfWorkerHash,
+          dependencies: PlanOfWorkerFamily._dependencies,
+          allTransitiveDependencies:
+              PlanOfWorkerFamily._allTransitiveDependencies,
+        );
+
+  final Worker wp;
+
+  @override
+  bool operator ==(Object other) {
+    return other is PlanOfWorkerProvider && other.wp == wp;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, wp.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$workerHash() => r'a1ce7a8ba36c6de0013bc0a3289f9d04e22a20e2';
 
 abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
   late final WorkerKey key;
