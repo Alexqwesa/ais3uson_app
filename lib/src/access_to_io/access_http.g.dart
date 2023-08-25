@@ -6,7 +6,7 @@ part of 'access_http.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$repositoryHttpHash() => r'53ea5d86c0ed79a12134410332eddd1b4c1d419c';
+String _$httpHash() => r'1736a56219f83279aa319e701d53f44028037bd9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,115 +29,7 @@ class _SystemHash {
   }
 }
 
-typedef RepositoryHttpRef = AutoDisposeProviderRef<Http>;
-
-/// Provider of httpData, create families by apiKey and url.
-///
-/// {@category Providers}
-///
-/// Copied from [repositoryHttp].
-@ProviderFor(repositoryHttp)
-const repositoryHttpProvider = RepositoryHttpFamily();
-
-/// Provider of httpData, create families by apiKey and url.
-///
-/// {@category Providers}
-///
-/// Copied from [repositoryHttp].
-class RepositoryHttpFamily extends Family<Http> {
-  /// Provider of httpData, create families by apiKey and url.
-  ///
-  /// {@category Providers}
-  ///
-  /// Copied from [repositoryHttp].
-  const RepositoryHttpFamily();
-
-  /// Provider of httpData, create families by apiKey and url.
-  ///
-  /// {@category Providers}
-  ///
-  /// Copied from [repositoryHttp].
-  RepositoryHttpProvider call(
-    Tuple2<WorkerKey, String> apiUrl,
-  ) {
-    return RepositoryHttpProvider(
-      apiUrl,
-    );
-  }
-
-  @override
-  RepositoryHttpProvider getProviderOverride(
-    covariant RepositoryHttpProvider provider,
-  ) {
-    return call(
-      provider.apiUrl,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'repositoryHttpProvider';
-}
-
-/// Provider of httpData, create families by apiKey and url.
-///
-/// {@category Providers}
-///
-/// Copied from [repositoryHttp].
-class RepositoryHttpProvider extends AutoDisposeProvider<Http> {
-  /// Provider of httpData, create families by apiKey and url.
-  ///
-  /// {@category Providers}
-  ///
-  /// Copied from [repositoryHttp].
-  RepositoryHttpProvider(
-    this.apiUrl,
-  ) : super.internal(
-          (ref) => repositoryHttp(
-            ref,
-            apiUrl,
-          ),
-          from: repositoryHttpProvider,
-          name: r'repositoryHttpProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$repositoryHttpHash,
-          dependencies: RepositoryHttpFamily._dependencies,
-          allTransitiveDependencies:
-              RepositoryHttpFamily._allTransitiveDependencies,
-        );
-
-  final Tuple2<WorkerKey, String> apiUrl;
-
-  @override
-  bool operator ==(Object other) {
-    return other is RepositoryHttpProvider && other.apiUrl == apiUrl;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, apiUrl.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-String _$httpHash() => r'70eb4a4999649f4f4b760bf3df7a6cc4f500b9a3';
-
-abstract class _$Http
-    extends BuildlessAutoDisposeNotifier<List<Map<String, dynamic>>> {
+abstract class _$Http extends BuildlessNotifier<List<Map<String, dynamic>>> {
   late final String apiKey;
   late final String path;
 
@@ -147,49 +39,45 @@ abstract class _$Http
   );
 }
 
-/// Repository for families of providers [repositoryHttp].
+/// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
 ///
-/// Read hive on init, [state] is a [http.Response] in json format,
+/// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
+///
+/// Read hive on init, [state] is a List from json [http.Response] ,
 ///  save state to [Hive].
-///
-/// Public methods [getHttpData] and [syncHiveHttp].
-///
 /// {@category Providers}
 ///
 /// Copied from [Http].
 @ProviderFor(Http)
 const httpProvider = HttpFamily();
 
-/// Repository for families of providers [repositoryHttp].
+/// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
 ///
-/// Read hive on init, [state] is a [http.Response] in json format,
+/// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
+///
+/// Read hive on init, [state] is a List from json [http.Response] ,
 ///  save state to [Hive].
-///
-/// Public methods [getHttpData] and [syncHiveHttp].
-///
 /// {@category Providers}
 ///
 /// Copied from [Http].
 class HttpFamily extends Family<List<Map<String, dynamic>>> {
-  /// Repository for families of providers [repositoryHttp].
+  /// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
   ///
-  /// Read hive on init, [state] is a [http.Response] in json format,
+  /// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
+  ///
+  /// Read hive on init, [state] is a List from json [http.Response] ,
   ///  save state to [Hive].
-  ///
-  /// Public methods [getHttpData] and [syncHiveHttp].
-  ///
   /// {@category Providers}
   ///
   /// Copied from [Http].
   const HttpFamily();
 
-  /// Repository for families of providers [repositoryHttp].
+  /// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
   ///
-  /// Read hive on init, [state] is a [http.Response] in json format,
+  /// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
+  ///
+  /// Read hive on init, [state] is a List from json [http.Response] ,
   ///  save state to [Hive].
-  ///
-  /// Public methods [getHttpData] and [syncHiveHttp].
-  ///
   /// {@category Providers}
   ///
   /// Copied from [Http].
@@ -228,25 +116,23 @@ class HttpFamily extends Family<List<Map<String, dynamic>>> {
   String? get name => r'httpProvider';
 }
 
-/// Repository for families of providers [repositoryHttp].
+/// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
 ///
-/// Read hive on init, [state] is a [http.Response] in json format,
+/// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
+///
+/// Read hive on init, [state] is a List from json [http.Response] ,
 ///  save state to [Hive].
-///
-/// Public methods [getHttpData] and [syncHiveHttp].
-///
 /// {@category Providers}
 ///
 /// Copied from [Http].
 class HttpProvider
-    extends AutoDisposeNotifierProviderImpl<Http, List<Map<String, dynamic>>> {
-  /// Repository for families of providers [repositoryHttp].
+    extends NotifierProviderImpl<Http, List<Map<String, dynamic>>> {
+  /// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
   ///
-  /// Read hive on init, [state] is a [http.Response] in json format,
+  /// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
+  ///
+  /// Read hive on init, [state] is a List from json [http.Response] ,
   ///  save state to [Hive].
-  ///
-  /// Public methods [getHttpData] and [syncHiveHttp].
-  ///
   /// {@category Providers}
   ///
   /// Copied from [Http].

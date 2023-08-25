@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
@@ -9,9 +8,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show MockServer, getMockHttpClient;
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
-    as mock;
+    show MockServer;
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -122,83 +119,66 @@ void main() {
     });
 
     test('it check date of last sync before sync on load', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      //
-      // > init workerProfile
-      //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
-      await wp.postInit();
+      // > prepare ProviderContainer + httpClient + worker
+      final (_, _, wp, httpClient) = await openRefContainer();
+      // ----
+
       // await ref.pump();
+      // expect(ref.read(httpProvider(wp.apiKey, wp.urlClients)).length, 0); // ?
+      // expect(ref.read(wp.clientsOf).length, 0); // ?
+      // expect(wp.clients.length, 0);
+      // await ref.refresh(wp.clientsOf);
+      // expect(wp.clients.length, 0);
+
+      // todo: fix it - drop postInit()
+      expect(wp.clients.length, 0);
+      expect(wp.services.length, 0);
+      expect(wp.clientsPlan.length, 0);
+      await wp.postInit();
       expect(wp.clients.length, 10);
       expect(wp.services.length, 272);
       expect(wp.clientsPlan.length, 447);
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
-      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
-      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
-      expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
+
+      const nCalls = 1;
+      expect(
+          verify(MockServer(httpClient).testReqGetClients).callCount, nCalls);
+      expect(
+          verify(MockServer(httpClient).testReqGetPlanned).callCount, nCalls);
+      expect(
+          verify(MockServer(httpClient).testReqGetServices).callCount, nCalls);
     });
 
     test('it always sync old http data on load', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      //
-      // > init workerProfile
-      //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref.read(departmentsProvider).first;
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, httpClient) = await openRefContainer();
+      // ----
       await wp.postInit();
+      ref.read(wp.clientsOf);
+      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
       await wp.postInit(); // second call - should do nothing
       //
       // > reset sync dates
       //
-      await wp.syncPlanned();
       // skip services update
       // await wp.syncHiveServices();
+      await wp.syncPlanned();
       await wp.syncClients();
-      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
-      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 2);
+      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
+      verifyNever(MockServer(httpClient).testReqGetServices);
+      await wp.syncPlanned();
+      await wp.syncServices();
       expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
+      verifyNever(MockServer(httpClient).testReqGetClients);
     });
 
     test('it create list of clients with list of services', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      //
-      // > init workerProfile
-      //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref.read(departmentsProvider).first;
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
+      // > prepare ProviderContainer + httpClient + worker
+      final (_, _, wp, httpClient) = await openRefContainer();
+      // ----
       await wp.postInit();
       // test http
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
@@ -216,22 +196,9 @@ void main() {
     });
 
     test('it create proof file', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      var ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      //
-      // > init workerProfile
-      //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
-
-      final wp = ref.read(departmentsProvider).first;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref1, _, wp, _) = await openRefContainer();
+      // ----
       await wp.postInit();
       //
       // > add proof
@@ -250,8 +217,8 @@ void main() {
       //
       // > set currentClient
       //
-      ref = ProviderContainer(parent: ref, overrides: [
-        currentClient.overrideWithValue(ref.read(wp.clientsOf).first)
+      final ref = ProviderContainer(parent: ref1, overrides: [
+        currentClient.overrideWithValue(ref1.read(wp.clientsOf).first)
       ]);
       final serv = ref.read(ref.read(currentClient).servicesOf).first;
       final (_, proofController) = ref.read(serviceProofAtDate(serv));
@@ -299,21 +266,12 @@ void main() {
     });
 
     test('it can found proof files', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, _) = await openRefContainer();
+      // ----
       //
       // > init workerProfile
       //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKeysData2());
-      final wp = ref.read(departmentsProvider).first;
       ref.read(archiveDate.notifier).state = DateTime(2022, 3);
       await wp.postInit();
 

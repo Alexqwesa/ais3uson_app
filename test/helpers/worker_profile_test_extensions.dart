@@ -1,3 +1,5 @@
+// ignore_for_file: await_only_futures
+
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
@@ -14,11 +16,12 @@ import 'package:hive/hive.dart';
 
 import 'fake_path_provider_platform.dart';
 import 'journal_test_extensions.dart';
-import 'real_hive_helpler.dart';
+import 'setup_and_teardown_helpers.dart';
 
 Future<(ProviderContainer, WorkerKey, Worker, mock.MockClient)>
     openRefContainer() async {
-      await setUpRealHive();
+  // await setUpRealHive();
+  await setUpTestHive();
   final openHttpBox = await Hive.openBox(hiveHttpCache);
   final wKey = wKeysData2();
   final ref = ProviderContainer(
@@ -28,6 +31,7 @@ Future<(ProviderContainer, WorkerKey, Worker, mock.MockClient)>
           .overrideWithValue(getMockHttpClient()),
     ],
   );
+  expect(ref.read(hiveBox(hiveHttpCache)).hasValue, true);
 
   final httpClient =
       ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
@@ -51,9 +55,14 @@ extension WorkerTestExtensions on Worker {
   Future<void> postInit() async {
     await journalOf.postInit();
     // await (ref as ProviderContainer).pump();
-    await ref.read(httpProvider(apiKey, urlClients).notifier).syncHiveHttp();
-    await ref.read(httpProvider(apiKey, urlServices).notifier).syncHiveHttp();
-    await ref.read(httpProvider(apiKey, urlPlan).notifier).syncHiveHttp();
+    //      ref.watch(httpProvider(apiKey, urlClients).notifier);
+    //  ref.watch(httpProvider(apiKey, urlServices).notifier);
+    //  ref.watch(httpProvider(apiKey, urlPlan).notifier);
+
+    // why await is needed here?
+    await ref.watch(httpProvider(apiKey, urlClients).notifier).updateIfOld();
+    await ref.watch(httpProvider(apiKey, urlServices).notifier).updateIfOld();
+    await ref.watch(httpProvider(apiKey, urlPlan).notifier).updateIfOld();
   }
 
   /// List of assigned clients.

@@ -86,9 +86,9 @@ class Worker extends _$Worker {
   Provider<List<ClientPlan>> get clientsPlanOf => _planOfWorker(this);
 
   DateTime get planSyncDateOf =>
-      ref.read(httpProvider(apiKey, urlPlan).notifier).updatedAt;
+      ref.watch(httpProvider(apiKey, urlPlan).notifier).updatedAt;
 
-  // DateTime get servicesSyncDate => ref.read(httpProvider(apiKey, urlServices).notifier).updatedAt;
+  // DateTime get servicesSyncDate => ref.watch(httpProvider(apiKey, urlServices).notifier).updatedAt;
 
   /// Synchronize List<[ServiceEntry]> of worker.
   ///
@@ -99,15 +99,15 @@ class Worker extends _$Worker {
   /// This function also called from [checkAllServicesExist], if there is a
   /// [clientsPlanOf] with wrong [ClientPlan.servId].
   Future<void> syncServices() async {
-    await ref.read(httpProvider(apiKey, urlServices).notifier).getHttpData();
+    await ref.watch(httpProvider(apiKey, urlServices).notifier).update();
   }
 
   Future<void> syncClients() async {
-    await ref.read(httpProvider(apiKey, urlClients).notifier).getHttpData();
+    await ref.watch(httpProvider(apiKey, urlClients).notifier).update();
   }
 
   Future<void> syncPlanned() async {
-    await ref.read(httpProvider(apiKey, urlPlan).notifier).getHttpData();
+    await ref.watch(httpProvider(apiKey, urlPlan).notifier).update();
   }
 
   /// This should only be called if there is inconsistency:
@@ -140,7 +140,7 @@ final _clientsOfWorker = Provider.family<List<ClientProfile>, Worker>(
     // ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).syncHiveHttp();
 
     return ref
-        .read(httpProvider(wp.apiKey, wp.urlClients))
+        .watch(httpProvider(wp.apiKey, wp.urlClients))
         .map<ClientEntry>(ClientEntry.fromJson)
         .map((el) => ref.watch(
             clientProfileProvider(apiKey: wp.apiKey, entry: el).notifier))
@@ -159,7 +159,7 @@ final _servicesOfWorker =
   // ref.watch(httpProvider(wp.apiKey, wp.urlServices).notifier).syncHiveHttp();
 
   return ref
-      .read(httpProvider(wp.apiKey, wp.urlServices))
+      .watch(httpProvider(wp.apiKey, wp.urlServices))
       .map<ServiceEntry>(ServiceEntry.fromJson)
       .toList(growable: false);
 });
@@ -174,7 +174,7 @@ final _planOfWorker = Provider.family<List<ClientPlan>, Worker>((ref, wp) {
   // ref.watch(httpProvider(wp.apiKey, wp.urlPlan).notifier).syncHiveHttp();
 
   return ref
-      .read(httpProvider(wp.apiKey, wp.urlPlan))
+      .watch(httpProvider(wp.apiKey, wp.urlPlan))
       .map<ClientPlan>(ClientPlan.fromJson)
       .toList(growable: false);
 });

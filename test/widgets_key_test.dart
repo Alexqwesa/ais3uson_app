@@ -11,14 +11,12 @@ import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:riverpod/src/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_path_provider_platform.dart';
@@ -49,9 +47,9 @@ void main() {
   });
   group('Widget tests', () {
     testWidgets('it show list of worker profiles', (tester) async {
-
-      // Add Profile
+      // > prepare ProviderContainer + httpClient + worker
       final (ref, _, wp, _) = await openRefContainer();
+      // ----
       const widgetForTesting = ListOfDepartments();
       await tester.pumpWidget(
         ProviderScope(
@@ -63,9 +61,9 @@ void main() {
         ),
       );
 
-      await tester.runAsync<void>(() async {
-        await wp.postInit();
-      });
+      // await tester.runAsync<void>(() async {
+      //   await wp.postInit();
+      // });
       expect(wp.key.name, wKeysData2().name);
       await tester.pumpAndSettle();
       // Check
@@ -74,14 +72,9 @@ void main() {
     });
 
     testWidgets('it add department', (tester) async {
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, _) = await openRefContainer();
+      // ----
       //
       // > add department screen
       //
@@ -89,7 +82,7 @@ void main() {
         ProviderScope(
           parent: ref,
           child: localizedMaterialApp(
-            null, ref,
+            null, ref, // ?
             //
             // > routes
             //
@@ -101,14 +94,14 @@ void main() {
       //
       // > add dep
       //
-      expect(find.byType(ListTile), findsOneWidget);
-      await tester.tap(find.byType(ListTile));
+      final tile = find.byType(ListTile);
+      expect(tile, findsOneWidget);
+      await tester.tap(tile);
       //
       // > check home screen
       //
       await tester.pumpAndSettle();
-      expect(ref.read(departmentsProvider).length, 1);
-      final wp = ref.read(departmentsProvider).first;
+      expect(ref.read(departmentsProvider).length, 2); // wp + 1
       try {
         await tester.pumpWidget(
           Builder(
@@ -128,13 +121,11 @@ void main() {
         // developer.log(e);
       }
 
+      // expect(wp.clients.length, 0); // this run forever
       await tester.runAsync<void>(() async {
         wp.clients.length;
       });
-      expect(
-        wp.clients.length,
-        0,
-      );
+      expect(wp.clients.length, 10);
       // await tester.runAsync<void>(() async {
       //   await wp.postInit();
       // });
@@ -154,7 +145,7 @@ void main() {
       expect(find.textContaining(tr().authorizePlease), findsNothing);
       expect(find.text(wp.key.comment), findsOneWidget);
       expect(find.text(wp.key.name), findsOneWidget);
-      expect(find.text(wp.key.dep), findsOneWidget);
+      expect(find.text(wp.key.dep), findsNWidgets(2));
       await tester.pumpAndSettle();
       // Check
       expect(
@@ -164,21 +155,14 @@ void main() {
     });
 
     testWidgets('it delete department', (tester) async {
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, wKey, wp, _) = await openRefContainer();
+      // ----
       expect(wp.apiKey, wKey.apiKey);
       expect(ref.read(departmentsProvider).length, 1);
       //
       // > delete department screen
       //
-
       await tester.pumpRealRouterApp(
           '/delete_department',
           (child) => ProviderScope(
@@ -204,17 +188,9 @@ void main() {
     });
 
     testWidgets("it show list of worker's clients", (tester) async {
-      //
-      // > setup
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, _) = await openRefContainer();
+      // ----
       await tester.runAsync<void>(() async {
         final wp = ref.read(departmentsProvider).first;
         await ref.read(hiveBox(hiveHttpCache).future);
@@ -236,21 +212,14 @@ void main() {
       await tester.pumpAndSettle();
       // await tester.pump(Duration(seconds: 1));
       expect(find.byType(ListOfClientsScreen), findsOneWidget);
-      final wp = ref.read(departmentsProvider).first;
       expect(find.text(wp.clients.first.contract), findsOneWidget);
       expect(find.textContaining(tr().emptyListOfPeople), findsNothing);
     });
 
     testWidgets('it show list of services ', (tester) async {
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, _) = await openRefContainer();
+      // ----
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });
@@ -289,15 +258,9 @@ void main() {
     });
 
     testWidgets('it show empty list of services', (tester) async {
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, _) = await openRefContainer();
+      // ----
       await tester.runAsync<void>(() async {
         await wp.postInit();
       });

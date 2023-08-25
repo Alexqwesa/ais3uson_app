@@ -4,9 +4,8 @@ import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
-    show MockServer, getMockHttpClient;
+    show MockServer;
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
     as mock;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/journal_test_extensions.dart';
-import 'helpers/real_hive_helpler.dart';
+import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
@@ -26,7 +25,7 @@ void main() {
   // > Setup
   //
   tearDownAll(() async {
-    await tearDownRealHive();
+    // await tearDownRealHive();
   });
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
@@ -37,10 +36,10 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     locator.pushNewScope();
     // Hive setup
-    await setUpRealHive();
+    await setUpTestHive();
   });
   tearDown(() async {
-    await tearDownRealHive();
+    await tearDownTestHive();
   });
 
   //
@@ -48,18 +47,9 @@ void main() {
   //
   group('Journal', () {
     test('it add services, with different states', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, httpClient) = await openRefContainer();
+      // ----
       //
       // > configure http request as successful
       //
@@ -68,11 +58,6 @@ void main() {
       //
       // > start test
       //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref
-          .read(departmentsProvider)
-          .firstWhere((element) => element.apiKey == wKey.apiKey);
-
       await wp.postInit();
       // ref.refresh(hiveRepositoryProvider(wp.apiKey));
       await ref.pump();
@@ -107,7 +92,7 @@ void main() {
     //
     // > test addition of services
     //
-    test('it load serviceOfJournal from Hive', () async {
+    test('it test hive', () async {
       //
       // > prepare
       //
@@ -117,7 +102,8 @@ void main() {
         state: ServiceState.rejected,
       );
       final wKey = wKeysData2();
-      var hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      var hive =
+          await Hive.openBox<ServiceOfJournal>('test_journal_${wKey.apiKey}');
       await hive.add(addedService);
       await hive.add(errorService);
       expect(errorService.state, ServiceState.rejected);
@@ -127,31 +113,24 @@ void main() {
       expect(hive.values.first.uid, addedService.uid);
       expect(hive.values.last.state, ServiceState.rejected);
       // Hive didn't store date on in tests?
-      await hive.flush();
-      await hive.close();
-      expect(hive.isOpen, false);
-      hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      // await hive.flush(); // memory storage didn't store data
+      // await hive.close();
+      // expect(hive.isOpen, false);
+      hive =
+          await Hive.openBox<ServiceOfJournal>('test_journal_${wKey.apiKey}');
+      expect(hive.isOpen, true);
       expect(
         hive.values.last.state,
         ServiceState.rejected,
       );
       expect(hive.values.first.state, ServiceState.added);
       expect(hive.values.last.uid, errorService.uid);
+      // await hive.clear();
+      // await hive.close();
     });
 
     test('it add new serviceOfJournal to journal', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
       final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       //
       // > prefill hive with services
       //
@@ -165,6 +144,8 @@ void main() {
       );
       final hive =
           await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      await hive.clear(); // ???
+      expect(hive.values.length, 0);
       await hive.add(addedService);
       await hive.add(errorService);
       await hive.add(addedService.copyWith(servId: 828, uid: '123'));
@@ -172,12 +153,9 @@ void main() {
       expect(hive.values.length, 4);
       expect(errorService.state, ServiceState.rejected);
       //
-      // > init Worker and mock http
-      //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref
-          .read(departmentsProvider)
-          .firstWhere((element) => element.apiKey == wKey.apiKey);
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, wp, httpClient) = await openRefContainer();
+      // ----
       // delayed init, should look like values were loaded from hive
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
@@ -203,16 +181,7 @@ void main() {
     });
 
     test('it archive yesterday services', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
       final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
       //
       // > prepare
       //
@@ -234,16 +203,17 @@ void main() {
       // > test hive
       //
       expect(hive.values.first.uid, yesterdayService.uid);
-      await hive.flush();
-      await hive.close();
-      expect(hive.isOpen, false);
+      // await hive.flush();
+      // await hive.close();
+      // expect(hive.isOpen, false);
       hive = await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
       expect(hive.values.length, 2);
       //
       // > init workerProfile
       //
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
+      // > prepare ProviderContainer + httpClient + worker
+      final (_, _, wp, _) = await openRefContainer();
+      // ----
       await wp.postInit();
       //
       // > test what yesterday services are in archive
@@ -266,6 +236,7 @@ void main() {
       //
       final hive =
           await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+      await hive.clear(); // ?
       expect(hive.values.length, 0);
       for (var i = 0; i < 20; i++) {
         await hive
@@ -283,12 +254,6 @@ void main() {
         // > prepare ProviderContainer + httpClient
         //
         final wKey = wKeysData2();
-        final ref = ProviderContainer(
-          overrides: [
-            httpClientProvider(wKey.certBase64)
-                .overrideWithValue(getMockHttpClient()),
-          ],
-        );
         //
         // > prepare
         //
@@ -298,6 +263,7 @@ void main() {
         //
         final hive =
             await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
+        await hive.clear(); // ??
         expect(hive.values.length, 0);
         for (var i = 0; i < 20; i++) {
           final service = autoServiceOfJournal(
@@ -317,14 +283,14 @@ void main() {
         }
 
         expect(hive.values.length, 40);
-        await hive.close();
+        // await hive.close(); // memory storage drop on close
         //
         // > init workerProfile
         //
+        // > prepare ProviderContainer + httpClient + worker
+        final (ref, _, wp, _) = await openRefContainer();
+        // ----
         ref.read(journalArchiveSizeProvider.notifier).state = 10;
-        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-        final wp = ref.read(departmentsProvider).first;
-        // await AppData.instance
         //
         // > test that yesterday services are in archive
         //
@@ -343,26 +309,13 @@ void main() {
     );
 
     test('it add new services to a client', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      // check worker profile
-      expect(wKey, isA<WorkerKey>());
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, wKey, wp, httpClient) = await openRefContainer();
+      // ----
       //
       // > init workerProfile
       //
       ref.read(journalArchiveSizeProvider.notifier).state = 10;
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       expect(ref.read(workerByApiProvider(wKey.apiKey)).name, wKey.name);
       // add services
@@ -387,22 +340,10 @@ void main() {
     });
 
     test('it add new services only to one client', () async {
-      //
-      // > prepare ProviderContainer + httpClient
-      //
-      final wKey = wKeysData2();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      //
-      // > init workerProfile
-      //
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, wKey, wp, _) = await openRefContainer();
+      // ----
       ref.read(journalArchiveSizeProvider.notifier).state = 10;
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      final wp = ref.read(departmentsProvider).first;
       await wp.postInit();
       // check worker profile
       expect(wKey, isA<WorkerKey>());
@@ -429,27 +370,13 @@ void main() {
     test(
       'it add and delete services in order:rejected->added->finished->outDated',
       () async {
-        //
-        // > prepare ProviderContainer + httpClient
-        //
-        final wKey = wKeysData2();
-        final ref = ProviderContainer(
-          overrides: [
-            httpClientProvider(wKey.certBase64)
-                .overrideWithValue(getMockHttpClient()),
-          ],
-        );
-        final httpClient =
-            ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
-        //
-        // > init workerProfile
-        //
+        // > prepare ProviderContainer + httpClient + worker
+        final (ref, _, wp, httpClient) = await openRefContainer();
+        // ----
         ref.read(journalArchiveSizeProvider.notifier).state = 10;
-        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-        final wp = ref.read(departmentsProvider).first;
         await wp.postInit();
         await wp.journal.hiveRepository.future();
-        await ref.pump();
+        // await ref.pump();
         // add services
         final client = wp.clients.first;
         final service3 = client.services[3];
@@ -477,7 +404,10 @@ void main() {
         //   element.provDate.add(const Duration(hours: -2));
         // });
         // client.workerProfile.services.clear();
+
         await service3.workerProfile.syncPlanned();
+        expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 2);
+
         expect(client.workerProfile.journal.finished.length, 10);
         await client.workerProfile.journal.updateBasedOnNewPlanDate();
         expect(client.workerProfile.journal.outDated.length, 10);
@@ -510,7 +440,7 @@ void main() {
           await service3.add();
         }
         expect(ref.read(service3.fullStateOf), [20, 10, 10]);
-        expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 2);
+        verifyNever(MockServer(httpClient).testReqGetPlanned);
         expect(
           verify(MockServer(httpClient).testReqPostAdd).callCount,
           (servNum + 1) * (servNum / 2),

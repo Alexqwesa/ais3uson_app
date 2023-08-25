@@ -1,12 +1,11 @@
-/// # settings of application
+/// # Settings of application
 ///
 /// Classes and providers that store configuration settings and related functions.
-/// They mostly work through provider [preference] of [SharedPreferences].
+/// They mostly store it in [SharedPreferences].
 ///
 
 library settings;
 
-import 'package:ais3uson_app/access_to_io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 export 'package:ais3uson_app/src/ui/ui_settings/settings_screen.dart';

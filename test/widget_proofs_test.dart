@@ -2,15 +2,11 @@
 
 import 'dart:io';
 
-import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart'
-    as mock;
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -58,23 +54,13 @@ void main() {
     testWidgets(
       'it show one service in AllServicesOfClientScreen',
       (tester) async {
-        // init ref
-        final wKey = testWorkerKey();
-        final ref = ProviderContainer(
-          overrides: [
-            httpClientProvider(wKey.certBase64)
-                .overrideWithValue(getMockHttpClient()),
-          ],
-        );
-        // add Profile
-        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-        final wp = ref.read(departmentsProvider).first;
+        // > prepare ProviderContainer + httpClient + worker
+        final (ref, _, wp, httpClient) = await openRefContainer();
+        // ----
         await tester.runAsync<void>(() async {
           await wp.postInit();
         });
         // add service
-        final httpClient =
-            ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
         when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 2}', 200));
         final service =
@@ -115,22 +101,13 @@ void main() {
     );
 
     testWidgets('it show proof at date', (tester) async {
-      // init ref
-      final wKey = testWorkerKey();
-      final ref = ProviderContainer(
-        overrides: [
-          httpClientProvider(wKey.certBase64)
-              .overrideWithValue(getMockHttpClient()),
-        ],
-      );
-      // add Profile
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+      // > prepare ProviderContainer + httpClient + worker
+      final (ref, _, _, httpClient) = await openRefContainer();
+      // ----
       await tester.runAsync<void>(() async {
         await ref.read(departmentsProvider).first.postInit();
       });
       // add service
-      final httpClient =
-          ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       final service =

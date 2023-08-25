@@ -110,7 +110,7 @@ class WorkerByApiProvider extends Provider<Worker> {
   }
 }
 
-String _$workerHash() => r'2b6c0939fe04a3b25dad723096ae5d4291881fe3';
+String _$workerHash() => r'e74337301f0c5d4bde158775769af30fe9d5fa26';
 
 abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
   late final WorkerKey key;

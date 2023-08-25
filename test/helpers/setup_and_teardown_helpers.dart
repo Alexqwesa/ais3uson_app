@@ -1,5 +1,7 @@
 import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/src/generated/l10n.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,19 +9,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
-import 'real_hive_helpler.dart';
+import 'fake_path_provider_platform.dart';
 
 /// Hive in memory
 Future<void> setUpTestHive() async {
-  final tempDir = await getTempDir();
+  // final tempDir = await getTempDir();
   Hive.init(
-    tempDir.path,
-  ); //backendPreference: HiveStorageBackendPreference.memory);
+    // tempDir.path,
+    uuid.v4(),
+    backendPreference: HiveStorageBackendPreference.memory,
+  );
   await Hive.openBox(hiveHttpCache);
 }
 
 /// Deletes the temporary [Hive].
 Future<void> tearDownTestHive() async {
+  for (final apiKey in [wKeysData2().apiKey, testWorkerKey().apiKey]) {
+    try {
+      if (Hive.box('journal_$apiKey').isOpen) {
+        await Hive.box('journal_$apiKey').clear();
+      }
+      // ignore: avoid_catches_without_on_clauses, empty_catches
+    } catch (e) {}
+  }
+  // await Hive.close();  // ?
   await Hive.deleteFromDisk();
 }
 

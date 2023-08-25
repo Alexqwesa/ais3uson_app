@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:ais3uson_app/access_to_io.dart';
-import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 
 final _random = Random();
@@ -21,14 +19,14 @@ Future<Directory> getTempDir() async {
 }
 
 /// Hive in memory
-Future<void> setUpRealHive() async {
-  final tempDir = await getTempDir();
-  Hive.init(tempDir.path);
-
-  await Hive.openBox(hiveHttpCache);
-}
-
-/// Deletes the temporary [Hive].
-Future<void> tearDownRealHive() async {
-  await Hive.deleteFromDisk();
-}
+// Future<void> setUpRealHive() async {
+//   final tempDir = await getTempDir();
+//   Hive.init(tempDir.path);
+//
+//   await Hive.openBox(hiveHttpCache);
+// }
+//
+// /// Deletes the temporary [Hive].
+// Future<void> tearDownRealHive() async {
+//   await Hive.deleteFromDisk();
+// }

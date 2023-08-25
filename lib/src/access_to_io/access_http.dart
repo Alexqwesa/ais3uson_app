@@ -1,75 +1,62 @@
-import 'dart:async';
+// ignore_for_file: cascade_invocations
+
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tuple/tuple.dart';
+import 'package:synchronized/synchronized.dart';
 
 part 'access_http.g.dart';
 
 /// Name of hiveBox with worker profiles
 const hiveHttpCache = 'http_cache';
 
-/// Provider of httpData, create families by apiKey and url.
+/// Make http requests, and cache them in [hiveBox] ([hiveHttpCache])].
 ///
-/// {@category Providers}
-//Todo: delete it
-@riverpod
-Http repositoryHttp(Ref ref, Tuple2<WorkerKey, String> apiUrl) {
-  return ref.read(httpProvider(
-    apiUrl.item1.apiKey,
-    apiUrl.item2.substring(apiUrl.item2.indexOf('/')),
-  ).notifier);
-}
-
-/// Repository for families of providers [repositoryHttp].
+/// Require [hiveBox(hiveHttpCache)] to be awaited before start of app!
 ///
-/// Read hive on init, [state] is a [http.Response] in json format,
+/// Read hive on init, [state] is a List from json [http.Response] ,
 ///  save state to [Hive].
-///
-/// Public methods [getHttpData] and [syncHiveHttp].
-///
 /// {@category Providers}
-@Riverpod(keepAlive: false)
+@Riverpod(keepAlive: true)
 class Http extends _$Http {
   static String hiveName = hiveHttpCache;
+  final _lock = Lock();
+
+  @override
+  List<Map<String, dynamic>> build(String apiKey, String path) {
+    log.fine('HttpDataState recreated $apiKey$path');
+    final hive = future();
+
+    // return ref.watch(hiveBox(hiveName)).when(
+    //     data: (hive) {
+    updateIfOld();
+    final hiveKey = apiKey + path;
+    final data = jsonDecode(hive.get(hiveKey) as String? ?? '[]') as List;
+    return data.whereType<Map<String, dynamic>>().toList();
+    //       },
+    //       error: (o, e) => [],
+    //       loading: () => []);
+  }
 
   DateTime get updatedAt {
     return ref.watch(hiveBox(hiveName)).when(
         data: (hive) {
-          return hive.get('sync_date_$apiKey$urlAddress') as DateTime? ??
-              nullDate;
+          return hive.get('sync_date_$apiKey$path') as DateTime? ?? nullDate;
         },
         error: (o, e) => nullDate,
         loading: () => nullDate);
   }
 
-  @override
-  List<Map<String, dynamic>> build(String apiKey, String path) {
-    log.fine('HttpDataState recreated $urlAddress');
-    // unawaited(syncHiveHttp());
-
-    return ref.watch(hiveBox(hiveName)).when(
-        data: (hive) {
-          final hiveKey = apiKey + urlAddress;
-          final data = jsonDecode(hive.get(hiveKey) as String? ?? '[]') as List;
-          return data.whereType<Map<String, dynamic>>().toList();
-        },
-        error: (o, e) => [],
-        loading: () => []);
-  }
-
   // ignore: strict_raw_type
-  Future<Box> future() async => ref.watch(hiveBox(hiveName).future);
+  Box future() => ref.watch(hiveBox(hiveName)).requireValue;
 
   Worker get worker => ref.read(workerByApiProvider(apiKey));
 
@@ -82,67 +69,71 @@ class Http extends _$Http {
       };
 
   /// Force get new data from http.
-  Future<void> getHttpData() async {
-    // await future();
-    final url = Uri.parse(urlAddress);
-    try {
-      //
-      // > main - call server
-      //
-      final client = ref.read<http.Client>(
-        httpClientProvider(worker.key.certBase64),
-      );
-      final response = await client.get(url, headers: headers);
-      //
-      // > check response
-      //
-      log.finest('$urlAddress response.statusCode = ${response.statusCode}');
-      if (response.statusCode == 200 && response.body.isNotEmpty) {
-        // ignore: avoid_dynamic_calls
-        final dynamic js = jsonDecode(response.body);
-        if (js is List && js.isNotEmpty) {
-          await _writeHive(response.body); // filter out empty data
-          state = js
-              .whereType<Map<String, dynamic>>()
-              .where((e) => e.isNotEmpty)
-              .toList(growable: false);
+  Future<void> update() async {
+    await _lock.synchronized(() async {
+      // await future();
+      final url = Uri.parse(urlAddress);
+      try {
+        //
+        // > main - call server
+        //
+        final client = ref.read<http.Client>(
+          httpClientProvider(worker.key.certBase64),
+        );
+        final response = await client.get(url, headers: headers);
+        //
+        // > check response
+        //
+        log.finest('$urlAddress response.statusCode = ${response.statusCode}');
+        if (response.statusCode == 200 && response.body.isNotEmpty) {
+          // ignore: avoid_dynamic_calls
+          final dynamic js = jsonDecode(response.body);
+          if (js is List && js.isNotEmpty) {
+            _writeHive(response.body);
+            state = js
+                .whereType<Map<String, dynamic>>()
+                .where((e) => e.isNotEmpty)
+                .toList(growable: false);
+          }
         }
+        //
+        // > just error handling
+        //
+      } on FormatException {
+        log.severe(' Wrong json format - FormatException');
+        showErrorNotification(tr().errorFormat);
+      } on HandshakeException {
+        showErrorNotification(tr().sslError);
+        log.severe('Server HandshakeException error $url ');
+      } on http.ClientException {
+        showErrorNotification(tr().serverError);
+        log.severe('Server error  $url  ');
+      } on SocketException {
+        showErrorNotification(tr().internetError);
+        log.warning('No internet connection $url ');
+      } on HttpException {
+        showErrorNotification(tr().httpAccessError);
+        log.severe('Server access error $url ');
+      } finally {
+        log.fine('sync ended $url ');
       }
-      //
-      // > just error handling
-      //
-    } on FormatException {
-      log.severe(' Wrong json format - FormatException');
-      showErrorNotification(tr().errorFormat);
-    } on HandshakeException {
-      showErrorNotification(tr().sslError);
-      log.severe('Server HandshakeException error $url ');
-    } on http.ClientException {
-      showErrorNotification(tr().serverError);
-      log.severe('Server error  $url  ');
-    } on SocketException {
-      showErrorNotification(tr().internetError);
-      log.warning('No internet connection $url ');
-    } on HttpException {
-      showErrorNotification(tr().httpAccessError);
-      log.severe('Server access error $url ');
-    } finally {
-      log.fine('sync ended $url ');
-    }
+    });
   }
 
-  Future<void> _writeHive(String data) async {
-    final hive = await future();
+  void _writeHive(String data) {
+    final hive = future();
     // ref.watch(hiveBox(hiveName)).whenData((hive) async { // didn't work in tests
-      // for getting new test data
-      // print("=== " + apiKey + url);
-      // print("=== " + response.body);
-      await hive.put(apiKey + urlAddress, data);
-      await hive.put('sync_date_$apiKey$urlAddress', DateTime.now());
+    // for getting new test data
+    // print("=== " + apiKey + url);
+    // print("=== " + response.body);
+    hive.put(apiKey + path, data);
+    hive.put('sync_date_$apiKey$path', DateTime.now());
     // });
   }
 
-  Future<String> syncHiveHttp() async {
+  // break tests if async
+  String updateIfOld() {
+    // return  _lock.synchronized(() async {
     if (apiKey == 'none') {
       log.severe('None apiKey sync');
       return 'error';
@@ -150,13 +141,18 @@ class Http extends _$Http {
     //
     // > check hive update needed
     //
+    // final hive = await future();
     if (updatedAt.isBefore(DateTime.now().add(const Duration(hours: -2)))) {
-      await getHttpData();
+      final hive = future();
+      hive.put('sync_date_$apiKey$path',
+          DateTime.now().add(const Duration(hours: -1, minutes: -59)));
+      update();
 
       return 'updated';
     }
 
     return 'loaded';
+    // });
   }
 }
 

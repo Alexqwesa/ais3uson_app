@@ -130,8 +130,8 @@ Future<void> runMain() async {
   // > hive init
   //
   await Hive.initFlutter('Ais3uson');
-
   final openHttpBox = await Hive.openBox(hiveHttpCache);
+
   usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(OverlaySupport.global(

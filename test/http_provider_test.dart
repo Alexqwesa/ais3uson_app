@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/real_hive_helpler.dart';
+import 'helpers/setup_and_teardown_helpers.dart';
 import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
   // > Setup
   //
   tearDownAll(() async {
-    await tearDownRealHive();
+    // await tearDownRealHive();
   });
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
@@ -25,10 +25,10 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     locator.pushNewScope();
     // Hive setup
-    await setUpRealHive();
+    await setUpTestHive();
   });
   tearDown(() async {
-    await tearDownRealHive();
+    await tearDownTestHive();
   });
 
   //
@@ -41,16 +41,16 @@ void main() {
       // ----
       var clients = ref.read(httpProvider(wp.apiKey, wp.urlClients));
       expect(clients.isEmpty, true);
-      // await ref.read(httpProvider(wp.apiKey, wp.urlClients).notifier).future();
+      await wp.postInit();
+      // await ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).future();
       // ref.refresh(httpProvider(wp.apiKey, wp.urlClients));
       // await ref.pump();
-
       await ref
           .read(httpProvider(wp.apiKey, wp.urlClients).notifier)
-          .getHttpData();
+          .update();
       clients = ref.read(httpProvider(wp.apiKey, wp.urlClients));
       expect(clients.isEmpty, false);
-      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
+      expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
     });
   });
 }

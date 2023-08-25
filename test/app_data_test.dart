@@ -158,7 +158,7 @@ void main() {
         ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
         expect(
           ref.read(departmentsProvider).first.apiKey,
-          '3.01567984187',
+          wKey.apiKey,
         );
         await ref
             .read(departmentsProvider)
