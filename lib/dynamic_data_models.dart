@@ -26,6 +26,7 @@ library dynamic_data_models;
 
 import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/proofs.dart';
 import 'package:ais3uson_app/providers.dart';
 
 export 'package:ais3uson_app/data_models.dart';

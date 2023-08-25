@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/proofs.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ import 'package:path/path.dart' as path;
 ///
 /// {@category Data Models}
 /// {@category Inner API}
-mixin  ProofListOf {
+mixin ProofListOf {
   Future<void>? loadedFromFS;
 
   late final int workerId_;

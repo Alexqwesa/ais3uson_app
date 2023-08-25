@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/data_models/proofs/proof_entry.dart';
+import 'package:ais3uson_app/proofs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';

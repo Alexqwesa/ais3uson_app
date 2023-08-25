@@ -1,4 +1,4 @@
-import 'package:ais3uson_app/data_models.dart';
+import 'package:ais3uson_app/proofs.dart';
 
 /// Just a union class for [ProofEntry]s [after] and [before].
 ///
