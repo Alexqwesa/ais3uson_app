@@ -60,7 +60,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 export 'package:ais3uson_app/src/api_classes/in/client_entry.dart';
 export 'package:ais3uson_app/src/api_classes/in/client_plan.dart';
 export 'package:ais3uson_app/src/api_classes/in/service_entry.dart';
-export 'package:ais3uson_app/src/api_classes/inner/service_of_journal.dart';
+export 'package:ais3uson_app/src/api_classes/journal/service_of_journal.dart';
 export 'package:ais3uson_app/src/api_classes/out/add_client_service_request.dart';
 export 'package:ais3uson_app/src/api_classes/out/delete_client_service_request.dart';
 export 'package:ais3uson_app/src/api_classes/worker_key.dart';

@@ -25,8 +25,8 @@ library journal;
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/src/data_models_with_logic/worker.dart';
 
-export 'package:ais3uson_app/src/api_classes/inner/service_of_journal.dart';
-export 'package:ais3uson_app/src/api_classes/inner/service_state.dart';
+export 'package:ais3uson_app/src/api_classes/journal/service_of_journal.dart';
+export 'package:ais3uson_app/src/api_classes/journal/service_state.dart';
 export 'package:ais3uson_app/src/journal/days_with_services.dart';
 export 'package:ais3uson_app/src/journal/journal.dart';
 export 'package:ais3uson_app/src/journal/journal_archive.dart';
