@@ -19,9 +19,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/extensions/worker_extension.dart';
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   setUpAll(() async {

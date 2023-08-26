@@ -1,20 +1,16 @@
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
-/// This class is for showing archived services at date [archiveDate].
+/// This class is for showing archived services at date [state].atDate.
 ///
 /// It is stubbed and read only version of [Journal] class.
-/// If [archiveDate] is null - read all service from journal and journal_archive.
-/// TODO: The member [all] - sorted by date(from recent to old).
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
-  JournalArchive(super.workerProfile);
+  JournalArchive(super.workerProfile, super.state);
 
-  @override
-  DateTime? get aData => ref.read(archiveDate);
+  DateTime? get aDate => state.atDate;
 
   @override
   String get journalHiveName => 'journal_archive_$apiKey';

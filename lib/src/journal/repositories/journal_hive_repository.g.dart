@@ -6,7 +6,7 @@ part of 'journal_hive_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hiveRepositoryHash() => r'f9716ead9a73f2ba31f313eeae17029011c5defc';
+String _$archiveReaderHash() => r'629594a875f7bc501424aada7f9d736d212ce6f2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -28,6 +28,89 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+typedef ArchiveReaderRef = ProviderRef<List<ServiceOfJournal>>;
+
+/// See also [archiveReader].
+@ProviderFor(archiveReader)
+const archiveReaderProvider = ArchiveReaderFamily();
+
+/// See also [archiveReader].
+class ArchiveReaderFamily extends Family<List<ServiceOfJournal>> {
+  /// See also [archiveReader].
+  const ArchiveReaderFamily();
+
+  /// See also [archiveReader].
+  ArchiveReaderProvider call(
+    String apiKey,
+  ) {
+    return ArchiveReaderProvider(
+      apiKey,
+    );
+  }
+
+  @override
+  ArchiveReaderProvider getProviderOverride(
+    covariant ArchiveReaderProvider provider,
+  ) {
+    return call(
+      provider.apiKey,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'archiveReaderProvider';
+}
+
+/// See also [archiveReader].
+class ArchiveReaderProvider extends Provider<List<ServiceOfJournal>> {
+  /// See also [archiveReader].
+  ArchiveReaderProvider(
+    this.apiKey,
+  ) : super.internal(
+          (ref) => archiveReader(
+            ref,
+            apiKey,
+          ),
+          from: archiveReaderProvider,
+          name: r'archiveReaderProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$archiveReaderHash,
+          dependencies: ArchiveReaderFamily._dependencies,
+          allTransitiveDependencies:
+              ArchiveReaderFamily._allTransitiveDependencies,
+        );
+
+  final String apiKey;
+
+  @override
+  bool operator ==(Object other) {
+    return other is ArchiveReaderProvider && other.apiKey == apiKey;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, apiKey.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$hiveRepositoryHash() => r'c908257dde6cbf87274108802c464819553a2dfd';
 
 abstract class _$HiveRepository
     extends BuildlessNotifier<List<ServiceOfJournal>> {

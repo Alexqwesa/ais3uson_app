@@ -12,6 +12,7 @@ part 'days_with_services.g.dart';
 /// {@category Providers}
 @Riverpod(keepAlive: true)
 class DaysWithServices extends _$DaysWithServices {
+  // todo: use MultiSet
   String get name => 'allArchiveDates_$apiKey';
   final preInit = <DateTime>{};
   bool init = false;

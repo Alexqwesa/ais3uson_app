@@ -1,7 +1,6 @@
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/settings.dart';
-import 'package:ais3uson_app/src/helpers/global_helpers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
@@ -25,7 +24,6 @@ GoRouter route(Ref ref) {
 GoRouter router(Ref ref, String? initialLocation) {
   // final route = ref.watch(appRouteProvider);
   // final controller = ref.watch(appRouteProvider.notifier);
-  final archive = ref.watch(isArchiveProvider);
 
   return GoRouter(
     // navigatorKey: _rootNavigatorKey,
@@ -42,11 +40,10 @@ GoRouter router(Ref ref, String? initialLocation) {
         ),
       );
 
-      if (archive) {
+      final appState = ref.watch(appStateIsProvider);
+      if (appState.isArchive) {
         if (!state.matchedLocation.startsWith('/archive')) {
-          final date = ref.watch(archiveDate) == null
-              ? 'null'
-              : standardFormat.format(ref.watch(archiveDate)!);
+          final date = appState.dateAsString;
           final path = '/archive/$date/${state.matchedLocation.substring(1)}';
           return path;
         }

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
@@ -16,9 +15,10 @@ import 'package:http/http.dart';
 /// Getting services from server is not yet supported, and probably will not.
 /// Maybe only allow to get today services? (not really useful and add security risks...)
 interface class JournalHttpInterface {
-  const JournalHttpInterface(this.workerProfile);
+  const JournalHttpInterface({required this.wKey, required this.http});
 
-  final Worker workerProfile;
+  final WorkerKey wKey;
+  final Client http;
 
   /// Delete service from remote DB.
   ///
@@ -36,8 +36,7 @@ interface class JournalHttpInterface {
     //
     // > send Post
     //
-    final k = workerProfile.key;
-    final urlAddress = '${k.activeServer}/delete';
+    final urlAddress = '${wKey.activeServer}/delete';
 
     return _commitUrl(urlAddress, body: body);
   }
@@ -70,8 +69,7 @@ interface class JournalHttpInterface {
     //
     // > send Post
     //
-    final k = workerProfile.key;
-    final urlAddress = '${k.activeServer}/add';
+    final urlAddress = '${wKey.activeServer}/add';
 
     return _commitUrl(urlAddress, body: body);
   }
@@ -86,11 +84,9 @@ interface class JournalHttpInterface {
     String? body,
   }) async {
     final url = Uri.parse(urlAddress);
-    final http = workerProfile.ref
-        .read(httpClientProvider(workerProfile.key.certBase64));
     var ret = ServiceState.added;
     var error = '';
-    final fullHeaders = {'api-key': workerProfile.apiKey}..addAll(httpHeaders);
+    final fullHeaders = {'api-key': wKey.apiKey}..addAll(httpHeaders);
     try {
       Response response;
 

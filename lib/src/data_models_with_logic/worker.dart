@@ -22,25 +22,22 @@ Worker workerByApi(Ref ref, String apiKey) =>
 /// {@category Data Models}
 @Riverpod(keepAlive: true)
 class Worker extends _$Worker {
-  late final JournalHttpInterface http;
+  JournalHttpInterface get http => JournalHttpInterface(
+      wKey: state, http: ref.read(httpClientProvider(state.certBase64)));
 
   @override
   WorkerKey build(WorkerKey key) {
-    http = JournalHttpInterface(this);
-    // journal = ProviderOfJournal(this);
     return key;
   }
 
-  Journal get journal => ref.read(journalsProvider(apiKey));
+  Journal get journal => ref.watch(journalProvider(apiKey));
 
-  Journals get _journalNotifier => ref.read(journalsProvider(apiKey).notifier);
+  Journal get journalOf => journal; // JournalArchive(worker, appState);
 
-  Journal get journalOf => _journalNotifier.journalOf;
+  Journal get journalAllOf => journal; // JournalArchiveAll(worker, appState);
 
-  Journal get journalAllOf => _journalNotifier.journalAllDates;
-
-  Journal journalAtDateOf(DateTime date) =>
-      _journalNotifier.journalAtDateOf(date);
+  Journal journalAtDateOf(DateTime date) => journal; // change AppState
+  // _journalNotifier.journalAtDateOf(date);
 
   HiveRepository get hiveRepository =>
       ref.watch(hiveRepositoryProvider(apiKey).notifier);

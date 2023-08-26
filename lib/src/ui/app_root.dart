@@ -23,10 +23,9 @@ class AppRoot extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: ref.watch(
         routerProvider(
-            locator<SharedPreferences>().getString(AppRouteObserver.name) ??
-                '/'),
+          locator<SharedPreferences>().getString(AppRouteObserver.name) ?? '/',
+        ),
       ),
-
       //
       // > l10n
       //

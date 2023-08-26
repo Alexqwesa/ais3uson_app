@@ -14,24 +14,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
-import 'fake_path_provider_platform.dart';
-import 'journal_test_extensions.dart';
-import 'setup_and_teardown_helpers.dart';
+import '../fake_path_provider_platform.dart';
+import '../setup_and_teardown_helpers.dart';
+import 'journal_extension.dart';
 
 Future<(ProviderContainer, WorkerKey, Worker, mock.MockClient)>
     openRefContainer() async {
   // await setUpRealHive();
   await setUpTestHive();
-  final openHttpBox = await Hive.openBox(hiveHttpCache);
   final wKey = wKeysData2();
+  // final apiKey = wKey.apiKey;
+
+  final httpBox = await Hive.openBox(hiveHttpCache);
+  // final journalBox = await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+  // final archiveBox = await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
+
   final ref = ProviderContainer(
     overrides: [
-      hiveBox(hiveHttpCache).overrideWith((ref) => openHttpBox),
+      // hiveJournalBox('journal_$apiKey').overrideWith((ref) => journalBox),
+      // hiveJournalBox('journal_archive_$apiKey').overrideWith((ref) => archiveBox),
+      hiveBox(hiveHttpCache).overrideWith((ref) => httpBox),
       httpClientProvider(wKey.certBase64)
           .overrideWithValue(getMockHttpClient()),
     ],
   );
-  expect(ref.read(hiveBox(hiveHttpCache)).hasValue, true);
+  expect(ref.read(hiveBox(hiveHttpCache)).isLoading, false);
+  // await ref.read(hiveJournalBox('journal_$apiKey').future);
+  // expect(ref.read(hiveJournalBox('journal_$apiKey')).isLoading, false);
+  // await ref.read(hiveJournalBox('journal_archive_$apiKey').future);
+  // expect(ref.read(hiveJournalBox('journal_archive_$apiKey')).isLoading, false);
+  // await ref.pump();
 
   final httpClient =
       ref.read(httpClientProvider(wKey.certBase64)) as mock.MockClient;

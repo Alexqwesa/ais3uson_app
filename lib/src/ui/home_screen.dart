@@ -32,7 +32,7 @@ class HomeScreen extends ConsumerWidget {
       //
       // > scan qr button
       //
-      floatingActionButton: ref.watch(isArchiveProvider)
+      floatingActionButton: ref.watch(appStateIsProvider).isArchive
           ? null
           : FloatingActionButton(
               onPressed: () {
@@ -44,7 +44,7 @@ class HomeScreen extends ConsumerWidget {
       //
       // > drawer
       //
-      drawer: ref.watch(isArchiveProvider)
+      drawer: ref.watch(appStateIsProvider).isArchive
           ? null
           : Drawer(
               child: ListView(
@@ -115,16 +115,16 @@ class HomeScreen extends ConsumerWidget {
                     title: Text(tr().archive),
                     onTap: () {
                       Navigator.pop(context, 'archive');
-                      if (ref.read(archiveDate) == null) {
-                        ref.read(isArchiveProvider.notifier).state = true;
+                      if (ref.read(appStateIsProvider).isArchive) {
+                        context.push('/');
+                        ref.read(appStateIsProvider).set(isArchive: false);
+                      } else {
+                        ref.read(appStateIsProvider).set(isArchive: true);
                         context.push('/archive');
                         ArchiveShellRoute.setArchiveOnWithDatePicker(
                           context,
                           ref,
                         );
-                      } else {
-                        context.push('/');
-                        ref.read(isArchiveProvider.notifier).state = false;
                       }
                     },
                   ),

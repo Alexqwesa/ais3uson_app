@@ -18,13 +18,15 @@ class ServiceCardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ref.watch(currentService);
+    final addAllowed = ref.watch(
+        serviceStateProvider(service).select((value) => value.addAllowed));
 
     return FittedBox(
       child: SizedBox(
         width: 205,
         height: 230,
         child: Card(
-          elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
+          elevation: addAllowed ? 6 : 0,
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Stack(
@@ -109,6 +111,8 @@ class ServiceCardSquareView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ref.watch(currentService);
+    final addAllowed = ref.watch(
+        serviceStateProvider(service).select((value) => value.addAllowed));
 
     return FittedBox(
       child: SizedBox(
@@ -119,7 +123,7 @@ class ServiceCardSquareView extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 4, 4, 2),
               child: Card(
-                elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
+                elevation: addAllowed ? 6 : 0,
                 child: Column(
                   children: <Widget>[
                     Hero(
@@ -178,6 +182,8 @@ class ServiceCardTileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ref.watch(currentService);
+    final addAllowed = ref.watch(
+        serviceStateProvider(service).select((value) => value.addAllowed));
 
     return FittedBox(
       fit: BoxFit.fill,
@@ -187,7 +193,7 @@ class ServiceCardTileView extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(2),
           child: Card(
-            elevation: ref.watch(service.addAllowedOf) ? 6 : 0,
+            elevation: addAllowed ? 6 : 0,
             child: Stack(
               children: [
                 Row(

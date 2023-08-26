@@ -4,6 +4,7 @@ import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -43,7 +44,9 @@ import 'package:universal_html/html.dart' as html;
 /// {@category Client-Server API}
 // ignore: prefer_mixin
 class Journal extends BaseJournal {
-  Journal(super.workerProfile);
+  Journal(super.workerProfile, this.state);
+
+  final AppState state;
 
   final _lock = Lock();
 
@@ -66,16 +69,16 @@ class Journal extends BaseJournal {
 
   // Todo: use providers here
   List<ServiceOfJournal> get added =>
-      ref.read(groupsOfJournal(this))[ServiceState.added] ?? [];
+      ref.watch(servicesOfJournalProvider(this))[ServiceState.added] ?? [];
 
   List<ServiceOfJournal> get finished =>
-      ref.read(groupsOfJournal(this))[ServiceState.finished] ?? [];
+      ref.watch(servicesOfJournalProvider(this))[ServiceState.finished] ?? [];
 
   List<ServiceOfJournal> get outDated =>
-      ref.read(groupsOfJournal(this))[ServiceState.outDated] ?? [];
+      ref.watch(servicesOfJournalProvider(this))[ServiceState.outDated] ?? [];
 
   List<ServiceOfJournal> get rejected =>
-      ref.read(groupsOfJournal(this))[ServiceState.rejected] ?? [];
+      ref.watch(servicesOfJournalProvider(this))[ServiceState.rejected] ?? [];
 
   List<ServiceOfJournal> get servicesForSync => added;
 
@@ -147,7 +150,7 @@ class Journal extends BaseJournal {
       //
       // > delete finished old services and save hive
       //
-      _toDelete(forDelete);
+      _deleteFromHive(forDelete);
 
       return res;
     }
@@ -203,7 +206,7 @@ class Journal extends BaseJournal {
             }
             // ignore: avoid_catches_without_on_clauses
           } catch (e) {
-            log.severe('Sync services: $e');
+            log.severe('Sync services failed: $e');
           }
           if (error.isNotEmpty) showErrorNotification(error);
         }),
@@ -314,7 +317,7 @@ class Journal extends BaseJournal {
   }
 
   /// Remove [ServiceOfJournal] from lists of [Journal] and from Hive.
-  void _toDelete(List<ServiceOfJournal> forDelete) {
+  void _deleteFromHive(List<ServiceOfJournal> forDelete) {
     forDelete.forEach((s) async {
       await hiveRepository.delete(s);
     });

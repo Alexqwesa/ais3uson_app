@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/journal_test_extensions.dart';
+import 'helpers/extensions/journal_extension.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
 
 void main() {

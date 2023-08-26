@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -19,9 +18,10 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/extensions/client_service_extension.dart';
+import 'helpers/extensions/worker_extension.dart';
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -128,11 +128,11 @@ void main() {
           .copySync(path.join(Directory.systemTemp.path, 'auth_qr_test5.png'));
 
       final file = XFile(tmpFile.path);
-      late int flen; // for butch test we need 0this runAsync
+      late int fileLen; // for butch test we need this runAsync
       await tester.runAsync<void>(() async {
-        flen = await file.length();
+        fileLen = await file.length();
       });
-      expect(flen > 0, true);
+      expect(fileLen > 0, true);
 
       // final srcFileLength = await file.length();
       // expect(srcFileLength > 0, true);

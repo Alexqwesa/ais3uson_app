@@ -1,4 +1,3 @@
-import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
@@ -17,10 +16,10 @@ class ArchiveShellRoute extends ConsumerWidget {
     super.key,
   });
 
-  /// Activate archive mode([isArchiveProvider]) only if [allDaysWithServicesInited].dates
+  /// Activate archive mode([appStateIsProvider].isArchive) only if [allDaysWithServicesInited].dates
   /// not empty.
   ///
-  /// It also show date picker to set [archiveDate].
+  /// It also show date picker to set [appStateIsProvider].atDate.
   static Future<void> setArchiveOnWithDatePicker(
     BuildContext context,
     WidgetRef ref,
@@ -30,24 +29,28 @@ class ArchiveShellRoute extends ConsumerWidget {
         ref.read(allDaysWithServicesInited).asData?.value ?? <DateTime>{};
 
     if (archiveDates.isEmpty) {
-      ref.read(isArchiveProvider.notifier).state = false;
+      // ref.read(isArchiveProvider.notifier).state = false;
 
       return;
     }
     if (context.mounted) {
-      ref.read(archiveDate.notifier).state = await showDatePicker(
-        context: context,
-        selectableDayPredicate: archiveDates.contains,
-        initialDate: archiveDates.last,
-        lastDate: archiveDates.last,
-        firstDate: archiveDates.first,
-      );
+      ref.watch(appStateIsProvider).set(
+            isArchive: true,
+            atDate: await showDatePicker(
+              context: context,
+              selectableDayPredicate: archiveDates.contains,
+              initialDate: archiveDates.last,
+              lastDate: archiveDates.last,
+              firstDate: archiveDates.first,
+            ),
+          );
     }
-    ref.read(isArchiveProvider.notifier).state = true;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateIsProvider);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -58,15 +61,14 @@ class ArchiveShellRoute extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                ref.read(isArchiveProvider.notifier).state = false;
+                appState.set(isArchive: false);
                 context.push('/');
               },
               icon: const Icon(Icons.cancel_outlined),
             ),
             Text(
               '${tr().archiveAt} '
-              // ignore: lines_longer_than_80_chars
-              '${ref.watch(archiveDate) == null ? '' : standardFormat.format(ref.watch(archiveDate)!)}',
+              '${appState.dateAsString}',
             ),
           ],
         ),

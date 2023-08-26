@@ -6,8 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/extensions/worker_extension.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   //
@@ -45,9 +45,7 @@ void main() {
       // await ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).future();
       // ref.refresh(httpProvider(wp.apiKey, wp.urlClients));
       // await ref.pump();
-      await ref
-          .read(httpProvider(wp.apiKey, wp.urlClients).notifier)
-          .update();
+      await ref.read(httpProvider(wp.apiKey, wp.urlClients).notifier).update();
       clients = ref.read(httpProvider(wp.apiKey, wp.urlClients));
       expect(clients.isEmpty, false);
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);

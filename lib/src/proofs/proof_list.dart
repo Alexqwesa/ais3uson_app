@@ -21,7 +21,7 @@ final groupProofAtDate =
       workerId: client.workerProfile.key.workerDepId,
       contractId: client.contractId,
       date: standardFormat.format(
-        (date ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
+        (date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now()).dateOnly(),
       ),
       serviceId: null,
       client: client.name,
@@ -43,7 +43,8 @@ final serviceProofAtDate =
       workerId: service.workerDepId,
       contractId: service.contractId,
       date: standardFormat.format(
-        (service.date ?? ref.watch(archiveDate) ?? DateTime.now()).dateOnly(),
+        (service.date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now())
+            .dateOnly(),
       ),
       serviceId: service.servId,
       client: ref

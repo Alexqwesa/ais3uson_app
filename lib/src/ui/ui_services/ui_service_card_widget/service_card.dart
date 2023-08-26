@@ -20,10 +20,9 @@ class ServiceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final service = ref.watch(currentService);
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _ = ref.watch(archiveDate); // in case of date change
-    final activeViewOfCard =
-        ref.watch(service.addAllowedOf) || ref.watch(isArchiveProvider);
+    final serviceState = ref.watch(serviceStateProvider(service));
+    final isCardActive =
+        serviceState.addAllowed || ref.watch(appStateIsProvider).isArchive;
 
     final cardView = switch (ref.watch(tileTypeProvider)) {
       'tile' => const ServiceCardTileView(),
@@ -37,7 +36,7 @@ class ServiceCard extends ConsumerWidget {
       curve: Curves.fastOutSlowIn,
       child: Stack(
         children: [
-          if (!activeViewOfCard)
+          if (!isCardActive)
             ColorFiltered(
               colorFilter: const ColorFilter.mode(
                 Colors.grey,
@@ -45,14 +44,14 @@ class ServiceCard extends ConsumerWidget {
               ),
               child: SizedBox.expand(child: cardView),
             ),
-          if (activeViewOfCard) SizedBox.expand(child: cardView),
+          if (isCardActive) SizedBox.expand(child: cardView),
           //
           // InkWell animation and handler
           //
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: service.add,
+              onTap: serviceState.add,
               child: Container(),
             ),
           ),

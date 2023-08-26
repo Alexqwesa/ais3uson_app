@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Display state of the client service: amount of done/added/rejected...
 ///
-/// It present data of the client service state [ClientServiceLogic.fullStateOf]
+/// It present data of the client service state [serviceStateProvider].fullState
 /// these numbers mean:
 /// - done - finished + outDated,
 /// - stale - added,
 /// - error - rejected.
 ///
 /// {@category UI Services}
-class ServiceCardState extends ConsumerWidget {
+class ServiceCardState extends StatelessWidget {
   const ServiceCardState({
     super.key,
     this.rightOfText = false,
@@ -39,10 +39,7 @@ class ServiceCardState extends ConsumerWidget {
   final bool rightOfText;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final service = ref.watch(currentService);
-    final listDoneProgressError = ref.watch(service.fullStateOf);
-
+  Widget build(BuildContext context) {
     return SizedBox.expand(
       child: FittedBox(
         alignment: Alignment.topLeft,
@@ -55,31 +52,39 @@ class ServiceCardState extends ConsumerWidget {
             shrinkWrap: true,
             itemBuilder: (context, i) {
               return FittedBox(
-                child: Visibility(
-                  maintainSize: true,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  visible: listDoneProgressError.elementAt(i) != 0,
-                  child: rightOfText
-                      ? Row(
-                          children: [
-                            icons.elementAt(i),
-                            Text(
-                              listDoneProgressError.elementAt(i).toString(),
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            icons.elementAt(i),
-                            Text(
-                              listDoneProgressError.elementAt(i).toString(),
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          ],
-                        ),
-                ),
+                child: Consumer(builder: (context, ref, _) {
+                  final service = ref.watch(currentService);
+                  final serviceState = ref.watch(serviceStateProvider(service));
+                  final listDoneProgressError = serviceState.fullState;
+
+                  return Visibility(
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    visible: listDoneProgressError.elementAt(i) != 0,
+                    child: rightOfText
+                        ? Row(
+                            children: [
+                              icons.elementAt(i),
+                              Text(
+                                listDoneProgressError.elementAt(i).toString(),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              icons.elementAt(i),
+                              Text(
+                                listDoneProgressError.elementAt(i).toString(),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
+                            ],
+                          ),
+                  );
+                }),
               );
             },
           ),

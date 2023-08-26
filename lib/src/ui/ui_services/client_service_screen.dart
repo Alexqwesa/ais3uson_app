@@ -154,12 +154,13 @@ class AddButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allowed = ref.watch(service.addAllowedOf);
+    final serviceState = ref.watch(serviceStateProvider(service));
+    final allowed = serviceState.addAllowed;
 
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: allowed ? service.add : null,
+        onPressed: allowed ? serviceState.add : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Icon(
@@ -185,12 +186,13 @@ class DeleteButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allowed = ref.watch(service.deleteAllowedOf);
+    final serviceState = ref.watch(serviceStateProvider(service));
+    final allowed = serviceState.deleteAllowed;
 
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: IconButton(
-        onPressed: allowed ? service.delete : null,
+        onPressed: allowed ? serviceState.delete : null,
         icon: Transform.scale(
           scale: 2.5,
           child: Transform.rotate(

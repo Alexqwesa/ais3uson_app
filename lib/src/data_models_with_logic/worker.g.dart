@@ -428,7 +428,7 @@ class PlanOfWorkerProvider extends Provider<List<ClientPlan>> {
   }
 }
 
-String _$workerHash() => r'a1ce7a8ba36c6de0013bc0a3289f9d04e22a20e2';
+String _$workerHash() => r'78aa8eb5e7f0670f9ed45be6efce7afaa76c94ba';
 
 abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
   late final WorkerKey key;

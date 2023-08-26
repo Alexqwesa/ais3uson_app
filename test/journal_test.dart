@@ -15,10 +15,11 @@ import 'package:http/http.dart' as http show Response;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/extensions/client_service_extension.dart';
+import 'helpers/extensions/journal_extension.dart';
+import 'helpers/extensions/worker_extension.dart';
 import 'helpers/fake_path_provider_platform.dart';
-import 'helpers/journal_test_extensions.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   //
@@ -62,30 +63,30 @@ void main() {
       // ref.refresh(hiveRepositoryProvider(wp.apiKey));
       await ref.pump();
       expect(
-        ref.read(wp.clients[0].services[0].deleteAllowedOf),
+        wp.clients[0].services[0].deleteAllowedOf,
         false,
       );
       await wp.clients[0].services[0].add();
 
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [1, 0, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [1, 0, 0]);
       //
       // > configure addition stale
       //
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('', 400));
       await wp.clients[0].services[0].add();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [1, 1, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [1, 1, 0]);
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       await wp.journal.commitAll();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [2, 0, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [2, 0, 0]);
       //
       // > configure addition rejected
       //
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 0}', 200));
       await wp.clients[0].services[0].add();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [2, 0, 1]);
+      expect(wp.clients[0].services[0].fullStateOf, [2, 0, 1]);
       expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
@@ -154,7 +155,7 @@ void main() {
       expect(errorService.state, ServiceState.rejected);
       //
       // > prepare ProviderContainer + httpClient + worker
-      final (ref, _, wp, httpClient) = await openRefContainer();
+      final (_, _, wp, httpClient) = await openRefContainer();
       // ----
       // delayed init, should look like values were loaded from hive
       when(MockServer(httpClient).testReqPostAdd)
@@ -165,17 +166,17 @@ void main() {
       //
       expect(wp.hiveRepository.openHive.requireValue.values.last.state,
           ServiceState.rejected);
-      expect(ref.read(wp.clients[0].services[1].fullStateOf), [0, 1, 1]);
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [0, 1, 1]);
-      expect(ref.read(wp.clients[0].services[0].deleteAllowedOf), true);
+      expect(wp.clients[0].services[1].fullStateOf, [0, 1, 1]);
+      expect(wp.clients[0].services[0].fullStateOf, [0, 1, 1]);
+      expect(wp.clients[0].services[0].deleteAllowedOf, true);
       await wp.clients[0].services[0].delete();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [0, 1, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [0, 1, 0]);
       await wp.clients[0].services[0].add();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [2, 0, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [2, 0, 0]);
       await wp.clients[0].services[0].add();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [3, 0, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [3, 0, 0]);
       await wp.journal.commitAll();
-      expect(ref.read(wp.clients[0].services[0].fullStateOf), [3, 0, 0]);
+      expect(wp.clients[0].services[0].fullStateOf, [3, 0, 0]);
       expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 4);
       // wp.dispose();
     });
@@ -324,19 +325,22 @@ void main() {
       final service3 = client.services[3];
       expect(service3.shortText, 'Покупка продуктов питания');
       expect(service3.apiKey, wKey.apiKey);
+      // await ref.pump();
+      await service3.add();
       await ref.pump();
       await service3.add();
+      await ref.pump();
       await service3.add();
+      await ref.pump();
       await service3.add();
-      await service3.add();
-
-      expect(ref.read(service3.fullStateOf), [0, 4, 0]);
+      await ref.pump();
+      expect(service3.fullStateOf, [0, 4, 0]);
       await client.workerProfile.journal.commitAll();
-      expect(ref.read(service3.fullStateOf), [0, 4, 0]);
+      expect(service3.fullStateOf, [0, 4, 0]);
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 1}', 200));
       await client.workerProfile.journal.commitAll();
-      expect(ref.read(service3.fullStateOf), [4, 0, 0]);
+      expect(service3.fullStateOf, [4, 0, 0]);
     });
 
     test('it add new services only to one client', () async {
@@ -360,11 +364,14 @@ void main() {
         throw StateError('timeout as expected');
       });
       await service3.add();
+      await ref.pump();
       await service3.add();
+      await ref.pump();
       await service3.add();
-      expect(ref.read(service3.fullStateOf), [0, 3, 0]);
+      await ref.pump();
+      expect(service3.fullStateOf, [0, 3, 0]);
       expect(client2.services[3].shortText, 'Покупка продуктов питания');
-      expect(ref.read(client2.services[3].fullStateOf), [0, 0, 0]);
+      expect(client2.services[3].fullStateOf, [0, 0, 0]);
     });
 
     test(
@@ -374,29 +381,34 @@ void main() {
         final (ref, _, wp, httpClient) = await openRefContainer();
         // ----
         ref.read(journalArchiveSizeProvider.notifier).state = 10;
+        // await wp.journal.hiveRepository.future(); // to postInit ?
         await wp.postInit();
-        await wp.journal.hiveRepository.future();
-        // await ref.pump();
         // add services
         final client = wp.clients.first;
         final service3 = client.services[3];
-        const servNum = 10;
-        for (var i = 0; i < servNum; i++) {
-          await service3.add();
-        }
         //
         // > add 10 service
         //
-        expect(ref.read(service3.fullStateOf), [0, 10, 0]);
-        expect(
-          verify(MockServer(httpClient).testReqPostAdd).callCount,
-          (servNum + 1) * (servNum / 2),
-        );
+        // await ref.pump();
+        const servNum = 10;
+        for (var i = 0; i < servNum; i++) {
+          await service3.add();
+          // await ref.pump();
+          expect(
+              verify(MockServer(httpClient).testReqPostAdd).callCount, i + 1);
+        }
+        expect(service3.fullStateOf, [0, 10, 0]);
+        //
+        // > allow add services
+        //
         when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 1}', 200));
         await client.workerProfile.journal.commitAll();
-        expect(ref.read(service3.fullStateOf), [10, 0, 0]);
+        expect(
+            verify(MockServer(httpClient).testReqPostAdd).callCount, servNum);
+        expect(service3.fullStateOf, [10, 0, 0]);
         expect(client.workerProfile.journal.finished.length, 10);
+
         //
         // > mark outdated
         //
@@ -407,11 +419,11 @@ void main() {
 
         await service3.workerProfile.syncPlanned();
         expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 2);
-
         expect(client.workerProfile.journal.finished.length, 10);
         await client.workerProfile.journal.updateBasedOnNewPlanDate();
         expect(client.workerProfile.journal.outDated.length, 10);
-        expect(ref.read(service3.fullStateOf), [10, 0, 0]);
+        expect(service3.fullStateOf, [10, 0, 0]);
+
         //
         // > add 10 finished
         //
@@ -419,8 +431,8 @@ void main() {
           await service3.add();
         }
         await ref.pump();
-        expect(ref.read(service3.fullStateOf), [20, 0, 0]);
-        expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 20);
+        expect(service3.fullStateOf, [20, 0, 0]);
+        expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 10);
         //
         // > add 10 rejected
         //
@@ -429,7 +441,7 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
-        expect(ref.read(service3.fullStateOf), [20, 0, 10]);
+        expect(service3.fullStateOf, [20, 0, 10]);
         expect(verify(MockServer(httpClient).testReqPostAdd).callCount, 10);
         //
         // > add 10 stale
@@ -439,7 +451,7 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.add();
         }
-        expect(ref.read(service3.fullStateOf), [20, 10, 10]);
+        expect(service3.fullStateOf, [20, 10, 10]);
         verifyNever(MockServer(httpClient).testReqGetPlanned);
         expect(
           verify(MockServer(httpClient).testReqPostAdd).callCount,
@@ -453,25 +465,25 @@ void main() {
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(ref.read(service3.fullStateOf), [20, 10, 0]);
+        expect(service3.fullStateOf, [20, 10, 0]);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(ref.read(service3.fullStateOf), [20, 0, 0]);
+        expect(service3.fullStateOf, [20, 0, 0]);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
 
-        expect(ref.read(service3.fullStateOf), [10, 0, 0]);
+        expect(service3.fullStateOf, [10, 0, 0]);
         expect(client.workerProfile.journalOf.outDated.length, 10);
         for (var i = 0; i < servNum; i++) {
           await service3.delete();
         }
-        expect(ref.read(service3.fullStateOf), [0, 0, 0]);
+        expect(service3.fullStateOf, [0, 0, 0]);
         expect(verify(MockServer(httpClient).testReqDelete).callCount, 20);
 
         // await service3.add();
-        // expect(ref.read(service3.fullStateOf), [10, 1, 0]);
+        // expect(service3.fullStateOf, [10, 1, 0]);
         // expect(verify(MockServer(httpClient).testReqDelete).callCount, 10);
       },
     );

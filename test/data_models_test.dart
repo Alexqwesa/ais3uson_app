@@ -23,9 +23,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/extensions/client_service_extension.dart';
+import 'helpers/extensions/worker_extension.dart';
 import 'helpers/fake_path_provider_platform.dart';
 import 'helpers/setup_and_teardown_helpers.dart';
-import 'helpers/worker_profile_test_extensions.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -267,7 +268,6 @@ void main() {
       //
       // > init workerProfile
       //
-      ref.read(archiveDate.notifier).state = DateTime(2022, 3);
       await wp.postInit();
 
       if (kIsWeb) return; // todo:
@@ -299,18 +299,24 @@ void main() {
       )).copySync(
         path.join(dst.path, 'before_img_auth_qr_test3.png'),
       );
+      //
+      // > it can change date:
+      //
+      expect(ref.read(appStateIsProvider).isArchive, false);
+      ref.read(appStateIsProvider).set(atDate: DateTime(2022, 3));
+      expect(ref.read(appStateIsProvider).isArchive, true);
+      expect(ref.read(appStateIsProvider).atDate, DateTime(2022, 3));
+      await ref.pump();
+      //
+      // > Load proof from date:
+      //
       final serv2 = wp.clients.first.services.first;
       expect(serv2.proofs.proofs.length, 0); // can be raced?
-      // await serv2.proofList.crawler();
       await serv2.proofs.loadedFromFS;
       expect(serv2.proofs.proofs.length, 1);
       // Image is founded
       expect(serv2.proofs.proofs.isNotEmpty, true);
-      // await serv2.proofList.crawled;
-      expect(
-        serv2.proofs.proofs.first.before.image?.toStringShort(),
-        'Image',
-      );
+      expect(serv2.proofs.proofs.first.before.image?.toStringShort(), 'Image');
       file.deleteSync();
     });
   });

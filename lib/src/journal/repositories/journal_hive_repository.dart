@@ -6,6 +6,7 @@ import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -28,8 +29,8 @@ class HiveRepository extends _$HiveRepository {
 
   // final preinit = <ServiceOfJournal>[];
 
-  // maybe also wait for [archiveOldServices]?
   Future<Box<ServiceOfJournal>> future() async {
+    // await ref.watch(hiveJournalBox(archiveHiveName).future);
     return await ref.watch(hiveJournalBox(journalHiveName).future);
   }
 
@@ -117,6 +118,7 @@ class HiveRepository extends _$HiveRepository {
                   .map((e) => e.dateOnly())
                   .toSet();
         });
+        ref.invalidate(archiveReaderProvider(apiKey));
         //
         // > update hive
         //
@@ -173,4 +175,20 @@ class HiveRepository extends _$HiveRepository {
       hive.delete(s.key);
     });
   }
+
+  AsyncValue<List<ServiceOfJournal>> readArchive() {
+    if (!init) return const AsyncData([]);
+
+    return openArchiveHive.whenData((hive) {
+      return hive.values.toList();
+    });
+  }
+}
+
+@Riverpod(keepAlive: true)
+List<ServiceOfJournal> archiveReader(Ref ref, String apiKey) {
+  return ref
+      .watch(hiveRepositoryProvider(apiKey).notifier)
+      .readArchive()
+      .when(data: (data) => data, error: (o, e) => [], loading: () => []);
 }

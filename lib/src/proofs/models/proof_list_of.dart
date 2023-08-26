@@ -94,7 +94,7 @@ mixin ProofListOf {
         File? beforeAudio;
         File? afterImg;
         File? afterAudio;
-        await for (final file in group.list()) {
+        for (final file in group.listSync()) {
           if (file.baseName.startsWith('before_img_') && (file is File)) {
             beforeImg = file;
           }

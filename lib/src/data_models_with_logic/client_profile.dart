@@ -40,19 +40,19 @@ class ClientProfile extends _$ClientProfile {
 /// {@category Providers}
 final servicesOfClient =
     Provider.family<List<ClientService>, ClientProfile>((ref, client) {
-  final listServices = ref
+  final listPlanned = ref
       .watch(client.workerProfile.clientsPlanOf)
       .where((e) => e.contractId == client.contractId);
-  final listServiceIds = listServices.map((e) => e.servId);
+  final acceptId = listPlanned.map((e) => e.servId).toSet();
 
   return ref
       .watch(client.workerProfile.servicesOf)
-      .where((e) => listServiceIds.contains(e.id))
+      .where((service) => acceptId.contains(service.id))
       .map(
         (e) => ClientService(
           workerProfile: client.workerProfile,
           service: e,
-          planned: listServices.firstWhere((element) => element.servId == e.id),
+          planned: listPlanned.firstWhere((element) => element.servId == e.id),
           // client: client,
         ),
       )

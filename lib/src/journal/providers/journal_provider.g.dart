@@ -1,26 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'router_provider.dart';
+part of 'journal_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routeHash() => r'123472c3cbd7eae3dbf72fe6c68d26eafb0cab13';
-
-/// See also [route].
-@ProviderFor(route)
-final routeProvider = AutoDisposeProvider<GoRouter>.internal(
-  route,
-  name: r'routeProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routeHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef RouteRef = AutoDisposeProviderRef<GoRouter>;
-String _$routerHash() => r'f4ed3eed2f5d7099385899dbe6eb7f41a034b62b';
+String _$journalHash() => r'ca5b6da45bfa0b8acb2f51f871bbbb1cbe51d0e1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,32 +29,32 @@ class _SystemHash {
   }
 }
 
-typedef RouterRef = ProviderRef<GoRouter>;
+typedef JournalRef = ProviderRef<Journal>;
 
-/// See also [router].
-@ProviderFor(router)
-const routerProvider = RouterFamily();
+/// See also [journal].
+@ProviderFor(journal)
+const journalProvider = JournalFamily();
 
-/// See also [router].
-class RouterFamily extends Family<GoRouter> {
-  /// See also [router].
-  const RouterFamily();
+/// See also [journal].
+class JournalFamily extends Family<Journal> {
+  /// See also [journal].
+  const JournalFamily();
 
-  /// See also [router].
-  RouterProvider call(
-    String? initialLocation,
+  /// See also [journal].
+  JournalProvider call(
+    String apiKey,
   ) {
-    return RouterProvider(
-      initialLocation,
+    return JournalProvider(
+      apiKey,
     );
   }
 
   @override
-  RouterProvider getProviderOverride(
-    covariant RouterProvider provider,
+  JournalProvider getProviderOverride(
+    covariant JournalProvider provider,
   ) {
     return call(
-      provider.initialLocation,
+      provider.apiKey,
     );
   }
 
@@ -84,40 +70,40 @@ class RouterFamily extends Family<GoRouter> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'routerProvider';
+  String? get name => r'journalProvider';
 }
 
-/// See also [router].
-class RouterProvider extends Provider<GoRouter> {
-  /// See also [router].
-  RouterProvider(
-    this.initialLocation,
+/// See also [journal].
+class JournalProvider extends Provider<Journal> {
+  /// See also [journal].
+  JournalProvider(
+    this.apiKey,
   ) : super.internal(
-          (ref) => router(
+          (ref) => journal(
             ref,
-            initialLocation,
+            apiKey,
           ),
-          from: routerProvider,
-          name: r'routerProvider',
+          from: journalProvider,
+          name: r'journalProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$routerHash,
-          dependencies: RouterFamily._dependencies,
-          allTransitiveDependencies: RouterFamily._allTransitiveDependencies,
+                  : _$journalHash,
+          dependencies: JournalFamily._dependencies,
+          allTransitiveDependencies: JournalFamily._allTransitiveDependencies,
         );
 
-  final String? initialLocation;
+  final String apiKey;
 
   @override
   bool operator ==(Object other) {
-    return other is RouterProvider && other.initialLocation == initialLocation;
+    return other is JournalProvider && other.apiKey == apiKey;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, initialLocation.hashCode);
+    hash = _SystemHash.combine(hash, apiKey.hashCode);
 
     return _SystemHash.finish(hash);
   }
