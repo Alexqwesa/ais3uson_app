@@ -37,8 +37,7 @@ class AppState {
     required this.ref,
     this.atDate,
     this.showAll = true,
-  }) :
-        assert(!isArchive ||
+  }) : assert(!isArchive ||
             (isArchive && (!showAll && (atDate != null)) ||
                 showAll && (atDate == null)));
 

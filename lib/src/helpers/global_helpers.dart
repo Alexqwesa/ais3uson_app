@@ -23,7 +23,6 @@ final sqlFormat = DateFormat(formatSQL);
 final standardFormat = DateFormat(formatStandard);
 final nullDate = DateTime(1900);
 
-
 /// Helper, convert String to List of Map<String, dynamic>
 List<Map<String, dynamic>> mapJsonDecode(List<String> list) {
   return list.map((e) => jsonDecode(e) as Map<String, dynamic>).toList();
@@ -73,7 +72,7 @@ void showNotification(String text, {Duration? duration}) {
 /// It join all subFolders into path string and make safety checks.
 /// If file plugin or DocumentsDirectory didn't exist - return null.
 Future<String?> getSafePath(List<String> subFolders) async {
-  if (kIsWeb){
+  if (kIsWeb) {
     return '';
   }
 

@@ -1,5 +1,4 @@
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/data_models/client_service_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension ClientServiceLogic on ClientService {

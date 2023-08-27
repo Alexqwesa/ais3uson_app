@@ -20,7 +20,8 @@ final groupProofAtDate =
       workerId: client.workerProfile.key.workerDepId,
       contractId: client.contractId,
       date: standardFormat.format(
-        (date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now()).dateOnly(),
+        (date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now())
+            .dateOnly(),
       ),
       serviceId: null,
       client: client.name,

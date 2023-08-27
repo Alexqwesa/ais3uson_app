@@ -1,7 +1,6 @@
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/src/data_models/client_service_state.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

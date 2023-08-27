@@ -49,7 +49,7 @@ GoRouter router(Ref ref, String? initialLocation) {
         }
         return null;
       } else if (state.matchedLocation.startsWith('/archive')) {
-        Future(() {appState.set(isArchive: true);});
+        Future(() => appState.set(isArchive: true));
 
         return null;
       }
