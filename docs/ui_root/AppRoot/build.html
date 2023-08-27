@@ -140,9 +140,9 @@ Widget build(BuildContext context, WidgetRef ref) {
     &#47;&#47;
     &#47;&#47; &gt; theme
     &#47;&#47;
-    theme: ThemesData.light(),
-    darkTheme: ThemesData.dark(),
-    themeMode: ref.watch(standardTheme),
+    theme: AppTheme.light(),
+    darkTheme: AppTheme.dark(),
+    themeMode: ref.watch(appThemeProvider),
 
     debugShowCheckedModeBanner: false,
   );

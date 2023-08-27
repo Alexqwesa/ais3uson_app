@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the setArchiveOnWithDatePicker method from the ArchiveMaterialApp class, for the Dart programming language.">
-  <title>setArchiveOnWithDatePicker method - ArchiveMaterialApp class - ui_root library - Dart API</title>
+  <meta name="description" content="API docs for the build method from the AppTheme class, for the Dart programming language.">
+  <title>build method - AppTheme class - ui_root library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../ui_root/ui_root-library.html">ui_root</a></li>
-    <li><a href="../../ui_root/ArchiveMaterialApp-class.html">ArchiveMaterialApp</a></li>
-    <li class="self-crumb">setArchiveOnWithDatePicker static method</li>
+    <li><a href="../../ui_root/AppTheme-class.html">AppTheme</a></li>
+    <li class="self-crumb">build method</li>
   </ol>
-  <div class="self-name">setArchiveOnWithDatePicker</div>
+  <div class="self-name">build</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -54,57 +54,45 @@
   <div
       id="dartdoc-main-content"
       class="main-content"
-      data-above-sidebar="ui_root&#47;ArchiveMaterialApp-class-sidebar.html"
+      data-above-sidebar="ui_root&#47;AppTheme-class-sidebar.html"
       data-below-sidebar="">
       <div>
-<h1><span class="kind-method">setArchiveOnWithDatePicker</span> static method 
+<h1><span class="kind-method">build</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
 
-<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">setArchiveOnWithDatePicker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setArchiveOnWithDatePicker-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.6/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
-</ol>)
+<span class="returntype"><a href="https://api.flutter.dev/flutter/material/ThemeMode.html">ThemeMode</a></span>
+<span class="name ">build</span>(<wbr>)
 
-      
+      <div class="features"><span class="feature">override</span></div>
 
     </section>
     
 <section class="desc markdown">
-  <p>Activate archive mode(<a href="../../providers/isArchive.html">isArchive</a>) only if <a href="../../journal/initDatesInAllArchives.html">initDatesInAllArchives</a>.dates
-not empty.</p>
-<p>It also show date picker to set <a href="../../providers/archiveDate.html">archiveDate</a>.</p>
+  <p>Initialize a <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>.</p>
+<p>It is safe to use <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref/watch.html">Ref.watch</a> or <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref/listen.html">Ref.listen</a> inside this method.</p>
+<p>If a dependency of this <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a> (when using <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref/watch.html">Ref.watch</a>) changes,
+then <a href="../../ui_root/AppTheme/build.html">build</a> will be re-executed. On the other hand, the <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>
+will <strong>not</strong> be recreated. Its instance will be preserved between
+executions of <a href="../../ui_root/AppTheme/build.html">build</a>.</p>
+<p>If this method throws, reading this provider will rethrow the error.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static Future&lt;void&gt; setArchiveOnWithDatePicker(
-  BuildContext context,
-  WidgetRef ref,
-) async {
-  await ref.read(initDatesInAllArchives.future);
-  final archiveDates =
-      ref.read(initDatesInAllArchives).asData?.value ?? &lt;DateTime&gt;{};
-
-  if (archiveDates.isEmpty) {
-    ref.read(isArchive.notifier).state = false;
-
-    return;
-  }
-  if (context.mounted) {
-    ref.read(archiveDate.notifier).state = await showDatePicker(
-      context: context,
-      selectableDayPredicate: archiveDates.contains,
-      initialDate: archiveDates.last,
-      lastDate: archiveDates.last,
-      firstDate: archiveDates.first,
-    );
-  }
-  ref.read(isArchive.notifier).state = true;
+  <pre class="language-dart"><code class="language-dart">@override
+ThemeMode build() {
+  return [ThemeMode.light, ThemeMode.dark]
+      .elementAt(locator&lt;SharedPreferences&gt;().getInt(name) ?? 0);
 }</code></pre>
 </section>
 
@@ -122,12 +110,12 @@ not empty.</p>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ais3uson_app</a></li>
     <li><a href="../../ui_root/ui_root-library.html">ui_root</a></li>
-    <li><a href="../../ui_root/ArchiveMaterialApp-class.html">ArchiveMaterialApp</a></li>
-    <li class="self-crumb">setArchiveOnWithDatePicker static method</li>
+    <li><a href="../../ui_root/AppTheme-class.html">AppTheme</a></li>
+    <li class="self-crumb">build method</li>
 </ol>
 
 
-    <h5>ArchiveMaterialApp class</h5>
+    <h5>AppTheme class</h5>
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
