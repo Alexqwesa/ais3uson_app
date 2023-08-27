@@ -6,15 +6,16 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 // ignore_for_file: unnecessary_import
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:ais3uson_app/ui_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,7 +38,7 @@ void main() {
     await locator.reset();
     final sharedPreferences = await SharedPreferences.getInstance();
     locator
-      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<AppLocalizations>(() => const Locale('en').tr)
       ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();

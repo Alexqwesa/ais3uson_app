@@ -9,69 +9,102 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'worker.g.dart';
+part 'worker_provider.g.dart';
 
-@Riverpod(keepAlive: true)
-Worker workerByApi(Ref ref, String apiKey) =>
-    ref.watch(departmentsProvider.notifier).byApi(apiKey);
+class WorkerState {
+  // final List<ServiceEntry> services;
+  // final List<ClientPlan> planned;
+  // final List<Client> clients;
 
-/// Extension of [Worker] with providers:
-/// [] - provider of list of [ClientProfile].
+  List<ServiceEntry> get services => ref.watch(_servicesOfWorkerProvider(apiKey));
+
+  List<ClientPlan> get planned => ref.watch(_planOfWorkerProvider(apiKey));
+
+  List<Client> get clients => ref.watch(_clientsOfWorkerProvider(apiKey));
+
+  final WorkerKey key;
+
+  final Ref ref;
+
+  // JournalHttpInterface http;
+
+  WorkerState({
+    required this.ref,
+    required this.key,
+    // required this.services,
+    // required this.planned,
+    // required this.clients,
+    // required this.http,
+  });
+
+  Journal get journalAll =>
+      ref.watch(workerProvider(key.apiKey).notifier).journal;
+
+  Journal get journal => ref.watch(workerProvider(key.apiKey).notifier).journal;
+
+  String get shortName => ref
+      .watch(workerKeysProvider)
+      .aliases[ref.watch(workerKeysProvider).apiKeys.indexOf(key.apiKey)];
+
+  String get apiKey => key.apiKey;
+}
+
+/// Provider of [WorkerState] and functions to manage worker tasks:
 ///
 /// {@category Data Models}
 @Riverpod(keepAlive: true)
 class Worker extends _$Worker {
   JournalHttpInterface get http => JournalHttpInterface(
-      wKey: state, http: ref.read(httpClientProvider(state.certBase64)));
+      wKey: state.key,
+      http: ref.read(httpClientProvider(state.key.certBase64)));
+
+  WorkerKey get key => state.key;
 
   @override
-  WorkerKey build(WorkerKey key) {
-    return key;
+  WorkerState build(String apiKey) {
+    return WorkerState(
+      ref: ref,
+      key: ref.read(workerKeysProvider).byApiKey(apiKey),
+      // services: ref.read(_servicesOfWorkerProvider(apiKey)),
+      // planned: ref.read(_planOfWorkerProvider(apiKey)),
+      // clients: ref.read(_clientsOfWorkerProvider(apiKey)),
+    );
   }
 
   Journal get journal => ref.watch(journalProvider(apiKey));
 
-  Journal get journalOf => journal; // JournalArchive(worker, appState);
+  Journal get journalAllOf => JournalArchiveAll(
+      ref: ref, apiKey: apiKey, state: AppState.archiveAll(ref));
 
-  Journal get journalAllOf => journal; // JournalArchiveAll(worker, appState);
+  Journal journalAtDate(DateTime date) => JournalArchive(
+      ref: ref, apiKey: apiKey, state: AppState.archiveDate(ref, date));
 
-  Journal journalAtDateOf(DateTime date) => journal; // change AppState
-  // _journalNotifier.journalAtDateOf(date);
+  WorkerKey get workerKey => state.key;
 
-  HiveRepository get hiveRepository =>
-      ref.watch(hiveRepositoryProvider(apiKey).notifier);
-
-  WorkerKey get workerKey => state;
-
-  String get shortName =>
-      ref.watch(departmentsProvider.notifier).getShortNameByApi(apiKey);
+  String get shortName => state.shortName;
 
   // get journal => ref.watch(journalProvider());
 
-  String get apiKey => key.apiKey;
-
   String get name => key.name;
 
-  String get hiveName => 'journal_$apiKey';
+  // String get hiveName => 'journal_$apiKey';
 
-  String get urlClients => '/clients';
-
-  String get urlPlan => '/planned';
-
-  String get urlServices => '/services';
+  static String urlClients = '/clients';
+  static String urlPlan = '/planned';
+  static String urlServices = '/services';
 
   /// List of services(it names), one for all clients.
   ///
   /// Since workers could potentially work
   /// on two different organizations (half rate in each),
   /// with different service list, store services in worker profile.
-  ServicesOfWorkerProvider get servicesOf => servicesOfWorkerProvider(this);
+  List<ServiceEntry> get servicesOf => state.services;
 
   /// List of assigned clients.
-  ClientsOfWorkerProvider get clientsOf => clientsOfWorkerProvider(this);
+  List<Client> get clients => state.clients;
 
   /// List plans of assigned clients.
-  PlanOfWorkerProvider get clientsPlanOf => planOfWorkerProvider(this);
+  List<ClientPlan> get clientsPlanOf => state.planned;
 
   DateTime get planSyncDateOf =>
       ref.watch(httpProvider(apiKey, urlPlan).notifier).updatedAt;
@@ -121,14 +154,13 @@ class Worker extends _$Worker {
 ///
 /// {@category Providers}
 @Riverpod(keepAlive: true)
-List<ClientProfile> ClientsOfWorker(Ref ref, Worker wp) {
-  // ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).syncHiveHttp();
-
+List<Client> _ClientsOfWorker(Ref ref, String apiKey) {
+  ref.invalidate(workerProvider(apiKey)); //
   return ref
-      .watch(httpProvider(wp.apiKey, wp.urlClients))
+      .watch(httpProvider(apiKey, Worker.urlClients))
       .map<ClientEntry>(ClientEntry.fromJson)
-      .map((el) => ref
-          .watch(clientProfileProvider(apiKey: wp.apiKey, entry: el).notifier))
+      .map(
+          (el) => ref.watch(clientProvider(apiKey: apiKey, entry: el).notifier))
       .toList(growable: false);
 }
 
@@ -136,11 +168,10 @@ List<ClientProfile> ClientsOfWorker(Ref ref, Worker wp) {
 ///
 /// {@category Providers}
 @Riverpod(keepAlive: true)
-List<ServiceEntry> ServicesOfWorker(Ref ref, Worker wp) {
-  // ref.watch(httpProvider(wp.apiKey, wp.urlServices).notifier).syncHiveHttp();
-
+List<ServiceEntry> _ServicesOfWorker(Ref ref, String apiKey) {
+  ref.invalidate(workerProvider(apiKey));
   return ref
-      .watch(httpProvider(wp.apiKey, wp.urlServices))
+      .watch(httpProvider(apiKey, Worker.urlServices))
       .map<ServiceEntry>(ServiceEntry.fromJson)
       .toList(growable: false);
 }
@@ -149,11 +180,10 @@ List<ServiceEntry> ServicesOfWorker(Ref ref, Worker wp) {
 ///
 /// {@category Providers}
 @Riverpod(keepAlive: true)
-List<ClientPlan> PlanOfWorker(Ref ref, Worker wp) {
-  // ref.watch(httpProvider(wp.apiKey, wp.urlPlan).notifier).syncHiveHttp();
-
+List<ClientPlan> _PlanOfWorker(Ref ref, String apiKey) {
+  ref.invalidate(workerProvider(apiKey));
   return ref
-      .watch(httpProvider(wp.apiKey, wp.urlPlan))
+      .watch(httpProvider(apiKey, Worker.urlPlan))
       .map<ClientPlan>(ClientPlan.fromJson)
       .toList(growable: false);
 }

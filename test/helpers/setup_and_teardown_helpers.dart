@@ -1,9 +1,10 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
+// ignore: unnecessary_import
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -43,35 +44,18 @@ MaterialApp localizedMaterialApp(
   String? initialRoute,
   // Map<String, WidgetBuilder>? routes,
 }) {
-  // final routes = <String, Widget Function(BuildContext)>{
-  //   '/journal': (context) => const ArchiveServicesOfClientScreen(),
-  //   '/add_department': (context) => const AddDepartmentScreen(),
-  //   '/client_services': (context) => ProviderScope(overrides: [
-  //         currentClient.overrideWithValue(
-  //             ref.read(departmentsProvider).first.clients.first)
-  //       ], child: const ListOfClientServicesScreen()),
-  //   '/settings': /*    */ (context) => const SettingsScreen(),
-  //   '/department': /*  */ (context) => ListOfClientsScreen(
-  //         workerProfile: ref.read(departmentsProvider).first,
-  //       ),
-  //   '/scan_qr': /*     */ (context) => const QRScanScreen(),
-  //   '/dev': /*         */ (context) => const DevScreen(),
-  //   '/delete_department': (context) => const DeleteDepartmentScreen(),
-  //   '/': /*            */ (context) => const HomeScreen(),
-  // };
-
   if (initialRoute == null) {
     return MaterialApp(
       //
       // > l10n
       //
       localizationsDelegates: const [
-        S.delegate,
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: S.delegate.supportedLocales,
+      supportedLocales: AppLocalizations.supportedLocales,
       //
       // > routes
       //
@@ -85,12 +69,12 @@ MaterialApp localizedMaterialApp(
       // > l10n
       //
       localizationsDelegates: const [
-        S.delegate,
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: S.delegate.supportedLocales,
+      supportedLocales: AppLocalizations.supportedLocales,
       //
       // > routes
       //
@@ -117,12 +101,12 @@ extension PumpApp on WidgetTester {
           // > l10n
           //
           localizationsDelegates: const [
-            S.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: S.delegate.supportedLocales,
+          supportedLocales: AppLocalizations.supportedLocales,
           //
           // > routes
           //

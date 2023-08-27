@@ -43,6 +43,10 @@ class AppState {
 
   /// Change state of Notifier of [appStateIsProvider].
   void set({bool? isArchive, DateTime? atDate, bool? showAll}) {
+    if (atDate != null) {
+      isArchive = true;
+      showAll = false;
+    }
     final archive = isArchive ?? (atDate != null || this.isArchive);
     if (!archive) {
       ref.read(appStateIsProvider.notifier).setState(AppState(

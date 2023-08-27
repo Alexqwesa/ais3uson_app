@@ -438,8 +438,7 @@ abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
   );
 }
 
-/// Extension of [Worker] with providers:
-/// [] - provider of list of [ClientProfile].
+/// Provider of [WorkerKey] and functions to manage worker tasks:
 ///
 /// {@category Data Models}
 ///
@@ -447,23 +446,20 @@ abstract class _$Worker extends BuildlessNotifier<WorkerKey> {
 @ProviderFor(Worker)
 const workerProvider = WorkerFamily();
 
-/// Extension of [Worker] with providers:
-/// [] - provider of list of [ClientProfile].
+/// Provider of [WorkerKey] and functions to manage worker tasks:
 ///
 /// {@category Data Models}
 ///
 /// Copied from [Worker].
 class WorkerFamily extends Family<WorkerKey> {
-  /// Extension of [Worker] with providers:
-  /// [] - provider of list of [ClientProfile].
+  /// Provider of [WorkerKey] and functions to manage worker tasks:
   ///
   /// {@category Data Models}
   ///
   /// Copied from [Worker].
   const WorkerFamily();
 
-  /// Extension of [Worker] with providers:
-  /// [] - provider of list of [ClientProfile].
+  /// Provider of [WorkerKey] and functions to manage worker tasks:
   ///
   /// {@category Data Models}
   ///
@@ -500,15 +496,13 @@ class WorkerFamily extends Family<WorkerKey> {
   String? get name => r'workerProvider';
 }
 
-/// Extension of [Worker] with providers:
-/// [] - provider of list of [ClientProfile].
+/// Provider of [WorkerKey] and functions to manage worker tasks:
 ///
 /// {@category Data Models}
 ///
 /// Copied from [Worker].
 class WorkerProvider extends NotifierProviderImpl<Worker, WorkerKey> {
-  /// Extension of [Worker] with providers:
-  /// [] - provider of list of [ClientProfile].
+  /// Provider of [WorkerKey] and functions to manage worker tasks:
   ///
   /// {@category Data Models}
   ///

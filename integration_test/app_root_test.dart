@@ -1,6 +1,6 @@
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ Future<void> main() async {
     await locator.reset();
     final sharedPreferences = await SharedPreferences.getInstance();
     locator
-      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<AppLocalizations>(() => const Locale('en').tr)
       ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();

@@ -10,10 +10,11 @@ String _$departmentsHash() => r'53e474e4acdfd741ddec3d6c0311d9b7d4f13c30';
 
 /// Provider and controller of List<[Worker]>.
 ///
-/// Add, save, delete and load [Worker].
-/// which are saved by [locator]<SharedPreferences>.
+/// Add, delete, save and load [Worker]s providers.
+/// (They are saved in [SharedPreferences] as [WorkerKey]s.)
 ///
 /// {@category Providers}
+///
 /// {@category Controllers}
 ///
 /// Copied from [Departments].

@@ -17,9 +17,9 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/access_to_io.dart';
+import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';
@@ -44,9 +44,9 @@ final locator = GetIt.instance;
 
 /// Translations strings getter.
 ///
-/// tr = get_it locator<S>.
+/// tr = get_it locator<AppLocalizations>.
 /// {@category UI Root}
-final tr = locator<S>;
+final tr = locator<AppLocalizations>;
 
 /// App Logger
 /// {@category UI Root}
@@ -84,12 +84,16 @@ Future<void> init() async {
     log.severe(e.toString());
   }
   //
+  // > localization
+  //
+  final locale = await loadDefaultLocale();
+  //
   // > locator
   //
   final sharedPreferences = await SharedPreferences.getInstance();
   try {
     locator
-      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<AppLocalizations>(() => locale)
       ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {

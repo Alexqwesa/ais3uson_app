@@ -1,8 +1,9 @@
-import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/settings.dart';
+import 'package:ais3uson_app/src/ui/ui_settings/locale_switcher.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -10,9 +11,11 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('${tr().settings}:'),
+        title: Text('${loc.settings}:'),
       ),
       // body: ListView(),
       body: Center(
@@ -21,7 +24,7 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             children: [
               ListTile(
-                title: Text(tr().maxServicesToStoreInArchive),
+                title: Text(loc.maxServicesToStoreInArchive),
                 trailing: SizedBox(
                   width: 60,
                   child: TextFormField(
@@ -44,8 +47,13 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const Divider(),
               SettingServiceSizeWidget(
-                title: tr().magnificationOfServiceWidgets,
-              ),
+                  title: loc.magnificationOfServiceWidgets),
+              const Divider(),
+              LocaleSwitcher(
+                title: loc.chooseLanguage,
+                numberOfShown: 200,
+                inRow: true,
+              )
             ],
           ),
         ),
@@ -65,7 +73,8 @@ class SettingServiceSizeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleText = title ?? tr().magnification;
+    final loc = AppLocalizations.of(context);
+    final titleText = title ?? loc.magnification;
 
     return ListTile(
       title: Text(titleText),

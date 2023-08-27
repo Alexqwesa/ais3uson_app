@@ -15,10 +15,11 @@ part 'departments.g.dart';
 
 /// Provider and controller of List<[Worker]>.
 ///
-/// Add, save, delete and load [Worker].
-/// which are saved by [locator]<SharedPreferences>.
+/// Add, delete, save and load [Worker]s providers.
+/// (They are saved in [SharedPreferences] as [WorkerKey]s.)
 ///
 /// {@category Providers}
+///
 /// {@category Controllers}
 @Riverpod(keepAlive: true)
 class Departments extends _$Departments {

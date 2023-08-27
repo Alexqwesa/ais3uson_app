@@ -1,10 +1,11 @@
 // ignore_for_file: always_use_package_imports
 
-import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/ui/ui_settings/locale_switcher.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -17,12 +18,16 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final loc =  ref.watch(appLocaleProvider).tr;
+    // final loc = tr();
+    final loc = AppLocalizations.of(context);
+
     return Scaffold(
       //
       // > appBar
       //
       appBar: AppBar(
-        title: Text(tr().depList),
+        title: Text(loc.depList),
       ),
       //
       // > body
@@ -37,7 +42,7 @@ class HomeScreen extends ConsumerWidget {
               onPressed: () {
                 context.push('/scan_qr');
               },
-              tooltip: tr().scanQrCode,
+              tooltip: loc.scanQrCode,
               child: const Icon(Icons.add),
             ),
       //
@@ -67,7 +72,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   Center(
                     child: Text(
-                      tr().shortAboutApp,
+                      loc.shortAboutApp,
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
@@ -79,7 +84,7 @@ class HomeScreen extends ConsumerWidget {
                   ListTile(
                     leading: const Icon(Icons.group_add),
                     title: Text(
-                      tr().addDepFromText,
+                      loc.addDepFromText,
                     ),
                     onTap: () {
                       Navigator.pop(
@@ -94,7 +99,7 @@ class HomeScreen extends ConsumerWidget {
                       Icons.add,
                       color: Colors.green,
                     ),
-                    title: Text(tr().scanQrCode),
+                    title: Text(loc.scanQrCode),
                     onTap: () {
                       Navigator.pop(context, 'qr');
                       context.push('/scan_qr');
@@ -102,7 +107,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.delete),
-                    title: Text(tr().deleteDep),
+                    title: Text(loc.deleteDep),
                     onTap: () {
                       Navigator.pop(context, 'delete_department');
                       context.push('/delete_department');
@@ -111,7 +116,7 @@ class HomeScreen extends ConsumerWidget {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.archive),
-                    title: Text(tr().archive),
+                    title: Text(loc.archive),
                     onTap: () {
                       final appState = ref.read(appStateIsProvider);
                       Navigator.pop(context, 'archive');
@@ -120,17 +125,17 @@ class HomeScreen extends ConsumerWidget {
                         context.push('/');
                       } else {
                         appState.set(isArchive: true);
-                        context.push('/archive');
                         ArchiveShellRoute.setArchiveOnWithDatePicker(
                           context,
                           ref,
                         );
+                        context.push('/archive');
                       }
                     },
                   ),
                   ListTile(
                     leading: const Icon(Icons.settings),
-                    title: Text(tr().settings),
+                    title: Text(loc.settings),
                     onTap: () {
                       Navigator.pop(context, 'settings');
                       context.push('/settings');
@@ -138,7 +143,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.adb),
-                    title: Text(tr().about),
+                    title: Text(loc.about),
                     onTap: () {
                       Navigator.pop(context, 'dev');
                       context.push('/dev');
@@ -150,7 +155,7 @@ class HomeScreen extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.all(8),
                         child: Text(
-                          tr().theme,
+                          loc.theme,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
@@ -168,7 +173,7 @@ class HomeScreen extends ConsumerWidget {
                         initialLabelIndex: [ThemeMode.light, ThemeMode.dark]
                             .indexOf(ref.watch(appThemeProvider)),
                         totalSwitches: 2,
-                        labels: [tr().light, tr().dark],
+                        labels: [loc.light, loc.dark],
                         radiusStyle: true,
                         onToggle: (index) {
                           ref.read(appThemeProvider.notifier).state = [
@@ -179,6 +184,8 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  const Divider(),
+                  LocaleSwitcher(title: loc.chooseLanguage),
                 ],
               ),
             ),

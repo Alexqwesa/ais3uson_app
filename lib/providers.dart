@@ -1,6 +1,8 @@
-/// # These classes provide data for UI classes.
+/// These classes provide data for UI classes.
 ///
-/// ## Top level providers of the application, they provide the entry points for UI components.
+/// # Top level providers:
+///
+/// Provide the entry points for UI components.
 ///
 /// [departmentsProvider] - Store List of [Worker]s
 ///
@@ -9,7 +11,7 @@
 ///  - atDate - show archive date,
 ///  - showAll - for archive view (show all dates).
 ///
-/// ## Dependency hierarchy:
+/// # Dependency hierarchy:
 ///
 /// - provider [departmentsProvider] store list of:
 ///   - [Worker]s with different:

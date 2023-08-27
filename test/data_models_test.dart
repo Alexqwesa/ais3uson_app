@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,12 +8,13 @@ import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/generated/l10n.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer;
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // import 'package:hive_test/hive_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,7 +59,7 @@ void main() {
     await locator.reset();
     final sharedPreferences = await SharedPreferences.getInstance();
     locator
-      ..registerLazySingleton<S>(S.new)
+      ..registerLazySingleton<AppLocalizations>(() => const Locale('en').tr)
       ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();
@@ -129,7 +132,8 @@ void main() {
       expect(wp.clients.length, 0);
       expect(wp.services.length, 0);
       expect(wp.clientsPlan.length, 0);
-      await wp.postInit();
+      await ref.pump();
+      // await wp.postInit();
       expect(wp.clients.length, 10);
       expect(wp.services.length, 272);
       expect(wp.clientsPlan.length, 447);

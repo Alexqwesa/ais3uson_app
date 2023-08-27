@@ -15,16 +15,18 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.1+28
+version: 1.2.2+28
 
 environment:
   sdk: ">=3.0.0"
 
 
 dependencies:
+  animated_toggle_switch:
   app_bar_with_search_switch: ^2.0.0-dev.14
   audioplayers: any
   camera: any
+  circle_flags:
   collection: any
   context_menus: any
   dartdoc: ^6.3.0
@@ -32,7 +34,6 @@ dependencies:
     sdk: flutter
   flutter_hooks: any
   flutter_html: any
-  flutter_intl: any
   flutter_localizations:
     sdk: flutter
   flutter_riverpod:
@@ -40,7 +41,6 @@ dependencies:
   get_it: any
   go_router:
   google_fonts: any
-  #  hive: 3.0.0-dev
   hive:
   hive_flutter: any
   http: any
@@ -68,7 +68,6 @@ dependencies:
   toggle_switch: any
   tuple: any
   universal_html: any
-  #  url_strategy: any
   uuid: any
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -79,7 +78,6 @@ dependency_overrides:
 dev_dependencies:
   #  analyzer: ^4.2.0
   #  analyzer_plugin: 0.11.0
-  #  lints: 2.0.0
   build_runner: any
   custom_lint:
   dart_code_metrics: ^5.7.0
@@ -94,6 +92,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   json_serializable:
+  lints:
   path_provider_platform_interface: any
   plugin_platform_interface: any
   riverpod_generator: any
@@ -114,7 +113,7 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -150,8 +149,3 @@ flutter:
     - images/
     - assets/
     - assets/ca/lets-encrypt-r3.pem
-flutter_intl:
-  enabled: true
-  main_locale: ru
-  arb_dir: lib/src/l10n
-  output_dir: lib/src/generated

@@ -72,5 +72,6 @@
   "repeatSearch": "Repeat search",
   "search": "Search",
   "microphoneAccessDenied": "Access denied: Please, allow app access to microphone",
-  "saveTheFileInOrderToNotLoseIt": "Please save the file to not lose it (app will not save it)"
+  "saveTheFileInOrderToNotLoseIt": "Please save the file to not lose it (app will not save it)",
+  "chooseLanguage": "Choose the language:"
 }

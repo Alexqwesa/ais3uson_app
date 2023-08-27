@@ -70,6 +70,7 @@
   "before": "Vorher:",
   "after": "Nach:",
   "repeatSearch": "Suchanfrage wiederholen",
-  "search": "Suche"
-
+  "search": "Suche",
+  "microphoneAccessDenied": "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf das Mikrofon",
+  "saveTheFileInOrderToNotLoseIt": "Bitte speichern Sie die Datei, um sie nicht zu verlieren (die App speichert sie nicht)."
 }
