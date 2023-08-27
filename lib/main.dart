@@ -5,7 +5,7 @@
 /// - tr  - translation provider,
 /// - log - logger,
 /// - set lets-encrypt certificate,
-/// - register Hive adapters...
+/// - register Hive adapters (and open [hiveHttpCache] Box)...
 ///
 
 // ignore_for_file: unreachable_from_main

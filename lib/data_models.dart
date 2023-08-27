@@ -1,7 +1,5 @@
 /// # Data Models
 ///
-/// These classes are templates for [dynamic_data_models](/dynamic_data_models/dynamic_data_models-library.html).
-///
 library data_models;
 
 export 'package:ais3uson_app/src/data_models/client_service.dart';

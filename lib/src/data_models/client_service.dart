@@ -1,6 +1,6 @@
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

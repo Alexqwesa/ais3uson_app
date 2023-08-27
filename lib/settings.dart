@@ -8,6 +8,7 @@ library settings;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+export 'package:ais3uson_app/src/journal/providers/journal_archive_size.dart';
 export 'package:ais3uson_app/src/ui/ui_settings/settings_screen.dart';
 export 'package:ais3uson_app/src/ui/ui_settings/tile_magnification.dart';
 export 'package:ais3uson_app/src/ui/ui_settings/tile_size.dart';

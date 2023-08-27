@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

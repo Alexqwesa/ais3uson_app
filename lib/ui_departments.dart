@@ -12,7 +12,7 @@
 /// of app.
 library ui_departments;
 
-import 'package:ais3uson_app/dynamic_data_models.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 

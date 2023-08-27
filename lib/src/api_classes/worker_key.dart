@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:ais3uson_app/dynamic_data_models.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'worker_key.freezed.dart';

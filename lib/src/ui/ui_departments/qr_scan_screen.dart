@@ -1,8 +1,8 @@
 import 'dart:developer' as dev;
 import 'dart:io';
 
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
-import 'package:ais3uson_app/dynamic_data_models.dart';
-import 'package:ais3uson_app/proofs.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/data_models/client_service_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +24,7 @@ extension ClientServiceLogic on ClientService {
 
   ClientServiceState get state => ref.read(serviceStateProvider(this));
 
-  Future<bool> delete()async => state.delete();
+  Future<bool> delete() async => state.delete();
 
   Future<bool> add() async => state.add();
 

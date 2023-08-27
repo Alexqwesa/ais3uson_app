@@ -22,7 +22,7 @@ library ui_services;
 
 import 'package:ais3uson_app/data_models.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/proofs.dart';
 import 'package:ais3uson_app/settings.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:ais3uson_app/ui_services.dart';

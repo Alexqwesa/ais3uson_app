@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/proofs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,5 +1,4 @@
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';

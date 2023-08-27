@@ -3,9 +3,9 @@
 /// These classes provide GUI for:
 ///
 /// - Root Widget of app [AppRoot], which provides:
-/// - Switch between archive and normal views.
-/// - Routes, themes(via provider [appThemeProvider]), translations (`tr()`).
-/// - [HomeScreen] screen for displaying main menu and [ListOfDepartments]. It is initial route of app.
+/// - Routes[routerProvider],
+/// - Themes(via provider [appThemeProvider]),
+/// - [HomeScreen] screen for displaying main menu and [ListOfDepartments].
 /// - [SettingsScreen],
 /// - [DevScreen] - about developers + tests.
 ///

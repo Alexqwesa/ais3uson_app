@@ -1,5 +1,5 @@
-import 'package:ais3uson_app/dynamic_data_models.dart';
 import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/providers.dart';
 
 /// Base class for [Journal] classes.
 abstract class BaseJournal {
