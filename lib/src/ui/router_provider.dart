@@ -48,6 +48,10 @@ GoRouter router(Ref ref, String? initialLocation) {
           return path;
         }
         return null;
+      } else if (state.matchedLocation.startsWith('/archive')) {
+        Future(() {appState.set(isArchive: true);});
+
+        return null;
       }
       return null; // issue https://github.com/flutter/flutter/issues/123973
     },

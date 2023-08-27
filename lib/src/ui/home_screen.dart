@@ -113,12 +113,13 @@ class HomeScreen extends ConsumerWidget {
                     leading: const Icon(Icons.archive),
                     title: Text(tr().archive),
                     onTap: () {
+                      final appState = ref.read(appStateIsProvider);
                       Navigator.pop(context, 'archive');
-                      if (ref.read(appStateIsProvider).isArchive) {
+                      if (appState.isArchive) {
+                        appState.set(isArchive: false);
                         context.push('/');
-                        ref.read(appStateIsProvider).set(isArchive: false);
                       } else {
-                        ref.read(appStateIsProvider).set(isArchive: true);
+                        appState.set(isArchive: true);
                         context.push('/archive');
                         ArchiveShellRoute.setArchiveOnWithDatePicker(
                           context,

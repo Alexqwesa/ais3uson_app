@@ -38,8 +38,9 @@ class AppState {
     this.atDate,
     this.showAll = true,
   }) :
-        // assert(!isArchive && showAll && atDate == null),
-        assert(!isArchive || (isArchive && (showAll != (atDate == null))));
+        assert(!isArchive ||
+            (isArchive && (!showAll && (atDate != null)) ||
+                showAll && (atDate == null)));
 
   /// Change state of Notifier of [appStateIsProvider].
   void set({bool? isArchive, DateTime? atDate, bool? showAll}) {
