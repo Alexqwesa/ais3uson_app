@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the stubClient property from the providers library, for the Dart programming language.">
-  <title>stubClient property - providers library - Dart API</title>
+  <meta name="description" content="API docs for the stubClient function from the providers library, for the Dart programming language.">
+  <title>stubClient function - providers library - Dart API</title>
 
 
   
@@ -30,7 +30,7 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../providers/providers-library.html">providers</a></li>
-    <li class="self-crumb">stubClient property</li>
+    <li class="self-crumb">stubClient function</li>
   </ol>
   <div class="self-name">stubClient</div>
   <form class="search navbar-right" role="search">
@@ -56,34 +56,48 @@
       data-above-sidebar="providers&#47;providers-library-sidebar.html"
       data-below-sidebar="">
       <div>
-<h1><span class="kind-top-level-property">stubClient</span> top-level property 
+<h1><span class="kind-function">stubClient</span> function 
  
 </h1></div>
 
-        <section class="multi-line-signature">
-          
-          <a href="../data_models/ClientProfile-class.html">ClientProfile</a>
-          <span class="name ">stubClient</span>
-          <div class="features"><span class="feature">final</span></div>
+    <section class="multi-line-signature">
+        
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/riverpod-constant.html">riverpod</a></li>
+    </ol>
+  </div>
 
-        </section>
+<span class="returntype"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>
+<span class="name ">stubClient</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="stubClient-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span></li>
+</ol>)
+
         
 
-        
-<section class="summary source-code" id="source">
-  <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final stubClient = ClientProfile(
-  workerProfile: stubWorker,
-  entry: const ClientEntry(
-    contract_id: 0,
-    dep_id: 0,
-    client_id: 0,
-    dhw_id: 0,
-    comment: &#39;Error: Client not found&#39;,
-  ),
-);</code></pre>
+    </section>
+    
+<section class="desc markdown">
+  <p>Stub provider of client.</p>
 </section>
 
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@riverpod
+ClientProfile stubClient(Ref ref) =&gt; ref.watch(
+      clientProfileProvider(
+        apiKey: ref.read(stubWorkerProvider).apiKey,
+        entry: const ClientEntry(
+          contract_id: 0,
+          dep_id: 0,
+          client_id: 0,
+          dhw_id: 0,
+          comment: &#39;Error: Client not found&#39;,
+        ),
+      ).notifier,
+    );</code></pre>
+</section>
 
 
   </div> <!-- /.main-content -->
@@ -99,7 +113,7 @@
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../providers/providers-library.html">providers</a></li>
-    <li class="self-crumb">stubClient property</li>
+    <li class="self-crumb">stubClient function</li>
 </ol>
 
 
@@ -114,7 +128,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

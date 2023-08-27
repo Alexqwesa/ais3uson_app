@@ -70,7 +70,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
 <span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.6/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -119,6 +119,8 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final appState = ref.watch(appStateIsProvider);
+
   return Scaffold(
     resizeToAvoidBottomInset: false,
     appBar: AppBar(
@@ -129,15 +131,14 @@ Widget build(BuildContext context, WidgetRef ref) {
         children: [
           IconButton(
             onPressed: () {
-              ref.read(isArchive.notifier).state = false;
+              appState.set(isArchive: false);
               context.push(&#39;&#47;&#39;);
             },
             icon: const Icon(Icons.cancel_outlined),
           ),
           Text(
             &#39;${tr().archiveAt} &#39;
-            &#47;&#47; ignore: lines_longer_than_80_chars
-            &#39;${ref.watch(archiveDate) == null ? &#39;&#39; : standardFormat.format(ref.watch(archiveDate)!)}&#39;,
+            &#39;${appState.dateAsString}&#39;,
           ),
         ],
       ),
@@ -191,7 +192,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

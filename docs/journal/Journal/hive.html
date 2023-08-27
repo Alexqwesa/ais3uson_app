@@ -66,7 +66,7 @@
 
 <section class="multi-line-signature">
   
-  <span class="returntype"><a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>
+  <span class="returntype"><a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>
   <span class="name ">hive</span>
   
 
@@ -77,7 +77,8 @@
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Box&lt;ServiceOfJournal&gt; get hive =&gt; hiveRepository.hive;</code></pre>
+  <pre class="language-dart"><code class="language-dart">Box&lt;ServiceOfJournal&gt; get hive =&gt;
+    hiveRepository.openHive.requireValue;</code></pre>
 </section>
 
 </section>
@@ -112,7 +113,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

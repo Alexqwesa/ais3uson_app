@@ -94,11 +94,11 @@ the oldest services will be deleted first.</p>
 Future&lt;void&gt; archiveOldServices() async {
   final forDelete = _forArchive.toList();
   if (forDelete.isNotEmpty) {
-    final res = await hiveRepository.archiveOldServices(forDelete: forDelete);
+    final res = await hiveRepository.archiveOldServices(forDelete);
     &#47;&#47;
     &#47;&#47; &gt; delete finished old services and save hive
     &#47;&#47;
-    _toDelete(forDelete);
+    _deleteFromHive(forDelete);
 
     return res;
   }
@@ -135,7 +135,7 @@ Future&lt;void&gt; archiveOldServices() async {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

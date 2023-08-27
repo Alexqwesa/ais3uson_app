@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the stubWorker property from the providers library, for the Dart programming language.">
-  <title>stubWorker property - providers library - Dart API</title>
+  <meta name="description" content="API docs for the stubWorker function from the providers library, for the Dart programming language.">
+  <title>stubWorker function - providers library - Dart API</title>
 
 
   
@@ -30,7 +30,7 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../providers/providers-library.html">providers</a></li>
-    <li class="self-crumb">stubWorker property</li>
+    <li class="self-crumb">stubWorker function</li>
   </ol>
   <div class="self-name">stubWorker</div>
   <form class="search navbar-right" role="search">
@@ -56,25 +56,37 @@
       data-above-sidebar="providers&#47;providers-library-sidebar.html"
       data-below-sidebar="">
       <div>
-<h1><span class="kind-top-level-property">stubWorker</span> top-level property 
+<h1><span class="kind-function">stubWorker</span> function 
  
 </h1></div>
 
-        <section class="multi-line-signature">
-          
-          <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>
-          <span class="name ">stubWorker</span>
-          <div class="features"><span class="feature">final</span></div>
+    <section class="multi-line-signature">
+        
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/riverpod-constant.html">riverpod</a></li>
+    </ol>
+  </div>
 
-        </section>
+<span class="returntype"><a href="../providers/Worker-class.html">Worker</a></span>
+<span class="name ">stubWorker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="stubWorker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span></li>
+</ol>)
+
         
 
-        
-<section class="summary source-code" id="source">
-  <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final stubWorker = WorkerProfile(_stubKey, null);</code></pre>
+    </section>
+    
+<section class="desc markdown">
+  <p>Stub provider of <a href="../providers/Worker-class.html">Worker</a>.</p>
 </section>
 
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@riverpod
+Worker stubWorker(Ref ref) =&gt; ref.watch(workerProvider(_stubKey).notifier);</code></pre>
+</section>
 
 
   </div> <!-- /.main-content -->
@@ -90,7 +102,7 @@
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ais3uson_app</a></li>
     <li><a href="../providers/providers-library.html">providers</a></li>
-    <li class="self-crumb">stubWorker property</li>
+    <li class="self-crumb">stubWorker function</li>
 </ol>
 
 
@@ -105,7 +117,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

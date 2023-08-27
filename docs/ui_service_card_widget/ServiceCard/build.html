@@ -70,7 +70,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
 <span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.6/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -120,10 +120,9 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
   final service = ref.watch(currentService);
-  &#47;&#47; ignore: no_leading_underscores_for_local_identifiers
-  final _ = ref.watch(archiveDate); &#47;&#47; in case of date change
-  final activeViewOfCard =
-      ref.watch(service.addAllowedOf) || ref.watch(isArchive);
+  final serviceState = ref.watch(serviceStateProvider(service));
+  final isCardActive =
+      serviceState.addAllowed || ref.watch(appStateIsProvider).isArchive;
 
   final cardView = switch (ref.watch(tileTypeProvider)) {
     &#39;tile&#39; =&gt; const ServiceCardTileView(),
@@ -137,7 +136,7 @@ Widget build(BuildContext context, WidgetRef ref) {
     curve: Curves.fastOutSlowIn,
     child: Stack(
       children: [
-        if (!activeViewOfCard)
+        if (!isCardActive)
           ColorFiltered(
             colorFilter: const ColorFilter.mode(
               Colors.grey,
@@ -145,14 +144,14 @@ Widget build(BuildContext context, WidgetRef ref) {
             ),
             child: SizedBox.expand(child: cardView),
           ),
-        if (activeViewOfCard) SizedBox.expand(child: cardView),
+        if (isCardActive) SizedBox.expand(child: cardView),
         &#47;&#47;
         &#47;&#47; InkWell animation and handler
         &#47;&#47;
         Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: service.add,
+            onTap: serviceState.add,
             child: Container(),
           ),
         ),
@@ -192,7 +191,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

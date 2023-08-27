@@ -62,9 +62,9 @@
 
     
 <section class="desc markdown">
-  <h1 id="settings-of-application">settings of application</h1>
+  <h1 id="settings-of-application">Settings of application</h1>
 <p>Classes and providers that store configuration settings and related functions.
-They mostly work through provider <a href="../access_to_io/preference.html">preference</a> of <a href="https://pub.dev/documentation/shared_preferences/2.2.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>.</p>
+They mostly store it in <a href="https://pub.dev/documentation/shared_preferences/2.2.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>.</p>
 </section>
 
 
@@ -72,8 +72,8 @@ They mostly work through provider <a href="../access_to_io/preference.html">pref
       <h2>Classes</h2>
 
       <dl>
-        <dt id="HiveArchiveSize">
-  <span class="name "><a href="../settings/HiveArchiveSize-class.html">HiveArchiveSize</a></span> 
+        <dt id="JournalArchiveSize">
+  <span class="name "><a href="../journal/JournalArchiveSize-class.html">JournalArchiveSize</a></span> 
     <span class="category journal cp-8" title="This is part of the Journal topic.">Journal</span>
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-13" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
@@ -81,6 +81,22 @@ They mostly work through provider <a href="../access_to_io/preference.html">pref
 </dt>
 <dd>
   Provider of setting - max amount of entries stored in <a href="../journal/Journal-class.html">Journal</a>.
+</dd>
+
+        <dt id="SettingServiceSizeWidget">
+  <span class="name "><a href="../settings/SettingServiceSizeWidget-class.html">SettingServiceSizeWidget</a></span> 
+
+</dt>
+<dd>
+  Widget for changing size of <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> view in list of services.
+</dd>
+
+        <dt id="SettingsScreen">
+  <span class="name "><a href="../settings/SettingsScreen-class.html">SettingsScreen</a></span> 
+
+</dt>
+<dd>
+  
 </dd>
 
         <dt id="TileMagnification">
@@ -113,9 +129,9 @@ They mostly work through provider <a href="../access_to_io/preference.html">pref
       <h2>Properties</h2>
 
       <dl class="properties">
-        <dt id="hiveArchiveSizeProvider" class="property">
-  <span class="name"><a href="../settings/hiveArchiveSizeProvider.html">hiveArchiveSizeProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/AutoDisposeNotifierProviderImpl-class.html">AutoDisposeNotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/HiveArchiveSize-class.html">HiveArchiveSize</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> 
+        <dt id="journalArchiveSizeProvider" class="property">
+  <span class="name"><a href="../journal/journalArchiveSizeProvider.html">journalArchiveSizeProvider</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/AutoDisposeNotifierProviderImpl-class.html">AutoDisposeNotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/JournalArchiveSize-class.html">JournalArchiveSize</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> 
     <span class="category journal cp-8" title="This is part of the Journal topic.">Journal</span>
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-13" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
@@ -129,7 +145,7 @@ They mostly work through provider <a href="../access_to_io/preference.html">pref
 
         <dt id="tileMagnificationProvider" class="property">
   <span class="name"><a href="../settings/tileMagnificationProvider.html">tileMagnificationProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/TileMagnification-class.html">TileMagnification</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/TileMagnification-class.html">TileMagnification</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-13" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
 
@@ -142,7 +158,7 @@ They mostly work through provider <a href="../access_to_io/preference.html">pref
 
         <dt id="tileSize" class="property">
   <span class="name"><a href="../settings/tileSize.html">tileSize</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.2/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://pub.dev/documentation/tuple/2.0.2/tuple/Tuple2-class.html">Tuple2</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-13" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
 
@@ -156,7 +172,7 @@ and <a href="../settings/tileTypeProvider.html">tileTypeProvider</a>.
 
         <dt id="tileTypeProvider" class="property">
   <span class="name"><a href="../settings/tileTypeProvider.html">tileTypeProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/TileType-class.html">TileType</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../settings/TileType-class.html">TileType</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
     <span class="category ui-settings cp-13" title="This is part of the UI Settings topic.">UI&nbsp;Settings</span>
 
@@ -198,12 +214,11 @@ and <a href="../settings/tileTypeProvider.html">tileTypeProvider</a>.
       <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
       <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
-      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../proofs/proofs-library.html">proofs</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
-      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -223,7 +238,7 @@ and <a href="../settings/tileTypeProvider.html">tileTypeProvider</a>.
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

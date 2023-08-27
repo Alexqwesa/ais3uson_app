@@ -72,9 +72,9 @@
 </ul>
 <p>are used to convert server responses from Json strings to dart classes.
 Mostly freezed.</p>
-<p>First <a href="../access_to_io/repositoryHttp.html">repositoryHttp</a> get data from server and store it into hive
+<p>First <a href="../access_to_io/httpProvider-constant.html">httpProvider</a> get data from server and store it into hive
 then it is converted to Json. Then it is converted to classes and assigned to providers of
-<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.</p>
+<a href="../providers/Worker-class.html">Worker</a>.</p>
 <p>Detailed API online at <a href="https://alexqwesa.fvds.ru:48080/docs">https://alexqwesa.fvds.ru:48080/docs</a>
  (usually it online <code>from 02:00 to 16:00 GMT</code> - didn't send it to cloud yet...) ,
  test api-key is <code>3.015679841875732e17ef73dc17-7af8-11ec-b7f8-04d9f5c97b0c</code></p>
@@ -83,7 +83,7 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 <ul>
 <li><a href="../journal/Journal/post.html">Journal.post</a> is used to send <strong>/add</strong> requests to server(<a href="../api_classes/AddClientServiceRequest-class.html">AddClientServiceRequest</a>),</li>
 <li><a href="../journal/Journal/delete.html">Journal.delete</a> is used to send <strong>/delete</strong> requests to server(<a href="../api_classes/DeleteClientServiceRequest-class.html">DeleteClientServiceRequest</a>),</li>
-<li><a href="../journal/Journal/exportToFile.html">Journal.exportToFile</a> is used to save list of <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a> to a file <strong>.ais_json</strong> .</li>
+<li><a href="../journal/Journal/exportToFile.html">Journal.exportToFile</a> is used to save list of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> to a file <strong>.ais_json</strong> .</li>
 </ul>
 <p>These methods use json format.</p>
 <h4 id="http-headers">Http headers</h4>
@@ -96,8 +96,8 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 <h2 id="storage-api">Storage API</h2>
 <p>Most data is stored in <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a> Boxes. Http responses are stored as strings.</p>
 <p>The settings and <a href="../api_classes/WorkerKey-class.html">WorkerKey</a>s are stored in <a href="https://pub.dev/documentation/shared_preferences/2.2.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>.</p>
-<p>The <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>s are stored in <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a> as objects.</p>
-<p>The <a href="../data_models/ProofList-class.html">ProofList</a>s store files in filesystem.</p>
+<p>The <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>s are stored in <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a> as objects.</p>
+<p>The <a href="../proofs/ProofList-class.html">ProofList</a>s store files in filesystem.</p>
 </section>
 
 
@@ -151,7 +151,7 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 </dd>
 
         <dt id="ServiceOfJournal">
-  <span class="name "><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span> 
+  <span class="name "><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> 
     <span class="category client-server-api cp-3" title="This is part of the Client-Server API topic.">Client-Server&nbsp;API</span>
     <span class="category journal cp-8" title="This is part of the Journal topic.">Journal</span>
 
@@ -161,7 +161,7 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 </dd>
 
         <dt id="ServiceOfJournalAdapter">
-  <span class="name "><a href="../api_classes/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></span> 
+  <span class="name "><a href="../journal/ServiceOfJournalAdapter-class.html">ServiceOfJournalAdapter</a></span> 
 
 </dt>
 <dd>
@@ -189,8 +189,8 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 
       <dl class="callables">
         <dt id="autoServiceOfJournal" class="callable">
-  <span class="name"><a href="../api_classes/autoServiceOfJournal.html">autoServiceOfJournal</a></span><span class="signature">(<wbr><span class="parameter" id="autoServiceOfJournal-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-workerId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-provDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">provDate</span>, </span><span class="parameter" id="autoServiceOfJournal-param-state"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a>?</span> <span class="parameter-name">state</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
+  <span class="name"><a href="../journal/autoServiceOfJournal.html">autoServiceOfJournal</a></span><span class="signature">(<wbr><span class="parameter" id="autoServiceOfJournal-param-servId">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">servId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-contractId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">contractId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-workerId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">workerId</span>, </span><span class="parameter" id="autoServiceOfJournal-param-provDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">provDate</span>, </span><span class="parameter" id="autoServiceOfJournal-param-state"><span class="type-annotation"><a href="../journal/ServiceState.html">ServiceState</a>?</span> <span class="parameter-name">state</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>
   </span>
   
 
@@ -231,12 +231,11 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
       <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
       <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
-      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../proofs/proofs-library.html">proofs</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
-      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -256,7 +255,7 @@ then it is converted to Json. Then it is converted to classes and assigned to pr
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

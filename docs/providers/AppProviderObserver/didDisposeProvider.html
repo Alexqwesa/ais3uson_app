@@ -69,8 +69,8 @@
   </div>
 
 <span class="returntype">void</span>
-<span class="name ">didDisposeProvider</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="didDisposeProvider-param-provider"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/ProviderBase-class.html">ProviderBase</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">provider</span>, </span></li>
-<li><span class="parameter" id="didDisposeProvider-param-container"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> <span class="parameter-name">container</span></span></li>
+<span class="name ">didDisposeProvider</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="didDisposeProvider-param-provider"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderBase-class.html">ProviderBase</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">provider</span>, </span></li>
+<li><span class="parameter" id="didDisposeProvider-param-container"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderContainer-class.html">ProviderContainer</a></span> <span class="parameter-name">container</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -87,15 +87,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 void didDisposeProvider(
-    ProviderBase&lt;Object?&gt; provider, ProviderContainer container) {
-  &#47;&#47; if (provider.name == &#39;routeProvider&#39;) {
-  &#47;&#47;   final controller = container.read(appRouteProvider.notifier);
-  &#47;&#47;   Future.microtask(() =&gt; container
-  &#47;&#47;       .read(routeProvider)
-  &#47;&#47;       .routeInformationProvider
-  &#47;&#47;       .removeListener(controller.update));
-  &#47;&#47; }
-}</code></pre>
+    ProviderBase&lt;Object?&gt; provider, ProviderContainer container) {}</code></pre>
 </section>
 
 
@@ -128,7 +120,7 @@ void didDisposeProvider(
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   
