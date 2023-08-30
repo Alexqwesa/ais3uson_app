@@ -20,7 +20,7 @@ final groupProofAtDate =
       workerId: client.workerProfile.key.workerDepId,
       contractId: client.contractId,
       date: standardFormat.format(
-        (date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now())
+        (date ?? ref.watch(appStateProvider).atDate ?? DateTime.now())
             .dateOnly(),
       ),
       serviceId: null,
@@ -33,7 +33,7 @@ final groupProofAtDate =
 );
 
 /// Create [ProofList] for [ClientService] at date,
-/// if date is null: ref.watch([appStateIsProvider]) ?? DateTime.now().
+/// if date is null: ref.watch([appStateProvider]) ?? DateTime.now().
 ///
 /// {@category Providers}
 final serviceProofAtDate =
@@ -43,7 +43,7 @@ final serviceProofAtDate =
       workerId: service.workerDepId,
       contractId: service.contractId,
       date: standardFormat.format(
-        (service.date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now())
+        (service.date ?? ref.watch(appStateProvider).atDate ?? DateTime.now())
             .dateOnly(),
       ),
       serviceId: service.servId,

@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,57 +15,50 @@ part 'app_state.g.dart';
 /// {@category Providers}
 /// {@category App State}
 @Riverpod(keepAlive: true)
-class AppStateIs extends _$AppStateIs {
+class appState extends _$appState {
   @override
   AppState build() {
-    return AppState(isArchive: false, ref: ref);
+    return AppState.active(ref);
   }
 
-  // ignore: use_setters_to_change_properties
-  void setState(AppState appState) => state = appState;
+  @override
+  set state(AppState appState) => state = appState;
 }
 
+/// The actual state provided by [appStateProvider].
 class AppState {
   final bool isArchive;
-
   final DateTime? atDate;
-
   final bool showAll;
-
   final Ref ref;
 
-  AppState({
-    required this.isArchive,
-    required this.ref,
-    this.atDate,
-    this.showAll = true,
-  }) : assert(!isArchive ||
-            (isArchive && (!showAll && (atDate != null)) ||
-                showAll && (atDate == null)));
+  const AppState.active(this.ref)
+      : isArchive = false,
+        atDate = null,
+        showAll = false;
 
-  /// Change state of Notifier of [appStateIsProvider].
-  void set({bool? isArchive, DateTime? atDate, bool? showAll}) {
-    if (atDate != null) {
-      isArchive = true;
-      showAll = false;
-    }
-    final archive = isArchive ?? (atDate != null || this.isArchive);
-    if (!archive) {
-      ref.read(appStateIsProvider.notifier).setState(AppState(
-            isArchive: false,
-            ref: ref,
-          ));
-    } else {
-      final date = atDate ?? this.atDate;
-      ref.read(appStateIsProvider.notifier).setState(AppState(
-            isArchive: true,
-            atDate: date,
-            showAll: date == null || (showAll ?? this.showAll),
-            ref: ref,
-          ));
-    }
-  }
+  const AppState.archiveDate(this.ref, this.atDate)
+      : isArchive = true,
+        showAll = false;
+
+  const AppState.archiveAll(this.ref)
+      : isArchive = true,
+        atDate = null,
+        showAll = true;
 
   String get dateAsString =>
       atDate == null ? 'null' : standardFormat.format(atDate!);
+
+  /// Change state of [appStateProvider].
+  void toArchiveDate(DateTime date) =>
+      ref.read(appStateProvider.notifier).state =
+          AppState.archiveDate(ref, date.dateOnly());
+
+  /// Change state of [appStateProvider].
+  void toArchiveAll() =>
+      ref.read(appStateProvider.notifier).state = AppState.archiveAll(ref);
+
+  /// Change state of [appStateProvider].
+  void toActive() =>
+      ref.read(appStateProvider.notifier).state = AppState.active(ref);
 }

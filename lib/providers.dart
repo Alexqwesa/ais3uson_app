@@ -6,7 +6,7 @@
 ///
 /// [departmentsProvider] - Store List of [Worker]s
 ///
-/// [appStateIsProvider] - Store the inner state of App:
+/// [appStateProvider] - Store the inner state of App:
 ///  - isArchvie,
 ///  - atDate - show archive date,
 ///  - showAll - for archive view (show all dates).

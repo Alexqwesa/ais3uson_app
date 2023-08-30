@@ -16,10 +16,10 @@ class ArchiveShellRoute extends ConsumerWidget {
     super.key,
   });
 
-  /// Activate archive mode([appStateIsProvider].isArchive) only if [allDaysWithServicesInited].dates
+  /// Activate archive mode([appStateProvider].isArchive) only if [allDaysWithServicesInited].dates
   /// not empty.
   ///
-  /// It also show date picker to set [appStateIsProvider].atDate.
+  /// It also show date picker to set [appStateProvider].atDate.
   static Future<void> setArchiveOnWithDatePicker(
     BuildContext context,
     WidgetRef ref,
@@ -34,22 +34,24 @@ class ArchiveShellRoute extends ConsumerWidget {
       return;
     }
     if (context.mounted) {
-      ref.watch(appStateIsProvider).set(
-            isArchive: true,
-            atDate: await showDatePicker(
+      final date = await showDatePicker(
               context: context,
               selectableDayPredicate: archiveDates.contains,
               initialDate: archiveDates.last,
               lastDate: archiveDates.last,
               firstDate: archiveDates.first,
-            ),
-          );
+            );
+      if (date != null){
+        ref.watch(appStateProvider).toArchiveDate(date);
+      }else{
+        ref.watch(appStateProvider).toArchiveAll();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appState = ref.watch(appStateIsProvider);
+    final appState = ref.watch(appStateProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -61,7 +63,7 @@ class ArchiveShellRoute extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                appState.set(isArchive: false);
+                appState.toActive();
                 context.push('/');
               },
               icon: const Icon(Icons.cancel_outlined),

@@ -8,7 +8,7 @@ part 'journal_provider.g.dart';
 @Riverpod(keepAlive: true)
 Journal journal(Ref ref, String apiKey) {
   final worker = ref.watch(workerByApiProvider(apiKey));
-  final appState = ref.watch(appStateIsProvider);
+  final appState = ref.watch(appStateProvider);
   if (appState.isArchive) {
     if (appState.showAll) {
       return JournalArchiveAll(worker, appState); // with date == null

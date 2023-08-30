@@ -305,10 +305,10 @@ void main() {
       //
       // > it can change date:
       //
-      expect(ref.read(appStateIsProvider).isArchive, false);
-      ref.read(appStateIsProvider).set(atDate: DateTime(2022, 3));
-      expect(ref.read(appStateIsProvider).isArchive, true);
-      expect(ref.read(appStateIsProvider).atDate, DateTime(2022, 3));
+      expect(ref.read(appStateProvider).isArchive, false);
+      ref.read(appStateProvider).toArchiveDate(DateTime(2022, 3));
+      expect(ref.read(appStateProvider).isArchive, true);
+      expect(ref.read(appStateProvider).atDate, DateTime(2022, 3));
       await ref.pump();
       //
       // > Load proof from date:

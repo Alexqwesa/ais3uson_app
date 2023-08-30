@@ -40,7 +40,7 @@ GoRouter router(Ref ref, String? initialLocation) {
         ),
       );
 
-      final appState = ref.watch(appStateIsProvider);
+      final appState = ref.watch(appStateProvider);
       if (appState.isArchive) {
         if (!state.matchedLocation.startsWith('/archive')) {
           final date = appState.dateAsString;
@@ -49,7 +49,7 @@ GoRouter router(Ref ref, String? initialLocation) {
         }
         return null;
       } else if (state.matchedLocation.startsWith('/archive')) {
-        Future(() => appState.set(isArchive: true));
+        Future(appState.toArchiveAll);
 
         return null;
       }

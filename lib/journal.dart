@@ -9,7 +9,7 @@
 /// Provider [journalProvider] return [Journal] or one of it's subclasses:
 ///
 /// The [JournalArchive] class is a cut version of [Journal], that provide access to
-/// services at date == [appStateIsProvider].atDate.
+/// services at date == [appStateProvider].atDate.
 ///
 /// The [JournalArchiveAll] class is a version of [JournalArchive], that
 /// provides access to all days.

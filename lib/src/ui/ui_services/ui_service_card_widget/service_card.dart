@@ -21,7 +21,7 @@ class ServiceCard extends ConsumerWidget {
     final service = ref.watch(currentService);
     final serviceState = ref.watch(serviceStateProvider(service));
     final isCardActive =
-        serviceState.addAllowed || ref.watch(appStateIsProvider).isArchive;
+        serviceState.addAllowed || ref.watch(appStateProvider).isArchive;
 
     final cardView = switch (ref.watch(tileTypeProvider)) {
       'tile' => const ServiceCardTileView(),
