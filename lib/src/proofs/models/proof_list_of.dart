@@ -32,7 +32,7 @@ mixin ProofListOf {
   late final String service_;
 
   List<Proof> get proofs => throw UnimplementedError(); //state
-  void forceUpdate() => throw UnimplementedError();
+  void invalidateSelf() => throw UnimplementedError();
 
   /// Crawl through file system to generate [Proof]s.
   ///
@@ -177,7 +177,7 @@ mixin ProofListOf {
     } else {
       proofs[i].before.image = Image.file(imgFile);
     }
-    forceUpdate();
+    invalidateSelf();
   }
 }
 

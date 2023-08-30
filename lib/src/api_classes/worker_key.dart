@@ -7,11 +7,10 @@ part 'worker_key.freezed.dart';
 
 part 'worker_key.g.dart';
 
-/// Immutable class to create [WorkerKey] from/to JSON strings.
+/// A class to import and store information about [Worker], can import/export as JSON strings.
 ///
 /// api_key - should be unique for each [Worker].
 ///
-/// And few parsing methods[].
 /// TODO: implement active server switch.
 ///
 /// Example key look like this:

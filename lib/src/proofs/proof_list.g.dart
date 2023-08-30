@@ -6,7 +6,7 @@ part of 'proof_list.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$proofListHash() => r'be129e9b56d002599d0b9181f69b8739cc61a6f6';
+String _$proofListHash() => r'280dab1008adb74ae8e2d925c1e67f00a1a018a6';
 
 /// Copied from Dart SDK
 class _SystemHash {

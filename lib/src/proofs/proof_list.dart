@@ -33,7 +33,7 @@ final groupProofAtDate =
 );
 
 /// Create [ProofList] for [ClientService] at date,
-/// if date is null: ref.watch(archiveDate) ?? DateTime.now().
+/// if date is null: ref.watch([appStateIsProvider]) ?? DateTime.now().
 ///
 /// {@category Providers}
 final serviceProofAtDate =
@@ -101,19 +101,9 @@ class ProofList extends _$ProofList with ProofListOf {
     return [];
   }
 
-  void add(Proof value) {
-    state = [...state, value];
-  }
-
-  // Todo: rework it
   @override
-  void forceUpdate() {
-    state = [...state];
-  }
-
-  @override
-  set state(List<Proof> value) {
-    super.state = value;
+  void invalidateSelf() {
+    ref.invalidateSelf();
   }
 
   @override
