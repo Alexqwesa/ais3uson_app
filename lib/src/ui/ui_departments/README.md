@@ -1,4 +1,4 @@
-# UIWorkerProfiles - Classes to display and manage worker profiles
+# UIDepartments - Classes to display and manage worker profiles
 
 These classes provide gui for actions:
 
@@ -7,6 +7,3 @@ These classes provide gui for actions:
 - Delete worker profile [DeleteDepartmentScreen],
 - Open worker profile [ListOfProfiles],
 - Show list of clients of worker profile [ClientScreen].
-
-There is also [HomeScreen] screen for displaying main menu and [ListOfProfiles]. It is initial route
-of app.
