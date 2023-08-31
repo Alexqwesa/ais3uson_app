@@ -16,7 +16,7 @@ final groupProofAtDate =
   (ref, (DateTime? date, Client client) pair) {
     final (date, client) = pair;
 
-    final proofList = ProofListProvider(
+    final proofList = proofListProvider(
       workerId: client.worker.key.workerDepId,
       contractId: client.contractId,
       date: standardFormat.format(
@@ -96,8 +96,8 @@ class ProofList extends _$ProofList with ProofListOf {
   }
 
   @override
-  void invalidateSelf() {
-    ref.invalidateSelf();
+  void notify() {
+    state = [...state];
   }
 
   @override
