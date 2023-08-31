@@ -18,7 +18,7 @@ class ClientServiceState with _$ClientServiceState {
     required int rejected,
     required int added,
 
-    /// plan - filled
+    /// plan - filled - added - done
     required int left,
 
     /// finished + outDated
@@ -40,15 +40,14 @@ class ClientServiceState with _$ClientServiceState {
 
   /// Add [ServiceOfJournal].
   Future<bool> add() async {
-    // ClientServiceState(left: null);
-
     if (addAllowed) {
       final journal = ref.watch(journalProvider(client.apiKey));
+
       return journal.post(
         autoServiceOfJournal(
           servId: client.servId,
           contractId: client.contractId,
-          workerId: client.workerDepId,
+          workerId: journal.workerDepId,
         ),
       );
     } else {
@@ -70,8 +69,6 @@ class ClientServiceState with _$ClientServiceState {
     }
     return false;
   }
-
-// Journal get _journal => workerProfile.journalOf;
 
 //
 // > proof managing

@@ -1,8 +1,10 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/journal.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
+
 // ignore: unnecessary_import
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,11 +23,22 @@ Future<void> setUpTestHive() async {
     backendPreference: HiveStorageBackendPreference.memory,
   );
   await Hive.openBox(hiveHttpCache);
+  for (final apiKey in [wKeysData2().apiKey, demoWorkerKey().apiKey]) {
+    try {
+      await Hive.openBox<ServiceOfJournal>('journal_$apiKey');
+      await Hive.openBox<ServiceOfJournal>('journal_archive_$apiKey');
+      // ignore: avoid_catches_without_on_clauses, empty_catches
+    } catch (e) {}
+  }
+}
+
+Future<void> refPump5(ProviderContainer ref) async {
+  await ref.pump();
 }
 
 /// Deletes the temporary [Hive].
 Future<void> tearDownTestHive() async {
-  for (final apiKey in [wKeysData2().apiKey, testWorkerKey().apiKey]) {
+  for (final apiKey in [wKeysData2().apiKey, demoWorkerKey().apiKey]) {
     try {
       if (Hive.box('journal_$apiKey').isOpen) {
         await Hive.box('journal_$apiKey').clear();

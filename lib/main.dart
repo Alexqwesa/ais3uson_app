@@ -20,7 +20,7 @@ import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/foundation.dart';
@@ -149,7 +149,7 @@ Future<void> runMain() async {
       overrides: [
         hiveBox(hiveHttpCache).overrideWith((ref) => openHttpBox),
         // stub data for demo mode and testing
-        httpClientProvider(testWorkerKey().certBase64)
+        httpClientProvider(demoWorkerKey().certBase64)
             .overrideWithValue(getMockHttpClient()),
       ],
       child: const AppRoot(),

@@ -76,7 +76,7 @@ Map<ServiceState, List<ServiceOfJournal>> servicesOfJournal(
     Ref ref, Journal journal) {
   if (journal.aData == null) {
     final journalServices =
-        ref.watch(hiveRepositoryProvider(journal.workerProfile.apiKey));
+        ref.watch(hiveRepositoryProvider(journal.worker.apiKey));
 
     return groupBy<ServiceOfJournal, ServiceState>(
       journalServices,
@@ -84,7 +84,7 @@ Map<ServiceState, List<ServiceOfJournal>> servicesOfJournal(
     );
   } else {
     final journalServices =
-        ref.watch(archiveReaderProvider(journal.workerProfile.apiKey));
+        ref.watch(archiveReaderProvider(journal.worker.apiKey));
 
     return groupBy<ServiceOfJournal, ServiceState>(
       journalServices.where((e) => e.provDate.dateOnly() == journal.aData),

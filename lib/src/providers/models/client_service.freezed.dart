@@ -16,14 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ClientService {
-  /// Reference to existing [Worker].
-  Worker get workerProfile => throw _privateConstructorUsedError;
+  Ref<Object?> get ref => throw _privateConstructorUsedError;
 
   /// Reference to existing [ServiceEntry].
   ServiceEntry get service => throw _privateConstructorUsedError;
 
   /// Reference to existing [ClientPlan].
   ClientPlan get planned => throw _privateConstructorUsedError;
+  String get apiKey => throw _privateConstructorUsedError;
 
   /// Should be Null to depend on global variable, !null break dependency.
   DateTime? get date => throw _privateConstructorUsedError;
@@ -40,9 +40,10 @@ abstract class $ClientServiceCopyWith<$Res> {
       _$ClientServiceCopyWithImpl<$Res, ClientService>;
   @useResult
   $Res call(
-      {Worker workerProfile,
+      {Ref<Object?> ref,
       ServiceEntry service,
       ClientPlan planned,
+      String apiKey,
       DateTime? date});
 
   $ServiceEntryCopyWith<$Res> get service;
@@ -62,16 +63,17 @@ class _$ClientServiceCopyWithImpl<$Res, $Val extends ClientService>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workerProfile = null,
+    Object? ref = null,
     Object? service = null,
     Object? planned = null,
+    Object? apiKey = null,
     Object? date = freezed,
   }) {
     return _then(_value.copyWith(
-      workerProfile: null == workerProfile
-          ? _value.workerProfile
-          : workerProfile // ignore: cast_nullable_to_non_nullable
-              as Worker,
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as Ref<Object?>,
       service: null == service
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
@@ -80,6 +82,10 @@ class _$ClientServiceCopyWithImpl<$Res, $Val extends ClientService>
           ? _value.planned
           : planned // ignore: cast_nullable_to_non_nullable
               as ClientPlan,
+      apiKey: null == apiKey
+          ? _value.apiKey
+          : apiKey // ignore: cast_nullable_to_non_nullable
+              as String,
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -113,9 +119,10 @@ abstract class _$$_ClientServiceCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Worker workerProfile,
+      {Ref<Object?> ref,
       ServiceEntry service,
       ClientPlan planned,
+      String apiKey,
       DateTime? date});
 
   @override
@@ -135,16 +142,17 @@ class __$$_ClientServiceCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workerProfile = null,
+    Object? ref = null,
     Object? service = null,
     Object? planned = null,
+    Object? apiKey = null,
     Object? date = freezed,
   }) {
     return _then(_$_ClientService(
-      workerProfile: null == workerProfile
-          ? _value.workerProfile
-          : workerProfile // ignore: cast_nullable_to_non_nullable
-              as Worker,
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as Ref<Object?>,
       service: null == service
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
@@ -153,6 +161,10 @@ class __$$_ClientServiceCopyWithImpl<$Res>
           ? _value.planned
           : planned // ignore: cast_nullable_to_non_nullable
               as ClientPlan,
+      apiKey: null == apiKey
+          ? _value.apiKey
+          : apiKey // ignore: cast_nullable_to_non_nullable
+              as String,
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -165,15 +177,15 @@ class __$$_ClientServiceCopyWithImpl<$Res>
 
 class _$_ClientService extends _ClientService {
   const _$_ClientService(
-      {required this.workerProfile,
+      {required this.ref,
       required this.service,
       required this.planned,
+      required this.apiKey,
       this.date = null})
       : super._();
 
-  /// Reference to existing [Worker].
   @override
-  final Worker workerProfile;
+  final Ref<Object?> ref;
 
   /// Reference to existing [ServiceEntry].
   @override
@@ -182,6 +194,8 @@ class _$_ClientService extends _ClientService {
   /// Reference to existing [ClientPlan].
   @override
   final ClientPlan planned;
+  @override
+  final String apiKey;
 
   /// Should be Null to depend on global variable, !null break dependency.
   @override
@@ -190,7 +204,7 @@ class _$_ClientService extends _ClientService {
 
   @override
   String toString() {
-    return 'ClientService(workerProfile: $workerProfile, service: $service, planned: $planned, date: $date)';
+    return 'ClientService(ref: $ref, service: $service, planned: $planned, apiKey: $apiKey, date: $date)';
   }
 
   @override
@@ -198,16 +212,16 @@ class _$_ClientService extends _ClientService {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ClientService &&
-            (identical(other.workerProfile, workerProfile) ||
-                other.workerProfile == workerProfile) &&
+            (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.service, service) || other.service == service) &&
             (identical(other.planned, planned) || other.planned == planned) &&
+            (identical(other.apiKey, apiKey) || other.apiKey == apiKey) &&
             (identical(other.date, date) || other.date == date));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, workerProfile, service, planned, date);
+      Object.hash(runtimeType, ref, service, planned, apiKey, date);
 
   @JsonKey(ignore: true)
   @override
@@ -218,16 +232,15 @@ class _$_ClientService extends _ClientService {
 
 abstract class _ClientService extends ClientService {
   const factory _ClientService(
-      {required final Worker workerProfile,
+      {required final Ref<Object?> ref,
       required final ServiceEntry service,
       required final ClientPlan planned,
+      required final String apiKey,
       final DateTime? date}) = _$_ClientService;
   const _ClientService._() : super._();
 
   @override
-
-  /// Reference to existing [Worker].
-  Worker get workerProfile;
+  Ref<Object?> get ref;
   @override
 
   /// Reference to existing [ServiceEntry].
@@ -236,6 +249,8 @@ abstract class _ClientService extends ClientService {
 
   /// Reference to existing [ClientPlan].
   ClientPlan get planned;
+  @override
+  String get apiKey;
   @override
 
   /// Should be Null to depend on global variable, !null break dependency.

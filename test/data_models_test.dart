@@ -10,7 +10,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer;
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -73,13 +73,15 @@ void main() {
   group('Data Models', () {
     test('it create WorkerProfiles', () async {
       final ref = ProviderContainer();
-      ref.read(departmentsProvider.notifier).addProfileFromKey(
+      await ref.read(workerKeysProvider).add(
             WorkerKey.fromJson(
               jsonDecode(qrDataShortKey) as Map<String, dynamic>,
             ),
           );
+      ref.invalidate(workerKeysProvider);
+      await ref.pump();
       expect(
-        ref.read(departmentsProvider).first,
+        ref.read(workerKeysProvider).firstWorker,
         isA<Worker>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
@@ -87,33 +89,32 @@ void main() {
 
     test('it create WorkerProfile from short key', () async {
       final ref = ProviderContainer();
-      ref.read(departmentsProvider.notifier).addProfileFromKey(
+      await ref.read(workerKeysProvider).add(
             WorkerKey.fromJson(
               jsonDecode(qrDataShortKey) as Map<String, dynamic>,
             ),
           );
+      await ref.pump();
       expect(
-        ref.read(departmentsProvider).first,
+        ref.read(workerKeysProvider).firstWorker,
         isA<Worker>(),
       );
       expect(wKeysData2(), isA<WorkerKey>());
-      expect(ref.read(departmentsProvider).length, 1);
+      expect(ref.read(workerKeysProvider).length, 1);
       ref.dispose();
     });
 
     test('it create only one WorkerProfiles', () async {
       final ref = ProviderContainer();
       final wKey = wKeysData2();
-      expect(ref.read(departmentsProvider).length, 0);
+      expect(ref.read(workerKeysProvider).length, 0);
       expect(wKey, isA<WorkerKey>());
-      ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-      expect(ref.read(departmentsProvider).length, 1);
-      expect(ref.read(departmentsProvider).first, isA<Worker>());
-      expect(
-        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey),
-        false,
-      );
-      expect(ref.read(departmentsProvider).length, 1);
+      await ref.read(workerKeysProvider).add(wKey);
+      expect(ref.read(workerKeysProvider).length, 1);
+      expect(ref.read(workerKeysProvider).firstWorker, isA<Worker>());
+      expect(await ref.read(workerKeysProvider).add(wKey), false);
+      // await ref.pump();
+      expect(ref.read(workerKeysProvider).length, 1);
     });
 
     test('it check date of last sync before sync on load', () async {
@@ -122,8 +123,9 @@ void main() {
       // ----
 
       // await ref.pump();
-      expect(ref.read(httpProvider(wp.apiKey, wp.urlClients)).length, 0); // ?
-      expect(ref.read(wp.clientsOf).length, 0); // ?
+      expect(
+          ref.read(httpProvider(wp.apiKey, Worker.urlClients)).length, 0); // ?
+      expect(wp.clients.length, 0); // ?
       // expect(wp.clients.length, 0);
       // await ref.refresh(wp.clientsOf);
       // expect(wp.clients.length, 0);
@@ -149,10 +151,10 @@ void main() {
 
     test('it always sync old http data on load', () async {
       // > prepare ProviderContainer + httpClient + worker
-      final (ref, _, wp, httpClient) = await openRefContainer();
+      final (_, _, wp, httpClient) = await openRefContainer();
       // ----
       await wp.postInit();
-      ref.read(wp.clientsOf);
+      wp.clients;
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 1);
       expect(verify(MockServer(httpClient).testReqGetPlanned).callCount, 1);
       expect(verify(MockServer(httpClient).testReqGetServices).callCount, 1);
@@ -216,10 +218,10 @@ void main() {
       //
       // > set currentClient
       //
-      final ref = ProviderContainer(parent: ref1, overrides: [
-        currentClient.overrideWithValue(ref1.read(wp.clientsOf).first)
-      ]);
-      final serv = ref.read(ref.read(currentClient).servicesOf).first;
+      final ref = ProviderContainer(
+          parent: ref1,
+          overrides: [currentClient.overrideWithValue(wp.clients.first)]);
+      final serv = ref.read(currentClient).services.first;
       final (_, proofController) = ref.read(serviceProofAtDate(serv));
       proofController.addProof(); // serv.addProof();
       await proofController.addImage(0, file, 'before_');
@@ -269,7 +271,7 @@ void main() {
       final (ref, _, wp, _) = await openRefContainer();
       // ----
       //
-      // > init workerProfile
+      // > init worker
       //
       await wp.postInit();
 

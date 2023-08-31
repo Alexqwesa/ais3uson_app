@@ -6,7 +6,7 @@ part of 'stub_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$stubWorkerHash() => r'1bb132c12e8b343ee95a24de79390eb7eaa06d4c';
+String _$stubWorkerHash() => r'8bd853c0a230c279b87632f0894236286928e684';
 
 /// Stub provider of [Worker].
 ///
@@ -22,13 +22,13 @@ final stubWorkerProvider = AutoDisposeProvider<Worker>.internal(
 );
 
 typedef StubWorkerRef = AutoDisposeProviderRef<Worker>;
-String _$stubClientHash() => r'e2676dc40e9ea75a6d3037adbd76afcd27d96844';
+String _$stubClientHash() => r'3da0b3b0511cf6146973befdaa589212dc7a611f';
 
 /// Stub provider of client.
 ///
 /// Copied from [stubClient].
 @ProviderFor(stubClient)
-final stubClientProvider = AutoDisposeProvider<ClientProfile>.internal(
+final stubClientProvider = AutoDisposeProvider<Client>.internal(
   stubClient,
   name: r'stubClientProvider',
   debugGetCreateSourceHash:
@@ -37,8 +37,8 @@ final stubClientProvider = AutoDisposeProvider<ClientProfile>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef StubClientRef = AutoDisposeProviderRef<ClientProfile>;
-String _$stubClientServiceHash() => r'e192ed0378a657c3f6afa6c9d253a64b60e7cbaa';
+typedef StubClientRef = AutoDisposeProviderRef<Client>;
+String _$stubClientServiceHash() => r'a72d0a844f49c557a47aa961cf232c814c4d59b0';
 
 /// Stub provider of service.
 ///

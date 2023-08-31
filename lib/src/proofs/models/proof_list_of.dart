@@ -23,13 +23,13 @@ import 'package:path/path.dart' as path;
 mixin ProofListOf {
   Future<void>? loadedFromFS;
 
-  late final int workerId_;
-  late final int contractId_;
-  late final int? serviceId_;
-  late final String date_;
-  late final String client_;
-  late final String worker_;
-  late final String service_;
+  late final int workerId;
+  late final int contractId;
+  late final String date;
+  late final int? serviceId;
+  late final String worker;
+  late final String client;
+  late final String service;
 
   List<Proof> get proofs => throw UnimplementedError(); //state
   void invalidateSelf() => throw UnimplementedError();
@@ -57,16 +57,16 @@ mixin ProofListOf {
     // > start search
     //
     await for (final depWorker in appDocDir.list()) {
-      if (depWorker.baseName.startsWith('${workerId_}_') &&
+      if (depWorker.baseName.startsWith('${workerId}_') &&
           (depWorker is Directory)) {
         await for (final contract in depWorker.list()) {
-          if (contract.baseName.startsWith('${contractId_}_') &&
+          if (contract.baseName.startsWith('${contractId}_') &&
               (contract is Directory)) {
             await for (final dat in contract.list()) {
-              if (dat.baseName.startsWith('${date_}_') && (dat is Directory)) {
-                if (serviceId_ != null) {
+              if (dat.baseName.startsWith('${date}_') && (dat is Directory)) {
+                if (serviceId != null) {
                   await for (final serv in dat.list()) {
-                    if (serv.baseName.startsWith('${serviceId_}_') &&
+                    if (serv.baseName.startsWith('${serviceId}_') &&
                         (serv is Directory)) {
                       await _addGroups(serv);
                     }
@@ -136,10 +136,10 @@ mixin ProofListOf {
   Future<Directory?> proofPath(String group) async {
     final safePath = await getSafePath(
       [
-        '${workerId_}_$worker_',
-        '${contractId_}_$client_',
-        '${date_}_',
-        if (serviceId_ == null) 'GroupProofs' else '${serviceId_}_$service_',
+        '${workerId}_$worker',
+        '${contractId}_$client',
+        '${date}_',
+        if (serviceId == null) 'GroupProofs' else '${serviceId}_$service',
         'group_${group}_',
       ],
     );
@@ -177,7 +177,7 @@ mixin ProofListOf {
     } else {
       proofs[i].before.image = Image.file(imgFile);
     }
-    invalidateSelf();
+    // invalidateSelf();
   }
 }
 

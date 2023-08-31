@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer;
 import 'package:flutter_test/flutter_test.dart';
@@ -44,7 +45,7 @@ void main() {
     await wp.postInit(); // it didn't make initial sync twice
     expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
     expect(
-      ref.read(httpProvider(wp.apiKey, wp.urlClients)).length,
+      ref.read(httpProvider(wp.apiKey, Worker.urlClients)).length,
       10,
     );
     expect(wp.clients.length, 10);

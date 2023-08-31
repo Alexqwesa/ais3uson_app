@@ -19,7 +19,7 @@ mixin _$ClientServiceState {
   int get rejected => throw _privateConstructorUsedError;
   int get added => throw _privateConstructorUsedError;
 
-  /// plan - filled
+  /// plan - filled - added - done
   int get left => throw _privateConstructorUsedError;
 
   /// finished + outDated
@@ -206,7 +206,7 @@ class _$_ClientServiceState extends _ClientServiceState {
   @override
   final int added;
 
-  /// plan - filled
+  /// plan - filled - added - done
   @override
   final int left;
 
@@ -273,7 +273,7 @@ abstract class _ClientServiceState extends ClientServiceState {
   int get added;
   @override
 
-  /// plan - filled
+  /// plan - filled - added - done
   int get left;
   @override
 

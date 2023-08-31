@@ -1,7 +1,7 @@
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/journal.dart';
-import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'client_service.freezed.dart';
@@ -17,14 +17,14 @@ part 'client_service.freezed.dart';
 @freezed
 class ClientService with _$ClientService {
   const factory ClientService({
-    /// Reference to existing [Worker].
-    required Worker workerProfile,
+    required Ref ref,
 
     /// Reference to existing [ServiceEntry].
     required ServiceEntry service,
 
     /// Reference to existing [ClientPlan].
     required ClientPlan planned,
+    required String apiKey,
 
     /// Should be Null to depend on global variable, !null break dependency.
     @Default(null) DateTime? date,
@@ -35,9 +35,6 @@ class ClientService with _$ClientService {
   //
   // > shortcuts for underline classes
   //
-  String get apiKey => workerProfile.apiKey;
-
-  int get workerDepId => workerProfile.key.workerDepId;
 
   int get contractId => planned.contractId;
 

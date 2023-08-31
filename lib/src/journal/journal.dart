@@ -32,10 +32,10 @@ import 'package:universal_html/html.dart' as html;
 ///
 /// Each instance of [Worker] can access [Journal] classes via providers:
 ///
-/// - [Worker.journalOf],
-/// - [Worker.journalAtDateOf].
+/// - [Worker.journal],
+/// - [Worker.journalAtDate].
 ///
-/// [ClientProfile] can access both `Journal` classes at once via [allServicesOfClient].
+/// [Client] can access both `Journal` classes at once via [allServicesOfClient].
 ///
 /// ![Mind map of it functionality](https://raw.githubusercontent.com/Alexqwesa/ais3uson_app/master/lib/src/journal/journal.png)
 ///
@@ -43,7 +43,7 @@ import 'package:universal_html/html.dart' as html;
 /// {@category Client-Server API}
 // ignore: prefer_mixin
 class Journal extends BaseJournal {
-  Journal(super.workerProfile, this.state);
+  Journal({required this.ref, required super.apiKey, required this.state});
 
   final AppState state;
 
@@ -52,11 +52,19 @@ class Journal extends BaseJournal {
   Box<ServiceOfJournal> get hive =>
       hiveRepository.openHive.requireValue; // only for test
 
-  Ref get ref => workerProfile.ref;
+  final Ref ref;
 
-  HiveRepository get hiveRepository => workerProfile.hiveRepository;
+  @override
+  Worker get worker => ref.read(workerProvider(apiKey).notifier);
 
-  JournalHttpInterface get httpInterface => workerProfile.http;
+  @override
+  int get workerDepId =>
+      ref.read(workerProvider(apiKey).notifier).workerKey.workerDepId;
+
+  HiveRepository get hiveRepository =>
+      ref.watch(hiveRepositoryProvider(apiKey).notifier);
+
+  JournalHttpInterface get httpInterface => worker.http;
 
   HiveRepositoryProvider get servicesOf => hiveRepositoryProvider(apiKey);
 
@@ -88,8 +96,7 @@ class Journal extends BaseJournal {
 
   Future<void> exportToFile(DateTime start, DateTime end) async {
     final content = await hiveRepository.export(start, end);
-    final fileName =
-        '${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_'
+    final fileName = '${workerDepId}_${worker.key.dep}_${worker.key.name}_'
         '${standardFormat.format(start)}_'
         '${standardFormat.format(end)}.ais_json';
     //
@@ -158,16 +165,18 @@ class Journal extends BaseJournal {
   /// Add new [ServiceOfJournal] to [Journal] and call [commitAll].
   @override
   Future<bool> post(ServiceOfJournal se) async {
+    final httpClient = httpInterface;
+    final forSync = [se, ...servicesForSync]; // get list before ref changed
     try {
       await hiveRepository.add(se);
       // ignore: avoid_catching_errors, avoid_catches_without_on_clauses
     } catch (e) {
       showErrorNotification(tr().errorSave);
-      await commitAll(); // still call?
+      // await commitAll(httpClient, forSync); // still call?
 
       return false;
     }
-    await commitAll();
+    await commitAll(httpClient, forSync);
 
     return true;
   }
@@ -176,17 +185,20 @@ class Journal extends BaseJournal {
   ///
   /// it change state of services.
   @override
-  Future<void> commitAll() async {
+  Future<void> commitAll([
+    JournalHttpInterface? httpClient,
+    List<ServiceOfJournal>? forSync,
+  ]) async {
     //
     // > main loop, synchronized
     //
-    await _lock.synchronized(() async {
+    return _lock.synchronized(() async {
       await Future.wait(
-        servicesForSync.map((serv) async {
+        (forSync ?? servicesForSync).map((serv) async {
           ServiceState? state;
           var error = '';
           try {
-            (state, error) = await httpInterface.sendAdd(serv);
+            (state, error) = await (httpClient ?? httpInterface).sendAdd(serv);
             switch (state) {
               case ServiceState.added: // no changes - do nothing
                 log.info('stale service $serv');
@@ -306,7 +318,7 @@ class Journal extends BaseJournal {
       finished.toList().forEach(
         (element) {
           if (element.provDate.isBefore(
-            workerProfile.planSyncDateOf,
+            worker.planSyncDateOf,
           )) {
             _toOutDated(element);
           }

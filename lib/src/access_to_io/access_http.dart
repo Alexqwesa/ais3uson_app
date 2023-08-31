@@ -8,6 +8,7 @@ import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/api_classes/worker_key.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -33,6 +34,9 @@ class Http extends _$Http {
   @override
   List<Map<String, dynamic>> build(String apiKey, String path) {
     log.fine('HttpDataState recreated $apiKey$path');
+    if (!ref.watch(hiveBox(hiveName)).hasValue) {
+      throw StateError('hive box is not inited: $hiveName');
+    }
     final hive = future();
 
     // return ref.watch(hiveBox(hiveName)).when(
@@ -58,9 +62,9 @@ class Http extends _$Http {
   // ignore: strict_raw_type
   Box future() => ref.watch(hiveBox(hiveName)).requireValue;
 
-  Worker get worker => ref.read(workerByApiProvider(apiKey));
+  WorkerKey get wKey => ref.read(workerKeysProvider).byApiKey(apiKey);
 
-  String get urlAddress => worker.key.activeServer + path;
+  String get urlAddress => wKey.activeServer + path;
 
   Map<String, String> get headers => {
         'Content-type': 'application/json',
@@ -78,7 +82,7 @@ class Http extends _$Http {
         // > main - call server
         //
         final client = ref.read<http.Client>(
-          httpClientProvider(worker.key.certBase64),
+          httpClientProvider(wKey.certBase64),
         );
         final response = await client.get(url, headers: headers);
         //

@@ -5,7 +5,7 @@ import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -195,9 +195,10 @@ class AddDepartmentScreen extends ConsumerWidget {
   }
 }
 
-bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
+Future<bool> addNewWProfile(
+    BuildContext context, WidgetRef ref, String text) async {
   try {
-    final res = ref.read(departmentsProvider.notifier).addProfileFromKey(
+    final res = await ref.read(workerKeysProvider).add(
           WorkerKey.fromJson(
             jsonDecode(text) as Map<String, dynamic>,
           ),
@@ -206,9 +207,11 @@ bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
       showErrorNotification(
         tr().cantAddDepDuplicate,
       );
-      FocusScope.of(context).requestFocus(
-        FocusNode(),
-      );
+      if (context.mounted) {
+        FocusScope.of(context).requestFocus(
+          FocusNode(),
+        );
+      }
 
       return true;
     }
@@ -216,9 +219,11 @@ bool addNewWProfile(BuildContext context, WidgetRef ref, String text) {
     showErrorNotification(
       tr().cantAddDepBadFormat,
     );
-    FocusScope.of(context).requestFocus(
-      FocusNode(),
-    );
+    if (context.mounted) {
+      FocusScope.of(context).requestFocus(
+        FocusNode(),
+      );
+    }
   }
 
   return false;

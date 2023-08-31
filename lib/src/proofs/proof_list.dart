@@ -7,17 +7,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'proof_list.g.dart';
 
-/// Create [ProofList] for [ClientProfile] at date,
+/// Create [ProofList] for [Client] at date,
 ///
 /// if date is null: ref.watch(archiveDate) ?? DateTime.now().
 /// {@category Providers}
 final groupProofAtDate =
-    Provider.family<(List<Proof>, ProofList), (DateTime?, ClientProfile)>(
-  (ref, (DateTime? date, ClientProfile client) pair) {
+    Provider.family<(List<Proof>, ProofList), (DateTime?, Client)>(
+  (ref, (DateTime? date, Client client) pair) {
     final (date, client) = pair;
 
     final proofList = ProofListProvider(
-      workerId: client.workerProfile.key.workerDepId,
+      workerId: client.worker.key.workerDepId,
       contractId: client.contractId,
       date: standardFormat.format(
         (date ?? ref.watch(appStateProvider).atDate ?? DateTime.now())
@@ -25,7 +25,7 @@ final groupProofAtDate =
       ),
       serviceId: null,
       client: client.name,
-      worker: client.workerProfile.name,
+      worker: client.worker.name,
     );
 
     return (ref.watch(proofList), ref.watch(proofList.notifier));
@@ -39,22 +39,23 @@ final groupProofAtDate =
 final serviceProofAtDate =
     Provider.family<(List<Proof>, ProofList), ClientService>(
   (ref, service) {
+    final worker = ref.watch(workerProvider(service.apiKey));
     final proofList = proofListProvider(
-      workerId: service.workerDepId,
+      workerId: worker.key.workerDepId,
       contractId: service.contractId,
       date: standardFormat.format(
         (service.date ?? ref.watch(appStateProvider).atDate ?? DateTime.now())
             .dateOnly(),
       ),
       serviceId: service.servId,
-      client: ref
-          .watch(service.workerProfile.clientsOf)
+      client: worker.clients
           .firstWhere(
             (element) => element.contractId == service.contractId,
             orElse: () => ref.read(stubClientProvider),
           )
           .name,
-      worker: service.workerProfile.name,
+      worker: worker.key.name,
+      // todo: should be apiKey
       service: service.shortText,
     );
 
@@ -89,13 +90,6 @@ class ProofList extends _$ProofList with ProofListOf {
     String client = '',
     String service = '',
   }) {
-    workerId_ = workerId;
-    contractId_ = contractId;
-    date_ = date;
-    serviceId_ = serviceId;
-    worker_ = worker;
-    client_ = client;
-    service_ = service;
     loadProofsFromFS();
 
     return [];

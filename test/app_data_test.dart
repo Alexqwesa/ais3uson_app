@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 
+import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 
 // import 'package:hive_test/hive_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +45,8 @@ void main() {
     } on HiveError catch (e) {
       dev.log(e.toString());
     }
+
+    await Hive.openBox(hiveHttpCache);
   });
   tearDown(() async {
     await tearDownTestHive();
@@ -53,8 +57,9 @@ void main() {
   group('Tests for Providers', () {
     test('it create Workers from SharedPreferences', () async {
       await locator<SharedPreferences>().setString(
-        Departments.name,
-        '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
+        workerKeysInSharedPref,
+        '[$demoWorkerKeyData]',
+        // '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
       );
       final ref = ProviderContainer();
       addTearDown(ref.dispose);
@@ -64,7 +69,8 @@ void main() {
       expect(
         // ignore: avoid_dynamic_calls
         (jsonDecode(
-          locator<SharedPreferences>().getString(Departments.name) ?? '[]',
+          locator<SharedPreferences>().getString(workerKeysInSharedPref) ??
+              '[]',
         ) as List<dynamic>)
             .first['app'],
         'AIS3USON web',
@@ -73,7 +79,7 @@ void main() {
       // > crete ref
       //
       ref.listen(
-        departmentsProvider,
+        workerKeysProvider,
         (previous, next) {
           return;
         },
@@ -82,20 +88,27 @@ void main() {
       //
       // > check provider
       //
-      expect(ref.read(departmentsProvider).length, 1);
+      expect(ref.read(workerKeysProvider).length, 1);
       expect(
-        ref.read(departmentsProvider).first.apiKey,
-        '3.01567984187',
+        ref.read(workerKeysProvider).first.apiKey,
+        '3.01567984187____',
       );
 
-      // await Hive.openBox<ServiceOfJournal>(ref.read(departmentsProvider).first.journal.journalHiveName);
-      await ref.read(departmentsProvider).first.journal.postInit();
-      ref.refresh(departmentsProvider);
-      await ref.pump();
-
+      // await Hive.openBox<ServiceOfJournal>(ref.read(workerKeysProvider).first.journal.journalHiveName);
+      // await ref.read(workerKeysProvider).firstWorker.journal.postInit();
+      // ref.refresh(workerKeysProvider);
+      // await ref.pump();
+      //
+      // > it open hive box
+      //
+      await ref.read(hiveBox(hiveHttpCache).future);
+      expect(ref.read(hiveBox(hiveHttpCache)).hasValue, true);
+      expect(ref.read(workerKeysProvider).workers.first.clients.length, 0);
       expect(
-          ref.read(ref.read(departmentsProvider).first.journal.servicesOf), []);
-      // expect( ref.read(workerProfiles).first.ref.toString() ,"" );
+          ref.read(
+              ref.read(workerKeysProvider).firstWorker.journal.servicesOf),
+          []);
+      // expect( ref.read(workers).first.ref.toString() ,"" );
     });
 
     test(
@@ -109,7 +122,7 @@ void main() {
         //
         // > put to hive
         //
-        final wKey = testWorkerKey();
+        final wKey = demoWorkerKey();
         final hive =
             await Hive.openBox<ServiceOfJournal>('journal_${wKey.apiKey}');
         for (var i = 0; i < 20; i++) {
@@ -135,7 +148,7 @@ void main() {
         //
         // > ProviderContainer and init
         //
-        // await locator<SharedPreferences>().setString(Departments.name, '[]');
+        // await locator<SharedPreferences>().setString(wokrerKeysInSharedPref, '[]');
         final ref = ProviderContainer();
         addTearDown(ref.dispose);
         // await init();
@@ -143,9 +156,9 @@ void main() {
         // > crete ref
         //
 
-        expect(ref.read(departmentsProvider).length, 0);
+        expect(ref.read(workerKeysProvider).length, 0);
         ref.listen(
-          departmentsProvider,
+          workerKeysProvider,
           (previous, next) {
             return;
           },
@@ -154,15 +167,15 @@ void main() {
         //
         // > check provider
         //
-        expect(ref.read(departmentsProvider).length, 0);
-        ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
+        expect(ref.read(workerKeysProvider).length, 0);
+        await ref.read(workerKeysProvider).add(wKey);
         expect(
-          ref.read(departmentsProvider).first.apiKey,
+          ref.read(workerKeysProvider).first.apiKey,
           wKey.apiKey,
         );
         await ref
-            .read(departmentsProvider)
-            .first
+            .read(workerKeysProvider)
+            .firstWorker
             .journal
             .postInit(); // init journal
 
@@ -171,18 +184,18 @@ void main() {
         //
         expect(
             ref.read(hiveRepositoryProvider(wKey.apiKey).notifier).init, true);
-        // await ref.read(departmentsProvider).first.hiveRepository.future();
+        // await ref.read(workerKeysProvider).first.hiveRepository.future();
         expect(
             ref
-                .read(departmentsProvider)
-                .first
+                .read(workerProvider(wKey.apiKey).notifier)
+                .journal
                 .hiveRepository
                 .openHive
                 .requireValue
                 .length,
             0);
         final hiveArchive = await Hive.openBox<ServiceOfJournal>(
-          'journal_archive_${ref.read(departmentsProvider).first.apiKey}',
+          'journal_archive_${ref.read(workerKeysProvider).first.apiKey}',
         );
         expect(hiveArchive.length, 40);
         //
@@ -207,7 +220,7 @@ void main() {
               .containsAll([roundYesterday, roundBeforeYesterday]),
           true,
         );
-        await Future.wait(ref.read(departmentsProvider).map(
+        await Future.wait(ref.read(workerKeysProvider).map(
               (e) =>
                   ref.read(daysWithServicesProvider(e.apiKey).notifier).save(),
             ));

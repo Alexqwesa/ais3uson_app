@@ -2,12 +2,6 @@ import 'package:ais3uson_app/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension ClientServiceLogic on ClientService {
-  Ref get ref => workerProfile.ref;
-
-  // Provider<Journal> get journalOf => workerProfile.journalOf;
-
-  // Journal get _journal => workerProfile.journalOf;
-
   //
   // > proof managing
   //

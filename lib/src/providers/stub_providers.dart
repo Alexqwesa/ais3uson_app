@@ -2,34 +2,36 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'stub_providers.g.dart';
 
 /// Provider of current service - default is [stubClientServiceProvider], to be overridden.
-final currentService = Provider<ClientService>(
-    (ref) => ref.read(stubClientServiceProvider), // TODO: handle loading nicer
-    dependencies: [currentClient]);
+final currentService =
+    Provider<ClientService>((ref) => ref.read(stubClientServiceProvider),
+        // TODO: handle loading nicer
+        dependencies: [currentClient]);
 
 /// Provider of current client - default is [stubClientProvider], to be overridden.
-final currentClient = Provider<ClientProfile>(
+final currentClient = Provider<Client>(
   (ref) => ref.read(stubClientProvider), // TODO: handle loading nicer
-  dependencies: [departmentsProvider],
+  dependencies: const [workerProvider],
 );
 
-final _stubKey =
+final stubWorkerKey =
     WorkerKey.fromJson(jsonDecode(stubJsonWorkerKey) as Map<String, dynamic>);
 
 /// Stub provider of [Worker].
 @riverpod
-Worker stubWorker(Ref ref) => ref.watch(workerProvider(_stubKey).notifier);
+Worker stubWorker(Ref ref) =>
+    ref.watch(workerProvider(stubWorkerKey.apiKey).notifier);
 
 /// Stub provider of client.
 @riverpod
-ClientProfile stubClient(Ref ref) => ref.watch(
-      clientProfileProvider(
+Client stubClient(Ref ref) => ref.watch(
+      clientProvider(
         apiKey: ref.read(stubWorkerProvider).apiKey,
         entry: const ClientEntry(
           contract_id: 0,
@@ -44,7 +46,9 @@ ClientProfile stubClient(Ref ref) => ref.watch(
 /// Stub provider of service.
 @riverpod
 ClientService stubClientService(Ref ref) => ClientService(
-      workerProfile: ref.read(stubWorkerProvider),
+      ref: ref,
+      apiKey: ref.read(stubWorkerProvider).apiKey,
+      // worker: ref.read(stubWorkerProvider),
       service: const ServiceEntry(id: 0, serv_text: 'Error: Service not found'),
       planned:
           const ClientPlan(contract_id: 0, serv_id: 0, planned: 0, filled: 0),

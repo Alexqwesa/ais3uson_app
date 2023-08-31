@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,7 +24,7 @@ Future<void> main() async {
   setUp(() async {
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues(
-        {Departments.name: '[$qrData2WithLocalCache]'});
+        {workerKeysInSharedPref: '[$demoWorkerKeyData]'});
     //
     // > locator
     //

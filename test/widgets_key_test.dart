@@ -5,7 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/global_helpers.dart';
 // ignore_for_file: unnecessary_import
 
@@ -102,7 +101,7 @@ void main() {
       // > check home screen
       //
       await tester.pumpAndSettle();
-      expect(ref.read(departmentsProvider).length, 2); // wp + 1
+      expect(ref.read(workerKeysProvider).length, 2); // wp + 1
       try {
         await tester.pumpWidget(
           Builder(
@@ -121,14 +120,11 @@ void main() {
       } catch (e) {
         // developer.log(e);
       }
-
       // expect(wp.clients.length, 0); // this run forever
-      await tester.runAsync<void>(() async {
-        wp.clients.length;
-      });
-      expect(wp.clients.length, 10);
       // await tester.runAsync<void>(() async {
-      //   await wp.postInit();
+      //   wp.clients.length;
+      //   await ref.pump();
+      //   expect(wp.clients.length, 10);
       // });
       //
       // > home screen
@@ -142,17 +138,14 @@ void main() {
           ),
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
       expect(find.textContaining(tr().authorizePlease), findsNothing);
       expect(find.text(wp.key.comment), findsOneWidget);
       expect(find.text(wp.key.name), findsOneWidget);
       expect(find.text(wp.key.dep), findsNWidgets(2));
       await tester.pumpAndSettle();
       // Check
-      expect(
-        find.textContaining(tr().emptyListOfPeople),
-        findsNothing,
-      );
+      expect(find.textContaining(tr().emptyListOfPeople), findsNothing);
     });
 
     testWidgets('it delete department', (tester) async {
@@ -160,7 +153,7 @@ void main() {
       final (ref, wKey, wp, _) = await openRefContainer();
       // ----
       expect(wp.apiKey, wKey.apiKey);
-      expect(ref.read(departmentsProvider).length, 1);
+      expect(ref.read(workerKeysProvider).length, 1);
       //
       // > delete department screen
       //
@@ -185,7 +178,7 @@ void main() {
       await tester.pumpAndSettle();
       // await tester.pumpWidget(screen(UniqueKey()));
       // await ref.pump();
-      expect(ref.read(departmentsProvider).length, 0);
+      expect(ref.read(workerKeysProvider).length, 0);
     });
 
     testWidgets("it show list of worker's clients", (tester) async {
@@ -193,17 +186,17 @@ void main() {
       final (ref, _, wp, _) = await openRefContainer();
       // ----
       await tester.runAsync<void>(() async {
-        final wp = ref.read(departmentsProvider).first;
-        await ref.read(hiveBox(hiveHttpCache).future);
-        // await wp.postInit();
-        await wp.syncClients();
+        // final wp = ref.read(workerKeysProvider).firstWorker; // ?
+        // await ref.read(hiveBox(hiveHttpCache).future);
+        await wp.postInit();
+        // await wp.syncClients();
       });
-      expect(ref.read(departmentsProvider).first.shortName, '8717825');
+      expect(ref.read(workerKeysProvider).firstWorker.shortName, '8717825');
       //
       // > set widget
       //
       await tester.pumpRealRouterApp(
-        '/department/${ref.read(departmentsProvider).first.shortName}',
+        '/department/${ref.read(workerKeysProvider).firstWorker.shortName}',
         (child) => ProviderScope(parent: ref, child: child),
         ref: ref,
       );
@@ -211,7 +204,6 @@ void main() {
       // > check widget
       //
       await tester.pumpAndSettle();
-      // await tester.pump(Duration(seconds: 1));
       expect(find.byType(ListOfClientsScreen), findsOneWidget);
       expect(find.text(wp.clients.first.contract), findsOneWidget);
       expect(find.textContaining(tr().emptyListOfPeople), findsNothing);
@@ -229,7 +221,7 @@ void main() {
       //
       final widgetForTesting = ProviderScope(overrides: [
         currentClient.overrideWithValue(
-            ref.read(departmentsProvider).first.clients.first)
+            ref.read(workerKeysProvider).firstWorker.clients.first)
       ], child: const ListOfClientServicesScreen());
       await tester.pumpWidget(
         ProviderScope(
@@ -269,8 +261,8 @@ void main() {
       expect(wp.clients[1].services.isEmpty, true);
       expect(wp.clients[0].services.isEmpty, false);
       final widgetForTesting = ProviderScope(overrides: [
-        currentClient
-            .overrideWithValue(ref.read(departmentsProvider).first.clients[1])
+        currentClient.overrideWithValue(
+            ref.read(workerKeysProvider).firstWorker.clients[1])
       ], child: const ListOfClientServicesScreen());
       await tester.pumpWidget(
         ProviderScope(

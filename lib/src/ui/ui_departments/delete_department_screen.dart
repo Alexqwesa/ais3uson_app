@@ -13,7 +13,7 @@ class DeleteDepartmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wpKeys = ref.watch(departmentsProvider).map((e) => e.key).toList();
+    final wpKeys = ref.watch(workerKeysProvider).keys;
 
     return Scaffold(
       appBar: AppBar(
@@ -70,11 +70,13 @@ class DeleteDepartmentScreen extends ConsumerWidget {
                             wpKeys[index].dep,
                           );
                           if (result == 'delete') {
-                            ref
-                                .read(departmentsProvider.notifier)
-                                .profileDelete(wpKeys[index]);
-                            // ignore: use_build_context_synchronously
-                            Navigator.pop(context, 'delete');
+                            if (await ref
+                                .read(workerKeysProvider)
+                                .delete(wpKeys[index])) {
+                              if (context.mounted) {
+                                Navigator.pop(context, 'delete');
+                              }
+                            }
                           }
                         },
                       ),

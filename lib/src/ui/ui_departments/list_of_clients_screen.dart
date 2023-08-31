@@ -10,13 +10,15 @@ import 'package:go_router/go_router.dart';
 ///
 /// {@category UI Workers}
 class ListOfClientsScreen extends ConsumerWidget {
-  final Worker workerProfile;
+  final String apiKey;
 
-  const ListOfClientsScreen({required this.workerProfile, super.key});
+  const ListOfClientsScreen({required this.apiKey, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final clientList = ref.watch(workerProfile.clientsOf);
+    final worker = ref.watch(workerProvider(apiKey).notifier);
+    final clientList = worker.clients;
+        // ref.watch(workerProvider(apiKey).select((value) => value.clients));
 
     return Scaffold(
       appBar: AppBar(
@@ -24,13 +26,13 @@ class ListOfClientsScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: Text(
-                workerProfile.key.dep,
+                worker.key.dep,
               ),
             ),
             IconButton(
                 icon: const Icon(Icons.refresh),
                 // ignore: avoid-passing-async-when-sync-expected
-                onPressed: () => unawaited(workerProfile.syncClients())),
+                onPressed: () => unawaited(worker.syncClients())),
           ],
         ),
       ),
@@ -42,7 +44,7 @@ class ListOfClientsScreen extends ConsumerWidget {
                   child: SizedBox(
                     width: 550,
                     child: ClientCard(
-                      department: workerProfile,
+                      department: worker,
                       index: index,
                       client: clientList[index],
                     ),
@@ -70,7 +72,7 @@ class ClientCard extends ConsumerWidget {
   });
 
   final Worker department;
-  final ClientProfile client;
+  final Client client;
   final int index;
 
   @override

@@ -1,6 +1,6 @@
 // ignore_for_file: missing_whitespace_between_adjacent_strings
 
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.mocks.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';

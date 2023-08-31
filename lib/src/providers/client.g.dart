@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'client_profile.dart';
+part of 'client.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$clientProfileHash() => r'aad725dca4e514d287059c0c81692e86922c733e';
+String _$clientHash() => r'60cf1d3053a6e81e31ac51154368711a3949627d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,59 +29,55 @@ class _SystemHash {
   }
 }
 
-abstract class _$ClientProfile extends BuildlessNotifier<ClientEntry> {
+abstract class _$Client extends BuildlessNotifier<ClientState> {
   late final String apiKey;
   late final ClientEntry entry;
 
-  ClientEntry build({
+  ClientState build({
     required String apiKey,
     required ClientEntry entry,
   });
 }
 
-/// Extension of [ClientProfile] with providers:
-/// [servicesOf] - provider of list of [ClientService].
+/// Provider of [ClientState], which store List<[ClientService]> and [ClientEntry].
 ///
 /// {@category Data Models Logic}
 ///
-/// Copied from [ClientProfile].
-@ProviderFor(ClientProfile)
-const clientProfileProvider = ClientProfileFamily();
+/// Copied from [Client].
+@ProviderFor(Client)
+const clientProvider = ClientFamily();
 
-/// Extension of [ClientProfile] with providers:
-/// [servicesOf] - provider of list of [ClientService].
+/// Provider of [ClientState], which store List<[ClientService]> and [ClientEntry].
 ///
 /// {@category Data Models Logic}
 ///
-/// Copied from [ClientProfile].
-class ClientProfileFamily extends Family<ClientEntry> {
-  /// Extension of [ClientProfile] with providers:
-  /// [servicesOf] - provider of list of [ClientService].
+/// Copied from [Client].
+class ClientFamily extends Family<ClientState> {
+  /// Provider of [ClientState], which store List<[ClientService]> and [ClientEntry].
   ///
   /// {@category Data Models Logic}
   ///
-  /// Copied from [ClientProfile].
-  const ClientProfileFamily();
+  /// Copied from [Client].
+  const ClientFamily();
 
-  /// Extension of [ClientProfile] with providers:
-  /// [servicesOf] - provider of list of [ClientService].
+  /// Provider of [ClientState], which store List<[ClientService]> and [ClientEntry].
   ///
   /// {@category Data Models Logic}
   ///
-  /// Copied from [ClientProfile].
-  ClientProfileProvider call({
+  /// Copied from [Client].
+  ClientProvider call({
     required String apiKey,
     required ClientEntry entry,
   }) {
-    return ClientProfileProvider(
+    return ClientProvider(
       apiKey: apiKey,
       entry: entry,
     );
   }
 
   @override
-  ClientProfileProvider getProviderOverride(
-    covariant ClientProfileProvider provider,
+  ClientProvider getProviderOverride(
+    covariant ClientProvider provider,
   ) {
     return call(
       apiKey: provider.apiKey,
@@ -101,39 +97,35 @@ class ClientProfileFamily extends Family<ClientEntry> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'clientProfileProvider';
+  String? get name => r'clientProvider';
 }
 
-/// Extension of [ClientProfile] with providers:
-/// [servicesOf] - provider of list of [ClientService].
+/// Provider of [ClientState], which store List<[ClientService]> and [ClientEntry].
 ///
 /// {@category Data Models Logic}
 ///
-/// Copied from [ClientProfile].
-class ClientProfileProvider
-    extends NotifierProviderImpl<ClientProfile, ClientEntry> {
-  /// Extension of [ClientProfile] with providers:
-  /// [servicesOf] - provider of list of [ClientService].
+/// Copied from [Client].
+class ClientProvider extends NotifierProviderImpl<Client, ClientState> {
+  /// Provider of [ClientState], which store List<[ClientService]> and [ClientEntry].
   ///
   /// {@category Data Models Logic}
   ///
-  /// Copied from [ClientProfile].
-  ClientProfileProvider({
+  /// Copied from [Client].
+  ClientProvider({
     required this.apiKey,
     required this.entry,
   }) : super.internal(
-          () => ClientProfile()
+          () => Client()
             ..apiKey = apiKey
             ..entry = entry,
-          from: clientProfileProvider,
-          name: r'clientProfileProvider',
+          from: clientProvider,
+          name: r'clientProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$clientProfileHash,
-          dependencies: ClientProfileFamily._dependencies,
-          allTransitiveDependencies:
-              ClientProfileFamily._allTransitiveDependencies,
+                  : _$clientHash,
+          dependencies: ClientFamily._dependencies,
+          allTransitiveDependencies: ClientFamily._allTransitiveDependencies,
         );
 
   final String apiKey;
@@ -141,7 +133,7 @@ class ClientProfileProvider
 
   @override
   bool operator ==(Object other) {
-    return other is ClientProfileProvider &&
+    return other is ClientProvider &&
         other.apiKey == apiKey &&
         other.entry == entry;
   }
@@ -156,8 +148,8 @@ class ClientProfileProvider
   }
 
   @override
-  ClientEntry runNotifierBuild(
-    covariant ClientProfile notifier,
+  ClientState runNotifierBuild(
+    covariant Client notifier,
   ) {
     return notifier.build(
       apiKey: apiKey,

@@ -155,7 +155,6 @@ class Worker extends _$Worker {
 /// {@category Providers}
 @Riverpod(keepAlive: true)
 List<Client> _ClientsOfWorker(Ref ref, String apiKey) {
-  ref.invalidate(workerProvider(apiKey)); //
   return ref
       .watch(httpProvider(apiKey, Worker.urlClients))
       .map<ClientEntry>(ClientEntry.fromJson)
@@ -169,7 +168,6 @@ List<Client> _ClientsOfWorker(Ref ref, String apiKey) {
 /// {@category Providers}
 @Riverpod(keepAlive: true)
 List<ServiceEntry> _ServicesOfWorker(Ref ref, String apiKey) {
-  ref.invalidate(workerProvider(apiKey));
   return ref
       .watch(httpProvider(apiKey, Worker.urlServices))
       .map<ServiceEntry>(ServiceEntry.fromJson)
@@ -181,7 +179,6 @@ List<ServiceEntry> _ServicesOfWorker(Ref ref, String apiKey) {
 /// {@category Providers}
 @Riverpod(keepAlive: true)
 List<ClientPlan> _PlanOfWorker(Ref ref, String apiKey) {
-  ref.invalidate(workerProvider(apiKey));
   return ref
       .watch(httpProvider(apiKey, Worker.urlPlan))
       .map<ClientPlan>(ClientPlan.fromJson)

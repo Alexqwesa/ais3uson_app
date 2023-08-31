@@ -3,16 +3,16 @@ import 'package:ais3uson_app/providers.dart';
 
 /// Base class for [Journal] classes.
 abstract class BaseJournal {
-  BaseJournal(this.workerProfile);
+  BaseJournal({required this.apiKey});
 
   /// At what date is journal, if null - load all values.
   final DateTime? aData = null;
 
-  late final Worker workerProfile;
+  String apiKey;
 
-  String get apiKey => workerProfile.key.apiKey;
+  Worker get worker => throw UnimplementedError('BaseJournal worker');
 
-  int get workerDepId => workerProfile.key.workerDepId;
+  int get workerDepId => throw UnimplementedError('BaseJournal workerDepId');
 
   DateTime get _now => DateTime.now();
 
@@ -34,7 +34,9 @@ abstract class BaseJournal {
     return false; // stub
   }
 
-  Future<void> commitAll() async {
+  Future<void> commitAll(
+      [JournalHttpInterface? httpClient,
+      List<ServiceOfJournal>? forSync]) async {
     return; // stub
   }
 }

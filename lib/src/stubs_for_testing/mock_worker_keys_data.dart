@@ -14,7 +14,7 @@ const stubJsonWorkerKey =
     '''"db": "none", "servers": "none", "comment": "Error: Department not found", "certBase64": ""}''';
 
 /// Stub data for Example department that works without internet connection.
-const qrData2WithLocalCache =
+const demoWorkerKeyData =
     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения №1", '''
     '''"worker_dep_id": 1, "api_key": "3.01567984187____", "dep": "Тестовое отделение https://alexqwesa.fvds.ru:48082", '''
     '''"db": "kcson", "servers": "https://alexqwesa.fvds.ru:48082", "comment": "With local cache", "certBase64": "VGVzdCBwcm9maWxlIHdpdGggY2FjaGU="}'''; //Base64Encoder().convert('Test profile with cache'.codeUnits));
@@ -26,7 +26,7 @@ const qrDataRealTestServer = '''
 '''; //Base64Encoder().convert('Test profile with cache'.codeUnits));
 
 /// Test worker's keys in json format
-const qrCodes = [qrData2WithLocalCache];
+const qrCodes = [demoWorkerKeyData];
 // const qrDataWithSSL =
 //     '''{"app": "AIS3USON web", "name": "Работник Тестового Отделения 2", '''
 //     '''"worker_dep_id": 1, "api_key": "3.01567984187",  "dep": "Тестовое отделение 48082", '''

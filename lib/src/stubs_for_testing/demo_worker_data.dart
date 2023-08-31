@@ -3,11 +3,11 @@
 import 'dart:convert';
 
 import 'package:ais3uson_app/api_classes.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 
 /// [WorkerKey] modified for tests (ssl='no')
-WorkerKey testWorkerKey() {
-  final json = jsonDecode(qrData2WithLocalCache) as Map<String, dynamic>;
+WorkerKey demoWorkerKey() {
+  final json = jsonDecode(demoWorkerKeyData) as Map<String, dynamic>;
   // json['ssl'] = 'no';
 
   return WorkerKey.fromJson(json);

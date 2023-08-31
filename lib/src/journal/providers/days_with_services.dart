@@ -77,11 +77,12 @@ class AllDaysWithServices extends _$AllDaysWithServices {
   Future<List<Box<DateTime>>> future() async {
     await Future.wait([
       ...ref
-          .watch(departmentsProvider)
-          .map((e) async => e.journalOf.hiveRepository.future()),
-    ]);
+          .watch(workerKeysProvider)
+          .workers
+          .map((e) async => e.journal.hiveRepository.future()),
+    ]); // make sure every dep inited and the services archived
     return Future.wait([
-      ...ref.watch(departmentsProvider).map((e) async =>
+      ...ref.watch(workerKeysProvider).workers.map((e) async =>
           ref.watch(daysWithServicesProvider(e.apiKey).notifier).future()),
     ]);
   }
@@ -90,7 +91,8 @@ class AllDaysWithServices extends _$AllDaysWithServices {
   Set<DateTime> build() {
     return <DateTime>{
       ...ref
-          .watch(departmentsProvider)
+          .watch(workerKeysProvider)
+          .workers
           .map((e) => ref.watch(daysWithServicesProvider(e.apiKey)))
           .expand((list) => list),
     };

@@ -7,6 +7,7 @@ import 'package:ais3uson_app/ui_departments.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 /// Show screen where user scan QR code to add [Worker] from QR code.
@@ -222,9 +223,8 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                         //
                         // > add profile or resume camera
                         //
-                        if (addNewWProfile(context, ref, newKey)) {
-                          // Navigator.of(context).pop();
-                          await Navigator.of(context).pushNamed('/');
+                        if (await addNewWProfile(context, ref, newKey)) {
+                          if (context.mounted) context.pop();
                         } else {
                           setState(
                             () {

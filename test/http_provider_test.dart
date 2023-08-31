@@ -1,5 +1,6 @@
 import 'package:ais3uson_app/access_to_io.dart';
 import 'package:ais3uson_app/main.dart';
+import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/mock_server.dart'
     show MockServer;
 import 'package:flutter_test/flutter_test.dart';
@@ -39,14 +40,14 @@ void main() {
       // > prepare ProviderContainer + httpClient + worker
       final (ref, _, wp, httpClient) = await openRefContainer();
       // ----
-      var clients = ref.read(httpProvider(wp.apiKey, wp.urlClients));
+      var clients = ref.read(httpProvider(wp.apiKey, Worker.urlClients));
       expect(clients.isEmpty, true);
       await wp.postInit();
-      // await ref.watch(httpProvider(wp.apiKey, wp.urlClients).notifier).future();
-      // ref.refresh(httpProvider(wp.apiKey, wp.urlClients));
+      // await ref.watch(httpProvider(wp.apiKey, Worker.urlClients).notifier).future();
+      // ref.refresh(httpProvider(wp.apiKey, Worker.urlClients));
       // await ref.pump();
-      await ref.read(httpProvider(wp.apiKey, wp.urlClients).notifier).update();
-      clients = ref.read(httpProvider(wp.apiKey, wp.urlClients));
+      await ref.read(httpProvider(wp.apiKey, Worker.urlClients).notifier).update();
+      clients = ref.read(httpProvider(wp.apiKey, Worker.urlClients));
       expect(clients.isEmpty, false);
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);
     });

@@ -63,8 +63,13 @@ void main() {
         // add service
         when(MockServer(httpClient).testReqPostAdd)
             .thenAnswer((_) async => http.Response('{"id": 2}', 200));
-        final service =
-            ref.read(departmentsProvider).first.clients.first.services.first;
+        final service = ref
+            .read(workerKeysProvider)
+            .firstWorker
+            .clients
+            .first
+            .services
+            .first;
         await tester.runAsync<void>(() async {
           await service.add();
           await service.add();
@@ -76,7 +81,7 @@ void main() {
             parent: ref,
             overrides: [
               currentClient.overrideWithValue(
-                  ref.read(departmentsProvider).first.clients.first)
+                  ref.read(workerKeysProvider).firstWorker.clients.first)
             ],
             child: localizedMaterialApp(
               widgetForTesting,
@@ -88,8 +93,8 @@ void main() {
         expect(find.textContaining(service.shortText), findsWidgets);
         expect(
           find.textContaining(ref
-              .read(departmentsProvider)
-              .first
+              .read(workerKeysProvider)
+              .firstWorker
               .clients
               .first
               .services
@@ -102,16 +107,16 @@ void main() {
 
     testWidgets('it show proof at date', (tester) async {
       // > prepare ProviderContainer + httpClient + worker
-      final (ref, _, _, httpClient) = await openRefContainer();
+      final (ref, _, wp, httpClient) = await openRefContainer();
       // ----
       await tester.runAsync<void>(() async {
-        await ref.read(departmentsProvider).first.postInit();
+        await wp.postInit();
       });
       // add service
       when(MockServer(httpClient).testReqPostAdd)
           .thenAnswer((_) async => http.Response('{"id": 2}', 200));
       final service =
-          ref.read(departmentsProvider).first.clients.first.services[3];
+          ref.read(workerKeysProvider).firstWorker.clients.first.services[3];
       await tester.runAsync<void>(() async {
         await service.add();
         // await service.add();

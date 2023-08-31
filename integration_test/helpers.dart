@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/main.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<WorkerKey> openAndAddDepartment(WidgetTester tester) async {
-  final wKey = testWorkerKey();
+  final wKey = demoWorkerKey();
   await runMain();
   await tester.pumpAndSettle();
   // Verify start screen
@@ -76,7 +76,7 @@ Future<(WorkerKey, List<Map<String, dynamic>>, List<Map<String, dynamic>>)>
 }
 
 Future<WorkerKey> openDepartment(WidgetTester tester) async {
-  final wKey = testWorkerKey();
+  final wKey = demoWorkerKey();
   await runMain();
   await tester.pumpAndSettle();
   // open clients

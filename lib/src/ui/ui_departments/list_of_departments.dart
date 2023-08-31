@@ -14,7 +14,7 @@ class ListOfDepartments extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wps = ref.watch(departmentsProvider);
+    final wps = ref.watch(workerKeysProvider).keys;
 
     return Center(
       child: wps.isNotEmpty
@@ -23,8 +23,6 @@ class ListOfDepartments extends ConsumerWidget {
                 itemCount: wps.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  final workerProfile = wps[index];
-
                   return Center(
                     child: SizedBox(
                       width: 650,
@@ -36,35 +34,47 @@ class ListOfDepartments extends ConsumerWidget {
                           buttonConfigs: [
                             ContextMenuButtonConfig(
                               tr().exportThisWeek,
-                              onPressed: () =>
-                                  workerProfile.journalAllOf.exportToFile(
-                                mostRecentMonday(),
-                                mostRecentMonday(addDays: 7),
-                              ),
+                              onPressed: () {
+                                final worker = ref.watch(
+                                    workerProvider(wps[index].apiKey).notifier);
+                                worker.journalAllOf.exportToFile(
+                                  mostRecentMonday(),
+                                  mostRecentMonday(addDays: 7),
+                                );
+                              },
                             ),
                             ContextMenuButtonConfig(
                               tr().exportLastWeek,
-                              onPressed: () =>
-                                  workerProfile.journalAllOf.exportToFile(
-                                mostRecentMonday(addDays: -7),
-                                mostRecentMonday(),
-                              ),
+                              onPressed: () {
+                                final worker = ref.watch(
+                                    workerProvider(wps[index].apiKey).notifier);
+                                worker.journalAllOf.exportToFile(
+                                  mostRecentMonday(addDays: -7),
+                                  mostRecentMonday(),
+                                );
+                              },
                             ),
                             ContextMenuButtonConfig(
                               tr().exportThisMonth,
-                              onPressed: () =>
-                                  workerProfile.journalAllOf.exportToFile(
-                                mostRecentMonth(),
-                                mostRecentMonth(addMonths: 1),
-                              ),
+                              onPressed: () {
+                                final worker = ref.watch(
+                                    workerProvider(wps[index].apiKey).notifier);
+                                worker.journalAllOf.exportToFile(
+                                  mostRecentMonth(),
+                                  mostRecentMonth(addMonths: 1),
+                                );
+                              },
                             ),
                             ContextMenuButtonConfig(
                               tr().exportLastMonth,
-                              onPressed: () =>
-                                  workerProfile.journalAllOf.exportToFile(
-                                mostRecentMonth(addMonths: -1),
-                                mostRecentMonth(),
-                              ),
+                              onPressed: () {
+                                final worker = ref.watch(
+                                    workerProvider(wps[index].apiKey).notifier);
+                                worker.journalAllOf.exportToFile(
+                                  mostRecentMonth(addMonths: -1),
+                                  mostRecentMonth(),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -82,15 +92,17 @@ class ListOfDepartments extends ConsumerWidget {
                               ),
                             ),
                             title: Text(
-                              wps[index].key.dep,
+                              wps[index].dep,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             //
                             // > onTap call
                             //
                             onTap: () {
+                              final worker = ref.watch(
+                                  workerProvider(wps[index].apiKey).notifier);
                               context.push(
-                                '/department/${wps[index].shortName}',
+                                '/department/${worker.shortName}',
                               );
                             },
                             subtitle: Align(
@@ -101,7 +113,7 @@ class ListOfDepartments extends ConsumerWidget {
                                   Text(wps[index].name),
                                   Padding(
                                     padding: const EdgeInsets.all(8),
-                                    child: Text(wps[index].key.comment),
+                                    child: Text(wps[index].comment),
                                   ),
                                 ],
                               ),

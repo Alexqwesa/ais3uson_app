@@ -2,13 +2,16 @@ import 'dart:developer' as dev;
 
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
+import 'package:ais3uson_app/src/api_classes/worker_key.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 /// Provider of responses to a test http and https connections.
-late StateProviderFamily<Future<http.Response>?, bool> _httpFuture;
+final _httpFuture = StateProvider.family<Future<http.Response>?, bool>(
+  (ref, ssl) => null,
+);
 
 /// About page + tests
 class DevScreen extends StatelessWidget {
@@ -91,24 +94,22 @@ class CheckWorkerServer extends ConsumerWidget {
   CheckWorkerServer({super.key}) {
     // ref.read(_httpFuture(false).notifier) = null;
     // ref.read(_httpFuture(true).notifier) = null;
-    _httpFuture = StateProvider.family<Future<http.Response>?, bool>(
-      (ref, ssl) => null,
-    );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (ref.read(departmentsProvider).isEmpty) {
+    final wKeys = ref.watch(workerKeysProvider).keys;
+    if (wKeys.isEmpty) {
       return const Text('Please add Department or test Department!');
     }
 
-    final host = ref.read(departmentsProvider).first.key.activeHost;
-    final port = ref.read(departmentsProvider).first.key.activePort;
+    final host = wKeys.first.activeHost;
+    final port = wKeys.first.activePort;
 
     return Column(
       children: <Widget>[
         ElevatedButton(
-          onPressed: () => checkHTTP(ref),
+          onPressed: () => checkHTTP(ref, wKeys.first),
           child: Text(
             tr().testConnection,
           ),
@@ -138,13 +139,13 @@ class CheckWorkerServer extends ConsumerWidget {
   }
 
   /// Get statistic from server, check both http and https.
-  Future<void> checkHTTP(WidgetRef ref) async {
+  Future<void> checkHTTP(WidgetRef ref, WorkerKey wKey) async {
     try {
       //
       // > http
       //
-      final host = ref.read(departmentsProvider).first.key.activeHost;
-      final port = ref.read(departmentsProvider).first.key.activePort;
+      final host = wKey.activeHost;
+      final port = wKey.activePort;
       var url = Uri.parse(
         'http://$host:$port/stat',
       );
@@ -156,8 +157,13 @@ class CheckWorkerServer extends ConsumerWidget {
         'https://$host:$port/stat',
       );
       ref.watch(_httpFuture(true).notifier).state = http.get(url);
-      await ref.watch(_httpFuture(true).notifier).state;
-      await ref.watch(_httpFuture(false).notifier).state;
+      //
+      // > wait
+      //
+      await Future.wait([
+        ref.watch(_httpFuture(true)),
+        ref.watch(_httpFuture(false))
+      ] as Iterable<Future>);
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       dev.log(e.toString());

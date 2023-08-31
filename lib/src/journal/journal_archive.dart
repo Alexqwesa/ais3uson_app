@@ -8,7 +8,11 @@ import 'package:hive/hive.dart';
 ///
 /// {@category Journal}
 class JournalArchive extends Journal {
-  JournalArchive(super.workerProfile, super.state);
+  JournalArchive({
+    required super.ref,
+    required super.apiKey,
+    required super.state,
+  });
 
   DateTime? get aDate => state.atDate;
 
@@ -20,14 +24,11 @@ class JournalArchive extends Journal {
   Box<ServiceOfJournal> get hive =>
       hiveRepository.openHive.requireValue; // only for test
 
-  @override
-  Ref get ref => workerProfile.ref;
+  // @override
+  // HiveRepository get hiveRepository => worker.hiveRepository;
 
   @override
-  HiveRepository get hiveRepository => workerProfile.hiveRepository;
-
-  @override
-  JournalHttpInterface get httpInterface => workerProfile.http;
+  JournalHttpInterface get httpInterface => worker.http;
 
   // @override
   @override
@@ -59,7 +60,9 @@ class JournalArchive extends Journal {
 
   /// This method of base class is stubbed.
   @override
-  Future<void> commitAll() async {
+  Future<void> commitAll(
+      [JournalHttpInterface? httpClient,
+      List<ServiceOfJournal>? forSync]) async {
     return; // stub
   }
 }

@@ -86,7 +86,7 @@ class _TitleWidgetOfServicesGroup extends StatelessWidget {
   });
 
   final ServiceOfJournal service;
-  final ClientProfile client;
+  final Client client;
 
   @override
   Widget build(BuildContext context) {
@@ -153,21 +153,22 @@ class _ServiceOfJournalTile extends ConsumerWidget {
 
   /// Core variable
   final ServiceOfJournal serviceOfJournal;
-  final ClientProfile client;
+  final Client client;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ClientService service;
 
     try {
-      service = ref.watch(client.servicesOf).firstWhere(
-            (element) => element.servId == serviceOfJournal.servId,
-          );
+      service = client.services.firstWhere(
+        (element) => element.servId == serviceOfJournal.servId,
+      );
       // ignore: avoid_catching_errors
     } on StateError {
       service = ClientService(
+        ref: ref as Ref,
         // maybe use error constructor?
-        workerProfile: client.workerProfile,
+        apiKey: client.apiKey,
         service: ServiceEntry(
           id: 0,
           serv_text: tr().errorService,

@@ -46,8 +46,8 @@ class ListOfClientServicesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final client = ref.watch(currentClient);
-    final workerProfile = client.workerProfile;
+    final client = ref.watch(currentClient); // should be never modified
+    final worker = client.worker;
 
     return Scaffold(
       //
@@ -76,9 +76,9 @@ class ListOfClientServicesScreen extends ConsumerWidget {
               IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () async {
-                  await workerProfile.journalOf.archiveOldServices();
-                  await workerProfile.journalOf.commitAll();
-                  await workerProfile.syncPlanned();
+                  await worker.journal.archiveOldServices();
+                  await worker.journal.commitAll();
+                  await worker.syncPlanned();
                 },
               ),
               //
@@ -94,7 +94,7 @@ class ListOfClientServicesScreen extends ConsumerWidget {
       // > body
       //
       body: Center(
-        child: switch (ref.watch(client.servicesOf).isNotEmpty) {
+        child: switch (client.services.isNotEmpty) {
           true => CustomScrollView(
               slivers: [
                 _ListOfServices(textNotifier),
@@ -130,10 +130,9 @@ class _ListOfServices extends ConsumerWidget {
         builder: (context, search, child) {
           List<ClientService> servList;
           if (search.isEmpty) {
-            servList = ref.watch(client.servicesOf);
+            servList = client.services;
           } else {
-            servList = ref
-                .watch(client.servicesOf)
+            servList = client.services
                 .where((element) =>
                     element.servText.toLowerCase().contains(search))
                 .toList();
@@ -153,9 +152,8 @@ class _ListOfServices extends ConsumerWidget {
 
           return SliverAnimatedGrid(
             key: const ValueKey('MainScroll'),
-            initialItemCount: ref
-                .watch(client.servicesOf)
-                .length, // why not just servList.length,
+            initialItemCount: client.services.length,
+            // why not just servList.length,
             itemBuilder: (context, index, animation) {
               if (index >= servList.length) {
                 return const SizedBox();
@@ -176,7 +174,7 @@ class _ListOfServices extends ConsumerWidget {
                 onLongPress: () {
                   // open ClientServiceScreen
                   context.push(
-                    '/department/${service.workerProfile.shortName}/client/${service.contractId}/service/${service.servId}',
+                    '/department/${client.worker.shortName}/client/${service.contractId}/service/${service.servId}',
                   );
                 },
               );

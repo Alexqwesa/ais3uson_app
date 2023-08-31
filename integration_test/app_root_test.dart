@@ -1,8 +1,8 @@
 import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/worker_keys_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/mock_worker_keys_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -20,7 +20,7 @@ Future<void> main() async {
   setUp(() async {
     // set SharedPreferences values
     SharedPreferences.setMockInitialValues({});
-    // SharedPreferences.setMockInitialValues({Departments.name: '[$qrData2WithAutossl]'});
+    // SharedPreferences.setMockInitialValues({wokrerKeysInSharedPref: '[$qrData2WithAutossl]'});
     //
     // > locator
     //
@@ -37,7 +37,7 @@ Future<void> main() async {
   });
 
   testWidgets('it open Main window', (tester) async {
-    final wKey = testWorkerKey();
+    final wKey = demoWorkerKey();
     await runMain();
     await tester.pumpAndSettle();
     // Verify start screen.
@@ -46,11 +46,11 @@ Future<void> main() async {
   });
 
   testWidgets('it load department from SharedPreferences', (tester) async {
-    final wKey = testWorkerKey();
-    // SharedPreferences.setMockInitialValues({Departments.name: '[$qrData2WithAutossl]'});
-    // await setupSomePreferences(Departments.name, '[$qrData2WithAutossl]');
+    final wKey = demoWorkerKey();
+    // SharedPreferences.setMockInitialValues({wokrerKeysInSharedPref: '[$qrData2WithAutossl]'});
+    // await setupSomePreferences(wokrerKeysInSharedPref, '[$qrData2WithAutossl]');
     await locator<SharedPreferences>()
-        .setString(Departments.name, '[$qrData2WithLocalCache]');
+        .setString(workerKeysInSharedPref, '[$demoWorkerKeyData]');
     await runMain();
     await tester.pumpAndSettle();
     // Verify start screen.

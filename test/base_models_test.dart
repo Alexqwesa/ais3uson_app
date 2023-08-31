@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:ais3uson_app/api_classes.dart';
 import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/stubs_for_testing/default_data.dart';
+import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +18,7 @@ void main() {
   group('Simple tests', () {
     test('it reRegister get_it', () async {
       SharedPreferences.setMockInitialValues({
-        Departments.name:
+        workerKeysInSharedPref:
             '[{"app":"AIS3USON web","name":"Работник Тестового Отделения №2","api_key":"3.01567984187","worker_dep_id":1,"dep":"Тестовое отделение https://alexqwesa.fvds.ru:48082","db":"kcson","servers":"https://alexqwesa.fvds.ru:48082","comment":"защищенный SSL","certBase64":""}]',
       });
       // await locator.resetLazySingleton<SharedPreferences>();
@@ -27,7 +27,7 @@ void main() {
       expect(
         // ignore: avoid_dynamic_calls
         (jsonDecode(
-          locator<SharedPreferences>().getString(Departments.name) ?? '[]',
+          locator<SharedPreferences>().getString(workerKeysInSharedPref) ?? '[]',
         ) as List<dynamic>)
             .first['app'],
         'AIS3USON web',

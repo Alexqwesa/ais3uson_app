@@ -30,7 +30,7 @@ class AudioProofWidget extends ConsumerWidget {
 
   final String beforeOrAfter;
   final ServiceOfJournal? service;
-  final ClientProfile? client;
+  final Client? client;
   final (List<Proof>, ProofList)? proofs;
 
   @override

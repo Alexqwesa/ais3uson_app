@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 ///
 /// {@category Base Providers}
 final hiveBox = FutureProvider.family<Box<dynamic>, String>((ref, boxName) {
-  return Hive.openBox<dynamic>('$boxName-main');
+  return Hive.openBox<dynamic>(boxName);
 });
 
 /// Base provider of hive [Box], type [ServiceOfJournal].

@@ -90,4 +90,5 @@ class WorkerKey with _$WorkerKey {
   int get workerDepId => worker_dep_id;
 
   String get apiKey => api_key;
+
 }

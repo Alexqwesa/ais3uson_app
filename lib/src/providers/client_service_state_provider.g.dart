@@ -250,7 +250,7 @@ class JServicesOfClientProvider
   }
 }
 
-String _$servicesOfJournalHash() => r'e5588702f120354071a2f5ee7b41554d3696ea00';
+String _$servicesOfJournalHash() => r'27ca410a46c0b8bb6f51c10c69d4bb5e1a3fba66';
 typedef ServicesOfJournalRef
     = ProviderRef<Map<ServiceState, List<ServiceOfJournal>>>;
 

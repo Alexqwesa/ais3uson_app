@@ -49,10 +49,9 @@ Future<(ProviderContainer, WorkerKey, Worker, mock.MockClient)>
   //
   // > start test
   //
-  ref.read(departmentsProvider.notifier).addProfileFromKey(wKey);
-  final wp = ref
-      .read(departmentsProvider)
-      .firstWhere((element) => element.apiKey == wKey.apiKey);
+  await ref.read(workerKeysProvider).add(wKey);
+  // await ref.pump();
+  final wp = ref.read(workerProvider(wKey.apiKey).notifier);
 
   return (ref, wKey, wp, httpClient);
 }
@@ -64,28 +63,34 @@ extension WorkerTestExtensions on Worker {
   /// - postInit of [Journal] class,
   /// - read `clients`, `clientPlan` and `services` from repository.
   Future<void> postInit() async {
-    await journalOf.postInit();
+    await this.journal.postInit();
     // await (ref as ProviderContainer).pump();
     //      ref.watch(httpProvider(apiKey, urlClients).notifier);
     //  ref.watch(httpProvider(apiKey, urlServices).notifier);
     //  ref.watch(httpProvider(apiKey, urlPlan).notifier);
 
     // why await is needed here?
-    await ref.watch(httpProvider(apiKey, urlClients).notifier).updateIfOld();
-    await ref.watch(httpProvider(apiKey, urlServices).notifier).updateIfOld();
-    await ref.watch(httpProvider(apiKey, urlPlan).notifier).updateIfOld();
+    await ref
+        .watch(httpProvider(apiKey, Worker.urlClients).notifier)
+        .updateIfOld();
+    await ref
+        .watch(httpProvider(apiKey, Worker.urlServices).notifier)
+        .updateIfOld();
+    await ref
+        .watch(httpProvider(apiKey, Worker.urlPlan).notifier)
+        .updateIfOld();
   }
 
   /// List of assigned clients.
-  List<ClientProfile> get clients => ref.watch(clientsOf);
+  // List<Client> get clients => state.clients;
 
   /// List of services.
   ///
   /// Since workers could potentially work
   /// on two different organizations (half rate in each),
   /// with different service list, store services in worker profile.
-  List<ServiceEntry> get services => ref.watch(servicesOf);
+  List<ServiceEntry> get services => state.services;
 
   /// All planned amount of each service for each client.
-  List<ClientPlan> get clientsPlan => ref.watch(clientsPlanOf);
+  List<ClientPlan> get clientsPlan => state.planned;
 }

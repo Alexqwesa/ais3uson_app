@@ -109,8 +109,8 @@ List<GoRoute> _routes(Ref ref) {
       path: 'department/:shortName',
       builder: (context, state) {
         final depName = state.pathParameters['shortName'];
-        final wp = ref.watch(departmentsProvider.notifier)[depName];
-        return ListOfClientsScreen(workerProfile: wp);
+        final wKey = ref.watch(workerKeysProvider)[depName];
+        return ListOfClientsScreen(apiKey: wKey.apiKey);
       },
       routes: [
         GoRoute(
@@ -169,18 +169,20 @@ List<Override> getOverrides(Ref ref, GoRouterState state) {
 
   return [
     currentService.overrideWith((ref) {
-      final wp = ref.watch(departmentsProvider.notifier)[depName];
-      final client = ref.watch(wp.clientsOf).firstWhere(
+      final wKey = ref.watch(workerKeysProvider)[depName];
+      final wp = ref.watch(workerProvider(wKey.apiKey));
+      final client = wp.clients.firstWhere(
           (element) => element.contractId == contractId,
           orElse: () => ref.read(stubClientProvider));
-      final service = ref.watch(client.servicesOf).firstWhere(
+      final service = client.services.firstWhere(
           (element) => element.servId == serviceId,
           orElse: () => ref.read(stubClientServiceProvider));
       return service;
     }),
     currentClient.overrideWith((ref) {
-      final wp = ref.watch(departmentsProvider.notifier)[depName];
-      final client = ref.watch(wp.clientsOf).firstWhere(
+      final wKey = ref.watch(workerKeysProvider)[depName];
+      final wp = ref.watch(workerProvider(wKey.apiKey));
+      final client = wp.clients.firstWhere(
           (element) => element.contractId == contractId,
           orElse: () => ref.read(stubClientProvider));
       return client;
