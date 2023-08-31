@@ -152,7 +152,11 @@ Future<void> runMain() async {
         httpClientProvider(demoWorkerKey().certBase64)
             .overrideWithValue(getMockHttpClient()),
       ],
-      child: const AppRoot(),
+      child: AppRoot(
+        lastRouteOrRoot:
+            locator<SharedPreferences>().getString(AppRouteObserver.name) ??
+                '/',
+      ),
     ),
   ));
 }

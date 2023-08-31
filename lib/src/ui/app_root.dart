@@ -1,9 +1,7 @@
-import 'package:ais3uson_app/main.dart';
 import 'package:ais3uson_app/src/l10n/localization_provider.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// This is main MaterialApp widget.
 ///
@@ -15,15 +13,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// {@category UI Root}
 class AppRoot extends ConsumerWidget {
-  const AppRoot({super.key});
+  final String lastRouteOrRoot;
+
+  const AppRoot({required this.lastRouteOrRoot, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: ref.watch(
-        routerProvider(
-          locator<SharedPreferences>().getString(AppRouteObserver.name) ?? '/',
-        ),
+        routerProvider(lastRouteOrRoot),
       ),
       //
       // > l10n
