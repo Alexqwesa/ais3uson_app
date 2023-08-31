@@ -22,7 +22,7 @@ class appState extends _$appState {
   }
 
   @override
-  set state(AppState appState) => state = appState;
+  set state(AppState appState) => super.state = appState;
 }
 
 /// The actual state provided by [appStateProvider].
