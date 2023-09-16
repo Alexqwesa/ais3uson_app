@@ -58,8 +58,6 @@
       <div>
 <h1><span class="kind-function">main</span> function 
  
-    <span class="category about cp-0 linked" title="This is part of the About topic."><a href="../topics/About-topic.html">About</a></span>
-    <span class="category ui-root cp-11" title="This is part of the UI Root topic.">UI&nbsp;Root</span>
 </h1></div>
 
     <section class="multi-line-signature">
@@ -72,18 +70,13 @@
 
     </section>
     
-<section class="desc markdown">
-  <p>Init application, init <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a>.</p>
-<p>Create <a href="https://pub.dev/documentation/overlay_support/2.1.0/overlay_support/OverlaySupport-class.html">OverlaySupport</a> and call <a href="../ui_root/AppRoot-class.html">AppRoot</a>.</p>
-</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
-  await initReal();
-  &#47;&#47; run
+  await initAndSetCertificate();
   await runMain();
 }</code></pre>
 </section>
@@ -117,7 +110,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

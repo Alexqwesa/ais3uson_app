@@ -66,10 +66,10 @@
 <p>These classes provide GUI for:</p>
 <ul>
 <li>Root Widget of app <a href="../ui_root/AppRoot-class.html">AppRoot</a>, which provides:</li>
-<li>Switch between archive and normal views.</li>
-<li>Routes, themes(via provider <a href="../ui_root/appThemeProvider.html">appThemeProvider</a>), translations (<code>tr()</code>).</li>
-<li><a href="../ui_root/HomeScreen-class.html">HomeScreen</a> screen for displaying main menu and <a href="../ui_departments/ListOfDepartments-class.html">ListOfDepartments</a>. It is initial route of app.</li>
-<li><a href="../ui_root/SettingsScreen-class.html">SettingsScreen</a>,</li>
+<li>Routes<a href="../ui_root/routerProvider-constant.html">routerProvider</a>,</li>
+<li>Themes(via provider <a href="../ui_root/appThemeProvider.html">appThemeProvider</a>),</li>
+<li><a href="../ui_root/HomeScreen-class.html">HomeScreen</a> screen for displaying main menu and <a href="../ui_departments/ListOfDepartments-class.html">ListOfDepartments</a>.</li>
+<li><a href="../settings/SettingsScreen-class.html">SettingsScreen</a>,</li>
 <li><a href="../ui_root/DevScreen-class.html">DevScreen</a> - about developers + tests.</li>
 </ul>
 </section>
@@ -132,27 +132,11 @@
 
         <dt id="HomeScreen">
   <span class="name "><a href="../ui_root/HomeScreen-class.html">HomeScreen</a></span> 
-    <span class="category ui-workerprofiles cp-14" title="This is part of the UI WorkerProfiles topic.">UI&nbsp;WorkerProfiles</span>
+    <span class="category ui-workers cp-14" title="This is part of the UI Workers topic.">UI&nbsp;Workers</span>
 
 </dt>
 <dd>
-  Show screen with main menu and with list of <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
-</dd>
-
-        <dt id="SettingServiceSizeWidget">
-  <span class="name "><a href="../ui_root/SettingServiceSizeWidget-class.html">SettingServiceSizeWidget</a></span> 
-
-</dt>
-<dd>
-  Widget for changing size of <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> view in list of services.
-</dd>
-
-        <dt id="SettingsScreen">
-  <span class="name "><a href="../ui_root/SettingsScreen-class.html">SettingsScreen</a></span> 
-
-</dt>
-<dd>
-  
+  Show screen with main menu and with list of <a href="../providers/Worker-class.html">Worker</a>.
 </dd>
 
       </dl>
@@ -188,7 +172,7 @@
       <dl class="properties">
         <dt id="appThemeProvider" class="property">
   <span class="name"><a href="../ui_root/appThemeProvider.html">appThemeProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ui_root/AppTheme-class.html">AppTheme</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/material/ThemeMode.html">ThemeMode</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ui_root/AppTheme-class.html">AppTheme</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/material/ThemeMode.html">ThemeMode</a></span>&gt;</span></span> 
     <span class="category ui-root cp-11" title="This is part of the UI Root topic.">UI&nbsp;Root</span>
 
 </dt>
@@ -200,7 +184,7 @@
 
         <dt id="routeProvider" class="property">
   <span class="name"><a href="../ui_root/routeProvider.html">routeProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/AutoDisposeProvider-class.html">AutoDisposeProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/go_router/10.0.0/go_router/GoRouter-class.html">GoRouter</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/AutoDisposeProvider-class.html">AutoDisposeProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/go_router/10.1.0/go_router/GoRouter-class.html">GoRouter</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -240,12 +224,11 @@
       <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
       <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
-      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../proofs/proofs-library.html">proofs</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
-      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -265,7 +248,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

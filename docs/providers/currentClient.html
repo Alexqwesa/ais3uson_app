@@ -62,21 +62,21 @@
 
         <section class="multi-line-signature">
           
-          <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span>
           <span class="name ">currentClient</span>
           <div class="features"><span class="feature">final</span></div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Stub provider of current service.</p>
+  <p>Provider of current client - default is <a href="../providers/stubClientProvider.html">stubClientProvider</a>, to be overridden.</p>
 </section>
 
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">final currentClient = Provider&lt;ClientProfile&gt;(
-  (ref) =&gt; stubClient, &#47;&#47; TODO: maybe just throw
+  (ref) =&gt; ref.read(stubClientProvider), &#47;&#47; TODO: handle loading nicer
   dependencies: [departmentsProvider],
 );</code></pre>
 </section>
@@ -111,7 +111,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

@@ -63,7 +63,6 @@
     
 <section class="desc markdown">
   <h1 id="data-models">Data Models</h1>
-<p>These classes are templates for <a href="/dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a>.</p>
 </section>
 
 
@@ -72,24 +71,15 @@
 
       <dl>
         <dt id="BaseJournal">
-  <span class="name "><a href="../data_models/BaseJournal-class.html">BaseJournal</a></span> 
+  <span class="name "><a href="../providers/BaseJournal-class.html">BaseJournal</a></span> 
 
 </dt>
 <dd>
   Base class for <a href="../journal/Journal-class.html">Journal</a> classes.
 </dd>
 
-        <dt id="ClientProfile">
-  <span class="name "><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span> 
-    <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
-
-</dt>
-<dd>
-  Model with data about client:
-</dd>
-
         <dt id="ClientService">
-  <span class="name "><a href="../data_models/ClientService-class.html">ClientService</a></span> 
+  <span class="name "><a href="../providers/ClientService-class.html">ClientService</a></span> 
     <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
 
 </dt>
@@ -97,60 +87,30 @@
   Model for <a href="../ui_service_card_widget/ServiceCard-class.html">ServiceCard</a> and other widget.
 </dd>
 
-        <dt id="Proof">
-  <span class="name "><a href="../data_models/Proof-class.html">Proof</a></span> 
+        <dt id="ClientServiceState">
+  <span class="name "><a href="../providers/ClientServiceState-class.html">ClientServiceState</a></span> 
+    <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
 
 </dt>
 <dd>
-  Just a union class for <a href="../data_models/ProofEntry-class.html">ProofEntry</a>s <a href="../data_models/Proof/after.html">after</a> and <a href="../data_models/Proof/before.html">before</a>.
+  
+</dd>
+
+        <dt id="Proof">
+  <span class="name "><a href="../proofs/Proof-class.html">Proof</a></span> 
+
+</dt>
+<dd>
+  Just a union class for <a href="../proofs/ProofEntry-class.html">ProofEntry</a>s <a href="../proofs/Proof/after.html">after</a> and <a href="../proofs/Proof/before.html">before</a>.
 </dd>
 
         <dt id="ProofEntry">
-  <span class="name "><a href="../data_models/ProofEntry-class.html">ProofEntry</a></span> 
+  <span class="name "><a href="../proofs/ProofEntry-class.html">ProofEntry</a></span> 
     <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
 
 </dt>
 <dd>
   A single entry of proof, contains evidence image and/or audio.
-</dd>
-
-        <dt id="ProofList">
-  <span class="name "><a href="../data_models/ProofList-class.html">ProofList</a></span> 
-    <span class="category inner-api cp-7" title="This is part of the Inner API topic.">Inner&nbsp;API</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Notifier that store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>.
-</dd>
-
-        <dt id="ProofListFamily">
-  <span class="name "><a href="../data_models/ProofListFamily-class.html">ProofListFamily</a></span> 
-    <span class="category inner-api cp-7" title="This is part of the Inner API topic.">Inner&nbsp;API</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Notifier that store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>.
-</dd>
-
-        <dt id="ProofListProvider">
-  <span class="name "><a href="../data_models/ProofListProvider-class.html">ProofListProvider</a></span> 
-    <span class="category inner-api cp-7" title="This is part of the Inner API topic.">Inner&nbsp;API</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Notifier that store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>.
-</dd>
-
-        <dt id="WorkerProfile">
-  <span class="name "><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> 
-    <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
-
-</dt>
-<dd>
-  A profile of worker, just model with shortcuts to various providers.
 </dd>
 
       </dl>
@@ -161,74 +121,20 @@
 
       <dl>
         <dt id="ProofListOf">
-  <span class="name "><a href="../data_models/ProofListOf-mixin.html">ProofListOf</a></span> 
+  <span class="name "><a href="../proofs/ProofListOf-mixin.html">ProofListOf</a></span> 
     <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
     <span class="category inner-api cp-7" title="This is part of the Inner API topic.">Inner&nbsp;API</span>
 
 </dt>
 <dd>
-  Mixin with logic to manage <a href="../data_models/Proof-class.html">Proof</a>s for <a href="../data_models/ProofList-class.html">ProofList</a>.
+  Mixin with logic to manage <a href="../proofs/Proof-class.html">Proof</a>s for <a href="../proofs/ProofList-class.html">ProofList</a>.
 </dd>
 
       </dl>
     </section>
 
 
-    <section class="summary offset-anchor" id="constants">
-      <h2>Constants</h2>
 
-      <dl class="properties">
-        <dt id="proofListProvider" class="constant">
-    <span class="name "><a href="../data_models/proofListProvider-constant.html">proofListProvider</a></span>
-  <span class="signature">&#8594; const <a href="../data_models/ProofListFamily-class.html">ProofListFamily</a></span>
-  
-    <span class="category inner-api cp-7" title="This is part of the Inner API topic.">Inner&nbsp;API</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Notifier that store and manage list of <a href="../data_models/ProofEntry-class.html">ProofEntry</a>.
-  
-
-    <div>
-      <span class="signature"><code><a href="../data_models/ProofListFamily/ProofListFamily.html">ProofListFamily</a>()</code></span>
-    </div>
-</dd>
-
-      </dl>
-    </section>
-
-    <section class="summary offset-anchor" id="properties">
-      <h2>Properties</h2>
-
-      <dl class="properties">
-        <dt id="groupProofAtDate" class="property">
-  <span class="name"><a href="../data_models/groupProofAtDate.html">groupProofAtDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/Proof-class.html">Proof</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../data_models/ProofList-class.html">ProofList</a></span></span>)</span>, <span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, </span><span class="field"><span class="type-annotation"><a href="../data_models/ClientProfile-class.html">ClientProfile</a></span></span>)</span>&gt;</span></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Create <a href="../data_models/ProofList-class.html">ProofList</a> for <a href="../data_models/ClientProfile-class.html">ClientProfile</a> at date,
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="serviceProofAtDate" class="property">
-  <span class="name"><a href="../data_models/serviceProofAtDate.html">serviceProofAtDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/Proof-class.html">Proof</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../data_models/ProofList-class.html">ProofList</a></span></span>)</span>, <span class="type-parameter"><a href="../data_models/ClientService-class.html">ClientService</a></span>&gt;</span></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Create <a href="../data_models/ProofList-class.html">ProofList</a> for <code>ClientService</code> at date,
-if date is null: ref.watch(archiveDate) ?? DateTime.now().
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-      </dl>
-    </section>
 
 
 
@@ -258,12 +164,11 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
       <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
       <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
-      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../proofs/proofs-library.html">proofs</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
-      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -283,7 +188,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

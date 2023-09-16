@@ -77,8 +77,8 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">bool addProfileFromKey(WorkerKey key) {
-  if (!keys.contains(key)) {
-    state = [...state, WorkerProfile(key, ref)];
+  if (!apiKeys.contains(key.apiKey)) {
+    state = [...state, ref.watch(workerProvider(key).notifier)];
     return true;
   }
 
@@ -116,7 +116,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

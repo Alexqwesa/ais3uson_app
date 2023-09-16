@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the archiveOldServices method from the HiveRepository class, for the Dart programming language.">
+  <title>archiveOldServices method - HiveRepository class - journal library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../journal/journal-library.html">journal</a></li>
+    <li><a href="../../journal/HiveRepository-class.html">HiveRepository</a></li>
+    <li class="self-crumb">archiveOldServices method</li>
+  </ol>
+  <div class="self-name">archiveOldServices</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="journal&#47;HiveRepository-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">archiveOldServices</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">archiveOldServices</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="archiveOldServices-param-currentState"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> <span class="parameter-name">currentState</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>This function move old finished(and outDated) services to Hive box with name <a href="../../journal/HiveRepository/archiveHiveName.html">archiveHiveName</a>.</p>
+<p>There are two reason to archive services,
+first - we want active hiveBox small and fast on all devices,
+second - we want worker to only see today's services, and
+services which didn't committed yet(stale/rejected).</p>
+<p>Archive is only for committed services.
+Only hiveArchiveLimit number of services could be stored in archive,
+the oldest services will be deleted first.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; archiveOldServices(
+    Iterable&lt;ServiceOfJournal&gt; currentState) async {
+  &#47;&#47;
+  &#47;&#47; &gt; open hive archive and add old services
+  &#47;&#47;
+  openArchiveHive.whenData((hiveArchive) async {
+    final toDay = DateTime.now().dateOnly();
+    final forDelete = currentState
+        .whereNot((element) =&gt; element.provDate.dateOnly() == toDay);
+    final forArchive = forDelete.map((e) =&gt; e.copyWith());
+    if (forArchive.isNotEmpty) {
+      await hiveArchive.addAll(forArchive); &#47;&#47; check duplicates error
+      &#47;&#47;
+      &#47;&#47; &gt; keep only [archiveLimit] number of services, delete oldest and close
+      &#47;&#47;
+      &#47;&#47; todo: check if hiveArch always place new services last,
+      &#47;&#47;  in that case we can just use deleteAt()
+      final archList = hiveArchive.values.toList()
+        ..sort((a, b) =&gt; a.provDate.compareTo(b.provDate))
+        ..reversed;
+      final archiveLimit = ref.read(journalArchiveSizeProvider);
+      if (hiveArchive.length &gt; archiveLimit) {
+        &#47;&#47;
+        &#47;&#47; &gt; delete all services after archList[archiveLimit]
+        &#47;&#47;
+        await hiveArchive.deleteAll(
+          archList.slice(archiveLimit).map&lt;dynamic&gt;((e) =&gt; e.key),
+        );
+      }
+      await hiveArchive.compact();
+      &#47;&#47;
+      &#47;&#47; &gt; update datesInArchive
+      &#47;&#47;
+      openArchiveHive.whenData((hiveArchive) {
+        ref.read(daysWithServicesProvider(apiKey).notifier).state =
+            hiveArchive.values
+                .map((element) =&gt; element.provDate)
+                .map((e) =&gt; e.dateOnly())
+                .toSet();
+      });
+      ref.invalidate(archiveReaderProvider(apiKey));
+      &#47;&#47;
+      &#47;&#47; &gt; update hive
+      &#47;&#47;
+      openHive.whenData((hive) async {
+        await hive.clear();
+        await hive.addAll(state);
+      });
+    }
+  });
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../journal/journal-library.html">journal</a></li>
+    <li><a href="../../journal/HiveRepository-class.html">HiveRepository</a></li>
+    <li class="self-crumb">archiveOldServices method</li>
+</ol>
+
+
+    <h5>HiveRepository class</h5>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.2.1+28
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

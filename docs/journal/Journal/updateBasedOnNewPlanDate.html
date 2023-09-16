@@ -77,7 +77,7 @@
     
 <section class="desc markdown">
   <p>Mark all finished service as <a href="../../journal/ServiceState.html">ServiceState.outDated</a>
-after <a href="../../dynamic_data_models/WorkerProfileLogic/clientsPlanOf.html">WorkerProfileLogic.clientsPlanOf</a> synchronized.</p>
+after <a href="../../providers/Worker/clientsPlanOf.html">Worker.clientsPlanOf</a> synchronized.</p>
 </section>
 
 
@@ -92,7 +92,7 @@ Future&lt;void&gt; updateBasedOnNewPlanDate() async {
     finished.toList().forEach(
       (element) {
         if (element.provDate.isBefore(
-          ref.read(workerProfile.planSyncDateOf),
+          workerProfile.planSyncDateOf,
         )) {
           _toOutDated(element);
         }
@@ -132,7 +132,7 @@ Future&lt;void&gt; updateBasedOnNewPlanDate() async {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

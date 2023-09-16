@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the update method from the Http class, for the Dart programming language.">
+  <title>update method - Http class - access_to_io library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../access_to_io/access_to_io-library.html">access_to_io</a></li>
+    <li><a href="../../access_to_io/Http-class.html">Http</a></li>
+    <li class="self-crumb">update method</li>
+  </ol>
+  <div class="self-name">update</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="access_to_io&#47;Http-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">update</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">update</span>(<wbr>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Force get new data from http.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; update() async {
+  await _lock.synchronized(() async {
+    &#47;&#47; await future();
+    final url = Uri.parse(urlAddress);
+    try {
+      &#47;&#47;
+      &#47;&#47; &gt; main - call server
+      &#47;&#47;
+      final client = ref.read&lt;http.Client&gt;(
+        httpClientProvider(worker.key.certBase64),
+      );
+      final response = await client.get(url, headers: headers);
+      &#47;&#47;
+      &#47;&#47; &gt; check response
+      &#47;&#47;
+      log.finest(&#39;$urlAddress response.statusCode = ${response.statusCode}&#39;);
+      if (response.statusCode == 200 &amp;&amp; response.body.isNotEmpty) {
+        &#47;&#47; ignore: avoid_dynamic_calls
+        final dynamic js = jsonDecode(response.body);
+        if (js is List &amp;&amp; js.isNotEmpty) {
+          _writeHive(response.body);
+          state = js
+              .whereType&lt;Map&lt;String, dynamic&gt;&gt;()
+              .where((e) =&gt; e.isNotEmpty)
+              .toList(growable: false);
+        }
+      }
+      &#47;&#47;
+      &#47;&#47; &gt; just error handling
+      &#47;&#47;
+    } on FormatException {
+      log.severe(&#39; Wrong json format - FormatException&#39;);
+      showErrorNotification(tr().errorFormat);
+    } on HandshakeException {
+      showErrorNotification(tr().sslError);
+      log.severe(&#39;Server HandshakeException error $url &#39;);
+    } on http.ClientException {
+      showErrorNotification(tr().serverError);
+      log.severe(&#39;Server error  $url  &#39;);
+    } on SocketException {
+      showErrorNotification(tr().internetError);
+      log.warning(&#39;No internet connection $url &#39;);
+    } on HttpException {
+      showErrorNotification(tr().httpAccessError);
+      log.severe(&#39;Server access error $url &#39;);
+    } finally {
+      log.fine(&#39;sync ended $url &#39;);
+    }
+  });
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../access_to_io/access_to_io-library.html">access_to_io</a></li>
+    <li><a href="../../access_to_io/Http-class.html">Http</a></li>
+    <li class="self-crumb">update method</li>
+</ol>
+
+
+    <h5>Http class</h5>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.2.1+28
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -69,8 +69,7 @@
   </div>
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="build-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.6/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -118,10 +117,7 @@ and</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Widget build(BuildContext context, WidgetRef ref) {
-  final service = ref.watch(currentService);
-  final listDoneProgressError = ref.watch(service.fullStateOf);
-
+Widget build(BuildContext context) {
   return SizedBox.expand(
     child: FittedBox(
       alignment: Alignment.topLeft,
@@ -134,31 +130,39 @@ Widget build(BuildContext context, WidgetRef ref) {
           shrinkWrap: true,
           itemBuilder: (context, i) {
             return FittedBox(
-              child: Visibility(
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                visible: listDoneProgressError.elementAt(i) != 0,
-                child: rightOfText
-                    ? Row(
-                        children: [
-                          icons.elementAt(i),
-                          Text(
-                            listDoneProgressError.elementAt(i).toString(),
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          icons.elementAt(i),
-                          Text(
-                            listDoneProgressError.elementAt(i).toString(),
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                        ],
-                      ),
-              ),
+              child: Consumer(builder: (context, ref, _) {
+                final service = ref.watch(currentService);
+                final serviceState = ref.watch(serviceStateProvider(service));
+                final listDoneProgressError = serviceState.fullState;
+
+                return Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: listDoneProgressError.elementAt(i) != 0,
+                  child: rightOfText
+                      ? Row(
+                          children: [
+                            icons.elementAt(i),
+                            Text(
+                              listDoneProgressError.elementAt(i).toString(),
+                              style:
+                                  Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            icons.elementAt(i),
+                            Text(
+                              listDoneProgressError.elementAt(i).toString(),
+                              style:
+                                  Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ],
+                        ),
+                );
+              }),
             );
           },
         ),
@@ -198,7 +202,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

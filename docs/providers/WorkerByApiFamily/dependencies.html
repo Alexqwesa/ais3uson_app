@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the dependencies property from the WorkerByApiFamily class, for the Dart programming language.">
+  <title>dependencies property - WorkerByApiFamily class - providers library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../providers/providers-library.html">providers</a></li>
+    <li><a href="../../providers/WorkerByApiFamily-class.html">WorkerByApiFamily</a></li>
+    <li class="self-crumb">dependencies property</li>
+  </ol>
+  <div class="self-name">dependencies</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="providers&#47;WorkerByApiFamily-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-property">dependencies</span> property 
+</h1></div>
+
+
+        
+<section id="getter">
+
+<section class="multi-line-signature">
+  
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+  <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderOrFamily-class.html">ProviderOrFamily</a></span>&gt;</span>?</span>
+  <span class="name ">dependencies</span>
+  <div class="features"><span class="feature">override</span></div>
+
+</section>
+
+
+<section class="desc markdown">
+  <p>The list of providers that this provider potentially depends on.</p>
+<p>Specifying this list is strictly equivalent to saying "This provider may
+be scoped". If a provider is scoped, it should specify <a href="../../providers/WorkerByApiFamily/dependencies.html">dependencies</a>.
+If it is never scoped, it should not specify <a href="../../providers/WorkerByApiFamily/dependencies.html">dependencies</a>.</p>
+<p>The content of <a href="../../providers/WorkerByApiFamily/dependencies.html">dependencies</a> should be a list of all the providers that
+this provider may depend on which can be scoped.</p>
+<p>For example, consider the following providers:</p>
+<pre class="language-dart"><code class="language-dart">// By not specifying "dependencies", we are saying that this provider is never scoped
+final rootProvider = Provider((ref) =&gt; Foo());
+// By specifying "dependencies" (even if the list is empty),
+// we are saying that this provider is potentially scoped
+final scopedProvider = Provider((ref) =&gt; Foo(), dependencies: []);
+</code></pre>
+<p>Then if we were to depend on <code>rootProvider</code> in a scoped provider, we
+could write any of:</p>
+<pre class="language-dart"><code class="language-dart">final dependentProvider = Provider((ref) {
+  ref.watch(rootProvider);
+  // This provider does not depend on any scoped provider,
+  // as such "dependencies" is optional
+});
+
+final dependentProvider = Provider((ref) {
+  ref.watch(rootProvider);
+  // This provider decided to spcecify "dependencies" anyway, marking
+  // "dependentProvider" as possibly scoped.
+  // Since "rootProvider" is never scoped, it doesn't need to be included
+  // in "dependencies".
+}, dependencies: []);
+
+final dependentProvider = Provider((ref) {
+  ref.watch(rootProvider);
+  // Including "rootProvider" in "dependencies" is fine too, even though
+  // it is not required. It is a no-op.
+}, dependencies: [rootProvider]);
+</code></pre>
+<p>However, if we were to depend on <code>scopedProvider</code> then our only choice is:</p>
+<pre class="language-dart"><code class="language-dart">final dependentProvider = Provider((ref) {
+  ref.watch(scopedProvider);
+  // Since "scopedProvider" specifies "dependencies", any provider that
+  // depends on it must also specify "dependencies" and include "scopedProvider".
+}, dependencies: [scopedProvider]);
+</code></pre>
+<p>In that scenario, the <code>dependencies</code> parameter is required and it must
+include <code>scopedProvider</code>.</p>
+</section>
+
+
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Iterable&lt;ProviderOrFamily&gt;? get dependencies =&gt; _dependencies;</code></pre>
+</section>
+
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ais3uson_app</a></li>
+    <li><a href="../../providers/providers-library.html">providers</a></li>
+    <li><a href="../../providers/WorkerByApiFamily-class.html">WorkerByApiFamily</a></li>
+    <li class="self-crumb">dependencies property</li>
+</ol>
+
+
+    <h5>WorkerByApiFamily class</h5>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.2.1+28
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

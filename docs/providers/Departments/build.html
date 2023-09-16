@@ -68,7 +68,7 @@
     </ol>
   </div>
 
-<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../providers/Worker-class.html">Worker</a></span>&gt;</span></span>
 <span class="name ">build</span>(<wbr>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -76,10 +76,10 @@
     </section>
     
 <section class="desc markdown">
-  <p>Initialize a <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>.</p>
-<p>It is safe to use <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref/watch.html">Ref.watch</a> or <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref/listen.html">Ref.listen</a> inside this method.</p>
-<p>If a dependency of this <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a> (when using <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref/watch.html">Ref.watch</a>) changes,
-then <a href="../../providers/Departments/build.html">build</a> will be re-executed. On the other hand, the <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>
+  <p>Initialize a <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier-class.html">Notifier</a>.</p>
+<p>It is safe to use <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref/watch.html">Ref.watch</a> or <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref/listen.html">Ref.listen</a> inside this method.</p>
+<p>If a dependency of this <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier-class.html">Notifier</a> (when using <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref/watch.html">Ref.watch</a>) changes,
+then <a href="../../providers/Departments/build.html">build</a> will be re-executed. On the other hand, the <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier-class.html">Notifier</a>
 will <strong>not</strong> be recreated. Its instance will be preserved between
 executions of <a href="../../providers/Departments/build.html">build</a>.</p>
 <p>If this method throws, reading this provider will rethrow the error.</p>
@@ -90,14 +90,15 @@ executions of <a href="../../providers/Departments/build.html">build</a>.</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-List&lt;WorkerProfile&gt; build() {
+List&lt;Worker&gt; build() {
   final json = jsonDecode(
     locator&lt;SharedPreferences&gt;().getString(name) ?? &#39;[]&#39;,
   );
   if (json is List) {
     final keys =
         json.whereType&lt;Map&lt;String, dynamic&gt;&gt;().map(WorkerKey.fromJson);
-    super.state = keys.map((key) =&gt; WorkerProfile(key, ref)).toList();
+    super.state =
+        keys.map((key) =&gt; ref.watch(workerProvider(key).notifier)).toList();
     _updateShortNames();
     return super.state;
   }
@@ -135,7 +136,7 @@ List&lt;WorkerProfile&gt; build() {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

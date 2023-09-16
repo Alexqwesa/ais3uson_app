@@ -74,7 +74,7 @@
   <dd>
     <ul class="gt-separated dark clazz-relationships">
       <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
-        <li><a href="../data_models/BaseJournal-class.html">BaseJournal</a></li>
+        <li><a href="../providers/BaseJournal-class.html">BaseJournal</a></li>
         <li><a href="../journal/Journal-class.html">Journal</a></li>
         <li><a href="../journal/JournalArchive-class.html">JournalArchive</a></li>
       <li>JournalArchiveAll</li>
@@ -98,7 +98,7 @@
 
     <dl class="constructor-summary-list">
         <dt id="JournalArchiveAll" class="callable">
-          <span class="name"><a href="../journal/JournalArchiveAll/JournalArchiveAll.html">JournalArchiveAll</a></span><span class="signature">(<span class="parameter" id="-param-workerProfile"><span class="type-annotation"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> <span class="parameter-name">workerProfile</span></span>)</span>
+          <span class="name"><a href="../journal/JournalArchiveAll/JournalArchiveAll.html">JournalArchiveAll</a></span><span class="signature">(<span class="parameter" id="-param-workerProfile"><span class="type-annotation"><a href="../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">workerProfile</span>, </span><span class="parameter" id="-param-state"><span class="type-annotation"><a href="../providers/AppState-class.html">AppState</a></span> <span class="parameter-name">state</span></span>)</span>
         </dt>
         <dd>
           
@@ -121,9 +121,20 @@
 
 </dd>
 
+        <dt id="aDate" class="property inherited">
+  <span class="name"><a href="../journal/JournalArchive/aDate.html">aDate</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
         <dt id="added" class="property inherited">
   <span class="name"><a href="../journal/Journal/added.html">added</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -134,7 +145,7 @@
 
         <dt id="all" class="property inherited">
   <span class="name"><a href="../journal/Journal/all.html">all</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -144,7 +155,7 @@
 </dd>
 
         <dt id="apiKey" class="property inherited">
-  <span class="name"><a href="../data_models/BaseJournal/apiKey.html">apiKey</a></span>
+  <span class="name"><a href="../providers/BaseJournal/apiKey.html">apiKey</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
 
 </dt>
@@ -156,7 +167,7 @@
 
         <dt id="finished" class="property inherited">
   <span class="name"><a href="../journal/Journal/finished.html">finished</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -178,7 +189,7 @@
 
         <dt id="hive" class="property inherited">
   <span class="name"><a href="../journal/JournalArchive/hive.html">hive</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Box-class.html">Box</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -189,7 +200,7 @@
 
         <dt id="hiveRepository" class="property inherited">
   <span class="name"><a href="../journal/JournalArchive/hiveRepository.html">hiveRepository</a></span>
-  <span class="signature">&#8594; <a href="../repositories/JournalHiveRepository-class.html">JournalHiveRepository</a></span> 
+  <span class="signature">&#8594; <a href="../journal/HiveRepository-class.html">HiveRepository</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -198,9 +209,9 @@
 
 </dd>
 
-        <dt id="httpRepository" class="property inherited">
-  <span class="name"><a href="../journal/JournalArchive/httpRepository.html">httpRepository</a></span>
-  <span class="signature">&#8594; <a href="../repositories/JournalHttpRepository-class.html">JournalHttpRepository</a></span> 
+        <dt id="httpInterface" class="property inherited">
+  <span class="name"><a href="../journal/JournalArchive/httpInterface.html">httpInterface</a></span>
+  <span class="signature">&#8594; <a href="../journal/JournalHttpInterface-class.html">JournalHttpInterface</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -222,7 +233,7 @@
 
         <dt id="outDated" class="property inherited">
   <span class="name"><a href="../journal/Journal/outDated.html">outDated</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -233,7 +244,7 @@
 
         <dt id="ref" class="property inherited">
   <span class="name"><a href="../journal/JournalArchive/ref.html">ref</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -244,7 +255,7 @@
 
         <dt id="rejected" class="property inherited">
   <span class="name"><a href="../journal/Journal/rejected.html">rejected</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -266,7 +277,7 @@
 
         <dt id="servicesForSync" class="property inherited">
   <span class="name"><a href="../journal/Journal/servicesForSync.html">servicesForSync</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
@@ -277,7 +288,7 @@
 
         <dt id="servicesOf" class="property inherited">
   <span class="name"><a href="../journal/JournalArchive/servicesOf.html">servicesOf</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="../journal/HiveRepositoryProvider-class.html">HiveRepositoryProvider</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -286,8 +297,19 @@
 
 </dd>
 
+        <dt id="state" class="property inherited">
+  <span class="name"><a href="../journal/Journal/state.html">state</a></span>
+  <span class="signature">&#8594; <a href="../providers/AppState-class.html">AppState</a></span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
+
+</dd>
+
         <dt id="today" class="property inherited">
-  <span class="name"><a href="../data_models/BaseJournal/today.html">today</a></span>
+  <span class="name"><a href="../providers/BaseJournal/today.html">today</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> 
 
 </dt>
@@ -298,7 +320,7 @@
 </dd>
 
         <dt id="workerDepId" class="property inherited">
-  <span class="name"><a href="../data_models/BaseJournal/workerDepId.html">workerDepId</a></span>
+  <span class="name"><a href="../providers/BaseJournal/workerDepId.html">workerDepId</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
@@ -309,8 +331,8 @@
 </dd>
 
         <dt id="workerProfile" class="property inherited">
-  <span class="name"><a href="../data_models/BaseJournal/workerProfile.html">workerProfile</a></span>
-  <span class="signature">&#8596; <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span> 
+  <span class="name"><a href="../providers/BaseJournal/workerProfile.html">workerProfile</a></span>
+  <span class="signature">&#8596; <a href="../providers/Worker-class.html">Worker</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -355,8 +377,8 @@
 </dd>
 
         <dt id="delete" class="callable inherited">
-  <span class="name"><a href="../journal/JournalArchive/delete.html">delete</a></span><span class="signature">(<wbr><span class="parameter" id="delete-param-serv">{<span class="type-annotation"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>?</span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="delete-param-uuid"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uuid</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  <span class="name"><a href="../journal/JournalArchive/delete.html">delete</a></span><span class="signature">(<wbr><span class="parameter" id="delete-param-serv">{<span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>?</span> <span class="parameter-name">serv</span>, </span><span class="parameter" id="delete-param-uuid"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uuid</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
   </span>
   
 
@@ -388,7 +410,7 @@
 
 </dt>
 <dd class="inherited">
-  Helper, only used in <a href="../data_models/ClientService-class.html">ClientService</a>, it delete last <a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a>.
+  Helper, only used in <a href="../providers/ClientService-class.html">ClientService</a>, it delete last <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -407,7 +429,7 @@
 </dd>
 
         <dt id="post" class="callable inherited">
-  <span class="name"><a href="../journal/JournalArchive/post.html">post</a></span><span class="signature">(<wbr><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../api_classes/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span>)
+  <span class="name"><a href="../journal/JournalArchive/post.html">post</a></span><span class="signature">(<wbr><span class="parameter" id="post-param-se"><span class="type-annotation"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span> <span class="parameter-name">se</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
   </span>
   
@@ -502,7 +524,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

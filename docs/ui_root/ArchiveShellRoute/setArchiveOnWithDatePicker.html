@@ -65,7 +65,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">setArchiveOnWithDatePicker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setArchiveOnWithDatePicker-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.6/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       
@@ -73,9 +73,9 @@
     </section>
     
 <section class="desc markdown">
-  <p>Activate archive mode(<a href="../../providers/isArchive.html">isArchive</a>) only if <a href="../../journal/initDatesInAllArchives.html">initDatesInAllArchives</a>.dates
+  <p>Activate archive mode(<a href="../../providers/appStateIsProvider.html">appStateIsProvider</a>.isArchive) only if <a href="../../journal/allDaysWithServicesInited.html">allDaysWithServicesInited</a>.dates
 not empty.</p>
-<p>It also show date picker to set <a href="../../providers/archiveDate.html">archiveDate</a>.</p>
+<p>It also show date picker to set <a href="../../providers/appStateIsProvider.html">appStateIsProvider</a>.atDate.</p>
 </section>
 
 
@@ -86,25 +86,27 @@ not empty.</p>
   BuildContext context,
   WidgetRef ref,
 ) async {
-  await ref.read(initDatesInAllArchives.future);
+  await ref.read(allDaysWithServicesInited.future);
   final archiveDates =
-      ref.read(initDatesInAllArchives).asData?.value ?? &lt;DateTime&gt;{};
+      ref.read(allDaysWithServicesInited).asData?.value ?? &lt;DateTime&gt;{};
 
   if (archiveDates.isEmpty) {
-    ref.read(isArchive.notifier).state = false;
+    &#47;&#47; ref.read(isArchiveProvider.notifier).state = false;
 
     return;
   }
   if (context.mounted) {
-    ref.read(archiveDate.notifier).state = await showDatePicker(
-      context: context,
-      selectableDayPredicate: archiveDates.contains,
-      initialDate: archiveDates.last,
-      lastDate: archiveDates.last,
-      firstDate: archiveDates.first,
-    );
+    ref.watch(appStateIsProvider).set(
+          isArchive: true,
+          atDate: await showDatePicker(
+            context: context,
+            selectableDayPredicate: archiveDates.contains,
+            initialDate: archiveDates.last,
+            lastDate: archiveDates.last,
+            firstDate: archiveDates.first,
+          ),
+        );
   }
-  ref.read(isArchive.notifier).state = true;
 }</code></pre>
 </section>
 
@@ -138,7 +140,7 @@ not empty.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

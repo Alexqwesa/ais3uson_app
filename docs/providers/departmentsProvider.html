@@ -66,18 +66,18 @@
           
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/ProviderFor-class.html">ProviderFor</a>(Departments)</li>
+        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/ProviderFor-class.html">ProviderFor</a>(Departments)</li>
     </ol>
   </div>
-          <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Departments-class.html">Departments</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Departments-class.html">Departments</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Worker-class.html">Worker</a></span>&gt;</span></span>&gt;</span>
           <span class="name ">departmentsProvider</span>
           <div class="features"><span class="feature">final</span></div>
 
         </section>
         
 <section class="desc markdown">
-  <p>Provider and controller of List&lt;<a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>&gt;.</p>
-<p>Add, save, delete and load <a href="../data_models/WorkerProfile-class.html">WorkerProfile</a>.
+  <p>Provider and controller of List&lt;<a href="../providers/Worker-class.html">Worker</a>&gt;.</p>
+<p>Add, save, delete and load <a href="../providers/Worker-class.html">Worker</a>.
 which are saved by <a href="../main/locator.html">locator</a><sharedpreferences>.</sharedpreferences></p>
 <p>{@category Providers}
 {@category Controllers}</p>
@@ -89,7 +89,7 @@ which are saved by <a href="../main/locator.html">locator</a><sharedpreferences>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@ProviderFor(Departments)
 final departmentsProvider =
-    NotifierProvider&lt;Departments, List&lt;WorkerProfile&gt;&gt;.internal(
+    NotifierProvider&lt;Departments, List&lt;Worker&gt;&gt;.internal(
   Departments.new,
   name: r&#39;departmentsProvider&#39;,
   debugGetCreateSourceHash:
@@ -129,7 +129,7 @@ final departmentsProvider =
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

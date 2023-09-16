@@ -69,7 +69,7 @@ of the application:</p>
 <li>tr  - translation provider,</li>
 <li>log - logger,</li>
 <li>set lets-encrypt certificate,</li>
-<li>register Hive adapters...</li>
+<li>register Hive adapters (and open <a href="../access_to_io/hiveHttpCache-constant.html">hiveHttpCache</a> Box)...</li>
 </ul>
 </section>
 
@@ -141,15 +141,15 @@ of the application:</p>
 
 </dd>
 
-        <dt id="initReal" class="callable">
-  <span class="name"><a href="../main/initReal.html">initReal</a></span><span class="signature">(<wbr>)
+        <dt id="initAndSetCertificate" class="callable">
+  <span class="name"><a href="../main/initAndSetCertificate.html">initAndSetCertificate</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Should only called once, call <a href="../main/init.html">init</a> inside, and set certificate.
   
 
 </dd>
@@ -159,12 +159,10 @@ of the application:</p>
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
-    <span class="category about cp-0 linked" title="This is part of the About topic."><a href="../topics/About-topic.html">About</a></span>
-    <span class="category ui-root cp-11" title="This is part of the UI Root topic.">UI&nbsp;Root</span>
 
 </dt>
 <dd>
-  Init application, init <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a>.
+  
   
 
 </dd>
@@ -174,10 +172,12 @@ of the application:</p>
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
+    <span class="category about cp-0 linked" title="This is part of the About topic."><a href="../topics/About-topic.html">About</a></span>
+    <span class="category ui-root cp-11" title="This is part of the UI Root topic.">UI&nbsp;Root</span>
 
 </dt>
 <dd>
-  
+  Run application, init <a href="https://pub.dev/documentation/hive/3.0.0-dev/hive/Hive.html">Hive</a>, set urlStrategy, and demo data.
   
 
 </dd>
@@ -212,12 +212,11 @@ of the application:</p>
       <li><a href="../access_to_io/access_to_io-library.html">access_to_io</a></li>
       <li><a href="../api_classes/api_classes-library.html">api_classes</a></li>
       <li><a href="../data_models/data_models-library.html">data_models</a></li>
-      <li><a href="../dynamic_data_models/dynamic_data_models-library.html">dynamic_data_models</a></li>
       <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
       <li><a href="../journal/journal-library.html">journal</a></li>
       <li><a href="../main/main-library.html">main</a></li>
+      <li><a href="../proofs/proofs-library.html">proofs</a></li>
       <li><a href="../providers/providers-library.html">providers</a></li>
-      <li><a href="../repositories/repositories-library.html">repositories</a></li>
       <li><a href="../settings/settings-library.html">settings</a></li>
       <li><a href="../ui_departments/ui_departments-library.html">ui_departments</a></li>
       <li><a href="../ui_proofs/ui_proofs-library.html">ui_proofs</a></li>
@@ -237,7 +236,7 @@ of the application:</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   

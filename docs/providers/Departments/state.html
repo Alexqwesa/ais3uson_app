@@ -69,9 +69,10 @@
   <div>
     <ol class="annotation-list">
         <li>@<a href="https://pub.dev/documentation/meta/1.9.1/meta/protected-constant.html">protected</a></li>
+        <li>@<a href="https://pub.dev/documentation/meta/1.9.1/meta/visibleForTesting-constant.html">visibleForTesting</a></li>
     </ol>
   </div>
-  <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span>
+  <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../providers/Worker-class.html">Worker</a></span>&gt;</span></span>
   <span class="name ">state</span>
   <div class="features"><span class="feature">inherited</span></div>
 
@@ -79,18 +80,19 @@
 
 
 <section class="desc markdown">
-  <p>The value currently exposed by this <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier-class.html">Notifier</a>.</p>
-<p>Invoking the setter will notify listeners if <a href="https://pub.dev/documentation/riverpod_annotation/2.1.1/riverpod_annotation/BuildlessNotifier/updateShouldNotify.html">updateShouldNotify</a> returns true.
+  <p>The value currently exposed by this <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier-class.html">Notifier</a>.</p>
+<p>Invoking the setter will notify listeners if <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/BuildlessNotifier/updateShouldNotify.html">updateShouldNotify</a> returns true.
 By default, this will compare the previous and new value using <a href="https://api.flutter.dev/flutter/dart-core/identical.html">identical</a>.</p>
 <p>Reading <a href="../../providers/Departments/state.html">state</a> if the provider is out of date (such as if one of its
-dependency has changed) will trigger <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier/build.html">Notifier.build</a> to be re-executed.</p>
-<p>If <a href="https://pub.dev/documentation/riverpod/2.3.6/riverpod/Notifier/build.html">Notifier.build</a> threw, reading <a href="../../providers/Departments/state.html">state</a> will rethow the exception.</p>
+dependency has changed) will trigger <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier/build.html">Notifier.build</a> to be re-executed.</p>
+<p>If <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier/build.html">Notifier.build</a> threw, reading <a href="../../providers/Departments/state.html">state</a> will rethow the exception.</p>
 </section>
 
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@protected
+@visibleForTesting
 State get state {
   _element.flush();
   &#47;&#47; ignore: invalid_use_of_protected_member
@@ -112,7 +114,7 @@ State get state {
     </ol>
   </div>
   <span class="returntype">void</span>
-  <span class="name ">state=</span><span class="signature">(<wbr><span class="parameter" id="state=-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../data_models/WorkerProfile-class.html">WorkerProfile</a></span>&gt;</span></span> <span class="parameter-name">value</span></span>)</span>
+  <span class="name ">state=</span><span class="signature">(<wbr><span class="parameter" id="state=-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../providers/Worker-class.html">Worker</a></span>&gt;</span></span> <span class="parameter-name">value</span></span>)</span>
   
 
 </section>
@@ -123,7 +125,7 @@ State get state {
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-set state(List&lt;WorkerProfile&gt; value) {
+set state(List&lt;Worker&gt; value) {
   super.state = value;
   _updateShortNames();
   &#47;&#47;
@@ -173,7 +175,7 @@ set state(List&lt;WorkerProfile&gt; value) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.0+27
+      1.2.1+28
   </span>
 
   
