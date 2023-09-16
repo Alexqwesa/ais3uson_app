@@ -82,10 +82,10 @@
   <pre class="language-dart"><code class="language-dart">Future&lt;Directory?&gt; proofPath(String group) async {
   final safePath = await getSafePath(
     [
-      &#39;${workerId_}_$worker_&#39;,
-      &#39;${contractId_}_$client_&#39;,
-      &#39;${date_}_&#39;,
-      if (serviceId_ == null) &#39;GroupProofs&#39; else &#39;${serviceId_}_$service_&#39;,
+      &#39;${workerId}_$worker&#39;,
+      &#39;${contractId}_$client&#39;,
+      &#39;${date}_&#39;,
+      if (serviceId == null) &#39;GroupProofs&#39; else &#39;${serviceId}_$service&#39;,
       &#39;group_${group}_&#39;,
     ],
   );
@@ -125,7 +125,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

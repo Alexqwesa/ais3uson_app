@@ -119,7 +119,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final appState = ref.watch(appStateIsProvider);
+  final appState = ref.watch(appStateProvider);
 
   return Scaffold(
     resizeToAvoidBottomInset: false,
@@ -131,7 +131,7 @@ Widget build(BuildContext context, WidgetRef ref) {
         children: [
           IconButton(
             onPressed: () {
-              appState.set(isArchive: false);
+              appState.toActive();
               context.push(&#39;&#47;&#39;);
             },
             icon: const Icon(Icons.cancel_outlined),
@@ -192,7 +192,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

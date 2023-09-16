@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the AppLocalizations class from the global_helpers library, for the Dart programming language.">
+  <title>AppLocalizations class - global_helpers library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
+    <li class="self-crumb">AppLocalizations class</li>
+  </ol>
+  <div class="self-name">AppLocalizations</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="global_helpers&#47;global_helpers-library-sidebar.html"
+      data-below-sidebar="global_helpers&#47;AppLocalizations-class-sidebar.html">
+      <div>
+<h1><span class="kind-class">AppLocalizations</span> class 
+    <a href="https://dart.dev/language/classes#abstract-classes" class="feature feature-abstract" title="This type can not be directly constructed.">abstract</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Callers can lookup localized strings with an instance of AppLocalizations
+returned by <code>AppLocalizations.of(context)</code>.</p>
+<p>Applications need to include <code>AppLocalizations.delegate()</code> in their app's
+<code>localizationDelegates</code> list, and the locales they support in the app's
+<code>supportedLocales</code> list. For example:</p>
+<pre class="language-dart"><code class="language-dart">import 'gen_l10n/app_localizations.dart';
+
+return MaterialApp(
+  localizationsDelegates: AppLocalizations.localizationsDelegates,
+  supportedLocales: AppLocalizations.supportedLocales,
+  home: MyApplicationHome(),
+);
+</code></pre>
+<h2 id="update-pubspecyaml">Update pubspec.yaml</h2>
+<p>Please make sure to update your pubspec.yaml to include the following
+packages:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  # Internationalization support.
+  flutter_localizations:
+    sdk: flutter
+  intl: any # Use the pinned version from flutter_localizations
+
+  # Rest of dependencies
+</code></pre>
+<h2 id="ios-applications">iOS Applications</h2>
+<p>iOS applications define key application metadata, including supported
+locales, in an Info.plist file that is built into the application bundle.
+To configure the locales supported by your app, you’ll need to edit this
+file.</p>
+<p>First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+Then, in the Project Navigator, open the Info.plist file under the Runner
+project’s Runner folder.</p>
+<p>Next, select the Information Property List item, select Add Item from the
+Editor menu, then select Localizations from the pop-up menu.</p>
+<p>Select and expand the newly-created Localizations item then, for each
+locale your application supports, add a new item and select the locale
+you wish to add from the pop-up menu in the Value field. This list should
+be consistent with the languages listed in the AppLocalizations.supportedLocales
+property.</p>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="AppLocalizations" class="callable">
+          <span class="name"><a href="../global_helpers/AppLocalizations/AppLocalizations.html">AppLocalizations</a></span><span class="signature">(<span class="parameter" id="-param-locale"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">locale</span></span>)</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="about" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/about.html">about</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @about.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="add" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/add.html">add</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @add.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="addDep" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/addDep.html">addDep</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @addDep.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="addDepFromText" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/addDepFromText.html">addDepFromText</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @addDepFromText.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="after" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/after.html">after</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @after.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="archive" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/archive.html">archive</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @archive.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="archiveAt" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/archiveAt.html">archiveAt</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @archiveAt.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="areYouSureToDelete" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/areYouSureToDelete.html">areYouSureToDelete</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @areYouSureToDelete.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="authorizePlease" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/authorizePlease.html">authorizePlease</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @authorizePlease.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="awaitResults" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/awaitResults.html">awaitResults</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @awaitResults.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="before" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/before.html">before</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @before.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="cameraAccessDenied" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/cameraAccessDenied.html">cameraAccessDenied</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @cameraAccessDenied.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="cantAddDepBadFormat" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/cantAddDepBadFormat.html">cantAddDepBadFormat</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @cantAddDepBadFormat.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="cantAddDepDuplicate" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/cantAddDepDuplicate.html">cantAddDepDuplicate</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @cantAddDepDuplicate.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="chooseLanguage" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/chooseLanguage.html">chooseLanguage</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @chooseLanguage.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="clear" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/clear.html">clear</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @clear.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="dark" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/dark.html">dark</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @dark.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="data" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/data.html">data</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @data.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="deleteDep" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/deleteDep.html">deleteDep</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @deleteDep.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="depList" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/depList.html">depList</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @depList.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="detailed" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/detailed.html">detailed</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @detailed.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="developer" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/developer.html">developer</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @developer.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="doScanQrCode" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/doScanQrCode.html">doScanQrCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @doScanQrCode.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="emptyDepList" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/emptyDepList.html">emptyDepList</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @emptyDepList.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="emptyListOfPeople" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/emptyListOfPeople.html">emptyListOfPeople</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @emptyListOfPeople.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="emptyListOfServices" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/emptyListOfServices.html">emptyListOfServices</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @emptyListOfServices.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="error" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/error.html">error</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @error.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="errorDepSave" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/errorDepSave.html">errorDepSave</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @errorDepSave.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="errorFormat" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/errorFormat.html">errorFormat</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @errorFormat.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="errorFS" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/errorFS.html">errorFS</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @errorFS.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="errorSave" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/errorSave.html">errorSave</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @errorSave.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="errorService" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/errorService.html">errorService</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @errorService.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="errorWrongCertificate" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/errorWrongCertificate.html">errorWrongCertificate</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @errorWrongCertificate.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="exportLastMonth" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/exportLastMonth.html">exportLastMonth</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @exportLastMonth.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="exportLastWeek" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/exportLastWeek.html">exportLastWeek</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @exportLastWeek.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="exportThisMonth" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/exportThisMonth.html">exportThisMonth</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @exportThisMonth.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="exportThisWeek" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/exportThisWeek.html">exportThisWeek</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @exportThisWeek.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="fileSavedTo" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/fileSavedTo.html">fileSavedTo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @fileSavedTo.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="flashLight" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/flashLight.html">flashLight</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @flashLight.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="httpAccessError" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/httpAccessError.html">httpAccessError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @httpAccessError.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="internetError" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/internetError.html">internetError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @internetError.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="light" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/light.html">light</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @light.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="list" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/list.html">list</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @list.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="listOfServicesByDays" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/listOfServicesByDays.html">listOfServicesByDays</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @listOfServicesByDays.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="loading" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/loading.html">loading</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @loading.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="localeName" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/localeName.html">localeName</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="magnification" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/magnification.html">magnification</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @magnification.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="magnificationOfServiceWidgets" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/magnificationOfServiceWidgets.html">magnificationOfServiceWidgets</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @magnificationOfServiceWidgets.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="makeProofOfService" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/makeProofOfService.html">makeProofOfService</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @makeProofOfService.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="maxServicesToStoreInArchive" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/maxServicesToStoreInArchive.html">maxServicesToStoreInArchive</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @maxServicesToStoreInArchive.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="microphoneAccessDenied" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/microphoneAccessDenied.html">microphoneAccessDenied</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @microphoneAccessDenied.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="noServicesForClient" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/noServicesForClient.html">noServicesForClient</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @noServicesForClient.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="onRequest" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/onRequest.html">onRequest</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @onRequest.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="optional" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/optional.html">optional</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @optional.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="orTestDepList" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/orTestDepList.html">orTestDepList</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @orTestDepList.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="proofOfService" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/proofOfService.html">proofOfService</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @proofOfService.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="putDepText" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/putDepText.html">putDepText</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @putDepText.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="putDepTextField" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/putDepTextField.html">putDepTextField</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @putDepTextField.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="putDepTextFieldHint" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/putDepTextFieldHint.html">putDepTextFieldHint</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @putDepTextFieldHint.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="repeatSearch" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/repeatSearch.html">repeatSearch</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @repeatSearch.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="saveTheFileInOrderToNotLoseIt" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/saveTheFileInOrderToNotLoseIt.html">saveTheFileInOrderToNotLoseIt</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @saveTheFileInOrderToNotLoseIt.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="scanQrCode" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/scanQrCode.html">scanQrCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @scanQrCode.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="search" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/search.html">search</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @search.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="searchQR" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/searchQR.html">searchQR</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @searchQR.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="selectDepForDelete" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/selectDepForDelete.html">selectDepForDelete</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @selectDepForDelete.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="serverError" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/serverError.html">serverError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @serverError.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="serviceIsFull" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/serviceIsFull.html">serviceIsFull</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @serviceIsFull.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="servicesNotFound" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/servicesNotFound.html">servicesNotFound</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @servicesNotFound.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="settings" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/settings.html">settings</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @settings.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="shortAboutApp" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/shortAboutApp.html">shortAboutApp</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @shortAboutApp.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="small" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/small.html">small</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @small.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="sslError" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/sslError.html">sslError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @sslError.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="takePicture" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/takePicture.html">takePicture</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @takePicture.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="testConnection" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/testConnection.html">testConnection</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @testConnection.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="theme" class="property">
+  <span class="name"><a href="../global_helpers/AppLocalizations/theme.html">theme</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  No description provided for @theme.
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+  <section class="summary offset-anchor" id="static-methods">
+    <h2>Static Methods</h2>
+    <dl class="callables">
+        <dt id="of" class="callable">
+  <span class="name"><a href="../global_helpers/AppLocalizations/of.html">of</a></span><span class="signature">(<wbr><span class="parameter" id="of-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../global_helpers/AppLocalizations-class.html">AppLocalizations</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+    </dl>
+  </section>
+    
+
+  <section class="summary offset-anchor" id="constants">
+    <h2>Constants</h2>
+
+    <dl class="properties">
+        <dt id="delegate" class="constant">
+    <span class="name "><a href="../global_helpers/AppLocalizations/delegate-constant.html">delegate</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html">LocalizationsDelegate</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../global_helpers/AppLocalizations-class.html">AppLocalizations</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>_AppLocalizationsDelegate()</code></span>
+    </div>
+</dd>
+
+        <dt id="localizationsDelegates" class="constant">
+    <span class="name "><a href="../global_helpers/AppLocalizations/localizationsDelegates-constant.html">localizationsDelegates</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html">LocalizationsDelegate</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  A list of this localizations delegate along with the default localizations
+delegates.
+  
+
+    <div>
+      <span class="signature"><code>&lt;LocalizationsDelegate&lt;dynamic&gt;&gt;[delegate, GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate, GlobalWidgetsLocalizations.delegate]</code></span>
+    </div>
+</dd>
+
+        <dt id="supportedLocales" class="constant">
+    <span class="name "><a href="../global_helpers/AppLocalizations/supportedLocales-constant.html">supportedLocales</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ui/Locale-class.html">Locale</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  A list of this localizations delegate's supported locales.
+  
+
+    <div>
+      <span class="signature"><code>&lt;Locale&gt;[Locale(&#39;en&#39;), Locale(&#39;ru&#39;), Locale(&#39;de&#39;)]</code></span>
+    </div>
+</dd>
+
+    </dl>
+  </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../global_helpers/global_helpers-library.html">global_helpers</a></li>
+    <li class="self-crumb">AppLocalizations class</li>
+</ol>
+
+
+    <!--<h5>global_helpers library</h5>-->
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.2.2+28
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -119,7 +119,9 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final clientList = ref.watch(workerProfile.clientsOf);
+  final worker = ref.watch(workerProvider(apiKey).notifier);
+  final clientList = worker.clients;
+      &#47;&#47; ref.watch(workerProvider(apiKey).select((value) =&gt; value.clients));
 
   return Scaffold(
     appBar: AppBar(
@@ -127,13 +129,13 @@ Widget build(BuildContext context, WidgetRef ref) {
         children: [
           Expanded(
             child: Text(
-              workerProfile.key.dep,
+              worker.key.dep,
             ),
           ),
           IconButton(
               icon: const Icon(Icons.refresh),
               &#47;&#47; ignore: avoid-passing-async-when-sync-expected
-              onPressed: () =&gt; unawaited(workerProfile.syncClients())),
+              onPressed: () =&gt; unawaited(worker.syncClients())),
         ],
       ),
     ),
@@ -145,7 +147,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 child: SizedBox(
                   width: 550,
                   child: ClientCard(
-                    department: workerProfile,
+                    department: worker,
                     index: index,
                     client: clientList[index],
                   ),
@@ -194,7 +196,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

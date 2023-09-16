@@ -122,7 +122,7 @@ Widget build(BuildContext context, WidgetRef ref) {
   final service = ref.watch(currentService);
   final serviceState = ref.watch(serviceStateProvider(service));
   final isCardActive =
-      serviceState.addAllowed || ref.watch(appStateIsProvider).isArchive;
+      serviceState.addAllowed || ref.watch(appStateProvider).isArchive;
 
   final cardView = switch (ref.watch(tileTypeProvider)) {
     &#39;tile&#39; =&gt; const ServiceCardTileView(),
@@ -191,7 +191,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

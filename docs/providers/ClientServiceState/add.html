@@ -79,15 +79,14 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; add() async {
-  &#47;&#47; ClientServiceState(left: null);
-
   if (addAllowed) {
     final journal = ref.watch(journalProvider(client.apiKey));
+
     return journal.post(
       autoServiceOfJournal(
         servId: client.servId,
         contractId: client.contractId,
-        workerId: client.workerDepId,
+        workerId: journal.workerDepId,
       ),
     );
   } else {
@@ -127,7 +126,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

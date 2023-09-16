@@ -63,7 +63,7 @@
     
 <section class="desc markdown">
   <h1 id="this-library-contain-journal-and-related-classes">This library contain <a href="../journal/Journal-class.html">Journal</a> and related classes.</h1>
-<p>It is used to manage issued services of worker:</p>
+<p>It manages services issued by workers:</p>
 <ul>
 <li>it store worker input as instance of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a>,</li>
 <li>it send them to server,</li>
@@ -71,8 +71,8 @@
 <li>it send delete requests.</li>
 </ul>
 <p>Provider <a href="../journal/journalProvider-constant.html">journalProvider</a> return <a href="../journal/Journal-class.html">Journal</a> or one of it's subclasses:</p>
-<p>The <a href="../journal/JournalArchive-class.html">JournalArchive</a> class is a cut version of <a href="../journal/Journal-class.html">Journal</a>, provide access to
-services of previous days(one day specified by date).</p>
+<p>The <a href="../journal/JournalArchive-class.html">JournalArchive</a> class is a cut version of <a href="../journal/Journal-class.html">Journal</a>, that provide access to
+services at date == <a href="../providers/appStateProvider.html">appStateProvider</a>.atDate.</p>
 <p>The <a href="../journal/JournalArchiveAll-class.html">JournalArchiveAll</a> class is a version of <a href="../journal/JournalArchive-class.html">JournalArchive</a>, that
 provides access to all days.</p>
 </section>
@@ -527,7 +527,7 @@ Depend on <a href="../access_to_io/hiveDateTimeBox.html">hiveDateTimeBox</a> .
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

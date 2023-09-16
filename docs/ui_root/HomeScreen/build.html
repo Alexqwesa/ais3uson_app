@@ -119,12 +119,16 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  &#47;&#47; final loc =  ref.watch(appLocaleProvider).tr;
+  &#47;&#47; final loc = tr();
+  final loc = AppLocalizations.of(context);
+
   return Scaffold(
     &#47;&#47;
     &#47;&#47; &gt; appBar
     &#47;&#47;
     appBar: AppBar(
-      title: Text(tr().depList),
+      title: Text(loc.depList),
     ),
     &#47;&#47;
     &#47;&#47; &gt; body
@@ -133,19 +137,19 @@ Widget build(BuildContext context, WidgetRef ref) {
     &#47;&#47;
     &#47;&#47; &gt; scan qr button
     &#47;&#47;
-    floatingActionButton: ref.watch(appStateIsProvider).isArchive
+    floatingActionButton: ref.watch(appStateProvider).isArchive
         ? null
         : FloatingActionButton(
             onPressed: () {
               context.push(&#39;&#47;scan_qr&#39;);
             },
-            tooltip: tr().scanQrCode,
+            tooltip: loc.scanQrCode,
             child: const Icon(Icons.add),
           ),
     &#47;&#47;
     &#47;&#47; &gt; drawer
     &#47;&#47;
-    drawer: ref.watch(appStateIsProvider).isArchive
+    drawer: ref.watch(appStateProvider).isArchive
         ? null
         : Drawer(
             child: ListView(
@@ -169,7 +173,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ),
                 Center(
                   child: Text(
-                    tr().shortAboutApp,
+                    loc.shortAboutApp,
                     style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
                   ),
@@ -181,7 +185,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ListTile(
                   leading: const Icon(Icons.group_add),
                   title: Text(
-                    tr().addDepFromText,
+                    loc.addDepFromText,
                   ),
                   onTap: () {
                     Navigator.pop(
@@ -196,7 +200,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                     Icons.add,
                     color: Colors.green,
                   ),
-                  title: Text(tr().scanQrCode),
+                  title: Text(loc.scanQrCode),
                   onTap: () {
                     Navigator.pop(context, &#39;qr&#39;);
                     context.push(&#39;&#47;scan_qr&#39;);
@@ -204,7 +208,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ),
                 ListTile(
                   leading: const Icon(Icons.delete),
-                  title: Text(tr().deleteDep),
+                  title: Text(loc.deleteDep),
                   onTap: () {
                     Navigator.pop(context, &#39;delete_department&#39;);
                     context.push(&#39;&#47;delete_department&#39;);
@@ -213,26 +217,26 @@ Widget build(BuildContext context, WidgetRef ref) {
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.archive),
-                  title: Text(tr().archive),
+                  title: Text(loc.archive),
                   onTap: () {
-                    final appState = ref.read(appStateIsProvider);
+                    final appState = ref.read(appStateProvider);
                     Navigator.pop(context, &#39;archive&#39;);
                     if (appState.isArchive) {
-                      appState.set(isArchive: false);
+                      appState.toActive();
                       context.push(&#39;&#47;&#39;);
                     } else {
-                      appState.set(isArchive: true);
-                      context.push(&#39;&#47;archive&#39;);
+                      appState.toArchiveAll();
                       ArchiveShellRoute.setArchiveOnWithDatePicker(
                         context,
                         ref,
                       );
+                      context.push(&#39;&#47;archive&#39;);
                     }
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.settings),
-                  title: Text(tr().settings),
+                  title: Text(loc.settings),
                   onTap: () {
                     Navigator.pop(context, &#39;settings&#39;);
                     context.push(&#39;&#47;settings&#39;);
@@ -240,7 +244,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                 ),
                 ListTile(
                   leading: const Icon(Icons.adb),
-                  title: Text(tr().about),
+                  title: Text(loc.about),
                   onTap: () {
                     Navigator.pop(context, &#39;dev&#39;);
                     context.push(&#39;&#47;dev&#39;);
@@ -252,7 +256,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        tr().theme,
+                        loc.theme,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
@@ -270,7 +274,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       initialLabelIndex: [ThemeMode.light, ThemeMode.dark]
                           .indexOf(ref.watch(appThemeProvider)),
                       totalSwitches: 2,
-                      labels: [tr().light, tr().dark],
+                      labels: [loc.light, loc.dark],
                       radiusStyle: true,
                       onToggle: (index) {
                         ref.read(appThemeProvider.notifier).state = [
@@ -281,6 +285,8 @@ Widget build(BuildContext context, WidgetRef ref) {
                     ),
                   ],
                 ),
+                const Divider(),
+                LocaleSwitcher(title: loc.chooseLanguage),
               ],
             ),
           ),
@@ -318,7 +324,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

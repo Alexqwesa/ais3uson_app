@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the workerKeys function from the providers library, for the Dart programming language.">
+  <title>workerKeys function - providers library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../providers/providers-library.html">providers</a></li>
+    <li class="self-crumb">workerKeys function</li>
+  </ol>
+  <div class="self-name">workerKeys</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="providers&#47;providers-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">workerKeys</span> function 
+ 
+    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
+    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/Riverpod-class.html">Riverpod</a>(keepAlive: true)</li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="../providers/WorkerKeysState-class.html">WorkerKeysState</a></span>
+<span class="name ">workerKeys</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="workerKeys-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Provider and controller of List&lt;<a href="../api_classes/WorkerKey-class.html">WorkerKey</a>&gt;.</p>
+<p>Add, delete, save and load <a href="../api_classes/WorkerKey-class.html">WorkerKey</a>s.
+(They are saved in <a href="https://pub.dev/documentation/shared_preferences/2.2.0/shared_preferences/SharedPreferences-class.html">SharedPreferences</a>)</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@Riverpod(keepAlive: true)
+WorkerKeysState workerKeys(Ref ref) {
+  final json = jsonDecode(
+    locator&lt;SharedPreferences&gt;().getString(workerKeysInSharedPref) ?? &#39;[]&#39;,
+  );
+  var keys = &lt;WorkerKey&gt;[];
+  if (json is List) {
+    keys = json
+        .whereType&lt;Map&lt;String, dynamic&gt;&gt;()
+        .map&lt;WorkerKey&gt;(WorkerKey.fromJson)
+        .toList(growable: false);
+  }
+  return WorkerKeysState(ref: ref, keys: keys);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ais3uson_app</a></li>
+    <li><a href="../providers/providers-library.html">providers</a></li>
+    <li class="self-crumb">workerKeys function</li>
+</ol>
+
+
+    <h5>providers library</h5>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ais3uson_app
+      1.2.2+28
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

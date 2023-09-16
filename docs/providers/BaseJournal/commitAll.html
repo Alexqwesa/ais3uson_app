@@ -64,7 +64,9 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">commitAll</span>(<wbr>)
+<span class="name ">commitAll</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="commitAll-param-httpClient">[<span class="type-annotation"><a href="../../journal/JournalHttpInterface-class.html">JournalHttpInterface</a>?</span> <span class="parameter-name">httpClient</span>, </span></li>
+<li><span class="parameter" id="commitAll-param-forSync"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span>?</span> <span class="parameter-name">forSync</span>]</span></li>
+</ol>)
 
       
 
@@ -75,7 +77,9 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; commitAll() async {
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; commitAll(
+    [JournalHttpInterface? httpClient,
+    List&lt;ServiceOfJournal&gt;? forSync]) async {
   return; &#47;&#47; stub
 }</code></pre>
 </section>
@@ -110,7 +114,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

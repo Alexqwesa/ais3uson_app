@@ -62,8 +62,9 @@
 
     <section class="multi-line-signature">
       
-      <span class="name ">JournalArchive</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-workerProfile"><span class="type-annotation"><a href="../../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">workerProfile</span>, </span></li>
-<li><span class="parameter" id="-param-state"><span class="type-annotation"><a href="../../providers/AppState-class.html">AppState</a></span> <span class="parameter-name">state</span></span></li>
+      <span class="name ">JournalArchive</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-ref">{<span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span></li>
+<li><span class="parameter" id="-param-apiKey"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span>, </span></li>
+<li><span class="parameter" id="-param-state"><span>required</span> <span class="type-annotation"><a href="../../providers/AppState-class.html">AppState</a></span> <span class="parameter-name">state</span>}</span></li>
 </ol>)
     </section>
 
@@ -73,7 +74,11 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">JournalArchive(super.workerProfile, super.state);</code></pre>
+  <pre class="language-dart"><code class="language-dart">JournalArchive({
+  required super.ref,
+  required super.apiKey,
+  required super.state,
+});</code></pre>
 </section>
 
 
@@ -106,7 +111,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

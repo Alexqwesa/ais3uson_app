@@ -121,20 +121,14 @@ and</li>
 Widget build(BuildContext context, WidgetRef ref) {
   return MaterialApp.router(
     routerConfig: ref.watch(
-      routerProvider(
-        locator&lt;SharedPreferences&gt;().getString(AppRouteObserver.name) ?? &#39;&#47;&#39;,
-      ),
+      routerProvider(lastRouteOrRoot),
     ),
     &#47;&#47;
     &#47;&#47; &gt; l10n
     &#47;&#47;
-    localizationsDelegates: const [
-      S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-    supportedLocales: S.delegate.supportedLocales,
+    locale: ref.watch(appLocaleProvider).locale,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     title: &#39;AIS 3USON App&#39;,
     &#47;&#47;
     &#47;&#47; &gt; theme
@@ -178,7 +172,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

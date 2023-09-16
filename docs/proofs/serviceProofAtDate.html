@@ -71,7 +71,7 @@
         
 <section class="desc markdown">
   <p>Create <a href="../proofs/ProofList-class.html">ProofList</a> for <code>ClientService</code> at date,
-if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
+if date is null: ref.watch(<a href="../providers/appStateProvider.html">appStateProvider</a>) ?? DateTime.now().</p>
 <p>{@category Providers}</p>
 </section>
 
@@ -81,22 +81,23 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
   <pre class="language-dart"><code class="language-dart">final serviceProofAtDate =
     Provider.family&lt;(List&lt;Proof&gt;, ProofList), ClientService&gt;(
   (ref, service) {
+    final worker = ref.watch(workerProvider(service.apiKey));
     final proofList = proofListProvider(
-      workerId: service.workerDepId,
+      workerId: worker.key.workerDepId,
       contractId: service.contractId,
       date: standardFormat.format(
-        (service.date ?? ref.watch(appStateIsProvider).atDate ?? DateTime.now())
+        (service.date ?? ref.watch(appStateProvider).atDate ?? DateTime.now())
             .dateOnly(),
       ),
       serviceId: service.servId,
-      client: ref
-          .watch(service.workerProfile.clientsOf)
+      client: worker.clients
           .firstWhere(
             (element) =&gt; element.contractId == service.contractId,
             orElse: () =&gt; ref.read(stubClientProvider),
           )
           .name,
-      worker: service.workerProfile.name,
+      worker: worker.key.name,
+      &#47;&#47; todo: should be apiKey
       service: service.shortText,
     );
 
@@ -135,7 +136,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

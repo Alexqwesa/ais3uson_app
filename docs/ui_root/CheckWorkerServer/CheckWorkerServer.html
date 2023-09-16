@@ -75,9 +75,6 @@
   <pre class="language-dart"><code class="language-dart">CheckWorkerServer({super.key}) {
   &#47;&#47; ref.read(_httpFuture(false).notifier) = null;
   &#47;&#47; ref.read(_httpFuture(true).notifier) = null;
-  _httpFuture = StateProvider.family&lt;Future&lt;http.Response&gt;?, bool&gt;(
-    (ref, ssl) =&gt; null,
-  );
 }</code></pre>
 </section>
 
@@ -111,7 +108,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

@@ -62,9 +62,10 @@
 
     <section class="multi-line-signature">
       const
-      <span class="name ">ClientService</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-workerProfile">{<span>required</span> <span class="type-annotation"><a href="../../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">workerProfile</span>, </span></li>
+      <span class="name ">ClientService</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-ref">{<span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span></li>
 <li><span class="parameter" id="-param-service"><span>required</span> <span class="type-annotation"><a href="../../api_classes/ServiceEntry-class.html">ServiceEntry</a></span> <span class="parameter-name">service</span>, </span></li>
 <li><span class="parameter" id="-param-planned"><span>required</span> <span class="type-annotation"><a href="../../api_classes/ClientPlan-class.html">ClientPlan</a></span> <span class="parameter-name">planned</span>, </span></li>
+<li><span class="parameter" id="-param-apiKey"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span>, </span></li>
 <li><span class="parameter" id="-param-date"><span>@<a href="https://pub.dev/documentation/freezed_annotation/2.4.1/freezed_annotation/Default-class.html">Default</a>(null)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">date</span>}</span></li>
 </ol>)
     </section>
@@ -76,14 +77,14 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">const factory ClientService({
-  &#47;&#47;&#47; Reference to existing [Worker].
-  required Worker workerProfile,
+  required Ref ref,
 
   &#47;&#47;&#47; Reference to existing [ServiceEntry].
   required ServiceEntry service,
 
   &#47;&#47;&#47; Reference to existing [ClientPlan].
   required ClientPlan planned,
+  required String apiKey,
 
   &#47;&#47;&#47; Should be Null to depend on global variable, !null break dependency.
   @Default(null) DateTime? date,
@@ -120,7 +121,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

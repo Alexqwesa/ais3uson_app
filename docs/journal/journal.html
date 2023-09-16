@@ -84,19 +84,19 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@Riverpod(keepAlive: true)
 Journal journal(Ref ref, String apiKey) {
-  final worker = ref.watch(workerByApiProvider(apiKey));
-  final appState = ref.watch(appStateIsProvider);
+  final appState = ref.watch(appStateProvider);
   if (appState.isArchive) {
     if (appState.showAll) {
-      return JournalArchiveAll(worker, appState); &#47;&#47; with date == null
+      return JournalArchiveAll(
+          ref: ref, apiKey: apiKey, state: appState); &#47;&#47; with date == null
     } else if (appState.atDate != null) {
-      return JournalArchive(worker, appState);
+      return JournalArchive(ref: ref, apiKey: apiKey, state: appState);
     } else {
       throw StateError(&#39;Impossible state of ArchiveStateProvider &#39;);
     }
   } else {
     &#47;&#47; not Archive
-    return Journal(worker, appState);
+    return Journal(ref: ref, apiKey: apiKey, state: appState);
   }
 }</code></pre>
 </section>
@@ -130,7 +130,7 @@ Journal journal(Ref ref, String apiKey) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

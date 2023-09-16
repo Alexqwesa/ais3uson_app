@@ -119,7 +119,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final wps = ref.watch(departmentsProvider);
+  final wps = ref.watch(workerKeysProvider).keys;
 
   return Center(
     child: wps.isNotEmpty
@@ -128,8 +128,6 @@ Widget build(BuildContext context, WidgetRef ref) {
               itemCount: wps.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final workerProfile = wps[index];
-
                 return Center(
                   child: SizedBox(
                     width: 650,
@@ -141,35 +139,47 @@ Widget build(BuildContext context, WidgetRef ref) {
                         buttonConfigs: [
                           ContextMenuButtonConfig(
                             tr().exportThisWeek,
-                            onPressed: () =&gt;
-                                workerProfile.journalAllOf.exportToFile(
-                              mostRecentMonday(),
-                              mostRecentMonday(addDays: 7),
-                            ),
+                            onPressed: () {
+                              final worker = ref.watch(
+                                  workerProvider(wps[index].apiKey).notifier);
+                              worker.journalAllOf.exportToFile(
+                                mostRecentMonday(),
+                                mostRecentMonday(addDays: 7),
+                              );
+                            },
                           ),
                           ContextMenuButtonConfig(
                             tr().exportLastWeek,
-                            onPressed: () =&gt;
-                                workerProfile.journalAllOf.exportToFile(
-                              mostRecentMonday(addDays: -7),
-                              mostRecentMonday(),
-                            ),
+                            onPressed: () {
+                              final worker = ref.watch(
+                                  workerProvider(wps[index].apiKey).notifier);
+                              worker.journalAllOf.exportToFile(
+                                mostRecentMonday(addDays: -7),
+                                mostRecentMonday(),
+                              );
+                            },
                           ),
                           ContextMenuButtonConfig(
                             tr().exportThisMonth,
-                            onPressed: () =&gt;
-                                workerProfile.journalAllOf.exportToFile(
-                              mostRecentMonth(),
-                              mostRecentMonth(addMonths: 1),
-                            ),
+                            onPressed: () {
+                              final worker = ref.watch(
+                                  workerProvider(wps[index].apiKey).notifier);
+                              worker.journalAllOf.exportToFile(
+                                mostRecentMonth(),
+                                mostRecentMonth(addMonths: 1),
+                              );
+                            },
                           ),
                           ContextMenuButtonConfig(
                             tr().exportLastMonth,
-                            onPressed: () =&gt;
-                                workerProfile.journalAllOf.exportToFile(
-                              mostRecentMonth(addMonths: -1),
-                              mostRecentMonth(),
-                            ),
+                            onPressed: () {
+                              final worker = ref.watch(
+                                  workerProvider(wps[index].apiKey).notifier);
+                              worker.journalAllOf.exportToFile(
+                                mostRecentMonth(addMonths: -1),
+                                mostRecentMonth(),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -187,15 +197,17 @@ Widget build(BuildContext context, WidgetRef ref) {
                             ),
                           ),
                           title: Text(
-                            wps[index].key.dep,
+                            wps[index].dep,
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           &#47;&#47;
                           &#47;&#47; &gt; onTap call
                           &#47;&#47;
                           onTap: () {
+                            final worker = ref.watch(
+                                workerProvider(wps[index].apiKey).notifier);
                             context.push(
-                              &#39;&#47;department&#47;${wps[index].shortName}&#39;,
+                              &#39;&#47;department&#47;${worker.shortName}&#39;,
                             );
                           },
                           subtitle: Align(
@@ -206,7 +218,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                                 Text(wps[index].name),
                                 Padding(
                                   padding: const EdgeInsets.all(8),
-                                  child: Text(wps[index].key.comment),
+                                  child: Text(wps[index].comment),
                                 ),
                               ],
                             ),
@@ -258,7 +270,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   
