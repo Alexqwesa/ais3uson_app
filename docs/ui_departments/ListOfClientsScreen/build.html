@@ -119,9 +119,12 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
+  final workerState = ref.watch(workerProvider(apiKey));
+  final clientList = workerState.clients;
   final worker = ref.watch(workerProvider(apiKey).notifier);
-  final clientList = worker.clients;
-      &#47;&#47; ref.watch(workerProvider(apiKey).select((value) =&gt; value.clients));
+  &#47;&#47; didn&#39;t work:
+  &#47;&#47; final clientList =
+  &#47;&#47;     ref.watch(workerProvider(apiKey).select((value) =&gt; value.clients));
 
   return Scaffold(
     appBar: AppBar(
