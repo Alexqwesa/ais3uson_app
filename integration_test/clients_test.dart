@@ -48,8 +48,10 @@ Future<void> main() async {
     final clientsData = (jsonDecode(SERVER_DATA_CLIENTS) as List)
         .whereType<Map<String, dynamic>>();
     // before load
+
     // expect(find.text(tr().emptyListOfPeople), findsOneWidget);
     // await tester.pump(const Duration(seconds: 1));
+    // await tester.pumpAndSettle();
     expect(find.text(clientsData.first['client']! as String), findsNWidgets(2));
     expect(find.text(clientsData.first['contract']! as String), findsOneWidget);
 

@@ -16,9 +16,12 @@ class ListOfClientsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final workerState = ref.watch(workerProvider(apiKey));
+    final clientList = workerState.clients;
     final worker = ref.watch(workerProvider(apiKey).notifier);
-    final clientList = worker.clients;
-        // ref.watch(workerProvider(apiKey).select((value) => value.clients));
+    // didn't work:
+    // final clientList =
+    //     ref.watch(workerProvider(apiKey).select((value) => value.clients));
 
     return Scaffold(
       appBar: AppBar(
