@@ -62,22 +62,23 @@
 
     
 <section class="desc markdown">
-  <h1 id="these-classes-provide-data-for-ui-classes">These classes provide data for UI classes.</h1>
-<h2 id="top-level-providers-of-the-application-they-provide-the-entry-points-for-ui-components">Top level providers of the application, they provide the entry points for UI components.</h2>
-<p><a href="../providers/departmentsProvider.html">departmentsProvider</a> - Store List of <a href="../providers/Worker-class.html">Worker</a>s</p>
-<p><a href="../providers/appStateIsProvider.html">appStateIsProvider</a> - Store the inner state of App:</p>
+  <p>These classes provide data for UI classes.</p>
+<h1 id="top-level-providers">Top level providers:</h1>
+<p>Provide the entry points for UI components.</p>
+<p><a href="../providers/workerKeysProvider.html">workerKeysProvider</a> - Store List of <a href="../providers/Worker-class.html">Worker</a>s</p>
+<p><a href="../providers/appStateProvider.html">appStateProvider</a> - Store the inner state of App:</p>
 <ul>
 <li>isArchvie,</li>
 <li>atDate - show archive date,</li>
 <li>showAll - for archive view (show all dates).</li>
 </ul>
-<h2 id="dependency-hierarchy">Dependency hierarchy:</h2>
+<h1 id="dependency-hierarchy">Dependency hierarchy:</h1>
 <ul>
-<li>provider <a href="../providers/departmentsProvider.html">departmentsProvider</a> store list of:
+<li>provider <a href="../providers/workerKeysProvider.html">workerKeysProvider</a> store list of <a href="../api_classes/WorkerKey-class.html">WorkerKey</a>s and provide access to <a href="../providers/Worker-class.html">Worker</a>s:
 <ul>
 <li><a href="../providers/Worker-class.html">Worker</a>s with different:
 <ul>
-<li><a href="../providers/ClientProfile-class.html">ClientProfile</a>s with different:
+<li><a href="../providers/Client-class.html">Client</a>s with different:
 <ul>
 <li><a href="../providers/ClientService-class.html">ClientService</a>s with different:
 <ul>
@@ -119,22 +120,22 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
   
 </dd>
 
-        <dt id="AppState">
-  <span class="name "><a href="../providers/AppState-class.html">AppState</a></span> 
-
-</dt>
-<dd>
-  
-</dd>
-
-        <dt id="AppStateIs">
-  <span class="name "><a href="../providers/AppStateIs-class.html">AppStateIs</a></span> 
+        <dt id="appState">
+  <span class="name "><a href="../providers/appState-class.html">appState</a></span> 
     <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
   Global state of App:
+</dd>
+
+        <dt id="AppState">
+  <span class="name "><a href="../providers/AppState-class.html">AppState</a></span> 
+
+</dt>
+<dd>
+  The actual state provided by <a href="../providers/appStateProvider.html">appStateProvider</a>.
 </dd>
 
         <dt id="BaseJournal">
@@ -145,34 +146,31 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
   Base class for <a href="../journal/Journal-class.html">Journal</a> classes.
 </dd>
 
-        <dt id="ClientProfile">
-  <span class="name "><a href="../providers/ClientProfile-class.html">ClientProfile</a></span> 
+        <dt id="Client">
+  <span class="name "><a href="../providers/Client-class.html">Client</a></span> 
     <span class="category data-models-logic cp-6" title="This is part of the Data Models Logic topic.">Data&nbsp;Models&nbsp;Logic</span>
 
 </dt>
 <dd>
-  Extension of <a href="../providers/ClientProfile-class.html">ClientProfile</a> with providers:
-<a href="../providers/ClientProfile/servicesOf.html">servicesOf</a> - provider of list of <a href="../providers/ClientService-class.html">ClientService</a>.
+  Provider of <a href="../providers/ClientState-class.html">ClientState</a>, which store List&lt;<a href="../providers/ClientService-class.html">ClientService</a>&gt; and <a href="../api_classes/ClientEntry-class.html">ClientEntry</a>.
 </dd>
 
-        <dt id="ClientProfileFamily">
-  <span class="name "><a href="../providers/ClientProfileFamily-class.html">ClientProfileFamily</a></span> 
+        <dt id="ClientFamily">
+  <span class="name "><a href="../providers/ClientFamily-class.html">ClientFamily</a></span> 
     <span class="category data-models-logic cp-6" title="This is part of the Data Models Logic topic.">Data&nbsp;Models&nbsp;Logic</span>
 
 </dt>
 <dd>
-  Extension of <a href="../providers/ClientProfile-class.html">ClientProfile</a> with providers:
-<code>servicesOf</code> - provider of list of <a href="../providers/ClientService-class.html">ClientService</a>.
+  Provider of <a href="../providers/ClientState-class.html">ClientState</a>, which store List&lt;<a href="../providers/ClientService-class.html">ClientService</a>&gt; and <a href="../api_classes/ClientEntry-class.html">ClientEntry</a>.
 </dd>
 
-        <dt id="ClientProfileProvider">
-  <span class="name "><a href="../providers/ClientProfileProvider-class.html">ClientProfileProvider</a></span> 
+        <dt id="ClientProvider">
+  <span class="name "><a href="../providers/ClientProvider-class.html">ClientProvider</a></span> 
     <span class="category data-models-logic cp-6" title="This is part of the Data Models Logic topic.">Data&nbsp;Models&nbsp;Logic</span>
 
 </dt>
 <dd>
-  Extension of <a href="../providers/ClientProfile-class.html">ClientProfile</a> with providers:
-<code>servicesOf</code> - provider of list of <a href="../providers/ClientService-class.html">ClientService</a>.
+  Provider of <a href="../providers/ClientState-class.html">ClientState</a>, which store List&lt;<a href="../providers/ClientService-class.html">ClientService</a>&gt; and <a href="../api_classes/ClientEntry-class.html">ClientEntry</a>.
 </dd>
 
         <dt id="ClientService">
@@ -193,32 +191,12 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
   
 </dd>
 
-        <dt id="ClientsOfWorkerFamily">
-  <span class="name "><a href="../providers/ClientsOfWorkerFamily-class.html">ClientsOfWorkerFamily</a></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
+        <dt id="ClientState">
+  <span class="name "><a href="../providers/ClientState-class.html">ClientState</a></span> 
 
 </dt>
 <dd>
-  Provider of clients for a <a href="../providers/Worker-class.html">Worker</a>.
-</dd>
-
-        <dt id="ClientsOfWorkerProvider">
-  <span class="name "><a href="../providers/ClientsOfWorkerProvider-class.html">ClientsOfWorkerProvider</a></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of clients for a <a href="../providers/Worker-class.html">Worker</a>.
-</dd>
-
-        <dt id="Departments">
-  <span class="name "><a href="../providers/Departments-class.html">Departments</a></span> 
-    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider and controller of List&lt;<a href="../providers/Worker-class.html">Worker</a>&gt;.
+  
 </dd>
 
         <dt id="JournalFamily">
@@ -251,24 +229,6 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 </dt>
 <dd>
   Return <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> grouped by type for <a href="../providers/ClientService-class.html">ClientService</a>.
-</dd>
-
-        <dt id="PlanOfWorkerFamily">
-  <span class="name "><a href="../providers/PlanOfWorkerFamily-class.html">PlanOfWorkerFamily</a></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of planned services for a <a href="../providers/Worker-class.html">Worker</a>.
-</dd>
-
-        <dt id="PlanOfWorkerProvider">
-  <span class="name "><a href="../providers/PlanOfWorkerProvider-class.html">PlanOfWorkerProvider</a></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of planned services for a <a href="../providers/Worker-class.html">Worker</a>.
 </dd>
 
         <dt id="Proof">
@@ -336,24 +296,6 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
   Provider of groups of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> sorted by <a href="../journal/ServiceState.html">ServiceState</a>.
 </dd>
 
-        <dt id="ServicesOfWorkerFamily">
-  <span class="name "><a href="../providers/ServicesOfWorkerFamily-class.html">ServicesOfWorkerFamily</a></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of services for a <a href="../providers/Worker-class.html">Worker</a>.
-</dd>
-
-        <dt id="ServicesOfWorkerProvider">
-  <span class="name "><a href="../providers/ServicesOfWorkerProvider-class.html">ServicesOfWorkerProvider</a></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of services for a <a href="../providers/Worker-class.html">Worker</a>.
-</dd>
-
         <dt id="ServiceStateFamily">
   <span class="name "><a href="../providers/ServiceStateFamily-class.html">ServiceStateFamily</a></span> 
     <span class="category data-models cp-5" title="This is part of the Data Models topic.">Data&nbsp;Models</span>
@@ -378,24 +320,7 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
 </dt>
 <dd>
-  Extension of <a href="../providers/Worker-class.html">Worker</a> with providers:
-[] - provider of list of <a href="../providers/ClientProfile-class.html">ClientProfile</a>.
-</dd>
-
-        <dt id="WorkerByApiFamily">
-  <span class="name "><a href="../providers/WorkerByApiFamily-class.html">WorkerByApiFamily</a></span> 
-
-</dt>
-<dd>
-  See also <a href="../providers/workerByApi.html">workerByApi</a>.
-</dd>
-
-        <dt id="WorkerByApiProvider">
-  <span class="name "><a href="../providers/WorkerByApiProvider-class.html">WorkerByApiProvider</a></span> 
-
-</dt>
-<dd>
-  See also <a href="../providers/workerByApi.html">workerByApi</a>.
+  Provider of <a href="../providers/WorkerState-class.html">WorkerState</a> and functions to manage worker tasks:
 </dd>
 
         <dt id="WorkerFamily">
@@ -404,8 +329,15 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
 </dt>
 <dd>
-  Extension of <a href="../providers/Worker-class.html">Worker</a> with providers:
-[] - provider of list of <a href="../providers/ClientProfile-class.html">ClientProfile</a>.
+  Provider of <a href="../providers/WorkerState-class.html">WorkerState</a> and functions to manage worker tasks:
+</dd>
+
+        <dt id="WorkerKeysState">
+  <span class="name "><a href="../providers/WorkerKeysState-class.html">WorkerKeysState</a></span> 
+
+</dt>
+<dd>
+  
 </dd>
 
         <dt id="WorkerProvider">
@@ -414,8 +346,15 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
 </dt>
 <dd>
-  Extension of <a href="../providers/Worker-class.html">Worker</a> with providers:
-[] - provider of list of <a href="../providers/ClientProfile-class.html">ClientProfile</a>.
+  Provider of <a href="../providers/WorkerState-class.html">WorkerState</a> and functions to manage worker tasks:
+</dd>
+
+        <dt id="WorkerState">
+  <span class="name "><a href="../providers/WorkerState-class.html">WorkerState</a></span> 
+
+</dt>
+<dd>
+  
 </dd>
 
       </dl>
@@ -443,36 +382,19 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
       <h2>Constants</h2>
 
       <dl class="properties">
-        <dt id="clientProfileProvider" class="constant">
-    <span class="name "><a href="../providers/clientProfileProvider-constant.html">clientProfileProvider</a></span>
-  <span class="signature">&#8594; const <a href="../providers/ClientProfileFamily-class.html">ClientProfileFamily</a></span>
+        <dt id="clientProvider" class="constant">
+    <span class="name "><a href="../providers/clientProvider-constant.html">clientProvider</a></span>
+  <span class="signature">&#8594; const <a href="../providers/ClientFamily-class.html">ClientFamily</a></span>
   
     <span class="category data-models-logic cp-6" title="This is part of the Data Models Logic topic.">Data&nbsp;Models&nbsp;Logic</span>
 
 </dt>
 <dd>
-  Extension of <a href="../providers/ClientProfile-class.html">ClientProfile</a> with providers:
-<code>servicesOf</code> - provider of list of <a href="../providers/ClientService-class.html">ClientService</a>.
+  Provider of <a href="../providers/ClientState-class.html">ClientState</a>, which store List&lt;<a href="../providers/ClientService-class.html">ClientService</a>&gt; and <a href="../api_classes/ClientEntry-class.html">ClientEntry</a>.
   
 
     <div>
-      <span class="signature"><code><a href="../providers/ClientProfileFamily/ClientProfileFamily.html">ClientProfileFamily</a>()</code></span>
-    </div>
-</dd>
-
-        <dt id="clientsOfWorkerProvider" class="constant">
-    <span class="name "><a href="../providers/clientsOfWorkerProvider-constant.html">clientsOfWorkerProvider</a></span>
-  <span class="signature">&#8594; const <a href="../providers/ClientsOfWorkerFamily-class.html">ClientsOfWorkerFamily</a></span>
-  
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of clients for a <a href="../providers/Worker-class.html">Worker</a>.
-  
-
-    <div>
-      <span class="signature"><code><a href="../providers/ClientsOfWorkerFamily/ClientsOfWorkerFamily.html">ClientsOfWorkerFamily</a>()</code></span>
+      <span class="signature"><code><a href="../providers/ClientFamily/ClientFamily.html">ClientFamily</a>()</code></span>
     </div>
 </dd>
 
@@ -503,22 +425,6 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
     <div>
       <span class="signature"><code><a href="../providers/JServicesOfClientFamily/JServicesOfClientFamily.html">JServicesOfClientFamily</a>()</code></span>
-    </div>
-</dd>
-
-        <dt id="planOfWorkerProvider" class="constant">
-    <span class="name "><a href="../providers/planOfWorkerProvider-constant.html">planOfWorkerProvider</a></span>
-  <span class="signature">&#8594; const <a href="../providers/PlanOfWorkerFamily-class.html">PlanOfWorkerFamily</a></span>
-  
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of planned services for a <a href="../providers/Worker-class.html">Worker</a>.
-  
-
-    <div>
-      <span class="signature"><code><a href="../providers/PlanOfWorkerFamily/PlanOfWorkerFamily.html">PlanOfWorkerFamily</a>()</code></span>
     </div>
 </dd>
 
@@ -555,22 +461,6 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
     </div>
 </dd>
 
-        <dt id="servicesOfWorkerProvider" class="constant">
-    <span class="name "><a href="../providers/servicesOfWorkerProvider-constant.html">servicesOfWorkerProvider</a></span>
-  <span class="signature">&#8594; const <a href="../providers/ServicesOfWorkerFamily-class.html">ServicesOfWorkerFamily</a></span>
-  
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of services for a <a href="../providers/Worker-class.html">Worker</a>.
-  
-
-    <div>
-      <span class="signature"><code><a href="../providers/ServicesOfWorkerFamily/ServicesOfWorkerFamily.html">ServicesOfWorkerFamily</a>()</code></span>
-    </div>
-</dd>
-
         <dt id="serviceStateProvider" class="constant">
     <span class="name "><a href="../providers/serviceStateProvider-constant.html">serviceStateProvider</a></span>
   <span class="signature">&#8594; const <a href="../providers/ServiceStateFamily-class.html">ServiceStateFamily</a></span>
@@ -587,18 +477,18 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
     </div>
 </dd>
 
-        <dt id="workerByApiProvider" class="constant">
-    <span class="name "><a href="../providers/workerByApiProvider-constant.html">workerByApiProvider</a></span>
-  <span class="signature">&#8594; const <a href="../providers/WorkerByApiFamily-class.html">WorkerByApiFamily</a></span>
+        <dt id="workerKeysInSharedPref" class="constant">
+    <span class="name "><a href="../providers/workerKeysInSharedPref-constant.html">workerKeysInSharedPref</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-  See also <a href="../providers/workerByApi.html">workerByApi</a>.
+  
   
 
     <div>
-      <span class="signature"><code><a href="../providers/WorkerByApiFamily/WorkerByApiFamily.html">WorkerByApiFamily</a>()</code></span>
+      <span class="signature"><code>&#39;WorkerKeys2&#39;</code></span>
     </div>
 </dd>
 
@@ -610,8 +500,7 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
 </dt>
 <dd>
-  Extension of <a href="../providers/Worker-class.html">Worker</a> with providers:
-[] - provider of list of <a href="../providers/ClientProfile-class.html">ClientProfile</a>.
+  Provider of <a href="../providers/WorkerState-class.html">WorkerState</a> and functions to manage worker tasks:
   
 
     <div>
@@ -628,7 +517,7 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
       <dl class="properties">
         <dt id="allServicesOfClient" class="property">
   <span class="name"><a href="../providers/allServicesOfClient.html">allServicesOfClient</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../providers/Client-class.html">Client</a></span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
@@ -638,9 +527,9 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
 </dd>
 
-        <dt id="appStateIsProvider" class="property">
-  <span class="name"><a href="../providers/appStateIsProvider.html">appStateIsProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/AppStateIs-class.html">AppStateIs</a></span>, <span class="type-parameter"><a href="../providers/AppState-class.html">AppState</a></span>&gt;</span></span> 
+        <dt id="appStateProvider" class="property">
+  <span class="name"><a href="../providers/appStateProvider.html">appStateProvider</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/appState-class.html">appState</a></span>, <span class="type-parameter"><a href="../providers/AppState-class.html">AppState</a></span>&gt;</span></span> 
     <span class="category app-state cp-1" title="This is part of the App State topic.">App&nbsp;State</span>
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 
@@ -653,7 +542,7 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
         <dt id="currentClient" class="property">
   <span class="name"><a href="../providers/currentClient.html">currentClient</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Client-class.html">Client</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -673,27 +562,14 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 
 </dd>
 
-        <dt id="departmentsProvider" class="property">
-  <span class="name"><a href="../providers/departmentsProvider.html">departmentsProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/NotifierProviderImpl-class.html">NotifierProviderImpl</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Departments-class.html">Departments</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Worker-class.html">Worker</a></span>&gt;</span></span>&gt;</span></span> 
-    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider and controller of List&lt;<a href="../providers/Worker-class.html">Worker</a>&gt;.
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
         <dt id="groupProofAtDate" class="property">
   <span class="name"><a href="../proofs/groupProofAtDate.html">groupProofAtDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../proofs/Proof-class.html">Proof</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../proofs/ProofList-class.html">ProofList</a></span></span>)</span>, <span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, </span><span class="field"><span class="type-annotation"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span></span>)</span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../proofs/Proof-class.html">Proof</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../proofs/ProofList-class.html">ProofList</a></span></span>)</span>, <span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, </span><span class="field"><span class="type-annotation"><a href="../providers/Client-class.html">Client</a></span></span>)</span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
-  Create <a href="../proofs/ProofList-class.html">ProofList</a> for <a href="../providers/ClientProfile-class.html">ClientProfile</a> at date,
+  Create <a href="../proofs/ProofList-class.html">ProofList</a> for <a href="../providers/Client-class.html">Client</a> at date,
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -706,26 +582,14 @@ It also has methods for creating new <a href="../proofs/Proof-class.html">Proof<
 </dt>
 <dd>
   Create <a href="../proofs/ProofList-class.html">ProofList</a> for <code>ClientService</code> at date,
-if date is null: ref.watch(archiveDate) ?? DateTime.now().
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="servicesOfClient" class="property">
-  <span class="name"><a href="../providers/servicesOfClient.html">servicesOfClient</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientService-class.html">ClientService</a></span>&gt;</span></span>, <span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of list of <a href="../providers/ClientService-class.html">ClientService</a>s for client.
+if date is null: ref.watch(<a href="../providers/appStateProvider.html">appStateProvider</a>) ?? DateTime.now().
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
 
         <dt id="stubClientProvider" class="property">
   <span class="name"><a href="../providers/stubClientProvider.html">stubClientProvider</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/AutoDisposeProvider-class.html">AutoDisposeProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/AutoDisposeProvider-class.html">AutoDisposeProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Client-class.html">Client</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -745,6 +609,17 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 </dd>
 
+        <dt id="stubWorkerKey" class="property">
+  <span class="name"><a href="../providers/stubWorkerKey.html">stubWorkerKey</a></span>
+  <span class="signature">&#8594; <a href="../api_classes/WorkerKey-class.html">WorkerKey</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
         <dt id="stubWorkerProvider" class="property">
   <span class="name"><a href="../providers/stubWorkerProvider.html">stubWorkerProvider</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/AutoDisposeProvider-class.html">AutoDisposeProvider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Worker-class.html">Worker</a></span>&gt;</span></span> 
@@ -756,6 +631,19 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 </dd>
 
+        <dt id="workerKeysProvider" class="property">
+  <span class="name"><a href="../providers/workerKeysProvider.html">workerKeysProvider</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/WorkerKeysState-class.html">WorkerKeysState</a></span>&gt;</span></span> 
+    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
+    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
+
+</dt>
+<dd>
+  Provider and controller of List&lt;<a href="../api_classes/WorkerKey-class.html">WorkerKey</a>&gt;.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
       </dl>
     </section>
 
@@ -763,20 +651,6 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
       <h2>Functions</h2>
 
       <dl class="callables">
-        <dt id="ClientsOfWorker" class="callable">
-  <span class="name"><a href="../providers/ClientsOfWorker.html">ClientsOfWorker</a></span><span class="signature">(<wbr><span class="parameter" id="ClientsOfWorker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="ClientsOfWorker-param-wp"><span class="type-annotation"><a href="../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">wp</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span>
-  </span>
-  
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of clients for a <a href="../providers/Worker-class.html">Worker</a>.
-  
-
-</dd>
-
         <dt id="journal" class="callable">
   <span class="name"><a href="../journal/journal.html">journal</a></span><span class="signature">(<wbr><span class="parameter" id="journal-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="journal-param-apiKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span></span>)
     <span class="returntype parameter">&#8594; <a href="../journal/Journal-class.html">Journal</a></span>
@@ -803,20 +677,6 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 </dd>
 
-        <dt id="PlanOfWorker" class="callable">
-  <span class="name"><a href="../providers/PlanOfWorker.html">PlanOfWorker</a></span><span class="signature">(<wbr><span class="parameter" id="PlanOfWorker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="PlanOfWorker-param-wp"><span class="type-annotation"><a href="../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">wp</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ClientPlan-class.html">ClientPlan</a></span>&gt;</span></span>
-  </span>
-  
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of planned services for a <a href="../providers/Worker-class.html">Worker</a>.
-  
-
-</dd>
-
         <dt id="servicesOfJournal" class="callable">
   <span class="name"><a href="../providers/servicesOfJournal.html">servicesOfJournal</a></span><span class="signature">(<wbr><span class="parameter" id="servicesOfJournal-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="servicesOfJournal-param-journal"><span class="type-annotation"><a href="../journal/Journal-class.html">Journal</a></span> <span class="parameter-name">journal</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceState.html">ServiceState</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span>
@@ -827,20 +687,6 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 </dt>
 <dd>
   Provider of groups of <a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a> sorted by <a href="../journal/ServiceState.html">ServiceState</a>.
-  
-
-</dd>
-
-        <dt id="ServicesOfWorker" class="callable">
-  <span class="name"><a href="../providers/ServicesOfWorker.html">ServicesOfWorker</a></span><span class="signature">(<wbr><span class="parameter" id="ServicesOfWorker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="ServicesOfWorker-param-wp"><span class="type-annotation"><a href="../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">wp</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a></span>&gt;</span></span>
-  </span>
-  
-    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
-
-</dt>
-<dd>
-  Provider of services for a <a href="../providers/Worker-class.html">Worker</a>.
   
 
 </dd>
@@ -861,7 +707,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
         <dt id="stubClient" class="callable">
   <span class="name"><a href="../providers/stubClient.html">stubClient</a></span><span class="signature">(<wbr><span class="parameter" id="stubClient-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span>)
-    <span class="returntype parameter">&#8594; <a href="../providers/ClientProfile-class.html">ClientProfile</a></span>
+    <span class="returntype parameter">&#8594; <a href="../providers/Client-class.html">Client</a></span>
   </span>
   
 
@@ -898,15 +744,17 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 </dd>
 
-        <dt id="workerByApi" class="callable">
-  <span class="name"><a href="../providers/workerByApi.html">workerByApi</a></span><span class="signature">(<wbr><span class="parameter" id="workerByApi-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="workerByApi-param-apiKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span></span>)
-    <span class="returntype parameter">&#8594; <a href="../providers/Worker-class.html">Worker</a></span>
+        <dt id="workerKeys" class="callable">
+  <span class="name"><a href="../providers/workerKeys.html">workerKeys</a></span><span class="signature">(<wbr><span class="parameter" id="workerKeys-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../providers/WorkerKeysState-class.html">WorkerKeysState</a></span>
   </span>
   
+    <span class="category controllers cp-4" title="This is part of the Controllers topic.">Controllers</span>
+    <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
-  
+  Provider and controller of List&lt;<a href="../api_classes/WorkerKey-class.html">WorkerKey</a>&gt;.
   
 
 </dd>
@@ -919,21 +767,6 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
       <h2>Typedefs</h2>
 
       <dl>
-          
-  <dt id="ClientsOfWorkerRef" class="">
-  <span class="name"><a href="../providers/ClientsOfWorkerRef.html">ClientsOfWorkerRef</a></span>
-    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderRef-class.html">ProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span></span>&gt;</span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-
           
   <dt id="JournalRef" class="">
   <span class="name"><a href="../journal/JournalRef.html">JournalRef</a></span>
@@ -965,39 +798,9 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 
           
-  <dt id="PlanOfWorkerRef" class="">
-  <span class="name"><a href="../providers/PlanOfWorkerRef.html">PlanOfWorkerRef</a></span>
-    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderRef-class.html">ProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ClientPlan-class.html">ClientPlan</a></span>&gt;</span></span>&gt;</span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-
-          
   <dt id="ServicesOfJournalRef" class="">
   <span class="name"><a href="../providers/ServicesOfJournalRef.html">ServicesOfJournalRef</a></span>
     = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderRef-class.html">ProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceState.html">ServiceState</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../journal/ServiceOfJournal-class.html">ServiceOfJournal</a></span>&gt;</span></span>&gt;</span></span>&gt;</span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-
-          
-  <dt id="ServicesOfWorkerRef" class="">
-  <span class="name"><a href="../providers/ServicesOfWorkerRef.html">ServicesOfWorkerRef</a></span>
-    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderRef-class.html">ProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../api_classes/ServiceEntry-class.html">ServiceEntry</a></span>&gt;</span></span>&gt;</span>
   </span>
   
 
@@ -1027,7 +830,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
           
   <dt id="StubClientRef" class="">
   <span class="name"><a href="../providers/StubClientRef.html">StubClientRef</a></span>
-    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/AutoDisposeProviderRef-class.html">AutoDisposeProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span>
+    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/AutoDisposeProviderRef-class.html">AutoDisposeProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Client-class.html">Client</a></span>&gt;</span>
   </span>
   
 
@@ -1070,9 +873,9 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 
 
           
-  <dt id="WorkerByApiRef" class="">
-  <span class="name"><a href="../providers/WorkerByApiRef.html">WorkerByApiRef</a></span>
-    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderRef-class.html">ProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Worker-class.html">Worker</a></span>&gt;</span>
+  <dt id="WorkerKeysRef" class="">
+  <span class="name"><a href="../providers/WorkerKeysRef.html">WorkerKeysRef</a></span>
+    = <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderRef-class.html">ProviderRef</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/WorkerKeysState-class.html">WorkerKeysState</a></span>&gt;</span>
   </span>
   
 
@@ -1136,7 +939,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

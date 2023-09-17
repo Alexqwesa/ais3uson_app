@@ -119,8 +119,8 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context, WidgetRef ref) {
-  final client = ref.watch(currentClient);
-  final workerProfile = client.workerProfile;
+  final client = ref.watch(currentClient); &#47;&#47; should be never modified
+  final worker = client.worker;
 
   return Scaffold(
     &#47;&#47;
@@ -149,9 +149,9 @@ Widget build(BuildContext context, WidgetRef ref) {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () async {
-                await workerProfile.journalOf.archiveOldServices();
-                await workerProfile.journalOf.commitAll();
-                await workerProfile.syncPlanned();
+                await worker.journal.archiveOldServices();
+                await worker.journal.commitAll();
+                await worker.syncPlanned();
               },
             ),
             &#47;&#47;
@@ -167,7 +167,7 @@ Widget build(BuildContext context, WidgetRef ref) {
     &#47;&#47; &gt; body
     &#47;&#47;
     body: Center(
-      child: switch (ref.watch(client.servicesOf).isNotEmpty) {
+      child: switch (client.services.isNotEmpty) {
         true =&gt; CustomScrollView(
             slivers: [
               _ListOfServices(textNotifier),
@@ -214,7 +214,7 @@ Widget build(BuildContext context, WidgetRef ref) {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

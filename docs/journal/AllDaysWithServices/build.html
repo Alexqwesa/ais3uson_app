@@ -93,7 +93,8 @@ executions of <a href="../../journal/AllDaysWithServices/build.html">build</a>.<
 Set&lt;DateTime&gt; build() {
   return &lt;DateTime&gt;{
     ...ref
-        .watch(departmentsProvider)
+        .watch(workerKeysProvider)
+        .workers
         .map((e) =&gt; ref.watch(daysWithServicesProvider(e.apiKey)))
         .expand((list) =&gt; list),
   };
@@ -130,7 +131,7 @@ Set&lt;DateTime&gt; build() {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

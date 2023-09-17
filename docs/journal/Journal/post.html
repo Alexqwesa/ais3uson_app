@@ -86,16 +86,18 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Future&lt;bool&gt; post(ServiceOfJournal se) async {
+  final httpClient = httpInterface;
+  final forSync = [se, ...servicesForSync]; &#47;&#47; get list before ref changed
   try {
     await hiveRepository.add(se);
     &#47;&#47; ignore: avoid_catching_errors, avoid_catches_without_on_clauses
   } catch (e) {
     showErrorNotification(tr().errorSave);
-    await commitAll(); &#47;&#47; still call?
+    &#47;&#47; await commitAll(httpClient, forSync); &#47;&#47; still call?
 
     return false;
   }
-  await commitAll();
+  await commitAll(httpClient, forSync);
 
   return true;
 }</code></pre>
@@ -131,7 +133,7 @@ Future&lt;bool&gt; post(ServiceOfJournal se) async {
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

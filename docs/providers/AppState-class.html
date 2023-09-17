@@ -61,6 +61,9 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>The actual state provided by <a href="../providers/appStateProvider.html">appStateProvider</a>.</p>
+</section>
 
 
 
@@ -69,11 +72,26 @@
     <h2>Constructors</h2>
 
     <dl class="constructor-summary-list">
-        <dt id="AppState" class="callable">
-          <span class="name"><a href="../providers/AppState/AppState.html">AppState</a></span><span class="signature">(<span class="parameter" id="-param-isArchive">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isArchive</span>, </span><span class="parameter" id="-param-ref"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="-param-atDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">atDate</span>, </span><span class="parameter" id="-param-showAll"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">showAll</span> = <span class="default-value">true</span>}</span>)</span>
+        <dt id="AppState.active" class="callable">
+          <span class="name"><a href="../providers/AppState/AppState.active.html">AppState.active</a></span><span class="signature">(<span class="parameter" id="active-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span>)</span>
         </dt>
         <dd>
           
+            <div class="constructor-modifier features">const</div>
+        </dd>
+        <dt id="AppState.archiveAll" class="callable">
+          <span class="name"><a href="../providers/AppState/AppState.archiveAll.html">AppState.archiveAll</a></span><span class="signature">(<span class="parameter" id="archiveAll-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span>)</span>
+        </dt>
+        <dd>
+          
+            <div class="constructor-modifier features">const</div>
+        </dd>
+        <dt id="AppState.archiveDate" class="callable">
+          <span class="name"><a href="../providers/AppState/AppState.archiveDate.html">AppState.archiveDate</a></span><span class="signature">(<span class="parameter" id="archiveDate-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="archiveDate-param-atDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">atDate</span></span>)</span>
+        </dt>
+        <dd>
+          
+            <div class="constructor-modifier features">const</div>
         </dd>
     </dl>
   </section>
@@ -181,15 +199,41 @@
 
 </dd>
 
-        <dt id="set" class="callable">
-  <span class="name"><a href="../providers/AppState/set.html">set</a></span><span class="signature">(<wbr><span class="parameter" id="set-param-isArchive">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">isArchive</span>, </span><span class="parameter" id="set-param-atDate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">atDate</span>, </span><span class="parameter" id="set-param-showAll"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">showAll</span>}</span>)
+        <dt id="toActive" class="callable">
+  <span class="name"><a href="../providers/AppState/toActive.html">toActive</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-  Change state of Notifier of <a href="../providers/appStateIsProvider.html">appStateIsProvider</a>.
+  Change state of <a href="../providers/appStateProvider.html">appStateProvider</a>.
+  
+
+</dd>
+
+        <dt id="toArchiveAll" class="callable">
+  <span class="name"><a href="../providers/AppState/toArchiveAll.html">toArchiveAll</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Change state of <a href="../providers/appStateProvider.html">appStateProvider</a>.
+  
+
+</dd>
+
+        <dt id="toArchiveDate" class="callable">
+  <span class="name"><a href="../providers/AppState/toArchiveDate.html">toArchiveDate</a></span><span class="signature">(<wbr><span class="parameter" id="toArchiveDate-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Change state of <a href="../providers/appStateProvider.html">appStateProvider</a>.
   
 
 </dd>
@@ -264,7 +308,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

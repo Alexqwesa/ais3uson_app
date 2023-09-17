@@ -68,7 +68,7 @@
     </ol>
   </div>
 
-<span class="returntype"><a href="../../api_classes/WorkerKey-class.html">WorkerKey</a></span>
+<span class="returntype"><a href="../../providers/WorkerState-class.html">WorkerState</a></span>
 <span class="name ">runNotifierBuild</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="runNotifierBuild-param-notifier"><span>covariant</span> <span class="type-annotation"><a href="../../providers/Worker-class.html">Worker</a></span> <span class="parameter-name">notifier</span></span></li>
 </ol>)
 
@@ -87,11 +87,11 @@ from <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/FamilyNotifi
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-WorkerKey runNotifierBuild(
+WorkerState runNotifierBuild(
   covariant Worker notifier,
 ) {
   return notifier.build(
-    key,
+    apiKey,
   );
 }</code></pre>
 </section>
@@ -126,7 +126,7 @@ WorkerKey runNotifierBuild(
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

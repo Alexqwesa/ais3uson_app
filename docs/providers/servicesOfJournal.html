@@ -91,7 +91,7 @@ Map&lt;ServiceState, List&lt;ServiceOfJournal&gt;&gt; servicesOfJournal(
     Ref ref, Journal journal) {
   if (journal.aData == null) {
     final journalServices =
-        ref.watch(hiveRepositoryProvider(journal.workerProfile.apiKey));
+        ref.watch(hiveRepositoryProvider(journal.worker.apiKey));
 
     return groupBy&lt;ServiceOfJournal, ServiceState&gt;(
       journalServices,
@@ -99,7 +99,7 @@ Map&lt;ServiceState, List&lt;ServiceOfJournal&gt;&gt; servicesOfJournal(
     );
   } else {
     final journalServices =
-        ref.watch(archiveReaderProvider(journal.workerProfile.apiKey));
+        ref.watch(archiveReaderProvider(journal.worker.apiKey));
 
     return groupBy&lt;ServiceOfJournal, ServiceState&gt;(
       journalServices.where((e) =&gt; e.provDate.dateOnly() == journal.aData),
@@ -138,7 +138,7 @@ Map&lt;ServiceState, List&lt;ServiceOfJournal&gt;&gt; servicesOfJournal(
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

@@ -68,7 +68,7 @@
     </ol>
   </div>
 
-<span class="returntype"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>
+<span class="returntype"><a href="../providers/Client-class.html">Client</a></span>
 <span class="name ">stubClient</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="stubClient-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Ref-class.html">Ref</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
@@ -85,8 +85,8 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@riverpod
-ClientProfile stubClient(Ref ref) =&gt; ref.watch(
-      clientProfileProvider(
+Client stubClient(Ref ref) =&gt; ref.watch(
+      clientProvider(
         apiKey: ref.read(stubWorkerProvider).apiKey,
         entry: const ClientEntry(
           contract_id: 0,
@@ -128,7 +128,7 @@ ClientProfile stubClient(Ref ref) =&gt; ref.watch(
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

@@ -62,7 +62,7 @@
 
         <section class="multi-line-signature">
           
-          <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span>&gt;</span>
+          <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Provider-class.html">Provider</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../providers/Client-class.html">Client</a></span>&gt;</span>
           <span class="name ">currentClient</span>
           <div class="features"><span class="feature">final</span></div>
 
@@ -75,9 +75,9 @@
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">final currentClient = Provider&lt;ClientProfile&gt;(
+  <pre class="language-dart"><code class="language-dart">final currentClient = Provider&lt;Client&gt;(
   (ref) =&gt; ref.read(stubClientProvider), &#47;&#47; TODO: handle loading nicer
-  dependencies: [departmentsProvider],
+  dependencies: const [workerProvider],
 );</code></pre>
 </section>
 
@@ -111,7 +111,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

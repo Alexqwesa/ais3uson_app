@@ -194,12 +194,12 @@
 
         <dt id="groupProofAtDate" class="property">
   <span class="name"><a href="../proofs/groupProofAtDate.html">groupProofAtDate</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../proofs/Proof-class.html">Proof</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../proofs/ProofList-class.html">ProofList</a></span></span>)</span>, <span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, </span><span class="field"><span class="type-annotation"><a href="../providers/ClientProfile-class.html">ClientProfile</a></span></span>)</span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/ProviderFamily-class.html">ProviderFamily</a><span class="signature">&lt;<wbr><span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../proofs/Proof-class.html">Proof</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../proofs/ProofList-class.html">ProofList</a></span></span>)</span>, <span class="type-parameter">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span>, </span><span class="field"><span class="type-annotation"><a href="../providers/Client-class.html">Client</a></span></span>)</span>&gt;</span></span> 
     <span class="category providers cp-9" title="This is part of the Providers topic.">Providers</span>
 
 </dt>
 <dd>
-  Create <a href="../proofs/ProofList-class.html">ProofList</a> for <a href="../providers/ClientProfile-class.html">ClientProfile</a> at date,
+  Create <a href="../proofs/ProofList-class.html">ProofList</a> for <a href="../providers/Client-class.html">Client</a> at date,
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -238,7 +238,7 @@
 </dt>
 <dd>
   Create <a href="../proofs/ProofList-class.html">ProofList</a> for <code>ClientService</code> at date,
-if date is null: ref.watch(archiveDate) ?? DateTime.now().
+if date is null: ref.watch(<a href="../providers/appStateProvider.html">appStateProvider</a>) ?? DateTime.now().
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -313,7 +313,7 @@ if date is null: ref.watch(archiveDate) ?? DateTime.now().
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

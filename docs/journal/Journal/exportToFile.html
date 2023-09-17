@@ -79,8 +79,7 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; exportToFile(DateTime start, DateTime end) async {
   final content = await hiveRepository.export(start, end);
-  final fileName =
-      &#39;${workerDepId}_${workerProfile.key.dep}_${workerProfile.key.name}_&#39;
+  final fileName = &#39;${workerDepId}_${worker.key.dep}_${worker.key.name}_&#39;
       &#39;${standardFormat.format(start)}_&#39;
       &#39;${standardFormat.format(end)}.ais_json&#39;;
   &#47;&#47;
@@ -153,7 +152,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

@@ -107,12 +107,16 @@
     log.severe(e.toString());
   }
   &#47;&#47;
+  &#47;&#47; &gt; localization
+  &#47;&#47;
+  final locale = await loadDefaultLocale();
+  &#47;&#47;
   &#47;&#47; &gt; locator
   &#47;&#47;
   final sharedPreferences = await SharedPreferences.getInstance();
   try {
     locator
-      ..registerLazySingleton&lt;S&gt;(S.new)
+      ..registerLazySingleton&lt;AppLocalizations&gt;(() =&gt; locale)
       ..registerLazySingleton&lt;SharedPreferences&gt;(() =&gt; sharedPreferences);
     &#47;&#47; ignore: avoid_catches_without_on_clauses
   } catch (e) {
@@ -150,7 +154,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

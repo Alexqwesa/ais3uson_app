@@ -64,7 +64,8 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">checkHTTP</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="checkHTTP-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<span class="name ">checkHTTP</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="checkHTTP-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span>, </span></li>
+<li><span class="parameter" id="checkHTTP-param-wKey"><span class="type-annotation"><a href="../../api_classes/WorkerKey-class.html">WorkerKey</a></span> <span class="parameter-name">wKey</span></span></li>
 </ol>)
 
       
@@ -79,13 +80,13 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; checkHTTP(WidgetRef ref) async {
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; checkHTTP(WidgetRef ref, WorkerKey wKey) async {
   try {
     &#47;&#47;
     &#47;&#47; &gt; http
     &#47;&#47;
-    final host = ref.read(departmentsProvider).first.key.activeHost;
-    final port = ref.read(departmentsProvider).first.key.activePort;
+    final host = wKey.activeHost;
+    final port = wKey.activePort;
     var url = Uri.parse(
       &#39;http:&#47;&#47;$host:$port&#47;stat&#39;,
     );
@@ -97,8 +98,13 @@
       &#39;https:&#47;&#47;$host:$port&#47;stat&#39;,
     );
     ref.watch(_httpFuture(true).notifier).state = http.get(url);
-    await ref.watch(_httpFuture(true).notifier).state;
-    await ref.watch(_httpFuture(false).notifier).state;
+    &#47;&#47;
+    &#47;&#47; &gt; wait
+    &#47;&#47;
+    await Future.wait([
+      ref.watch(_httpFuture(true)),
+      ref.watch(_httpFuture(false))
+    ] as Iterable&lt;Future&gt;);
     &#47;&#47; ignore: avoid_catches_without_on_clauses
   } catch (e) {
     dev.log(e.toString());
@@ -136,7 +142,7 @@
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   

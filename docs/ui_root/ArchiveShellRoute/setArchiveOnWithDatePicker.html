@@ -73,9 +73,9 @@
     </section>
     
 <section class="desc markdown">
-  <p>Activate archive mode(<a href="../../providers/appStateIsProvider.html">appStateIsProvider</a>.isArchive) only if <a href="../../journal/allDaysWithServicesInited.html">allDaysWithServicesInited</a>.dates
+  <p>Activate archive mode(<a href="../../providers/appStateProvider.html">appStateProvider</a>.isArchive) only if <a href="../../journal/allDaysWithServicesInited.html">allDaysWithServicesInited</a>.dates
 not empty.</p>
-<p>It also show date picker to set <a href="../../providers/appStateIsProvider.html">appStateIsProvider</a>.atDate.</p>
+<p>It also show date picker to set <a href="../../providers/appStateProvider.html">appStateProvider</a>.atDate.</p>
 </section>
 
 
@@ -96,16 +96,18 @@ not empty.</p>
     return;
   }
   if (context.mounted) {
-    ref.watch(appStateIsProvider).set(
-          isArchive: true,
-          atDate: await showDatePicker(
+    final date = await showDatePicker(
             context: context,
             selectableDayPredicate: archiveDates.contains,
             initialDate: archiveDates.last,
             lastDate: archiveDates.last,
             firstDate: archiveDates.first,
-          ),
-        );
+          );
+    if (date != null){
+      ref.watch(appStateProvider).toArchiveDate(date);
+    }else{
+      ref.watch(appStateProvider).toArchiveAll();
+    }
   }
 }</code></pre>
 </section>
@@ -140,7 +142,7 @@ not empty.</p>
 <footer>
   <span class="no-break">
     ais3uson_app
-      1.2.1+28
+      1.2.2+28
   </span>
 
   
