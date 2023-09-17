@@ -1,13 +1,13 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:ais3uson_app/providers.dart';
-import 'package:ais3uson_app/src/ui/ui_settings/locale_switcher.dart';
 import 'package:ais3uson_app/ui_departments.dart';
 import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:locale_switcher/locale_switcher.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 /// Show screen with main menu and with list of [Worker].

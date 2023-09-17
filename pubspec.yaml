@@ -22,11 +22,9 @@ environment:
 
 
 dependencies:
-  animated_toggle_switch:
   app_bar_with_search_switch: ^2.0.0-dev.14
   audioplayers: any
   camera: any
-  circle_flags:
   collection: any
   context_menus: any
   dartdoc: ^6.3.0
@@ -49,6 +47,8 @@ dependencies:
   #  intl_utils: any
   json_annotation: any
   lint: any
+  locale_switcher:
+#    path: ../locale_switcher/
   logging: any
   mockito: any
   overlay_support: any

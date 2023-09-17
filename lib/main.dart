@@ -17,7 +17,6 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:ais3uson_app/access_to_io.dart';
-import 'package:ais3uson_app/global_helpers.dart';
 import 'package:ais3uson_app/journal.dart';
 import 'package:ais3uson_app/providers.dart';
 import 'package:ais3uson_app/src/stubs_for_testing/demo_worker_data.dart';
@@ -26,6 +25,7 @@ import 'package:ais3uson_app/ui_root.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: depend_on_referenced_packages
@@ -51,6 +51,15 @@ final tr = locator<AppLocalizations>;
 /// App Logger
 /// {@category UI Root}
 final log = Logger('ais3uson');
+
+Future<AppLocalizations> loadDefaultLocale() async {
+  const delegate = AppLocalizations.delegate;
+  final locale = WidgetsBinding.instance.platformDispatcher.locale;
+  if (delegate.isSupported(locale)) {
+    return delegate.load(locale);
+  }
+  return delegate.load(const Locale('en'));
+}
 
 /// Main function for initializing whole App, also used in tests.
 ///

@@ -1,10 +1,10 @@
 import 'package:ais3uson_app/settings.dart';
-import 'package:ais3uson_app/src/ui/ui_settings/locale_switcher.dart';
 import 'package:ais3uson_app/ui_service_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:locale_switcher/locale_switcher.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

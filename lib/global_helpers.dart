@@ -5,4 +5,4 @@ library global_helpers;
 
 export 'package:ais3uson_app/src/helpers/date_time_extensions.dart';
 export 'package:ais3uson_app/src/helpers/global_helpers.dart';
-export 'package:ais3uson_app/src/l10n/localization_provider.dart';
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';

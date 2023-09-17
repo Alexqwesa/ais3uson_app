@@ -30,8 +30,9 @@ Future<void> main() async {
     //
     await locator.reset();
     final sharedPreferences = await SharedPreferences.getInstance();
+    final locale = WidgetsBinding.instance.platformDispatcher.locale;
     locator
-      ..registerLazySingleton<AppLocalizations>(() => const Locale('en').tr)
+      ..registerLazySingleton<AppLocalizations>(() => locale.tr)
       ..registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     // Hive setup
     await setUpTestHive();

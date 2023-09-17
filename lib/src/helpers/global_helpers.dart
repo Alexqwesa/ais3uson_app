@@ -6,6 +6,7 @@ import 'package:ais3uson_app/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path/path.dart' as path;
@@ -122,4 +123,13 @@ DateTime mostRecentMonth({DateTime? date, int addMonths = 0}) {
   date ??= DateTime.now();
 
   return DateTime(date.year, date.month + addMonths);
+}
+
+extension AppLocalizationsExt on BuildContext {
+  AppLocalizations get l10n => AppLocalizations.of(this);
+}
+
+extension LocaleWithDelegate on Locale {
+  /// Get class with translation strings for this locale.
+  AppLocalizations get tr => lookupAppLocalizations(this);
 }
