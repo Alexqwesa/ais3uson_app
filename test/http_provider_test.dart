@@ -46,7 +46,9 @@ void main() {
       // await ref.watch(httpProvider(wp.apiKey, Worker.urlClients).notifier).future();
       // ref.refresh(httpProvider(wp.apiKey, Worker.urlClients));
       // await ref.pump();
-      await ref.read(httpProvider(wp.apiKey, Worker.urlClients).notifier).update();
+      await ref
+          .read(httpProvider(wp.apiKey, Worker.urlClients).notifier)
+          .update();
       clients = ref.read(httpProvider(wp.apiKey, Worker.urlClients));
       expect(clients.isEmpty, false);
       expect(verify(MockServer(httpClient).testReqGetClients).callCount, 2);

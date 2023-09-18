@@ -35,15 +35,15 @@ class ArchiveShellRoute extends ConsumerWidget {
     }
     if (context.mounted) {
       final date = await showDatePicker(
-              context: context,
-              selectableDayPredicate: archiveDates.contains,
-              initialDate: archiveDates.last,
-              lastDate: archiveDates.last,
-              firstDate: archiveDates.first,
-            );
-      if (date != null){
+        context: context,
+        selectableDayPredicate: archiveDates.contains,
+        initialDate: archiveDates.last,
+        lastDate: archiveDates.last,
+        firstDate: archiveDates.first,
+      );
+      if (date != null) {
         ref.watch(appStateProvider).toArchiveDate(date);
-      }else{
+      } else {
         ref.watch(appStateProvider).toArchiveAll();
       }
     }

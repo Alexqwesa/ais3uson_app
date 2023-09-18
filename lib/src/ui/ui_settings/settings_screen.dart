@@ -52,7 +52,7 @@ class SettingsScreen extends ConsumerWidget {
               LocaleSwitcher(
                 title: loc.chooseLanguage,
                 numberOfShown: 200,
-                inRow: true,
+                titlePositionTop: false,
               )
             ],
           ),

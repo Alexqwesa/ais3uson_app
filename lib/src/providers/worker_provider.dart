@@ -16,7 +16,8 @@ class WorkerState {
   // final List<ClientPlan> planned;
   // final List<Client> clients;
 
-  List<ServiceEntry> get services => ref.watch(_servicesOfWorkerProvider(apiKey));
+  List<ServiceEntry> get services =>
+      ref.watch(_servicesOfWorkerProvider(apiKey));
 
   List<ClientPlan> get planned => ref.watch(_planOfWorkerProvider(apiKey));
 

@@ -27,7 +27,8 @@ void main() {
       expect(
         // ignore: avoid_dynamic_calls
         (jsonDecode(
-          locator<SharedPreferences>().getString(workerKeysInSharedPref) ?? '[]',
+          locator<SharedPreferences>().getString(workerKeysInSharedPref) ??
+              '[]',
         ) as List<dynamic>)
             .first['app'],
         'AIS3USON web',

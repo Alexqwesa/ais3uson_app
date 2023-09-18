@@ -105,8 +105,7 @@ void main() {
       expect(ref.read(hiveBox(hiveHttpCache)).hasValue, true);
       expect(ref.read(workerKeysProvider).workers.first.clients.length, 0);
       expect(
-          ref.read(
-              ref.read(workerKeysProvider).firstWorker.journal.servicesOf),
+          ref.read(ref.read(workerKeysProvider).firstWorker.journal.servicesOf),
           []);
       // expect( ref.read(workers).first.ref.toString() ,"" );
     });
