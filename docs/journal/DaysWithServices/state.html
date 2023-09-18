@@ -80,12 +80,13 @@
 
 
 <section class="desc markdown">
-  <p>The value currently exposed by this <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier-class.html">Notifier</a>.</p>
-<p>Invoking the setter will notify listeners if <a href="https://pub.dev/documentation/riverpod_annotation/2.1.2/riverpod_annotation/BuildlessNotifier/updateShouldNotify.html">updateShouldNotify</a> returns true.
+  <p>The value currently exposed by this <a href="https://pub.dev/documentation/riverpod/2.4.0/riverpod/Notifier-class.html">Notifier</a>.</p>
+<p>If used inside <a href="https://pub.dev/documentation/riverpod/2.4.0/riverpod/Notifier/build.html">Notifier.build</a>, may throw if the notifier is not yet initialized.</p>
+<p>Invoking the setter will notify listeners if <a href="https://pub.dev/documentation/riverpod_annotation/2.1.5/riverpod_annotation/BuildlessNotifier/updateShouldNotify.html">updateShouldNotify</a> returns true.
 By default, this will compare the previous and new value using <a href="https://api.flutter.dev/flutter/dart-core/identical.html">identical</a>.</p>
 <p>Reading <a href="../../journal/DaysWithServices/state.html">state</a> if the provider is out of date (such as if one of its
-dependency has changed) will trigger <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier/build.html">Notifier.build</a> to be re-executed.</p>
-<p>If <a href="https://pub.dev/documentation/riverpod/2.3.7/riverpod/Notifier/build.html">Notifier.build</a> threw, reading <a href="../../journal/DaysWithServices/state.html">state</a> will rethow the exception.</p>
+dependency has changed) will trigger <a href="https://pub.dev/documentation/riverpod/2.4.0/riverpod/Notifier/build.html">Notifier.build</a> to be re-executed.</p>
+<p>If <a href="https://pub.dev/documentation/riverpod/2.4.0/riverpod/Notifier/build.html">Notifier.build</a> threw, reading <a href="../../journal/DaysWithServices/state.html">state</a> will rethow the exception.</p>
 </section>
 
 
@@ -95,7 +96,6 @@ dependency has changed) will trigger <a href="https://pub.dev/documentation/rive
 @visibleForTesting
 State get state {
   _element.flush();
-  &#47;&#47; ignore: invalid_use_of_protected_member
   return _element.requireState;
 }</code></pre>
 </section>

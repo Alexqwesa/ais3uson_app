@@ -65,7 +65,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">setArchiveOnWithDatePicker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setArchiveOnWithDatePicker-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
-<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.3.7/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
+<li><span class="parameter" id="setArchiveOnWithDatePicker-param-ref"><span class="type-annotation"><a href="https://pub.dev/documentation/flutter_riverpod/2.4.0/flutter_riverpod/WidgetRef-class.html">WidgetRef</a></span> <span class="parameter-name">ref</span></span></li>
 </ol>)
 
       
@@ -97,15 +97,15 @@ not empty.</p>
   }
   if (context.mounted) {
     final date = await showDatePicker(
-            context: context,
-            selectableDayPredicate: archiveDates.contains,
-            initialDate: archiveDates.last,
-            lastDate: archiveDates.last,
-            firstDate: archiveDates.first,
-          );
-    if (date != null){
+      context: context,
+      selectableDayPredicate: archiveDates.contains,
+      initialDate: archiveDates.last,
+      lastDate: archiveDates.last,
+      firstDate: archiveDates.first,
+    );
+    if (date != null) {
       ref.watch(appStateProvider).toArchiveDate(date);
-    }else{
+    } else {
       ref.watch(appStateProvider).toArchiveAll();
     }
   }
