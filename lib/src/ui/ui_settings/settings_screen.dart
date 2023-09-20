@@ -49,10 +49,9 @@ class SettingsScreen extends ConsumerWidget {
               SettingServiceSizeWidget(
                   title: loc.magnificationOfServiceWidgets),
               const Divider(),
-              LocaleSwitcher(
+              LocaleSwitcher.menu(
                 title: loc.chooseLanguage,
                 numberOfShown: 200,
-                titlePositionTop: false,
               )
             ],
           ),
