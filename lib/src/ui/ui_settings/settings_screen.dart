@@ -51,7 +51,6 @@ class SettingsScreen extends ConsumerWidget {
               const Divider(),
               LocaleSwitcher.menu(
                 title: loc.chooseLanguage,
-                numberOfShown: 200,
               )
             ],
           ),
