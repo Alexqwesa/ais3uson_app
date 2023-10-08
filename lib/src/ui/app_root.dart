@@ -26,7 +26,7 @@ class AppRoot extends ConsumerWidget {
         //
         // > l10n
         //
-        locale: LocaleManager.locale.value,
+        locale: LocaleSwitcher.localeBestMatch,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'AIS 3USON App',

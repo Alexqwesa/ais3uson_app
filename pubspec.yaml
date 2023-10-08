@@ -93,6 +93,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable:
   lints:
+#  locale_switcher_dev:
   path_provider_platform_interface: any
   plugin_platform_interface: any
   riverpod_generator: any

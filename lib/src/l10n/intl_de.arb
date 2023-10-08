@@ -72,5 +72,7 @@
   "repeatSearch": "Suchanfrage wiederholen",
   "search": "Suche",
   "microphoneAccessDenied": "Zugriff verweigert: Bitte erlauben Sie der App den Zugriff auf das Mikrofon",
-  "saveTheFileInOrderToNotLoseIt": "Bitte speichern Sie die Datei, um sie nicht zu verlieren (die App speichert sie nicht)."
+  "saveTheFileInOrderToNotLoseIt": "Bitte speichern Sie die Datei, um sie nicht zu verlieren (die App speichert sie nicht).",
+  "chooseLanguage": "Wählen Sie die Sprache aus:"
+
 }

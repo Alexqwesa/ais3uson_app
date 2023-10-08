@@ -185,7 +185,11 @@ class HomeScreen extends ConsumerWidget {
                     ],
                   ),
                   const Divider(),
-                  LocaleSwitcher.toggle(title: loc.chooseLanguage),
+                  TitleForLocaleSwitch(
+                    child: LocaleSwitcher.segmentedButton(),
+                    title: loc.chooseLanguage,
+                    childSize: const Size(280,48),
+                  ),
                 ],
               ),
             ),
